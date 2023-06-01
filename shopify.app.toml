@@ -1,0 +1,2 @@
+name = "LM Add To Cart Sticky"
+scopes = "read_inventory,write_inventory,read_products,read_themes,write_themes,read_products,write_products,write_content,read_draft_orders,write_draft_orders"

@@ -1,0 +1,43 @@
+.lm_sticky_cart {
+  box-shadow: 0 0 20px #a5a5a5a6;
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+}
+.lm_container {
+  max-width: 1220px;
+  margin: 0 auto;
+}
+
+.lm_cart_module {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.lm_pro_image {
+  display: flex;
+  align-items: center;
+}
+.lm_pro_image img {
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+  margin-right: 15px;
+}
+.lm_middlecontent h5 {
+  font-size: 20px;
+  margin: 0;
+}
+.lm_quantity_selector {
+}
+.lm_options {
+}
+
+.lmblock_right {
+  display: flex;
+  align-items: center;
+}
+
+.lmblock_right .lm_quantity_selector {
+  margin: 0 15px;
+}
