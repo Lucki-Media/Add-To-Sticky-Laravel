@@ -1,0 +1,30 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-e3b0c442.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/frontend/assets/empty-state.svg": {
+    "file": "assets/empty-state-aece716c.svg",
+    "src": "resources/frontend/assets/empty-state.svg"
+  },
+  "resources/frontend/assets/home-trophy.png": {
+    "file": "assets/home-trophy-d70b3542.png",
+    "src": "resources/frontend/assets/home-trophy.png"
+  },
+  "resources/js/app.css": {
+    "file": "assets/app-5cd91eef.css",
+    "src": "resources/js/app.css"
+  },
+  "resources/js/app.js": {
+    "assets": [
+      "assets/empty-state-aece716c.svg"
+    ],
+    "css": [
+      "assets/app-5cd91eef.css"
+    ],
+    "file": "assets/app-6c49d24a.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  }
+}
