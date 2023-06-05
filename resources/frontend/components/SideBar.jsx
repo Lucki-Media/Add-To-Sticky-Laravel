@@ -8,7 +8,6 @@ import {
   QuestionMarkMajor,
   AddProductMajor,
 } from "@shopify/polaris-icons";
-import { useAppQuery, useAuthenticatedFetch } from "../hooks";
 import Data from "../StaticData/sidebarData";
 import "../css/sidebar.css";
 import { useLocation, useNavigate } from "react-router-dom";

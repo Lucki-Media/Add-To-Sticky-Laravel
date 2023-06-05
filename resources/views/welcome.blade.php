@@ -9,7 +9,7 @@
     </head>
     <body>
         <div id="app"></div>
-        <input type="hidden" id="apiKey" value="a7dd85323742d09ea6b32fa2d365e302">
+        <input type="hidden" id="apiKey" value={{env('VITE_SHOPIFY_API_KEY')}}>
         <input type="hidden" id="shopOrigin" value="<?php  echo $_GET['shop']; ?>">
         {{-- <input type="hidden" id="shopOrigin" value="{{ $shopDomain ?? Auth::user()->name }}"> --}}
     </body>
