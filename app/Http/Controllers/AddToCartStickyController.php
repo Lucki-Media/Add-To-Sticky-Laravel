@@ -7,7 +7,7 @@ use App\Models\AddToCartStickyData;
 
 class AddToCartStickyController extends Controller{
 
-    public static function saveAddToStickyCartData(Request $request){
+    public function saveAddToStickyCartData(Request $request){
         $requestData = $request['data'];
         $sac_data = AddToCartStickyData::first();
         // echo '<pre>';print_r($requestData);exit;
@@ -37,7 +37,7 @@ class AddToCartStickyController extends Controller{
                 'btn_height'                => $requestData['buttonheightValue'],
                 'font_size'                 => $requestData['fontSizeValue'],
                 'btn_size'                  => $requestData['btnSizeValue'],
-                'btn_underline'             => $requestData['heightValue'],
+                'btn_underline'             => $requestData['underlineButton'],
                 'btn_border'                => $requestData['borderValue'],
                 'btn_border_radius'         => $requestData['radiusValue'],
                 'btn_bold'                  => $requestData['boldButton'],
@@ -65,8 +65,16 @@ class AddToCartStickyController extends Controller{
             'template_7'            => $requestData['value'] === 7 ? json_encode($current_template) : $sac_data['template_7'],
             'template_8'            => $requestData['value'] === 8 ? json_encode($current_template) : $sac_data['template_8'],
         ];
-        $sac_data ? AddToCartStickyData::where('shop_domain',$requestData['shop_domain'])->update($final_data) : AddToCartStickyData::insert($final_data);
-        echo '<pre>';print_r(json_encode($current_template));exit;
+        if($sac_data){
+            $updateOrInsert = AddToCartStickyData::where('shop_domain',$requestData['shop_domain'])->update($final_data);
+        }else{
+            $updateOrInsert = AddToCartStickyData::insert($final_data);
+        }
+        if($updateOrInsert){
+            return self::sendResponse($final_data, 'Add To Cart Sticky Data Updated/Inserted Successfully!');
+        }else{
+            return self::sendError([], 'Add To Cart Sticky Data Failed To Update/Insert!');
+        }
     }
 
     public function getAddToStickyCartData($shopDomain){
@@ -86,8 +94,6 @@ class AddToCartStickyController extends Controller{
             'template_8'            => json_decode($sac_data['template_8'])
         ];
         return self::sendResponse($final_data, 'Success');
-        echo '<pre>';print_r(json_encode($data));exit;
-
-        echo '<pre>';print_r(json_encode($current_template));exit;
+        // echo '<pre>';print_r(json_encode($data));exit;
     }
 }
