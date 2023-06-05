@@ -12,7 +12,6 @@ import { SideBar } from "../components";
 import "../css/index.css";
 import { CChart } from "@coreui/react-chartjs";
 import { useEffect, useState } from "react";
-import { useAuthenticatedFetch } from "../hooks";
 import axios from "axios";
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { getSessionToken, authenticatedFetch } from "@shopify/app-bridge-utils";

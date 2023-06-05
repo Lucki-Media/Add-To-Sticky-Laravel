@@ -12,7 +12,6 @@ import { SideBar } from "../components";
 import "../css/index.css";
 import { CChart } from "@coreui/react-chartjs";
 import { useEffect, useState } from "react";
-import { useAuthenticatedFetch } from "../hooks";
 import Dashboard from "./dashboard";
 import axios from "axios";
 
@@ -26,7 +25,6 @@ export default function HomePage() {
   const [sCartArray, setSCartArray] = useState([
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
-  const fetch = useAuthenticatedFetch();
   // console.log(showTable);
 //   const getAllData = async () => {
 //     axios
