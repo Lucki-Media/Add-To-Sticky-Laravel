@@ -73,81 +73,79 @@ export default function AddToCartSticky() {
     ) : null;
     const [data, setData] = useState([]);
     const [enable, setEnable] = useState(true);
-    const [value, setValue] = useState(1);
+    const [defaultTemplate, setDefaultTemplate] = useState(1);
     /*GENERAL SETTINGS CONSTANTS*/
-    const [posValue, setPosValue] = useState("Top");
+    const [position, setPosition] = useState("Top");
     const [showGeneralSettings, setShowGeneralSettings] = useState(false);
     const [checkMobile, setCheckMobile] = useState(false);
     const [checkDesktop, setCheckDesktop] = useState(false);
-    const [bold, setBold] = useState(false);
-    const [rangeValue, setRangeValue] = useState(20);
-    const [italic, setItalic] = useState(false);
-    const [underline, setUnderLine] = useState(false);
-    const [fontFamily, setFontFamily] = useState("Roboto");
-    const [titleColor, setTitleColor] = useState(
-        TemplateStyle.current_template.general_settings.font_title_color
-            ? TemplateStyle.current_template.general_settings.font_title_color
+    const [gsBold, setGsBold] = useState(false);
+    const [gsFontsize, setGsFontsize] = useState(20);
+    const [gsItalic, setGsItalic] = useState(false);
+    const [gsUnderline, setGsUnderLine] = useState(false);
+    const [gsFontFamily, setGsFontFamily] = useState("Roboto");
+    const [gsTitleColor, setGsTitleColor] = useState(
+        TemplateStyle.current_template.general_settings.gsTitleColor
+            ? TemplateStyle.current_template.general_settings.gsTitleColor
             : "rgba(0, 0, 0, 0)"
     );
-    const [priceColor, setPriceColor] = useState(
-        TemplateStyle.current_template.general_settings.font_price_color
-            ? TemplateStyle.current_template.general_settings.font_price_color
+    const [gsPriceColor, setGsPriceColor] = useState(
+        TemplateStyle.current_template.general_settings.gsPriceColor
+            ? TemplateStyle.current_template.general_settings.gsPriceColor
             : "rgba(255, 0, 0, 1)"
     );
-    const [bgColor, setBgColor] = useState(
-        TemplateStyle.current_template.general_settings.font_bg_color
-            ? TemplateStyle.current_template.general_settings.font_bg_color
+    const [gsBgColor, setGsBgColor] = useState(
+        TemplateStyle.current_template.general_settings.gsBgColor
+            ? TemplateStyle.current_template.general_settings.gsBgColor
             : "rgba(0, 1, 255, 1)"
     );
-    const [offsetValue, setOffsetValue] = useState(0);
-    const [selected, setSelected] = useState("1");
-    const [conditionValue, setConditionValue] = useState("1");
+    const [gsOffsetValue, setGsOffsetValue] = useState(0);
+    const [gsAction, setGsAction] = useState("1");
+    const [gsDisplayCondition, setGsDisplayCondition] = useState("1");
+    const [containerHeight, setContainerHeight] = useState(70);
 
     /*BUY NOW CONSTANTS*/
     const [buyNowSettings, setBuyNowSettings] = useState(false);
     const [editText, setEditText] = useState("BUY NOW");
     const [soldOut, setSoldOut] = useState("Sold out");
     const [unavailable, setUnavailable] = useState("Unavailable");
-    const [widthValue, setWidthValue] = useState(125);
-    const [buttonheightValue, setButtonHeightValue] = useState(35);
-    const [fontSizeValue, setFontSizeValue] = useState(20);
-    const [btnSizeValue, setBtnSizeValue] = useState(20);
-    const [heightValue, setHeightValue] = useState(70);
-    const [borderValue, setBorder] = useState(1);
-    const [radiusValue, setRadius] = useState(15);
-    const [boldButton, setBoldButton] = useState(false);
-    const [italicButton, setItalicButton] = useState(false);
-    const [underlineButton, setUnderLineButton] = useState(false);
+    const [btnWidthValue, setBtnWidthValue] = useState(125);
+    const [btnheightValue, setBtnHeightValue] = useState(35);
+    const [btnFontsize, setBtnFontsize] = useState(20);
+    const [btnBorderThickness, setBtnBorderThickness] = useState(1);
+    const [btnBorderRadius, setBtnBorderRadius] = useState(15);
+    const [btnBold, setBtnBold] = useState(false);
+    const [btnItalic, setBtnItalic] = useState(false);
+    const [btnUnderline, setBtnUnderline] = useState(false);
     const [btnTextColor, setBtnTextColor] = useState(
         TemplateStyle.current_template.general_settings.btn_text_color
             ? TemplateStyle.current_template.general_settings.btn_text_color
             : "rgba(0, 1, 0, 1)"
     );
-    const [btnBGColor, setBtnBGColor] = useState(
-        TemplateStyle.current_template.general_settings.btn_bg_color
-            ? TemplateStyle.current_template.general_settings.btn_bg_color
+    const [btnBgColor, setBtnBgColor] = useState(
+        TemplateStyle.current_template.general_settings.btnBgColor
+            ? TemplateStyle.current_template.general_settings.btnBgColor
             : "rgba(0, 1, 234, 1)"
     );
-    const [texthoverColor, setTexthoverColor] = useState(
-        TemplateStyle.current_template.general_settings.btn_text_hover_color
-            ? TemplateStyle.current_template.general_settings
-                  .btn_text_hover_color
+    const [btnTexthoverColor, setBtnTexthoverColor] = useState(
+        TemplateStyle.current_template.general_settings.btnTexthoverColor
+            ? TemplateStyle.current_template.general_settings.btnTexthoverColor
             : "rgba(0, 144, 1, 1)"
     );
-    const [bgHoverColor, setBgHoverColor] = useState(
-        TemplateStyle.current_template.general_settings.btn_bg_hover_color
-            ? TemplateStyle.current_template.general_settings.btn_bg_hover_color
+    const [btnBgHoverColor, setBtnBgHoverColor] = useState(
+        TemplateStyle.current_template.general_settings.btnBgHoverColor
+            ? TemplateStyle.current_template.general_settings.btnBgHoverColor
             : "rgba(0, 1, 0, 1)"
     );
-    const [borderColor, setBorderColor] = useState(
-        TemplateStyle.current_template.general_settings.btn_border_color
-            ? TemplateStyle.current_template.general_settings.btn_border_color
+    const [btnBorderColor, setBtnBorderColor] = useState(
+        TemplateStyle.current_template.general_settings.btnBorderColor
+            ? TemplateStyle.current_template.general_settings.btnBorderColor
             : "rgba(0, 1, 143, 1)"
     );
-    const [radiusColor, setRadiusColor] = useState(
-        TemplateStyle.current_template.general_settings.btn_border_hover_color
+    const [btnBorderHoverColor, setBtnBorderHoverColor] = useState(
+        TemplateStyle.current_template.general_settings.btnBorderHoverColor
             ? TemplateStyle.current_template.general_settings
-                  .btn_border_hover_color
+                  .btnBorderHoverColor
             : "rgba(1, 255, 0, 1)"
     );
     const getAddToStickyCartData = async () => {
@@ -158,91 +156,83 @@ export default function AddToCartSticky() {
             const data = await response.json();
             // console.log(data.data);
             setData(data.data);
-            setEnable(data.data.add_to_cart_sticky);
-            setValue(data.data.default_template);
-            setPosValue(data.data.current_template.general_settings.posValue);
-            setRangeValue(
-                data.data.current_template.general_settings.rangeValue
+            setEnable(data.data.enable);
+            setDefaultTemplate(data.data.defaultTemplate);
+            setPosition(data.data.current_template.general_settings.position);
+            setGsFontsize(
+                data.data.current_template.general_settings.gsFontsize
             );
             setCheckDesktop(
                 data.data.current_template.general_settings.desktop
             );
             setCheckMobile(data.data.current_template.general_settings.mobile);
-            setFontFamily(
-                data.data.current_template.general_settings.font_family
+            setGsFontFamily(
+                data.data.current_template.general_settings.gsFontFamily
             );
-            setBold(data.data.current_template.general_settings.font_bold);
-            setItalic(data.data.current_template.general_settings.font_italic);
-            setUnderLine(
-                data.data.current_template.general_settings.font_underline
+            setGsBold(data.data.current_template.general_settings.gsBold);
+            setGsItalic(data.data.current_template.general_settings.gsItalic);
+            setGsUnderLine(
+                data.data.current_template.general_settings.gsUnderline
             );
-            setTitleColor(
-                data.data.current_template.general_settings.font_title_color
+            setGsTitleColor(
+                data.data.current_template.general_settings.gsTitleColor
             );
-            setHeightValue(
-                data.data.current_template.general_settings.font_height
+            setContainerHeight(
+                data.data.current_template.general_settings.containerHeight
             );
-            setPriceColor(
-                data.data.current_template.general_settings.font_price_color
+            setGsPriceColor(
+                data.data.current_template.general_settings.gsPriceColor
             );
-            setBgColor(
-                data.data.current_template.general_settings.font_bg_color
+            setGsBgColor(data.data.current_template.general_settings.gsBgColor);
+            setGsOffsetValue(
+                data.data.current_template.general_settings.gsOffsetValue
             );
-            setOffsetValue(
-                data.data.current_template.general_settings.offsetValue
+            setGsDisplayCondition(
+                data.data.current_template.general_settings.gsDisplayCondition
             );
-            setConditionValue(
-                data.data.current_template.general_settings.conditionValue
-            );
-            setSelected(
-                data.data.current_template.general_settings.selectedAction
-            );
-            setEditText(data.data.current_template.buy_btn_settings.edit_text);
-            setSoldOut(data.data.current_template.buy_btn_settings.sold_out);
+            setGsAction(data.data.current_template.general_settings.gsAction);
+            setEditText(data.data.current_template.buy_btn_settings.editText);
+            setSoldOut(data.data.current_template.buy_btn_settings.soldOut);
             setUnavailable(
                 data.data.current_template.buy_btn_settings.unavailable
             );
-            setButtonHeightValue(
-                data.data.current_template.buy_btn_settings.btn_height
+            setBtnHeightValue(
+                data.data.current_template.buy_btn_settings.btnheightValue
             );
-            setWidthValue(
-                data.data.current_template.buy_btn_settings.btn_width
+            setBtnWidthValue(
+                data.data.current_template.buy_btn_settings.btnWidthValue
             );
-            setFontSizeValue(
-                data.data.current_template.buy_btn_settings.font_size
+            setBtnFontsize(
+                data.data.current_template.buy_btn_settings.btnFontsize
             );
-            setBtnSizeValue(
-                data.data.current_template.buy_btn_settings.btn_size
-            );
-            setBoldButton(data.data.current_template.buy_btn_settings.btn_bold);
-            setItalicButton(
-                data.data.current_template.buy_btn_settings.btn_italic
-            );
-            setUnderLine(
-                data.data.current_template.buy_btn_settings.btn_underline
+            setBtnBold(data.data.current_template.buy_btn_settings.btnBold);
+            setBtnItalic(data.data.current_template.buy_btn_settings.btnItalic);
+            setBtnUnderline(
+                data.data.current_template.buy_btn_settings.btnUnderline
             );
             setBtnTextColor(
                 data.data.current_template.buy_btn_settings.btn_text_color
             );
-            setBtnBGColor(
-                data.data.current_template.buy_btn_settings.btn_bg_color
+            setBtnBgColor(
+                data.data.current_template.buy_btn_settings.btnBgColor
             );
-            setTexthoverColor(
-                data.data.current_template.buy_btn_settings.btn_text_hover_color
+            setBtnTexthoverColor(
+                data.data.current_template.buy_btn_settings.btnTexthoverColor
             );
-            setBgHoverColor(
-                data.data.current_template.buy_btn_settings.btn_bg_hover_color
+            setBtnBgHoverColor(
+                data.data.current_template.buy_btn_settings.btnBgHoverColor
             );
-            setBorder(data.data.current_template.buy_btn_settings.btn_border);
-            setRadius(
-                data.data.current_template.buy_btn_settings.btn_border_radius
+            setBtnBorderThickness(
+                data.data.current_template.buy_btn_settings.btnBorderThickness
             );
-            setBorderColor(
-                data.data.current_template.buy_btn_settings.btn_border_color
+            setBtnBorderRadius(
+                data.data.current_template.buy_btn_settings.btnBorderRadius
             );
-            setRadiusColor(
-                data.data.current_template.buy_btn_settings
-                    .btn_border_hover_color
+            setBtnBorderColor(
+                data.data.current_template.buy_btn_settings.btnBorderColor
+            );
+            setBtnBorderHoverColor(
+                data.data.current_template.buy_btn_settings.btnBorderHoverColor
             );
             setShowTable(true);
         } catch (err) {
@@ -277,27 +267,30 @@ export default function AddToCartSticky() {
     /*STYLE PART START*/
     /*FONT FAMILY GENERAL SETTINGS*/
     const handleFontChange = (value) => {
-        setFontFamily(value.family);
+        setGsFontFamily(value.family);
     };
 
     /*TITLE FONT SIZE GENERAL SETTINGS*/
     const handleRangeSliderChange = useCallback(
-        (value) => setRangeValue(value),
+        (value) => setGsFontsize(value),
         []
     );
 
     /*TITLE STYLE GENERAL SETTINGS*/
-    const handleBold = useCallback((newChecked) => setBold(newChecked), []);
-    const handleItalic = useCallback((newChecked) => setItalic(newChecked), []);
+    const handleBold = useCallback((newChecked) => setGsBold(newChecked), []);
+    const handleItalic = useCallback(
+        (newChecked) => setGsItalic(newChecked),
+        []
+    );
     const handleUnderline = useCallback(
-        (newChecked) => setUnderLine(newChecked),
+        (newChecked) => setGsUnderLine(newChecked),
         []
     );
     /*TITLE STYLE GENERAL SETTINGS*/
 
     /*HEIGHT BUY NOW*/
     const handleHeightSliderChange = useCallback(
-        (value) => setHeightValue(value),
+        (value) => setContainerHeight(value),
         []
     );
     /*HEIGHT BUY NOW*/
@@ -307,19 +300,19 @@ export default function AddToCartSticky() {
     /*LAYOUT PART START*/
     /*POSITION GENERAL SETTINGS*/
     const handlePositionChange = (key) => {
-        setPosValue(key);
+        setPosition(key);
     };
     /*POSITION GENERAL SETTINGS*/
 
     /*OFFSET GENERAL SETTINGS*/
     const handleOffsetSliderChange = useCallback(
-        (value) => setOffsetValue(value),
+        (value) => setGsOffsetValue(value),
         []
     );
     /*LAYOUT PART END*/
 
     /*ACTION GENERAL SETTINGS*/
-    const handleSelectChange = useCallback((value) => setSelected(value), []);
+    const handleSelectChange = useCallback((value) => setGsAction(value), []);
     const options = [
         { label: "Go to Cart", value: "1" },
         { label: "Go to Checkout", value: "2" },
@@ -327,7 +320,7 @@ export default function AddToCartSticky() {
 
     /*DISPLAY CONDITION GENERAL SETTINGS*/
     const handleConditionChange = useCallback(
-        (value) => setConditionValue(value),
+        (value) => setGsDisplayCondition(value),
         []
     );
     const conditions = [
@@ -355,13 +348,13 @@ export default function AddToCartSticky() {
 
     // COLOR CHANGE HANDLES START GENERAL SETTINGS*/
     // TITLE COLOR
-    const handleTitleColor = useCallback((value) => setTitleColor(value), []);
+    const handleTitleColor = useCallback((value) => setGsTitleColor(value), []);
 
     // PRICE COLOR
-    const handlePriceColor = useCallback((value) => setPriceColor(value), []);
+    const handlePriceColor = useCallback((value) => setGsPriceColor(value), []);
 
     // PRICE COLOR
-    const handleBGColor = useCallback((value) => setBgColor(value), []);
+    const handleBGColor = useCallback((value) => setGsBgColor(value), []);
 
     /*BUY NOW BTN TEXT START*/
     // EDIT TEXT
@@ -381,41 +374,41 @@ export default function AddToCartSticky() {
     /*BUY NOW BTN STYLE START*/
     // WIDTH
     const handleWidthSliderChange = useCallback(
-        (value) => setWidthValue(value),
+        (value) => setBtnWidthValue(value),
         []
     );
     // BUY NOW BTN HEIGHT
     const handleBuyButtonHeightSliderChange = useCallback(
-        (value) => setButtonHeightValue(value),
+        (value) => setBtnHeightValue(value),
         []
     );
     //BUY NOW  FONT SIZE
     const handleFontSizeSliderChange = useCallback(
-        (value) => setFontSizeValue(value),
+        (value) => setBtnFontsize(value),
         []
     );
     // BUY NOW  STYLE
     const handleBoldButton = useCallback(
-        (newChecked) => setBoldButton(newChecked),
+        (newChecked) => setBtnBold(newChecked),
         []
     );
     const handleItalicButton = useCallback(
-        (newChecked) => setItalicButton(newChecked),
+        (newChecked) => setBtnItalic(newChecked),
         []
     );
     const handleUnderlineButton = useCallback(
-        (newChecked) => setUnderLineButton(newChecked),
+        (newChecked) => setBtnUnderline(newChecked),
         []
     );
     // BORDER THIKNESS
     const handleBorderSliderChange = useCallback(
-        (value) => setBorder(value),
+        (value) => setBtnBorderThickness(value),
         []
     );
 
     // BORDER RADIUS
     const handleRadiusSliderChange = useCallback(
-        (value) => setRadius(value),
+        (value) => setBtnBorderRadius(value),
         []
     );
     /*BUY NOW BTN STYLE END*/
@@ -428,25 +421,28 @@ export default function AddToCartSticky() {
 
     // TEXT HOVER COLOR
     const handletexthoverColor = useCallback(
-        (value) => setTexthoverColor(value),
+        (value) => setBtnTexthoverColor(value),
         []
     );
 
     // BG HOVER COLOR
     const handlebgHoverColor = useCallback(
-        (value) => setBgHoverColor(value),
+        (value) => setBtnBgHoverColor(value),
         []
     );
 
     // BTN BG COLOR
-    const handlebtnBGColor = useCallback((value) => setBtnBGColor(value), []);
+    const handlebtnBGColor = useCallback((value) => setBtnBgColor(value), []);
 
     // BORDER COLOR
-    const handleborderColor = useCallback((value) => setBorderColor(value), []);
+    const handleborderColor = useCallback(
+        (value) => setBtnBorderColor(value),
+        []
+    );
 
     // BORDER HOVER COLOR
     const handlebordeHoverColor = useCallback(
-        (value) => setRadiusColor(value),
+        (value) => setBtnBorderHoverColor(value),
         []
     );
     // COLOR CHANGE HANDLES END
@@ -454,7 +450,7 @@ export default function AddToCartSticky() {
     // TEMPLATE DATA START
     const handleChange = (key) => {
         // console.log(data);
-        setValue(key);
+        setDefaultTemplate(key);
         var currentData;
         switch (key) {
             case 1:
@@ -475,42 +471,43 @@ export default function AddToCartSticky() {
                 break;
         }
         // console.log(currentData);
-        setEnable(data.add_to_cart_sticky);
+        setEnable(data.enable);
         /*GENERAL SETTINGS VALUES*/
         setCheckDesktop(currentData.general_settings.desktop);
         setCheckMobile(currentData.general_settings.mobile);
-        setPosValue(currentData.general_settings.posValue);
-        setRangeValue(currentData.general_settings.rangeValue);
-        setFontFamily(currentData.general_settings.font_family);
-        setBold(currentData.general_settings.font_bold);
-        setItalic(currentData.general_settings.font_italic);
-        setUnderLine(currentData.general_settings.font_underline);
-        setTitleColor(currentData.general_settings.font_title_color);
-        setHeightValue(currentData.general_settings.font_height);
-        setPriceColor(currentData.general_settings.font_price_color);
-        setBgColor(currentData.general_settings.font_bg_color);
-        setOffsetValue(currentData.general_settings.offsetValue);
-        setConditionValue(currentData.general_settings.conditionValue);
-        setSelected(currentData.general_settings.selectedAction);
+        setPosition(currentData.general_settings.position);
+        setGsFontsize(currentData.general_settings.gsFontsize);
+        setGsFontFamily(currentData.general_settings.gsFontFamily);
+        setGsBold(currentData.general_settings.gsBold);
+        setGsItalic(currentData.general_settings.gsItalic);
+        setGsUnderLine(currentData.general_settings.gsUnderline);
+        setGsTitleColor(currentData.general_settings.gsTitleColor);
+        setContainerHeight(currentData.general_settings.containerHeight);
+        setGsPriceColor(currentData.general_settings.gsPriceColor);
+        setGsBgColor(currentData.general_settings.gsBgColor);
+        setGsOffsetValue(currentData.general_settings.gsOffsetValue);
+        setGsDisplayCondition(currentData.general_settings.gsDisplayCondition);
+        setGsAction(currentData.general_settings.gsAction);
         /*BUY NOW BUTTON VALUES*/
-        setEditText(currentData.buy_btn_settings.edit_text);
-        setSoldOut(currentData.buy_btn_settings.sold_out);
+        setEditText(currentData.buy_btn_settings.editText);
+        setSoldOut(currentData.buy_btn_settings.soldOut);
         setUnavailable(currentData.buy_btn_settings.unavailable);
-        setButtonHeightValue(currentData.buy_btn_settings.btn_height);
-        setWidthValue(currentData.buy_btn_settings.btn_width);
-        setFontSizeValue(currentData.buy_btn_settings.font_size);
-        setBtnSizeValue(currentData.buy_btn_settings.btn_size);
-        setBoldButton(currentData.buy_btn_settings.btn_bold);
-        setItalicButton(currentData.buy_btn_settings.btn_italic);
-        setUnderLine(currentData.buy_btn_settings.btn_underline);
+        setBtnHeightValue(currentData.buy_btn_settings.btnheightValue);
+        setBtnWidthValue(currentData.buy_btn_settings.btnWidthValue);
+        setBtnFontsize(currentData.buy_btn_settings.btnFontsize);
+        setBtnBold(currentData.buy_btn_settings.btnBold);
+        setBtnItalic(currentData.buy_btn_settings.btnItalic);
+        setBtnUnderline(currentData.buy_btn_settings.btnUnderline);
         setBtnTextColor(currentData.buy_btn_settings.btn_text_color);
-        setBtnBGColor(currentData.buy_btn_settings.btn_bg_color);
-        setTexthoverColor(currentData.buy_btn_settings.btn_text_hover_color);
-        setBgHoverColor(currentData.buy_btn_settings.btn_bg_hover_color);
-        setBorder(currentData.buy_btn_settings.btn_border);
-        setRadius(currentData.buy_btn_settings.btn_border_radius);
-        setBorderColor(currentData.buy_btn_settings.btn_border_color);
-        setRadiusColor(currentData.buy_btn_settings.btn_border_hover_color);
+        setBtnBgColor(currentData.buy_btn_settings.btnBgColor);
+        setBtnTexthoverColor(currentData.buy_btn_settings.btnTexthoverColor);
+        setBtnBgHoverColor(currentData.buy_btn_settings.btnBgHoverColor);
+        setBtnBorderThickness(currentData.buy_btn_settings.btnBorderThickness);
+        setBtnBorderRadius(currentData.buy_btn_settings.btnBorderRadius);
+        setBtnBorderColor(currentData.buy_btn_settings.btnBorderColor);
+        setBtnBorderHoverColor(
+            currentData.buy_btn_settings.btnBorderHoverColor
+        );
     };
     // TEMPLATE DATA END
     // DASHBOARD REDIRECT START
@@ -523,43 +520,42 @@ export default function AddToCartSticky() {
             let payLoad = {
                 shop_domain: document.getElementById("shopOrigin").value,
                 enable: enable,
-                value: value,
+                defaultTemplate: defaultTemplate,
                 /*GENERAL SETTINGS START*/
                 checkDesktop: checkDesktop,
-                posValue: posValue,
+                position: position,
                 checkMobile: checkMobile,
-                fontFamily: fontFamily,
-                rangeValue: rangeValue,
-                bold: bold,
-                italic: italic,
-                underline: underline,
-                titleColor: titleColor,
-                priceColor: priceColor,
-                bgColor: bgColor,
-                offsetValue: offsetValue,
-                selectedAction: selected,
-                conditionValue: conditionValue,
+                gsFontFamily: gsFontFamily,
+                gsFontsize: gsFontsize,
+                gsBold: gsBold,
+                gsItalic: gsItalic,
+                gsUnderline: gsUnderline,
+                gsTitleColor: gsTitleColor,
+                gsPriceColor: gsPriceColor,
+                gsBgColor: gsBgColor,
+                gsOffsetValue: gsOffsetValue,
+                gsAction: gsAction,
+                gsDisplayCondition: gsDisplayCondition,
                 /*GENERAL SETTINGS END*/
                 /*BUY NOW START*/
                 editText: editText,
                 soldOut: soldOut,
                 unavailable: unavailable,
-                widthValue: widthValue,
-                buttonheightValue: buttonheightValue,
-                fontSizeValue: fontSizeValue,
-                btnSizeValue: btnSizeValue,
-                heightValue: heightValue,
-                borderValue: borderValue,
-                radiusValue: radiusValue,
-                boldButton: boldButton,
-                italicButton: italicButton,
-                underlineButton: underlineButton,
+                btnWidthValue: btnWidthValue,
+                btnheightValue: btnheightValue,
+                btnFontsize: btnFontsize,
+                containerHeight: containerHeight,
+                btnBorderThickness: btnBorderThickness,
+                btnBorderRadius: btnBorderRadius,
+                btnBold: btnBold,
+                btnItalic: btnItalic,
+                btnUnderline: btnUnderline,
                 btnTextColor: btnTextColor,
-                btnBGColor: btnBGColor,
-                texthoverColor: texthoverColor,
-                bgHoverColor: bgHoverColor,
-                borderColor: borderColor,
-                radiusColor: radiusColor,
+                btnBgColor: btnBgColor,
+                btnTexthoverColor: btnTexthoverColor,
+                btnBgHoverColor: btnBgHoverColor,
+                btnBorderColor: btnBorderColor,
+                btnBorderHoverColor: btnBorderHoverColor,
                 /*BUY NOW END*/
             };
             setLoading(true);
@@ -582,8 +578,8 @@ export default function AddToCartSticky() {
             console.log(err);
         }
     };
-    console.log("rangeValue");
-    console.log(rangeValue);
+    // console.log("rangeValue");
+    // console.log(rangeValue);
     if (showTable === false) {
         return (
             <div>
@@ -614,99 +610,97 @@ export default function AddToCartSticky() {
                 <Frame>
                     <div className="topbar_title">LM ADD TO CART STICKY</div>
 
-                    <div style={{ height: heightValue, marginTop: 50 }}>
-                        {value === 1 ? (
+                    <div style={{ height: containerHeight, marginTop: 50 }}>
+                        {defaultTemplate === 1 ? (
                             <CartTemplate1
                                 template_data={data.template_1}
                                 enable={enable}
-                                value={value}
-                                posValue={posValue}
+                                defaultTemplate={defaultTemplate}
+                                position={position}
                                 checkMobile={checkMobile}
                                 checkDesktop={checkDesktop}
-                                bold={bold}
-                                rangeValue={rangeValue}
-                                italic={italic}
-                                underline={underline}
-                                fontFamily={fontFamily}
-                                titleColor={titleColor}
-                                priceColor={priceColor}
-                                bgColor={bgColor}
-                                offsetValue={offsetValue}
-                                selected={selected}
-                                conditionValue={conditionValue}
+                                gsBold={gsBold}
+                                gsFontsize={gsFontsize}
+                                gsItalic={gsItalic}
+                                gsUnderline={gsUnderline}
+                                gsFontFamily={gsFontFamily}
+                                gsTitleColor={gsTitleColor}
+                                gsPriceColor={gsPriceColor}
+                                gsBgColor={gsBgColor}
+                                gsOffsetValue={gsOffsetValue}
+                                gsAction={gsAction}
+                                gsDisplayCondition={gsDisplayCondition}
                                 buyNowSettings={buyNowSettings}
                                 editText={editText}
                                 soldOut={soldOut}
                                 unavailable={unavailable}
-                                widthValue={widthValue}
-                                buttonheightValue={buttonheightValue}
-                                fontSizeValue={fontSizeValue}
-                                btnSizeValue={btnSizeValue}
-                                heightValue={heightValue}
-                                borderValue={borderValue}
-                                radiusValue={radiusValue}
-                                boldButton={boldButton}
-                                italicButton={italicButton}
-                                underlineButton={underlineButton}
+                                btnWidthValue={btnWidthValue}
+                                btnheightValue={btnheightValue}
+                                btnFontsize={btnFontsize}
+                                containerHeight={containerHeight}
+                                btnBorderThickness={btnBorderThickness}
+                                btnBorderRadius={btnBorderRadius}
+                                btnBold={btnBold}
+                                btnItalic={btnItalic}
+                                btnUnderline={btnUnderline}
                                 btnTextColor={btnTextColor}
-                                btnBGColor={btnBGColor}
-                                texthoverColor={texthoverColor}
-                                bgHoverColor={bgHoverColor}
-                                borderColor={borderColor}
-                                radiusColor={radiusColor}
+                                btnBgColor={btnBgColor}
+                                btnTexthoverColor={btnTexthoverColor}
+                                btnBgHoverColor={btnBgHoverColor}
+                                btnBorderColor={btnBorderColor}
+                                btnBorderHoverColor={btnBorderHoverColor}
                             />
                         ) : (
                             ""
                         )}
-                        {value === 2 ? (
+                        {defaultTemplate === 2 ? (
                             <CartTemplate2
                                 template_data={data.template_2}
                                 enable={enable}
-                                value={value}
-                                posValue={posValue}
+                                defaultTemplate={defaultTemplate}
+                                position={position}
                                 checkMobile={checkMobile}
                                 checkDesktop={checkDesktop}
-                                bold={bold}
-                                rangeValue={rangeValue}
-                                italic={italic}
-                                underline={underline}
-                                fontFamily={fontFamily}
-                                titleColor={titleColor}
-                                priceColor={priceColor}
-                                bgColor={bgColor}
-                                offsetValue={offsetValue}
-                                selected={selected}
-                                conditionValue={conditionValue}
+                                gsBold={gsBold}
+                                gsFontsize={gsFontsize}
+                                gsItalic={gsItalic}
+                                gsUnderline={gsUnderline}
+                                gsFontFamily={gsFontFamily}
+                                gsTitleColor={gsTitleColor}
+                                gsPriceColor={gsPriceColor}
+                                gsBgColor={gsBgColor}
+                                gsOffsetValue={gsOffsetValue}
+                                gsAction={gsAction}
+                                gsDisplayCondition={gsDisplayCondition}
                                 buyNowSettings={buyNowSettings}
                                 editText={editText}
                                 soldOut={soldOut}
                                 unavailable={unavailable}
-                                widthValue={widthValue}
-                                buttonheightValue={buttonheightValue}
-                                fontSizeValue={fontSizeValue}
-                                btnSizeValue={btnSizeValue}
-                                heightValue={heightValue}
-                                borderValue={borderValue}
-                                radiusValue={radiusValue}
-                                boldButton={boldButton}
-                                italicButton={italicButton}
-                                underlineButton={underlineButton}
+                                btnWidthValue={btnWidthValue}
+                                btnheightValue={btnheightValue}
+                                btnFontsize={btnFontsize}
+                                containerHeight={containerHeight}
+                                btnBorderThickness={btnBorderThickness}
+                                btnBorderRadius={btnBorderRadius}
+                                btnBold={btnBold}
+                                btnItalic={btnItalic}
+                                btnUnderline={btnUnderline}
                                 btnTextColor={btnTextColor}
-                                btnBGColor={btnBGColor}
-                                texthoverColor={texthoverColor}
-                                bgHoverColor={bgHoverColor}
-                                borderColor={borderColor}
-                                radiusColor={radiusColor}
+                                btnBgColor={btnBgColor}
+                                btnTexthoverColor={btnTexthoverColor}
+                                btnBgHoverColor={btnBgHoverColor}
+                                btnBorderColor={btnBorderColor}
+                                btnBorderHoverColor={btnBorderHoverColor}
                             />
                         ) : (
                             ""
                         )}
-                        {value === 3 ? (
+                        {defaultTemplate === 3 ? (
                             <CartTemplate3 template_data={data.template_3} />
                         ) : (
                             ""
                         )}
-                        {value === 4 ? (
+                        {defaultTemplate === 4 ? (
                             <CartTemplate4 template_data={data.template_4} />
                         ) : (
                             ""
@@ -844,7 +838,7 @@ export default function AddToCartSticky() {
                                                             <FontPicker
                                                                 apiKey="AIzaSyBRCzvluQdkcyQkKHPjLwltLe2HrkUd5Bs"
                                                                 activeFontFamily={
-                                                                    fontFamily
+                                                                    gsFontFamily
                                                                 }
                                                                 onChange={
                                                                     handleFontChange
@@ -860,9 +854,9 @@ export default function AddToCartSticky() {
                                                         </span>
                                                         <div className="font_picker_popup">
                                                             <RangeSlider
-                                                                label={`${rangeValue} px`}
+                                                                label={`${gsFontsize} px`}
                                                                 value={
-                                                                    rangeValue
+                                                                    gsFontsize
                                                                 }
                                                                 min={8}
                                                                 max={40}
@@ -882,7 +876,7 @@ export default function AddToCartSticky() {
                                                         <div className="">
                                                             <Checkbox
                                                                 label="Bold"
-                                                                checked={bold}
+                                                                checked={gsBold}
                                                                 onChange={
                                                                     handleBold
                                                                 }
@@ -890,7 +884,9 @@ export default function AddToCartSticky() {
                                                             <br />
                                                             <Checkbox
                                                                 label="Italic"
-                                                                checked={italic}
+                                                                checked={
+                                                                    gsItalic
+                                                                }
                                                                 onChange={
                                                                     handleItalic
                                                                 }
@@ -899,7 +895,7 @@ export default function AddToCartSticky() {
                                                             <Checkbox
                                                                 label="Underline"
                                                                 checked={
-                                                                    underline
+                                                                    gsUnderline
                                                                 }
                                                                 onChange={
                                                                     handleUnderline
@@ -916,7 +912,7 @@ export default function AddToCartSticky() {
                                                         <div>
                                                             <ColorPlate
                                                                 defaultColor={
-                                                                    titleColor
+                                                                    gsTitleColor
                                                                 }
                                                                 onChildResult={
                                                                     handleTitleColor
@@ -932,9 +928,9 @@ export default function AddToCartSticky() {
                                                         </span>
                                                         <div className="font_picker_popup">
                                                             <RangeSlider
-                                                                label={`${heightValue} px`}
+                                                                label={`${containerHeight} px`}
                                                                 value={
-                                                                    heightValue
+                                                                    containerHeight
                                                                 }
                                                                 min={50}
                                                                 max={150}
@@ -954,7 +950,7 @@ export default function AddToCartSticky() {
                                                         <div>
                                                             <ColorPlate
                                                                 defaultColor={
-                                                                    priceColor
+                                                                    gsPriceColor
                                                                 }
                                                                 onChildResult={
                                                                     handlePriceColor
@@ -971,7 +967,7 @@ export default function AddToCartSticky() {
                                                         <div>
                                                             <ColorPlate
                                                                 defaultColor={
-                                                                    bgColor
+                                                                    gsBgColor
                                                                 }
                                                                 onChildResult={
                                                                     handleBGColor
@@ -996,7 +992,7 @@ export default function AddToCartSticky() {
                                                                 label={"Top"}
                                                                 id={"Top"}
                                                                 checked={
-                                                                    posValue ===
+                                                                    position ===
                                                                     "Top"
                                                                 }
                                                                 name="position"
@@ -1011,7 +1007,7 @@ export default function AddToCartSticky() {
                                                                 label={"Bottom"}
                                                                 id={"Bottom"}
                                                                 checked={
-                                                                    posValue ===
+                                                                    position ===
                                                                     "Bottom"
                                                                 }
                                                                 name="position"
@@ -1031,9 +1027,9 @@ export default function AddToCartSticky() {
                                                         </span>
                                                         <div className="font_picker_popup">
                                                             <RangeSlider
-                                                                label={`${offsetValue} px`}
+                                                                label={`${gsOffsetValue} px`}
                                                                 value={
-                                                                    offsetValue
+                                                                    gsOffsetValue
                                                                 }
                                                                 min={0}
                                                                 max={250}
@@ -1064,7 +1060,7 @@ export default function AddToCartSticky() {
                                                                 onChange={
                                                                     handleSelectChange
                                                                 }
-                                                                value={selected}
+                                                                value={gsAction}
                                                             />
                                                         </div>
                                                     </div>
@@ -1083,7 +1079,7 @@ export default function AddToCartSticky() {
                                                                     handleConditionChange
                                                                 }
                                                                 value={
-                                                                    conditionValue
+                                                                    gsDisplayCondition
                                                                 }
                                                             />
                                                         </div>
@@ -1215,9 +1211,9 @@ export default function AddToCartSticky() {
                                                         </span>
                                                         <div className="font_picker_popup">
                                                             <RangeSlider
-                                                                label={`${widthValue} px`}
+                                                                label={`${btnWidthValue} px`}
                                                                 value={
-                                                                    widthValue
+                                                                    btnWidthValue
                                                                 }
                                                                 min={0}
                                                                 max={250}
@@ -1236,9 +1232,9 @@ export default function AddToCartSticky() {
                                                         </span>
                                                         <div className="font_picker_popup">
                                                             <RangeSlider
-                                                                label={`${buttonheightValue} px`}
+                                                                label={`${btnheightValue} px`}
                                                                 value={
-                                                                    buttonheightValue
+                                                                    btnheightValue
                                                                 }
                                                                 min={0}
                                                                 max={250}
@@ -1257,9 +1253,9 @@ export default function AddToCartSticky() {
                                                         </span>
                                                         <div className="font_picker_popup">
                                                             <RangeSlider
-                                                                label={`${fontSizeValue} px`}
+                                                                label={`${btnFontsize} px`}
                                                                 value={
-                                                                    fontSizeValue
+                                                                    btnFontsize
                                                                 }
                                                                 min={8}
                                                                 max={50}
@@ -1280,7 +1276,7 @@ export default function AddToCartSticky() {
                                                             <Checkbox
                                                                 label="Bold"
                                                                 checked={
-                                                                    boldButton
+                                                                    btnBold
                                                                 }
                                                                 onChange={
                                                                     handleBoldButton
@@ -1290,7 +1286,7 @@ export default function AddToCartSticky() {
                                                             <Checkbox
                                                                 label="Italic"
                                                                 checked={
-                                                                    italicButton
+                                                                    btnItalic
                                                                 }
                                                                 onChange={
                                                                     handleItalicButton
@@ -1300,7 +1296,7 @@ export default function AddToCartSticky() {
                                                             <Checkbox
                                                                 label="Underline"
                                                                 checked={
-                                                                    underlineButton
+                                                                    btnUnderline
                                                                 }
                                                                 onChange={
                                                                     handleUnderlineButton
@@ -1334,7 +1330,7 @@ export default function AddToCartSticky() {
                                                         <div>
                                                             <ColorPlate
                                                                 defaultColor={
-                                                                    btnBGColor
+                                                                    btnBgColor
                                                                 }
                                                                 onChildResult={
                                                                     handlebtnBGColor
@@ -1351,7 +1347,7 @@ export default function AddToCartSticky() {
                                                         <div>
                                                             <ColorPlate
                                                                 defaultColor={
-                                                                    texthoverColor
+                                                                    btnTexthoverColor
                                                                 }
                                                                 onChildResult={
                                                                     handletexthoverColor
@@ -1369,7 +1365,7 @@ export default function AddToCartSticky() {
                                                         <div>
                                                             <ColorPlate
                                                                 defaultColor={
-                                                                    bgHoverColor
+                                                                    btnBgHoverColor
                                                                 }
                                                                 onChildResult={
                                                                     handlebgHoverColor
@@ -1391,9 +1387,9 @@ export default function AddToCartSticky() {
                                                         </span>
                                                         <div className="font_picker_popup">
                                                             <RangeSlider
-                                                                label={`${borderValue} px`}
+                                                                label={`${btnBorderThickness} px`}
                                                                 value={
-                                                                    borderValue
+                                                                    btnBorderThickness
                                                                 }
                                                                 min={0}
                                                                 max={10}
@@ -1412,9 +1408,9 @@ export default function AddToCartSticky() {
                                                         </span>
                                                         <div className="font_picker_popup">
                                                             <RangeSlider
-                                                                label={`${radiusValue} px`}
+                                                                label={`${btnBorderRadius} px`}
                                                                 value={
-                                                                    radiusValue
+                                                                    btnBorderRadius
                                                                 }
                                                                 min={0}
                                                                 max={50}
@@ -1434,7 +1430,7 @@ export default function AddToCartSticky() {
                                                         <div>
                                                             <ColorPlate
                                                                 defaultColor={
-                                                                    borderColor
+                                                                    btnBorderColor
                                                                 }
                                                                 onChildResult={
                                                                     handleborderColor
@@ -1451,7 +1447,7 @@ export default function AddToCartSticky() {
                                                         <div>
                                                             <ColorPlate
                                                                 defaultColor={
-                                                                    radiusColor
+                                                                    btnBorderHoverColor
                                                                 }
                                                                 onChildResult={
                                                                     handlebordeHoverColor
