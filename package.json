@@ -58,6 +58,8 @@
         "react-numeric-input": "^2.2.3",
         "react-paginate": "^8.1.4",
         "react-qty-picker": "^1.0.6",
+        "react-select": "^5.7.2",
+        "select2": "^4.1.0-rc.0",
         "react-query": "^3.39.3",
         "react-router-dom": "^6.10.0",
         "shopify-resource-picker": "^1.0.3",

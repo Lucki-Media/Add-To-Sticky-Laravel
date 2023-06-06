@@ -20,6 +20,7 @@ import {
 import "../css/index.css";
 import {
     ChevronLeftMinor,
+    ExitMajor,
     ChevronRightMinor,
     ChevronDownMinor,
     SettingsMajor,
@@ -562,22 +563,27 @@ export default function AddToCartSticky() {
                 /*BUY NOW END*/
             };
             setLoading(true);
+            setShowTable(false);
             let response = await axios.post("/api/saveAddToStickyCartData", {
                 data: payLoad,
             });
             if (response.data.status == true) {
                 // console.log("success");
+                setShowTable(true);
+                setLoading(false);
+                getAddToStickyCartData();
                 setToastContent(response.data.message);
                 toggleActive();
             } else {
                 setToastContent1(response.data.message);
                 toggleActive1();
             }
-            setLoading(false);
         } catch (err) {
             console.log(err);
         }
     };
+    console.log("rangeValue");
+    console.log(rangeValue);
     if (showTable === false) {
         return (
             <div>
@@ -610,12 +616,88 @@ export default function AddToCartSticky() {
 
                     <div style={{ height: heightValue, marginTop: 50 }}>
                         {value === 1 ? (
-                            <CartTemplate1 template_data={data.template_1} />
+                            <CartTemplate1
+                                template_data={data.template_1}
+                                enable={enable}
+                                value={value}
+                                posValue={posValue}
+                                checkMobile={checkMobile}
+                                checkDesktop={checkDesktop}
+                                bold={bold}
+                                rangeValue={rangeValue}
+                                italic={italic}
+                                underline={underline}
+                                fontFamily={fontFamily}
+                                titleColor={titleColor}
+                                priceColor={priceColor}
+                                bgColor={bgColor}
+                                offsetValue={offsetValue}
+                                selected={selected}
+                                conditionValue={conditionValue}
+                                buyNowSettings={buyNowSettings}
+                                editText={editText}
+                                soldOut={soldOut}
+                                unavailable={unavailable}
+                                widthValue={widthValue}
+                                buttonheightValue={buttonheightValue}
+                                fontSizeValue={fontSizeValue}
+                                btnSizeValue={btnSizeValue}
+                                heightValue={heightValue}
+                                borderValue={borderValue}
+                                radiusValue={radiusValue}
+                                boldButton={boldButton}
+                                italicButton={italicButton}
+                                underlineButton={underlineButton}
+                                btnTextColor={btnTextColor}
+                                btnBGColor={btnBGColor}
+                                texthoverColor={texthoverColor}
+                                bgHoverColor={bgHoverColor}
+                                borderColor={borderColor}
+                                radiusColor={radiusColor}
+                            />
                         ) : (
                             ""
                         )}
                         {value === 2 ? (
-                            <CartTemplate2 template_data={data.template_2} />
+                            <CartTemplate2
+                                template_data={data.template_2}
+                                enable={enable}
+                                value={value}
+                                posValue={posValue}
+                                checkMobile={checkMobile}
+                                checkDesktop={checkDesktop}
+                                bold={bold}
+                                rangeValue={rangeValue}
+                                italic={italic}
+                                underline={underline}
+                                fontFamily={fontFamily}
+                                titleColor={titleColor}
+                                priceColor={priceColor}
+                                bgColor={bgColor}
+                                offsetValue={offsetValue}
+                                selected={selected}
+                                conditionValue={conditionValue}
+                                buyNowSettings={buyNowSettings}
+                                editText={editText}
+                                soldOut={soldOut}
+                                unavailable={unavailable}
+                                widthValue={widthValue}
+                                buttonheightValue={buttonheightValue}
+                                fontSizeValue={fontSizeValue}
+                                btnSizeValue={btnSizeValue}
+                                heightValue={heightValue}
+                                borderValue={borderValue}
+                                radiusValue={radiusValue}
+                                boldButton={boldButton}
+                                italicButton={italicButton}
+                                underlineButton={underlineButton}
+                                btnTextColor={btnTextColor}
+                                btnBGColor={btnBGColor}
+                                texthoverColor={texthoverColor}
+                                bgHoverColor={bgHoverColor}
+                                borderColor={borderColor}
+                                radiusColor={radiusColor}
+                            />
                         ) : (
                             ""
                         )}
@@ -632,21 +714,28 @@ export default function AddToCartSticky() {
                     </div>
                     <div className="main_app_page" style={{ marginTop: 30 }}>
                         <Page>
-                            <Layout>
-                                <Layout.Section oneThird>
+                            <Card>
+                                <div className="lm_add_to_sticky_top_bar_header_bottom">
                                     <div
-                                        className="dashboard_tag"
+                                        className="lm_add_to_sticky_top_bar_header_out"
                                         onClick={handleClick}
                                     >
-                                        <Icon
-                                            source={ChevronLeftMinor}
-                                            color="base"
-                                        />{" "}
-                                        Dashboard
+                                        <Icon source={ExitMajor} color="base" />{" "}
+                                        <div>Dashboard</div>
                                     </div>
-                                    <div className="sidebar_title">
-                                        Add To Sticky Cart
-                                    </div>
+                                    <Button
+                                        loading={loading}
+                                        onClick={handleSave}
+                                        primary
+                                    >
+                                        Save
+                                    </Button>
+                                    {toastMarkup}
+                                    {toastMarkup1}
+                                </div>
+                            </Card>
+                            <Layout>
+                                <Layout.Section oneThird>
                                     {/* cart enable disable card */}
                                     <div className="show_stickyCart">
                                         <Card sectioned>
@@ -1377,55 +1466,49 @@ export default function AddToCartSticky() {
                                         ""
                                     )}
                                 </Layout.Section>
+
                                 <Layout.Section>
-                                    <div className="save_template_btn">
-                                        <Button
-                                            loading={loading}
-                                            onClick={handleSave}
-                                            primary
-                                        >
-                                            Save
-                                        </Button>
-                                        {toastMarkup}
-                                        {toastMarkup1}
-                                    </div>
-                                    <Card sectioned>
-                                        <div className="template___Card apply-font">
-                                            Choose the sticky Add to Cart
-                                            template
-                                        </div>
-                                        <div className="template_option">
-                                            {TemplateData.map((item) => (
-                                                <div
-                                                    className="template_option_sticky sticky_child"
-                                                    key={item.key}
-                                                >
-                                                    <img
-                                                        src={item.image}
-                                                        alt="Template"
-                                                        height="150px"
-                                                        width="250px"
-                                                    />
-                                                    <div>
-                                                        <RadioButton
-                                                            label={item.label}
-                                                            id={item.key}
-                                                            checked={
-                                                                value ===
-                                                                item.key
-                                                            }
-                                                            name="template"
-                                                            onChange={() => {
-                                                                handleChange(
-                                                                    item.key
-                                                                );
-                                                            }}
+                                    <div style={{ marginTop: "10px" }}>
+                                        <Card sectioned>
+                                            <div className="template___Card apply-font">
+                                                Choose the sticky Add to Cart
+                                                template
+                                            </div>
+                                            <div className="template_option">
+                                                {TemplateData.map((item) => (
+                                                    <div
+                                                        className="template_option_sticky sticky_child"
+                                                        key={item.key}
+                                                    >
+                                                        <img
+                                                            src={item.image}
+                                                            alt="Template"
+                                                            height="150px"
+                                                            width="250px"
                                                         />
+                                                        <div>
+                                                            <RadioButton
+                                                                label={
+                                                                    item.label
+                                                                }
+                                                                id={item.key}
+                                                                checked={
+                                                                    value ===
+                                                                    item.key
+                                                                }
+                                                                name="template"
+                                                                onChange={() => {
+                                                                    handleChange(
+                                                                        item.key
+                                                                    );
+                                                                }}
+                                                            />
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </Card>
+                                                ))}
+                                            </div>
+                                        </Card>
+                                    </div>
                                 </Layout.Section>
                             </Layout>
                         </Page>

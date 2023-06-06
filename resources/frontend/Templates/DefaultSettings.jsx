@@ -1,9 +1,40 @@
-const DefaultSettings = [
-  {
-    layout: "cart_template_1",
-    position: "sticky_top", //sticky_bottom,sticky_top
-    bg_color: "#fff",
-  },
-];
+const DefaultSettings = {
+    general_settings: {
+        desktop: true,
+        mobile: false,
+        font_family: "Fira Sans",
+        font_size: 20,
+        font_bold: true,
+        font_italic: true,
+        font_underline: true,
+        font_title_color: "#333",
+        font_height: 70,
+        font_price_color: "#000",
+        font_bg_color: "#f3f3f3",
+        position: "Top",
+        offset: "50",
+        action: "1",
+        display_condition: "1",
+    },
+    buy_btn_settings: {
+        edit_text: "BUY NOW1asdasd",
+        sold_out: "Sold out",
+        unavailable: "Unavailable",
+        btn_height: 35,
+        btn_width: 150,
+        btn_size: 16,
+        btn_bold: false,
+        btn_italic: false,
+        btn_underline: false,
+        btn_text_color: "#fff",
+        btn_bg_color: "#333",
+        btn_text_hover_color: "#333",
+        btn_bg_hover_color: "#fff",
+        btn_border: 2,
+        btn_border_radius: 15,
+        btn_border_color: "rgba(1, 187, 1, 0)",
+        btn_border_hover_color: "#fff",
+    },
+};
 
 export default DefaultSettings;
