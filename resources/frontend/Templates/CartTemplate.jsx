@@ -6,20 +6,15 @@ import proimage from "../assets/productimage.png";
 import { QuantityPicker } from "react-qty-picker";
 import style from "../css/CartTemplate1.module.css";
 
-function CartTemplate1(props, changedProps) {
-    // const { gsFontSize } = props.template_data;
+function CartTemplate1(props) {
     console.log(props);
-    // console.log(props.template_data);
-    //   const [getGrid, setGrid] = useState("cart_template_1");
-    //const [getPosition, setPosition] = useState("sticky_top");
-    //   const [getbgColor, setbgColor] = useState("#fff");
 
     const [enable, setEnable] = useState(props.enable); // FOR MAIN DISPLAY
-    const [posValue, setPosValue] = useState(props.posValue);
+    const [position, setPosition] = useState(props.position);
     const [checkMobile, setCheckMobile] = useState(props.checkMobile);
     const [checkDesktop, setCheckDesktop] = useState(props.checkDesktop);
-    const [bold, setBold] = useState(props.bold);
-    const [italic, setItalic] = useState(props.italic);
+    const [gsBold, setGsBold] = useState(props.gsBold);
+    const [gsItalic, setGsItalic] = useState(props.gsItalic);
     const [underline, setUnderLine] = useState(props.underline);
     const [boldButton, setBoldButton] = useState(props.boldButton);
     const [italicButton, setItalicButton] = useState(props.italicButton);
@@ -37,7 +32,7 @@ function CartTemplate1(props, changedProps) {
     const [borderColor, setborderColor] = useState(props.borderColor);
     const [radiusColor, setradiusColor] = useState(props.radiusColor);
     const [fontSizeValue, setFontSizeValue] = useState(props.fontSizeValue);
-    const [rangeValue, setRangeValue] = useState(props.rangeValue);
+    const [gsFontsize, setGsFontsize] = useState(props.gsFontsize);
     const [heightValue, setHeightValue] = useState(props.heightValue);
     const [buttonheightValue, setButtonHeightValue] = useState(
         props.buttonheightValue
@@ -68,32 +63,6 @@ function CartTemplate1(props, changedProps) {
         { value: "Rubber", label: "Rubber" },
         { value: "Steel", label: "Steel" },
     ];
-    // console.log(bg_option);
-    //  `${posValue === "Top" ? offsetValue : 'inherit'}`,
-    // const img_size = {
-    //   height: heightValue,
-    // };
-    // const font_option = {
-    //   color: titleColor,
-    //   fontSize: rangeValue,
-    // };
-    // const label_color = {
-    //   color: titleColor,
-    // };
-    // const p_color = {
-    //   color: priceColor,
-    // };
-
-    // const lm_btn = {
-    //   width: widthValue,
-    //   height: buttonheightValue,
-    //   fontSize: FontSizeValue,
-    //   background: btnHover ? bgHoverColor : btnBGColor,
-    //   borderWidth: borderValue,
-    //   borderColor: btnHover ? radiusColor : borderColor,
-    //   borderRadius: radiusValue,
-    //   color: btnHover ? texthoverColor : btnTextColor,
-    // };
 
     // BUTTON HOVER
     const handleCountEnter = () => {
@@ -110,20 +79,15 @@ function CartTemplate1(props, changedProps) {
         setCheckDesktop(props.checkDesktop);
         setCheckMobile(props.checkMobile);
         setFontFamily(props.fontFamily);
-        // setRangeValue(
-        //     gsFontSize
-        //         ? gsFontSize
-        //         : props.font_size
-        // );
-        setRangeValue(props.rangeValue);
-        setBold(props.bold);
-        setItalic(props.italic);
+        setGsFontsize(props.gsFontsize);
+        setGsBold(props.gsBold);
+        setGsItalic(props.gsItalic);
         setUnderLine(props.underline);
         setTitleColor(props.titleColor);
         setHeightValue(props.heightValue);
         setpriceColor(props.priceColor);
         setbgColor(props.bgColor);
-        setPosValue(props.posValue);
+        setPosition(props.position);
         setOffsetValue(props.offsetValue);
         setEditText(props.editText);
         setSoldOut(props.soldOut);
@@ -207,7 +171,7 @@ function CartTemplate1(props, changedProps) {
                 }
                 .font_option {
                     color: ${titleColor};
-                    font-size: ${rangeValue}px;
+                    font-size: ${gsFontsize}px;
                 }
                 .label_color{
                     color: ${titleColor};
@@ -253,7 +217,7 @@ function CartTemplate1(props, changedProps) {
             </style>
             {enable === true ? (
                 <div
-                    className={`lm-sticky-${posValue} ${style.lm_sticky_cart} ${
+                    className={`lm-sticky-${position} ${style.lm_sticky_cart} ${
                         checkDesktop === true ? "show" : "hide"
                     }  `}
                 >
@@ -269,8 +233,8 @@ function CartTemplate1(props, changedProps) {
                                     <h5
                                         className={`font_option apply-font ${
                                             style.pro_names
-                                        } ${bold === true ? "lm_bold" : ""} ${
-                                            italic === true ? "lm_italic" : ""
+                                        } ${gsBold === true ? "lm_bold" : ""} ${
+                                            gsItalic === true ? "lm_italic" : ""
                                         } ${
                                             underline === true
                                                 ? "lm_underline"
