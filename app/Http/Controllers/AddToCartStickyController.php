@@ -9,7 +9,7 @@ class AddToCartStickyController extends Controller{
 
     public function saveAddToStickyCartData(Request $request){
         $requestData = $request['data'];
-        $sac_data = AddToCartStickyData::first();
+        $sac_data = AddToCartStickyData::where('shop_domain',$requestData['shop_domain'])->first();
         // echo '<pre>';print_r($requestData);exit;
         $current_template = [
             'general_settings'  => [

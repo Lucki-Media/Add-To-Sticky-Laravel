@@ -31,56 +31,60 @@
     margin: 0 22px 0 0;
   }
 
-  .lm_quantity_selector {
-    margin: 0 0;
-  }
+  .lm_quantity_selector {}
 
   .lm_options {
-    margin: 0 0;
+    margin: 0 7px;
   }
 
   .lmblock_right {
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
-
-  }
-
-  .lm_middlecontent span {
     position: relative;
-    margin-right: 20PX;
+
+  }
+  .lmblock_right::after{
+    position: absolute;
+    content: '';
+    height: 100%;
+    width: 1px;
+    left: -30px;
+    background-color: #000;
+  }
+  .lmblock_right span {
+    position: relative;
+    margin-right: 0;
   }
 
-  .lm_middlecontent span.compare_lm_price {
+  .lmblock_right span.compare_lm_price {
     text-decoration: line-through;
   }
 
-  .lm_middlecontent .simple_price::before, .lm_middlecontent .compare_lm_price::before {
+  .lmblock_right .simple_price::before{
     position: absolute;
     content: '';
     background-color: #999999;
-    height: 24px;
+    height: 18px;
+    width: 1px;
+    left: -10px;
+    top: 4px;
+  }
+
+  .lmblock_right .lm_out_stock::before, .lmblock_right .lm_sale::before {
+    position: absolute;
+    content: '';
+    background-color: #999999;
+    height: 17px;
     width: 1px;
     left: -10px;
     top: 0;
   }
 
-  .lm_middlecontent .lm_out_stock::before, .lm_middlecontent .lm_sale::before {
-    position: absolute;
-    content: '';
-    background-color: #999999;
-    height: 23px;
-    width: 1px;
-    left: -10px;
-    top: -3px;
+  .lmblock_right .lm_quantity_selector {
+    margin: 0 15px 0 8px;
   }
 
-  /* .lmblock_right .lm_quantity_selector {
-    margin: 0 15px 0 8px;
-  } */
-  .lm_buy_btn{
-    margin: 0 0;
-  }
   .lm_buy_btn button {
     /* cursor: pointer; */
     /* transition: .2s ease-out; */
@@ -143,8 +147,17 @@
       height: auto !important;
       padding: 10px 0;
     }
-
+    .lmblock_right::after{
+      left: -18px;
+    }
+    .lmblock_right .lm_sale{
+      display: block;
+    }
+    .lmblock_right .lm_sale::before {
+      content: none;
+    }
     /* .lm_cart_module{
+
      flex-direction: column;
     } */
 
@@ -162,13 +175,17 @@
 
     .lmblock_right {
       justify-content: center;
-      margin-top: 10px;
     }
 
     .lm_pro_image {
       justify-content: center;
     }
-
+    .lmblock_right .lm_sale{
+      display: inline-block;
+    }
+    .lmblock_right .lm_sale::before {
+      content: '';
+    }
 
   }
 
@@ -196,6 +213,7 @@
 
     .lmblock_right {
       display: block;
+      text-align: center;
     }
 
     .lm_pro_image {

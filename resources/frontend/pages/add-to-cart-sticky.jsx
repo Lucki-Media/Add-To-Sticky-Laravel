@@ -36,6 +36,10 @@ import CartTemplate1 from "../Templates/CartTemplate.jsx";
 import CartTemplate2 from "../Templates/CartTemplate2.jsx";
 import CartTemplate3 from "../Templates/CartTemplate3.jsx";
 import CartTemplate4 from "../Templates/CartTemplate4.jsx";
+import CartTemplate5 from "../Templates/CartTemplate5.jsx";
+import CartTemplate6 from "../Templates/CartTemplate6.jsx";
+import CartTemplate7 from "../Templates/CartTemplate7.jsx";
+import CartTemplate8 from "../Templates/CartTemplate8.jsx";
 import axios from "axios";
 
 export default function AddToCartSticky() {
@@ -84,21 +88,9 @@ export default function AddToCartSticky() {
     const [gsItalic, setGsItalic] = useState(false);
     const [gsUnderline, setGsUnderLine] = useState(false);
     const [gsFontFamily, setGsFontFamily] = useState("Roboto");
-    const [gsTitleColor, setGsTitleColor] = useState(
-        TemplateStyle.current_template.general_settings.gsTitleColor
-            ? TemplateStyle.current_template.general_settings.gsTitleColor
-            : "rgba(0, 0, 0, 0)"
-    );
-    const [gsPriceColor, setGsPriceColor] = useState(
-        TemplateStyle.current_template.general_settings.gsPriceColor
-            ? TemplateStyle.current_template.general_settings.gsPriceColor
-            : "rgba(255, 0, 0, 1)"
-    );
-    const [gsBgColor, setGsBgColor] = useState(
-        TemplateStyle.current_template.general_settings.gsBgColor
-            ? TemplateStyle.current_template.general_settings.gsBgColor
-            : "rgba(0, 1, 255, 1)"
-    );
+    const [gsTitleColor, setGsTitleColor] = useState("rgba(0, 0, 0, 0)");
+    const [gsPriceColor, setGsPriceColor] = useState("rgba(255, 0, 0, 1)");
+    const [gsBgColor, setGsBgColor] = useState("rgba(0, 1, 255, 1)");
     const [gsOffsetValue, setGsOffsetValue] = useState(0);
     const [gsAction, setGsAction] = useState("1");
     const [gsDisplayCondition, setGsDisplayCondition] = useState("1");
@@ -117,37 +109,14 @@ export default function AddToCartSticky() {
     const [btnBold, setBtnBold] = useState(false);
     const [btnItalic, setBtnItalic] = useState(false);
     const [btnUnderline, setBtnUnderline] = useState(false);
-    const [btnTextColor, setBtnTextColor] = useState(
-        TemplateStyle.current_template.general_settings.btn_text_color
-            ? TemplateStyle.current_template.general_settings.btn_text_color
-            : "rgba(0, 1, 0, 1)"
-    );
-    const [btnBgColor, setBtnBgColor] = useState(
-        TemplateStyle.current_template.general_settings.btnBgColor
-            ? TemplateStyle.current_template.general_settings.btnBgColor
-            : "rgba(0, 1, 234, 1)"
-    );
-    const [btnTexthoverColor, setBtnTexthoverColor] = useState(
-        TemplateStyle.current_template.general_settings.btnTexthoverColor
-            ? TemplateStyle.current_template.general_settings.btnTexthoverColor
-            : "rgba(0, 144, 1, 1)"
-    );
-    const [btnBgHoverColor, setBtnBgHoverColor] = useState(
-        TemplateStyle.current_template.general_settings.btnBgHoverColor
-            ? TemplateStyle.current_template.general_settings.btnBgHoverColor
-            : "rgba(0, 1, 0, 1)"
-    );
-    const [btnBorderColor, setBtnBorderColor] = useState(
-        TemplateStyle.current_template.general_settings.btnBorderColor
-            ? TemplateStyle.current_template.general_settings.btnBorderColor
-            : "rgba(0, 1, 143, 1)"
-    );
-    const [btnBorderHoverColor, setBtnBorderHoverColor] = useState(
-        TemplateStyle.current_template.general_settings.btnBorderHoverColor
-            ? TemplateStyle.current_template.general_settings
-                  .btnBorderHoverColor
-            : "rgba(1, 255, 0, 1)"
-    );
+    const [btnTextColor, setBtnTextColor] = useState("rgba(0, 1, 0, 1)");
+    const [btnBgColor, setBtnBgColor] = useState("rgba(0, 1, 234, 1)");
+    const [btnTexthoverColor, setBtnTexthoverColor] =
+        useState("rgba(0, 144, 1, 1)");
+    const [btnBgHoverColor, setBtnBgHoverColor] = useState("rgba(0, 1, 0, 1)");
+    const [btnBorderColor, setBtnBorderColor] = useState("rgba(0, 1, 143, 1)");
+    const [btnBorderHoverColor, setBtnBorderHoverColor] =
+        useState("rgba(1, 255, 0, 1)");
     const getAddToStickyCartData = async () => {
         try {
             const response = await fetch(
@@ -163,9 +132,11 @@ export default function AddToCartSticky() {
                 data.data.current_template.general_settings.gsFontsize
             );
             setCheckDesktop(
-                data.data.current_template.general_settings.desktop
+                data.data.current_template.general_settings.checkDesktop
             );
-            setCheckMobile(data.data.current_template.general_settings.mobile);
+            setCheckMobile(
+                data.data.current_template.general_settings.checkMobile
+            );
             setGsFontFamily(
                 data.data.current_template.general_settings.gsFontFamily
             );
@@ -211,7 +182,7 @@ export default function AddToCartSticky() {
                 data.data.current_template.buy_btn_settings.btnUnderline
             );
             setBtnTextColor(
-                data.data.current_template.buy_btn_settings.btn_text_color
+                data.data.current_template.buy_btn_settings.btnTextColor
             );
             setBtnBgColor(
                 data.data.current_template.buy_btn_settings.btnBgColor
@@ -235,6 +206,150 @@ export default function AddToCartSticky() {
                 data.data.current_template.buy_btn_settings.btnBorderHoverColor
             );
             setShowTable(true);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    // TEMPLATE DATA START
+    const handleChange = (key) => {
+        // console.log(data);
+        setDefaultTemplate(key);
+        var currentData;
+        switch (key) {
+            case 1:
+                currentData = data.template_1;
+                break;
+            case 2:
+                currentData = data.template_2;
+                break;
+            case 3:
+                currentData = data.template_3;
+                break;
+            case 4:
+                currentData = data.template_4;
+                break;
+            case 5:
+                currentData = data.template_5;
+                break;
+            case 6:
+                currentData = data.template_6;
+                break;
+            case 7:
+                currentData = data.template_7;
+                break;
+            case 8:
+                currentData = data.template_8;
+                break;
+
+            default:
+                currentData = data.current_template;
+                break;
+        }
+        // console.log(currentData);
+        setEnable(data.enable);
+        /*GENERAL SETTINGS VALUES*/
+        setCheckDesktop(currentData.general_settings.checkDesktop);
+        setCheckMobile(currentData.general_settings.checkMobile);
+        setPosition(currentData.general_settings.position);
+        setGsFontsize(currentData.general_settings.gsFontsize);
+        setGsFontFamily(currentData.general_settings.gsFontFamily);
+        setGsBold(currentData.general_settings.gsBold);
+        setGsItalic(currentData.general_settings.gsItalic);
+        setGsUnderLine(currentData.general_settings.gsUnderline);
+        setGsTitleColor(currentData.general_settings.gsTitleColor);
+        setContainerHeight(currentData.general_settings.containerHeight);
+        setGsPriceColor(currentData.general_settings.gsPriceColor);
+        setGsBgColor(currentData.general_settings.gsBgColor);
+        setGsOffsetValue(currentData.general_settings.gsOffsetValue);
+        setGsDisplayCondition(currentData.general_settings.gsDisplayCondition);
+        setGsAction(currentData.general_settings.gsAction);
+        /*BUY NOW BUTTON VALUES*/
+        setEditText(currentData.buy_btn_settings.editText);
+        setSoldOut(currentData.buy_btn_settings.soldOut);
+        setUnavailable(currentData.buy_btn_settings.unavailable);
+        setBtnHeightValue(currentData.buy_btn_settings.btnheightValue);
+        setBtnWidthValue(currentData.buy_btn_settings.btnWidthValue);
+        setBtnFontsize(currentData.buy_btn_settings.btnFontsize);
+        setBtnBold(currentData.buy_btn_settings.btnBold);
+        setBtnItalic(currentData.buy_btn_settings.btnItalic);
+        setBtnUnderline(currentData.buy_btn_settings.btnUnderline);
+        setBtnTextColor(currentData.buy_btn_settings.btnTextColor);
+        setBtnBgColor(currentData.buy_btn_settings.btnBgColor);
+        setBtnTexthoverColor(currentData.buy_btn_settings.btnTexthoverColor);
+        setBtnBgHoverColor(currentData.buy_btn_settings.btnBgHoverColor);
+        setBtnBorderThickness(currentData.buy_btn_settings.btnBorderThickness);
+        setBtnBorderRadius(currentData.buy_btn_settings.btnBorderRadius);
+        setBtnBorderColor(currentData.buy_btn_settings.btnBorderColor);
+        setBtnBorderHoverColor(
+            currentData.buy_btn_settings.btnBorderHoverColor
+        );
+    };
+    // TEMPLATE DATA END
+    // DASHBOARD REDIRECT START
+    const handleClick = (data) => {
+        navigate("/");
+    };
+    //   DASHBOARD REDIRECT END
+    let handleSave = async () => {
+        try {
+            let payLoad = {
+                shop_domain: document.getElementById("shopOrigin").value,
+                enable: enable,
+                defaultTemplate: defaultTemplate,
+                /*GENERAL SETTINGS START*/
+                checkDesktop: checkDesktop,
+                position: position,
+                checkMobile: checkMobile,
+                gsFontFamily: gsFontFamily,
+                gsFontsize: gsFontsize,
+                gsBold: gsBold,
+                gsItalic: gsItalic,
+                gsUnderline: gsUnderline,
+                gsTitleColor: gsTitleColor,
+                gsPriceColor: gsPriceColor,
+                gsBgColor: gsBgColor,
+                gsOffsetValue: gsOffsetValue,
+                gsAction: gsAction,
+                gsDisplayCondition: gsDisplayCondition,
+                /*GENERAL SETTINGS END*/
+                /*BUY NOW START*/
+                editText: editText,
+                soldOut: soldOut,
+                unavailable: unavailable,
+                btnWidthValue: btnWidthValue,
+                btnheightValue: btnheightValue,
+                btnFontsize: btnFontsize,
+                containerHeight: containerHeight,
+                btnBorderThickness: btnBorderThickness,
+                btnBorderRadius: btnBorderRadius,
+                btnBold: btnBold,
+                btnItalic: btnItalic,
+                btnUnderline: btnUnderline,
+                btnTextColor: btnTextColor,
+                btnBgColor: btnBgColor,
+                btnTexthoverColor: btnTexthoverColor,
+                btnBgHoverColor: btnBgHoverColor,
+                btnBorderColor: btnBorderColor,
+                btnBorderHoverColor: btnBorderHoverColor,
+                /*BUY NOW END*/
+            };
+            setLoading(true);
+            setShowTable(false);
+            let response = await axios.post("/api/saveAddToStickyCartData", {
+                data: payLoad,
+            });
+            if (response.data.status == true) {
+                // console.log("success");
+                setShowTable(true);
+                setLoading(false);
+                getAddToStickyCartData();
+                setToastContent(response.data.message);
+                toggleActive();
+            } else {
+                setToastContent1(response.data.message);
+                toggleActive1();
+            }
         } catch (err) {
             console.log(err);
         }
@@ -446,140 +561,8 @@ export default function AddToCartSticky() {
         []
     );
     // COLOR CHANGE HANDLES END
-
-    // TEMPLATE DATA START
-    const handleChange = (key) => {
-        // console.log(data);
-        setDefaultTemplate(key);
-        var currentData;
-        switch (key) {
-            case 1:
-                currentData = data.template_1;
-                break;
-            case 2:
-                currentData = data.template_2;
-                break;
-            case 3:
-                currentData = data.template_3;
-                break;
-            case 4:
-                currentData = data.template_4;
-                break;
-
-            default:
-                currentData = data.current_template;
-                break;
-        }
-        // console.log(currentData);
-        setEnable(data.enable);
-        /*GENERAL SETTINGS VALUES*/
-        setCheckDesktop(currentData.general_settings.desktop);
-        setCheckMobile(currentData.general_settings.mobile);
-        setPosition(currentData.general_settings.position);
-        setGsFontsize(currentData.general_settings.gsFontsize);
-        setGsFontFamily(currentData.general_settings.gsFontFamily);
-        setGsBold(currentData.general_settings.gsBold);
-        setGsItalic(currentData.general_settings.gsItalic);
-        setGsUnderLine(currentData.general_settings.gsUnderline);
-        setGsTitleColor(currentData.general_settings.gsTitleColor);
-        setContainerHeight(currentData.general_settings.containerHeight);
-        setGsPriceColor(currentData.general_settings.gsPriceColor);
-        setGsBgColor(currentData.general_settings.gsBgColor);
-        setGsOffsetValue(currentData.general_settings.gsOffsetValue);
-        setGsDisplayCondition(currentData.general_settings.gsDisplayCondition);
-        setGsAction(currentData.general_settings.gsAction);
-        /*BUY NOW BUTTON VALUES*/
-        setEditText(currentData.buy_btn_settings.editText);
-        setSoldOut(currentData.buy_btn_settings.soldOut);
-        setUnavailable(currentData.buy_btn_settings.unavailable);
-        setBtnHeightValue(currentData.buy_btn_settings.btnheightValue);
-        setBtnWidthValue(currentData.buy_btn_settings.btnWidthValue);
-        setBtnFontsize(currentData.buy_btn_settings.btnFontsize);
-        setBtnBold(currentData.buy_btn_settings.btnBold);
-        setBtnItalic(currentData.buy_btn_settings.btnItalic);
-        setBtnUnderline(currentData.buy_btn_settings.btnUnderline);
-        setBtnTextColor(currentData.buy_btn_settings.btn_text_color);
-        setBtnBgColor(currentData.buy_btn_settings.btnBgColor);
-        setBtnTexthoverColor(currentData.buy_btn_settings.btnTexthoverColor);
-        setBtnBgHoverColor(currentData.buy_btn_settings.btnBgHoverColor);
-        setBtnBorderThickness(currentData.buy_btn_settings.btnBorderThickness);
-        setBtnBorderRadius(currentData.buy_btn_settings.btnBorderRadius);
-        setBtnBorderColor(currentData.buy_btn_settings.btnBorderColor);
-        setBtnBorderHoverColor(
-            currentData.buy_btn_settings.btnBorderHoverColor
-        );
-    };
-    // TEMPLATE DATA END
-    // DASHBOARD REDIRECT START
-    const handleClick = (data) => {
-        navigate("/");
-    };
-    //   DASHBOARD REDIRECT END
-    let handleSave = async () => {
-        try {
-            let payLoad = {
-                shop_domain: document.getElementById("shopOrigin").value,
-                enable: enable,
-                defaultTemplate: defaultTemplate,
-                /*GENERAL SETTINGS START*/
-                checkDesktop: checkDesktop,
-                position: position,
-                checkMobile: checkMobile,
-                gsFontFamily: gsFontFamily,
-                gsFontsize: gsFontsize,
-                gsBold: gsBold,
-                gsItalic: gsItalic,
-                gsUnderline: gsUnderline,
-                gsTitleColor: gsTitleColor,
-                gsPriceColor: gsPriceColor,
-                gsBgColor: gsBgColor,
-                gsOffsetValue: gsOffsetValue,
-                gsAction: gsAction,
-                gsDisplayCondition: gsDisplayCondition,
-                /*GENERAL SETTINGS END*/
-                /*BUY NOW START*/
-                editText: editText,
-                soldOut: soldOut,
-                unavailable: unavailable,
-                btnWidthValue: btnWidthValue,
-                btnheightValue: btnheightValue,
-                btnFontsize: btnFontsize,
-                containerHeight: containerHeight,
-                btnBorderThickness: btnBorderThickness,
-                btnBorderRadius: btnBorderRadius,
-                btnBold: btnBold,
-                btnItalic: btnItalic,
-                btnUnderline: btnUnderline,
-                btnTextColor: btnTextColor,
-                btnBgColor: btnBgColor,
-                btnTexthoverColor: btnTexthoverColor,
-                btnBgHoverColor: btnBgHoverColor,
-                btnBorderColor: btnBorderColor,
-                btnBorderHoverColor: btnBorderHoverColor,
-                /*BUY NOW END*/
-            };
-            setLoading(true);
-            setShowTable(false);
-            let response = await axios.post("/api/saveAddToStickyCartData", {
-                data: payLoad,
-            });
-            if (response.data.status == true) {
-                // console.log("success");
-                setShowTable(true);
-                setLoading(false);
-                getAddToStickyCartData();
-                setToastContent(response.data.message);
-                toggleActive();
-            } else {
-                setToastContent1(response.data.message);
-                toggleActive1();
-            }
-        } catch (err) {
-            console.log(err);
-        }
-    };
-    // console.log("rangeValue");
-    // console.log(rangeValue);
+    // console.log("data");
+    // console.log(data);
     if (showTable === false) {
         return (
             <div>
@@ -696,12 +679,254 @@ export default function AddToCartSticky() {
                             ""
                         )}
                         {defaultTemplate === 3 ? (
-                            <CartTemplate3 template_data={data.template_3} />
+                            <CartTemplate3
+                                template_data={data.template_3}
+                                enable={enable}
+                                defaultTemplate={defaultTemplate}
+                                position={position}
+                                checkMobile={checkMobile}
+                                checkDesktop={checkDesktop}
+                                gsBold={gsBold}
+                                gsFontsize={gsFontsize}
+                                gsItalic={gsItalic}
+                                gsUnderline={gsUnderline}
+                                gsFontFamily={gsFontFamily}
+                                gsTitleColor={gsTitleColor}
+                                gsPriceColor={gsPriceColor}
+                                gsBgColor={gsBgColor}
+                                gsOffsetValue={gsOffsetValue}
+                                gsAction={gsAction}
+                                gsDisplayCondition={gsDisplayCondition}
+                                buyNowSettings={buyNowSettings}
+                                editText={editText}
+                                soldOut={soldOut}
+                                unavailable={unavailable}
+                                btnWidthValue={btnWidthValue}
+                                btnheightValue={btnheightValue}
+                                btnFontsize={btnFontsize}
+                                containerHeight={containerHeight}
+                                btnBorderThickness={btnBorderThickness}
+                                btnBorderRadius={btnBorderRadius}
+                                btnBold={btnBold}
+                                btnItalic={btnItalic}
+                                btnUnderline={btnUnderline}
+                                btnTextColor={btnTextColor}
+                                btnBgColor={btnBgColor}
+                                btnTexthoverColor={btnTexthoverColor}
+                                btnBgHoverColor={btnBgHoverColor}
+                                btnBorderColor={btnBorderColor}
+                                btnBorderHoverColor={btnBorderHoverColor}
+                            />
                         ) : (
                             ""
                         )}
                         {defaultTemplate === 4 ? (
-                            <CartTemplate4 template_data={data.template_4} />
+                            <CartTemplate4
+                                template_data={data.template_4}
+                                enable={enable}
+                                defaultTemplate={defaultTemplate}
+                                position={position}
+                                checkMobile={checkMobile}
+                                checkDesktop={checkDesktop}
+                                gsBold={gsBold}
+                                gsFontsize={gsFontsize}
+                                gsItalic={gsItalic}
+                                gsUnderline={gsUnderline}
+                                gsFontFamily={gsFontFamily}
+                                gsTitleColor={gsTitleColor}
+                                gsPriceColor={gsPriceColor}
+                                gsBgColor={gsBgColor}
+                                gsOffsetValue={gsOffsetValue}
+                                gsAction={gsAction}
+                                gsDisplayCondition={gsDisplayCondition}
+                                buyNowSettings={buyNowSettings}
+                                editText={editText}
+                                soldOut={soldOut}
+                                unavailable={unavailable}
+                                btnWidthValue={btnWidthValue}
+                                btnheightValue={btnheightValue}
+                                btnFontsize={btnFontsize}
+                                containerHeight={containerHeight}
+                                btnBorderThickness={btnBorderThickness}
+                                btnBorderRadius={btnBorderRadius}
+                                btnBold={btnBold}
+                                btnItalic={btnItalic}
+                                btnUnderline={btnUnderline}
+                                btnTextColor={btnTextColor}
+                                btnBgColor={btnBgColor}
+                                btnTexthoverColor={btnTexthoverColor}
+                                btnBgHoverColor={btnBgHoverColor}
+                                btnBorderColor={btnBorderColor}
+                                btnBorderHoverColor={btnBorderHoverColor}
+                            />
+                        ) : (
+                            ""
+                        )}
+                        {defaultTemplate === 5 ? (
+                            <CartTemplate5
+                                template_data={data.template_5}
+                                enable={enable}
+                                defaultTemplate={defaultTemplate}
+                                position={position}
+                                checkMobile={checkMobile}
+                                checkDesktop={checkDesktop}
+                                gsBold={gsBold}
+                                gsFontsize={gsFontsize}
+                                gsItalic={gsItalic}
+                                gsUnderline={gsUnderline}
+                                gsFontFamily={gsFontFamily}
+                                gsTitleColor={gsTitleColor}
+                                gsPriceColor={gsPriceColor}
+                                gsBgColor={gsBgColor}
+                                gsOffsetValue={gsOffsetValue}
+                                gsAction={gsAction}
+                                gsDisplayCondition={gsDisplayCondition}
+                                buyNowSettings={buyNowSettings}
+                                editText={editText}
+                                soldOut={soldOut}
+                                unavailable={unavailable}
+                                btnWidthValue={btnWidthValue}
+                                btnheightValue={btnheightValue}
+                                btnFontsize={btnFontsize}
+                                containerHeight={containerHeight}
+                                btnBorderThickness={btnBorderThickness}
+                                btnBorderRadius={btnBorderRadius}
+                                btnBold={btnBold}
+                                btnItalic={btnItalic}
+                                btnUnderline={btnUnderline}
+                                btnTextColor={btnTextColor}
+                                btnBgColor={btnBgColor}
+                                btnTexthoverColor={btnTexthoverColor}
+                                btnBgHoverColor={btnBgHoverColor}
+                                btnBorderColor={btnBorderColor}
+                                btnBorderHoverColor={btnBorderHoverColor}
+                            />
+                        ) : (
+                            ""
+                        )}
+                        {defaultTemplate === 6 ? (
+                            <CartTemplate6
+                                template_data={data.template_6}
+                                enable={enable}
+                                defaultTemplate={defaultTemplate}
+                                position={position}
+                                checkMobile={checkMobile}
+                                checkDesktop={checkDesktop}
+                                gsBold={gsBold}
+                                gsFontsize={gsFontsize}
+                                gsItalic={gsItalic}
+                                gsUnderline={gsUnderline}
+                                gsFontFamily={gsFontFamily}
+                                gsTitleColor={gsTitleColor}
+                                gsPriceColor={gsPriceColor}
+                                gsBgColor={gsBgColor}
+                                gsOffsetValue={gsOffsetValue}
+                                gsAction={gsAction}
+                                gsDisplayCondition={gsDisplayCondition}
+                                buyNowSettings={buyNowSettings}
+                                editText={editText}
+                                soldOut={soldOut}
+                                unavailable={unavailable}
+                                btnWidthValue={btnWidthValue}
+                                btnheightValue={btnheightValue}
+                                btnFontsize={btnFontsize}
+                                containerHeight={containerHeight}
+                                btnBorderThickness={btnBorderThickness}
+                                btnBorderRadius={btnBorderRadius}
+                                btnBold={btnBold}
+                                btnItalic={btnItalic}
+                                btnUnderline={btnUnderline}
+                                btnTextColor={btnTextColor}
+                                btnBgColor={btnBgColor}
+                                btnTexthoverColor={btnTexthoverColor}
+                                btnBgHoverColor={btnBgHoverColor}
+                                btnBorderColor={btnBorderColor}
+                                btnBorderHoverColor={btnBorderHoverColor}
+                            />
+                        ) : (
+                            ""
+                        )}
+                        {defaultTemplate === 7 ? (
+                            <CartTemplate7
+                                template_data={data.template_7}
+                                enable={enable}
+                                defaultTemplate={defaultTemplate}
+                                position={position}
+                                checkMobile={checkMobile}
+                                checkDesktop={checkDesktop}
+                                gsBold={gsBold}
+                                gsFontsize={gsFontsize}
+                                gsItalic={gsItalic}
+                                gsUnderline={gsUnderline}
+                                gsFontFamily={gsFontFamily}
+                                gsTitleColor={gsTitleColor}
+                                gsPriceColor={gsPriceColor}
+                                gsBgColor={gsBgColor}
+                                gsOffsetValue={gsOffsetValue}
+                                gsAction={gsAction}
+                                gsDisplayCondition={gsDisplayCondition}
+                                buyNowSettings={buyNowSettings}
+                                editText={editText}
+                                soldOut={soldOut}
+                                unavailable={unavailable}
+                                btnWidthValue={btnWidthValue}
+                                btnheightValue={btnheightValue}
+                                btnFontsize={btnFontsize}
+                                containerHeight={containerHeight}
+                                btnBorderThickness={btnBorderThickness}
+                                btnBorderRadius={btnBorderRadius}
+                                btnBold={btnBold}
+                                btnItalic={btnItalic}
+                                btnUnderline={btnUnderline}
+                                btnTextColor={btnTextColor}
+                                btnBgColor={btnBgColor}
+                                btnTexthoverColor={btnTexthoverColor}
+                                btnBgHoverColor={btnBgHoverColor}
+                                btnBorderColor={btnBorderColor}
+                                btnBorderHoverColor={btnBorderHoverColor}
+                            />
+                        ) : (
+                            ""
+                        )}
+                        {defaultTemplate === 8 ? (
+                            <CartTemplate8
+                                template_data={data.template_8}
+                                enable={enable}
+                                defaultTemplate={defaultTemplate}
+                                position={position}
+                                checkMobile={checkMobile}
+                                checkDesktop={checkDesktop}
+                                gsBold={gsBold}
+                                gsFontsize={gsFontsize}
+                                gsItalic={gsItalic}
+                                gsUnderline={gsUnderline}
+                                gsFontFamily={gsFontFamily}
+                                gsTitleColor={gsTitleColor}
+                                gsPriceColor={gsPriceColor}
+                                gsBgColor={gsBgColor}
+                                gsOffsetValue={gsOffsetValue}
+                                gsAction={gsAction}
+                                gsDisplayCondition={gsDisplayCondition}
+                                buyNowSettings={buyNowSettings}
+                                editText={editText}
+                                soldOut={soldOut}
+                                unavailable={unavailable}
+                                btnWidthValue={btnWidthValue}
+                                btnheightValue={btnheightValue}
+                                btnFontsize={btnFontsize}
+                                containerHeight={containerHeight}
+                                btnBorderThickness={btnBorderThickness}
+                                btnBorderRadius={btnBorderRadius}
+                                btnBold={btnBold}
+                                btnItalic={btnItalic}
+                                btnUnderline={btnUnderline}
+                                btnTextColor={btnTextColor}
+                                btnBgColor={btnBgColor}
+                                btnTexthoverColor={btnTexthoverColor}
+                                btnBgHoverColor={btnBgHoverColor}
+                                btnBorderColor={btnBorderColor}
+                                btnBorderHoverColor={btnBorderHoverColor}
+                            />
                         ) : (
                             ""
                         )}
@@ -1489,7 +1714,7 @@ export default function AddToCartSticky() {
                                                                 }
                                                                 id={item.key}
                                                                 checked={
-                                                                    value ===
+                                                                    defaultTemplate ===
                                                                     item.key
                                                                 }
                                                                 name="template"

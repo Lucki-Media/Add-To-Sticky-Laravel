@@ -1,12 +1,10 @@
-import React, { Component, useState, useEffect } from "react";
-import Button from "react-button-component";
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import "select2/dist/js/select2.min";
 import proimage from "../assets/productimage.png";
 import { QuantityPicker } from "react-qty-picker";
-import style from "../css/CartTemplate1.module.css";
+import style from "../css/CartTemplate5.module.css";
 
-function CartTemplate1(props) {
+export default function CartTemplate5(props) {
     const [enable, setEnable] = useState(props.enable); // FOR MAIN DISPLAY
     const [position, setPosition] = useState(props.position);
     const [checkMobile, setCheckMobile] = useState(props.checkMobile);
@@ -109,102 +107,134 @@ function CartTemplate1(props) {
         setBtnBorderColor(props.btnBorderColor);
         setBtnBorderHoverColor(props.btnBorderHoverColor);
     });
-
     return (
         <>
             <style>
                 {`
-                    .lm_quantity_picker .quantity-picker .quantity-display{
-                        padding: 0;
-                        background-color: #fff;
-                        width: 28px !important;
-                        font-size: 14px;
-                    }
-                    .lm_quantity_picker .quantity-modifier{
-                        height: 28px;
-                        width: 28px;
-                        border: none;
-                        font-size: 16px;
-                        color: black;
-                        background-color: #fff;
-                        border-radius: 0;
-                    }
-                    .lm_quantity_picker .quantity-picker{
-                        background-color: #fff;
-                        border: none;
-                        border-radius:0;
-                        display: flex;
-                        align-items: center;
-                    }
-                    .lm_bold{
-                        font-weight: bolder;
-                    }
-                    .lm_italic{
-                        font-style: italic;
-                    }
-                    .lm_underline{
-                        text-decoration: underline;
-                    }
-                .lm-sticky-Bottom{
-                    box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
-                    background: ${gsBgColor};
-                    height: ${containerHeight}px;
-                    bottom:  ${gsOffsetValue}px;
-                }
-                .lm-sticky-Top{
-                    box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
-                    background: ${gsBgColor};
-                    height: ${containerHeight}px;
-                    top:  ${gsOffsetValue}px;
-                }
-                .img_size {
-                    height: ${containerHeight}px;
-                }
-                .font_option {
-                    color: ${gsTitleColor};
-                    font-size: ${gsFontsize}px;
-                }
-                .label_color{
-                    color: ${gsTitleColor};
-                }
-                .p_color{
-                    color: ${gsPriceColor};
-                }
-                .lm_btn{
-                    width: ${btnWidthValue}px;
-                    height: ${btnheightValue}px;
-                    font-size: ${btnFontsize}px;
-                    background: ${btnBgColor};
-                    border-Width: ${btnBorderThickness}px;
-                    border-color: ${btnBorderColor};
-                    border-radius: ${btnBorderRadius}px;
-                    color: ${btnTextColor};
-                }
-                .lm_btn:hover{
-                    border-color: ${btnBorderHoverColor};
-                    background: ${btnBgHoverColor};
-                    color: ${btnTexthoverColor};
-                }
-                .lm_options {
-                    position: relative;
-                }
-                .lm_options .pro_select_menu{
-                    display: inline-block;
-                    width: 100px;
-                }
-                .lm_options .pro_select_menu > div{
-                    border: 0;
-                    font-size: 12px;
-                    min-height: 25px;
+        .lm_quantity_picker .quantity-picker .quantity-display{
+        padding: 0;
+        background-color: #fff;
+        width: 28px !important;
+        font-size: 14px;
+        color: #000;
+        }
+        .lm_quantity_picker .quantity-modifier{
+        height: ${containerHeight}px;
+        width: 28px;
+        border: none;
+        font-size: 16px;
+        color: #000;
+        background-color: #fff;
+        border-radius: 0;
+        }
+        .lm_quantity_picker .quantity-picker{
+        background-color: #fff;
+        border: none;
+        border-radius:0;
+        display: flex;
+        align-items: center;
+        }
+        .lm_bold{
+          font-weight: bolder;
+        }
+        .lm_italic{
+          font-style: italic;
+        }
+        .lm_underline{
+          text-decoration: underline;
+        }
+      .lm-sticky-Bottom{
+        box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
+        background: ${gsBgColor};
+        height: ${containerHeight}px;
+        bottom:  ${gsOffsetValue}px;
+      }
+      .lm-sticky-Top{
+        box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
+        background: ${gsBgColor};
+        height: ${containerHeight}px;
+        top:  ${gsOffsetValue}px;
+      }
+    .img_size {
+        height: ${containerHeight}px;
+        margin-right: 10px;
+        float: left;
+      }
+      .font_option {
+        color: ${gsTitleColor};
+        font-size: ${gsFontsize}px;
+      }
+      .label_color{
+        color: ${gsTitleColor};
+      }
+      .p_color{
+        color: ${gsPriceColor};
+        display:block;
+      }
 
-                }
-                .css-1jqq78o-placeholder{
-                    font-size:12px;
-                }
-                .css-1xc3v61-indicatorContainer{
-                    padding: 0 8px;
-                }
-                `}
+      .lm_options {
+        position: relative;
+      }
+      .lm_options .pro_select_menu{
+        display: inline-block;
+        width: 100px;
+      }
+      .lm_options .pro_select_menu > div{
+        border: 0;
+        font-size: 12px;
+        min-height: ${containerHeight}px;
+        box-shadow: none !important;
+
+      }
+      .css-1jqq78o-placeholder{
+        font-size:12px;
+        color: #000;
+      }
+      .css-1xc3v61-indicatorContainer{
+        padding: 0 8px;
+      }
+      .slide_right {
+        width: ${btnWidthValue}px;
+        height: ${btnheightValue}px;
+        font-size: ${btnFontsize}px;
+        background: ${btnBgColor};
+        border-Width: ${btnBorderThickness}px;
+        border-color: ${btnBorderColor};
+        border-radius: ${btnBorderRadius}px;
+        color: ${btnTextColor};
+        padding: 0 20px;
+        display: inline-block;
+        cursor: pointer;
+        box-shadow: inset 0 0 0 0 ${btnBgHoverColor};
+        -webkit-transition: ease-out 0.4s;
+        -moz-transition: ease-out 0.4s;
+        transition: ease-out 0.4s;
+      }
+
+      .slide_right:hover {
+        box-shadow: inset 400px 0 0 0 ${btnBgHoverColor};
+        border-color: ${btnBorderHoverColor};
+        color: ${btnTexthoverColor};
+      }
+      .pro_select_menu svg{
+        fill: #000;
+      }
+      .css-1u9des2-indicatorSeparator{
+        margin-bottom: 22px;
+    margin-top: 22px;
+      }
+      @media screen and (max-width: 991px) {
+        .lm_options .pro_select_menu > div {
+          min-height: 40px;        }
+        .lm_quantity_picker .quantity-modifier ,.slide_right{
+          height: 40px;        }
+      }
+      @media screen and (max-width: 991px) {
+        .img_size{
+          margin-right: 5px;
+        }
+      }
+      `}
             </style>
             {enable === true ? (
                 <div
@@ -215,11 +245,6 @@ function CartTemplate1(props) {
                     <div className={style.lm_container}>
                         <div className={style.lm_cart_module}>
                             <div className={style.lm_pro_image}>
-                                <img
-                                    className="img_size"
-                                    src={proimage}
-                                    alt="product image"
-                                />
                                 <div className={style.lm_middlecontent}>
                                     <h5
                                         className={`font_option apply-font ${
@@ -232,7 +257,7 @@ function CartTemplate1(props) {
                                                 : "no-line"
                                         }`}
                                     >
-                                        5 Pocket Jean - 30 / Indigo
+                                        50 Pocket Jean - 30 / Indigo
                                     </h5>
                                     <div className="p_color">
                                         <span
@@ -243,13 +268,18 @@ function CartTemplate1(props) {
                                         <span className={style.simple_price}>
                                             $4
                                         </span>{" "}
-                                        <span className={style.lm_out_stock}>
-                                            {props.unavailable}
+                                        <span className={style.lm_sale}>
+                                            {soldOut}
                                         </span>
                                     </div>
                                 </div>
                             </div>
                             <div className={style.lmblock_right}>
+                                <img
+                                    className="img_size"
+                                    src={proimage}
+                                    alt="product image"
+                                />
                                 <div className={style.var_options}>
                                     <div
                                         className={`lm_options ${style.lm_options}`}
@@ -257,11 +287,9 @@ function CartTemplate1(props) {
                                         <div
                                             className={`productInputs ${style.productInputs}`}
                                         >
-                                            <label className="label_color">
-                                                Size
-                                            </label>
                                             <Select
                                                 className="pro_select_menu"
+                                                placeholder="Size.."
                                                 options={options}
                                                 theme={(theme) => ({
                                                     ...theme,
@@ -279,10 +307,8 @@ function CartTemplate1(props) {
                                         className={`lm_options ${style.lm_options}`}
                                     >
                                         <div className={style.productInputs}>
-                                            <label className="label_color">
-                                                Color
-                                            </label>
                                             <Select
+                                                placeholder="Color.."
                                                 className="pro_select_menu"
                                                 options={options2}
                                                 theme={(theme) => ({
@@ -301,10 +327,8 @@ function CartTemplate1(props) {
                                         className={`lm_options ${style.lm_options}`}
                                     >
                                         <div className={style.productInputs}>
-                                            <label className="label_color">
-                                                Material
-                                            </label>
                                             <Select
+                                                placeholder="Material.."
                                                 className="pro_select_menu"
                                                 options={options3}
                                                 theme={(theme) => ({
@@ -333,7 +357,7 @@ function CartTemplate1(props) {
                                     <div className={style.lm_buy_btn}>
                                         {/* <CustomizedButton onClick={() => alert("Welcome!")}> */}
                                         <button
-                                            className={`lm_btn ${
+                                            className={`lm_btn slide_right ${
                                                 btnBold === true
                                                     ? "lm_bold"
                                                     : ""
@@ -351,6 +375,8 @@ function CartTemplate1(props) {
                                         >
                                             {editText}
                                         </button>
+
+                                        {/* <div class="button_slide slide_right">BUTTON: SLIDE RIGHT </div> */}
                                         {/* </CustomizedButton> */}
                                     </div>
                                 </div>
@@ -364,5 +390,3 @@ function CartTemplate1(props) {
         </>
     );
 }
-
-export default CartTemplate1;

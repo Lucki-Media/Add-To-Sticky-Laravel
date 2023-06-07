@@ -55,24 +55,24 @@
     text-decoration: line-through;
   }
 
-  .lm_middlecontent .simple_price::before, .lm_middlecontent .compare_lm_price::before {
+  .lm_middlecontent .simple_price::before {
     position: absolute;
     content: '';
     background-color: #999999;
-    height: 24px;
+    height: 17px;
     width: 1px;
     left: -10px;
-    top: 0;
+    top: 4px;
   }
 
   .lm_middlecontent .lm_out_stock::before, .lm_middlecontent .lm_sale::before {
     position: absolute;
     content: '';
     background-color: #999999;
-    height: 23px;
+    height: 17px;
     width: 1px;
     left: -10px;
-    top: -3px;
+    top: 1px;
   }
 
   /* .lmblock_right .lm_quantity_selector {
