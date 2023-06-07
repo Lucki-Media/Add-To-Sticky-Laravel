@@ -1,684 +1,1031 @@
 import {
-  Icon,
-  Page,
-  Layout,
-  Card,
-  Button,
-  RadioButton,
-  Select,
-  RangeSlider,
-  TextField,
-  Checkbox,
-  Scrollable,
+    Icon,
+    Page,
+    Layout,
+    Card,
+    Button,
+    RadioButton,
+    Select,
+    RangeSlider,
+    TextField,
+    Checkbox,
+    Scrollable,
+    Toast,
+    Frame,
+    SkeletonPage,
+    SkeletonBodyText,
+    TextContainer,
+    SkeletonDisplayText,
 } from "@shopify/polaris";
 import "../css/index.css";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeftMinor } from "@shopify/polaris-icons";
+
+import { ChevronLeftMinor, ExitMajor } from "@shopify/polaris-icons";
 import { useState, useCallback, useEffect } from "react";
 import stickyData from "../StaticData/stickyData";
 import defaultSticky from "../StaticData/defaultSticky";
 import { ColorPlate } from "../components/colorPlate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCartArrowDown,
-  faCartPlus,
-  faCartShopping,
-  faBasketShopping,
-  faBagShopping,
+    faCartArrowDown,
+    faCartPlus,
+    faCartShopping,
+    faBasketShopping,
+    faBagShopping,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function StickyCart() {
-  const navigate = useNavigate();
+    const shop_url = document.getElementById("shopOrigin").value;
+    const navigate = useNavigate();
+    const [iconHover, setIconHover] = useState(false);
+    const [stickyCartData, setStickyCartData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [showTable, setShowTable] = useState(false);
+    const [countHover, setCountHover] = useState(false);
 
-  const [enable, setEnable] = useState(true);
-  const [value, setValue] = useState(1);
-  const [selected, setSelected] = useState("1");
-  const [rangeValue, setRangeValue] = useState(60);
-  const [countNumber, setCountNumber] = useState(1);
-  const [countValue, setCountValue] = useState(16);
-  const [countHover, setCountHover] = useState(false);
-  const [countFontValue, setCountFontValue] = useState(14);
-  const [iconValue, setIconValue] = useState(20);
-  const [iconHover, setIconHover] = useState(false);
-  const [bgColor, setbgColor] = useState(
-    defaultSticky.bg_color ? defaultSticky.bg_color : "rgba(0, 0, 0, 0)"
-  );
-  const [bgHoverColor, setbgHoverColor] = useState(
-    defaultSticky.bg_hover_color
-      ? defaultSticky.bg_hover_color
-      : "rgba(0, 0, 0, 0)"
-  );
-  const [borderValue, setBorder] = useState(1);
-  const [borderColor, setborderColor] = useState(
-    defaultSticky.border_color ? defaultSticky.border_color : "rgba(0, 0, 0, 0)"
-  );
-  const [radiusColor, setradiusColor] = useState(
-    defaultSticky.border_hover_color
-      ? defaultSticky.border_hover_color
-      : "rgba(0, 0, 0, 0)"
-  );
-  const [iconColor, setIconColor] = useState(
-    defaultSticky.icon_color ? defaultSticky.icon_color : "rgba(0, 0, 0, 0)"
-  );
-  const [iconHoverColor, setIconHoverColor] = useState(
-    defaultSticky.icon_hover_color
-      ? defaultSticky.icon_hover_color
-      : "rgba(0, 0, 0, 0)"
-  );
-  const [CountColor, setCountColor] = useState(
-    defaultSticky.count_color ? defaultSticky.count_color : "rgba(0, 0, 0, 0)"
-  );
-  const [countHoverColor, setCountHoverColor] = useState(
-    defaultSticky.count_hover_color
-      ? defaultSticky.count_hover_color
-      : "rgba(0, 0, 0, 0)"
-  );
-  const [countBGColor, setCountBGColor] = useState(
-    defaultSticky.countBG_color
-      ? defaultSticky.countBG_color
-      : "rgba(0, 0, 0, 0)"
-  );
-  const [countBGHoverColor, setCountBGHoverColor] = useState(
-    defaultSticky.countBG_hover_color
-      ? defaultSticky.countBG_hover_color
-      : "rgba(0, 0, 0, 0)"
-  );
-  const [editTop, setEditTop] = useState(20);
-  const [editRight, setEditRight] = useState(1);
-  const [editLeft, setEditLeft] = useState(0);
-  const [editBottom, setEditBottom] = useState(0);
-  const [check, setCheck] = useState(false);
+    //toast for success
+    const [toastContent, setToastContent] = useState();
+    const [toastActive, setToastActive] = useState(false);
+    const toggleToastActive = () => {
+        setToastActive(!toastActive);
+    };
+    const toggleActive = useCallback(
+        () => setToastActive((toastActive) => !toastActive),
+        []
+    );
+    const toastMarkup = toastActive ? (
+        <Toast content={toastContent} onDismiss={toggleToastActive} />
+    ) : null;
 
-  const handleClick = (data) => {
-    navigate("/");
-  };
+    //toast for error
+    const [toastContent1, setToastContent1] = useState();
+    const [toastActive1, setToastActive1] = useState(false);
+    const toggleToastActive1 = () => {
+        setToastActive1(!toastActive1);
+    };
+    const toggleActive1 = useCallback(
+        () => setToastActive1((toastActive1) => !toastActive1),
+        []
+    );
+    const toastMarkup1 = toastActive1 ? (
+        <Toast content={toastContent1} error onDismiss={toggleToastActive1} />
+    ) : null;
+    const [enableSticky, setEnableSticky] = useState(true);
+    const [defaultTemplate, setDefaultTemplate] = useState(1);
+    const [action, setAction] = useState("1");
+    const [btnSize, setBtnSize] = useState(60);
+    const [bgColor, setBgColor] = useState("rgba(0, 0, 0, 0)");
+    const [bgHoverColor, setBgHoverColor] = useState("rgba(0, 0, 0, 0)");
+    const [borderSize, setBorderSize] = useState(1);
+    const [borderColor, setBorderColor] = useState("rgba(0, 0, 0, 0)");
+    const [borderHoverColor, setBorderHoverColor] =
+        useState("rgba(0, 0, 0, 0)");
+    const [positionTop, setPositionTop] = useState(20);
+    const [positionBottom, setPositionBottom] = useState(0);
+    const [positionLeft, setPositionLeft] = useState(0);
+    const [positionRight, setPositionRight] = useState(1);
+    const [iconSize, setIconSize] = useState(20);
+    const [iconColor, setIconColor] = useState("rgba(0, 0, 0, 0)");
+    const [iconHoverColor, setIconHoverColor] = useState(
+        "rgba(240, 128, 128, 1)"
+    );
+    const [enableCount, setEnableCount] = useState(false);
+    const [numberCount, setNumberCount] = useState(1);
+    const [countSize, setCountSize] = useState(16);
+    const [countFontSize, setCountFontSize] = useState(14);
+    const [countColor, setCountColor] = useState("rgba(0, 0, 0, 0)");
+    const [countHoverColor, setCountHoverColor] = useState("rgba(0, 0, 0, 0)");
+    const [countBgColor, setCountBgColor] = useState("rgba(0, 0, 0, 0)");
+    const [countBgHoverColor, setCountBgHoverColor] =
+        useState("rgba(0, 0, 0, 0)");
 
-  // USE EFFECT
-  useEffect(() => {
-    console.log(defaultSticky);
-    setEnable(defaultSticky.enable_sticky);
-    setValue(defaultSticky.default_template);
-    setSelected(defaultSticky.action_value);
-    setRangeValue(defaultSticky.main_size);
-    setbgColor(defaultSticky.bg_color);
-    setbgHoverColor(defaultSticky.bg_hover_color);
-    setBorder(defaultSticky.border_size);
-    setborderColor(defaultSticky.border_color);
-    setradiusColor(defaultSticky.border_hover_color);
-    setEditTop(defaultSticky.pos_top);
-    setEditBottom(defaultSticky.pos_bottom);
-    setEditLeft(defaultSticky.pos_left);
-    setEditRight(defaultSticky.pos_right);
-    setIconValue(defaultSticky.icon_size);
-    setIconColor(defaultSticky.icon_color);
-    setIconHoverColor(defaultSticky.icon_hover_color);
-    setCheck(defaultSticky.enable_count);
-    setCountNumber(defaultSticky.count_num);
-    setCountValue(defaultSticky.count_size);
-    setCountFontValue(defaultSticky.count_font_size);
-    setCountColor(defaultSticky.count_color);
-    setCountHoverColor(defaultSticky.count_hover_color);
-    setCountBGColor(defaultSticky.countBG_color);
-    setCountBGHoverColor(defaultSticky.countBG_hover_color);
-  }, []);
+    const handleClick = (data) => {
+        navigate("/");
+    };
+    const getStickyCartData = async () => {
+        try {
+            const response = await fetch("api/getStickyCartData/" + shop_url);
+            const data = await response.json();
+            setStickyCartData(data.data);
+            setEnableSticky(data.data.enableSticky);
+            setDefaultTemplate(data.data.defaultTemplate);
+            setAction(data.data.current_template.action);
+            setBtnSize(data.data.current_template.btnSize);
+            setBgColor(data.data.current_template.bgColor);
+            setBgHoverColor(data.data.current_template.bgHoverColor);
+            setBorderSize(data.data.current_template.borderSize);
+            setBorderColor(data.data.current_template.borderColor);
+            setBorderHoverColor(data.data.current_template.borderHoverColor);
+            setPositionTop(data.data.current_template.positionTop);
+            setPositionBottom(data.data.current_template.positionBottom);
+            setPositionLeft(data.data.current_template.positionLeft);
+            setPositionRight(data.data.current_template.positionRight);
+            setIconSize(data.data.current_template.iconSize);
+            setIconColor(data.data.current_template.iconColor);
+            setIconHoverColor(data.data.current_template.iconHoverColor);
+            setEnableCount(data.data.current_template.enableCount);
+            setNumberCount(data.data.current_template.numberCount);
+            setCountSize(data.data.current_template.countSize);
+            setCountFontSize(data.data.current_template.countFontSize);
+            setCountColor(data.data.current_template.countColor);
+            setCountHoverColor(data.data.current_template.countHoverColor);
+            setCountBgColor(data.data.current_template.countBgColor);
+            setCountBgHoverColor(data.data.current_template.countBgHoverColor);
+            setShowTable(true);
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
-  //GENERAL SETTING START
-  // ACTION
-  const handleSelectChange = useCallback((value) => setSelected(value), []);
-  const options = [
-    { label: "Go to Cart", value: "1" },
-    { label: "Go to Checkout", value: "2" },
-  ];
+    // USE EFFECT
+    useEffect(() => {
+        getStickyCartData();
+    }, []);
 
-  //SIZE
-  const handleRangeSliderChange = useCallback(
-    (value) => setRangeValue(value),
-    []
-  );
+    //ICON SELECT
+    const handleChange = (key) => {
+        setShowTable(false);
 
-  // BG COLOR
-  const handleBGColor = useCallback((value) => setbgColor(value), []);
+        setDefaultTemplate(key);
+        var currentData;
+        switch (key) {
+            case 1:
+                currentData = stickyCartData.sticky_template_1;
+                break;
+            case 2:
+                currentData = stickyCartData.sticky_template_2;
+                break;
+            case 3:
+                currentData = stickyCartData.sticky_template_3;
+                break;
+            case 4:
+                currentData = stickyCartData.sticky_template_4;
+                break;
+            case 5:
+                currentData = stickyCartData.sticky_template_5;
+            default:
+                currentData = stickyCartData.current_template;
+                break;
+        }
+        // console.log("currentData");
+        // console.log(currentData);
+        setEnableSticky(stickyCartData.enableSticky);
+        setAction(currentData.action);
+        setBtnSize(currentData.btnSize);
+        setBgColor(currentData.bgColor);
+        setBgHoverColor(currentData.bgHoverColor);
+        setBorderSize(currentData.borderSize);
+        setBorderColor(currentData.borderColor);
+        setBorderHoverColor(currentData.borderHoverColor);
+        setPositionTop(currentData.positionTop);
+        setPositionBottom(currentData.positionBottom);
+        setPositionLeft(currentData.positionLeft);
+        setPositionRight(currentData.positionRight);
+        setIconSize(currentData.iconSize);
+        setIconColor(currentData.iconColor);
+        setIconHoverColor(currentData.iconHoverColor);
+        setEnableCount(currentData.enableCount);
+        setNumberCount(currentData.numberCount);
+        setCountSize(currentData.countSize);
+        setCountFontSize(currentData.countFontSize);
+        setCountColor(currentData.countColor);
+        setCountHoverColor(currentData.countHoverColor);
+        setCountBgColor(currentData.countBgColor);
+        setCountBgHoverColor(currentData.countBgHoverColor);
+        setShowTable(true);
+    };
+    // console.log("bgColor");
+    // console.log(bgColor);
 
-  // BG HOVER COLOR
-  const handleBGHoverColor = useCallback((value) => setbgHoverColor(value), []);
+    let handleSave = async () => {
+        try {
+            let payLoad = {
+                shop_domain: document.getElementById("shopOrigin").value,
+                enableSticky: enableSticky,
+                defaultTemplate: defaultTemplate,
+                action: action,
+                btnSize: btnSize,
+                bgColor: bgColor,
+                bgHoverColor: bgHoverColor,
+                borderSize: borderSize,
+                borderColor: borderColor,
+                borderHoverColor: borderHoverColor,
+                positionTop: positionTop,
+                positionBottom: positionBottom,
+                positionLeft: positionLeft,
+                positionRight: positionRight,
+                iconSize: iconSize,
+                iconColor: iconColor,
+                iconHoverColor: iconHoverColor,
+                enableCount: enableCount,
+                numberCount: numberCount,
+                countSize: countSize,
+                countFontSize: countFontSize,
+                countColor: countColor,
+                countHoverColor: countHoverColor,
+                countBgColor: countBgColor,
+                countBgHoverColor: countBgHoverColor,
+            };
+            setLoading(true);
+            setShowTable(false);
+            let response = await axios.post("/api/saveStickyCartData", {
+                data: payLoad,
+            });
+            if (response.data.status == true) {
+                // console.log("success");
+                setShowTable(true);
+                setLoading(false);
+                getStickyCartData();
+                setToastContent(response.data.message);
+                toggleActive();
+            } else {
+                setToastContent1(response.data.message);
+                toggleActive1();
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
+    //COUNT END
 
-  // BORDER SIZE
-  const handleBorderSliderChange = useCallback((value) => setBorder(value), []);
+    //GENERAL SETTING START
+    // ACTION
+    const handleSelectChange = useCallback((value) => setAction(value), []);
+    const options = [
+        { label: "Go to Cart", value: "1" },
+        { label: "Go to Checkout", value: "2" },
+    ];
 
-  // BORDER COLOR
-  const handleBorderColor = useCallback((value) => setborderColor(value), []);
+    //SIZE
+    const handleRangeSliderChange = useCallback(
+        (value) => setBtnSize(value),
+        []
+    );
 
-  // BORDER HOVER COLOR
-  const handleBorderHoverColor = useCallback(
-    (value) => setradiusColor(value),
-    []
-  );
+    // BG COLOR
+    const handleBGColor = useCallback((value) => setBgColor(value), []);
 
-  //GENERAL SETTING RND
+    // BG HOVER COLOR
+    const handleBGHoverColor = useCallback(
+        (value) => setBgHoverColor(value),
+        []
+    );
 
-  //POSITION START
-  //TOP
-  const handleEditTopField = (value) => {
-    setEditTop(value);
-  };
-  // const handleEditTopField = useCallback((value) => setEditTop(value), []);
+    // BORDER SIZE
+    const handleBorderSliderChange = useCallback(
+        (value) => setBorderSize(value),
+        []
+    );
 
-  //LEFT
-  const handleEditLeftField = useCallback((value) => setEditLeft(value), []);
+    // BORDER COLOR
+    const handleBorderColor = useCallback((value) => setBorderColor(value), []);
 
-  //BOTTOM
-  const handleEditBottomField = useCallback(
-    (value) => setEditBottom(value),
-    []
-  );
+    // BORDER HOVER COLOR
+    const handleBorderHoverColor = useCallback(
+        (value) => setBorderHoverColor(value),
+        []
+    );
 
-  //RIGHT
-  const handleEditRightField = useCallback((value) => setEditRight(value), []);
-  //POSITION END
+    //GENERAL SETTING RND
 
-  // ICON STYLE START
-  // ICON HOVER
-  const handleIconEnter = () => {
-    setIconHover(true);
-  };
+    //POSITION START
+    //TOP
+    const handleEditTopField = (value) => {
+        setPositionTop(value);
+    };
+    // const handleEditTopField = useCallback((value) => setEditTop(value), []);
 
-  const handleIconLeave = () => {
-    setIconHover(false);
-  };
-  //ICON SIZE
-  const handleIconSliderChange = useCallback(
-    (value) => setIconValue(value),
-    []
-  );
+    //LEFT
+    const handleEditLeftField = useCallback(
+        (value) => setPositionLeft(value),
+        []
+    );
 
-  // ICON COLOR
-  const handleIconColor = useCallback((value) => setIconColor(value), []);
+    //BOTTOM
+    const handleEditBottomField = useCallback(
+        (value) => setPositionBottom(value),
+        []
+    );
 
-  // ICON HOVER COLOR
-  const handleIconHoverColor = useCallback(
-    (value) => setIconHoverColor(value),
-    []
-  );
+    //RIGHT
+    const handleEditRightField = useCallback(
+        (value) => setPositionBottom(value),
+        []
+    );
+    //POSITION END
 
-  // ICON STYLE START
+    // ICON STYLE START
+    // ICON HOVER
+    const handleIconEnter = () => {
+        setIconHover(true);
+    };
 
-  //COUNT START
-  //ENABLE
-  const handlecheckbox = useCallback((newChecked) => setCheck(newChecked), []);
+    const handleIconLeave = () => {
+        setIconHover(false);
+    };
+    //ICON SIZE
+    const handleIconSliderChange = useCallback(
+        (value) => setIconSize(value),
+        []
+    );
 
-  // COUNT SIZE
-  const handleCountSliderChange = useCallback(
-    (value) => setCountValue(value),
-    []
-  );
-  // COUNT FONT
-  const handleCountFontSliderChange = useCallback(
-    (value) => setCountFontValue(value),
-    []
-  );
+    // ICON COLOR
+    const handleIconColor = useCallback((value) => setIconColor(value), []);
 
-  // COUNT COLOR
-  const handleCountColor = useCallback((value) => setCountColor(value), []);
+    // ICON HOVER COLOR
+    const handleIconHoverColor = useCallback(
+        (value) => setIconHoverColor(value),
+        []
+    );
 
-  // COUNT HOVER COLOR
-  const handleCountHoverColor = useCallback(
-    (value) => setCountHoverColor(value),
-    []
-  );
+    // ICON STYLE START
 
-  // COUNT BG  COLOR
-  const handleBGCountColor = useCallback((value) => setCountBGColor(value), []);
+    //COUNT START
+    //ENABLE
+    const handlecheckbox = useCallback(
+        (newChecked) => setEnableCount(newChecked),
+        []
+    );
 
-  // COUNT BG HOVER COLOR
-  const handleBGCountHoverColor = useCallback(
-    (value) => setCountBGHoverColor(value),
-    []
-  );
+    // COUNT SIZE
+    const handleCountSliderChange = useCallback(
+        (value) => setCountSize(value),
+        []
+    );
+    // COUNT FONT
+    const handleCountFontSliderChange = useCallback(
+        (value) => setCountFontSize(value),
+        []
+    );
 
-  // COUNT HOVER
-  const handleCountEnter = () => {
-    setCountHover(true);
-  };
+    // COUNT COLOR
+    const handleCountColor = useCallback((value) => setCountColor(value), []);
 
-  const handleCountLeave = () => {
-    setCountHover(false);
-  };
-  //COUNT END
+    // COUNT HOVER COLOR
+    const handleCountHoverColor = useCallback(
+        (value) => setCountHoverColor(value),
+        []
+    );
 
-  // ENABLE BUTTON START
-  const handleEnable = (value) => {
-    setEnable(!value);
-  };
+    // COUNT BG  COLOR
+    const handleBGCountColor = useCallback(
+        (value) => setCountBgColor(value),
+        []
+    );
 
-  //ICON SELECT
-  const handleChange = (key) => {
-    setValue(key);
-  };
+    // COUNT BG HOVER COLOR
+    const handleBGCountHoverColor = useCallback(
+        (value) => setCountBgHoverColor(value),
+        []
+    );
 
-  return (
-    <>
-      {enable === true ? (
-        <div className="main_sticky___div">
-          <div
-            className="stickyCart__icon"
-            style={{
-              position: "absolute",
-              fontSize: iconValue,
-              color: iconHover ? iconHoverColor : iconColor,
-              border: iconHover
-                ? borderValue + "px solid " + radiusColor
-                : borderValue + "px solid " + borderColor,
-              background: iconHover ? bgHoverColor : bgColor,
-              height: rangeValue,
-              width: rangeValue,
-              top: editTop === 0 ? "" : editTop + "%",
-              bottom: editBottom === 0 ? "" : editBottom + "%",
-              left: editLeft === 0 ? "" : editLeft + "%",
-              right: editRight === 0 ? "" : editRight + "%",
-            }}
-            onMouseEnter={handleIconEnter}
-            onMouseLeave={handleIconLeave}
-          >
-            {check === true ? (
-              <span
-                className="sticky_Count"
-                style={{
-                  background: countHover ? countBGHoverColor : countBGColor,
-                  width: countValue,
-                  height: countValue,
-                  fontSize: countFontValue,
-                  color: countHover ? countHoverColor : CountColor,
-                }}
-                onMouseEnter={handleCountEnter}
-                onMouseLeave={handleCountLeave}
-              >
-                {countNumber}
-              </span>
-            ) : (
-              ""
-            )}
-            {value === 1 ? <FontAwesomeIcon icon={faCartShopping} /> : ""}
-            {value === 2 ? <FontAwesomeIcon icon={faCartPlus} /> : ""}
-            {value === 3 ? <FontAwesomeIcon icon={faCartArrowDown} /> : ""}
-            {value === 4 ? <FontAwesomeIcon icon={faBasketShopping} /> : ""}
-            {value === 5 ? <FontAwesomeIcon icon={faBagShopping} /> : ""}
-          </div>
-        </div>
-      ) : (
-        ""
-      )}
-      <div className="topbar_title">LM ADD TO CART STICKY</div>
-      <div className="main_app_page">
-        <Page>
-          <Layout>
-            <Layout.Section oneThird>
-              <div className="dashboard_tag" onClick={handleClick}>
-                <Icon source={ChevronLeftMinor} color="base" /> Dashboard
-              </div>
-              <div className="sidebar_title">Sticky cart</div>
-              {/* cart enable disable card */}
-              <Scrollable style={{ height: "700px" }} horizontal={false}>
-                <div className="show_stickyCart">
-                  <Card sectioned>
-                    <span className="show_sticky_span">
-                      Sticky cart is
-                      <b>{enable === true ? " Enabled" : " Disabled"}</b>
-                    </span>
-                    {/* <div className="show_cart_btn"> */}
-                    <Button
-                      primary
-                      onClick={() => {
-                        handleEnable(enable);
-                      }}
-                    >
-                      {enable === true ? "Disable" : "Enable"}
-                    </Button>
-                  </Card>
+    // COUNT HOVER
+    const handleCountEnter = () => {
+        setCountHover(true);
+    };
 
-                  {/* GENERAL SETTING */}
-                  <span className="display_setting_title">
-                    GENERAL SETTING{" "}
-                  </span>
-                  <Card sectioned>
-                    {/* Action */}
-                    <div className="style__wrapper_div">
-                      <span className="display_setting_subtitle">Action</span>
-                      <div className="display_select_drop_down">
-                        <Select
-                          options={options}
-                          onChange={handleSelectChange}
-                          value={selected}
-                        />
-                      </div>
+    const handleCountLeave = () => {
+        setCountHover(false);
+    };
+    //COUNT END
+
+    // ENABLE BUTTON START
+    const handleEnable = (value) => {
+        setEnableSticky(!value);
+    };
+    // console.log("bgColor");
+    // console.log(bgColor);
+    if (showTable === false) {
+        return (
+            <div>
+                <Frame>
+                    <Card>
+                        <SkeletonPage primaryAction>
+                            <Layout>
+                                <Layout.Section>
+                                    <Card sectioned>
+                                        <SkeletonBodyText />
+                                    </Card>
+                                    <Card sectioned>
+                                        <TextContainer>
+                                            <SkeletonDisplayText size="small" />
+                                            <SkeletonBodyText />
+                                        </TextContainer>
+                                    </Card>
+                                </Layout.Section>
+                            </Layout>
+                        </SkeletonPage>
+                    </Card>
+                </Frame>
+            </div>
+        );
+    } else {
+        return (
+            <>
+                <Frame>
+                    <div className="topbar_title">LM ADD TO CART STICKY</div>
+                    {enableSticky === true ? (
+                        <div className="main_sticky___div">
+                            <div
+                                className="stickyCart__icon"
+                                style={{
+                                    position: "absolute",
+                                    fontSize: iconSize,
+                                    color: iconHover
+                                        ? iconHoverColor
+                                        : iconColor,
+                                    border: iconHover
+                                        ? borderSize +
+                                          "px solid " +
+                                          borderHoverColor
+                                        : borderSize +
+                                          "px solid " +
+                                          borderColor,
+                                    background: iconHover
+                                        ? bgHoverColor
+                                        : bgColor,
+                                    height: btnSize,
+                                    width: btnSize,
+                                    top:
+                                        positionTop === 0
+                                            ? ""
+                                            : positionTop + "%",
+                                    bottom:
+                                        positionBottom === 0
+                                            ? ""
+                                            : positionBottom + "%",
+                                    left:
+                                        positionLeft === 0
+                                            ? ""
+                                            : positionLeft + "%",
+                                    right:
+                                        positionRight === 0
+                                            ? ""
+                                            : positionRight + "%",
+                                }}
+                                onMouseEnter={handleIconEnter}
+                                onMouseLeave={handleIconLeave}
+                            >
+                                {enableCount === true ? (
+                                    <span
+                                        className="sticky_Count"
+                                        style={{
+                                            background: countHover
+                                                ? countBgHoverColor
+                                                : countBgColor,
+                                            width: countSize,
+                                            height: countSize,
+                                            fontSize: countFontSize,
+                                            color: countHover
+                                                ? countHoverColor
+                                                : countColor,
+                                        }}
+                                        onMouseEnter={handleCountEnter}
+                                        onMouseLeave={handleCountLeave}
+                                    >
+                                        {numberCount}
+                                    </span>
+                                ) : (
+                                    ""
+                                )}
+                                {defaultTemplate === 1 ? (
+                                    <FontAwesomeIcon icon={faCartShopping} />
+                                ) : (
+                                    ""
+                                )}
+                                {defaultTemplate === 2 ? (
+                                    <FontAwesomeIcon icon={faCartPlus} />
+                                ) : (
+                                    ""
+                                )}
+                                {defaultTemplate === 3 ? (
+                                    <FontAwesomeIcon icon={faCartArrowDown} />
+                                ) : (
+                                    ""
+                                )}
+                                {defaultTemplate === 4 ? (
+                                    <FontAwesomeIcon icon={faBasketShopping} />
+                                ) : (
+                                    ""
+                                )}
+                                {defaultTemplate === 5 ? (
+                                    <FontAwesomeIcon icon={faBagShopping} />
+                                ) : (
+                                    ""
+                                )}
+                            </div>
+                        </div>
+                    ) : (
+                        ""
+                    )}
+                    <div className="main_app_page">
+                        <Page>
+                            <Card>
+                                <div className="lm_add_to_sticky_top_bar_header_bottom">
+                                    <div
+                                        className="lm_add_to_sticky_top_bar_header_out"
+                                        onClick={handleClick}
+                                    >
+                                        <Icon source={ExitMajor} color="base" />{" "}
+                                        <div>Dashboard</div>
+                                    </div>
+                                    <Button
+                                        loading={loading}
+                                        onClick={handleSave}
+                                        primary
+                                    >
+                                        Save
+                                    </Button>
+                                    {toastMarkup}
+                                    {toastMarkup1}
+                                </div>
+                            </Card>
+                            <Layout>
+                                <Layout.Section oneThird>
+                                    {/* <div
+                                className="dashboard_tag"
+                                onClick={handleClick}
+                            >
+                                <Icon source={ChevronLeftMinor} color="base" />{" "}
+                                Dashboard
+                            </div>
+                            <div className="sidebar_title">Sticky cart</div> */}
+                                    {/* cart enable disable card */}
+                                    <Scrollable
+                                        style={{ height: "700px" }}
+                                        horizontal={false}
+                                    >
+                                        <div className="show_stickyCart">
+                                            <Card sectioned>
+                                                <span className="show_sticky_span">
+                                                    Sticky cart is
+                                                    <b>
+                                                        {enableSticky === true
+                                                            ? " Enabled"
+                                                            : " Disabled"}
+                                                    </b>
+                                                </span>
+                                                {/* <div className="show_cart_btn"> */}
+                                                <Button
+                                                    primary
+                                                    onClick={() => {
+                                                        handleEnable(
+                                                            enableSticky
+                                                        );
+                                                    }}
+                                                >
+                                                    {enableSticky === true
+                                                        ? "Disable"
+                                                        : "Enable"}
+                                                </Button>
+                                            </Card>
+
+                                            {/* GENERAL SETTING */}
+                                            <span className="display_setting_title">
+                                                GENERAL SETTING{" "}
+                                            </span>
+                                            <Card sectioned>
+                                                {/* Action */}
+                                                <div className="style__wrapper_div">
+                                                    <span className="display_setting_subtitle">
+                                                        Action
+                                                    </span>
+                                                    <div className="display_select_drop_down">
+                                                        <Select
+                                                            options={options}
+                                                            onChange={
+                                                                handleSelectChange
+                                                            }
+                                                            value={action}
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                {/* Size */}
+                                                <div className="style__wrapper_div">
+                                                    <span className="display_setting_subtitle">
+                                                        Size
+                                                    </span>
+                                                    <div className="font_picker_popup">
+                                                        <RangeSlider
+                                                            label={`${btnSize} px`}
+                                                            value={btnSize}
+                                                            min={10}
+                                                            max={100}
+                                                            onChange={
+                                                                handleRangeSliderChange
+                                                            }
+                                                            output
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                {/* Background Color */}
+                                                <div className="style__wrapper_div">
+                                                    <span className="display_setting_subtitle">
+                                                        Background Color
+                                                    </span>
+                                                    <div>
+                                                        <ColorPlate
+                                                            defaultColor={
+                                                                bgColor
+                                                            }
+                                                            onChildResult={
+                                                                handleBGColor
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                {/* Background Hover Color */}
+                                                <div className="style__wrapper_div">
+                                                    <span className="display_setting_subtitle">
+                                                        Background Hover Color
+                                                    </span>
+                                                    <div>
+                                                        <ColorPlate
+                                                            defaultColor={
+                                                                bgHoverColor
+                                                            }
+                                                            onChildResult={
+                                                                handleBGHoverColor
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                {/* Border Size */}
+                                                <div className="style__wrapper_div">
+                                                    <span className="display_setting_subtitle">
+                                                        Border Size
+                                                    </span>
+                                                    <div className="font_picker_popup">
+                                                        <RangeSlider
+                                                            label={`${borderSize} px`}
+                                                            value={borderSize}
+                                                            min={0}
+                                                            max={10}
+                                                            onChange={
+                                                                handleBorderSliderChange
+                                                            }
+                                                            output
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                {/* Border Color */}
+                                                <div className="style__wrapper_div">
+                                                    <span className="display_setting_subtitle">
+                                                        Border Color
+                                                    </span>
+                                                    <div>
+                                                        <ColorPlate
+                                                            defaultColor={
+                                                                borderColor
+                                                            }
+                                                            onChildResult={
+                                                                handleBorderColor
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                {/* Border Hover Color */}
+                                                <div className="style__wrapper_div">
+                                                    <span className="display_setting_subtitle">
+                                                        Border Hover Color
+                                                    </span>
+                                                    <div>
+                                                        <ColorPlate
+                                                            defaultColor={
+                                                                borderHoverColor
+                                                            }
+                                                            onChildResult={
+                                                                handleBorderHoverColor
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </Card>
+
+                                            {/* POSITION */}
+                                            <span className="display_setting_title">
+                                                POSITION{" "}
+                                            </span>
+                                            <Card sectioned>
+                                                {/* Top */}
+                                                <div className="style__wrapper_div">
+                                                    <span className="display_setting_subtitle">
+                                                        Top
+                                                    </span>
+                                                    <div className="font_picker_popup">
+                                                        <RangeSlider
+                                                            label={`${positionTop}%`}
+                                                            value={positionTop}
+                                                            min={0}
+                                                            max={100}
+                                                            onChange={
+                                                                handleEditTopField
+                                                            }
+                                                            output
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                {/* Left */}
+                                                <div className="style__wrapper_div">
+                                                    <span className="display_setting_subtitle">
+                                                        Left
+                                                    </span>
+                                                    <div className="font_picker_popup">
+                                                        <RangeSlider
+                                                            label={`${positionLeft}%`}
+                                                            value={positionLeft}
+                                                            min={0}
+                                                            max={100}
+                                                            onChange={
+                                                                handleEditLeftField
+                                                            }
+                                                            output
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                {/* Bottom */}
+                                                <div className="style__wrapper_div">
+                                                    <span className="display_setting_subtitle">
+                                                        Bottom
+                                                    </span>
+                                                    <div className="font_picker_popup">
+                                                        <RangeSlider
+                                                            label={`${positionBottom}%`}
+                                                            value={
+                                                                positionBottom
+                                                            }
+                                                            min={0}
+                                                            max={100}
+                                                            onChange={
+                                                                handleEditBottomField
+                                                            }
+                                                            output
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                {/* Right */}
+                                                <div className="style__wrapper_div">
+                                                    <span className="display_setting_subtitle">
+                                                        Right
+                                                    </span>
+                                                    <div className="font_picker_popup">
+                                                        <RangeSlider
+                                                            label={`${positionRight}%`}
+                                                            value={
+                                                                positionRight
+                                                            }
+                                                            min={0}
+                                                            max={100}
+                                                            onChange={
+                                                                handleEditRightField
+                                                            }
+                                                            output
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </Card>
+
+                                            {/* ICON */}
+                                            <span className="display_setting_title">
+                                                ICON{" "}
+                                            </span>
+                                            <Card sectioned>
+                                                {/* Icon Size */}
+                                                <div className="style__wrapper_div">
+                                                    <span className="display_setting_subtitle">
+                                                        Icon Size
+                                                    </span>
+                                                    <div className="font_picker_popup">
+                                                        <RangeSlider
+                                                            label={`${iconSize} px`}
+                                                            value={iconSize}
+                                                            min={11}
+                                                            max={50}
+                                                            onChange={
+                                                                handleIconSliderChange
+                                                            }
+                                                            output
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                {/* Icon Color */}
+                                                <div className="style__wrapper_div">
+                                                    <span className="display_setting_subtitle">
+                                                        Icon Color
+                                                    </span>
+                                                    <div>
+                                                        <ColorPlate
+                                                            defaultColor={
+                                                                iconColor
+                                                            }
+                                                            onChildResult={
+                                                                handleIconColor
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                {/* Icon Hover Color */}
+                                                <div className="style__wrapper_div">
+                                                    <span className="display_setting_subtitle">
+                                                        Icon Hover Color
+                                                    </span>
+                                                    <div>
+                                                        <ColorPlate
+                                                            defaultColor={
+                                                                iconHoverColor
+                                                            }
+                                                            onChildResult={
+                                                                handleIconHoverColor
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </Card>
+
+                                            {/* CART COUNT */}
+                                            <span className="display_setting_title">
+                                                CART COUNT{" "}
+                                            </span>
+
+                                            <Card sectioned>
+                                                {/* Enable COUNT */}
+                                                <div className="style__wrapper_div">
+                                                    <Checkbox
+                                                        label="Enable"
+                                                        checked={enableCount}
+                                                        onChange={
+                                                            handlecheckbox
+                                                        }
+                                                    />
+                                                </div>
+
+                                                {/* Size */}
+                                                <div className="style__wrapper_div">
+                                                    <span className="display_setting_subtitle">
+                                                        Size
+                                                    </span>
+                                                    <div className="font_picker_popup">
+                                                        <RangeSlider
+                                                            label={`${countSize} px`}
+                                                            value={countSize}
+                                                            min={8}
+                                                            max={40}
+                                                            onChange={
+                                                                handleCountSliderChange
+                                                            }
+                                                            output
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                {/* Font Size */}
+                                                <div className="style__wrapper_div">
+                                                    <span className="display_setting_subtitle">
+                                                        Font Size
+                                                    </span>
+                                                    <div className="font_picker_popup">
+                                                        <RangeSlider
+                                                            label={`${countFontSize} px`}
+                                                            value={
+                                                                countFontSize
+                                                            }
+                                                            min={8}
+                                                            max={40}
+                                                            onChange={
+                                                                handleCountFontSliderChange
+                                                            }
+                                                            output
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                {/*  Color */}
+                                                <div className="style__wrapper_div">
+                                                    <span className="display_setting_subtitle">
+                                                        {" "}
+                                                        Count Color
+                                                    </span>
+                                                    <div>
+                                                        <ColorPlate
+                                                            defaultColor={
+                                                                countColor
+                                                            }
+                                                            onChildResult={
+                                                                handleCountColor
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                {/*  Hover Color */}
+                                                <div className="style__wrapper_div">
+                                                    <span className="display_setting_subtitle">
+                                                        Count Hover Color
+                                                    </span>
+                                                    <div>
+                                                        <ColorPlate
+                                                            defaultColor={
+                                                                countHoverColor
+                                                            }
+                                                            onChildResult={
+                                                                handleCountHoverColor
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                {/* Background  Color */}
+                                                <div className="style__wrapper_div">
+                                                    <span className="display_setting_subtitle">
+                                                        Background Color
+                                                    </span>
+                                                    <div>
+                                                        <ColorPlate
+                                                            defaultColor={
+                                                                countBgColor
+                                                            }
+                                                            onChildResult={
+                                                                handleBGCountColor
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                {/* Background  Hover Color */}
+                                                <div className="style__wrapper_div">
+                                                    <span className="display_setting_subtitle">
+                                                        Background Hover Color
+                                                    </span>
+                                                    <div>
+                                                        <ColorPlate
+                                                            defaultColor={
+                                                                countBgHoverColor
+                                                            }
+                                                            onChildResult={
+                                                                handleBGCountHoverColor
+                                                            }
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </Card>
+                                        </div>
+                                    </Scrollable>
+                                </Layout.Section>
+                                <Layout.Section>
+                                    {/* <div className="save_template_btn">
+                                <Button primary>Save</Button>
+                            </div> */}
+                                    <div style={{ marginTop: "10px" }}>
+                                        <Card sectioned>
+                                            <div className="template___Card">
+                                                Choose the sticky cart template
+                                            </div>
+                                            <div className="">
+                                                {stickyData.map((item) => (
+                                                    <div
+                                                        className="sticky_child"
+                                                        key={item.key}
+                                                    >
+                                                        <div>
+                                                            <RadioButton
+                                                                label={
+                                                                    item.label
+                                                                }
+                                                                id={item.key}
+                                                                checked={
+                                                                    defaultTemplate ===
+                                                                    item.key
+                                                                }
+                                                                name="stickyCart"
+                                                                onChange={() => {
+                                                                    handleChange(
+                                                                        item.key
+                                                                    );
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </Card>
+                                    </div>
+                                </Layout.Section>
+                            </Layout>
+                        </Page>
                     </div>
-
-                    {/* Size */}
-                    <div className="style__wrapper_div">
-                      <span className="display_setting_subtitle">Size</span>
-                      <div className="font_picker_popup">
-                        <RangeSlider
-                          label={`${rangeValue} px`}
-                          value={rangeValue}
-                          min={10}
-                          max={100}
-                          onChange={handleRangeSliderChange}
-                          output
-                        />
-                      </div>
-                    </div>
-
-                    {/* Background Color */}
-                    <div className="style__wrapper_div">
-                      <span className="display_setting_subtitle">
-                        Background Color
-                      </span>
-                      <div>
-                        <ColorPlate
-                          defaultColor={bgColor}
-                          onChildResult={handleBGColor}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Background Hover Color */}
-                    <div className="style__wrapper_div">
-                      <span className="display_setting_subtitle">
-                        Background Hover Color
-                      </span>
-                      <div>
-                        <ColorPlate
-                          defaultColor={bgHoverColor}
-                          onChildResult={handleBGHoverColor}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Border Size */}
-                    <div className="style__wrapper_div">
-                      <span className="display_setting_subtitle">
-                        Border Size
-                      </span>
-                      <div className="font_picker_popup">
-                        <RangeSlider
-                          label={`${borderValue} px`}
-                          value={borderValue}
-                          min={0}
-                          max={10}
-                          onChange={handleBorderSliderChange}
-                          output
-                        />
-                      </div>
-                    </div>
-
-                    {/* Border Color */}
-                    <div className="style__wrapper_div">
-                      <span className="display_setting_subtitle">
-                        Border Color
-                      </span>
-                      <div>
-                        <ColorPlate
-                          defaultColor={borderColor}
-                          onChildResult={handleBorderColor}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Border Hover Color */}
-                    <div className="style__wrapper_div">
-                      <span className="display_setting_subtitle">
-                        Border Hover Color
-                      </span>
-                      <div>
-                        <ColorPlate
-                          defaultColor={radiusColor}
-                          onChildResult={handleBorderHoverColor}
-                        />
-                      </div>
-                    </div>
-                  </Card>
-
-                  {/* POSITION */}
-                  <span className="display_setting_title">POSITION </span>
-                  <Card sectioned>
-                    {/* Top */}
-                    <div className="style__wrapper_div">
-                      <span className="display_setting_subtitle">Top</span>
-                      <div className="font_picker_popup">
-                        <RangeSlider
-                          label={`${editTop}%`}
-                          value={editTop}
-                          min={0}
-                          max={100}
-                          onChange={handleEditTopField}
-                          output
-                        />
-                      </div>
-                    </div>
-
-                    {/* Left */}
-                    <div className="style__wrapper_div">
-                      <span className="display_setting_subtitle">Left</span>
-                      <div className="font_picker_popup">
-                        <RangeSlider
-                          label={`${editLeft}%`}
-                          value={editLeft}
-                          min={0}
-                          max={100}
-                          onChange={handleEditLeftField}
-                          output
-                        />
-                      </div>
-                    </div>
-
-                    {/* Bottom */}
-                    <div className="style__wrapper_div">
-                      <span className="display_setting_subtitle">Bottom</span>
-                      <div className="font_picker_popup">
-                        <RangeSlider
-                          label={`${editBottom}%`}
-                          value={editBottom}
-                          min={0}
-                          max={100}
-                          onChange={handleEditBottomField}
-                          output
-                        />
-                      </div>
-                    </div>
-
-                    {/* Right */}
-                    <div className="style__wrapper_div">
-                      <span className="display_setting_subtitle">Right</span>
-                      <div className="font_picker_popup">
-                        <RangeSlider
-                          label={`${editRight}%`}
-                          value={editRight}
-                          min={0}
-                          max={100}
-                          onChange={handleEditRightField}
-                          output
-                        />
-                      </div>
-                    </div>
-                  </Card>
-
-                  {/* ICON */}
-                  <span className="display_setting_title">ICON </span>
-                  <Card sectioned>
-                    {/* Icon Size */}
-                    <div className="style__wrapper_div">
-                      <span className="display_setting_subtitle">
-                        Icon Size
-                      </span>
-                      <div className="font_picker_popup">
-                        <RangeSlider
-                          label={`${iconValue} px`}
-                          value={iconValue}
-                          min={11}
-                          max={50}
-                          onChange={handleIconSliderChange}
-                          output
-                        />
-                      </div>
-                    </div>
-
-                    {/* Icon Color */}
-                    <div className="style__wrapper_div">
-                      <span className="display_setting_subtitle">
-                        Icon Color
-                      </span>
-                      <div>
-                        <ColorPlate
-                          defaultColor={iconColor}
-                          onChildResult={handleIconColor}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Icon Hover Color */}
-                    <div className="style__wrapper_div">
-                      <span className="display_setting_subtitle">
-                        Icon Hover Color
-                      </span>
-                      <div>
-                        <ColorPlate
-                          defaultColor={iconHoverColor}
-                          onChildResult={handleIconHoverColor}
-                        />
-                      </div>
-                    </div>
-                  </Card>
-
-                  {/* CART COUNT */}
-                  <span className="display_setting_title">CART COUNT </span>
-
-                  <Card sectioned>
-                    {/* Enable COUNT */}
-                    <div className="style__wrapper_div">
-                      <Checkbox
-                        label="Enable"
-                        checked={check}
-                        onChange={handlecheckbox}
-                      />
-                    </div>
-
-                    {/* Size */}
-                    <div className="style__wrapper_div">
-                      <span className="display_setting_subtitle">Size</span>
-                      <div className="font_picker_popup">
-                        <RangeSlider
-                          label={`${countValue} px`}
-                          value={countValue}
-                          min={8}
-                          max={40}
-                          onChange={handleCountSliderChange}
-                          output
-                        />
-                      </div>
-                    </div>
-
-                    {/* Font Size */}
-                    <div className="style__wrapper_div">
-                      <span className="display_setting_subtitle">
-                        Font Size
-                      </span>
-                      <div className="font_picker_popup">
-                        <RangeSlider
-                          label={`${countFontValue} px`}
-                          value={countFontValue}
-                          min={8}
-                          max={40}
-                          onChange={handleCountFontSliderChange}
-                          output
-                        />
-                      </div>
-                    </div>
-
-                    {/*  Color */}
-                    <div className="style__wrapper_div">
-                      <span className="display_setting_subtitle">
-                        {" "}
-                        Count Color
-                      </span>
-                      <div>
-                        <ColorPlate
-                          defaultColor={CountColor}
-                          onChildResult={handleCountColor}
-                        />
-                      </div>
-                    </div>
-
-                    {/*  Hover Color */}
-                    <div className="style__wrapper_div">
-                      <span className="display_setting_subtitle">
-                        Count Hover Color
-                      </span>
-                      <div>
-                        <ColorPlate
-                          defaultColor={countHoverColor}
-                          onChildResult={handleCountHoverColor}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Background  Color */}
-                    <div className="style__wrapper_div">
-                      <span className="display_setting_subtitle">
-                        Background Color
-                      </span>
-                      <div>
-                        <ColorPlate
-                          defaultColor={countBGColor}
-                          onChildResult={handleBGCountColor}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Background  Hover Color */}
-                    <div className="style__wrapper_div">
-                      <span className="display_setting_subtitle">
-                        Background Hover Color
-                      </span>
-                      <div>
-                        <ColorPlate
-                          defaultColor={countBGHoverColor}
-                          onChildResult={handleBGCountHoverColor}
-                        />
-                      </div>
-                    </div>
-                  </Card>
-                </div>
-              </Scrollable>
-            </Layout.Section>
-            <Layout.Section>
-              <div className="save_template_btn">
-                <Button primary>Save</Button>
-              </div>
-              <Card sectioned>
-                <div className="template___Card">
-                  Choose the sticky cart template
-                </div>
-                <div className="">
-                  {stickyData.map((item) => (
-                    <div className="sticky_child" key={item.key}>
-                      <div>
-                        <RadioButton
-                          label={item.label}
-                          id={item.key}
-                          checked={value === item.key}
-                          name="stickyCart"
-                          onChange={() => {
-                            handleChange(item.key);
-                          }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </Card>
-            </Layout.Section>
-          </Layout>
-        </Page>
-      </div>
-    </>
-  );
+                </Frame>
+            </>
+        );
+    }
 }

@@ -11,29 +11,13 @@ class StickyCartData extends Model
     protected $table = 'sticky_cart_data';
     protected $fillable = [
         'shop_domain',
-        'enable_sticky',
-        'default_template',
-        'action_value',
-        'main_size',
-        'bg_color',
-        'bg_hover_color',
-        'border_size',
-        'border_color',
-        'border_hover_color',
-        'pos_top',
-        'pos_bottom',
-        'pos_left',
-        'pos_right',
-        'icon_size',
-        'icon_color',
-        'icon_hover_color',
-        'enable_count',
-        'count_num',
-        'count_size',
-        'count_font_size',
-        'count_color',
-        'count_hover_color',
-        'countBG_color',
-        'countBG_hover_color'
+        'enableSticky',
+        'defaultTemplate',
+        'current_template',
+        'sticky_template_1',
+        'sticky_template_2',
+        'sticky_template_3',
+        'sticky_template_4',
+        'sticky_template_5'
     ];
 }

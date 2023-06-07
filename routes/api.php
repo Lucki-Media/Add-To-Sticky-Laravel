@@ -19,9 +19,15 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::namespace('App\\Http\\Controllers')->group(function (){
 
-    //DEFAULT DATA INSERT
+    /*ADD TO CART STICKY API START*/
     Route::post('saveAddToStickyCartData', 'AddToCartStickyController@saveAddToStickyCartData');
     Route::get('getAddToStickyCartData/{shop_domain}', 'AddToCartStickyController@getAddToStickyCartData');
+    /*ADD TO CART STICKY API END*/
+
+    /*STICKY CART API START*/
+    Route::post('saveStickyCartData', 'StickyCartController@saveStickyCartData');
+    Route::get('getStickyCartData/{shop_domain}', 'StickyCartController@getStickyCartData');
+    /*STICKY CART API END*/
 
     //WEBHOOK API
     Route::post('/requestEndpoint', 'CustomerEndpointController@requestEndpoint');

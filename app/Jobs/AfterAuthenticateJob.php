@@ -10,6 +10,8 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\User;
 use App\Webhook;
 use Mail;
+use App\Models\AddToCartStickyData;
+use App\Models\StickyCartData;
 
 class AfterAuthenticateJob implements ShouldQueue{
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -43,14 +45,61 @@ class AfterAuthenticateJob implements ShouldQueue{
         $api_key = env('SHOPIFY_API_KEY');
         $path = public_path();
         $shop_arr = json_decode($shop,true);
-        $theme = $shop->api()->rest('GET', '/admin/themes.json')['body'];
-        $theme_data = json_encode($theme);
-        $theme_array = json_decode($theme_data, true);
-        foreach ($theme_array['themes'] as $key => $value) {
-            if ($value['role'] == 'main') {
-                $current_themeId = $value['id'];
-            }
-        }
+        /*ADD TO CART STICKY TEMPLATE INSERT START*/
+        $template_1 = json_encode(require $path.'/template_files/template_1.php');
+        $template_2 = json_encode(require $path.'/template_files/template_2.php');
+        $template_3 = json_encode(require $path.'/template_files/template_3.php');
+        $template_4 = json_encode(require $path.'/template_files/template_4.php');
+        $template_5 = json_encode(require $path.'/template_files/template_5.php');
+        $template_6 = json_encode(require $path.'/template_files/template_6.php');
+        $template_7 = json_encode(require $path.'/template_files/template_7.php');
+        $template_8 = json_encode(require $path.'/template_files/template_8.php');
+        $final_data = [
+            'shop_domain'           => $this->shopDomain,
+            'enable'                => '1',
+            'defaultTemplate'       => 1,
+            'current_template'      => $template_1,
+            'template_1'            => $template_1,
+            'template_2'            => $template_2,
+            'template_3'            => $template_3,
+            'template_4'            => $template_4,
+            'template_5'            => $template_5,
+            'template_6'            => $template_6,
+            'template_7'            => $template_7,
+            'template_8'            => $template_8,
+        ];
+        $updateOrInsert = AddToCartStickyData::insert($final_data);
+        /*ADD TO CART STICKY TEMPLATE INSERT END*/
+
+        /*STICKY CART TEMPLATE INSERT START*/
+        $sticky_template_1 = json_encode(require $path.'/template_files/sticky_template_1.php');
+        $sticky_template_2 = json_encode(require $path.'/template_files/sticky_template_2.php');
+        $sticky_template_3 = json_encode(require $path.'/template_files/sticky_template_3.php');
+        $sticky_template_4 = json_encode(require $path.'/template_files/sticky_template_4.php');
+        $sticky_template_5 = json_encode(require $path.'/template_files/sticky_template_5.php');
+        $final_data_sticky = [
+            'shop_domain'           => $this->shopDomain,
+            'enableSticky'          => '1',
+            'defaultTemplate'       => 1,
+            'current_template'      => $sticky_template_1,
+            'sticky_template_1'     => $sticky_template_1,
+            'sticky_template_2'     => $sticky_template_2,
+            'sticky_template_3'     => $sticky_template_3,
+            'sticky_template_4'     => $sticky_template_4,
+            'sticky_template_5'     => $sticky_template_5,
+        ];
+        $updateOrInsert = StickyCartData::insert($final_data_sticky);
+        /*STICKY CART TEMPLATE INSERT END*/
+
+
+        // $theme = $shop->api()->rest('GET', '/admin/themes.json')['body'];
+        // $theme_data = json_encode($theme);
+        // $theme_array = json_decode($theme_data, true);
+        // foreach ($theme_array['themes'] as $key => $value) {
+        //     if ($value['role'] == 'main') {
+        //         $current_themeId = $value['id'];
+        //     }
+        // }
         // sleep(10);
 
         // // CREATE Snippet File For Selected Products

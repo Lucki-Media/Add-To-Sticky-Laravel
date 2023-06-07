@@ -1,5 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
-import Button from "react-button-component";
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import proimage from "../assets/productimage.png";
 import { QuantityPicker } from "react-qty-picker";
@@ -7,41 +6,45 @@ import style from "../css/CartTemplate2.module.css";
 
 export default function CartTemplate2(props) {
     const [enable, setEnable] = useState(props.enable); // FOR MAIN DISPLAY
-    const [posValue, setPosValue] = useState(props.posValue);
+    const [position, setPosition] = useState(props.position);
     const [checkMobile, setCheckMobile] = useState(props.checkMobile);
     const [checkDesktop, setCheckDesktop] = useState(props.checkDesktop);
-    const [bold, setBold] = useState(props.bold);
-    const [italic, setItalic] = useState(props.italic);
-    const [underline, setUnderLine] = useState(props.underline);
-    const [boldButton, setBoldButton] = useState(props.boldButton);
-    const [italicButton, setItalicButton] = useState(props.italicButton);
-    const [underlineButton, setUnderLineButton] = useState(
-        props.underlineButton
+    const [gsBold, setGsBold] = useState(props.gsBold);
+    const [gsItalic, setGsItalic] = useState(props.gsItalic);
+    const [gsUnderline, setGsUnderLine] = useState(props.gsUnderline);
+    const [btnBold, setBtnBold] = useState(props.btnBold);
+    const [btnItalic, setBtnItalic] = useState(props.btnItalic);
+    const [btnUnderline, setBtnUnderline] = useState(props.btnUnderline);
+    const [gsFontFamily, setGsFontFamily] = useState(props.gsFontFamily);
+    const [gsTitleColor, setGsTitleColor] = useState(props.gsTitleColor);
+    const [gsPriceColor, setGsPriceColor] = useState(props.gsPriceColor);
+    const [gsBgColor, setGsBgColor] = useState(props.gsBgColor);
+    const [btnTextColor, setBtnTextColor] = useState(props.btnTextColor);
+    const [btnBgColor, setBtnBgColor] = useState(props.btnBgColor);
+    const [btnTexthoverColor, setBtnTexthoverColor] = useState(
+        props.btnTexthoverColor
     );
-    const [fontFamily, setFontFamily] = useState(props.fontFamily);
-    const [titleColor, setTitleColor] = useState(props.titleColor);
-    const [priceColor, setpriceColor] = useState(props.priceColor);
-    const [bgColor, setbgColor] = useState(props.bgColor);
-    const [btnTextColor, setbtnTextColor] = useState(props.btnTextColor);
-    const [btnBGColor, setbtnBGColor] = useState(props.btnBGColor);
-    const [texthoverColor, settexthoverColor] = useState(props.texthoverColor);
-    const [bgHoverColor, setbgHoverColor] = useState(props.bgHoverColor);
-    const [borderColor, setborderColor] = useState(props.borderColor);
-    const [radiusColor, setradiusColor] = useState(props.radiusColor);
-    const [fontSizeValue, setFontSizeValue] = useState(props.fontSizeValue);
-    const [rangeValue, setRangeValue] = useState(props.rangeValue);
-    const [heightValue, setHeightValue] = useState(props.heightValue);
-    const [buttonheightValue, setButtonHeightValue] = useState(
-        props.buttonheightValue
+    const [btnBgHoverColor, setBtnBgHoverColor] = useState(
+        props.btnBgHoverColor
     );
-    const [widthValue, setWidthValue] = useState(props.widthValue);
-    const [borderValue, setBorder] = useState(props.borderValue);
-    const [radiusValue, setRadius] = useState(props.radiusValue);
-    const [offsetValue, setOffsetValue] = useState(props.offsetValue);
-    const [btnHover, setbtnHover] = useState(false);
-
-    const [selected, setSelected] = useState(props.selected); // Action
-    const [conditionValue, setConditionValue] = useState(props.conditionValue); // Display Condition
+    const [btnBorderColor, setBtnBorderColor] = useState(props.btnBorderColor);
+    const [btnBorderHoverColor, setBtnBorderHoverColor] = useState(
+        props.btnBorderHoverColor
+    );
+    const [btnFontsize, setBtnFontsize] = useState(props.btnFontsize);
+    const [gsFontsize, setGsFontsize] = useState(props.gsFontsize);
+    const [containerHeight, setContainerHeight] = useState(
+        props.containerHeight
+    );
+    const [btnheightValue, setBtnHeightValue] = useState(props.btnheightValue);
+    const [btnWidthValue, setBtnWidthValue] = useState(props.btnWidthValue);
+    const [btnBorderThickness, setBtnBorderThickness] = useState(
+        props.btnBorderThickness
+    );
+    const [btnBorderRadius, setBtnBorderRadius] = useState(
+        props.btnBorderRadius
+    );
+    const [gsOffsetValue, setGsOffsetValue] = useState(props.gsOffsetValue);
     const [editText, setEditText] = useState(props.editText);
     const [soldOut, setSoldOut] = useState(props.soldOut);
     const [unavailable, setUnavailable] = useState(props.unavailable);
@@ -60,40 +63,14 @@ export default function CartTemplate2(props) {
         { value: "Rubber", label: "Rubber" },
         { value: "Steel", label: "Steel" },
     ];
-    // console.log(bg_option);
-    //  `${posValue === "Top" ? offsetValue : 'inherit'}`,
-    // const img_size = {
-    //   height: heightValue,
-    // };
-    // const font_option = {
-    //   color: titleColor,
-    //   fontSize: rangeValue,
-    // };
-    // const label_color = {
-    //   color: titleColor,
-    // };
-    // const p_color = {
-    //   color: priceColor,
-    // };
-
-    // const lm_btn = {
-    //   width: widthValue,
-    //   height: buttonheightValue,
-    //   fontSize: FontSizeValue,
-    //   background: btnHover ? bgHoverColor : btnBGColor,
-    //   borderWidth: borderValue,
-    //   borderColor: btnHover ? radiusColor : borderColor,
-    //   borderRadius: radiusValue,
-    //   color: btnHover ? texthoverColor : btnTextColor,
-    // };
 
     // BUTTON HOVER
     const handleCountEnter = () => {
-        setbtnHover(true);
+        setBtnBgHoverColor(true);
     };
 
     const handleCountLeave = () => {
-        setbtnHover(false);
+        setBtnBgHoverColor(false);
     };
     //BUTTON END
 
@@ -101,39 +78,34 @@ export default function CartTemplate2(props) {
         setEnable(props.enable);
         setCheckDesktop(props.checkDesktop);
         setCheckMobile(props.checkMobile);
-        setFontFamily(props.fontFamily);
-        // setRangeValue(
-        //     gsFontSize
-        //         ? gsFontSize
-        //         : props.font_size
-        // );
-        setRangeValue(props.rangeValue);
-        setBold(props.bold);
-        setItalic(props.italic);
-        setUnderLine(props.underline);
-        setTitleColor(props.titleColor);
-        setHeightValue(props.heightValue);
-        setpriceColor(props.priceColor);
-        setbgColor(props.bgColor);
-        setPosValue(props.posValue);
-        setOffsetValue(props.offsetValue);
+        setGsFontFamily(props.gsFontFamily);
+        setGsFontsize(props.gsFontsize);
+        setGsBold(props.gsBold);
+        setGsItalic(props.gsItalic);
+        setGsUnderLine(props.gsUnderline);
+        setGsTitleColor(props.gsTitleColor);
+        setContainerHeight(props.containerHeight);
+        setGsPriceColor(props.gsPriceColor);
+        setGsBgColor(props.gsBgColor);
+        setPosition(props.position);
+        setGsOffsetValue(props.gsOffsetValue);
         setEditText(props.editText);
         setSoldOut(props.soldOut);
         setUnavailable(props.unavailable);
-        setButtonHeightValue(props.buttonheightValue);
-        setWidthValue(props.widthValue);
-        setFontSizeValue(props.fontSizeValue);
-        setBoldButton(props.boldButton);
-        setItalicButton(props.italicButton);
-        setUnderLineButton(props.underlineButton);
-        setbtnTextColor(props.btnTextColor);
-        setbtnBGColor(props.btnBGColor);
-        settexthoverColor(props.texthoverColor);
-        setbgHoverColor(props.bgHoverColor);
-        setBorder(props.borderValue);
-        setRadius(props.radiusValue);
-        setborderColor(props.borderColor);
-        setradiusColor(props.radiusColor);
+        setBtnHeightValue(props.btnheightValue);
+        setBtnWidthValue(props.btnWidthValue);
+        setBtnFontsize(props.btnFontsize);
+        setBtnBold(props.btnBold);
+        setBtnItalic(props.btnItalic);
+        setBtnUnderline(props.btnUnderline);
+        setBtnTextColor(props.btnTextColor);
+        setBtnBgColor(props.btnBgColor);
+        setBtnTexthoverColor(props.btnTexthoverColor);
+        setBtnBgHoverColor(props.btnBgHoverColor);
+        setBtnBorderThickness(props.btnBorderThickness);
+        setBtnBorderRadius(props.btnBorderRadius);
+        setBtnBorderColor(props.btnBorderColor);
+        setBtnBorderHoverColor(props.btnBorderHoverColor);
     });
     return (
         <>
@@ -173,28 +145,28 @@ export default function CartTemplate2(props) {
         }
       .lm-sticky-Bottom{
         box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
-        background: ${bgColor};
-        height: ${heightValue}px;
-        bottom:  ${offsetValue}px;
+        background: ${gsBgColor};
+        height: ${containerHeight}px;
+        bottom:  ${gsOffsetValue}px;
       }
       .lm-sticky-Top{
         box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
-        background: ${bgColor};
-        height: ${heightValue}px;
-        top:  ${offsetValue}px;
+        background: ${gsBgColor};
+        height: ${containerHeight}px;
+        top:  ${gsOffsetValue}px;
       }
     .img_size {
-        height: ${heightValue}px;
+        height: ${containerHeight}px;
       }
       .font_option {
-        color: ${titleColor};
-        font-size: ${rangeValue}px;
+        color: ${gsTitleColor};
+        font-size: ${gsFontsize}px;
       }
       .label_color{
-        color: ${titleColor};
+        color: ${gsTitleColor};
       }
       .p_color{
-        color: ${priceColor};
+        color: ${gsPriceColor};
         display: inline-block;
       }
 
@@ -218,33 +190,33 @@ export default function CartTemplate2(props) {
         padding: 0 8px;
       }
       .slide_right {
-        width: ${widthValue}px;
-        height: ${buttonheightValue}px;
-        font-size: ${fontSizeValue}px;
-        background: ${btnBGColor};
-        border-Width: ${borderValue}px;
-        border-color: ${borderColor};
-        border-radius: ${radiusValue}px;
+        width: ${btnWidthValue}px;
+        height: ${btnheightValue}px;
+        font-size: ${btnFontsize}px;
+        background: ${btnBgColor};
+        border-Width: ${btnBorderThickness}px;
+        border-color: ${btnBorderColor};
+        border-radius: ${btnBorderRadius}px;
         color: ${btnTextColor};
         padding: 0 20px;
         display: inline-block;
         cursor: pointer;
-        box-shadow: inset 0 0 0 0 ${bgHoverColor};
+        box-shadow: inset 0 0 0 0 ${btnBgHoverColor};
         -webkit-transition: ease-out 0.4s;
         -moz-transition: ease-out 0.4s;
         transition: ease-out 0.4s;
       }
 
       .slide_right:hover {
-        box-shadow: inset 400px 0 0 0 ${bgHoverColor};
-        border-color: ${radiusColor};
-        color: ${texthoverColor};
+        box-shadow: inset 400px 0 0 0 ${btnBgHoverColor};
+        border-color: ${btnBorderHoverColor};
+        color: ${btnTexthoverColor};
       }
       `}
             </style>
             {enable === true ? (
                 <div
-                    className={`lm-sticky-${posValue} ${style.lm_sticky_cart} ${
+                    className={`lm-sticky-${position} ${style.lm_sticky_cart} ${
                         checkDesktop === true ? "show" : "hide"
                     }  `}
                 >
@@ -260,10 +232,10 @@ export default function CartTemplate2(props) {
                                     <h5
                                         className={`font_option apply-font ${
                                             style.pro_names
-                                        } ${bold === true ? "lm_bold" : ""} ${
-                                            italic === true ? "lm_italic" : ""
+                                        } ${gsBold === true ? "lm_bold" : ""} ${
+                                            gsItalic === true ? "lm_italic" : ""
                                         } ${
-                                            underline === true
+                                            gsUnderline === true
                                                 ? "lm_underline"
                                                 : "no-line"
                                         }`}
@@ -280,7 +252,7 @@ export default function CartTemplate2(props) {
                                             $4
                                         </span>{" "}
                                         <span className={style.lm_sale}>
-                                            {props.unavailable}
+                                            {soldOut}
                                         </span>
                                     </div>
                                 </div>
@@ -364,22 +336,22 @@ export default function CartTemplate2(props) {
                                         {/* <CustomizedButton onClick={() => alert("Welcome!")}> */}
                                         <button
                                             className={`lm_btn slide_right ${
-                                                boldButton === true
+                                                btnBold === true
                                                     ? "lm_bold"
                                                     : ""
                                             } ${
-                                                italicButton === true
+                                                btnItalic === true
                                                     ? "lm_italic"
                                                     : ""
                                             } ${
-                                                underlineButton === true
+                                                btnUnderline === true
                                                     ? "lm_underline"
                                                     : "no-line"
                                             }`}
                                             onMouseEnter={handleCountEnter}
                                             onMouseLeave={handleCountLeave}
                                         >
-                                            {props.editText}
+                                            {editText}
                                         </button>
 
                                         {/* <div class="button_slide slide_right">BUTTON: SLIDE RIGHT </div> */}
