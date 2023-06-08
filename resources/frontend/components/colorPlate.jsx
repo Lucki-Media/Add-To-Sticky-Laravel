@@ -40,7 +40,7 @@ export function ColorPlate(props) {
                         <div className="color_picker_class">
                             <ColorPicker
                                 onChange={handleColorPickerChange}
-                                color={convertRgba2Hsva(props.defaultColor)}
+                                color={ColorHSVA}
                                 allowAlpha={true}
                             />
                         </div>
@@ -48,7 +48,7 @@ export function ColorPlate(props) {
                         <div>
                             <div className="color_picker__textfieldd">
                                 <TextField
-                                    value={props.defaultColor}
+                                    value={colorRGBA}
                                     onChange={handlecolorTextField}
                                     autoComplete="off"
                                 />
