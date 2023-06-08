@@ -144,8 +144,6 @@ export default function StickyCart() {
 
     //ICON SELECT
     const handleChange = (key) => {
-        setShowTable(false);
-
         setDefaultTemplate(key);
         var currentData;
         switch (key) {
@@ -167,8 +165,6 @@ export default function StickyCart() {
                 currentData = stickyCartData.current_template;
                 break;
         }
-        // console.log("currentData");
-        // console.log(currentData);
         setEnableSticky(stickyCartData.enableSticky);
         setAction(currentData.action);
         setBtnSize(currentData.btnSize);
@@ -192,10 +188,7 @@ export default function StickyCart() {
         setCountHoverColor(currentData.countHoverColor);
         setCountBgColor(currentData.countBgColor);
         setCountBgHoverColor(currentData.countBgHoverColor);
-        setShowTable(true);
     };
-    // console.log("bgColor");
-    // console.log(bgColor);
 
     let handleSave = async () => {
         try {
@@ -293,23 +286,19 @@ export default function StickyCart() {
     const handleEditTopField = (value) => {
         setPositionTop(value);
     };
-    // const handleEditTopField = useCallback((value) => setEditTop(value), []);
-
     //LEFT
     const handleEditLeftField = useCallback(
         (value) => setPositionLeft(value),
         []
     );
-
     //BOTTOM
     const handleEditBottomField = useCallback(
         (value) => setPositionBottom(value),
         []
     );
-
     //RIGHT
     const handleEditRightField = useCallback(
-        (value) => setPositionBottom(value),
+        (value) => setPositionRight(value),
         []
     );
     //POSITION END

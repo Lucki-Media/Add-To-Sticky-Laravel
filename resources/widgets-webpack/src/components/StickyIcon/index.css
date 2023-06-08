@@ -16,6 +16,32 @@
   z-index: 99;
   top: 0;
 }
+.lm_add_to_sticky_top_bar_header_bottom {
+    width: 100%;
+   max-width: 1200px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   background-color: var(--white);
+   padding: 24px 34px;
+   margin-left: auto;
+   margin-right: auto;
+   position: -webkit-sticky;
+   position: sticky;
+   top: 0;
+   z-index: 22;
+   box-shadow: 0px 2px 8px #ededed;
+ }
+ .lm_add_to_sticky_top_bar_header_out {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+ }
+ .lm_add_to_sticky_top_bar_header_out div {
+    margin-left: 10px;
+    font-size: 22px;
+    margin-bottom: 3px;
+ }
 
 .sidebar_title {
   font-size: 18px;
@@ -203,6 +229,7 @@ div[id^="font-picker"] .dropdown-button:focus {
 }
 
 .stickyCart__icon {
+  cursor: pointer;
   position: fixed;
   display: flex;
   align-items: center;

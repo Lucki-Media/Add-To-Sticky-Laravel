@@ -1,202 +1,290 @@
 import React, { useEffect, useState } from "react";
-import styles from "./lmquotebtn.module.css";
 import { useCookies } from "react-cookie";
-import defaultSticky from "./defaultSticky";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCartArrowDown,
-  faCartPlus,
-  faCartShopping,
-  faBasketShopping,
-  faBagShopping,
+    faCartArrowDown,
+    faCartPlus,
+    faCartShopping,
+    faBasketShopping,
+    faBagShopping,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import cart from "shopify-cartjs";
+require("./index.css");
 const StickyIcon = (props) => {
-  // const navigate = useNavigate();
-  const [enable, setEnable] = useState(true);
-  const [value, setValue] = useState(1);
-  const [selected, setSelected] = useState("1");
-  const [rangeValue, setRangeValue] = useState(60);
-  const [countNumber, setCountNumber] = useState(countNumber ? countNumber : 0);
-  const [countValue, setCountValue] = useState(16);
-  const [countHover, setCountHover] = useState(false);
-  const [countFontValue, setCountFontValue] = useState(14);
-  const [iconValue, setIconValue] = useState(20);
-  const [iconHover, setIconHover] = useState(false);
-  const [bgColor, setbgColor] = useState(
-    defaultSticky.bg_color ? defaultSticky.bg_color : "rgba(0, 0, 0, 0)"
-  );
-  const [bgHoverColor, setbgHoverColor] = useState(
-    defaultSticky.bg_hover_color
-      ? defaultSticky.bg_hover_color
-      : "rgba(0, 0, 0, 0)"
-  );
-  const [borderValue, setBorder] = useState(1);
-  const [borderColor, setborderColor] = useState(
-    defaultSticky.border_color ? defaultSticky.border_color : "rgba(0, 0, 0, 0)"
-  );
-  const [radiusColor, setradiusColor] = useState(
-    defaultSticky.border_hover_color
-      ? defaultSticky.border_hover_color
-      : "rgba(0, 0, 0, 0)"
-  );
-  const [iconColor, setIconColor] = useState(
-    defaultSticky.icon_color ? defaultSticky.icon_color : "rgba(0, 0, 0, 0)"
-  );
-  const [iconHoverColor, setIconHoverColor] = useState(
-    defaultSticky.icon_hover_color
-      ? defaultSticky.icon_hover_color
-      : "rgba(0, 0, 0, 0)"
-  );
-  const [CountColor, setCountColor] = useState(
-    defaultSticky.count_color ? defaultSticky.count_color : "rgba(0, 0, 0, 0)"
-  );
-  const [countHoverColor, setCountHoverColor] = useState(
-    defaultSticky.count_hover_color
-      ? defaultSticky.count_hover_color
-      : "rgba(0, 0, 0, 0)"
-  );
-  const [countBGColor, setCountBGColor] = useState(
-    defaultSticky.countBG_color
-      ? defaultSticky.countBG_color
-      : "rgba(0, 0, 0, 0)"
-  );
-  const [countBGHoverColor, setCountBGHoverColor] = useState(
-    defaultSticky.countBG_hover_color
-      ? defaultSticky.countBG_hover_color
-      : "rgba(0, 0, 0, 0)"
-  );
-  const [editTop, setEditTop] = useState(20);
-  const [editRight, setEditRight] = useState(1);
-  const [editLeft, setEditLeft] = useState(0);
-  const [editBottom, setEditBottom] = useState(0);
-  const [check, setCheck] = useState(false);
-  const [count, setCount] = useState("0");
-  const [cookies, setCookie, removeCookie] = useCookies("LM_Quote_sessionId");
-  // const handleClick = (data) => {
-  //   navigate("/");
-  // };
-  useEffect(() => {
-    // console.log(cart.updateItem());
+    // const navigate = useNavigate();
+    const [cartCount, setCartCount] = useState(0);
+    const [iconHover, setIconHover] = useState(false);
+    const [countHover, setCountHover] = useState(false);
+    const [enableSticky, setEnableSticky] = useState(true);
+    const [defaultTemplate, setDefaultTemplate] = useState(1);
+    const [action, setAction] = useState("1");
+    const [btnSize, setBtnSize] = useState(60);
+    const [bgColor, setBgColor] = useState("rgba(0, 0, 0, 0)");
+    const [bgHoverColor, setBgHoverColor] = useState("rgba(0, 0, 0, 0)");
+    const [borderSize, setBorderSize] = useState(1);
+    const [borderColor, setBorderColor] = useState("rgba(0, 0, 0, 0)");
+    const [borderHoverColor, setBorderHoverColor] =
+        useState("rgba(0, 0, 0, 0)");
+    const [positionTop, setPositionTop] = useState(20);
+    const [positionBottom, setPositionBottom] = useState(0);
+    const [positionLeft, setPositionLeft] = useState(0);
+    const [positionRight, setPositionRight] = useState(1);
+    const [iconSize, setIconSize] = useState(20);
+    const [iconColor, setIconColor] = useState("rgba(0, 0, 0, 0)");
+    const [iconHoverColor, setIconHoverColor] = useState(
+        "rgba(240, 128, 128, 1)"
+    );
+    const [enableCount, setEnableCount] = useState(false);
+    const [numberCount, setNumberCount] = useState(cartCount ? cartCount : 0);
+    const [countSize, setCountSize] = useState(16);
+    const [countFontSize, setCountFontSize] = useState(14);
+    const [countColor, setCountColor] = useState("rgba(0, 0, 0, 0)");
+    const [countHoverColor, setCountHoverColor] = useState("rgba(0, 0, 0, 0)");
+    const [countBgColor, setCountBgColor] = useState("rgba(0, 0, 0, 0)");
+    const [countBgHoverColor, setCountBgHoverColor] =
+        useState("rgba(0, 0, 0, 0)");
+    const [cookies, setCookie, removeCookie] = useCookies("LM_Quote_sessionId");
+    const handleClick = (data) => {
+        console.log(action);
+        action === "1"
+            ? (window.location.href = "/cart")
+            : (window.location.href = "/checkout");
+        //   navigate("/");
+    };
+    const getStickyCartData = async () => {
+        try {
+            const response = await fetch(
+                `${process.env.REACT_APP_API_URL}` +
+                    "getStickyCartData/" +
+                    window.Shopify.shop
+            );
+            const data = await response.json();
+            setEnableSticky(data.data.enableSticky);
+            setDefaultTemplate(data.data.defaultTemplate);
+            setAction(data.data.current_template.action);
+            setBtnSize(data.data.current_template.btnSize);
+            setBgColor(data.data.current_template.bgColor);
+            setBgHoverColor(data.data.current_template.bgHoverColor);
+            setBorderSize(data.data.current_template.borderSize);
+            setBorderColor(data.data.current_template.borderColor);
+            setBorderHoverColor(data.data.current_template.borderHoverColor);
+            setPositionTop(data.data.current_template.positionTop);
+            setPositionBottom(data.data.current_template.positionBottom);
+            setPositionLeft(data.data.current_template.positionLeft);
+            setPositionRight(data.data.current_template.positionRight);
+            setIconSize(data.data.current_template.iconSize);
+            setIconColor(data.data.current_template.iconColor);
+            setIconHoverColor(data.data.current_template.iconHoverColor);
+            setEnableCount(data.data.current_template.enableCount);
+            setNumberCount(data.data.current_template.numberCount);
+            setCountSize(data.data.current_template.countSize);
+            setCountFontSize(data.data.current_template.countFontSize);
+            setCountColor(data.data.current_template.countColor);
+            setCountHoverColor(data.data.current_template.countHoverColor);
+            setCountBgColor(data.data.current_template.countBgColor);
+            setCountBgHoverColor(data.data.current_template.countBgHoverColor);
+        } catch (err) {
+            console.log(err);
+        }
+    };
     /* CART COUNT API CALL START*/
     const getCartCount = async () => {
-      const res = axios
-        .get("https://" + window.location.host + "/cart.json")
-        .then((response) => {
-          setCountNumber(response.data.item_count);
-        });
+        axios
+            .get("https://" + window.location.host + "/cart.json")
+            .then((response) => {
+                setCartCount(response.data.item_count);
+            });
     };
     /* CART COUNT API CALL END*/
-    /*ADDING EVENT LISTENER TO UPDATE CART COUNT START*/
-    if (window.meta.page.pageType === "product") {
-      document
-        .querySelectorAll(".lm-quote-add-to-cart-q78er")
-        .forEach((button) => {
-          button.addEventListener("click", () => {
-            setTimeout(function () {
-              getCartCount();
-            }, 1000);
-          });
-        });
-    }
-    /*ADDING EVENT LISTENER TO UPDATE CART COUNT END*/
-    setEnable(defaultSticky.enable_sticky);
-    setValue(defaultSticky.default_template);
-    setSelected(defaultSticky.action_value);
-    setRangeValue(defaultSticky.main_size);
-    setbgColor(defaultSticky.bg_color);
-    setbgHoverColor(defaultSticky.bg_hover_color);
-    setBorder(defaultSticky.border_size);
-    setborderColor(defaultSticky.border_color);
-    setradiusColor(defaultSticky.border_hover_color);
-    setEditTop(defaultSticky.pos_top);
-    setEditBottom(defaultSticky.pos_bottom);
-    setEditLeft(defaultSticky.pos_left);
-    setEditRight(defaultSticky.pos_right);
-    setIconValue(defaultSticky.icon_size);
-    setIconColor(defaultSticky.icon_color);
-    setIconHoverColor(defaultSticky.icon_hover_color);
-    setCheck(defaultSticky.enable_count);
-    // setCountNumber(defaultSticky.count_num);
-    setCountValue(defaultSticky.count_size);
-    setCountFontValue(defaultSticky.count_font_size);
-    setCountColor(defaultSticky.count_color);
-    setCountHoverColor(defaultSticky.count_hover_color);
-    setCountBGColor(defaultSticky.countBG_color);
-    setCountBGHoverColor(defaultSticky.countBG_hover_color);
-    getCartCount();
-  }, [countNumber]);
-  // ICON STYLE START
-  // ICON HOVER
-  const handleIconEnter = () => {
-    setIconHover(true);
-  };
+    useEffect(() => {
+        getStickyCartData();
+        /*ADDING EVENT LISTENER TO UPDATE CART COUNT START*/
+        if (window.meta.page.pageType === "product") {
+            document
+                .querySelectorAll(".lm-quote-add-to-cart-q78er")
+                .forEach((button) => {
+                    button.addEventListener("click", () => {
+                        setTimeout(function () {
+                            getCartCount();
+                        }, 1000);
+                    });
+                });
+        }
+        /*ADDING EVENT LISTENER TO UPDATE CART COUNT END*/
+        getCartCount();
+    }, [numberCount]);
+    // ICON STYLE START
+    // ICON HOVER
+    const handleIconEnter = () => {
+        setIconHover(true);
+    };
 
-  const handleIconLeave = () => {
-    setIconHover(false);
-  };
+    const handleIconLeave = () => {
+        setIconHover(false);
+    };
 
-  // COUNT HOVER
-  const handleCountEnter = () => {
-    setCountHover(true);
-  };
+    // COUNT HOVER
+    const handleCountEnter = () => {
+        setCountHover(true);
+    };
 
-  const handleCountLeave = () => {
-    setCountHover(false);
-  };
-  // COUNT END
-
-  return (
-    <div>
-      <div className={styles.main_sticky___div}>
-        <div
-          className={styles.stickyCart__icon}
-          style={{
-            position: "fixed",
-            fontSize: iconValue,
-            color: iconHover ? iconHoverColor : iconColor,
-            border: iconHover
-              ? borderValue + "px solid " + radiusColor
-              : borderValue + "px solid " + borderColor,
-            background: iconHover ? bgHoverColor : bgColor,
-            height: rangeValue,
-            width: rangeValue,
-            top: editTop === 0 ? "" : editTop + "%",
-            bottom: editBottom === 0 ? "" : editBottom + "%",
-            left: editLeft === 0 ? "" : editLeft + "%",
-            right: editRight === 0 ? "" : editRight + "%",
-          }}
-          onMouseEnter={handleIconEnter}
-          onMouseLeave={handleIconLeave}
-        >
-          {check === true ? (
-            <span
-              className={styles.sticky_Count}
-              style={{
-                background: countHover ? countBGHoverColor : countBGColor,
-                width: countValue,
-                height: countValue,
-                fontSize: countFontValue,
-                color: countHover ? countHoverColor : CountColor,
-              }}
-              onMouseEnter={handleCountEnter}
-              onMouseLeave={handleCountLeave}
-            >
-              {countNumber}
-            </span>
-          ) : (
-            ""
-          )}
-          {value === 1 ? <FontAwesomeIcon icon={faCartShopping} /> : ""}
-          {value === 2 ? <FontAwesomeIcon icon={faCartPlus} /> : ""}
-          {value === 3 ? <FontAwesomeIcon icon={faCartArrowDown} /> : ""}
-          {value === 4 ? <FontAwesomeIcon icon={faBasketShopping} /> : ""}
-          {value === 5 ? <FontAwesomeIcon icon={faBagShopping} /> : ""}
+    const handleCountLeave = () => {
+        setCountHover(false);
+    };
+    // COUNT END
+    return (
+        <div>
+            {" "}
+            {enableSticky === true ? (
+                <div className="main_sticky___div">
+                    <div
+                        className="stickyCart__icon"
+                        style={{
+                            position: "fixed",
+                            fontSize: iconSize,
+                            color: iconHover ? iconHoverColor : iconColor,
+                            border: iconHover
+                                ? borderSize + "px solid " + borderHoverColor
+                                : borderSize + "px solid " + borderColor,
+                            background: iconHover ? bgHoverColor : bgColor,
+                            height: btnSize,
+                            width: btnSize,
+                            top: positionTop === 0 ? "" : positionTop + "%",
+                            bottom:
+                                positionBottom === 0
+                                    ? ""
+                                    : positionBottom + "%",
+                            left: positionLeft === 0 ? "" : positionLeft + "%",
+                            right:
+                                positionRight === 0 ? "" : positionRight + "%",
+                        }}
+                        onMouseEnter={handleIconEnter}
+                        onMouseLeave={handleIconLeave}
+                        onClick={handleClick}
+                    >
+                        {enableCount === true ? (
+                            <span
+                                className="sticky_Count"
+                                style={{
+                                    background: countHover
+                                        ? countBgHoverColor
+                                        : countBgColor,
+                                    width: countSize,
+                                    height: countSize,
+                                    fontSize: countFontSize,
+                                    color: countHover
+                                        ? countHoverColor
+                                        : countColor,
+                                }}
+                                onMouseEnter={handleCountEnter}
+                                onMouseLeave={handleCountLeave}
+                            >
+                                {numberCount}
+                            </span>
+                        ) : (
+                            ""
+                        )}
+                        {defaultTemplate === 1 ? (
+                            <FontAwesomeIcon icon={faCartShopping} />
+                        ) : (
+                            ""
+                        )}
+                        {defaultTemplate === 2 ? (
+                            <FontAwesomeIcon icon={faCartPlus} />
+                        ) : (
+                            ""
+                        )}
+                        {defaultTemplate === 3 ? (
+                            <FontAwesomeIcon icon={faCartArrowDown} />
+                        ) : (
+                            ""
+                        )}
+                        {defaultTemplate === 4 ? (
+                            <FontAwesomeIcon icon={faBasketShopping} />
+                        ) : (
+                            ""
+                        )}
+                        {defaultTemplate === 5 ? (
+                            <FontAwesomeIcon icon={faBagShopping} />
+                        ) : (
+                            ""
+                        )}
+                    </div>
+                </div>
+            ) : (
+                ""
+            )}
         </div>
-      </div>
-    </div>
-  );
+
+        // <div>
+        //     <div className={styles.main_sticky___div}>
+        //         <div
+        //             className={styles.stickyCart__icon}
+        //             style={{
+        //                 position: "fixed",
+        //                 fontSize: iconValue,
+        //                 color: iconHover ? iconHoverColor : iconColor,
+        //                 border: iconHover
+        //                     ? borderValue + "px solid " + radiusColor
+        //                     : borderValue + "px solid " + borderColor,
+        //                 background: iconHover ? bgHoverColor : bgColor,
+        //                 height: rangeValue,
+        //                 width: rangeValue,
+        //                 top: editTop === 0 ? "" : editTop + "%",
+        //                 bottom: editBottom === 0 ? "" : editBottom + "%",
+        //                 left: editLeft === 0 ? "" : editLeft + "%",
+        //                 right: editRight === 0 ? "" : editRight + "%",
+        //             }}
+        //             onMouseEnter={handleIconEnter}
+        //             onMouseLeave={handleIconLeave}
+        //         >
+        //             {check === true ? (
+        //                 <span
+        //                     className={styles.sticky_Count}
+        //                     style={{
+        //                         background: countHover
+        //                             ? countBGHoverColor
+        //                             : countBGColor,
+        //                         width: countValue,
+        //                         height: countValue,
+        //                         fontSize: countFontValue,
+        //                         color: countHover
+        //                             ? countHoverColor
+        //                             : CountColor,
+        //                     }}
+        //                     onMouseEnter={handleCountEnter}
+        //                     onMouseLeave={handleCountLeave}
+        //                 >
+        //                     {countNumber}
+        //                 </span>
+        //             ) : (
+        //                 ""
+        //             )}
+        //             {value === 1 ? (
+        //                 <FontAwesomeIcon icon={faCartShopping} />
+        //             ) : (
+        //                 ""
+        //             )}
+        //             {value === 2 ? <FontAwesomeIcon icon={faCartPlus} /> : ""}
+        //             {value === 3 ? (
+        //                 <FontAwesomeIcon icon={faCartArrowDown} />
+        //             ) : (
+        //                 ""
+        //             )}
+        //             {value === 4 ? (
+        //                 <FontAwesomeIcon icon={faBasketShopping} />
+        //             ) : (
+        //                 ""
+        //             )}
+        //             {value === 5 ? (
+        //                 <FontAwesomeIcon icon={faBagShopping} />
+        //             ) : (
+        //                 ""
+        //             )}
+        //         </div>
+        //     </div>
+        // </div>
+    );
 };
 
 export default StickyIcon;
