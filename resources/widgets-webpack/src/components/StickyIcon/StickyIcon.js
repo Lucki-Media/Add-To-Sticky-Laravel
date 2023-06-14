@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faCartArrowDown,
@@ -10,9 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 require("./index.css");
-const StickyIcon = (props) => {
-    // const navigate = useNavigate();
-    const [cartCount, setCartCount] = useState(0);
+const StickyIcon = () => {
     const [iconHover, setIconHover] = useState(false);
     const [countHover, setCountHover] = useState(false);
     const [enableSticky, setEnableSticky] = useState(true);
@@ -35,7 +32,7 @@ const StickyIcon = (props) => {
         "rgba(240, 128, 128, 1)"
     );
     const [enableCount, setEnableCount] = useState(false);
-    const [numberCount, setNumberCount] = useState(cartCount ? cartCount : 0);
+    const [numberCount, setNumberCount] = useState(0);
     const [countSize, setCountSize] = useState(16);
     const [countFontSize, setCountFontSize] = useState(14);
     const [countColor, setCountColor] = useState("rgba(0, 0, 0, 0)");
@@ -43,13 +40,10 @@ const StickyIcon = (props) => {
     const [countBgColor, setCountBgColor] = useState("rgba(0, 0, 0, 0)");
     const [countBgHoverColor, setCountBgHoverColor] =
         useState("rgba(0, 0, 0, 0)");
-    const [cookies, setCookie, removeCookie] = useCookies("LM_Quote_sessionId");
     const handleClick = (data) => {
-        console.log(action);
         action === "1"
             ? (window.location.href = "/cart")
             : (window.location.href = "/checkout");
-        //   navigate("/");
     };
     const getStickyCartData = async () => {
         try {
@@ -76,7 +70,6 @@ const StickyIcon = (props) => {
             setIconColor(data.data.current_template.iconColor);
             setIconHoverColor(data.data.current_template.iconHoverColor);
             setEnableCount(data.data.current_template.enableCount);
-            setNumberCount(data.data.current_template.numberCount);
             setCountSize(data.data.current_template.countSize);
             setCountFontSize(data.data.current_template.countFontSize);
             setCountColor(data.data.current_template.countColor);
@@ -92,7 +85,7 @@ const StickyIcon = (props) => {
         axios
             .get("https://" + window.location.host + "/cart.json")
             .then((response) => {
-                setCartCount(response.data.item_count);
+                setNumberCount(response.data.item_count);
             });
     };
     /* CART COUNT API CALL END*/

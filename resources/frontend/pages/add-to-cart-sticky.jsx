@@ -99,7 +99,7 @@ export default function AddToCartSticky() {
     /*BUY NOW CONSTANTS*/
     const [buyNowSettings, setBuyNowSettings] = useState(false);
     const [editText, setEditText] = useState("BUY NOW");
-    const [soldOut, setSoldOut] = useState("Sold out");
+    // const [soldOut, setSoldOut] = useState("Sold out");
     const [unavailable, setUnavailable] = useState("Unavailable");
     const [btnWidthValue, setBtnWidthValue] = useState(125);
     const [btnheightValue, setBtnHeightValue] = useState(35);
@@ -163,7 +163,7 @@ export default function AddToCartSticky() {
             );
             setGsAction(data.data.current_template.general_settings.gsAction);
             setEditText(data.data.current_template.buy_btn_settings.editText);
-            setSoldOut(data.data.current_template.buy_btn_settings.soldOut);
+            // setSoldOut(data.data.current_template.buy_btn_settings.soldOut);
             setUnavailable(
                 data.data.current_template.buy_btn_settings.unavailable
             );
@@ -266,7 +266,7 @@ export default function AddToCartSticky() {
         setGsAction(currentData.general_settings.gsAction);
         /*BUY NOW BUTTON VALUES*/
         setEditText(currentData.buy_btn_settings.editText);
-        setSoldOut(currentData.buy_btn_settings.soldOut);
+        // setSoldOut(currentData.buy_btn_settings.soldOut);
         setUnavailable(currentData.buy_btn_settings.unavailable);
         setBtnHeightValue(currentData.buy_btn_settings.btnheightValue);
         setBtnWidthValue(currentData.buy_btn_settings.btnWidthValue);
@@ -315,7 +315,7 @@ export default function AddToCartSticky() {
                 /*GENERAL SETTINGS END*/
                 /*BUY NOW START*/
                 editText: editText,
-                soldOut: soldOut,
+                // soldOut: soldOut,
                 unavailable: unavailable,
                 btnWidthValue: btnWidthValue,
                 btnheightValue: btnheightValue,
@@ -477,9 +477,9 @@ export default function AddToCartSticky() {
         setEditText(val);
     };
     // SOLD OUT
-    const handleSoldOutTextField = (val) => {
-        setSoldOut(val);
-    };
+    // const handleSoldOutTextField = (val) => {
+    //     setSoldOut(val);
+    // };
     // UNAVAILABLE
     const handleUnavailableTextField = (val) => {
         setUnavailable(val);
@@ -615,7 +615,7 @@ export default function AddToCartSticky() {
                                 gsDisplayCondition={gsDisplayCondition}
                                 buyNowSettings={buyNowSettings}
                                 editText={editText}
-                                soldOut={soldOut}
+                                // soldOut={soldOut}
                                 unavailable={unavailable}
                                 btnWidthValue={btnWidthValue}
                                 btnheightValue={btnheightValue}
@@ -657,7 +657,7 @@ export default function AddToCartSticky() {
                                 gsDisplayCondition={gsDisplayCondition}
                                 buyNowSettings={buyNowSettings}
                                 editText={editText}
-                                soldOut={soldOut}
+                                // soldOut={soldOut}
                                 unavailable={unavailable}
                                 btnWidthValue={btnWidthValue}
                                 btnheightValue={btnheightValue}
@@ -699,7 +699,7 @@ export default function AddToCartSticky() {
                                 gsDisplayCondition={gsDisplayCondition}
                                 buyNowSettings={buyNowSettings}
                                 editText={editText}
-                                soldOut={soldOut}
+                                // soldOut={soldOut}
                                 unavailable={unavailable}
                                 btnWidthValue={btnWidthValue}
                                 btnheightValue={btnheightValue}
@@ -741,7 +741,7 @@ export default function AddToCartSticky() {
                                 gsDisplayCondition={gsDisplayCondition}
                                 buyNowSettings={buyNowSettings}
                                 editText={editText}
-                                soldOut={soldOut}
+                                // soldOut={soldOut}
                                 unavailable={unavailable}
                                 btnWidthValue={btnWidthValue}
                                 btnheightValue={btnheightValue}
@@ -783,7 +783,7 @@ export default function AddToCartSticky() {
                                 gsDisplayCondition={gsDisplayCondition}
                                 buyNowSettings={buyNowSettings}
                                 editText={editText}
-                                soldOut={soldOut}
+                                // soldOut={soldOut}
                                 unavailable={unavailable}
                                 btnWidthValue={btnWidthValue}
                                 btnheightValue={btnheightValue}
@@ -825,7 +825,7 @@ export default function AddToCartSticky() {
                                 gsDisplayCondition={gsDisplayCondition}
                                 buyNowSettings={buyNowSettings}
                                 editText={editText}
-                                soldOut={soldOut}
+                                // soldOut={soldOut}
                                 unavailable={unavailable}
                                 btnWidthValue={btnWidthValue}
                                 btnheightValue={btnheightValue}
@@ -867,7 +867,7 @@ export default function AddToCartSticky() {
                                 gsDisplayCondition={gsDisplayCondition}
                                 buyNowSettings={buyNowSettings}
                                 editText={editText}
-                                soldOut={soldOut}
+                                // soldOut={soldOut}
                                 unavailable={unavailable}
                                 btnWidthValue={btnWidthValue}
                                 btnheightValue={btnheightValue}
@@ -909,7 +909,7 @@ export default function AddToCartSticky() {
                                 gsDisplayCondition={gsDisplayCondition}
                                 buyNowSettings={buyNowSettings}
                                 editText={editText}
-                                soldOut={soldOut}
+                                // soldOut={soldOut}
                                 unavailable={unavailable}
                                 btnWidthValue={btnWidthValue}
                                 btnheightValue={btnheightValue}
@@ -1384,7 +1384,7 @@ export default function AddToCartSticky() {
                                                     </div>
 
                                                     {/* Sold out */}
-                                                    <div className="style__wrapper_div">
+                                                    {/* <div className="style__wrapper_div">
                                                         <span className="display_setting_subtitle">
                                                             Sold out
                                                         </span>
@@ -1400,7 +1400,7 @@ export default function AddToCartSticky() {
                                                                 showCharacterCount
                                                             />
                                                         </div>
-                                                    </div>
+                                                    </div> */}
 
                                                     {/* Unavailable */}
                                                     <div className="style__wrapper_div">

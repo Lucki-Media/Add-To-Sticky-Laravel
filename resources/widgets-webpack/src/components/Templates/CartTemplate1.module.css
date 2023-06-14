@@ -5,9 +5,12 @@
   z-index: 999;
 }
 .lm_container{
-  max-width: 1220px;
-  margin:0 auto;
-  padding: 0 15px;
+transition-duration: 2s;
+transition-timing-function: ease-in;
+transition-delay: 2s;
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0 15px;
   }
 
 .lm_cart_module{
@@ -18,6 +21,7 @@ justify-content: space-between;
 .lm_pro_image{
   display: flex;
   align-items: center;
+  width: 35%;
 }
 .lm_pro_image img{
 object-fit: cover;
@@ -35,13 +39,14 @@ display: inline-block;
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
+  width: 60%;
 
 }
 .lm_middlecontent span{
-position: relative;margin-right: 20PX;
+position: relative;margin-right: 20PX;font-size: 15px;
 }
 .lm_middlecontent span.compare_lm_price{
-  text-decoration: line-through;
+  text-decoration: line-through;font-size: 15px;
 }
 .lm_middlecontent .simple_price::before{
   position: absolute;
@@ -50,7 +55,7 @@ position: relative;margin-right: 20PX;
   height: 13px;
   width: 1px;
   left: -10px;
-  top: 5px;
+  top:2px;
   }
   .lm_middlecontent .lm_out_stock::before , .lm_middlecontent .lm_sale::before{
     position: absolute;
@@ -59,7 +64,7 @@ position: relative;margin-right: 20PX;
     height: 13px;
     width: 1px;
     left: -10px;
-    top: 1px;
+    top:4px;
     }
 .lmblock_right .lm_quantity_selector {
 margin: 0 15px 0 8px;
@@ -141,6 +146,12 @@ margin: 0 15px 0 8px;
   .button_block{
     margin-top: 0;
   }
+  .lm_pro_image{
+    width: auto;
+  }
+  .lmblock_right{
+    width: auto;
+  }
 }
 @media screen and (max-width: 767px) {
 
@@ -168,7 +179,7 @@ margin: 0 15px 0 8px;
       justify-content: center;
   }
   .productInputs label{
-    display: none;
+    /* display: none; */
   }
   .lm_cart_module{
     display: block;

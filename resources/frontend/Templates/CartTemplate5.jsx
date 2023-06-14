@@ -46,7 +46,7 @@ export default function CartTemplate5(props) {
     );
     const [gsOffsetValue, setGsOffsetValue] = useState(props.gsOffsetValue);
     const [editText, setEditText] = useState(props.editText);
-    const [soldOut, setSoldOut] = useState(props.soldOut);
+    // const [soldOut, setSoldOut] = useState(props.soldOut);
     const [unavailable, setUnavailable] = useState(props.unavailable);
 
     const options = [
@@ -90,7 +90,7 @@ export default function CartTemplate5(props) {
         setPosition(props.position);
         setGsOffsetValue(props.gsOffsetValue);
         setEditText(props.editText);
-        setSoldOut(props.soldOut);
+        // setSoldOut(props.soldOut);
         setUnavailable(props.unavailable);
         setBtnHeightValue(props.btnheightValue);
         setBtnWidthValue(props.btnWidthValue);
@@ -269,7 +269,7 @@ export default function CartTemplate5(props) {
                                             $4
                                         </span>{" "}
                                         <span className={style.lm_sale}>
-                                            {soldOut}
+                                            {unavailable}
                                         </span>
                                     </div>
                                 </div>

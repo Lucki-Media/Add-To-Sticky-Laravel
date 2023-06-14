@@ -19,7 +19,7 @@ return array(
     ],
         'buy_btn_settings'=> [
             'editText'=> "BUY NOW",
-            'soldOut'=> "Sold out",
+            // 'soldOut'=> "Sold out",
             'unavailable'=> "Unavailable",
             'btnheightValue'=> 35,
             'btnWidthValue'=> 150,
