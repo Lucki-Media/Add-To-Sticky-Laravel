@@ -37,9 +37,7 @@ const ProductContainer = (props) => {
     };
     // USE EFFECT
     useEffect(() => {
-        // setTimeout(() => {
         getAddToStickyCartData();
-        // }, 2000);
         singleProduct();
 
         setValue(TemplateStyle.default_template);
@@ -47,6 +45,7 @@ const ProductContainer = (props) => {
             TemplateStyle.current_template.general_settings.font_height
         );
     }, []);
+    console.log(templateData.defaultTemplate);
     if (productData.length <= 0) {
         return <div>Loading</div>;
     } else {
@@ -61,8 +60,22 @@ const ProductContainer = (props) => {
                     ) : (
                         ""
                     )}
-                    {value === 2 ? <CartTemplate2 /> : ""}
-                    {value === 3 ? <CartTemplate3 /> : ""}
+                    {templateData.defaultTemplate === 2 ? (
+                        <CartTemplate2
+                            product={productData}
+                            templateData={templateData}
+                        />
+                    ) : (
+                        ""
+                    )}
+                    {templateData.defaultTemplate === 3 ? (
+                        <CartTemplate3
+                            product={productData}
+                            templateData={templateData}
+                        />
+                    ) : (
+                        ""
+                    )}
                     {value === 4 ? <CartTemplate4 /> : ""}
                 </div>
             </>

@@ -46,7 +46,7 @@ export default function CartTemplate2(props) {
     );
     const [gsOffsetValue, setGsOffsetValue] = useState(props.gsOffsetValue);
     const [editText, setEditText] = useState(props.editText);
-    const [soldOut, setSoldOut] = useState(props.soldOut);
+    // const [soldOut, setSoldOut] = useState(props.soldOut);
     const [unavailable, setUnavailable] = useState(props.unavailable);
 
     const options = [
@@ -90,7 +90,7 @@ export default function CartTemplate2(props) {
         setPosition(props.position);
         setGsOffsetValue(props.gsOffsetValue);
         setEditText(props.editText);
-        setSoldOut(props.soldOut);
+        // setSoldOut(props.soldOut);
         setUnavailable(props.unavailable);
         setBtnHeightValue(props.btnheightValue);
         setBtnWidthValue(props.btnWidthValue);
@@ -111,108 +111,108 @@ export default function CartTemplate2(props) {
         <>
             <style>
                 {`
-        .lm_quantity_picker .quantity-picker .quantity-display{
-        padding: 0;
-        background-color: #fff;
-        width: 28px !important;
-        font-size: 14px;
-        color: #ccc;
-        }
-        .lm_quantity_picker .quantity-modifier{
-        height: 28px;
-        width: 28px;
-        border: none;
-        font-size: 16px;
-        color: #ccc;
-        background-color: #fff;
-        border-radius: 0;
-        }
-        .lm_quantity_picker .quantity-picker{
-        background-color: #fff;
-        border: none;
-        border-radius:0;
-        display: flex;
-        align-items: center;
-        }
-        .lm_bold{
-          font-weight: bolder;
-        }
-        .lm_italic{
-          font-style: italic;
-        }
-        .lm_underline{
-          text-decoration: underline;
-        }
-      .lm-sticky-Bottom{
-        box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
-        background: ${gsBgColor};
-        height: ${containerHeight}px;
-        bottom:  ${gsOffsetValue}px;
-      }
-      .lm-sticky-Top{
-        box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
-        background: ${gsBgColor};
-        height: ${containerHeight}px;
-        top:  ${gsOffsetValue}px;
-      }
-    .img_size {
-        height: ${containerHeight}px;
-      }
-      .font_option {
-        color: ${gsTitleColor};
-        font-size: ${gsFontsize}px;
-      }
-      .label_color{
-        color: ${gsTitleColor};
-      }
-      .p_color{
-        color: ${gsPriceColor};
-        display: inline-block;
-      }
+                    .lm_quantity_picker .quantity-picker .quantity-display{
+                    padding: 0;
+                    background-color: #fff;
+                    width: 28px !important;
+                    font-size: 14px;
+                    color: #ccc;
+                    }
+                    .lm_quantity_picker .quantity-modifier{
+                    height: 28px;
+                    width: 28px;
+                    border: none;
+                    font-size: 16px;
+                    color: #ccc;
+                    background-color: #fff;
+                    border-radius: 0;
+                    }
+                    .lm_quantity_picker .quantity-picker{
+                    background-color: #fff;
+                    border: none;
+                    border-radius:0;
+                    display: flex;
+                    align-items: center;
+                    }
+                    .lm_bold{
+                    font-weight: bolder;
+                    }
+                    .lm_italic{
+                    font-style: italic;
+                    }
+                    .lm_underline{
+                    text-decoration: underline;
+                    }
+                .lm-sticky-Bottom{
+                    box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
+                    background: ${gsBgColor};
+                    height: ${containerHeight}px;
+                    bottom:  ${gsOffsetValue}px;
+                }
+                .lm-sticky-Top{
+                    box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
+                    background: ${gsBgColor};
+                    height: ${containerHeight}px;
+                    top:  ${gsOffsetValue}px;
+                }
+                .img_size {
+                    height: ${containerHeight}px;
+                }
+                .font_option {
+                    color: ${gsTitleColor};
+                    font-size: ${gsFontsize}px;
+                }
+                .label_color{
+                    color: ${gsTitleColor};
+                }
+                .p_color{
+                    color: ${gsPriceColor};
+                    display: inline-block;
+                }
 
-      .lm_options {
-        position: relative;
-      }
-      .lm_options .pro_select_menu{
-        display: inline-block;
-        width: 100px;
-      }
-      .lm_options .pro_select_menu > div{
-        border: 0;
-        font-size: 12px;
-        min-height: 25px;
+                .lm_options {
+                    position: relative;
+                }
+                .lm_options .pro_select_menu{
+                    display: inline-block;
+                    width: 100px;
+                }
+                .lm_options .pro_select_menu > div{
+                    border: 0;
+                    font-size: 12px;
+                    min-height: 25px;
 
-      }
-      .css-1jqq78o-placeholder{
-        font-size:12px;
-      }
-      .css-1xc3v61-indicatorContainer{
-        padding: 0 8px;
-      }
-      .slide_right {
-        width: ${btnWidthValue}px;
-        height: ${btnheightValue}px;
-        font-size: ${btnFontsize}px;
-        background: ${btnBgColor};
-        border-Width: ${btnBorderThickness}px;
-        border-color: ${btnBorderColor};
-        border-radius: ${btnBorderRadius}px;
-        color: ${btnTextColor};
-        padding: 0 20px;
-        display: inline-block;
-        cursor: pointer;
-        box-shadow: inset 0 0 0 0 ${btnBgHoverColor};
-        -webkit-transition: ease-out 0.4s;
-        -moz-transition: ease-out 0.4s;
-        transition: ease-out 0.4s;
-      }
+                }
+                .css-1jqq78o-placeholder{
+                    font-size:12px;
+                }
+                .css-1xc3v61-indicatorContainer{
+                    padding: 0 8px;
+                }
+                .slide_right {
+                    width: ${btnWidthValue}px;
+                    height: ${btnheightValue}px;
+                    font-size: ${btnFontsize}px;
+                    background: ${btnBgColor};
+                    border-Width: ${btnBorderThickness}px;
+                    border-color: ${btnBorderColor};
+                    border-radius: ${btnBorderRadius}px;
+                    color: ${btnTextColor};
+                    padding: 0 20px;
+                    display: inline-block;
+                    cursor: pointer;
+                    box-shadow: inset 0 0 0 0 ${btnBgHoverColor};
+                    -webkit-transition: ease-out 0.4s;
+                    -moz-transition: ease-out 0.4s;
+                    transition: ease-out 0.4s;
+                }
 
-      .slide_right:hover {
-        box-shadow: inset 400px 0 0 0 ${btnBgHoverColor};
-        border-color: ${btnBorderHoverColor};
-        color: ${btnTexthoverColor};
-      }
-      `}
+                .slide_right:hover {
+                    box-shadow: inset 400px 0 0 0 ${btnBgHoverColor};
+                    border-color: ${btnBorderHoverColor};
+                    color: ${btnTexthoverColor};
+                }
+                `}
             </style>
             {enable === true ? (
                 <div
@@ -252,7 +252,7 @@ export default function CartTemplate2(props) {
                                             $4
                                         </span>{" "}
                                         <span className={style.lm_sale}>
-                                            {soldOut}
+                                            {unavailable}
                                         </span>
                                     </div>
                                 </div>

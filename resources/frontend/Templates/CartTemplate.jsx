@@ -14,13 +14,13 @@ function CartTemplate1(props) {
     const [gsBold, setGsBold] = useState(props.gsBold);
     const [gsItalic, setGsItalic] = useState(props.gsItalic);
     const [gsUnderline, setGsUnderLine] = useState(props.gsUnderline);
-    const [btnBold, setBtnBold] = useState(props.btnBold);
-    const [btnItalic, setBtnItalic] = useState(props.btnItalic);
-    const [btnUnderline, setBtnUnderline] = useState(props.btnUnderline);
     const [gsFontFamily, setGsFontFamily] = useState(props.gsFontFamily);
     const [gsTitleColor, setGsTitleColor] = useState(props.gsTitleColor);
     const [gsPriceColor, setGsPriceColor] = useState(props.gsPriceColor);
     const [gsBgColor, setGsBgColor] = useState(props.gsBgColor);
+    const [btnBold, setBtnBold] = useState(props.btnBold);
+    const [btnItalic, setBtnItalic] = useState(props.btnItalic);
+    const [btnUnderline, setBtnUnderline] = useState(props.btnUnderline);
     const [btnTextColor, setBtnTextColor] = useState(props.btnTextColor);
     const [btnBgColor, setBtnBgColor] = useState(props.btnBgColor);
     const [btnTexthoverColor, setBtnTexthoverColor] = useState(
@@ -48,7 +48,7 @@ function CartTemplate1(props) {
     );
     const [gsOffsetValue, setGsOffsetValue] = useState(props.gsOffsetValue);
     const [editText, setEditText] = useState(props.editText);
-    const [soldOut, setSoldOut] = useState(props.soldOut);
+    // const [soldOut, setSoldOut] = useState(props.soldOut);
     const [unavailable, setUnavailable] = useState(props.unavailable);
 
     const options = [
@@ -92,7 +92,7 @@ function CartTemplate1(props) {
         setPosition(props.position);
         setGsOffsetValue(props.gsOffsetValue);
         setEditText(props.editText);
-        setSoldOut(props.soldOut);
+        // setSoldOut(props.soldOut);
         setUnavailable(props.unavailable);
         setBtnHeightValue(props.btnheightValue);
         setBtnWidthValue(props.btnWidthValue);

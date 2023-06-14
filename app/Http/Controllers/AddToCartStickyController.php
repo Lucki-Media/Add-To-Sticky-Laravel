@@ -31,7 +31,7 @@ class AddToCartStickyController extends Controller{
             ],
             'buy_btn_settings'      => [
                 'editText'              => $requestData['editText'],
-                'soldOut'               => $requestData['soldOut'],
+                // 'soldOut'               => $requestData['soldOut'],
                 'unavailable'           => $requestData['unavailable'],
                 'btnWidthValue'         => $requestData['btnWidthValue'],
                 'btnheightValue'        => $requestData['btnheightValue'],
