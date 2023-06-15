@@ -8,7 +8,6 @@ import getSymbolFromCurrency from "currency-symbol-map";
 
 export default function CartTemplate3(props) {
     const template_data = props.templateData.current_template;
-
     const position = template_data.general_settings.position,
         checkMobile = template_data.general_settings.checkMobile,
         checkDesktop = template_data.general_settings.checkDesktop,
@@ -91,6 +90,10 @@ export default function CartTemplate3(props) {
 
         setShouldDisable(condition);
     };
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const monthOptions = { month: "short" };
+    const currentMonth = currentDate.toLocaleString("en-US", monthOptions);
     let handleAddProduct = async () => {
         setLoading(true);
         const requestOptions = {
@@ -103,8 +106,22 @@ export default function CartTemplate3(props) {
                     .getElementsByTagName("input")[0].value,
             }),
         };
+        const requestOptions1 = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                shop: window.Shopify.shop,
+                month: currentMonth,
+                year: currentYear,
+            }),
+        };
         if (selectedVariant) {
             try {
+                const resBtnClicks = await fetch(
+                    `${process.env.REACT_APP_API_URL}` + "addBuyButtonClicks",
+                    requestOptions1
+                );
+                console.log(resBtnClicks);
                 const res = await fetch(
                     "https://" + window.location.host + "/cart/add.json",
                     requestOptions
@@ -116,7 +133,7 @@ export default function CartTemplate3(props) {
                 } else {
                     window.location.href = "/checkout";
                 }
-                console.log(cart_added);
+                // console.log(cart_added);
             } catch (error) {
                 console.log();
             }
@@ -249,12 +266,14 @@ export default function CartTemplate3(props) {
                             background: ${gsBgColor};
                             height: ${containerHeight}px;
                             bottom:  ${gsOffsetValue}px;
+                            animation: slide-in-bottom 1s ease forwards;
                         }
                         .lm-sticky-Top{
                             box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
                             background: ${gsBgColor};
                             height: ${containerHeight}px;
                             top:  ${gsOffsetValue}px;
+                            animation: slide-in-top 1s ease forwards;
                         }
                         .img_size {
                             height: ${containerHeight}px;
@@ -283,7 +302,7 @@ export default function CartTemplate3(props) {
                             font-size: 12px;
                             min-height: ${containerHeight}px;
                             box-shadow: none !important;
-
+                            border-radius: 0;
                         }
                         .css-1jqq78o-placeholder{
                             font-size:12px;
@@ -326,6 +345,7 @@ export default function CartTemplate3(props) {
                         }
                     `}
                     </style>
+
                     {props.templateData.enable === true ? (
                         <div
                             className={`lm-sticky-${position} ${
@@ -344,7 +364,7 @@ export default function CartTemplate3(props) {
                                                           .featured_image.src
                                                     : "https://dev.luckistore.in/default_product.png"
                                             }
-                                            alt="product image"
+                                            alt="product"
                                         />
                                         <div className={style.lm_middlecontent}>
                                             <h5
@@ -429,6 +449,15 @@ export default function CartTemplate3(props) {
                                                                             }
                                                                         </label> */}
                                                                         <Select
+                                                                            placeholder={
+                                                                                opt.name
+                                                                            }
+                                                                            menuPlacement={
+                                                                                position ===
+                                                                                "Bottom"
+                                                                                    ? "top"
+                                                                                    : "bottom"
+                                                                            }
                                                                             onChange={(
                                                                                 selectedOption
                                                                             ) =>

@@ -16,6 +16,8 @@ import {
     SkeletonBodyText,
     TextContainer,
     SkeletonDisplayText,
+    Loading,
+    Spinner,
 } from "@shopify/polaris";
 import "../css/index.css";
 import { useNavigate } from "react-router-dom";
@@ -388,7 +390,15 @@ export default function StickyCart() {
         return (
             <div>
                 <Frame>
-                    <Card>
+                    <Loading />
+                    <div style={{ marginLeft: "50%", marginTop: "20%" }}>
+                        {" "}
+                        <Spinner
+                            accessibilityLabel="Spinner example"
+                            size="large"
+                        />
+                    </div>
+                    {/* <Card>
                         <SkeletonPage primaryAction>
                             <Layout>
                                 <Layout.Section>
@@ -404,7 +414,7 @@ export default function StickyCart() {
                                 </Layout.Section>
                             </Layout>
                         </SkeletonPage>
-                    </Card>
+                    </Card> */}
                 </Frame>
             </div>
         );

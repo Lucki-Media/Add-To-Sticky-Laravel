@@ -51,11 +51,11 @@
     margin-right: 20PX;
   }
 
-  .lm_middlecontent span.compare_lm_price {
+  .lm_block_price span.compare_lm_price {
     text-decoration: line-through;
   }
 
-  .lm_middlecontent .simple_price::before, .lm_middlecontent .compare_lm_price::before {
+  /* .lm_middlecontent .simple_price::before, .lm_middlecontent .compare_lm_price::before {
     position: absolute;
     content: '';
     background-color: #999999;
@@ -63,6 +63,15 @@
     width: 1px;
     left: -10px;
     top: 0;
+  }
+  .lm_middlecontent .lm_out_stock::before, .lm_middlecontent .simple_price::before {
+    position: absolute;
+    content: '';
+    background-color: #999999;
+    height: 23px;
+    width: 1px;
+    left: -10px;
+    top: -3px;
   }
 
   .lm_middlecontent .lm_out_stock::before, .lm_middlecontent .lm_sale::before {
@@ -73,7 +82,7 @@
     width: 1px;
     left: -10px;
     top: -3px;
-  }
+  } */
 
   /* .lmblock_right .lm_quantity_selector {
     margin: 0 15px 0 8px;
@@ -129,7 +138,26 @@
     border-radius: 15px;
   }
 
-
+  .lm_block_price .simple_price::before{
+    position: absolute;
+    content: '';
+    background-color: #999999;
+    height: 18px;
+    width: 1px;
+    right: auto;
+    margin-left: -20px;
+    top: 20px;
+  }
+.lm_block_price .lm_sale::before{
+  position: absolute;
+  content: '';
+  background-color: #999999;
+  height: 18px;
+  width: 1px;
+  right: auto;
+  margin-left: -28px;
+  top: 20px;
+}
 
 
 

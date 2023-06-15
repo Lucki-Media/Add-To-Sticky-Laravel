@@ -29,6 +29,12 @@ Route::namespace('App\\Http\\Controllers')->group(function (){
     Route::get('getStickyCartData/{shop_domain}', 'StickyCartController@getStickyCartData');
     /*STICKY CART API END*/
 
+
+    /*POST BUTTON CLICKS API START*/
+    Route::post('addBuyButtonClicks', 'DashboardController@addBuyButtonClicks');
+    Route::post('addStickyButtonClicks', 'DashboardController@addStickyButtonClicks');
+    /*POST BUTTON CLICKS API END*/
+
     //WEBHOOK API
     Route::post('/requestEndpoint', 'CustomerEndpointController@requestEndpoint');
     Route::post('/erasureEndpoint', 'CustomerEndpointController@erasureEndpoint');
