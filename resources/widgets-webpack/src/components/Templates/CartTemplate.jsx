@@ -30,6 +30,11 @@ export default function CartTemplate1(props) {
         btnBgColor = template_data.buy_btn_settings.btnBgColor,
         btnFontsize = template_data.buy_btn_settings.btnFontsize,
         btnheightValue = template_data.buy_btn_settings.btnheightValue,
+        btnBorderColor = template_data.buy_btn_settings.btnBorderColor,
+        btnBgHoverColor = template_data.buy_btn_settings.btnBgHoverColor,
+        btnBorderHoverColor =
+            template_data.buy_btn_settings.btnBorderHoverColor,
+        btnTexthoverColor = template_data.buy_btn_settings.btnTexthoverColor,
         btnWidthValue = template_data.buy_btn_settings.btnWidthValue,
         btnBorderThickness = template_data.buy_btn_settings.btnBorderThickness,
         btnBorderRadius = template_data.buy_btn_settings.btnBorderRadius,
@@ -69,12 +74,6 @@ export default function CartTemplate1(props) {
     /*COMPARE AT PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS START*/
     /*--------------------------------------------------------------------------------------------------*/
     /*GENERAL SETTINGS CONSTANTS*/
-    const [btnTexthoverColor, setBtnTexthoverColor] =
-        useState("rgba(0, 0, 0, 0)");
-    const [btnBgHoverColor, setBtnBgHoverColor] = useState("rgba(0, 0, 0, 0)");
-    const [btnBorderColor, setBtnBorderColor] = useState("rgba(0, 0, 0, 0)");
-    const [btnBorderHoverColor, setBtnBorderHoverColor] =
-        useState("rgba(0, 0, 0, 0)");
     const handleChangeSelect = (event, index) => {
         const val = event?.value;
         const option = "option" + index;
@@ -91,7 +90,10 @@ export default function CartTemplate1(props) {
 
         setShouldDisable(condition);
     };
-    console.log(shouldDisable);
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const monthOptions = { month: "short" };
+    const currentMonth = currentDate.toLocaleString("en-US", monthOptions);
     let handleAddProduct = async () => {
         setLoading(true);
         const requestOptions = {
@@ -104,8 +106,22 @@ export default function CartTemplate1(props) {
                     .getElementsByTagName("input")[0].value,
             }),
         };
+        const requestOptions1 = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                shop: window.Shopify.shop,
+                month: currentMonth,
+                year: currentYear,
+            }),
+        };
         if (selectedVariant) {
             try {
+                const resBtnClicks = await fetch(
+                    `${process.env.REACT_APP_API_URL}` + "addBuyButtonClicks",
+                    requestOptions1
+                );
+                console.log(resBtnClicks);
                 const res = await fetch(
                     "https://" + window.location.host + "/cart/add.json",
                     requestOptions
@@ -117,17 +133,13 @@ export default function CartTemplate1(props) {
                 } else {
                     window.location.href = "/checkout";
                 }
-                console.log(cart_added);
+                // console.log(cart_added);
             } catch (error) {
                 console.log();
             }
         }
     };
     useEffect(() => {
-        setBtnTexthoverColor(btnTexthoverColor);
-        setBtnBgHoverColor(btnBgHoverColor);
-        setBtnBorderColor(btnBorderColor);
-        setBtnBorderHoverColor(btnBorderHoverColor);
         const option0 = selectedOptions?.option0;
         const option1 = selectedOptions?.option1;
         const option2 = selectedOptions?.option2;
@@ -210,15 +222,6 @@ export default function CartTemplate1(props) {
         selectedOptions?.option2,
         props.product.variants,
     ]);
-    // BUTTON HOVER
-    const handleCountEnter = () => {
-        setBtnBgHoverColor(true);
-    };
-
-    const handleCountLeave = () => {
-        setBtnBgHoverColor(false);
-    };
-    //BUTTON END
     if (props.templateData) {
         if (showContainer) {
             return (
@@ -421,6 +424,12 @@ export default function CartTemplate1(props) {
                                                                             }
                                                                         </label>
                                                                         <Select
+                                                                            menuPlacement={
+                                                                                position ===
+                                                                                "Bottom"
+                                                                                    ? "top"
+                                                                                    : "bottom"
+                                                                            }
                                                                             onChange={(
                                                                                 selectedOption
                                                                             ) =>
@@ -497,12 +506,6 @@ export default function CartTemplate1(props) {
                                                             ? "lm_underline"
                                                             : "no-line"
                                                     }`}
-                                                    onMouseEnter={
-                                                        handleCountEnter
-                                                    }
-                                                    onMouseLeave={
-                                                        handleCountLeave
-                                                    }
                                                 >
                                                     {loading === true
                                                         ? "Loading..."

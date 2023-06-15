@@ -4,6 +4,10 @@ import CartTemplate1 from "../Templates/CartTemplate.jsx";
 import CartTemplate2 from "../Templates/CartTemplate2.jsx";
 import CartTemplate3 from "../Templates/CartTemplate3.jsx";
 import CartTemplate4 from "../Templates/CartTemplate4.jsx";
+import CartTemplate5 from "../Templates/CartTemplate5.jsx";
+import CartTemplate6 from "../Templates/CartTemplate6.jsx";
+import CartTemplate7 from "../Templates/CartTemplate7.jsx";
+import CartTemplate8 from "../Templates/CartTemplate8.jsx";
 
 const ProductContainer = (props) => {
     const [value, setValue] = useState(1);
@@ -76,7 +80,46 @@ const ProductContainer = (props) => {
                     ) : (
                         ""
                     )}
-                    {value === 4 ? <CartTemplate4 /> : ""}
+                    {templateData.defaultTemplate === 4 ? (
+                        <CartTemplate4
+                            product={productData}
+                            templateData={templateData}
+                        />
+                    ) : (
+                        ""
+                    )}
+                    {templateData.defaultTemplate === 5 ? (
+                        <CartTemplate5
+                            product={productData}
+                            templateData={templateData}
+                        />
+                    ) : (
+                        ""
+                    )}
+                    {templateData.defaultTemplate === 6 ? (
+                        <CartTemplate6
+                            product={productData}
+                            templateData={templateData}
+                        />
+                    ) : (
+                        ""
+                    )}
+                    {templateData.defaultTemplate === 7 ? (
+                        <CartTemplate7
+                            product={productData}
+                            templateData={templateData}
+                        />
+                    ) : (
+                        ""
+                    )}
+                    {templateData.defaultTemplate === 8 ? (
+                        <CartTemplate8
+                            product={productData}
+                            templateData={templateData}
+                        />
+                    ) : (
+                        ""
+                    )}
                 </div>
             </>
         );

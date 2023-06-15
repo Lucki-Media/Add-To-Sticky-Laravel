@@ -333,14 +333,24 @@ export default function CartTemplate4(props) {
                                             max={10}
                                         />
                                     </div>
-                                    <div className="p_color">
-                                        <span
-                                            className={style.compare_lm_price}
-                                        >
-                                            $50.00
-                                        </span>{" "}
-                                        {/* <span className={style.simple_price}>$4</span>{" "}
-                         <span className={style.lm_sale}>sale.!</span> */}
+                                    <div className={style.lm_block_price}>
+                                        <div className="p_color">
+                                            <span
+                                                className={
+                                                    style.compare_lm_price
+                                                }
+                                            >
+                                                $50.00
+                                            </span>{" "}
+                                            <span
+                                                className={style.simple_price}
+                                            >
+                                                $4
+                                            </span>{" "}
+                                            <span className={style.lm_sale}>
+                                                {unavailable}
+                                            </span>
+                                        </div>
                                     </div>
                                     <div className={style.lm_buy_btn}>
                                         {/* <CustomizedButton onClick={() => alert("Welcome!")}> */}

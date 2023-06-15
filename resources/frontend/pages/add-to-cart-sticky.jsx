@@ -16,6 +16,8 @@ import {
     SkeletonBodyText,
     TextContainer,
     SkeletonDisplayText,
+    Loading,
+    Spinner,
 } from "@shopify/polaris";
 import "../css/index.css";
 import {
@@ -567,23 +569,14 @@ export default function AddToCartSticky() {
         return (
             <div>
                 <Frame>
-                    <Card>
-                        <SkeletonPage primaryAction>
-                            <Layout>
-                                <Layout.Section>
-                                    <Card sectioned>
-                                        <SkeletonBodyText />
-                                    </Card>
-                                    <Card sectioned>
-                                        <TextContainer>
-                                            <SkeletonDisplayText size="small" />
-                                            <SkeletonBodyText />
-                                        </TextContainer>
-                                    </Card>
-                                </Layout.Section>
-                            </Layout>
-                        </SkeletonPage>
-                    </Card>
+                    <Loading />
+                    <div style={{ marginLeft: "50%", marginTop: "20%" }}>
+                        {" "}
+                        <Spinner
+                            accessibilityLabel="Spinner example"
+                            size="large"
+                        />
+                    </div>
                 </Frame>
             </div>
         );

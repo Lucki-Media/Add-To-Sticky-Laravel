@@ -40,10 +40,34 @@ const StickyIcon = () => {
     const [countBgColor, setCountBgColor] = useState("rgba(0, 0, 0, 0)");
     const [countBgHoverColor, setCountBgHoverColor] =
         useState("rgba(0, 0, 0, 0)");
-    const handleClick = (data) => {
-        action === "1"
-            ? (window.location.href = "/cart")
-            : (window.location.href = "/checkout");
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const monthOptions = { month: "short" };
+    const currentMonth = currentDate.toLocaleString("en-US", monthOptions);
+    let handleClick = async () => {
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                shop: window.Shopify.shop,
+                month: currentMonth,
+                year: currentYear,
+            }),
+        };
+        try {
+            await fetch(
+                `${process.env.REACT_APP_API_URL}` + "addStickyButtonClicks",
+                requestOptions
+            );
+            if (action === "1") {
+                window.location.href = "/cart";
+            } else {
+                window.location.href = "/checkout";
+            }
+            // console.log(cart_added);
+        } catch (error) {
+            console.log();
+        }
     };
     const getStickyCartData = async () => {
         try {
