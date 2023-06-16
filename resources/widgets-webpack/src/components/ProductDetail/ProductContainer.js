@@ -8,7 +8,7 @@ import CartTemplate5 from "../Templates/CartTemplate5.jsx";
 import CartTemplate6 from "../Templates/CartTemplate6.jsx";
 import CartTemplate7 from "../Templates/CartTemplate7.jsx";
 import CartTemplate8 from "../Templates/CartTemplate8.jsx";
-
+import "./index.css";
 const ProductContainer = (props) => {
     const [value, setValue] = useState(1);
     const [heightValue, setHeightValue] = useState(70);

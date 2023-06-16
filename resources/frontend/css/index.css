@@ -271,3 +271,19 @@ div[id^="font-picker"] .dropdown-button:focus {
   font-size: 16px;
   font-weight: 600;
 }
+.lm_sticky_show_desktop_abc12 , .lm_sticky_show_mobile_abc12{
+    display: block;
+}
+/* .lm_sticky_hide_desktop_abc12 , .lm_sticky_hide_mobile_abc12{
+    display: none;
+} */
+@media screen and (max-width: 600px) {
+    .lm_sticky_hide_mobile_abc12{
+        display: none;
+    }
+}
+@media screen and (min-width: 600px) {
+    .lm_sticky_hide_desktop_abc12{
+        display: none;
+    }
+}

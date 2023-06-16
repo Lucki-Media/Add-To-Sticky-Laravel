@@ -160,7 +160,7 @@ const LMRequestForQuotePage = (props) => {
     useEffect(() => {
         getQuotedProducts();
     }, []);
-    console.log(process.env.REACT_APP_IMAGE_URL);
+    // console.log(process.env.REACT_APP_IMAGE_URL);
     if (showTable === false) {
         return (
             <>
@@ -199,7 +199,7 @@ const LMRequestForQuotePage = (props) => {
     } else if (products.length > 0) {
         return (
             <>
-                <style> 
+                <style>
                     {`
                         .react-overlay-loader-spinner {
                             background-image: url(${
@@ -259,15 +259,17 @@ const LMRequestForQuotePage = (props) => {
                                                     .req_page_remove
                                             }
                                         </th>
-                                        {window.LMSettingsScript.hide_price_settings.hide_price  === "1"
-                                        && 
-                                        <th>
-                                            {
-                                                window.LMSettingsScript
-                                                    .translation_settings.price
-                                            }
-                                            
-                                        </th> }
+                                        {window.LMSettingsScript
+                                            .hide_price_settings.hide_price ===
+                                            "1" && (
+                                            <th>
+                                                {
+                                                    window.LMSettingsScript
+                                                        .translation_settings
+                                                        .price
+                                                }
+                                            </th>
+                                        )}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -327,14 +329,18 @@ const LMRequestForQuotePage = (props) => {
                                                         </a>
                                                     </span>
                                                 </td>
-                                                 {window.LMSettingsScript.hide_price_settings.hide_price  === "1"
-                                                && 
-                                                <td className="pro_price">
-                                                    <span>
-                                                         {getSymbolFromCurrency(product.max_price_curr)}{" "}
-                                                        {product.max_price}
-                                                    </span>
-                                                </td> }
+                                                {window.LMSettingsScript
+                                                    .hide_price_settings
+                                                    .hide_price === "1" && (
+                                                    <td className="pro_price">
+                                                        <span>
+                                                            {getSymbolFromCurrency(
+                                                                product.max_price_curr
+                                                            )}{" "}
+                                                            {product.max_price}
+                                                        </span>
+                                                    </td>
+                                                )}
                                             </tr>
                                         );
                                     })}

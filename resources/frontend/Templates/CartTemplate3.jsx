@@ -53,8 +53,8 @@ export default function CartTemplate3(props) {
     const handleCountEnter = () => {
         setBtnBgHoverColor(true);
     };
-    console.log("btnBgHoverColor");
-    console.log(btnBgHoverColor);
+    // console.log("btnBgHoverColor");
+    // console.log(btnBgHoverColor);
     const handleCountLeave = () => {
         setBtnBgHoverColor(false);
     };
@@ -108,6 +108,12 @@ export default function CartTemplate3(props) {
         setBtnBorderColor(props.btnBorderColor);
         setBtnBorderHoverColor(props.btnBorderHoverColor);
     });
+    const customStyles = {
+        indicatorSeparator: (provided) => ({
+            ...provided,
+            display: "none", // Hide the separator
+        }),
+    };
     return (
         <>
             <style>
@@ -229,7 +235,13 @@ export default function CartTemplate3(props) {
             {enable === true ? (
                 <div
                     className={`lm-sticky-${position} ${style.lm_sticky_cart} ${
-                        checkDesktop === true ? "show" : "hide"
+                        checkDesktop === true
+                            ? "lm_sticky_show_desktop_abc12"
+                            : "lm_sticky_hide_desktop_abc12"
+                    } ${
+                        checkMobile === true
+                            ? "lm_sticky_show_mobile_abc12"
+                            : "lm_sticky_hide_mobile_abc12"
                     }  `}
                 >
                     <div className={style.lm_container}>
@@ -278,9 +290,16 @@ export default function CartTemplate3(props) {
                                             className={`productInputs ${style.productInputs}`}
                                         >
                                             <Select
-                                                className="pro_select_menu"
+                                                isSearchable={false}
+                                                className={`pro_select_menu apply-font ${style.pro_names}`}
                                                 placeholder="Size.."
                                                 options={options}
+                                                menuPlacement={
+                                                    position === "Bottom"
+                                                        ? "top"
+                                                        : "bottom"
+                                                }
+                                                styles={customStyles}
                                                 theme={(theme) => ({
                                                     ...theme,
                                                     borderRadius: 0,
@@ -298,9 +317,16 @@ export default function CartTemplate3(props) {
                                     >
                                         <div className={style.productInputs}>
                                             <Select
+                                                menuPlacement={
+                                                    position === "Bottom"
+                                                        ? "top"
+                                                        : "bottom"
+                                                }
+                                                isSearchable={false}
                                                 placeholder="Color.."
-                                                className="pro_select_menu"
+                                                className={`pro_select_menu apply-font ${style.pro_names}`}
                                                 options={options2}
+                                                styles={customStyles}
                                                 theme={(theme) => ({
                                                     ...theme,
                                                     borderRadius: 0,
@@ -318,9 +344,16 @@ export default function CartTemplate3(props) {
                                     >
                                         <div className={style.productInputs}>
                                             <Select
+                                                menuPlacement={
+                                                    position === "Bottom"
+                                                        ? "top"
+                                                        : "bottom"
+                                                }
+                                                isSearchable={false}
                                                 placeholder="Material.."
-                                                className="pro_select_menu"
+                                                className={`pro_select_menu apply-font ${style.pro_names}`}
                                                 options={options3}
+                                                styles={customStyles}
                                                 theme={(theme) => ({
                                                     ...theme,
                                                     borderRadius: 0,
@@ -347,7 +380,7 @@ export default function CartTemplate3(props) {
                                     <div className={style.lm_buy_btn}>
                                         {/* <CustomizedButton onClick={() => alert("Welcome!")}> */}
                                         <button
-                                            className={`lm_btn slide_right ${
+                                            className={`lm_btn slide_right apply-font ${
                                                 btnBold === true
                                                     ? "lm_bold"
                                                     : ""

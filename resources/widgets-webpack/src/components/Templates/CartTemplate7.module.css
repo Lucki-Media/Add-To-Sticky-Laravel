@@ -116,7 +116,7 @@
     width: 1px;
     right: auto;
     margin-left: -20px;
-    top: 20px;
+    top: 0;
   }
 .lm_block_price .lm_sale::before{
   position: absolute;
@@ -126,7 +126,7 @@
   width: 1px;
   right: auto;
   margin-left: -28px;
-  top: 20px;
+  top: 0;
 }
 
 

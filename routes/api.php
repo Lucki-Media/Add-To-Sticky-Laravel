@@ -33,6 +33,7 @@ Route::namespace('App\\Http\\Controllers')->group(function (){
     /*POST BUTTON CLICKS API START*/
     Route::post('addBuyButtonClicks', 'DashboardController@addBuyButtonClicks');
     Route::post('addStickyButtonClicks', 'DashboardController@addStickyButtonClicks');
+    Route::get('getDashboardCount/{shop_domain}', 'DashboardController@getDashboardCount');
     /*POST BUTTON CLICKS API END*/
 
     //WEBHOOK API

@@ -48,6 +48,7 @@ export default function AddToCartSticky() {
     const shop_url = document.getElementById("shopOrigin").value;
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const [saveLoader, setSaveLoader] = useState(false);
     const [showTable, setShowTable] = useState(false);
 
     //toast for success
@@ -208,6 +209,7 @@ export default function AddToCartSticky() {
                 data.data.current_template.buy_btn_settings.btnBorderHoverColor
             );
             setShowTable(true);
+            setSaveLoader(true);
         } catch (err) {
             console.log(err);
         }
@@ -337,13 +339,13 @@ export default function AddToCartSticky() {
                 /*BUY NOW END*/
             };
             setLoading(true);
-            setShowTable(false);
+            setSaveLoader(false);
             let response = await axios.post("/api/saveAddToStickyCartData", {
                 data: payLoad,
             });
             if (response.data.status == true) {
                 // console.log("success");
-                setShowTable(true);
+                setSaveLoader(true);
                 setLoading(false);
                 getAddToStickyCartData();
                 setToastContent(response.data.message);
@@ -566,6 +568,30 @@ export default function AddToCartSticky() {
     // console.log("data");
     // console.log(data);
     if (showTable === false) {
+        return (
+            <div>
+                <Frame>
+                    <Card>
+                        <SkeletonPage primaryAction>
+                            <Layout>
+                                <Layout.Section>
+                                    <Card sectioned>
+                                        <SkeletonBodyText />
+                                    </Card>
+                                    <Card sectioned>
+                                        <TextContainer>
+                                            <SkeletonDisplayText size="small" />
+                                            <SkeletonBodyText />
+                                        </TextContainer>
+                                    </Card>
+                                </Layout.Section>
+                            </Layout>
+                        </SkeletonPage>
+                    </Card>
+                </Frame>
+            </div>
+        );
+    } else if (saveLoader === false) {
         return (
             <div>
                 <Frame>
@@ -933,7 +959,10 @@ export default function AddToCartSticky() {
                                         onClick={handleClick}
                                     >
                                         <Icon source={ExitMajor} color="base" />{" "}
-                                        <div>Dashboard</div>
+                                        <div>
+                                            Dashboard /{" "}
+                                            <strong>Add To Sticky Cart</strong>
+                                        </div>
                                     </div>
                                     <Button
                                         loading={loading}

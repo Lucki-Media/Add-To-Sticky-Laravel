@@ -107,6 +107,12 @@ export default function CartTemplate2(props) {
         setBtnBorderColor(props.btnBorderColor);
         setBtnBorderHoverColor(props.btnBorderHoverColor);
     });
+    const customStyles = {
+        indicatorSeparator: (provided) => ({
+            ...provided,
+            display: "none", // Hide the separator
+        }),
+    };
     return (
         <>
             <style>
@@ -217,8 +223,14 @@ export default function CartTemplate2(props) {
             {enable === true ? (
                 <div
                     className={`lm-sticky-${position} ${style.lm_sticky_cart} ${
-                        checkDesktop === true ? "show" : "hide"
-                    }  `}
+                        checkDesktop === true
+                            ? "lm_sticky_show_desktop_abc12"
+                            : "lm_sticky_hide_desktop_abc12"
+                    } ${
+                        checkMobile === true
+                            ? "lm_sticky_show_mobile_abc12"
+                            : "lm_sticky_hide_mobile_abc12"
+                    }   `}
                 >
                     <div className={style.lm_container}>
                         <div className={style.lm_cart_module}>
@@ -266,7 +278,9 @@ export default function CartTemplate2(props) {
                                             className={`productInputs ${style.productInputs}`}
                                         >
                                             <Select
-                                                className="pro_select_menu"
+                                                isSearchable={false}
+                                                className={`pro_select_menu apply-font ${style.pro_names}`}
+                                                styles={customStyles}
                                                 placeholder="Size.."
                                                 options={options}
                                                 theme={(theme) => ({
@@ -286,8 +300,10 @@ export default function CartTemplate2(props) {
                                     >
                                         <div className={style.productInputs}>
                                             <Select
+                                                isSearchable={false}
                                                 placeholder="Color.."
-                                                className="pro_select_menu"
+                                                className={`pro_select_menu apply-font ${style.pro_names}`}
+                                                styles={customStyles}
                                                 options={options2}
                                                 theme={(theme) => ({
                                                     ...theme,
@@ -306,8 +322,10 @@ export default function CartTemplate2(props) {
                                     >
                                         <div className={style.productInputs}>
                                             <Select
+                                                isSearchable={false}
                                                 placeholder="Material.."
-                                                className="pro_select_menu"
+                                                className={`pro_select_menu apply-font ${style.pro_names}`}
+                                                styles={customStyles}
                                                 options={options3}
                                                 theme={(theme) => ({
                                                     ...theme,
@@ -335,7 +353,7 @@ export default function CartTemplate2(props) {
                                     <div className={style.lm_buy_btn}>
                                         {/* <CustomizedButton onClick={() => alert("Welcome!")}> */}
                                         <button
-                                            className={`lm_btn slide_right ${
+                                            className={`lm_btn slide_right apply-font ${
                                                 btnBold === true
                                                     ? "lm_bold"
                                                     : ""
