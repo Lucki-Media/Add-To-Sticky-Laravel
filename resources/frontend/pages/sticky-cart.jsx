@@ -41,6 +41,7 @@ export default function StickyCart() {
     const navigate = useNavigate();
     const [iconHover, setIconHover] = useState(false);
     const [stickyCartData, setStickyCartData] = useState([]);
+    const [saveLoader, setSaveLoader] = useState(false);
     const [loading, setLoading] = useState(false);
     const [showTable, setShowTable] = useState(false);
     const [countHover, setCountHover] = useState(false);
@@ -134,6 +135,7 @@ export default function StickyCart() {
             setCountBgColor(data.data.current_template.countBgColor);
             setCountBgHoverColor(data.data.current_template.countBgHoverColor);
             setShowTable(true);
+            setSaveLoader(true);
         } catch (err) {
             console.log(err);
         }
@@ -390,15 +392,7 @@ export default function StickyCart() {
         return (
             <div>
                 <Frame>
-                    <Loading />
-                    <div style={{ marginLeft: "50%", marginTop: "20%" }}>
-                        {" "}
-                        <Spinner
-                            accessibilityLabel="Spinner example"
-                            size="large"
-                        />
-                    </div>
-                    {/* <Card>
+                    <Card>
                         <SkeletonPage primaryAction>
                             <Layout>
                                 <Layout.Section>
@@ -414,7 +408,22 @@ export default function StickyCart() {
                                 </Layout.Section>
                             </Layout>
                         </SkeletonPage>
-                    </Card> */}
+                    </Card>
+                </Frame>
+            </div>
+        );
+    } else if (saveLoader === false) {
+        return (
+            <div>
+                <Frame>
+                    <Loading />
+                    <div style={{ marginLeft: "50%", marginTop: "20%" }}>
+                        {" "}
+                        <Spinner
+                            accessibilityLabel="Spinner example"
+                            size="large"
+                        />
+                    </div>
                 </Frame>
             </div>
         );
@@ -526,7 +535,8 @@ export default function StickyCart() {
                                         onClick={handleClick}
                                     >
                                         <Icon source={ExitMajor} color="base" />{" "}
-                                        <div>Dashboard</div>
+                                        <div>Dashboard</div> /{" "}
+                                        <strong>Sticky Cart</strong>
                                     </div>
                                     <Button
                                         loading={loading}

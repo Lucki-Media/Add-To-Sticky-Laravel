@@ -109,6 +109,12 @@ function CartTemplate1(props) {
         setBtnBorderColor(props.btnBorderColor);
         setBtnBorderHoverColor(props.btnBorderHoverColor);
     });
+    const customStyles = {
+        indicatorSeparator: (provided) => ({
+            ...provided,
+            display: "none", // Hide the separator
+        }),
+    };
 
     return (
         <>
@@ -204,12 +210,19 @@ function CartTemplate1(props) {
                 .css-1xc3v61-indicatorContainer{
                     padding: 0 8px;
                 }
+
                 `}
             </style>
             {enable === true ? (
                 <div
                     className={`lm-sticky-${position} ${style.lm_sticky_cart} ${
-                        checkDesktop === true ? "show" : "hide"
+                        checkDesktop === true
+                            ? "lm_sticky_show_desktop_abc12"
+                            : "lm_sticky_hide_desktop_abc12"
+                    } ${
+                        checkMobile === true
+                            ? "lm_sticky_show_mobile_abc12"
+                            : "lm_sticky_hide_mobile_abc12"
                     }  `}
                 >
                     <div className={style.lm_container}>
@@ -257,11 +270,16 @@ function CartTemplate1(props) {
                                         <div
                                             className={`productInputs ${style.productInputs}`}
                                         >
-                                            <label className="label_color">
+                                            <label
+                                                className={`label_color apply-font ${style.pro_names}`}
+                                            >
                                                 Size
                                             </label>
                                             <Select
-                                                className="pro_select_menu"
+                                                isSearchable={false}
+                                                className={`pro_select_menu apply-font ${style.pro_names}`}
+                                                // className="pro_select_menu apply-font"
+                                                styles={customStyles}
                                                 options={options}
                                                 theme={(theme) => ({
                                                     ...theme,
@@ -279,11 +297,15 @@ function CartTemplate1(props) {
                                         className={`lm_options ${style.lm_options}`}
                                     >
                                         <div className={style.productInputs}>
-                                            <label className="label_color">
+                                            <label
+                                                className={`label_color apply-font ${style.pro_names}`}
+                                            >
                                                 Color
                                             </label>
                                             <Select
-                                                className="pro_select_menu"
+                                                isSearchable={false}
+                                                className={`pro_select_menu apply-font ${style.pro_names}`}
+                                                styles={customStyles}
                                                 options={options2}
                                                 theme={(theme) => ({
                                                     ...theme,
@@ -301,11 +323,15 @@ function CartTemplate1(props) {
                                         className={`lm_options ${style.lm_options}`}
                                     >
                                         <div className={style.productInputs}>
-                                            <label className="label_color">
+                                            <label
+                                                className={`label_color apply-font ${style.pro_names}`}
+                                            >
                                                 Material
                                             </label>
                                             <Select
-                                                className="pro_select_menu"
+                                                isSearchable={false}
+                                                className={`pro_select_menu apply-font ${style.pro_names}`}
+                                                styles={customStyles}
                                                 options={options3}
                                                 theme={(theme) => ({
                                                     ...theme,
@@ -333,7 +359,7 @@ function CartTemplate1(props) {
                                     <div className={style.lm_buy_btn}>
                                         {/* <CustomizedButton onClick={() => alert("Welcome!")}> */}
                                         <button
-                                            className={`lm_btn ${
+                                            className={`lm_btn apply-font ${
                                                 btnBold === true
                                                     ? "lm_bold"
                                                     : ""

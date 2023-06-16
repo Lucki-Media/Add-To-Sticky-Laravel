@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AddToCartStickyCount;
 use App\Models\StickyCartCount;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -113,5 +114,51 @@ class DashboardController extends Controller
             return self::sendResponse([], 'Clicked Successfully!');
         }
         // echo '<pre>';print_r($request->all());exit;
+    }
+
+    public function getDashboardCount($shopDomain){
+        header("Access-Control-Allow-Origin: *");
+        $currentMonth = Carbon::now()->format('M');
+        $getStickyCartCount = StickyCartCount::where(['shop_domain'=>$shopDomain])->first();
+        $getAddToCartStickyCount = AddToCartStickyCount::where(['shop_domain'=>$shopDomain])->first();
+        $currentYear = Carbon::now()->year;
+        $finalArray = [
+            'year'              => $currentYear,
+            'current_month'     => Carbon::now()->format('F'),
+            'sacMonthValue'     => $getAddToCartStickyCount[$currentMonth],
+            'scMonthValue'      => $getStickyCartCount[$currentMonth],
+            'sac_array'         => [
+                $getAddToCartStickyCount['Jan'],
+                $getAddToCartStickyCount['Feb'],
+                $getAddToCartStickyCount['Mar'],
+                $getAddToCartStickyCount['Apr'],
+                $getAddToCartStickyCount['May'],
+                $getAddToCartStickyCount['Jun'],
+                $getAddToCartStickyCount['Jul'],
+                $getAddToCartStickyCount['Aug'],
+                $getAddToCartStickyCount['Sep'],
+                $getAddToCartStickyCount['Oct'],
+                $getAddToCartStickyCount['Nov'],
+                $getAddToCartStickyCount['Dec'],
+            ],
+            'sc_array'         => [
+                $getStickyCartCount['Jan'],
+                $getStickyCartCount['Feb'],
+                $getStickyCartCount['Mar'],
+                $getStickyCartCount['Apr'],
+                $getStickyCartCount['May'],
+                $getStickyCartCount['Jun'],
+                $getStickyCartCount['Jul'],
+                $getStickyCartCount['Aug'],
+                $getStickyCartCount['Sep'],
+                $getStickyCartCount['Oct'],
+                $getStickyCartCount['Nov'],
+                $getStickyCartCount['Dec'],
+            ],
+        ];
+        return self::sendResponse($finalArray, 'Success');
+        echo '<pre>';print_r($finalArray);exit;
+        echo '<pre>';print_r($getStickyCartCount);
+        echo '<pre>';print_r($getAddToCartStickyCount);exit;
     }
 }

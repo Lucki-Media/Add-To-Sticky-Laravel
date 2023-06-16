@@ -117,23 +117,21 @@ export default function CartTemplate4(props) {
         };
         if (selectedVariant) {
             try {
-                const resBtnClicks = await fetch(
+                await fetch(
                     `${process.env.REACT_APP_API_URL}` + "addBuyButtonClicks",
                     requestOptions1
                 );
-                console.log(resBtnClicks);
                 const res = await fetch(
                     "https://" + window.location.host + "/cart/add.json",
                     requestOptions
                 );
-                const cart_added = await res.json();
+                await res.json();
                 setLoading(false);
                 if (template_data.general_settings.gsAction === "1") {
                     window.location.href = "/cart";
                 } else {
                     window.location.href = "/checkout";
                 }
-                // console.log(cart_added);
             } catch (error) {
                 console.log();
             }
@@ -222,6 +220,12 @@ export default function CartTemplate4(props) {
         selectedOptions?.option2,
         props.product.variants,
     ]);
+    const customStyles = {
+        indicatorSeparator: (provided) => ({
+            ...provided,
+            display: "none", // Hide the separator
+        }),
+    };
 
     if (props.templateData) {
         if (showContainer) {
@@ -229,6 +233,9 @@ export default function CartTemplate4(props) {
                 <div>
                     <style>
                         {`
+                            .apply-font{
+                                font-family : ${gsFontFamily};
+                            }
                             .lm_quantity_picker .quantity-picker .quantity-display{
                             padding: 0;
                             background-color: #111;
@@ -356,7 +363,15 @@ export default function CartTemplate4(props) {
                         <div
                             className={`lm-sticky-${position} ${
                                 style.lm_sticky_cart
-                            } ${checkDesktop === true ? "show" : "hide"}  `}
+                            } ${
+                                checkDesktop === true
+                                    ? "lm_sticky_show_desktop_abc12"
+                                    : "lm_sticky_hide_desktop_abc12"
+                            } ${
+                                checkMobile === true
+                                    ? "lm_sticky_show_mobile_abc12"
+                                    : "lm_sticky_hide_mobile_abc12"
+                            }  `}
                         >
                             <div className={style.lm_container}>
                                 <div className={style.lm_cart_module}>
@@ -455,6 +470,12 @@ export default function CartTemplate4(props) {
                                                                             }
                                                                         </label> */}
                                                                         <Select
+                                                                            styles={
+                                                                                customStyles
+                                                                            }
+                                                                            isSearchable={
+                                                                                false
+                                                                            }
                                                                             placeholder={
                                                                                 opt.name
                                                                             }
@@ -478,7 +499,7 @@ export default function CartTemplate4(props) {
                                                                             key={
                                                                                 optionName
                                                                             }
-                                                                            className="pro_select_menu"
+                                                                            className={`pro_select_menu apply-font ${style.pro_names}`}
                                                                             defaultValue={
                                                                                 defaultOption[0]
                                                                             }
@@ -526,7 +547,7 @@ export default function CartTemplate4(props) {
                                                         (() => checkCondition,
                                                         handleAddProduct)
                                                     }
-                                                    className={`lm_btn slide_right ${
+                                                    className={`lm_btn slide_right apply-font ${
                                                         btnBold === true
                                                             ? "lm_bold"
                                                             : ""
