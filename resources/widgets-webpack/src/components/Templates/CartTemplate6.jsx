@@ -341,6 +341,7 @@ export default function CartTemplate6(props) {
       .css-1f43avz-a11yText-A11yText{
         display: none;
       }
+      .css-7pg0cj-a11yText { display: none  !important; }
       .p_color span{
         margin-right: 20px;
       }

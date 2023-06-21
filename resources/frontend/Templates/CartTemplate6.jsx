@@ -161,6 +161,7 @@ export default function CartTemplate6(props) {
                         height: ${containerHeight}px;
                         top:  ${gsOffsetValue}px;
                     }
+                    .css-7pg0cj-a11yText { display: none  !important; }
                     .img_size {
                         height: ${containerHeight}px;
                     }

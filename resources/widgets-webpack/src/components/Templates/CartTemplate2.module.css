@@ -19,7 +19,7 @@
   .lm_pro_image {
     display: flex;
     align-items: center;
-    width:50%;
+    /* width:50%; */
   }
 
   .lm_pro_image img {
@@ -42,7 +42,7 @@
     display: flex;
     align-items: center;
     flex-wrap: nowrap;
-    width: 40%;
+    /* width: 40%; */
 
   }
 

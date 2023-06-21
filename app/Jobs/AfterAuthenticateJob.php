@@ -2,6 +2,9 @@
 
 namespace App\Jobs;
 
+use App\Models\AddToCartStickyCount;
+use App\Models\StickyCartCount;
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -91,8 +94,52 @@ class AfterAuthenticateJob implements ShouldQueue{
         $updateOrInsert = StickyCartData::insert($final_data_sticky);
         /*STICKY CART TEMPLATE INSERT END*/
 
+        /*INSERT INITIAL DATA IN add_to_cart_sticky_counts TABLE END*/
+        $setAddToCartStickyCount = new AddToCartStickyCount;
+        $setAddToCartStickyCount->shop_domain       = $this->shopDomain;
+        $setAddToCartStickyCount->year              = Carbon::now()->year;
+        $setAddToCartStickyCount->Jan               = '0';
+        $setAddToCartStickyCount->Feb               = '0';
+        $setAddToCartStickyCount->Mar               = '0';
+        $setAddToCartStickyCount->Apr               = '0';
+        $setAddToCartStickyCount->May               = '0';
+        $setAddToCartStickyCount->Jun               = '0';
+        $setAddToCartStickyCount->Jul               = '0';
+        $setAddToCartStickyCount->Aug               = '0';
+        $setAddToCartStickyCount->Sep               = '0';
+        $setAddToCartStickyCount->Oct               = '0';
+        $setAddToCartStickyCount->Nov               = '0';
+        $setAddToCartStickyCount->Dec               = '0';
+        $setAddToCartStickyCount->total             = '0';
+        $setAddToCartStickyCount->created_at        = Carbon::now()->year;
+        $setAddToCartStickyCount->updated_at        = Carbon::now()->year;
+        $setAddToCartStickyCount->save();
+        /*INSERT INITIAL DATA IN add_to_cart_sticky_counts TABLE END*/
 
-        // $theme = $shop->api()->rest('GET', '/admin/themes.json')['body'];
+        /*INSERT INITIAL DATA IN sticky_cart_counts TABLE END*/
+        $setStickyCartCount = new StickyCartCount;
+        $setStickyCartCount->shop_domain            = $this->shopDomain;
+        $setStickyCartCount->year                   = Carbon::now()->year;
+        $setStickyCartCount->Jan                    = '0';
+        $setStickyCartCount->Feb                    = '0';
+        $setStickyCartCount->Mar                    = '0';
+        $setStickyCartCount->Apr                    = '0';
+        $setStickyCartCount->May                    = '0';
+        $setStickyCartCount->Jun                    = '0';
+        $setStickyCartCount->Jul                    = '0';
+        $setStickyCartCount->Aug                    = '0';
+        $setStickyCartCount->Sep                    = '0';
+        $setStickyCartCount->Oct                    = '0';
+        $setStickyCartCount->Nov                    = '0';
+        $setStickyCartCount->Dec                    = '0';
+        $setStickyCartCount->total                  = '0';
+        $setStickyCartCount->created_at             = Carbon::now()->year;
+        $setStickyCartCount->updated_at             = Carbon::now()->year;
+        $setStickyCartCount->save();
+        /*INSERT INITIAL DATA IN sticky_cart_counts TABLE END*/
+
+
+        // $theme  = $shop->api()->rest('GET', '/admin/themes.json')['body'];
         // $theme_data = json_encode($theme);
         // $theme_array = json_decode($theme_data, true);
         // foreach ($theme_array['themes'] as $key => $value) {
