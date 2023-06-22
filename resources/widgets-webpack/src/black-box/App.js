@@ -18,6 +18,10 @@ const App = () => {
     const sticky_container = document.querySelector(
         "." + config[STICKY_CONTAINER].className
     );
+
+    const url = window.location.href;
+    const cart = url.substring(url.lastIndexOf('/') + 1);
+
     //   const setOnLoadCookie = () => {
     //     if (!cookies.LM_Quote_sessionId) {
     //       var randomstring = require("randomstring");
@@ -44,7 +48,9 @@ const App = () => {
         <>
             <ToastContainer />
             {/* CREATE CONTAINER FOR STICKY QUOTE BUTTON */}
-            {sticky_icon && ReactDOM.createPortal(<StickyIcon />, sticky_icon)}
+            {sticky_icon &&
+                cart !== "cart" &&
+                ReactDOM.createPortal(<StickyIcon />, sticky_icon)}
             {sticky_container &&
                 window.meta.page.pageType === "product" &&
                 ReactDOM.createPortal(<ProductContainer />, sticky_container)}

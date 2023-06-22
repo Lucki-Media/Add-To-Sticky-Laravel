@@ -197,6 +197,12 @@ export default function CartTemplate6(props) {
                     .css-1xc3v61-indicatorContainer{
                         padding: 0 8px;
                     }
+                    .css-lkh0o5-menu{
+                        margin: 0 auto;
+                    }
+                    .css-8h3gbh-menu{
+                    margin: 0 auto;
+                }
                     .slide_right {
                         width: ${btnWidthValue}px;
                         height: ${btnheightValue}px;
@@ -298,6 +304,11 @@ export default function CartTemplate6(props) {
                                         >
                                             <Select
                                                 styles={customStyles}
+                                                menuPlacement={
+                                                    position === "Bottom"
+                                                        ? "top"
+                                                        : "bottom"
+                                                }
                                                 isSearchable={false}
                                                 className={`pro_select_menu apply-font ${style.pro_names}`}
                                                 placeholder="Size.."
@@ -321,6 +332,11 @@ export default function CartTemplate6(props) {
                                             <Select
                                                 styles={customStyles}
                                                 isSearchable={false}
+                                                menuPlacement={
+                                                    position === "Bottom"
+                                                        ? "top"
+                                                        : "bottom"
+                                                }
                                                 placeholder="Color.."
                                                 className={`pro_select_menu apply-font ${style.pro_names}`}
                                                 options={options2}
@@ -342,6 +358,11 @@ export default function CartTemplate6(props) {
                                         <div className={style.productInputs}>
                                             <Select
                                                 styles={customStyles}
+                                                menuPlacement={
+                                                    position === "Bottom"
+                                                        ? "top"
+                                                        : "bottom"
+                                                }
                                                 isSearchable={false}
                                                 placeholder="Material.."
                                                 className={`pro_select_menu apply-font ${style.pro_names}`}

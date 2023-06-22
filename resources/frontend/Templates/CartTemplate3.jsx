@@ -198,6 +198,13 @@ export default function CartTemplate3(props) {
                 .css-1xc3v61-indicatorContainer{
                     padding: 0 8px;
                 }
+                .css-lkh0o5-menu{
+                    margin: 0 auto;
+                }
+                .css-8h3gbh-menu{
+                    margin: 0 auto;
+                }
+
                 .slide_right {
                     width: ${btnWidthValue}px;
                     height: ${btnheightValue}px;

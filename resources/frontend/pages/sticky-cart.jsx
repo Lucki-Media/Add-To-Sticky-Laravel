@@ -21,6 +21,7 @@ import {
 } from "@shopify/polaris";
 import "../css/index.css";
 import { useNavigate } from "react-router-dom";
+import { Scrollbars } from 'react-custom-scrollbars';
 
 import { ChevronLeftMinor, ExitMajor } from "@shopify/polaris-icons";
 import { useState, useCallback, useEffect } from "react";
@@ -165,6 +166,7 @@ export default function StickyCart() {
                 break;
             case 5:
                 currentData = stickyCartData.sticky_template_5;
+                break;
             default:
                 currentData = stickyCartData.current_template;
                 break;
@@ -535,8 +537,10 @@ export default function StickyCart() {
                                         onClick={handleClick}
                                     >
                                         <Icon source={ExitMajor} color="base" />{" "}
-                                        <div>Dashboard</div> /{" "}
-                                        <strong>Sticky Cart</strong>
+                                        <div>
+                                            Dashboard /{" "}
+                                            <strong>Sticky Cart</strong>
+                                        </div>
                                     </div>
                                     <Button
                                         loading={loading}
@@ -560,10 +564,7 @@ export default function StickyCart() {
                             </div>
                             <div className="sidebar_title">Sticky cart</div> */}
                                     {/* cart enable disable card */}
-                                    <Scrollable
-                                        style={{ height: "700px" }}
-                                        horizontal={false}
-                                    >
+                                    <Scrollbars style={{ height: 650 }}>
                                         <div className="show_stickyCart">
                                             <Card sectioned>
                                                 <span className="show_sticky_span">
@@ -989,7 +990,7 @@ export default function StickyCart() {
                                                 </div>
                                             </Card>
                                         </div>
-                                    </Scrollable>
+                                    </Scrollbars>
                                 </Layout.Section>
                                 <Layout.Section>
                                     {/* <div className="save_template_btn">

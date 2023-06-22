@@ -225,6 +225,12 @@ export default function CartTemplate5(props) {
       .pro_select_menu svg{
         fill: #000;
       }
+    .css-lkh0o5-menu{
+        margin: 0 auto;
+      }
+        .css-8h3gbh-menu{
+                    margin: 0 auto;
+                }
       .css-1u9des2-indicatorSeparator{
         margin-bottom: 22px;
     margin-top: 22px;
@@ -327,6 +333,11 @@ export default function CartTemplate5(props) {
                                     >
                                         <div className={style.productInputs}>
                                             <Select
+                                                menuPlacement={
+                                                    position === "Bottom"
+                                                        ? "top"
+                                                        : "bottom"
+                                                }
                                                 isSearchable={false}
                                                 styles={customStyles}
                                                 placeholder="Color.."
@@ -349,6 +360,11 @@ export default function CartTemplate5(props) {
                                     >
                                         <div className={style.productInputs}>
                                             <Select
+                                                menuPlacement={
+                                                    position === "Bottom"
+                                                        ? "top"
+                                                        : "bottom"
+                                                }
                                                 isSearchable={false}
                                                 styles={customStyles}
                                                 placeholder="Material.."

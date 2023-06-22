@@ -195,6 +195,12 @@ export default function CartTemplate4(props) {
             font-size:12px;
             color: #fff;
           }
+        .css-lkh0o5-menu{
+            margin: 0 auto;
+        }
+        .css-8h3gbh-menu{
+                    margin: 0 auto;
+                }
           .pro_select_menu svg{
             fill: #fff;
           }
@@ -353,6 +359,11 @@ export default function CartTemplate4(props) {
                                         <div className={style.productInputs}>
                                             <Select
                                                 isSearchable={false}
+                                                menuPlacement={
+                                                    position === "Bottom"
+                                                        ? "top"
+                                                        : "bottom"
+                                                }
                                                 styles={customStyles}
                                                 placeholder="Material.."
                                                 className={`pro_select_menu apply-font ${style.pro_names}`}

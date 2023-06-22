@@ -13,7 +13,7 @@
   .lm_cart_module {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
   }
 
   .lm_pro_image {
