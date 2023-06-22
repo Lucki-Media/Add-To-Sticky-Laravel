@@ -233,6 +233,7 @@ export default function CartTemplate5(props) {
                 <div>
                     <style>
                         {`
+                            @import url("https://fonts.googleapis.com/css2?family=${gsFontFamily}&display=swap");
                             .apply-font{
                                 font-family : ${gsFontFamily};
                             }
@@ -242,6 +243,7 @@ export default function CartTemplate5(props) {
         width: 28px !important;
         font-size: 14px;
         color: #000;
+        box-shadow: none;
         }
         .lm_quantity_picker .quantity-modifier{
         height: ${containerHeight}px;
@@ -315,6 +317,12 @@ export default function CartTemplate5(props) {
       .css-1jqq78o-placeholder{
         font-size:12px;
         color: #000;
+      }
+      .css-1nmdiq5-menu{
+        margin:0 auto !important;
+      }
+      .css-14h4o58-menu{
+        margin:0 auto !important;
       }
       .css-1xc3v61-indicatorContainer{
         padding: 0 8px;
@@ -440,7 +448,7 @@ export default function CartTemplate5(props) {
                                             alt="product "
                                         />
                                         <div className={style.var_options}>
-                                            {props.product.options?.length &&
+                                            {selectedVariant.option1 !== 'Default Title' && props.product.options?.length &&
                                                 props.product.options[0].values
                                                     ?.length &&
                                                 props.product.options.map(

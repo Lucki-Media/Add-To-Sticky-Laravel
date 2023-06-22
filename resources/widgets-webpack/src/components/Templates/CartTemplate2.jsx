@@ -234,12 +234,17 @@ export default function CartTemplate2(props) {
                     <style>
                         {`
 
+                            @import url("https://fonts.googleapis.com/css2?family=${gsFontFamily}&display=swap");
+                            .apply-font{
+                                font-family : ${gsFontFamily};
+                            }
                             .lm_quantity_picker .quantity-picker .quantity-display{
                             padding: 0;
                             background-color: #fff;
                             width: 28px !important;
                             font-size: 14px;
                             color: #ccc;
+                            box-shadow: none;
                             }
                             .lm_quantity_picker .quantity-modifier{
                             height: 28px;
@@ -312,6 +317,12 @@ export default function CartTemplate2(props) {
                         .css-1xc3v61-indicatorContainer{
                             padding: 0 8px;
                         }
+      .css-1nmdiq5-menu{
+        margin:0 auto !important;
+      }
+      .css-14h4o58-menu{
+        margin:0 auto !important;
+      }
                         .slide_right {
                             width: ${btnWidthValue}px;
                             height: ${btnheightValue}px;
@@ -415,7 +426,7 @@ export default function CartTemplate2(props) {
                                     </div>
                                     <div className={style.lmblock_right}>
                                         <div className={style.var_options}>
-                                            {props.product.options?.length &&
+                                            {selectedVariant.option1 !== 'Default Title' && props.product.options?.length &&
                                                 props.product.options[0].values
                                                     ?.length &&
                                                 props.product.options.map(
@@ -508,7 +519,8 @@ export default function CartTemplate2(props) {
                                             >
                                                 <QuantityPicker
                                                     className={style.quantity12}
-                                                    min={1}
+                                                    value={1}
+z                                                    min={1}
                                                     max={10}
                                                 />
                                             </div>

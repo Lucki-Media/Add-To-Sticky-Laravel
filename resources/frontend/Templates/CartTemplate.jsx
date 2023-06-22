@@ -207,6 +207,12 @@ function CartTemplate1(props) {
                 .css-1jqq78o-placeholder{
                     font-size:12px;
                 }
+                .css-lkh0o5-menu{
+                    margin: 0 auto;
+                }
+                .css-8h3gbh-menu{
+                    margin: 0 auto;
+                }
                 .css-1xc3v61-indicatorContainer{
                     padding: 0 8px;
                 }
@@ -277,6 +283,11 @@ function CartTemplate1(props) {
                                             </label>
                                             <Select
                                                 isSearchable={false}
+                                                menuPlacement={
+                                                    position === "Bottom"
+                                                        ? "top"
+                                                        : "bottom"
+                                                }
                                                 className={`pro_select_menu apply-font ${style.pro_names}`}
                                                 // className="pro_select_menu apply-font"
                                                 styles={customStyles}
@@ -303,6 +314,11 @@ function CartTemplate1(props) {
                                                 Color
                                             </label>
                                             <Select
+                                                menuPlacement={
+                                                    position === "Bottom"
+                                                        ? "top"
+                                                        : "bottom"
+                                                }
                                                 isSearchable={false}
                                                 className={`pro_select_menu apply-font ${style.pro_names}`}
                                                 styles={customStyles}
@@ -329,6 +345,11 @@ function CartTemplate1(props) {
                                                 Material
                                             </label>
                                             <Select
+                                                menuPlacement={
+                                                    position === "Bottom"
+                                                        ? "top"
+                                                        : "bottom"
+                                                }
                                                 isSearchable={false}
                                                 className={`pro_select_menu apply-font ${style.pro_names}`}
                                                 styles={customStyles}

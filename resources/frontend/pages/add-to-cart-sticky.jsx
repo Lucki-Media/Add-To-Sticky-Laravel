@@ -28,6 +28,7 @@ import {
     SettingsMajor,
     CheckoutMajor,
 } from "@shopify/polaris-icons";
+import { Scrollbars } from 'react-custom-scrollbars';
 import { useNavigate } from "react-router-dom";
 import { useState, useCallback, useEffect } from "react";
 import TemplateData from "../StaticData/templateData";
@@ -1004,7 +1005,7 @@ export default function AddToCartSticky() {
 
                                     {/* general Cart Settings */}
                                     <div
-                                        className="general_setting_title"
+                                        className={`general_setting_title ${showGeneralSettings === true ? "show__details" : ""}`}
                                         onClick={() => {
                                             hanldeShowGeneralSetting(
                                                 showGeneralSettings
@@ -1043,10 +1044,11 @@ export default function AddToCartSticky() {
                                     </div>
 
                                     {showGeneralSettings === true ? (
-                                        <Scrollable
-                                            style={{ height: "500px" }}
-                                            horizontal={false}
-                                        >
+                                        // <Scrollable
+                                        //     style={{ height: "1000px" }}
+                                        //     horizontal={false}
+                                        // >
+                                        <Scrollbars style={{ height: 650 }}>
                                             <div className="overall_general_content">
                                                 {/* DISPLAY SETTING */}
                                                 <span className="display_setting_title">
@@ -1333,14 +1335,14 @@ export default function AddToCartSticky() {
                                                     </div>
                                                 </Card>
                                             </div>
-                                        </Scrollable>
+                                        </Scrollbars>
                                     ) : (
                                         ""
                                     )}
 
                                     {/* buy now Settings */}
                                     <div
-                                        className="general_setting_title"
+                                        className={`general_setting_title ${buyNowSettings === true ? "show__details" : ""}`}
                                         onClick={() => {
                                             hanldeBuyNowSetting(buyNowSettings);
                                         }}
@@ -1376,10 +1378,7 @@ export default function AddToCartSticky() {
                                     </div>
 
                                     {buyNowSettings === true ? (
-                                        <Scrollable
-                                            style={{ height: "500px" }}
-                                            horizontal={false}
-                                        >
+                                        <Scrollbars style={{ height: 650 }}>
                                             <div className="overall_general_content">
                                                 {/* TEXT part */}
                                                 <span className="display_setting_title">
@@ -1704,7 +1703,7 @@ export default function AddToCartSticky() {
                                                     </div>
                                                 </Card>
                                             </div>
-                                        </Scrollable>
+                                        </Scrollbars>
                                     ) : (
                                         ""
                                     )}
@@ -1713,7 +1712,7 @@ export default function AddToCartSticky() {
                                 <Layout.Section>
                                     <div style={{ marginTop: "10px" }}>
                                         <Card sectioned>
-                                            <div className="template___Card apply-font">
+                                            <div className="template___Card">
                                                 Choose the sticky Add to Cart
                                                 template
                                             </div>

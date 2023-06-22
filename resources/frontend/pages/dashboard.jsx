@@ -7,6 +7,7 @@ import {
     SkeletonBodyText,
     SkeletonDisplayText,
     TextContainer,
+    Banner,
 } from "@shopify/polaris";
 import { SideBar } from "../components";
 import "../css/index.css";
@@ -50,6 +51,11 @@ export default function Dashboard(props) {
         getAddToStickyCartData();
     }, []);
 
+    const url =
+        "https://" +
+        document.getElementById("shopOrigin").value +
+        "/admin/themes/current/editor?context=apps";
+
     if (showTable === false) {
         return (
             <div>
@@ -80,6 +86,21 @@ export default function Dashboard(props) {
                 <div className="topbar_title">LM ADD TO CART STICKY</div>
                 <div className="main_app_page">
                     <Page>
+                        <div className="deep_link__class">
+                        <Card>
+                            <Banner
+                                title="Integrate app into theme"
+                                status="info"
+                            >
+                                <p>
+                                    To enable our theme app extension please{" "}
+                                    <a href={url} target="_blank">
+                                        click here.
+                                    </a>
+                                </p>
+                            </Banner>
+                        </Card>
+                        </div>
                         <Layout>
                             <Layout.Section oneThird>
                                 {/* <Card title="Add To Sticky" sectioned> */}
