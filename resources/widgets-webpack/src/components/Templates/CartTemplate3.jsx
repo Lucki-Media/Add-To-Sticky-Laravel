@@ -385,7 +385,10 @@ export default function CartTemplate3(props) {
                                                 null
                                                     ? selectedVariant
                                                           .featured_image.src
-                                                    : "https://dev.luckistore.in/default_product.png"
+                                                    : props.productImage !== null && props.productImage !== undefined
+                                                        ? props.productImage
+                                                        : process.env.REACT_APP_IMAGE_URL +"images/default_product.png"
+                                                    
                                             }
                                             alt="product"
                                         />
