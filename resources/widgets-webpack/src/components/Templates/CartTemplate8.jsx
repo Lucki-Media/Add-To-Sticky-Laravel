@@ -379,6 +379,7 @@ export default function CartTemplate8(props) {
                             <div className={style.lm_container}>
                                 <div className={style.lm_cart_module}>
                                     <div className={style.lm_pro_image}>
+                                        {/* if there is no variant or if variant has no image then it will take produt image and if product image will null then it will show default product image  */}
                                         <img
                                             className="img_size"
                                             src={
@@ -386,7 +387,9 @@ export default function CartTemplate8(props) {
                                                 null
                                                     ? selectedVariant
                                                           .featured_image.src
-                                                    : "https://dev.luckistore.in/default_product.png"
+                                                    : props.productImage !== null && props.productImage !== undefined
+                                                        ? props.productImage
+                                                        : process.env.REACT_APP_IMAGE_URL +"images/default_product.png"
                                             }
                                             alt="product "
                                         />

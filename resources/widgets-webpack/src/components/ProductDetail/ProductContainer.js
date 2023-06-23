@@ -14,6 +14,7 @@ const ProductContainer = (props) => {
     const [heightValue, setHeightValue] = useState(70);
     const [productData, setProductData] = useState([]);
     const [templateData, setTemplateData] = useState([]);
+    const [productImage, setProductImage] = useState();
     const singleProduct = async () => {
         try {
             const response = await fetch(
@@ -21,6 +22,21 @@ const ProductContainer = (props) => {
             );
             const data = await response.json();
             setProductData(data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+    const ImageOfProduct = async () => {
+        try {
+            const response = await fetch(
+                window.location.href + ".json"
+            );
+            const data = await response.json();
+            // console.log('imageData');
+            // console.log(data.product.image);
+            setProductImage(
+                data.product.image !== undefined && data.product.image.src !== undefined
+                 ? data.product.image.src : null );
         } catch (err) {
             console.log(err);
         }
@@ -43,6 +59,7 @@ const ProductContainer = (props) => {
     useEffect(() => {
         getAddToStickyCartData();
         singleProduct();
+        ImageOfProduct();
 
         setValue(TemplateStyle.default_template);
         setHeightValue(
@@ -59,6 +76,7 @@ const ProductContainer = (props) => {
                     {templateData.defaultTemplate === 1 ? (
                         <CartTemplate1
                             product={productData}
+                            productImage={productImage}
                             templateData={templateData}
                         />
                     ) : (
@@ -67,6 +85,7 @@ const ProductContainer = (props) => {
                     {templateData.defaultTemplate === 2 ? (
                         <CartTemplate2
                             product={productData}
+                            productImage={productImage}
                             templateData={templateData}
                         />
                     ) : (
@@ -75,6 +94,7 @@ const ProductContainer = (props) => {
                     {templateData.defaultTemplate === 3 ? (
                         <CartTemplate3
                             product={productData}
+                            productImage={productImage}
                             templateData={templateData}
                         />
                     ) : (
@@ -83,6 +103,7 @@ const ProductContainer = (props) => {
                     {templateData.defaultTemplate === 4 ? (
                         <CartTemplate4
                             product={productData}
+                            productImage={productImage}
                             templateData={templateData}
                         />
                     ) : (
@@ -91,6 +112,7 @@ const ProductContainer = (props) => {
                     {templateData.defaultTemplate === 5 ? (
                         <CartTemplate5
                             product={productData}
+                            productImage={productImage}
                             templateData={templateData}
                         />
                     ) : (
@@ -99,6 +121,7 @@ const ProductContainer = (props) => {
                     {templateData.defaultTemplate === 6 ? (
                         <CartTemplate6
                             product={productData}
+                            productImage={productImage}
                             templateData={templateData}
                         />
                     ) : (
@@ -107,6 +130,7 @@ const ProductContainer = (props) => {
                     {templateData.defaultTemplate === 7 ? (
                         <CartTemplate7
                             product={productData}
+                            productImage={productImage}
                             templateData={templateData}
                         />
                     ) : (
@@ -115,6 +139,7 @@ const ProductContainer = (props) => {
                     {templateData.defaultTemplate === 8 ? (
                         <CartTemplate8
                             product={productData}
+                            productImage={productImage}
                             templateData={templateData}
                         />
                     ) : (
