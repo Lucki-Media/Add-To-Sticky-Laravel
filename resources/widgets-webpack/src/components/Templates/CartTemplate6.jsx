@@ -70,7 +70,7 @@ export default function CartTemplate6(props) {
     const oldPrice = selectedVariant?.compare_at_price
         ? getSymbolFromCurrency(window.Shopify.currency.active) +
           selectedVariant.compare_at_price / 100
-        : " ";
+        : "";
     /*COMPARE AT PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS START*/
     /*--------------------------------------------------------------------------------------------------*/
     /*GENERAL SETTINGS CONSTANTS*/
@@ -423,16 +423,21 @@ export default function CartTemplate6(props) {
                                     </div>
                                     <div className={style.lmblock_right}>
                                         <div className="p_color">
-                                            <span
-                                                className={
-                                                    style.compare_lm_price
-                                                }
-                                            >
-                                                {oldPrice}
-                                            </span>{" "}
-                                            <span
-                                                className={style.simple_price}
-                                            >
+                                            { oldPrice !== '' ?  
+                                                    (<span
+                                                        className={
+                                                            style.compare_lm_price
+                                                        }
+                                                    >
+                                                        {oldPrice}
+                                                    </span>)
+                                                    : null
+                                                }{" "}
+                                                <span
+                                                    className={`
+                                                        ${style.simple_price}${oldPrice === '' ? "::before" : ""}
+                                                    `}
+                                                >
                                                 {price}
                                             </span>{" "}
                                             {selectedVariant.available ===

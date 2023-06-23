@@ -40,7 +40,7 @@ display: inline-block;
   align-items: center;
   flex-wrap: nowrap;
   width: 60%;
-
+  justify-content: end;
 }
 .lm_middlecontent span{
 position: relative;margin-right: 20PX;font-size: 15px;
