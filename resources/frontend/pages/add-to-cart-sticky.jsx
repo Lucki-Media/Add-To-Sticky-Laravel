@@ -613,7 +613,7 @@ export default function AddToCartSticky() {
                 <Frame>
                     <div className="topbar_title">LM ADD TO CART STICKY</div>
 
-                    <div style={{ height: containerHeight, marginTop: 50 }}>
+                    <div style={{ height: position !== 'Top' ? 0 : containerHeight, marginTop: position !== 'Top' ? 50 : 20 }}>
                         {defaultTemplate === 1 ? (
                             <CartTemplate1
                                 template_data={data.template_1}

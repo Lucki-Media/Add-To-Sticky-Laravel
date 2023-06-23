@@ -13,7 +13,7 @@ return array(
             'gsPriceColor'=> "rgba(0, 0, 0, 1)",
             'gsBgColor'=> "rgba(243, 243, 243, 1)",
             'position'=> "Top",
-            'gsOffsetValue'=> "50",
+            'gsOffsetValue'=> "0",
             'gsAction'=> "1",
             'gsDisplayCondition'=> "1",
     ],

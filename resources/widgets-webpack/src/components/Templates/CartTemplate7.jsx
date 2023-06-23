@@ -70,7 +70,7 @@ export default function CartTemplate7(props) {
     const oldPrice = selectedVariant?.compare_at_price
         ? getSymbolFromCurrency(window.Shopify.currency.active) +
           selectedVariant.compare_at_price / 100
-        : " ";
+        : "";
     /*COMPARE AT PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS START*/
     /*--------------------------------------------------------------------------------------------------*/
     /*GENERAL SETTINGS CONSTANTS*/
@@ -522,18 +522,21 @@ export default function CartTemplate7(props) {
                                                 className={style.lm_block_price}
                                             >
                                                 <div className="p_color">
-                                                    <span
+                                                    { oldPrice !== '' ?  
+                                                    (<span
                                                         className={
                                                             style.compare_lm_price
                                                         }
                                                     >
                                                         {oldPrice}
-                                                    </span>{" "}
-                                                    <span
-                                                        className={
-                                                            style.simple_price
-                                                        }
-                                                    >
+                                                    </span>)
+                                                    : null
+                                                }{" "}
+                                                <span
+                                                    className={`
+                                                        ${style.simple_price}${oldPrice === '' ? "::before" : ""}
+                                                    `}
+                                                >
                                                         {price}
                                                     </span>{" "}
                                                     {selectedVariant.available ===
