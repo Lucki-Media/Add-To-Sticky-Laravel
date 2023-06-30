@@ -95,8 +95,7 @@ export default function HomePage(props) {
                                                         {sacCount}
                                                     </p>
                                                     <span className="click_countdetail">
-                                                        Clicks On Sticky Add To
-                                                        Cart
+                                                        Clicks On Add To Cart Sticky
                                                     </span>
                                                 </Card>
                                             </div>
@@ -135,7 +134,7 @@ export default function HomePage(props) {
                                                             ],
                                                             datasets: [
                                                                 {
-                                                                    label: "Sticky Add To Cart",
+                                                                    label: "Add To Cart Sticky",
                                                                     backgroundColor:
                                                                         "#15C39A",
                                                                     data: sacArray,

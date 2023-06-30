@@ -962,7 +962,7 @@ export default function AddToCartSticky() {
                                         <Icon source={ExitMajor} color="base" />{" "}
                                         <div>
                                             Dashboard /{" "}
-                                            <strong>Add To Sticky Cart</strong>
+                                            <strong>Add To Cart Sticky</strong>
                                         </div>
                                     </div>
                                     <Button
@@ -982,7 +982,7 @@ export default function AddToCartSticky() {
                                     <div className="show_stickyCart">
                                         <Card sectioned>
                                             <span className="show_sticky_span">
-                                                Add To Sticky Cart is{" "}
+                                                Add To Cart Sticky is{" "}
                                                 <b>
                                                     {enable === true
                                                         ? "Enabled"
@@ -1713,7 +1713,7 @@ export default function AddToCartSticky() {
                                     <div style={{ marginTop: "10px" }}>
                                         <Card sectioned>
                                             <div className="template___Card">
-                                                Choose the sticky Add to Cart
+                                                Choose the Add To Cart Sticky
                                                 template
                                             </div>
                                             <div className="template_option">
@@ -1725,7 +1725,7 @@ export default function AddToCartSticky() {
                                                         <img
                                                             src={item.image}
                                                             alt="Template"
-                                                            height="150px"
+                                                            height="175px"
                                                             width="250px"
                                                         />
                                                         <div>

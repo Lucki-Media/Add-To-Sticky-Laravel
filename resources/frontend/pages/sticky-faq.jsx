@@ -68,7 +68,7 @@ export default function StickyFAQ() {
                         expandOnPrint
                       >
                         <hr />
-                        <p>{item.answer}</p>
+                        <p dangerouslySetInnerHTML={{ __html: item.answer }}></p>
                       </Collapsible>
                     </div>
                   </Card>

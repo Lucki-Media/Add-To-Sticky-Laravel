@@ -542,6 +542,13 @@ export default function CartTemplate1(props) {
                                                             ? "lm_underline"
                                                             : "no-line"
                                                     }`}
+                                                    style={{
+                                                        cursor: 
+                                                            selectedVariant.available ===
+                                                            false
+                                                                ? "not-allowed"
+                                                                : "pointer",
+                                                    }}
                                                 >
                                                     {loading === true
                                                         ? "Loading..."

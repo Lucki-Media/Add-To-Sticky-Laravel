@@ -249,6 +249,7 @@ div[id^="font-picker"] .dropdown-button:focus {
   border-radius: 50%;
   z-index: 99999;
   text-align: center;
+  font-weight: bold;
   top: 0;
   left: 0;
 }
