@@ -551,6 +551,13 @@ z                                                    min={1}
                                                             ? "lm_underline"
                                                             : "no-line"
                                                     }`}
+                                                    style={{
+                                                        cursor: 
+                                                            selectedVariant.available ===
+                                                            false
+                                                                ? "not-allowed"
+                                                                : "pointer",
+                                                    }}
                                                 >
                                                     {loading === true
                                                         ? "Loading..."

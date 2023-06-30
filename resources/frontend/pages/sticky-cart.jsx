@@ -489,6 +489,7 @@ export default function StickyCart() {
                                             color: countHover
                                                 ? countHoverColor
                                                 : countColor,
+                                            
                                         }}
                                         onMouseEnter={handleCountEnter}
                                         onMouseLeave={handleCountLeave}

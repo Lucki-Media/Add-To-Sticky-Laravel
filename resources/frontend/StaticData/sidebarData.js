@@ -7,7 +7,7 @@ const Data = [
     },
     {
         key: "2",
-        title: "Add To Sticky Cart",
+        title: "Add To Cart Sticky ",
         icon: 'AddProductMajor',
         path: "/add-to-cart-sticky",
     },

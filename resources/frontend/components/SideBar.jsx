@@ -19,7 +19,7 @@ export function SideBar() {
   const navigate = useNavigate();
 
   if (location.pathname === "/add-to-cart-sticky") {
-    activePageName = "Add To Sticky Cart";
+    activePageName = "Add To Cart Sticky";
   } else if (location.pathname === "/sticky-cart") {
     activePageName = "Sticky cart";
   } else if (location.pathname === "/sticky-faq") {
