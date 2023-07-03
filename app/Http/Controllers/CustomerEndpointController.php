@@ -10,7 +10,7 @@ class CustomerEndpointController extends Controller
     function verify_webhook($data, $hmac_header)
     {
         $calculated_hmac = base64_encode(hash_hmac('sha256', $data, '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', true));
-      return hash_equals($hmac_header, $calculated_hmac);
+        return hash_equals($hmac_header, $calculated_hmac);
     }
 
     public function requestEndpoint(Request $request)
@@ -37,9 +37,9 @@ class CustomerEndpointController extends Controller
                 echo "success";
             } else {
               http_response_code(401);
-            }  
+            }
            exit;
-  
+
     }
 
     public function shopErasureEndpoint(Request $request)

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Customer Information</title>
+    <title>Luckimedia</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
     <style type="text/css">
         a:hover {text-decoration: underline !important;}
@@ -35,7 +35,7 @@
                                 style="max-width:560px;background:#fff; border-radius:8px; text-align:center;-webkit-box-shadow:0 6px 18px 0 rgba(0,0,0,.06);-moz-box-shadow:0 6px 18px 0 rgba(0,0,0,.06);box-shadow:0 6px 18px 0 rgba(0,0,0,.06);">
                                 <tr>
                                     <td style="text-align:center;">
-                                        <h1 style="max-width:560px;font-family: 'Rubik',sans-serif;font-size:30px;font-weight: 400;color: #FFF;background-color:#03696D;margin: 0 auto;padding: 40px 0;border-radius: 8px;">LM Add To Cart Sticky</h1>
+                                        <h1 style="max-width:560px;font-family: 'Rubik',sans-serif;font-size:30px;font-weight: 400;color: #FFF;background-color:#03696D;margin: 0 auto;padding: 40px 0;border-radius: 8px;">LM Request Quote & Hide Price</h1>
                                     </td>
                                 </tr>
                             </table>
@@ -47,16 +47,18 @@
                                 style="max-width:560px;background:#fff; border-radius:8px; text-align:center;-webkit-box-shadow:0 6px 18px 0 rgba(0,0,0,.06);-moz-box-shadow:0 6px 18px 0 rgba(0,0,0,.06);box-shadow:0 6px 18px 0 rgba(0,0,0,.06);">
                                 <tr>
                                     <td style="padding:60px 70px;">
-                                        <h1 style="margin-bottom:30px;font-size:36px;text-align:left;color:#03696D;font-family: 'Inter', sans-serif;font-weight: 700;">One More<br> Installation!</h1>
+                                        <h1 style="margin-bottom:30px;font-size:36px;text-align:left;color:#03696D;font-family: 'Inter', sans-serif;font-weight: 700;">App Unstallation!</h1>
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin:0;text-align: left;">
-                                            Hooray !!
+                                            Greetings !!
                                             <br><br>
-                                            We would like to inform you that a new user has installed your app.
+                                            We are writing to inform you that the LM Request Quote & Hide Price has been uninstalled by a user. This automated email serves as a notification to keep you informed about the app's removal from their device.
                                             <br><br>
-                                            Visit the store at <b><a href="{{ $data['shop_name'] }}">{{ $data['shop_name'] }}</a></b>
+                                            Here are the details of the uninstalled app:<br>
+                                            Shop Name : <b><a href="{{ $data['shop_name'] }}">{{ $data['shop_name'] }}</a></b>
                                             <br>
-                                            You can send mail to the customer on {{ $data['shop_email'] }}
-                                            Please take appropriate actions to welcome and assist the new user.
+                                            Shop Email :{{ $data['shop_email'] }}
+                                            <br><br>
+                                            If you wish to reach out to the user for further feedback or clarification, their contact details are provided above.
                                             <br><br>
                                             Please Note that, This mail has been sent to you just for your information.
                                             <br><br>
@@ -76,12 +78,12 @@
                                 style="max-width:560px; text-align:center;">
                                 <tr>
                                     <td style="padding:20px 0px;">
-                                        <h1 style="font-family: 'Rubik',sans-serif;font-size:30px;font-weight: 400;text-align: center;"> LM Add To Cart Sticky</h1>
+                                        <h1 style="font-family: 'Rubik',sans-serif;font-size:30px;font-weight: 400;text-align: center;">LM Request Quote & Hide Price</h1>
                                         <p style="color:#455056; font-size:10px;line-height:20px; margin:0;text-align:center;">
-                                            You received this message because someone has installed your app  LM Add To Cart Sticky on their Shopify Store.
+                                            You received this message because someone has uninstalled your app LM Request A Quote & Hide Price on their Shopify Store.
                                         </p>
                                         <p style="color:#455056; font-size:10px;line-height:20px; margin:0;text-align:center;">
-                                            © 2023 Sent from Luckimedia with ❤️
+                                            © 2023 Sent from Luckimedia with ❤️ 
                                         </p>
                                     </td>
                                 </tr>

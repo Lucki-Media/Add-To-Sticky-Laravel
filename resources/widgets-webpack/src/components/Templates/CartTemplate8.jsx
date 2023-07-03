@@ -155,6 +155,7 @@ export default function CartTemplate8(props) {
         console.log("SelectedVariant");
         console.log(neededVariant);
         if (neededVariant) {
+            setShouldDisable(neededVariant.available === false ? true : false);
             setSelectedVariant(neededVariant);
         }
         /*GETTING SELECTED VARIANT FROM OPTIONS END*/
@@ -387,9 +388,14 @@ export default function CartTemplate8(props) {
                                                 null
                                                     ? selectedVariant
                                                           .featured_image.src
-                                                    : props.productImage !== null && props.productImage !== undefined
-                                                        ? props.productImage
-                                                        : process.env.REACT_APP_IMAGE_URL +"images/default_product.png"
+                                                    : props.productImage !==
+                                                          null &&
+                                                      props.productImage !==
+                                                          undefined
+                                                    ? props.productImage
+                                                    : process.env
+                                                          .REACT_APP_IMAGE_URL +
+                                                      "images/default_product.png"
                                             }
                                             alt="product "
                                         />
@@ -417,7 +423,9 @@ export default function CartTemplate8(props) {
                                     </div>
                                     <div className={style.lmblock_right}>
                                         <div className={style.var_options}>
-                                            {selectedVariant.option1 !== 'Default Title' && props.product.options?.length &&
+                                            {selectedVariant.option1 !==
+                                                "Default Title" &&
+                                                props.product.options?.length &&
                                                 props.product.options[0].values
                                                     ?.length &&
                                                 props.product.options.map(
@@ -522,21 +530,24 @@ export default function CartTemplate8(props) {
                                                 className={style.lm_block_price}
                                             >
                                                 <div className="p_color">
-                                                    { oldPrice !== '' ?  
-                                                    (<span
-                                                        className={
-                                                            style.compare_lm_price
+                                                    {oldPrice !== "" ? (
+                                                        <span
+                                                            className={
+                                                                style.compare_lm_price
+                                                            }
+                                                        >
+                                                            {oldPrice}
+                                                        </span>
+                                                    ) : null}{" "}
+                                                    <span
+                                                        className={`
+                                                        ${style.simple_price}${
+                                                            oldPrice === ""
+                                                                ? "::before"
+                                                                : ""
                                                         }
-                                                    >
-                                                        {oldPrice}
-                                                    </span>)
-                                                    : null
-                                                }{" "}
-                                                <span
-                                                    className={`
-                                                        ${style.simple_price}${oldPrice === '' ? "::before" : ""}
                                                     `}
-                                                >
+                                                    >
                                                         {price}
                                                     </span>{" "}
                                                     {selectedVariant.available ===
@@ -574,7 +585,7 @@ export default function CartTemplate8(props) {
                                                             : "no-line"
                                                     }`}
                                                     style={{
-                                                        cursor: 
+                                                        cursor:
                                                             selectedVariant.available ===
                                                             false
                                                                 ? "not-allowed"
