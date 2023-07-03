@@ -21,7 +21,7 @@ import {
 } from "@shopify/polaris";
 import "../css/index.css";
 import { useNavigate } from "react-router-dom";
-import { Scrollbars } from 'react-custom-scrollbars';
+import { Scrollbars } from "react-custom-scrollbars";
 
 import { ChevronLeftMinor, ExitMajor } from "@shopify/polaris-icons";
 import { useState, useCallback, useEffect } from "react";
@@ -226,13 +226,13 @@ export default function StickyCart() {
                 countBgHoverColor: countBgHoverColor,
             };
             setLoading(true);
-            setShowTable(false);
+            setSaveLoader(false);
             let response = await axios.post("/api/saveStickyCartData", {
                 data: payLoad,
             });
             if (response.data.status == true) {
                 // console.log("success");
-                setShowTable(true);
+                setSaveLoader(true);
                 setLoading(false);
                 getStickyCartData();
                 setToastContent(response.data.message);
@@ -489,7 +489,6 @@ export default function StickyCart() {
                                             color: countHover
                                                 ? countHoverColor
                                                 : countColor,
-                                            
                                         }}
                                         onMouseEnter={handleCountEnter}
                                         onMouseLeave={handleCountLeave}

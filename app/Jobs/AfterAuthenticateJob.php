@@ -15,6 +15,7 @@ use App\Webhook;
 use Mail;
 use App\Models\AddToCartStickyData;
 use App\Models\StickyCartData;
+use App\Mail\YourEmailClass;
 
 class AfterAuthenticateJob implements ShouldQueue{
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -193,5 +194,22 @@ class AfterAuthenticateJob implements ShouldQueue{
         //         ]
         //     ]);
         // }
+        // SENDING MAIL TO AUTHORIZED PERSONS
+        $recipients = [
+            'somin.parate@gmail.com',
+            'info.lmrequest@gmail.com',
+            'bhumil.luckimedia@gmail.com',
+            'vidhee.luckimedia@gmail.com',
+        ];
+
+        $mailData = [
+            'subject' => 'LM Add To Cart Sticky Installed in New Store',
+            'shop_name' => $shop['name'],
+            'shop_email' => $shop['email'],
+            'view' => 'mailTemplate',
+            'mail' => 'app_install'
+        ];
+
+        Mail::to($recipients)->send(new YourEmailClass($mailData));
     }
 }
