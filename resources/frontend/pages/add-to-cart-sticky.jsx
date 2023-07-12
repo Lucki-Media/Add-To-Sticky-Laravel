@@ -28,7 +28,7 @@ import {
     SettingsMajor,
     CheckoutMajor,
 } from "@shopify/polaris-icons";
-import { Scrollbars } from 'react-custom-scrollbars';
+import { Scrollbars } from "react-custom-scrollbars";
 import { useNavigate } from "react-router-dom";
 import { useState, useCallback, useEffect } from "react";
 import TemplateData from "../StaticData/templateData";
@@ -89,6 +89,7 @@ export default function AddToCartSticky() {
     const [checkDesktop, setCheckDesktop] = useState(false);
     const [gsBold, setGsBold] = useState(false);
     const [gsFontsize, setGsFontsize] = useState(20);
+    const [gsPriceFontsize, setGsPriceFontsize] = useState(20);
     const [gsItalic, setGsItalic] = useState(false);
     const [gsUnderline, setGsUnderLine] = useState(false);
     const [gsFontFamily, setGsFontFamily] = useState("Roboto");
@@ -258,6 +259,7 @@ export default function AddToCartSticky() {
         setCheckMobile(currentData.general_settings.checkMobile);
         setPosition(currentData.general_settings.position);
         setGsFontsize(currentData.general_settings.gsFontsize);
+        setGsPriceFontsize(currentData.general_settings.gsPriceFontsize);
         setGsFontFamily(currentData.general_settings.gsFontFamily);
         setGsBold(currentData.general_settings.gsBold);
         setGsItalic(currentData.general_settings.gsItalic);
@@ -308,6 +310,7 @@ export default function AddToCartSticky() {
                 checkMobile: checkMobile,
                 gsFontFamily: gsFontFamily,
                 gsFontsize: gsFontsize,
+                gsPriceFontsize: gsPriceFontsize,
                 gsBold: gsBold,
                 gsItalic: gsItalic,
                 gsUnderline: gsUnderline,
@@ -393,6 +396,12 @@ export default function AddToCartSticky() {
     /*TITLE FONT SIZE GENERAL SETTINGS*/
     const handleRangeSliderChange = useCallback(
         (value) => setGsFontsize(value),
+        []
+    );
+
+    /*PRICE FONT SIZE GENERAL SETTINGS*/
+    const handlePriceRangeSliderChange = useCallback(
+        (value) => setGsPriceFontsize(value),
         []
     );
 
@@ -613,7 +622,12 @@ export default function AddToCartSticky() {
                 <Frame>
                     <div className="topbar_title">LM ADD TO CART STICKY</div>
 
-                    <div style={{ height: position !== 'Top' ? 0 : containerHeight, marginTop: position !== 'Top' ? 50 : 20 }}>
+                    <div
+                        style={{
+                            height: position !== "Top" ? 0 : containerHeight,
+                            marginTop: position !== "Top" ? 50 : 20,
+                        }}
+                    >
                         {defaultTemplate === 1 ? (
                             <CartTemplate1
                                 template_data={data.template_1}
@@ -624,6 +638,7 @@ export default function AddToCartSticky() {
                                 checkDesktop={checkDesktop}
                                 gsBold={gsBold}
                                 gsFontsize={gsFontsize}
+                                gsPriceFontsize={gsPriceFontsize}
                                 gsItalic={gsItalic}
                                 gsUnderline={gsUnderline}
                                 gsFontFamily={gsFontFamily}
@@ -666,6 +681,7 @@ export default function AddToCartSticky() {
                                 checkDesktop={checkDesktop}
                                 gsBold={gsBold}
                                 gsFontsize={gsFontsize}
+                                gsPriceFontsize={gsPriceFontsize}
                                 gsItalic={gsItalic}
                                 gsUnderline={gsUnderline}
                                 gsFontFamily={gsFontFamily}
@@ -708,6 +724,7 @@ export default function AddToCartSticky() {
                                 checkDesktop={checkDesktop}
                                 gsBold={gsBold}
                                 gsFontsize={gsFontsize}
+                                gsPriceFontsize={gsPriceFontsize}
                                 gsItalic={gsItalic}
                                 gsUnderline={gsUnderline}
                                 gsFontFamily={gsFontFamily}
@@ -750,6 +767,7 @@ export default function AddToCartSticky() {
                                 checkDesktop={checkDesktop}
                                 gsBold={gsBold}
                                 gsFontsize={gsFontsize}
+                                gsPriceFontsize={gsPriceFontsize}
                                 gsItalic={gsItalic}
                                 gsUnderline={gsUnderline}
                                 gsFontFamily={gsFontFamily}
@@ -792,6 +810,7 @@ export default function AddToCartSticky() {
                                 checkDesktop={checkDesktop}
                                 gsBold={gsBold}
                                 gsFontsize={gsFontsize}
+                                gsPriceFontsize={gsPriceFontsize}
                                 gsItalic={gsItalic}
                                 gsUnderline={gsUnderline}
                                 gsFontFamily={gsFontFamily}
@@ -834,6 +853,7 @@ export default function AddToCartSticky() {
                                 checkDesktop={checkDesktop}
                                 gsBold={gsBold}
                                 gsFontsize={gsFontsize}
+                                gsPriceFontsize={gsPriceFontsize}
                                 gsItalic={gsItalic}
                                 gsUnderline={gsUnderline}
                                 gsFontFamily={gsFontFamily}
@@ -876,6 +896,7 @@ export default function AddToCartSticky() {
                                 checkDesktop={checkDesktop}
                                 gsBold={gsBold}
                                 gsFontsize={gsFontsize}
+                                gsPriceFontsize={gsPriceFontsize}
                                 gsItalic={gsItalic}
                                 gsUnderline={gsUnderline}
                                 gsFontFamily={gsFontFamily}
@@ -918,6 +939,7 @@ export default function AddToCartSticky() {
                                 checkDesktop={checkDesktop}
                                 gsBold={gsBold}
                                 gsFontsize={gsFontsize}
+                                gsPriceFontsize={gsPriceFontsize}
                                 gsItalic={gsItalic}
                                 gsUnderline={gsUnderline}
                                 gsFontFamily={gsFontFamily}
@@ -1005,7 +1027,11 @@ export default function AddToCartSticky() {
 
                                     {/* general Cart Settings */}
                                     <div
-                                        className={`general_setting_title ${showGeneralSettings === true ? "show__details" : ""}`}
+                                        className={`general_setting_title ${
+                                            showGeneralSettings === true
+                                                ? "show__details"
+                                                : ""
+                                        }`}
                                         onClick={() => {
                                             hanldeShowGeneralSetting(
                                                 showGeneralSettings
@@ -1111,6 +1137,27 @@ export default function AddToCartSticky() {
                                                                 max={40}
                                                                 onChange={
                                                                     handleRangeSliderChange
+                                                                }
+                                                                output
+                                                            />
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Price Font-size */}
+                                                    <div className="style__wrapper_div">
+                                                        <span className="display_setting_subtitle">
+                                                            Price Font-size
+                                                        </span>
+                                                        <div className="font_picker_popup">
+                                                            <RangeSlider
+                                                                label={`${gsPriceFontsize} px`}
+                                                                value={
+                                                                    gsPriceFontsize
+                                                                }
+                                                                min={8}
+                                                                max={40}
+                                                                onChange={
+                                                                    handlePriceRangeSliderChange
                                                                 }
                                                                 output
                                                             />
@@ -1342,7 +1389,11 @@ export default function AddToCartSticky() {
 
                                     {/* buy now Settings */}
                                     <div
-                                        className={`general_setting_title ${buyNowSettings === true ? "show__details" : ""}`}
+                                        className={`general_setting_title ${
+                                            buyNowSettings === true
+                                                ? "show__details"
+                                                : ""
+                                        }`}
                                         onClick={() => {
                                             hanldeBuyNowSetting(buyNowSettings);
                                         }}

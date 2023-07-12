@@ -33,6 +33,9 @@ export default function CartTemplate6(props) {
     );
     const [btnFontsize, setBtnFontsize] = useState(props.btnFontsize);
     const [gsFontsize, setGsFontsize] = useState(props.gsFontsize);
+    const [gsPriceFontsize, setGsPriceFontsize] = useState(
+        props.gsPriceFontsize
+    );
     const [containerHeight, setContainerHeight] = useState(
         props.containerHeight
     );
@@ -80,6 +83,7 @@ export default function CartTemplate6(props) {
         setCheckMobile(props.checkMobile);
         setGsFontFamily(props.gsFontFamily);
         setGsFontsize(props.gsFontsize);
+        setGsPriceFontsize(props.gsPriceFontsize);
         setGsBold(props.gsBold);
         setGsItalic(props.gsItalic);
         setGsUnderLine(props.gsUnderline);
@@ -174,7 +178,9 @@ export default function CartTemplate6(props) {
                     }
                     .p_color{
                         color: ${gsPriceColor};
-                        display: inline-block;
+                        display: inline-flex;
+                        align-items:center;
+                        font-size: ${gsPriceFontsize}px;
                     }
 
                     .lm_options {

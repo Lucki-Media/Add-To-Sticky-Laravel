@@ -54,8 +54,10 @@ position: relative;margin-right: 20PX;font-size: 15px;
   background-color: #000;
   height: 13px;
   width: 1px;
-  left: -10px;
-  top:2px;
+  left: -11px;
+  /* top:2px; */
+  top: 50%;
+  transform: translate(0px, -50%);
   }
   .lm_middlecontent .lm_out_stock::before , .lm_middlecontent .lm_sale::before{
     position: absolute;
@@ -63,8 +65,10 @@ position: relative;margin-right: 20PX;font-size: 15px;
     background-color: #000;
     height: 13px;
     width: 1px;
-    left: -10px;
-    top:4px;
+    left: -11px;
+    /* top:4px; */
+    top: 50%;
+    transform: translate(0px, -50%);
     }
 .lmblock_right .lm_quantity_selector {
 margin: 0 15px 0 8px;
