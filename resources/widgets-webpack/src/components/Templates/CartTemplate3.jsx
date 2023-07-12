@@ -18,6 +18,7 @@ export default function CartTemplate3(props) {
         gsTitleColor = template_data.general_settings.gsTitleColor,
         containerHeight = template_data.general_settings.containerHeight,
         gsFontsize = template_data.general_settings.gsFontsize,
+        gsPriceFontsize = template_data.general_settings.gsPriceFontsize,
         gsPriceColor = template_data.general_settings.gsPriceColor,
         gsBgColor = template_data.general_settings.gsBgColor,
         gsAction = template_data.general_settings.gsAction,
@@ -298,6 +299,7 @@ export default function CartTemplate3(props) {
                         .p_color{
                             color: ${gsPriceColor};
                             display: inline-block;
+                            font-size: ${gsPriceFontsize}px;
                         }
 
                         .lm_options {

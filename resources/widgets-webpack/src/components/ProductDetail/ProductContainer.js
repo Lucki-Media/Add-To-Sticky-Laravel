@@ -28,15 +28,16 @@ const ProductContainer = (props) => {
     };
     const ImageOfProduct = async () => {
         try {
-            const response = await fetch(
-                window.location.href + ".json"
-            );
+            const response = await fetch(window.location.href + ".json");
             const data = await response.json();
             // console.log('imageData');
             // console.log(data.product.image);
             setProductImage(
-                data.product.image !== undefined && data.product.image.src !== undefined
-                 ? data.product.image.src : null );
+                data.product.image !== undefined &&
+                    data.product.image.src !== undefined
+                    ? data.product.image.src
+                    : null
+            );
         } catch (err) {
             console.log(err);
         }
@@ -66,7 +67,7 @@ const ProductContainer = (props) => {
             TemplateStyle.current_template.general_settings.font_height
         );
     }, []);
-    console.log(templateData.defaultTemplate);
+    // console.log(templateData.defaultTemplate);
     if (productData.length <= 0) {
         return <div>Loading</div>;
     } else {

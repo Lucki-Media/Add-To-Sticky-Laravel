@@ -5,6 +5,7 @@ return array(
         'checkMobile'=> false,
         'gsFontFamily'=> "PT Sans",
         'gsFontsize'=> 16,
+        'gsPriceFontsize'=> 14,
         'gsBold'=> false,
         'gsItalic'=> false,
         'gsUnderline'=> false,
@@ -16,7 +17,7 @@ return array(
         'gsOffsetValue'=> "00",
         'gsAction'=> "1",
         'gsDisplayCondition'=> "1",
-    ], 
+    ],
     'buy_btn_settings'=> [
         'editText'=> "BUY NOW",
         // 'soldOut'=> "Sold out",

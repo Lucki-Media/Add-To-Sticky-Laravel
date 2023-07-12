@@ -5,6 +5,7 @@ return array(
             'checkMobile'=> false,
             'gsFontFamily'=> "PT Sans",
             'gsFontsize'=> 16,
+            'gsPriceFontsize'=> 14,
             'gsBold'=> false,
             'gsItalic'=> false,
             'gsUnderline'=> false,

@@ -20,7 +20,7 @@ const App = () => {
     );
 
     const url = window.location.href;
-    const cart = url.substring(url.lastIndexOf('/') + 1);
+    const cart = url.substring(url.lastIndexOf("/") + 1);
 
     //   const setOnLoadCookie = () => {
     //     if (!cookies.LM_Quote_sessionId) {

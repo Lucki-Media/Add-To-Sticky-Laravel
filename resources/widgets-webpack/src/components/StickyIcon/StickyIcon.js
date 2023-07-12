@@ -10,6 +10,7 @@ import {
 import axios from "axios";
 require("./index.css");
 const StickyIcon = () => {
+    const [stickyData, setStickyData] = useState([]);
     const [iconHover, setIconHover] = useState(false);
     const [countHover, setCountHover] = useState(false);
     const [enableSticky, setEnableSticky] = useState(true);
@@ -77,6 +78,7 @@ const StickyIcon = () => {
                     window.Shopify.shop
             );
             const data = await response.json();
+            setStickyData(data);
             setEnableSticky(data.data.enableSticky);
             setDefaultTemplate(data.data.defaultTemplate);
             setAction(data.data.current_template.action);
@@ -149,159 +151,102 @@ const StickyIcon = () => {
         setCountHover(false);
     };
     // COUNT END
-    return (
-        <div>
-            {" "}
-            {enableSticky === true ? (
-                <div className="main_sticky___div">
-                    <div
-                        className="stickyCart__icon"
-                        style={{
-                            position: "fixed",
-                            fontSize: iconSize,
-                            color: iconHover ? iconHoverColor : iconColor,
-                            border: iconHover
-                                ? borderSize + "px solid " + borderHoverColor
-                                : borderSize + "px solid " + borderColor,
-                            background: iconHover ? bgHoverColor : bgColor,
-                            height: btnSize,
-                            width: btnSize,
-                            top: positionTop === 0 ? "" : positionTop + "%",
-                            bottom:
-                                positionBottom === 0
-                                    ? ""
-                                    : positionBottom + "%",
-                            left: positionLeft === 0 ? "" : positionLeft + "%",
-                            right:
-                                positionRight === 0 ? "" : positionRight + "%",
-                        }}
-                        onMouseEnter={handleIconEnter}
-                        onMouseLeave={handleIconLeave}
-                        onClick={handleClick}
-                    >
-                        {enableCount === true ? (
-                            <span
-                                className="sticky_Count"
-                                style={{
-                                    background: countHover
-                                        ? countBgHoverColor
-                                        : countBgColor,
-                                    width: countSize,
-                                    height: countSize,
-                                    fontSize: countFontSize,
-                                    color: countHover
-                                        ? countHoverColor
-                                        : countColor,
-                                }}
-                                onMouseEnter={handleCountEnter}
-                                onMouseLeave={handleCountLeave}
-                            >
-                                {numberCount}
-                            </span>
-                        ) : (
-                            ""
-                        )}
-                        {defaultTemplate === 1 ? (
-                            <FontAwesomeIcon icon={faCartShopping} />
-                        ) : (
-                            ""
-                        )}
-                        {defaultTemplate === 2 ? (
-                            <FontAwesomeIcon icon={faCartPlus} />
-                        ) : (
-                            ""
-                        )}
-                        {defaultTemplate === 3 ? (
-                            <FontAwesomeIcon icon={faCartArrowDown} />
-                        ) : (
-                            ""
-                        )}
-                        {defaultTemplate === 4 ? (
-                            <FontAwesomeIcon icon={faBasketShopping} />
-                        ) : (
-                            ""
-                        )}
-                        {defaultTemplate === 5 ? (
-                            <FontAwesomeIcon icon={faBagShopping} />
-                        ) : (
-                            ""
-                        )}
-                    </div>
-                </div>
-            ) : (
-                ""
-            )}
-        </div>
 
-        // <div>
-        //     <div className={styles.main_sticky___div}>
-        //         <div
-        //             className={styles.stickyCart__icon}
-        //             style={{
-        //                 position: "fixed",
-        //                 fontSize: iconValue,
-        //                 color: iconHover ? iconHoverColor : iconColor,
-        //                 border: iconHover
-        //                     ? borderValue + "px solid " + radiusColor
-        //                     : borderValue + "px solid " + borderColor,
-        //                 background: iconHover ? bgHoverColor : bgColor,
-        //                 height: rangeValue,
-        //                 width: rangeValue,
-        //                 top: editTop === 0 ? "" : editTop + "%",
-        //                 bottom: editBottom === 0 ? "" : editBottom + "%",
-        //                 left: editLeft === 0 ? "" : editLeft + "%",
-        //                 right: editRight === 0 ? "" : editRight + "%",
-        //             }}
-        //             onMouseEnter={handleIconEnter}
-        //             onMouseLeave={handleIconLeave}
-        //         >
-        //             {check === true ? (
-        //                 <span
-        //                     className={styles.sticky_Count}
-        //                     style={{
-        //                         background: countHover
-        //                             ? countBGHoverColor
-        //                             : countBGColor,
-        //                         width: countValue,
-        //                         height: countValue,
-        //                         fontSize: countFontValue,
-        //                         color: countHover
-        //                             ? countHoverColor
-        //                             : CountColor,
-        //                     }}
-        //                     onMouseEnter={handleCountEnter}
-        //                     onMouseLeave={handleCountLeave}
-        //                 >
-        //                     {countNumber}
-        //                 </span>
-        //             ) : (
-        //                 ""
-        //             )}
-        //             {value === 1 ? (
-        //                 <FontAwesomeIcon icon={faCartShopping} />
-        //             ) : (
-        //                 ""
-        //             )}
-        //             {value === 2 ? <FontAwesomeIcon icon={faCartPlus} /> : ""}
-        //             {value === 3 ? (
-        //                 <FontAwesomeIcon icon={faCartArrowDown} />
-        //             ) : (
-        //                 ""
-        //             )}
-        //             {value === 4 ? (
-        //                 <FontAwesomeIcon icon={faBasketShopping} />
-        //             ) : (
-        //                 ""
-        //             )}
-        //             {value === 5 ? (
-        //                 <FontAwesomeIcon icon={faBagShopping} />
-        //             ) : (
-        //                 ""
-        //             )}
-        //         </div>
-        //     </div>
-        // </div>
-    );
+    if (stickyData.length <= 0) {
+        return <div>Loading</div>;
+    } else {
+        return (
+            <div>
+                {" "}
+                {enableSticky === true ? (
+                    <div className="main_sticky___div">
+                        <div
+                            className="stickyCart__icon"
+                            style={{
+                                position: "fixed",
+                                fontSize: iconSize,
+                                color: iconHover ? iconHoverColor : iconColor,
+                                border: iconHover
+                                    ? borderSize +
+                                      "px solid " +
+                                      borderHoverColor
+                                    : borderSize + "px solid " + borderColor,
+                                background: iconHover ? bgHoverColor : bgColor,
+                                height: btnSize,
+                                width: btnSize,
+                                top: positionTop === 0 ? "" : positionTop + "%",
+                                bottom:
+                                    positionBottom === 0
+                                        ? ""
+                                        : positionBottom + "%",
+                                left:
+                                    positionLeft === 0
+                                        ? ""
+                                        : positionLeft + "%",
+                                right:
+                                    positionRight === 0
+                                        ? ""
+                                        : positionRight + "%",
+                            }}
+                            onMouseEnter={handleIconEnter}
+                            onMouseLeave={handleIconLeave}
+                            onClick={handleClick}
+                        >
+                            {enableCount === true ? (
+                                <span
+                                    className="font_option apply-font sticky_Count"
+                                    style={{
+                                        background: countHover
+                                            ? countBgHoverColor
+                                            : countBgColor,
+                                        width: countSize,
+                                        height: countSize,
+                                        fontSize: countFontSize,
+                                        color: countHover
+                                            ? countHoverColor
+                                            : countColor,
+                                    }}
+                                    onMouseEnter={handleCountEnter}
+                                    onMouseLeave={handleCountLeave}
+                                >
+                                    {numberCount}
+                                </span>
+                            ) : (
+                                ""
+                            )}
+                            {defaultTemplate === 1 ? (
+                                <FontAwesomeIcon icon={faCartShopping} />
+                            ) : (
+                                ""
+                            )}
+                            {defaultTemplate === 2 ? (
+                                <FontAwesomeIcon icon={faCartPlus} />
+                            ) : (
+                                ""
+                            )}
+                            {defaultTemplate === 3 ? (
+                                <FontAwesomeIcon icon={faCartArrowDown} />
+                            ) : (
+                                ""
+                            )}
+                            {defaultTemplate === 4 ? (
+                                <FontAwesomeIcon icon={faBasketShopping} />
+                            ) : (
+                                ""
+                            )}
+                            {defaultTemplate === 5 ? (
+                                <FontAwesomeIcon icon={faBagShopping} />
+                            ) : (
+                                ""
+                            )}
+                        </div>
+                    </div>
+                ) : (
+                    ""
+                )}
+            </div>
+        );
+    }
 };
 
 export default StickyIcon;

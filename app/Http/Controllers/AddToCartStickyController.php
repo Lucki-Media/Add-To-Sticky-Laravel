@@ -18,6 +18,7 @@ class AddToCartStickyController extends Controller{
                 'position'              => $requestData['position'],
                 'gsFontFamily'          => $requestData['gsFontFamily'],
                 'gsFontsize'            => $requestData['gsFontsize'],
+                'gsPriceFontsize'       => $requestData['gsPriceFontsize'],
                 'gsBold'                => $requestData['gsBold'],
                 'gsItalic'              => $requestData['gsItalic'],
                 'gsUnderline'           => $requestData['gsUnderline'],

@@ -18,6 +18,7 @@ export default function CartTemplate1(props) {
         gsTitleColor = template_data.general_settings.gsTitleColor,
         containerHeight = template_data.general_settings.containerHeight,
         gsFontsize = template_data.general_settings.gsFontsize,
+        gsPriceFontsize = template_data.general_settings.gsPriceFontsize,
         gsPriceColor = template_data.general_settings.gsPriceColor,
         gsBgColor = template_data.general_settings.gsBgColor,
         gsAction = template_data.general_settings.gsAction,
@@ -289,7 +290,8 @@ export default function CartTemplate1(props) {
                         }
                         .p_color{
                             color: ${gsPriceColor};
-                             margin-bottom:5px;
+                            margin-bottom:5px;
+                            font-size: ${gsPriceFontsize}px;
                         }
                         .lm_btn{
                             width: ${btnWidthValue}px;

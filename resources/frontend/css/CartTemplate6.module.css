@@ -67,8 +67,10 @@
     background-color: #999999;
     height: 18px;
     width: 1px;
-    left: -10px;
-    top: 4px;
+    left: -11px;
+    /* top: 4px; */
+    top: 50%;
+    transform: translate(0px, -50%);
   }
 
   .lmblock_right .lm_out_stock::before, .lmblock_right .lm_sale::before {
@@ -77,8 +79,10 @@
     background-color: #999999;
     height: 17px;
     width: 1px;
-    left: -10px;
-    top: 0;
+    left: -11px;
+    /* top: 0; */
+    top: 50%;
+    transform: translate(0px, -50%);
   }
 
   .lmblock_right .lm_quantity_selector {

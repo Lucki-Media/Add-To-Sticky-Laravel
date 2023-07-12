@@ -48,7 +48,7 @@
 
   .lm_middlecontent span {
     position: relative;
-    margin-right: 20PX;
+    margin: 10px 10px;
   }
 
   .lm_middlecontent span.compare_lm_price {
@@ -61,18 +61,22 @@
     background-color: #999999;
     height: 24px;
     width: 1px;
-    left: -10px;
-    top: 0;
+    left: -11px;
+    /* top: 0; */
+    top: 50%;
+    transform: translate(0px, -50%);
   }
 
   .lm_middlecontent .lm_out_stock::before, .lm_middlecontent .lm_sale::before {
     position: absolute;
     content: '';
     background-color: #999999;
-    height: 23px;
+    height: 24px;
     width: 1px;
-    left: -10px;
-    top: -3px;
+    left: -11px;
+    /* top: -3px; */
+    top: 50%;
+    transform: translate(0px, -50%);
   }
 
   /* .lmblock_right .lm_quantity_selector {
