@@ -393,7 +393,9 @@ export default function CartTemplate4(props) {
                                             >
                                                 $4
                                             </span>{" "}
-                                            <span className={style.lm_sale}>
+                                            <span
+                                                className={style.lm_out_stock}
+                                            >
                                                 {unavailable}
                                             </span>
                                         </div>

@@ -242,9 +242,9 @@ export default function CartTemplate6(props) {
                         fill: #333;
                     }
                     @media screen and (max-width: 1100px) {
-                        .p_color span{
-                        margin-right:10px;
-                        }
+                        // .p_color span{
+                        // // margin-right:10px;
+                        // }
                     }
                     @media screen and (max-width: 767px) {
                         .p_color{
@@ -297,7 +297,7 @@ export default function CartTemplate6(props) {
                                     <span className={style.simple_price}>
                                         $4
                                     </span>{" "}
-                                    <span className={style.lm_sale}>
+                                    <span className={style.lm_out_stock}>
                                         {unavailable}
                                     </span>
                                 </div>

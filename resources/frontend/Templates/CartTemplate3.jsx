@@ -178,7 +178,8 @@ export default function CartTemplate3(props) {
                 }
                 .p_color{
                     color: ${gsPriceColor};
-                    display: inline-block;
+                    display: inline-flex;
+                    align-items: center;
                     font-size: ${gsPriceFontsize}px;
                 }
 
@@ -287,7 +288,7 @@ export default function CartTemplate3(props) {
                                         <span className={style.simple_price}>
                                             $4
                                         </span>{" "}
-                                        <span className={style.lm_sale}>
+                                        <span className={style.lm_out_stock}>
                                             {unavailable}
                                         </span>
                                     </div>
