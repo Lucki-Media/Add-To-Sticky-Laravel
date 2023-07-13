@@ -387,13 +387,15 @@ export default function CartTemplate7(props) {
                                                 }
                                             >
                                                 $50.00
-                                            </span>{" "}
+                                            </span>
                                             <span
                                                 className={style.simple_price}
                                             >
                                                 $4
-                                            </span>{" "}
-                                            <span className={style.lm_sale}>
+                                            </span>
+                                            <span
+                                                className={style.lm_out_stock}
+                                            >
                                                 {unavailable}
                                             </span>
                                         </div>

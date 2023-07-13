@@ -302,7 +302,8 @@ export default function CartTemplate6(props) {
       }
       .p_color{
         color: ${gsPriceColor};
-        display: inline-block;
+        display: inline-flex;
+        align-items:center;
         font-size: ${gsPriceFontsize}px;
       }
 
@@ -360,9 +361,9 @@ export default function CartTemplate6(props) {
         fill: #333;
       }
       @media screen and (max-width: 1100px) {
-        .p_color span{
-          margin-right:10px;
-        }
+        // .p_color span{
+        //   margin-right:10px;
+        // }
       }
       @media screen and (max-width: 767px) {
         .p_color{

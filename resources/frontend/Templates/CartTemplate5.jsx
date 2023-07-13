@@ -291,7 +291,7 @@ export default function CartTemplate5(props) {
                                         <span className={style.simple_price}>
                                             $4
                                         </span>{" "}
-                                        <span className={style.lm_sale}>
+                                        <span className={style.lm_out_stock}>
                                             {unavailable}
                                         </span>
                                     </div>

@@ -298,7 +298,8 @@ export default function CartTemplate3(props) {
                         }
                         .p_color{
                             color: ${gsPriceColor};
-                            display: inline-block;
+                            display: inline-flex;
+                            align-items: center;
                             font-size: ${gsPriceFontsize}px;
                         }
 
@@ -323,12 +324,12 @@ export default function CartTemplate3(props) {
                         .css-1xc3v61-indicatorContainer{
                             padding: 0 8px;
                         }
-      .css-1nmdiq5-menu{
-        margin:0 auto !important;
-      }
-      .css-14h4o58-menu{
-        margin:0 auto !important;
-      }
+                        .css-1nmdiq5-menu{
+                            margin:0 auto !important;
+                        }
+                        .css-14h4o58-menu{
+                            margin:0 auto !important;
+                        }
                         .slide_right {
                             width: ${btnWidthValue}px;
                             height: ${btnheightValue}px;

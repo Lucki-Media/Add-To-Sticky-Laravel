@@ -296,7 +296,8 @@ export default function CartTemplate7(props) {
       }
       .p_color{
         color: ${gsPriceColor};
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
         font-size: ${gsPriceFontsize}px;
       }
 
@@ -539,7 +540,7 @@ export default function CartTemplate7(props) {
                                                         >
                                                             {oldPrice}
                                                         </span>
-                                                    ) : null}{" "}
+                                                    ) : null}
                                                     <span
                                                         className={`
                                                         ${style.simple_price}${
@@ -550,12 +551,12 @@ export default function CartTemplate7(props) {
                                                     `}
                                                     >
                                                         {price}
-                                                    </span>{" "}
+                                                    </span>
                                                     {selectedVariant.available ===
                                                     false ? (
                                                         <span
                                                             className={
-                                                                style.lm_sale
+                                                                style.lm_out_stock
                                                             }
                                                         >
                                                             {unavailable}
