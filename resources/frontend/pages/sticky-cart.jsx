@@ -40,6 +40,7 @@ import {
 export default function StickyCart() {
     const shop_url = document.getElementById("shopOrigin").value;
     const navigate = useNavigate();
+    const [fontFamily, setfontFamily] = useState("Oswald");
     const [iconHover, setIconHover] = useState(false);
     const [stickyCartData, setStickyCartData] = useState([]);
     const [saveLoader, setSaveLoader] = useState(false);
@@ -145,7 +146,26 @@ export default function StickyCart() {
     // USE EFFECT
     useEffect(() => {
         getStickyCartData();
+        getAddToStickyCartData();
     }, []);
+
+    //COUNT FONT FAMILY 
+    const getAddToStickyCartData = async () => {
+        try {
+            const response = await fetch("api/getAddToStickyCartData/" + shop_url);
+            const data = await response.json();
+            // const response = await fetch(
+            //     `${process.env.REACT_APP_API_URL}` +
+            //         "getAddToStickyCartData/" +
+            //         window.Shopify.shop
+            // );
+            // const data = await response.json();
+            console.log(data.data.current_template.general_settings.gsFontFamily);
+            setfontFamily(data.data.current_template.general_settings.gsFontFamily);
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     //ICON SELECT
     const handleChange = (key) => {
@@ -432,6 +452,14 @@ export default function StickyCart() {
     } else {
         return (
             <>
+                <style>
+                    {`
+                        @import url("https://fonts.googleapis.com/css2?family=${fontFamily}&display=swap");
+                        .apply-font{
+                            font-family : ${fontFamily};
+                        }
+                    `}
+                </style>
                 <Frame>
                     <div className="topbar_title">LM ADD TO CART STICKY</div>
                     {enableSticky === true ? (
@@ -478,7 +506,7 @@ export default function StickyCart() {
                             >
                                 {enableCount === true ? (
                                     <span
-                                        className="sticky_Count"
+                                        className="apply-font sticky_Count"
                                         style={{
                                             background: countHover
                                                 ? countBgHoverColor
@@ -489,6 +517,7 @@ export default function StickyCart() {
                                             color: countHover
                                                 ? countHoverColor
                                                 : countColor,
+                                                
                                         }}
                                         onMouseEnter={handleCountEnter}
                                         onMouseLeave={handleCountLeave}
