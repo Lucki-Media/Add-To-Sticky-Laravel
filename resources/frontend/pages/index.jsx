@@ -7,11 +7,13 @@ import {
     SkeletonBodyText,
     SkeletonDisplayText,
     TextContainer,
+    Modal,
+    Banner,
 } from "@shopify/polaris";
 import { SideBar } from "../components";
 import "../css/index.css";
 import { CChart } from "@coreui/react-chartjs";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function HomePage(props) {
     const currentDate = new Date();
@@ -41,6 +43,15 @@ export default function HomePage(props) {
             console.log(err);
         }
     };
+
+    const url =
+        "https://" +
+        document.getElementById("shopOrigin").value +
+        "/admin/themes/current/editor?context=apps";
+
+    const [active, setActive] = useState(false);
+
+    const handleChange = useCallback(() => setActive(!active), [active]);
     useEffect(() => {
         getAddToStickyCartData();
     }, []);
@@ -74,7 +85,52 @@ export default function HomePage(props) {
             <>
                 <div className="topbar_title">LM ADD TO CART STICKY</div>
                 <div className="main_app_page">
+                    <Modal
+                        // activator={activator}
+                        open={active}
+                        onClose={handleChange}
+                        title="How does it work?"
+                        large
+                    >
+                        <Modal.Section>
+                            <video controls style={{ width: "100%" }}>
+                                <source
+                                    src="https://addtostickycart.luckimediadevelopment.com/images/lm_sticky_video.mp4"
+                                    type="video/mp4"
+                                />
+                                Your browser does not support the video tag.
+                            </video>
+                        </Modal.Section>
+                    </Modal>
                     <Page>
+                        <div className="deep_link__class">
+                            <Card>
+                                <Banner
+                                    title="Integrate app into theme"
+                                    status="info"
+                                >
+                                    <p>
+                                        To enable our theme app extension please{" "}
+                                        <a href={url} target="_blank">
+                                            click here.
+                                        </a>
+                                    </p>
+                                </Banner>
+                            </Card>
+                            <div style={{ marginBottom: "10px" }}>
+                                <Card>
+                                    <Banner title="How does the app works?">
+                                        <p>
+                                            To familiarize yourself with the
+                                            app's functionality, kindly{" "}
+                                            <a href="#" onClick={handleChange}>
+                                                follow this link.{" "}
+                                            </a>
+                                        </p>
+                                    </Banner>
+                                </Card>
+                            </div>
+                        </div>
                         <Layout>
                             <Layout.Section oneThird>
                                 {/* <Card title="Add To Sticky" sectioned> */}
@@ -95,7 +151,8 @@ export default function HomePage(props) {
                                                         {sacCount}
                                                     </p>
                                                     <span className="click_countdetail">
-                                                        Clicks On Add To Cart Sticky
+                                                        Clicks On Add To Cart
+                                                        Sticky
                                                     </span>
                                                 </Card>
                                             </div>
