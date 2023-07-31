@@ -10,6 +10,7 @@ import {
 import axios from "axios";
 require("./index.css");
 const StickyIcon = () => {
+    const [font, setFont] = useState("");
     const [stickyData, setStickyData] = useState([]);
     const [iconHover, setIconHover] = useState(false);
     const [countHover, setCountHover] = useState(false);
@@ -68,6 +69,20 @@ const StickyIcon = () => {
             // console.log(cart_added);
         } catch (error) {
             console.log();
+        }
+    };
+    const getAddToStickyCartData = async () => {
+        try {
+            const response = await fetch(
+                `${process.env.REACT_APP_API_URL}` +
+                    "getAddToStickyCartData/" +
+                    window.Shopify.shop
+            );
+            const data = await response.json();
+            // console.log(data.data);
+            setFont(data.data);
+        } catch (err) {
+            console.log(err);
         }
     };
     const getStickyCartData = async () => {
