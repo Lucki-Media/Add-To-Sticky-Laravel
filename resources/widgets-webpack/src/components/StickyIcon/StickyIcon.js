@@ -11,6 +11,7 @@ import axios from "axios";
 require("./index.css");
 const StickyIcon = () => {
     const [font, setFont] = useState("");
+    const [fontFamily, setfontFamily] = useState("Oswald");
     const [stickyData, setStickyData] = useState([]);
     const [iconHover, setIconHover] = useState(false);
     const [countHover, setCountHover] = useState(false);
@@ -81,10 +82,15 @@ const StickyIcon = () => {
             const data = await response.json();
             // console.log(data.data);
             setFont(data.data);
+            // console.log();
+            setfontFamily(
+                data.data.current_template.general_settings.gsFontFamily
+            );
         } catch (err) {
             console.log(err);
         }
     };
+
     const getStickyCartData = async () => {
         try {
             const response = await fetch(
@@ -131,6 +137,7 @@ const StickyIcon = () => {
     };
     /* CART COUNT API CALL END*/
     useEffect(() => {
+        getAddToStickyCartData();
         getStickyCartData();
         /*ADDING EVENT LISTENER TO UPDATE CART COUNT START*/
         if (window.meta.page.pageType === "product") {
@@ -172,7 +179,14 @@ const StickyIcon = () => {
     } else {
         return (
             <div>
-                {" "}
+                <style>
+                    {`
+                        @import url("https://fonts.googleapis.com/css2?family=${fontFamily}&display=swap");
+                        .apply-font{
+                            font-family : ${fontFamily};
+                        }
+                    `}
+                </style>{" "}
                 {enableSticky === true ? (
                     <div className="main_sticky___div">
                         <div
