@@ -296,6 +296,7 @@ const LMRequestForQuotePage = (props) => {
                                                                           .PUBLIC_URL +
                                                                       "images/default_product.png"
                                                             }
+                                                            alt=""
                                                         />
                                                     </a>
                                                 </td>
