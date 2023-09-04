@@ -99,7 +99,7 @@
 
 .template_option_sticky {
     margin: 10px;
-    text-align: center;
+    /* text-align: center; */
     width: 250px;
 }
 .template_option {
@@ -108,11 +108,12 @@
 }
 
 .sticky_child {
-    flex: 1;
+    /* flex: 1; */
     margin: 10px;
 }
 .sticky_child img {
     border: 1px solid #ccc;
+    display: none;
 }
 
 .save_template_btn {
