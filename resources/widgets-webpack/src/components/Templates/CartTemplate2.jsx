@@ -7,6 +7,7 @@ import style from "./CartTemplate2.module.css";
 import getSymbolFromCurrency from "currency-symbol-map";
 
 export default function CartTemplate2(props) {
+    const [isVibrating, setIsVibrating] = useState(false);
     const template_data = props.templateData.current_template;
     const position = template_data.general_settings.position,
         checkMobile = template_data.general_settings.checkMobile,
@@ -217,6 +218,20 @@ export default function CartTemplate2(props) {
             /*IF SELECTED Always show*/
             setShowContainer(true);
         }
+
+        const startVibration = () => {
+            setIsVibrating(true);
+            setTimeout(() => setIsVibrating(false), 2000); // Duration of the animation (0.2s)
+        };
+
+        // Start the initial vibration
+        startVibration();
+
+        // Set up a recurring interval to vibrate every 5 seconds
+        const interval = setInterval(startVibration, 5000);
+
+        // Clean up the interval on component unmount
+        return () => clearInterval(interval);
     }, [
         selectedOptions?.option0,
         selectedOptions?.option1,
@@ -235,6 +250,27 @@ export default function CartTemplate2(props) {
                 <div>
                     <style>
                         {`
+                            @keyframes vibrate {
+                                0% {
+                                    transform: translateX(0);
+                                }
+                                25% {
+                                    transform: translateX(-5px) rotate(-1deg);
+                                }
+                                50% {
+                                    transform: translateX(5px) rotate(1deg);
+                                }
+                                75% {
+                                    transform: translateX(-5px) rotate(-1deg);
+                                }
+                                100% {
+                                    transform: translateX(5px) rotate(1deg);
+                                }
+                            }
+
+                            .lm_vibrating {
+                                animation: vibrate .2s ease infinite;
+                            }
 
                             @import url("https://fonts.googleapis.com/css2?family=${gsFontFamily}&display=swap");
                             .apply-font{
@@ -564,6 +600,10 @@ export default function CartTemplate2(props) {
                                                         btnUnderline === true
                                                             ? "lm_underline"
                                                             : "no-line"
+                                                    }${
+                                                        isVibrating
+                                                            ? " lm_vibrating"
+                                                            : ""
                                                     }`}
                                                     style={{
                                                         cursor:

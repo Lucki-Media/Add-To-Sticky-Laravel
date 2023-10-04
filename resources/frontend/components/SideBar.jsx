@@ -1,77 +1,149 @@
-import { useState } from "react";
-import { Card, Icon } from "@shopify/polaris";
-import { Toast } from "@shopify/app-bridge-react";
+import React, { useState } from "react";
+import { GeneralSettings } from "./GeneralSettings.jsx";
+import { BuyNowSettings } from "./BuyNowSettings.jsx";
 import {
-  HomeMajor,
-  ChevronRightMinor,
-  CheckoutMajor,
-  QuestionMarkMajor,
-  AddProductMajor,
+    ChevronRightMinor,
+    BuyButtonMajor,
+    SettingsMinor,
 } from "@shopify/polaris-icons";
-import Data from "../StaticData/sidebarData";
-import "../css/sidebar.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import "../css/index.css";
+import { SiderBarSettings } from "../StaticData/sidebarData.js";
+import { Button, Card, Icon, Layout } from "@shopify/polaris";
+export function SideBar(props) {
+    const [menu, setMenu] = useState("0");
+    const [enable, setEnable] = useState(props.enable);
+    const navigateToSubMenu = (submenu) => {
+        setMenu(submenu);
+        props.OnMenuReturn(submenu);
+    };
 
-export function SideBar() {
-  var activeClass;
-  var activePageName;
-  const location = useLocation();
-  const navigate = useNavigate();
+    const handleCallback = (e) => {
+        props.dataCallback(e);
+    };
 
-  if (location.pathname === "/add-to-cart-sticky") {
-    activePageName = "Add To Cart Sticky";
-  } else if (location.pathname === "/sticky-cart") {
-    activePageName = "Sticky cart";
-  } else if (location.pathname === "/sticky-faq") {
-    activePageName = "FAQs";
-  } else {
-    activePageName = "Dashboard";
-  }
+    /*ENABLE BUTTON START*/
+    const handleEnable = (value) => {
+        setEnable(!value);
+    };
+    /*ENABLE BUTTON END*/
 
-  const handleClick = (data) => {
-    navigate(data);
-  };
-
-  return (
-    <>
-      <div className="sidebar_title">{activePageName}</div>
-      {Data.map(
-        (item) => (
-          (activeClass =
-            location.pathname === item.path
-              ? "sidebar_card active"
-              : "sidebar_card"),
-          (
-            <div
-              className={activeClass}
-              key={item.key}
-              onClick={() => handleClick(item.path)}
-            >
-              <Card>
-                <div className="sidebar_icon">
-                  {item.icon === "HomeMajor" && (
-                    <Icon source={HomeMajor} color="base" />
-                  )}
-                  {item.icon === "CheckoutMajor" && (
-                    <Icon source={CheckoutMajor} color="base" />
-                  )}
-                  {item.icon === "AddProductMajor" && (
-                    <Icon source={AddProductMajor} color="base" />
-                  )}
-                  {item.icon === "QuestionMarkMajor" && (
-                    <Icon source={QuestionMarkMajor} color="base" />
-                  )}
-                  {/* <span className="sidebar_text" >{item.icon}</span>  */}
-                  <span className="sidebar_text">{item.title}</span>
-                </div>
-                <div>
-                  <Icon source={ChevronRightMinor} color="base" />
-                </div>
-              </Card>
+    const renderOptions = () => (
+        <div>
+            <div className="general_setting_title">
+                <Layout>
+                    <Layout.Section>
+                        <Card sectioned>
+                            <div className="setting_title">
+                                <span className="show_sticky_span">
+                                    Add To Cart Sticky is{" "}
+                                    <b>
+                                        {enable === true
+                                            ? "Enabled"
+                                            : "Disabled"}
+                                    </b>{" "}
+                                </span>
+                                {/* <div className="show_cart_btn"> */}
+                                <Button
+                                    primary
+                                    onClick={() => {
+                                        handleEnable(enable);
+                                    }}
+                                >
+                                    {enable === true ? "Disable" : "Enable"}
+                                </Button>
+                            </div>
+                        </Card>
+                    </Layout.Section>
+                </Layout>
             </div>
-          )
-        )
-      )}
-    </>
-  );
+            <div
+                className="general_setting_title"
+                onClick={() => navigateToSubMenu("1")}
+            >
+                <Layout>
+                    <Layout.Section>
+                        <Card sectioned>
+                            <div className="setting_title">
+                                <div style={{ display: "flex" }}>
+                                    <Icon source={SettingsMinor} />
+                                    <span className="show_sticky_span">
+                                        General Settings
+                                    </span>
+                                </div>
+                                <span>
+                                    {<Icon source={ChevronRightMinor} />}
+                                </span>
+                            </div>
+                        </Card>
+                    </Layout.Section>
+                </Layout>
+            </div>
+            <div
+                className="general_setting_title"
+                onClick={() => navigateToSubMenu("2")}
+            >
+                <Layout>
+                    <Layout.Section>
+                        <Card sectioned>
+                            <div className="setting_title">
+                                <div style={{ display: "flex" }}>
+                                    <Icon source={BuyButtonMajor} />
+                                    <span className="show_sticky_span">
+                                        Buy Now Settings
+                                    </span>
+                                </div>
+                                <span>
+                                    {<Icon source={ChevronRightMinor} />}
+                                </span>
+                            </div>
+                        </Card>
+                    </Layout.Section>
+                </Layout>
+            </div>
+        </div>
+    );
+
+    return (
+        <div style={{ marginTop: "26px" }}>
+            <div>
+                <Layout>
+                    <Layout.Section oneThird>
+                        {menu === "0" && renderOptions()}
+
+                        {menu === "1" && (
+                            <GeneralSettings
+                                OnReturnToSidebar={navigateToSubMenu}
+                                position={props.position}
+                                checkMobile={props.checkMobile}
+                                checkDesktop={props.checkDesktop}
+                                gsBold={props.gsBold}
+                                gsFontsize={props.gsFontsize}
+                                gsPriceFontsize={props.gsPriceFontsize}
+                                gsItalic={props.gsItalic}
+                                gsUnderline={props.gsUnderline}
+                                gsFontFamily={props.gsFontFamily}
+                                gsTitleColor={props.gsTitleColor}
+                                gsPriceColor={props.gsPriceColor}
+                                gsBgColor={props.gsBgColor}
+                                gsOffsetValue={props.gsOffsetValue}
+                                gsAction={props.gsAction}
+                                gsDisplayCondition={props.gsDisplayCondition}
+                                containerHeight={props.containerHeight}
+                                enable={enable}
+                                callback={handleCallback}
+                            />
+                        )}
+
+                        {menu === "2" && (
+                            <BuyNowSettings
+                                OnReturnToSidebar={navigateToSubMenu}
+                                // json_style_data={props.json_style_data}
+                                callback={handleCallback}
+                            />
+                        )}
+                    </Layout.Section>
+                </Layout>
+            </div>
+        </div>
+    );
 }
