@@ -7,6 +7,7 @@ import { QuantityPicker } from "react-qty-picker";
 import style from "../css/CartTemplate1.module.css";
 
 function CartTemplate1(props) {
+    const [isVibrating, setIsVibrating] = useState(false);
     const [enable, setEnable] = useState(props.enable); // FOR MAIN DISPLAY
     const [position, setPosition] = useState(props.position);
     const [checkMobile, setCheckMobile] = useState(props.checkMobile);
@@ -112,6 +113,17 @@ function CartTemplate1(props) {
         setBtnBorderRadius(props.btnBorderRadius);
         setBtnBorderColor(props.btnBorderColor);
         setBtnBorderHoverColor(props.btnBorderHoverColor);
+
+        const interval = setInterval(() => {
+            setIsVibrating(true);
+            setTimeout(() => setIsVibrating(false), 2000); // Duration of the vibrate animation (0.2s)
+
+            // Clear the interval after 5 seconds (5000 milliseconds)
+            setTimeout(() => clearInterval(interval), 5000);
+        }, 5000); // Trigger every 5 seconds (5000 milliseconds)
+
+        // Cleanup the interval on component unmount
+        return () => clearInterval(interval);
     });
     const customStyles = {
         indicatorSeparator: (provided) => ({
@@ -124,6 +136,27 @@ function CartTemplate1(props) {
         <>
             <style>
                 {`
+                    @keyframes vibrate {
+                        0% {
+                            transform: translateX(0);
+                        }
+                        25% {
+                            transform: translateX(-5px) rotate(-1deg);
+                        }
+                        50% {
+                            transform: translateX(5px) rotate(1deg);
+                        }
+                        75% {
+                            transform: translateX(-5px) rotate(-1deg);
+                        }
+                        100% {
+                            transform: translateX(5px) rotate(1deg);
+                        }
+                    }
+
+                    .lm_vibrating {
+                        animation: vibrate .2s ease infinite;
+                    }
                     .lm_quantity_picker .quantity-picker .quantity-display{
                         padding: 0;
                         background-color: #fff;
@@ -397,6 +430,10 @@ function CartTemplate1(props) {
                                                 btnUnderline === true
                                                     ? "lm_underline"
                                                     : "no-line"
+                                            }${
+                                                isVibrating
+                                                    ? " lm_vibrating"
+                                                    : ""
                                             }`}
                                             onMouseEnter={handleCountEnter}
                                             onMouseLeave={handleCountLeave}

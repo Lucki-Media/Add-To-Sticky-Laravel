@@ -1,28 +1,12 @@
-const Data = [   
+export const custom_template_options = [
     {
         key: "1",
-        title: "Dashboard",
-        icon: "HomeMajor",
-        path: "/",
+        option: "General Settings",
+        slug: "genral-settings",
     },
     {
         key: "2",
-        title: "Add To Cart Sticky ",
-        icon: 'AddProductMajor',
-        path: "/add-to-cart-sticky",
-    },
-    {
-        key: "3",
-        title: "Sticky cart",
-        icon: 'CheckoutMajor',
-        path: "/sticky-cart",
-    },
-    {
-        key: "4",
-        title: "FAQs",
-        icon: 'QuestionMarkMajor',
-        path: "/sticky-faq",
+        option: "Winning Popup",
+        slug: "buy-now-settings",
     },
 ];
-
-export default Data;

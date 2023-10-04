@@ -132,12 +132,12 @@ export default function HomePage(props) {
                             </div>
                         </div>
                         <Layout>
-                            <Layout.Section oneThird>
-                                {/* <Card title="Add To Sticky" sectioned> */}
-                                {/* <div className="sidebar_title">Dashboard</div> */}
+                            {/* <Layout.Section oneThird>
+                                <Card title="Add To Sticky" sectioned>
+                                <div className="sidebar_title">Dashboard</div>
                                 <SideBar />
-                                {/* </Card> */}
-                            </Layout.Section>
+                                </Card>
+                            </Layout.Section> */}
                             <Layout.Section>
                                 <div className="sidebar_title">
                                     {currentMonth}

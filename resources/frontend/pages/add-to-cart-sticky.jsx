@@ -44,10 +44,12 @@ import CartTemplate6 from "../Templates/CartTemplate6.jsx";
 import CartTemplate7 from "../Templates/CartTemplate7.jsx";
 import CartTemplate8 from "../Templates/CartTemplate8.jsx";
 import axios from "axios";
+import { SideBar } from "../components/SideBar";
 
 export default function AddToCartSticky() {
     const shop_url = document.getElementById("shopOrigin").value;
     const navigate = useNavigate();
+    const [menu, setMenu] = useState("0");
     const [loading, setLoading] = useState(false);
     const [saveLoader, setSaveLoader] = useState(false);
     const [showTable, setShowTable] = useState(false);
@@ -100,6 +102,10 @@ export default function AddToCartSticky() {
     const [gsAction, setGsAction] = useState("1");
     const [gsDisplayCondition, setGsDisplayCondition] = useState("1");
     const [containerHeight, setContainerHeight] = useState(70);
+    const [showGenDisplaySetting, setShowGenDisplaySetting] = useState(false);
+    const [showGenStyle, setShowGenStyle] = useState(false);
+    const [showGenLayout, setShowGenLayout] = useState(false);
+    const [showGenAction, setShowGenAction] = useState(false);
 
     /*BUY NOW CONSTANTS*/
     const [buyNowSettings, setBuyNowSettings] = useState(false);
@@ -122,6 +128,32 @@ export default function AddToCartSticky() {
     const [btnBorderColor, setBtnBorderColor] = useState("rgba(0, 1, 143, 1)");
     const [btnBorderHoverColor, setBtnBorderHoverColor] =
         useState("rgba(1, 255, 0, 1)");
+    const [transferData, SetTransferData] = useState();
+    const handleSelectedTemplateOption = (data) => {
+        setMenu(data);
+    };
+
+    const handleTransferData = (data) => {
+        console.log("data");
+        console.log(data);
+        /*GENERAL SETTINGS VALUES*/
+        setCheckDesktop(data.checkDesktop);
+        setCheckMobile(data.checkMobile);
+        setPosition(data.position);
+        setGsFontsize(data.gsFontsize);
+        setGsPriceFontsize(data.gsPriceFontsize);
+        setGsFontFamily(data.gsFontFamily);
+        setGsBold(data.gsBold);
+        setGsItalic(data.gsItalic);
+        setGsUnderLine(data.gsUnderline);
+        setGsTitleColor(data.gsTitleColor);
+        setContainerHeight(data.containerHeight);
+        setGsPriceColor(data.gsPriceColor);
+        setGsBgColor(data.gsBgColor);
+        setGsOffsetValue(data.gsOffsetValue);
+        setGsDisplayCondition(data.gsDisplayCondition);
+        setGsAction(data.gsAction);
+    };
     const getAddToStickyCartData = async () => {
         try {
             const response = await fetch(
@@ -220,6 +252,7 @@ export default function AddToCartSticky() {
     // TEMPLATE DATA START
     const handleChange = (key) => {
         // console.log(data);
+        setMenu("0");
         setDefaultTemplate(key);
         var currentData;
         switch (key) {
@@ -379,6 +412,32 @@ export default function AddToCartSticky() {
         setShowGeneralSettings(!value);
     };
     /*GENERAL SETTINGS SHOW END*/
+
+    const hanldeShowGenDisplaySetting = (value) => {
+        setShowGenDisplaySetting(!value);
+        setShowGenStyle(false);
+        setShowGenLayout(false);
+        setShowGenAction(false);
+    };
+    const hanldeShowGenStyle = (value) => {
+        setShowGenStyle(!value);
+        setShowGenDisplaySetting(false);
+        setShowGenLayout(false);
+        setShowGenAction(false);
+    };
+    const hanldeShowGenLayout = (value) => {
+        setShowGenLayout(!value);
+        setShowGenDisplaySetting(false);
+        setShowGenStyle(false);
+        setShowGenAction(false);
+    };
+
+    const hanldeShowGenAction = (value) => {
+        setShowGenAction(!value);
+        setShowGenDisplaySetting(false);
+        setShowGenStyle(false);
+        setShowGenLayout(false);
+    };
 
     /*BUY NOW SHOW START*/
     const hanldeBuyNowSetting = (value) => {
@@ -620,1190 +679,576 @@ export default function AddToCartSticky() {
         return (
             <>
                 <Frame>
-                    <div className="topbar_title">LM ADD TO CART STICKY</div>
-
-                    <div
-                        style={{
-                            height: position !== "Top" ? 0 : containerHeight,
-                            marginTop: position !== "Top" ? 50 : 20,
-                        }}
-                    >
-                        {defaultTemplate === 1 ? (
-                            <CartTemplate1
-                                template_data={data.template_1}
-                                enable={enable}
-                                defaultTemplate={defaultTemplate}
-                                position={position}
-                                checkMobile={checkMobile}
-                                checkDesktop={checkDesktop}
-                                gsBold={gsBold}
-                                gsFontsize={gsFontsize}
-                                gsPriceFontsize={gsPriceFontsize}
-                                gsItalic={gsItalic}
-                                gsUnderline={gsUnderline}
-                                gsFontFamily={gsFontFamily}
-                                gsTitleColor={gsTitleColor}
-                                gsPriceColor={gsPriceColor}
-                                gsBgColor={gsBgColor}
-                                gsOffsetValue={gsOffsetValue}
-                                gsAction={gsAction}
-                                gsDisplayCondition={gsDisplayCondition}
-                                buyNowSettings={buyNowSettings}
-                                editText={editText}
-                                // soldOut={soldOut}
-                                unavailable={unavailable}
-                                btnWidthValue={btnWidthValue}
-                                btnheightValue={btnheightValue}
-                                btnFontsize={btnFontsize}
-                                containerHeight={containerHeight}
-                                btnBorderThickness={btnBorderThickness}
-                                btnBorderRadius={btnBorderRadius}
-                                btnBold={btnBold}
-                                btnItalic={btnItalic}
-                                btnUnderline={btnUnderline}
-                                btnTextColor={btnTextColor}
-                                btnBgColor={btnBgColor}
-                                btnTexthoverColor={btnTexthoverColor}
-                                btnBgHoverColor={btnBgHoverColor}
-                                btnBorderColor={btnBorderColor}
-                                btnBorderHoverColor={btnBorderHoverColor}
-                            />
-                        ) : (
-                            ""
-                        )}
-                        {defaultTemplate === 2 ? (
-                            <CartTemplate2
-                                template_data={data.template_2}
-                                enable={enable}
-                                defaultTemplate={defaultTemplate}
-                                position={position}
-                                checkMobile={checkMobile}
-                                checkDesktop={checkDesktop}
-                                gsBold={gsBold}
-                                gsFontsize={gsFontsize}
-                                gsPriceFontsize={gsPriceFontsize}
-                                gsItalic={gsItalic}
-                                gsUnderline={gsUnderline}
-                                gsFontFamily={gsFontFamily}
-                                gsTitleColor={gsTitleColor}
-                                gsPriceColor={gsPriceColor}
-                                gsBgColor={gsBgColor}
-                                gsOffsetValue={gsOffsetValue}
-                                gsAction={gsAction}
-                                gsDisplayCondition={gsDisplayCondition}
-                                buyNowSettings={buyNowSettings}
-                                editText={editText}
-                                // soldOut={soldOut}
-                                unavailable={unavailable}
-                                btnWidthValue={btnWidthValue}
-                                btnheightValue={btnheightValue}
-                                btnFontsize={btnFontsize}
-                                containerHeight={containerHeight}
-                                btnBorderThickness={btnBorderThickness}
-                                btnBorderRadius={btnBorderRadius}
-                                btnBold={btnBold}
-                                btnItalic={btnItalic}
-                                btnUnderline={btnUnderline}
-                                btnTextColor={btnTextColor}
-                                btnBgColor={btnBgColor}
-                                btnTexthoverColor={btnTexthoverColor}
-                                btnBgHoverColor={btnBgHoverColor}
-                                btnBorderColor={btnBorderColor}
-                                btnBorderHoverColor={btnBorderHoverColor}
-                            />
-                        ) : (
-                            ""
-                        )}
-                        {defaultTemplate === 3 ? (
-                            <CartTemplate3
-                                template_data={data.template_3}
-                                enable={enable}
-                                defaultTemplate={defaultTemplate}
-                                position={position}
-                                checkMobile={checkMobile}
-                                checkDesktop={checkDesktop}
-                                gsBold={gsBold}
-                                gsFontsize={gsFontsize}
-                                gsPriceFontsize={gsPriceFontsize}
-                                gsItalic={gsItalic}
-                                gsUnderline={gsUnderline}
-                                gsFontFamily={gsFontFamily}
-                                gsTitleColor={gsTitleColor}
-                                gsPriceColor={gsPriceColor}
-                                gsBgColor={gsBgColor}
-                                gsOffsetValue={gsOffsetValue}
-                                gsAction={gsAction}
-                                gsDisplayCondition={gsDisplayCondition}
-                                buyNowSettings={buyNowSettings}
-                                editText={editText}
-                                // soldOut={soldOut}
-                                unavailable={unavailable}
-                                btnWidthValue={btnWidthValue}
-                                btnheightValue={btnheightValue}
-                                btnFontsize={btnFontsize}
-                                containerHeight={containerHeight}
-                                btnBorderThickness={btnBorderThickness}
-                                btnBorderRadius={btnBorderRadius}
-                                btnBold={btnBold}
-                                btnItalic={btnItalic}
-                                btnUnderline={btnUnderline}
-                                btnTextColor={btnTextColor}
-                                btnBgColor={btnBgColor}
-                                btnTexthoverColor={btnTexthoverColor}
-                                btnBgHoverColor={btnBgHoverColor}
-                                btnBorderColor={btnBorderColor}
-                                btnBorderHoverColor={btnBorderHoverColor}
-                            />
-                        ) : (
-                            ""
-                        )}
-                        {defaultTemplate === 4 ? (
-                            <CartTemplate4
-                                template_data={data.template_4}
-                                enable={enable}
-                                defaultTemplate={defaultTemplate}
-                                position={position}
-                                checkMobile={checkMobile}
-                                checkDesktop={checkDesktop}
-                                gsBold={gsBold}
-                                gsFontsize={gsFontsize}
-                                gsPriceFontsize={gsPriceFontsize}
-                                gsItalic={gsItalic}
-                                gsUnderline={gsUnderline}
-                                gsFontFamily={gsFontFamily}
-                                gsTitleColor={gsTitleColor}
-                                gsPriceColor={gsPriceColor}
-                                gsBgColor={gsBgColor}
-                                gsOffsetValue={gsOffsetValue}
-                                gsAction={gsAction}
-                                gsDisplayCondition={gsDisplayCondition}
-                                buyNowSettings={buyNowSettings}
-                                editText={editText}
-                                // soldOut={soldOut}
-                                unavailable={unavailable}
-                                btnWidthValue={btnWidthValue}
-                                btnheightValue={btnheightValue}
-                                btnFontsize={btnFontsize}
-                                containerHeight={containerHeight}
-                                btnBorderThickness={btnBorderThickness}
-                                btnBorderRadius={btnBorderRadius}
-                                btnBold={btnBold}
-                                btnItalic={btnItalic}
-                                btnUnderline={btnUnderline}
-                                btnTextColor={btnTextColor}
-                                btnBgColor={btnBgColor}
-                                btnTexthoverColor={btnTexthoverColor}
-                                btnBgHoverColor={btnBgHoverColor}
-                                btnBorderColor={btnBorderColor}
-                                btnBorderHoverColor={btnBorderHoverColor}
-                            />
-                        ) : (
-                            ""
-                        )}
-                        {defaultTemplate === 5 ? (
-                            <CartTemplate5
-                                template_data={data.template_5}
-                                enable={enable}
-                                defaultTemplate={defaultTemplate}
-                                position={position}
-                                checkMobile={checkMobile}
-                                checkDesktop={checkDesktop}
-                                gsBold={gsBold}
-                                gsFontsize={gsFontsize}
-                                gsPriceFontsize={gsPriceFontsize}
-                                gsItalic={gsItalic}
-                                gsUnderline={gsUnderline}
-                                gsFontFamily={gsFontFamily}
-                                gsTitleColor={gsTitleColor}
-                                gsPriceColor={gsPriceColor}
-                                gsBgColor={gsBgColor}
-                                gsOffsetValue={gsOffsetValue}
-                                gsAction={gsAction}
-                                gsDisplayCondition={gsDisplayCondition}
-                                buyNowSettings={buyNowSettings}
-                                editText={editText}
-                                // soldOut={soldOut}
-                                unavailable={unavailable}
-                                btnWidthValue={btnWidthValue}
-                                btnheightValue={btnheightValue}
-                                btnFontsize={btnFontsize}
-                                containerHeight={containerHeight}
-                                btnBorderThickness={btnBorderThickness}
-                                btnBorderRadius={btnBorderRadius}
-                                btnBold={btnBold}
-                                btnItalic={btnItalic}
-                                btnUnderline={btnUnderline}
-                                btnTextColor={btnTextColor}
-                                btnBgColor={btnBgColor}
-                                btnTexthoverColor={btnTexthoverColor}
-                                btnBgHoverColor={btnBgHoverColor}
-                                btnBorderColor={btnBorderColor}
-                                btnBorderHoverColor={btnBorderHoverColor}
-                            />
-                        ) : (
-                            ""
-                        )}
-                        {defaultTemplate === 6 ? (
-                            <CartTemplate6
-                                template_data={data.template_6}
-                                enable={enable}
-                                defaultTemplate={defaultTemplate}
-                                position={position}
-                                checkMobile={checkMobile}
-                                checkDesktop={checkDesktop}
-                                gsBold={gsBold}
-                                gsFontsize={gsFontsize}
-                                gsPriceFontsize={gsPriceFontsize}
-                                gsItalic={gsItalic}
-                                gsUnderline={gsUnderline}
-                                gsFontFamily={gsFontFamily}
-                                gsTitleColor={gsTitleColor}
-                                gsPriceColor={gsPriceColor}
-                                gsBgColor={gsBgColor}
-                                gsOffsetValue={gsOffsetValue}
-                                gsAction={gsAction}
-                                gsDisplayCondition={gsDisplayCondition}
-                                buyNowSettings={buyNowSettings}
-                                editText={editText}
-                                // soldOut={soldOut}
-                                unavailable={unavailable}
-                                btnWidthValue={btnWidthValue}
-                                btnheightValue={btnheightValue}
-                                btnFontsize={btnFontsize}
-                                containerHeight={containerHeight}
-                                btnBorderThickness={btnBorderThickness}
-                                btnBorderRadius={btnBorderRadius}
-                                btnBold={btnBold}
-                                btnItalic={btnItalic}
-                                btnUnderline={btnUnderline}
-                                btnTextColor={btnTextColor}
-                                btnBgColor={btnBgColor}
-                                btnTexthoverColor={btnTexthoverColor}
-                                btnBgHoverColor={btnBgHoverColor}
-                                btnBorderColor={btnBorderColor}
-                                btnBorderHoverColor={btnBorderHoverColor}
-                            />
-                        ) : (
-                            ""
-                        )}
-                        {defaultTemplate === 7 ? (
-                            <CartTemplate7
-                                template_data={data.template_7}
-                                enable={enable}
-                                defaultTemplate={defaultTemplate}
-                                position={position}
-                                checkMobile={checkMobile}
-                                checkDesktop={checkDesktop}
-                                gsBold={gsBold}
-                                gsFontsize={gsFontsize}
-                                gsPriceFontsize={gsPriceFontsize}
-                                gsItalic={gsItalic}
-                                gsUnderline={gsUnderline}
-                                gsFontFamily={gsFontFamily}
-                                gsTitleColor={gsTitleColor}
-                                gsPriceColor={gsPriceColor}
-                                gsBgColor={gsBgColor}
-                                gsOffsetValue={gsOffsetValue}
-                                gsAction={gsAction}
-                                gsDisplayCondition={gsDisplayCondition}
-                                buyNowSettings={buyNowSettings}
-                                editText={editText}
-                                // soldOut={soldOut}
-                                unavailable={unavailable}
-                                btnWidthValue={btnWidthValue}
-                                btnheightValue={btnheightValue}
-                                btnFontsize={btnFontsize}
-                                containerHeight={containerHeight}
-                                btnBorderThickness={btnBorderThickness}
-                                btnBorderRadius={btnBorderRadius}
-                                btnBold={btnBold}
-                                btnItalic={btnItalic}
-                                btnUnderline={btnUnderline}
-                                btnTextColor={btnTextColor}
-                                btnBgColor={btnBgColor}
-                                btnTexthoverColor={btnTexthoverColor}
-                                btnBgHoverColor={btnBgHoverColor}
-                                btnBorderColor={btnBorderColor}
-                                btnBorderHoverColor={btnBorderHoverColor}
-                            />
-                        ) : (
-                            ""
-                        )}
-                        {defaultTemplate === 8 ? (
-                            <CartTemplate8
-                                template_data={data.template_8}
-                                enable={enable}
-                                defaultTemplate={defaultTemplate}
-                                position={position}
-                                checkMobile={checkMobile}
-                                checkDesktop={checkDesktop}
-                                gsBold={gsBold}
-                                gsFontsize={gsFontsize}
-                                gsPriceFontsize={gsPriceFontsize}
-                                gsItalic={gsItalic}
-                                gsUnderline={gsUnderline}
-                                gsFontFamily={gsFontFamily}
-                                gsTitleColor={gsTitleColor}
-                                gsPriceColor={gsPriceColor}
-                                gsBgColor={gsBgColor}
-                                gsOffsetValue={gsOffsetValue}
-                                gsAction={gsAction}
-                                gsDisplayCondition={gsDisplayCondition}
-                                buyNowSettings={buyNowSettings}
-                                editText={editText}
-                                // soldOut={soldOut}
-                                unavailable={unavailable}
-                                btnWidthValue={btnWidthValue}
-                                btnheightValue={btnheightValue}
-                                btnFontsize={btnFontsize}
-                                containerHeight={containerHeight}
-                                btnBorderThickness={btnBorderThickness}
-                                btnBorderRadius={btnBorderRadius}
-                                btnBold={btnBold}
-                                btnItalic={btnItalic}
-                                btnUnderline={btnUnderline}
-                                btnTextColor={btnTextColor}
-                                btnBgColor={btnBgColor}
-                                btnTexthoverColor={btnTexthoverColor}
-                                btnBgHoverColor={btnBgHoverColor}
-                                btnBorderColor={btnBorderColor}
-                                btnBorderHoverColor={btnBorderHoverColor}
-                            />
-                        ) : (
-                            ""
-                        )}
-                    </div>
-                    <div className="main_app_page" style={{ marginTop: 30 }}>
-                        <Page>
-                            <Card>
-                                <div className="lm_add_to_sticky_top_bar_header_bottom">
-                                    <div
-                                        className="lm_add_to_sticky_top_bar_header_out"
-                                        onClick={handleClick}
-                                    >
-                                        <Icon source={ExitMajor} color="base" />{" "}
-                                        <div>
-                                            Dashboard /{" "}
-                                            <strong>Add To Cart Sticky</strong>
-                                        </div>
-                                    </div>
-                                    <Button
-                                        loading={loading}
-                                        onClick={handleSave}
-                                        primary
-                                    >
-                                        Save
-                                    </Button>
-                                    {toastMarkup}
-                                    {toastMarkup1}
+                    <div className="main_app_page">
+                        <Page
+                            fullWidth
+                            // title="Add To Cart Sticky Templates"
+                            // primaryAction={{
+                            //     content: "Save",
+                            //     onClick: handleSave,
+                            // }}
+                        >
+                            {toastMarkup}
+                            {toastMarkup1}
+                            <div className="shell_template_Card">
+                                <div
+                                    style={{
+                                        height:
+                                            position !== "Top"
+                                                ? 0
+                                                : containerHeight,
+                                        marginTop: position !== "Top" ? 50 : 20,
+                                    }}
+                                >
+                                    {defaultTemplate === 1 ? (
+                                        <CartTemplate1
+                                            template_data={data.template_1}
+                                            enable={enable}
+                                            defaultTemplate={defaultTemplate}
+                                            position={position}
+                                            checkMobile={checkMobile}
+                                            checkDesktop={checkDesktop}
+                                            gsBold={gsBold}
+                                            gsFontsize={gsFontsize}
+                                            gsPriceFontsize={gsPriceFontsize}
+                                            gsItalic={gsItalic}
+                                            gsUnderline={gsUnderline}
+                                            gsFontFamily={gsFontFamily}
+                                            gsTitleColor={gsTitleColor}
+                                            gsPriceColor={gsPriceColor}
+                                            gsBgColor={gsBgColor}
+                                            gsOffsetValue={gsOffsetValue}
+                                            gsAction={gsAction}
+                                            gsDisplayCondition={
+                                                gsDisplayCondition
+                                            }
+                                            buyNowSettings={buyNowSettings}
+                                            editText={editText}
+                                            // soldOut={soldOut}
+                                            unavailable={unavailable}
+                                            btnWidthValue={btnWidthValue}
+                                            btnheightValue={btnheightValue}
+                                            btnFontsize={btnFontsize}
+                                            containerHeight={containerHeight}
+                                            btnBorderThickness={
+                                                btnBorderThickness
+                                            }
+                                            btnBorderRadius={btnBorderRadius}
+                                            btnBold={btnBold}
+                                            btnItalic={btnItalic}
+                                            btnUnderline={btnUnderline}
+                                            btnTextColor={btnTextColor}
+                                            btnBgColor={btnBgColor}
+                                            btnTexthoverColor={
+                                                btnTexthoverColor
+                                            }
+                                            btnBgHoverColor={btnBgHoverColor}
+                                            btnBorderColor={btnBorderColor}
+                                            btnBorderHoverColor={
+                                                btnBorderHoverColor
+                                            }
+                                        />
+                                    ) : (
+                                        ""
+                                    )}
+                                    {defaultTemplate === 2 ? (
+                                        <CartTemplate2
+                                            template_data={data.template_2}
+                                            enable={enable}
+                                            defaultTemplate={defaultTemplate}
+                                            position={position}
+                                            checkMobile={checkMobile}
+                                            checkDesktop={checkDesktop}
+                                            gsBold={gsBold}
+                                            gsFontsize={gsFontsize}
+                                            gsPriceFontsize={gsPriceFontsize}
+                                            gsItalic={gsItalic}
+                                            gsUnderline={gsUnderline}
+                                            gsFontFamily={gsFontFamily}
+                                            gsTitleColor={gsTitleColor}
+                                            gsPriceColor={gsPriceColor}
+                                            gsBgColor={gsBgColor}
+                                            gsOffsetValue={gsOffsetValue}
+                                            gsAction={gsAction}
+                                            gsDisplayCondition={
+                                                gsDisplayCondition
+                                            }
+                                            buyNowSettings={buyNowSettings}
+                                            editText={editText}
+                                            // soldOut={soldOut}
+                                            unavailable={unavailable}
+                                            btnWidthValue={btnWidthValue}
+                                            btnheightValue={btnheightValue}
+                                            btnFontsize={btnFontsize}
+                                            containerHeight={containerHeight}
+                                            btnBorderThickness={
+                                                btnBorderThickness
+                                            }
+                                            btnBorderRadius={btnBorderRadius}
+                                            btnBold={btnBold}
+                                            btnItalic={btnItalic}
+                                            btnUnderline={btnUnderline}
+                                            btnTextColor={btnTextColor}
+                                            btnBgColor={btnBgColor}
+                                            btnTexthoverColor={
+                                                btnTexthoverColor
+                                            }
+                                            btnBgHoverColor={btnBgHoverColor}
+                                            btnBorderColor={btnBorderColor}
+                                            btnBorderHoverColor={
+                                                btnBorderHoverColor
+                                            }
+                                        />
+                                    ) : (
+                                        ""
+                                    )}
+                                    {defaultTemplate === 3 ? (
+                                        <CartTemplate3
+                                            template_data={data.template_3}
+                                            enable={enable}
+                                            defaultTemplate={defaultTemplate}
+                                            position={position}
+                                            checkMobile={checkMobile}
+                                            checkDesktop={checkDesktop}
+                                            gsBold={gsBold}
+                                            gsFontsize={gsFontsize}
+                                            gsPriceFontsize={gsPriceFontsize}
+                                            gsItalic={gsItalic}
+                                            gsUnderline={gsUnderline}
+                                            gsFontFamily={gsFontFamily}
+                                            gsTitleColor={gsTitleColor}
+                                            gsPriceColor={gsPriceColor}
+                                            gsBgColor={gsBgColor}
+                                            gsOffsetValue={gsOffsetValue}
+                                            gsAction={gsAction}
+                                            gsDisplayCondition={
+                                                gsDisplayCondition
+                                            }
+                                            buyNowSettings={buyNowSettings}
+                                            editText={editText}
+                                            // soldOut={soldOut}
+                                            unavailable={unavailable}
+                                            btnWidthValue={btnWidthValue}
+                                            btnheightValue={btnheightValue}
+                                            btnFontsize={btnFontsize}
+                                            containerHeight={containerHeight}
+                                            btnBorderThickness={
+                                                btnBorderThickness
+                                            }
+                                            btnBorderRadius={btnBorderRadius}
+                                            btnBold={btnBold}
+                                            btnItalic={btnItalic}
+                                            btnUnderline={btnUnderline}
+                                            btnTextColor={btnTextColor}
+                                            btnBgColor={btnBgColor}
+                                            btnTexthoverColor={
+                                                btnTexthoverColor
+                                            }
+                                            btnBgHoverColor={btnBgHoverColor}
+                                            btnBorderColor={btnBorderColor}
+                                            btnBorderHoverColor={
+                                                btnBorderHoverColor
+                                            }
+                                        />
+                                    ) : (
+                                        ""
+                                    )}
+                                    {defaultTemplate === 4 ? (
+                                        <CartTemplate4
+                                            template_data={data.template_4}
+                                            enable={enable}
+                                            defaultTemplate={defaultTemplate}
+                                            position={position}
+                                            checkMobile={checkMobile}
+                                            checkDesktop={checkDesktop}
+                                            gsBold={gsBold}
+                                            gsFontsize={gsFontsize}
+                                            gsPriceFontsize={gsPriceFontsize}
+                                            gsItalic={gsItalic}
+                                            gsUnderline={gsUnderline}
+                                            gsFontFamily={gsFontFamily}
+                                            gsTitleColor={gsTitleColor}
+                                            gsPriceColor={gsPriceColor}
+                                            gsBgColor={gsBgColor}
+                                            gsOffsetValue={gsOffsetValue}
+                                            gsAction={gsAction}
+                                            gsDisplayCondition={
+                                                gsDisplayCondition
+                                            }
+                                            buyNowSettings={buyNowSettings}
+                                            editText={editText}
+                                            // soldOut={soldOut}
+                                            unavailable={unavailable}
+                                            btnWidthValue={btnWidthValue}
+                                            btnheightValue={btnheightValue}
+                                            btnFontsize={btnFontsize}
+                                            containerHeight={containerHeight}
+                                            btnBorderThickness={
+                                                btnBorderThickness
+                                            }
+                                            btnBorderRadius={btnBorderRadius}
+                                            btnBold={btnBold}
+                                            btnItalic={btnItalic}
+                                            btnUnderline={btnUnderline}
+                                            btnTextColor={btnTextColor}
+                                            btnBgColor={btnBgColor}
+                                            btnTexthoverColor={
+                                                btnTexthoverColor
+                                            }
+                                            btnBgHoverColor={btnBgHoverColor}
+                                            btnBorderColor={btnBorderColor}
+                                            btnBorderHoverColor={
+                                                btnBorderHoverColor
+                                            }
+                                        />
+                                    ) : (
+                                        ""
+                                    )}
+                                    {defaultTemplate === 5 ? (
+                                        <CartTemplate5
+                                            template_data={data.template_5}
+                                            enable={enable}
+                                            defaultTemplate={defaultTemplate}
+                                            position={position}
+                                            checkMobile={checkMobile}
+                                            checkDesktop={checkDesktop}
+                                            gsBold={gsBold}
+                                            gsFontsize={gsFontsize}
+                                            gsPriceFontsize={gsPriceFontsize}
+                                            gsItalic={gsItalic}
+                                            gsUnderline={gsUnderline}
+                                            gsFontFamily={gsFontFamily}
+                                            gsTitleColor={gsTitleColor}
+                                            gsPriceColor={gsPriceColor}
+                                            gsBgColor={gsBgColor}
+                                            gsOffsetValue={gsOffsetValue}
+                                            gsAction={gsAction}
+                                            gsDisplayCondition={
+                                                gsDisplayCondition
+                                            }
+                                            buyNowSettings={buyNowSettings}
+                                            editText={editText}
+                                            // soldOut={soldOut}
+                                            unavailable={unavailable}
+                                            btnWidthValue={btnWidthValue}
+                                            btnheightValue={btnheightValue}
+                                            btnFontsize={btnFontsize}
+                                            containerHeight={containerHeight}
+                                            btnBorderThickness={
+                                                btnBorderThickness
+                                            }
+                                            btnBorderRadius={btnBorderRadius}
+                                            btnBold={btnBold}
+                                            btnItalic={btnItalic}
+                                            btnUnderline={btnUnderline}
+                                            btnTextColor={btnTextColor}
+                                            btnBgColor={btnBgColor}
+                                            btnTexthoverColor={
+                                                btnTexthoverColor
+                                            }
+                                            btnBgHoverColor={btnBgHoverColor}
+                                            btnBorderColor={btnBorderColor}
+                                            btnBorderHoverColor={
+                                                btnBorderHoverColor
+                                            }
+                                        />
+                                    ) : (
+                                        ""
+                                    )}
+                                    {defaultTemplate === 6 ? (
+                                        <CartTemplate6
+                                            template_data={data.template_6}
+                                            enable={enable}
+                                            defaultTemplate={defaultTemplate}
+                                            position={position}
+                                            checkMobile={checkMobile}
+                                            checkDesktop={checkDesktop}
+                                            gsBold={gsBold}
+                                            gsFontsize={gsFontsize}
+                                            gsPriceFontsize={gsPriceFontsize}
+                                            gsItalic={gsItalic}
+                                            gsUnderline={gsUnderline}
+                                            gsFontFamily={gsFontFamily}
+                                            gsTitleColor={gsTitleColor}
+                                            gsPriceColor={gsPriceColor}
+                                            gsBgColor={gsBgColor}
+                                            gsOffsetValue={gsOffsetValue}
+                                            gsAction={gsAction}
+                                            gsDisplayCondition={
+                                                gsDisplayCondition
+                                            }
+                                            buyNowSettings={buyNowSettings}
+                                            editText={editText}
+                                            // soldOut={soldOut}
+                                            unavailable={unavailable}
+                                            btnWidthValue={btnWidthValue}
+                                            btnheightValue={btnheightValue}
+                                            btnFontsize={btnFontsize}
+                                            containerHeight={containerHeight}
+                                            btnBorderThickness={
+                                                btnBorderThickness
+                                            }
+                                            btnBorderRadius={btnBorderRadius}
+                                            btnBold={btnBold}
+                                            btnItalic={btnItalic}
+                                            btnUnderline={btnUnderline}
+                                            btnTextColor={btnTextColor}
+                                            btnBgColor={btnBgColor}
+                                            btnTexthoverColor={
+                                                btnTexthoverColor
+                                            }
+                                            btnBgHoverColor={btnBgHoverColor}
+                                            btnBorderColor={btnBorderColor}
+                                            btnBorderHoverColor={
+                                                btnBorderHoverColor
+                                            }
+                                        />
+                                    ) : (
+                                        ""
+                                    )}
+                                    {defaultTemplate === 7 ? (
+                                        <CartTemplate7
+                                            template_data={data.template_7}
+                                            enable={enable}
+                                            defaultTemplate={defaultTemplate}
+                                            position={position}
+                                            checkMobile={checkMobile}
+                                            checkDesktop={checkDesktop}
+                                            gsBold={gsBold}
+                                            gsFontsize={gsFontsize}
+                                            gsPriceFontsize={gsPriceFontsize}
+                                            gsItalic={gsItalic}
+                                            gsUnderline={gsUnderline}
+                                            gsFontFamily={gsFontFamily}
+                                            gsTitleColor={gsTitleColor}
+                                            gsPriceColor={gsPriceColor}
+                                            gsBgColor={gsBgColor}
+                                            gsOffsetValue={gsOffsetValue}
+                                            gsAction={gsAction}
+                                            gsDisplayCondition={
+                                                gsDisplayCondition
+                                            }
+                                            buyNowSettings={buyNowSettings}
+                                            editText={editText}
+                                            // soldOut={soldOut}
+                                            unavailable={unavailable}
+                                            btnWidthValue={btnWidthValue}
+                                            btnheightValue={btnheightValue}
+                                            btnFontsize={btnFontsize}
+                                            containerHeight={containerHeight}
+                                            btnBorderThickness={
+                                                btnBorderThickness
+                                            }
+                                            btnBorderRadius={btnBorderRadius}
+                                            btnBold={btnBold}
+                                            btnItalic={btnItalic}
+                                            btnUnderline={btnUnderline}
+                                            btnTextColor={btnTextColor}
+                                            btnBgColor={btnBgColor}
+                                            btnTexthoverColor={
+                                                btnTexthoverColor
+                                            }
+                                            btnBgHoverColor={btnBgHoverColor}
+                                            btnBorderColor={btnBorderColor}
+                                            btnBorderHoverColor={
+                                                btnBorderHoverColor
+                                            }
+                                        />
+                                    ) : (
+                                        ""
+                                    )}
+                                    {defaultTemplate === 8 ? (
+                                        <CartTemplate8
+                                            template_data={data.template_8}
+                                            enable={enable}
+                                            defaultTemplate={defaultTemplate}
+                                            position={position}
+                                            checkMobile={checkMobile}
+                                            checkDesktop={checkDesktop}
+                                            gsBold={gsBold}
+                                            gsFontsize={gsFontsize}
+                                            gsPriceFontsize={gsPriceFontsize}
+                                            gsItalic={gsItalic}
+                                            gsUnderline={gsUnderline}
+                                            gsFontFamily={gsFontFamily}
+                                            gsTitleColor={gsTitleColor}
+                                            gsPriceColor={gsPriceColor}
+                                            gsBgColor={gsBgColor}
+                                            gsOffsetValue={gsOffsetValue}
+                                            gsAction={gsAction}
+                                            gsDisplayCondition={
+                                                gsDisplayCondition
+                                            }
+                                            buyNowSettings={buyNowSettings}
+                                            editText={editText}
+                                            // soldOut={soldOut}
+                                            unavailable={unavailable}
+                                            btnWidthValue={btnWidthValue}
+                                            btnheightValue={btnheightValue}
+                                            btnFontsize={btnFontsize}
+                                            containerHeight={containerHeight}
+                                            btnBorderThickness={
+                                                btnBorderThickness
+                                            }
+                                            btnBorderRadius={btnBorderRadius}
+                                            btnBold={btnBold}
+                                            btnItalic={btnItalic}
+                                            btnUnderline={btnUnderline}
+                                            btnTextColor={btnTextColor}
+                                            btnBgColor={btnBgColor}
+                                            btnTexthoverColor={
+                                                btnTexthoverColor
+                                            }
+                                            btnBgHoverColor={btnBgHoverColor}
+                                            btnBorderColor={btnBorderColor}
+                                            btnBorderHoverColor={
+                                                btnBorderHoverColor
+                                            }
+                                        />
+                                    ) : (
+                                        ""
+                                    )}
                                 </div>
-                            </Card>
-                            <Layout>
-                                <Layout.Section oneThird>
-                                    {/* cart enable disable card */}
-                                    <div className="show_stickyCart">
-                                        <Card sectioned>
-                                            <span className="show_sticky_span">
-                                                Add To Cart Sticky is{" "}
-                                                <b>
-                                                    {enable === true
-                                                        ? "Enabled"
-                                                        : "Disabled"}
-                                                </b>{" "}
-                                            </span>
-                                            {/* <div className="show_cart_btn"> */}
-                                            <Button
-                                                primary
-                                                onClick={() => {
-                                                    handleEnable(enable);
-                                                }}
-                                            >
-                                                {enable === true
-                                                    ? "Disable"
-                                                    : "Enable"}
-                                            </Button>
-                                        </Card>
-                                    </div>
-
-                                    {/* general Cart Settings */}
-                                    <div
-                                        className={`general_setting_title ${
-                                            showGeneralSettings === true
-                                                ? "show__details"
-                                                : ""
-                                        }`}
-                                        onClick={() => {
-                                            hanldeShowGeneralSetting(
-                                                showGeneralSettings
-                                            );
-                                        }}
-                                    >
-                                        <Card sectioned>
-                                            <span className="general_setting_icon">
-                                                <Icon
-                                                    source={SettingsMajor}
-                                                    color="base"
-                                                />
-                                            </span>
-                                            <div className="setting_title">
-                                                <span className="show_sticky_span">
-                                                    General Settings
-                                                </span>
-                                                <span>
-                                                    {showGeneralSettings ===
-                                                    true ? (
-                                                        <Icon
-                                                            source={
-                                                                ChevronDownMinor
-                                                            }
-                                                        />
-                                                    ) : (
-                                                        <Icon
-                                                            source={
-                                                                ChevronRightMinor
-                                                            }
-                                                        />
-                                                    )}
-                                                </span>
+                                <Card>
+                                    <div className="layout__section">
+                                        <Card>
+                                            <div className="lm_add_to_sticky_top_bar_header_bottom">
+                                                <div
+                                                    className="lm_add_to_sticky_top_bar_header_out"
+                                                    onClick={handleClick}
+                                                >
+                                                    <Icon
+                                                        source={ExitMajor}
+                                                        color="base"
+                                                    />{" "}
+                                                    <div>
+                                                        Dashboard /{" "}
+                                                        <strong>
+                                                            Add To Cart Sticky
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                                <Button
+                                                    loading={loading}
+                                                    onClick={handleSave}
+                                                    primary
+                                                >
+                                                    Save
+                                                </Button>
+                                                {toastMarkup}
+                                                {toastMarkup1}
                                             </div>
                                         </Card>
-                                    </div>
-
-                                    {showGeneralSettings === true ? (
-                                        // <Scrollable
-                                        //     style={{ height: "1000px" }}
-                                        //     horizontal={false}
-                                        // >
-                                        <Scrollbars style={{ height: 650 }}>
-                                            <div className="overall_general_content">
-                                                {/* DISPLAY SETTING */}
-                                                <span className="display_setting_title">
-                                                    DISPLAY SETTING{" "}
-                                                </span>
-                                                <Card sectioned>
-                                                    {/* <div className="show_cart_btn"> */}
-                                                    <Checkbox
-                                                        label="Desktop"
-                                                        checked={checkDesktop}
-                                                        onChange={
-                                                            handlecheckboxDesktop
+                                        <Layout>
+                                            <Layout.Section oneThird>
+                                                <Card>
+                                                    <SideBar
+                                                        OnMenuReturn={
+                                                            handleSelectedTemplateOption
                                                         }
-                                                    />
-                                                    <br />
-                                                    <Checkbox
-                                                        label="Mobile"
-                                                        checked={checkMobile}
-                                                        onChange={
-                                                            handlecheckboxMobile
+                                                        position={position}
+                                                        checkMobile={
+                                                            checkMobile
+                                                        }
+                                                        checkDesktop={
+                                                            checkDesktop
+                                                        }
+                                                        gsBold={gsBold}
+                                                        gsFontsize={gsFontsize}
+                                                        gsPriceFontsize={
+                                                            gsPriceFontsize
+                                                        }
+                                                        gsItalic={gsItalic}
+                                                        gsUnderline={
+                                                            gsUnderline
+                                                        }
+                                                        gsFontFamily={
+                                                            gsFontFamily
+                                                        }
+                                                        gsTitleColor={
+                                                            gsTitleColor
+                                                        }
+                                                        gsPriceColor={
+                                                            gsPriceColor
+                                                        }
+                                                        gsBgColor={gsBgColor}
+                                                        gsOffsetValue={
+                                                            gsOffsetValue
+                                                        }
+                                                        gsAction={gsAction}
+                                                        gsDisplayCondition={
+                                                            gsDisplayCondition
+                                                        }
+                                                        containerHeight={
+                                                            containerHeight
+                                                        }
+                                                        enable={enable}
+                                                        dataCallback={
+                                                            handleTransferData
                                                         }
                                                     />
                                                 </Card>
+                                            </Layout.Section>
 
-                                                {/* style part */}
-                                                <span className="display_setting_title">
-                                                    STYLE{" "}
-                                                </span>
-                                                <Card sectioned>
-                                                    {/* font family */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Font Family{" "}
-                                                        </span>
-                                                        <div className="font_picker_popup">
-                                                            <FontPicker
-                                                                apiKey="AIzaSyBRCzvluQdkcyQkKHPjLwltLe2HrkUd5Bs"
-                                                                activeFontFamily={
-                                                                    gsFontFamily
-                                                                }
-                                                                onChange={
-                                                                    handleFontChange
-                                                                }
-                                                            />
+                                            <Layout.Section>
+                                                <div
+                                                    style={{
+                                                        marginTop: "10px",
+                                                    }}
+                                                >
+                                                    <Card sectioned>
+                                                        <div className="template___Card">
+                                                            Choose the Add To
+                                                            Cart Sticky template
                                                         </div>
-                                                    </div>
-
-                                                    {/* Title Font-size */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Title Font-size
-                                                        </span>
-                                                        <div className="font_picker_popup">
-                                                            <RangeSlider
-                                                                label={`${gsFontsize} px`}
-                                                                value={
-                                                                    gsFontsize
-                                                                }
-                                                                min={8}
-                                                                max={40}
-                                                                onChange={
-                                                                    handleRangeSliderChange
-                                                                }
-                                                                output
-                                                            />
+                                                        <div className="template_option">
+                                                            {TemplateData.map(
+                                                                (item) => (
+                                                                    <div
+                                                                        className="template_option_sticky sticky_child"
+                                                                        key={
+                                                                            item.key
+                                                                        }
+                                                                    >
+                                                                        <img
+                                                                            src={
+                                                                                item.image
+                                                                            }
+                                                                            alt="Template"
+                                                                            height="175px"
+                                                                            width="250px"
+                                                                        />
+                                                                        <div>
+                                                                            <RadioButton
+                                                                                label={
+                                                                                    item.label
+                                                                                }
+                                                                                id={
+                                                                                    item.key
+                                                                                }
+                                                                                checked={
+                                                                                    defaultTemplate ===
+                                                                                    item.key
+                                                                                }
+                                                                                name="template"
+                                                                                onChange={() => {
+                                                                                    handleChange(
+                                                                                        item.key
+                                                                                    );
+                                                                                }}
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                )
+                                                            )}
                                                         </div>
-                                                    </div>
-
-                                                    {/* Price Font-size */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Price Font-size
-                                                        </span>
-                                                        <div className="font_picker_popup">
-                                                            <RangeSlider
-                                                                label={`${gsPriceFontsize} px`}
-                                                                value={
-                                                                    gsPriceFontsize
-                                                                }
-                                                                min={8}
-                                                                max={40}
-                                                                onChange={
-                                                                    handlePriceRangeSliderChange
-                                                                }
-                                                                output
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Title Style */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Title Style
-                                                        </span>
-                                                        <div className="">
-                                                            <Checkbox
-                                                                label="Bold"
-                                                                checked={gsBold}
-                                                                onChange={
-                                                                    handleBold
-                                                                }
-                                                            />
-                                                            <br />
-                                                            <Checkbox
-                                                                label="Italic"
-                                                                checked={
-                                                                    gsItalic
-                                                                }
-                                                                onChange={
-                                                                    handleItalic
-                                                                }
-                                                            />
-                                                            <br />
-                                                            <Checkbox
-                                                                label="Underline"
-                                                                checked={
-                                                                    gsUnderline
-                                                                }
-                                                                onChange={
-                                                                    handleUnderline
-                                                                }
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Title Color */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Title Color
-                                                        </span>
-                                                        <div>
-                                                            <ColorPlate
-                                                                defaultColor={
-                                                                    gsTitleColor
-                                                                }
-                                                                onChildResult={
-                                                                    handleTitleColor
-                                                                }
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Height */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Height
-                                                        </span>
-                                                        <div className="font_picker_popup">
-                                                            <RangeSlider
-                                                                label={`${containerHeight} px`}
-                                                                value={
-                                                                    containerHeight
-                                                                }
-                                                                min={50}
-                                                                max={150}
-                                                                onChange={
-                                                                    handleHeightSliderChange
-                                                                }
-                                                                output
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Price Color */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Price Color
-                                                        </span>
-                                                        <div>
-                                                            <ColorPlate
-                                                                defaultColor={
-                                                                    gsPriceColor
-                                                                }
-                                                                onChildResult={
-                                                                    handlePriceColor
-                                                                }
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Background Color */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Background Color
-                                                        </span>
-                                                        <div>
-                                                            <ColorPlate
-                                                                defaultColor={
-                                                                    gsBgColor
-                                                                }
-                                                                onChildResult={
-                                                                    handleBGColor
-                                                                }
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </Card>
-
-                                                {/* layout part */}
-                                                <span className="display_setting_title">
-                                                    LAYOUT{" "}
-                                                </span>
-                                                <Card sectioned>
-                                                    {/* Position */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Position
-                                                        </span>
-                                                        <div>
-                                                            <RadioButton
-                                                                label={"Top"}
-                                                                id={"Top"}
-                                                                checked={
-                                                                    position ===
-                                                                    "Top"
-                                                                }
-                                                                name="position"
-                                                                onChange={() => {
-                                                                    handlePositionChange(
-                                                                        "Top"
-                                                                    );
-                                                                }}
-                                                            />
-                                                            <br />
-                                                            <RadioButton
-                                                                label={"Bottom"}
-                                                                id={"Bottom"}
-                                                                checked={
-                                                                    position ===
-                                                                    "Bottom"
-                                                                }
-                                                                name="position"
-                                                                onChange={() => {
-                                                                    handlePositionChange(
-                                                                        "Bottom"
-                                                                    );
-                                                                }}
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Offset */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Offset
-                                                        </span>
-                                                        <div className="font_picker_popup">
-                                                            <RangeSlider
-                                                                label={`${gsOffsetValue} px`}
-                                                                value={
-                                                                    gsOffsetValue
-                                                                }
-                                                                min={0}
-                                                                max={250}
-                                                                onChange={
-                                                                    handleOffsetSliderChange
-                                                                }
-                                                                output
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </Card>
-
-                                                {/* action part */}
-                                                <span className="display_setting_title">
-                                                    ACTION{" "}
-                                                </span>
-                                                <Card sectioned>
-                                                    {/* Action */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Action
-                                                        </span>
-                                                        <div className="display_select_drop_down">
-                                                            <Select
-                                                                options={
-                                                                    options
-                                                                }
-                                                                onChange={
-                                                                    handleSelectChange
-                                                                }
-                                                                value={gsAction}
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Display Condition */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Display Condition
-                                                        </span>
-                                                        <div className="display_select_drop_down">
-                                                            <Select
-                                                                options={
-                                                                    conditions
-                                                                }
-                                                                onChange={
-                                                                    handleConditionChange
-                                                                }
-                                                                value={
-                                                                    gsDisplayCondition
-                                                                }
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </Card>
-                                            </div>
-                                        </Scrollbars>
-                                    ) : (
-                                        ""
-                                    )}
-
-                                    {/* buy now Settings */}
-                                    <div
-                                        className={`general_setting_title ${
-                                            buyNowSettings === true
-                                                ? "show__details"
-                                                : ""
-                                        }`}
-                                        onClick={() => {
-                                            hanldeBuyNowSetting(buyNowSettings);
-                                        }}
-                                    >
-                                        <Card sectioned>
-                                            <span className="general_setting_icon">
-                                                <Icon
-                                                    source={CheckoutMajor}
-                                                    color="base"
-                                                />
-                                            </span>
-                                            <div className="setting_title">
-                                                <span className="show_sticky_span">
-                                                    Buy Now Button
-                                                </span>
-                                                <span>
-                                                    {buyNowSettings === true ? (
-                                                        <Icon
-                                                            source={
-                                                                ChevronDownMinor
-                                                            }
-                                                        />
-                                                    ) : (
-                                                        <Icon
-                                                            source={
-                                                                ChevronRightMinor
-                                                            }
-                                                        />
-                                                    )}
-                                                </span>
-                                            </div>
-                                        </Card>
+                                                    </Card>
+                                                </div>
+                                            </Layout.Section>
+                                        </Layout>
                                     </div>
-
-                                    {buyNowSettings === true ? (
-                                        <Scrollbars style={{ height: 650 }}>
-                                            <div className="overall_general_content">
-                                                {/* TEXT part */}
-                                                <span className="display_setting_title">
-                                                    TEXT{" "}
-                                                </span>
-                                                <Card sectioned>
-                                                    {/* Edit Text */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Edit Text
-                                                        </span>
-                                                        <div className="buy_now__textfield">
-                                                            <TextField
-                                                                value={editText}
-                                                                onChange={
-                                                                    handleEditTextField
-                                                                }
-                                                                autoComplete="off"
-                                                                maxLength={15}
-                                                                placeholder="Example: BUY NOW"
-                                                                showCharacterCount
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Sold out */}
-                                                    {/* <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Sold out
-                                                        </span>
-                                                        <div className="buy_now__textfield">
-                                                            <TextField
-                                                                value={soldOut}
-                                                                onChange={
-                                                                    handleSoldOutTextField
-                                                                }
-                                                                maxLength={15}
-                                                                autoComplete="off"
-                                                                placeholder="Example: Sold out"
-                                                                showCharacterCount
-                                                            />
-                                                        </div>
-                                                    </div> */}
-
-                                                    {/* Unavailable */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Unavailable
-                                                        </span>
-                                                        <div className="buy_now__textfield">
-                                                            <TextField
-                                                                value={
-                                                                    unavailable
-                                                                }
-                                                                onChange={
-                                                                    handleUnavailableTextField
-                                                                }
-                                                                autoComplete="off"
-                                                                maxLength={15}
-                                                                placeholder="Example: Unavailable"
-                                                                showCharacterCount
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </Card>
-
-                                                {/* style part */}
-                                                <span className="display_setting_title">
-                                                    STYLE{" "}
-                                                </span>
-                                                <Card sectioned>
-                                                    {/* Width */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Width
-                                                        </span>
-                                                        <div className="font_picker_popup">
-                                                            <RangeSlider
-                                                                label={`${btnWidthValue} px`}
-                                                                value={
-                                                                    btnWidthValue
-                                                                }
-                                                                min={0}
-                                                                max={250}
-                                                                onChange={
-                                                                    handleWidthSliderChange
-                                                                }
-                                                                output
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Height */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Height
-                                                        </span>
-                                                        <div className="font_picker_popup">
-                                                            <RangeSlider
-                                                                label={`${btnheightValue} px`}
-                                                                value={
-                                                                    btnheightValue
-                                                                }
-                                                                min={0}
-                                                                max={250}
-                                                                onChange={
-                                                                    handleBuyButtonHeightSliderChange
-                                                                }
-                                                                output
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Font-size */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Font-size
-                                                        </span>
-                                                        <div className="font_picker_popup">
-                                                            <RangeSlider
-                                                                label={`${btnFontsize} px`}
-                                                                value={
-                                                                    btnFontsize
-                                                                }
-                                                                min={8}
-                                                                max={50}
-                                                                onChange={
-                                                                    handleFontSizeSliderChange
-                                                                }
-                                                                output
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Style */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Style
-                                                        </span>
-                                                        <div className="">
-                                                            <Checkbox
-                                                                label="Bold"
-                                                                checked={
-                                                                    btnBold
-                                                                }
-                                                                onChange={
-                                                                    handleBoldButton
-                                                                }
-                                                            />
-                                                            <br />
-                                                            <Checkbox
-                                                                label="Italic"
-                                                                checked={
-                                                                    btnItalic
-                                                                }
-                                                                onChange={
-                                                                    handleItalicButton
-                                                                }
-                                                            />
-                                                            <br />
-                                                            <Checkbox
-                                                                label="Underline"
-                                                                checked={
-                                                                    btnUnderline
-                                                                }
-                                                                onChange={
-                                                                    handleUnderlineButton
-                                                                }
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Text Color */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Text Color
-                                                        </span>
-                                                        <div>
-                                                            <ColorPlate
-                                                                defaultColor={
-                                                                    btnTextColor
-                                                                }
-                                                                onChildResult={
-                                                                    handlebtnTextColor
-                                                                }
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Background Color */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Background Color
-                                                        </span>
-                                                        <div>
-                                                            <ColorPlate
-                                                                defaultColor={
-                                                                    btnBgColor
-                                                                }
-                                                                onChildResult={
-                                                                    handlebtnBGColor
-                                                                }
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Text Hover Color */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Text Hover Color
-                                                        </span>
-                                                        <div>
-                                                            <ColorPlate
-                                                                defaultColor={
-                                                                    btnTexthoverColor
-                                                                }
-                                                                onChildResult={
-                                                                    handletexthoverColor
-                                                                }
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Background Hover Color */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Background Hover
-                                                            Color
-                                                        </span>
-                                                        <div>
-                                                            <ColorPlate
-                                                                defaultColor={
-                                                                    btnBgHoverColor
-                                                                }
-                                                                onChildResult={
-                                                                    handlebgHoverColor
-                                                                }
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </Card>
-
-                                                {/* border part */}
-                                                <span className="display_setting_title">
-                                                    BORDER{" "}
-                                                </span>
-                                                <Card sectioned>
-                                                    {/* Border Thickness */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Border Thickness
-                                                        </span>
-                                                        <div className="font_picker_popup">
-                                                            <RangeSlider
-                                                                label={`${btnBorderThickness} px`}
-                                                                value={
-                                                                    btnBorderThickness
-                                                                }
-                                                                min={0}
-                                                                max={10}
-                                                                onChange={
-                                                                    handleBorderSliderChange
-                                                                }
-                                                                output
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Border Radius */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Border Radius
-                                                        </span>
-                                                        <div className="font_picker_popup">
-                                                            <RangeSlider
-                                                                label={`${btnBorderRadius} px`}
-                                                                value={
-                                                                    btnBorderRadius
-                                                                }
-                                                                min={0}
-                                                                max={50}
-                                                                onChange={
-                                                                    handleRadiusSliderChange
-                                                                }
-                                                                output
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Border Color */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Border Color
-                                                        </span>
-                                                        <div>
-                                                            <ColorPlate
-                                                                defaultColor={
-                                                                    btnBorderColor
-                                                                }
-                                                                onChildResult={
-                                                                    handleborderColor
-                                                                }
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    {/* Border Hover Color */}
-                                                    <div className="style__wrapper_div">
-                                                        <span className="display_setting_subtitle">
-                                                            Border Hover Color
-                                                        </span>
-                                                        <div>
-                                                            <ColorPlate
-                                                                defaultColor={
-                                                                    btnBorderHoverColor
-                                                                }
-                                                                onChildResult={
-                                                                    handlebordeHoverColor
-                                                                }
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                </Card>
-                                            </div>
-                                        </Scrollbars>
-                                    ) : (
-                                        ""
-                                    )}
-                                </Layout.Section>
-
-                                <Layout.Section>
-                                    <div style={{ marginTop: "10px" }}>
-                                        <Card sectioned>
-                                            <div className="template___Card">
-                                                Choose the Add To Cart Sticky
-                                                template
-                                            </div>
-                                            <div className="template_option">
-                                                {TemplateData.map((item) => (
-                                                    <div
-                                                        className="template_option_sticky sticky_child"
-                                                        key={item.key}
-                                                    >
-                                                        <img
-                                                            src={item.image}
-                                                            alt="Template"
-                                                            height="175px"
-                                                            width="250px"
-                                                        />
-                                                        <div>
-                                                            <RadioButton
-                                                                label={
-                                                                    item.label
-                                                                }
-                                                                id={item.key}
-                                                                checked={
-                                                                    defaultTemplate ===
-                                                                    item.key
-                                                                }
-                                                                name="template"
-                                                                onChange={() => {
-                                                                    handleChange(
-                                                                        item.key
-                                                                    );
-                                                                }}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </Card>
-                                    </div>
-                                </Layout.Section>
-                            </Layout>
+                                </Card>
+                            </div>
                         </Page>
                     </div>
                 </Frame>
