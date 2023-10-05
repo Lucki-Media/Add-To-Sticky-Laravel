@@ -18,12 +18,21 @@ import {
     SkeletonDisplayText,
     Loading,
     Spinner,
+    Heading,
+    FullscreenBar,
 } from "@shopify/polaris";
 import "../css/index.css";
 import { useNavigate } from "react-router-dom";
 import { Scrollbars } from "react-custom-scrollbars";
 
-import { ChevronLeftMinor, ExitMajor } from "@shopify/polaris-icons";
+import {
+    CartMajor,
+    FaviconMajor,
+    ExitMajor,
+    ChevronRightMinor,
+    LocationMajor,
+    SettingsMinor,
+} from "@shopify/polaris-icons";
 import { useState, useCallback, useEffect } from "react";
 import stickyData from "../StaticData/stickyData";
 import defaultSticky from "../StaticData/defaultSticky";
@@ -38,6 +47,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function StickyCart() {
+    const [menu, setMenu] = useState("0");
     const shop_url = document.getElementById("shopOrigin").value;
     const navigate = useNavigate();
     const [fontFamily, setfontFamily] = useState("Oswald");
@@ -47,6 +57,16 @@ export default function StickyCart() {
     const [loading, setLoading] = useState(false);
     const [showTable, setShowTable] = useState(false);
     const [countHover, setCountHover] = useState(false);
+    const navigateToSubMenu = (submenu) => {
+        setMenu(submenu);
+    };
+
+    //  HANDLE NAVIGATION ON CLICK ON BACK BUTTON START
+    const handleActionClick = useCallback(() => {
+        if (menu !== "0") {
+            setMenu("0");
+        }
+    });
 
     //toast for success
     const [toastContent, setToastContent] = useState();
@@ -149,10 +169,12 @@ export default function StickyCart() {
         getAddToStickyCartData();
     }, []);
 
-    //COUNT FONT FAMILY 
+    //COUNT FONT FAMILY
     const getAddToStickyCartData = async () => {
         try {
-            const response = await fetch("api/getAddToStickyCartData/" + shop_url);
+            const response = await fetch(
+                "api/getAddToStickyCartData/" + shop_url
+            );
             const data = await response.json();
             // const response = await fetch(
             //     `${process.env.REACT_APP_API_URL}` +
@@ -160,8 +182,12 @@ export default function StickyCart() {
             //         window.Shopify.shop
             // );
             // const data = await response.json();
-            console.log(data.data.current_template.general_settings.gsFontFamily);
-            setfontFamily(data.data.current_template.general_settings.gsFontFamily);
+            console.log(
+                data.data.current_template.general_settings.gsFontFamily
+            );
+            setfontFamily(
+                data.data.current_template.general_settings.gsFontFamily
+            );
         } catch (err) {
             console.log(err);
         }
@@ -410,6 +436,451 @@ export default function StickyCart() {
     };
     // console.log("bgColor");
     // console.log(bgColor);
+
+    const renderOptions = () => (
+        <div style={{ marginTop: "10px" }}>
+            <div className="general_setting_title">
+                <Layout>
+                    <Layout.Section>
+                        <Card sectioned>
+                            <div className="setting_title">
+                                <span className="show_sticky_span">
+                                    Sticky cart is
+                                    <b>
+                                        {enableSticky === true
+                                            ? " Enabled"
+                                            : " Disabled"}
+                                    </b>
+                                </span>
+                                {/* <div className="show_cart_btn"> */}
+                                <Button
+                                    primary
+                                    onClick={() => {
+                                        handleEnable(enableSticky);
+                                    }}
+                                >
+                                    {enableSticky === true
+                                        ? "Disable"
+                                        : "Enable"}
+                                </Button>
+                            </div>
+                        </Card>
+                    </Layout.Section>
+                </Layout>
+            </div>
+            <div
+                className="general_setting_title"
+                onClick={() => navigateToSubMenu("1")}
+            >
+                <Layout>
+                    <Layout.Section>
+                        <Card sectioned>
+                            <div className="setting_title">
+                                <div style={{ display: "flex" }}>
+                                    <Icon source={SettingsMinor} />
+                                    <span className="show_sticky_span">
+                                        General Settings
+                                    </span>
+                                </div>
+                                <span>
+                                    {<Icon source={ChevronRightMinor} />}
+                                </span>
+                            </div>
+                        </Card>
+                    </Layout.Section>
+                </Layout>
+            </div>
+            <div
+                className="general_setting_title"
+                onClick={() => navigateToSubMenu("2")}
+            >
+                <Layout>
+                    <Layout.Section>
+                        <Card sectioned>
+                            <div className="setting_title">
+                                <div style={{ display: "flex" }}>
+                                    <Icon source={LocationMajor} />
+                                    <span className="show_sticky_span">
+                                        Position
+                                    </span>
+                                </div>
+                                <span>
+                                    {<Icon source={ChevronRightMinor} />}
+                                </span>
+                            </div>
+                        </Card>
+                    </Layout.Section>
+                </Layout>
+            </div>
+            <div
+                className="general_setting_title"
+                onClick={() => navigateToSubMenu("3")}
+            >
+                <Layout>
+                    <Layout.Section>
+                        <Card sectioned>
+                            <div className="setting_title">
+                                <div style={{ display: "flex" }}>
+                                    <Icon source={FaviconMajor} />
+                                    <span className="show_sticky_span">
+                                        Icon
+                                    </span>
+                                </div>
+                                <span>
+                                    {<Icon source={ChevronRightMinor} />}
+                                </span>
+                            </div>
+                        </Card>
+                    </Layout.Section>
+                </Layout>
+            </div>
+            <div
+                className="general_setting_title"
+                onClick={() => navigateToSubMenu("4")}
+            >
+                <Layout>
+                    <Layout.Section>
+                        <Card sectioned>
+                            <div className="setting_title">
+                                <div style={{ display: "flex" }}>
+                                    <Icon source={CartMajor} />
+                                    <span className="show_sticky_span">
+                                        Cart Count
+                                    </span>
+                                </div>
+                                <span>
+                                    {<Icon source={ChevronRightMinor} />}
+                                </span>
+                            </div>
+                        </Card>
+                    </Layout.Section>
+                </Layout>
+            </div>
+        </div>
+    );
+
+    // RENDER GENERAL SETTINGS OPTIONS
+    const renderGeneralSettingsOptions = () => (
+        <div style={{ marginTop: "10px" }}>
+            <FullscreenBar onAction={handleActionClick}>
+                <p className="fullscreen_title">General Settings</p>
+            </FullscreenBar>
+
+            {/* Action */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">Action</span>
+                <div className="display_select_drop_down">
+                    <Select
+                        options={options}
+                        onChange={handleSelectChange}
+                        value={action}
+                    />
+                </div>
+            </div>
+
+            {/* Size */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">Size</span>
+                <div className="font_picker_popup">
+                    <RangeSlider
+                        label={`${btnSize} px`}
+                        value={btnSize}
+                        min={10}
+                        max={100}
+                        onChange={handleRangeSliderChange}
+                        output
+                    />
+                </div>
+            </div>
+
+            {/* Background Color */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">
+                    Background Color
+                </span>
+                <div>
+                    <ColorPlate
+                        defaultColor={bgColor}
+                        onChildResult={handleBGColor}
+                    />
+                </div>
+            </div>
+
+            {/* Background Hover Color */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">
+                    Background Hover Color
+                </span>
+                <div>
+                    <ColorPlate
+                        defaultColor={bgHoverColor}
+                        onChildResult={handleBGHoverColor}
+                    />
+                </div>
+            </div>
+
+            {/* Border Size */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">Border Size</span>
+                <div className="font_picker_popup">
+                    <RangeSlider
+                        label={`${borderSize} px`}
+                        value={borderSize}
+                        min={0}
+                        max={10}
+                        onChange={handleBorderSliderChange}
+                        output
+                    />
+                </div>
+            </div>
+
+            {/* Border Color */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">Border Color</span>
+                <div>
+                    <ColorPlate
+                        defaultColor={borderColor}
+                        onChildResult={handleBorderColor}
+                    />
+                </div>
+            </div>
+
+            {/* Border Hover Color */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">
+                    Border Hover Color
+                </span>
+                <div>
+                    <ColorPlate
+                        defaultColor={borderHoverColor}
+                        onChildResult={handleBorderHoverColor}
+                    />
+                </div>
+            </div>
+        </div>
+    );
+
+    // RENDER POSITION SETTINGS OPTIONS
+    const renderPositionSettingsOptions = () => (
+        <div style={{ marginTop: "10px" }}>
+            <FullscreenBar onAction={handleActionClick}>
+                <p className="fullscreen_title">Position Settings</p>
+            </FullscreenBar>
+
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">Top</span>
+                <div className="font_picker_popup">
+                    <RangeSlider
+                        label={`${positionTop}%`}
+                        value={positionTop}
+                        min={0}
+                        max={100}
+                        onChange={handleEditTopField}
+                        output
+                    />
+                </div>
+            </div>
+
+            {/* Left */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">Left</span>
+                <div className="font_picker_popup">
+                    <RangeSlider
+                        label={`${positionLeft}%`}
+                        value={positionLeft}
+                        min={0}
+                        max={100}
+                        onChange={handleEditLeftField}
+                        output
+                    />
+                </div>
+            </div>
+
+            {/* Bottom */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">Bottom</span>
+                <div className="font_picker_popup">
+                    <RangeSlider
+                        label={`${positionBottom}%`}
+                        value={positionBottom}
+                        min={0}
+                        max={100}
+                        onChange={handleEditBottomField}
+                        output
+                    />
+                </div>
+            </div>
+
+            {/* Right */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">Right</span>
+                <div className="font_picker_popup">
+                    <RangeSlider
+                        label={`${positionRight}%`}
+                        value={positionRight}
+                        min={0}
+                        max={100}
+                        onChange={handleEditRightField}
+                        output
+                    />
+                </div>
+            </div>
+        </div>
+    );
+
+    // RENDER ICON SETTINGS OPTIONS
+    const renderIconSettingsOptions = () => (
+        <div style={{ marginTop: "10px" }}>
+            <FullscreenBar onAction={handleActionClick}>
+                <p className="fullscreen_title">Icon Settings</p>
+            </FullscreenBar>
+
+            {/* Icon Size */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">Icon Size</span>
+                <div className="font_picker_popup">
+                    <RangeSlider
+                        label={`${iconSize} px`}
+                        value={iconSize}
+                        min={11}
+                        max={50}
+                        onChange={handleIconSliderChange}
+                        output
+                    />
+                </div>
+            </div>
+
+            {/* Icon Color */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">Icon Color</span>
+                <div>
+                    <ColorPlate
+                        defaultColor={iconColor}
+                        onChildResult={handleIconColor}
+                    />
+                </div>
+            </div>
+
+            {/* Icon Hover Color */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">
+                    Icon Hover Color
+                </span>
+                <div>
+                    <ColorPlate
+                        defaultColor={iconHoverColor}
+                        onChildResult={handleIconHoverColor}
+                    />
+                </div>
+            </div>
+        </div>
+    );
+
+    // RENDER CART COUNT SETTINGS OPTIONS
+    const renderCartCountSettingsOptions = () => (
+        <div style={{ marginTop: "10px" }}>
+            <FullscreenBar onAction={handleActionClick}>
+                <p className="fullscreen_title">Cart Count Settings</p>
+            </FullscreenBar>
+
+            {/* Enable COUNT */}
+            <div className="style__wrapper_div">
+                <span
+                    className="display_setting_subtitle"
+                    style={{ marginBottom: "5px" }}
+                >
+                    Cart Count
+                </span>
+                <div>
+                    <Checkbox
+                        label="Enable"
+                        checked={enableCount}
+                        onChange={handlecheckbox}
+                    />
+                </div>
+            </div>
+
+            {/* Size */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">Size</span>
+                <div className="font_picker_popup">
+                    <RangeSlider
+                        label={`${countSize} px`}
+                        value={countSize}
+                        min={8}
+                        max={40}
+                        onChange={handleCountSliderChange}
+                        output
+                    />
+                </div>
+            </div>
+
+            {/* Font Size */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">Font Size</span>
+                <div className="font_picker_popup">
+                    <RangeSlider
+                        label={`${countFontSize} px`}
+                        value={countFontSize}
+                        min={8}
+                        max={40}
+                        onChange={handleCountFontSliderChange}
+                        output
+                    />
+                </div>
+            </div>
+
+            {/*  Color */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle"> Count Color</span>
+                <div>
+                    <ColorPlate
+                        defaultColor={countColor}
+                        onChildResult={handleCountColor}
+                    />
+                </div>
+            </div>
+
+            {/*  Hover Color */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">
+                    Count Hover Color
+                </span>
+                <div>
+                    <ColorPlate
+                        defaultColor={countHoverColor}
+                        onChildResult={handleCountHoverColor}
+                    />
+                </div>
+            </div>
+
+            {/* Background  Color */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">
+                    Background Color
+                </span>
+                <div>
+                    <ColorPlate
+                        defaultColor={countBgColor}
+                        onChildResult={handleBGCountColor}
+                    />
+                </div>
+            </div>
+
+            {/* Background  Hover Color */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">
+                    Background Hover Color
+                </span>
+                <div>
+                    <ColorPlate
+                        defaultColor={countBgHoverColor}
+                        onChildResult={handleBGCountHoverColor}
+                    />
+                </div>
+            </div>
+        </div>
+    );
     if (showTable === false) {
         return (
             <div>
@@ -517,7 +988,6 @@ export default function StickyCart() {
                                             color: countHover
                                                 ? countHoverColor
                                                 : countColor,
-                                                
                                         }}
                                         onMouseEnter={handleCountEnter}
                                         onMouseLeave={handleCountLeave}
@@ -558,509 +1028,90 @@ export default function StickyCart() {
                         ""
                     )}
                     <div className="main_app_page">
-                        <Page>
-                            <Card>
-                                <div className="lm_add_to_sticky_top_bar_header_bottom">
-                                    <div
-                                        className="lm_add_to_sticky_top_bar_header_out"
-                                        onClick={handleClick}
-                                    >
-                                        <Icon source={ExitMajor} color="base" />{" "}
-                                        <div>
-                                            Dashboard /{" "}
-                                            <strong>Sticky Cart</strong>
+                        <Page fullWidth>
+                            <div className="layout__section">
+                                <Card>
+                                    <div className="lm_add_to_sticky_top_bar_header_bottom">
+                                        <div
+                                            className="lm_add_to_sticky_top_bar_header_out"
+                                            // onClick={handleClick}
+                                        >
+                                            {/* <Icon
+                                                source={ExitMajor}
+                                                color="base"
+                                            />{" "} */}
+                                            <div>
+                                                {/* Dashboard /{" "} */}
+                                                <strong>Sticky Cart</strong>
+                                            </div>
                                         </div>
+                                        <Button
+                                            loading={loading}
+                                            onClick={handleSave}
+                                            primary
+                                        >
+                                            Save
+                                        </Button>
+                                        {toastMarkup}
+                                        {toastMarkup1}
                                     </div>
-                                    <Button
-                                        loading={loading}
-                                        onClick={handleSave}
-                                        primary
-                                    >
-                                        Save
-                                    </Button>
-                                    {toastMarkup}
-                                    {toastMarkup1}
-                                </div>
-                            </Card>
-                            <Layout>
-                                <Layout.Section oneThird>
-                                    {/* <div
-                                className="dashboard_tag"
-                                onClick={handleClick}
-                            >
-                                <Icon source={ChevronLeftMinor} color="base" />{" "}
-                                Dashboard
-                            </div>
-                            <div className="sidebar_title">Sticky cart</div> */}
-                                    {/* cart enable disable card */}
-                                    <Scrollbars style={{ height: 650 }}>
-                                        <div className="show_stickyCart">
-                                            <Card sectioned>
-                                                <span className="show_sticky_span">
-                                                    Sticky cart is
-                                                    <b>
-                                                        {enableSticky === true
-                                                            ? " Enabled"
-                                                            : " Disabled"}
-                                                    </b>
-                                                </span>
-                                                {/* <div className="show_cart_btn"> */}
-                                                <Button
-                                                    primary
-                                                    onClick={() => {
-                                                        handleEnable(
-                                                            enableSticky
-                                                        );
-                                                    }}
-                                                >
-                                                    {enableSticky === true
-                                                        ? "Disable"
-                                                        : "Enable"}
-                                                </Button>
-                                            </Card>
-
-                                            {/* GENERAL SETTING */}
-                                            <span className="display_setting_title">
-                                                GENERAL SETTING{" "}
-                                            </span>
-                                            <Card sectioned>
-                                                {/* Action */}
-                                                <div className="style__wrapper_div">
-                                                    <span className="display_setting_subtitle">
-                                                        Action
-                                                    </span>
-                                                    <div className="display_select_drop_down">
-                                                        <Select
-                                                            options={options}
-                                                            onChange={
-                                                                handleSelectChange
-                                                            }
-                                                            value={action}
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                {/* Size */}
-                                                <div className="style__wrapper_div">
-                                                    <span className="display_setting_subtitle">
-                                                        Size
-                                                    </span>
-                                                    <div className="font_picker_popup">
-                                                        <RangeSlider
-                                                            label={`${btnSize} px`}
-                                                            value={btnSize}
-                                                            min={10}
-                                                            max={100}
-                                                            onChange={
-                                                                handleRangeSliderChange
-                                                            }
-                                                            output
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                {/* Background Color */}
-                                                <div className="style__wrapper_div">
-                                                    <span className="display_setting_subtitle">
-                                                        Background Color
-                                                    </span>
-                                                    <div>
-                                                        <ColorPlate
-                                                            defaultColor={
-                                                                bgColor
-                                                            }
-                                                            onChildResult={
-                                                                handleBGColor
-                                                            }
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                {/* Background Hover Color */}
-                                                <div className="style__wrapper_div">
-                                                    <span className="display_setting_subtitle">
-                                                        Background Hover Color
-                                                    </span>
-                                                    <div>
-                                                        <ColorPlate
-                                                            defaultColor={
-                                                                bgHoverColor
-                                                            }
-                                                            onChildResult={
-                                                                handleBGHoverColor
-                                                            }
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                {/* Border Size */}
-                                                <div className="style__wrapper_div">
-                                                    <span className="display_setting_subtitle">
-                                                        Border Size
-                                                    </span>
-                                                    <div className="font_picker_popup">
-                                                        <RangeSlider
-                                                            label={`${borderSize} px`}
-                                                            value={borderSize}
-                                                            min={0}
-                                                            max={10}
-                                                            onChange={
-                                                                handleBorderSliderChange
-                                                            }
-                                                            output
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                {/* Border Color */}
-                                                <div className="style__wrapper_div">
-                                                    <span className="display_setting_subtitle">
-                                                        Border Color
-                                                    </span>
-                                                    <div>
-                                                        <ColorPlate
-                                                            defaultColor={
-                                                                borderColor
-                                                            }
-                                                            onChildResult={
-                                                                handleBorderColor
-                                                            }
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                {/* Border Hover Color */}
-                                                <div className="style__wrapper_div">
-                                                    <span className="display_setting_subtitle">
-                                                        Border Hover Color
-                                                    </span>
-                                                    <div>
-                                                        <ColorPlate
-                                                            defaultColor={
-                                                                borderHoverColor
-                                                            }
-                                                            onChildResult={
-                                                                handleBorderHoverColor
-                                                            }
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </Card>
-
-                                            {/* POSITION */}
-                                            <span className="display_setting_title">
-                                                POSITION{" "}
-                                            </span>
-                                            <Card sectioned>
-                                                {/* Top */}
-                                                <div className="style__wrapper_div">
-                                                    <span className="display_setting_subtitle">
-                                                        Top
-                                                    </span>
-                                                    <div className="font_picker_popup">
-                                                        <RangeSlider
-                                                            label={`${positionTop}%`}
-                                                            value={positionTop}
-                                                            min={0}
-                                                            max={100}
-                                                            onChange={
-                                                                handleEditTopField
-                                                            }
-                                                            output
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                {/* Left */}
-                                                <div className="style__wrapper_div">
-                                                    <span className="display_setting_subtitle">
-                                                        Left
-                                                    </span>
-                                                    <div className="font_picker_popup">
-                                                        <RangeSlider
-                                                            label={`${positionLeft}%`}
-                                                            value={positionLeft}
-                                                            min={0}
-                                                            max={100}
-                                                            onChange={
-                                                                handleEditLeftField
-                                                            }
-                                                            output
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                {/* Bottom */}
-                                                <div className="style__wrapper_div">
-                                                    <span className="display_setting_subtitle">
-                                                        Bottom
-                                                    </span>
-                                                    <div className="font_picker_popup">
-                                                        <RangeSlider
-                                                            label={`${positionBottom}%`}
-                                                            value={
-                                                                positionBottom
-                                                            }
-                                                            min={0}
-                                                            max={100}
-                                                            onChange={
-                                                                handleEditBottomField
-                                                            }
-                                                            output
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                {/* Right */}
-                                                <div className="style__wrapper_div">
-                                                    <span className="display_setting_subtitle">
-                                                        Right
-                                                    </span>
-                                                    <div className="font_picker_popup">
-                                                        <RangeSlider
-                                                            label={`${positionRight}%`}
-                                                            value={
-                                                                positionRight
-                                                            }
-                                                            min={0}
-                                                            max={100}
-                                                            onChange={
-                                                                handleEditRightField
-                                                            }
-                                                            output
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </Card>
-
-                                            {/* ICON */}
-                                            <span className="display_setting_title">
-                                                ICON{" "}
-                                            </span>
-                                            <Card sectioned>
-                                                {/* Icon Size */}
-                                                <div className="style__wrapper_div">
-                                                    <span className="display_setting_subtitle">
-                                                        Icon Size
-                                                    </span>
-                                                    <div className="font_picker_popup">
-                                                        <RangeSlider
-                                                            label={`${iconSize} px`}
-                                                            value={iconSize}
-                                                            min={11}
-                                                            max={50}
-                                                            onChange={
-                                                                handleIconSliderChange
-                                                            }
-                                                            output
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                {/* Icon Color */}
-                                                <div className="style__wrapper_div">
-                                                    <span className="display_setting_subtitle">
-                                                        Icon Color
-                                                    </span>
-                                                    <div>
-                                                        <ColorPlate
-                                                            defaultColor={
-                                                                iconColor
-                                                            }
-                                                            onChildResult={
-                                                                handleIconColor
-                                                            }
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                {/* Icon Hover Color */}
-                                                <div className="style__wrapper_div">
-                                                    <span className="display_setting_subtitle">
-                                                        Icon Hover Color
-                                                    </span>
-                                                    <div>
-                                                        <ColorPlate
-                                                            defaultColor={
-                                                                iconHoverColor
-                                                            }
-                                                            onChildResult={
-                                                                handleIconHoverColor
-                                                            }
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </Card>
-
-                                            {/* CART COUNT */}
-                                            <span className="display_setting_title">
-                                                CART COUNT{" "}
-                                            </span>
-
-                                            <Card sectioned>
-                                                {/* Enable COUNT */}
-                                                <div className="style__wrapper_div">
-                                                    <Checkbox
-                                                        label="Enable"
-                                                        checked={enableCount}
-                                                        onChange={
-                                                            handlecheckbox
-                                                        }
-                                                    />
-                                                </div>
-
-                                                {/* Size */}
-                                                <div className="style__wrapper_div">
-                                                    <span className="display_setting_subtitle">
-                                                        Size
-                                                    </span>
-                                                    <div className="font_picker_popup">
-                                                        <RangeSlider
-                                                            label={`${countSize} px`}
-                                                            value={countSize}
-                                                            min={8}
-                                                            max={40}
-                                                            onChange={
-                                                                handleCountSliderChange
-                                                            }
-                                                            output
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                {/* Font Size */}
-                                                <div className="style__wrapper_div">
-                                                    <span className="display_setting_subtitle">
-                                                        Font Size
-                                                    </span>
-                                                    <div className="font_picker_popup">
-                                                        <RangeSlider
-                                                            label={`${countFontSize} px`}
-                                                            value={
-                                                                countFontSize
-                                                            }
-                                                            min={8}
-                                                            max={40}
-                                                            onChange={
-                                                                handleCountFontSliderChange
-                                                            }
-                                                            output
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                {/*  Color */}
-                                                <div className="style__wrapper_div">
-                                                    <span className="display_setting_subtitle">
-                                                        {" "}
-                                                        Count Color
-                                                    </span>
-                                                    <div>
-                                                        <ColorPlate
-                                                            defaultColor={
-                                                                countColor
-                                                            }
-                                                            onChildResult={
-                                                                handleCountColor
-                                                            }
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                {/*  Hover Color */}
-                                                <div className="style__wrapper_div">
-                                                    <span className="display_setting_subtitle">
-                                                        Count Hover Color
-                                                    </span>
-                                                    <div>
-                                                        <ColorPlate
-                                                            defaultColor={
-                                                                countHoverColor
-                                                            }
-                                                            onChildResult={
-                                                                handleCountHoverColor
-                                                            }
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                {/* Background  Color */}
-                                                <div className="style__wrapper_div">
-                                                    <span className="display_setting_subtitle">
-                                                        Background Color
-                                                    </span>
-                                                    <div>
-                                                        <ColorPlate
-                                                            defaultColor={
-                                                                countBgColor
-                                                            }
-                                                            onChildResult={
-                                                                handleBGCountColor
-                                                            }
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                {/* Background  Hover Color */}
-                                                <div className="style__wrapper_div">
-                                                    <span className="display_setting_subtitle">
-                                                        Background Hover Color
-                                                    </span>
-                                                    <div>
-                                                        <ColorPlate
-                                                            defaultColor={
-                                                                countBgHoverColor
-                                                            }
-                                                            onChildResult={
-                                                                handleBGCountHoverColor
-                                                            }
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </Card>
-                                        </div>
-                                    </Scrollbars>
-                                </Layout.Section>
-                                <Layout.Section>
-                                    {/* <div className="save_template_btn">
-                                <Button primary>Save</Button>
-                            </div> */}
-                                    <div style={{ marginTop: "10px" }}>
-                                        <Card sectioned>
-                                            <div className="template___Card">
-                                                Choose the sticky cart template
-                                            </div>
-                                            <div className="">
-                                                {stickyData.map((item) => (
-                                                    <div
-                                                        className="sticky_child"
-                                                        key={item.key}
-                                                    >
-                                                        <div>
-                                                            <RadioButton
-                                                                label={
-                                                                    item.label
-                                                                }
-                                                                id={item.key}
-                                                                checked={
-                                                                    defaultTemplate ===
-                                                                    item.key
-                                                                }
-                                                                name="stickyCart"
-                                                                onChange={() => {
-                                                                    handleChange(
-                                                                        item.key
-                                                                    );
-                                                                }}
-                                                            />
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            </div>
+                                </Card>
+                                <Layout>
+                                    <Layout.Section oneThird>
+                                        <Card>
+                                            {menu === "0" && renderOptions()}
+                                            {menu === "1" &&
+                                                renderGeneralSettingsOptions()}
+                                            {menu === "2" &&
+                                                renderPositionSettingsOptions()}
+                                            {menu === "3" &&
+                                                renderIconSettingsOptions()}
+                                            {menu === "4" &&
+                                                renderCartCountSettingsOptions()}
                                         </Card>
-                                    </div>
-                                </Layout.Section>
-                            </Layout>
+                                    </Layout.Section>
+
+                                    <Layout.Section>
+                                        <div style={{ marginTop: "10px" }}>
+                                            <Card sectioned>
+                                                <div className="template___Card">
+                                                    Choose the sticky cart
+                                                    template
+                                                </div>
+                                                <div className="">
+                                                    {stickyData.map((item) => (
+                                                        <div
+                                                            className="sticky_child"
+                                                            key={item.key}
+                                                        >
+                                                            <div>
+                                                                <RadioButton
+                                                                    label={
+                                                                        item.label
+                                                                    }
+                                                                    id={
+                                                                        item.key
+                                                                    }
+                                                                    checked={
+                                                                        defaultTemplate ===
+                                                                        item.key
+                                                                    }
+                                                                    name="stickyCart"
+                                                                    onChange={() => {
+                                                                        handleChange(
+                                                                            item.key
+                                                                        );
+                                                                    }}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </Card>
+                                        </div>
+                                    </Layout.Section>
+                                </Layout>
+                            </div>
                         </Page>
                     </div>
                 </Frame>
