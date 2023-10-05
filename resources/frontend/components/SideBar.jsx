@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GeneralSettings } from "./GeneralSettings.jsx";
 import { BuyNowSettings } from "./BuyNowSettings.jsx";
 import {
@@ -7,7 +7,6 @@ import {
     SettingsMinor,
 } from "@shopify/polaris-icons";
 import "../css/index.css";
-import { SiderBarSettings } from "../StaticData/sidebarData.js";
 import { Button, Card, Icon, Layout } from "@shopify/polaris";
 export function SideBar(props) {
     const [menu, setMenu] = useState("0");
@@ -16,9 +15,48 @@ export function SideBar(props) {
         setMenu(submenu);
         props.OnMenuReturn(submenu);
     };
+    useEffect(() => {
+        handleCallback(props);
+    }, [enable]);
 
     const handleCallback = (e) => {
-        props.dataCallback(e);
+        props.dataCallback({
+            enable: enable,
+            //GENERAL
+            position: e.position,
+            checkDesktop: e.checkDesktop,
+            checkMobile: e.checkMobile,
+            containerHeight: e.containerHeight,
+            gsAction: e.gsAction,
+            gsBgColor: e.gsBgColor,
+            gsBold: e.gsBold,
+            gsDisplayCondition: e.gsDisplayCondition,
+            gsFontFamily: e.gsFontFamily,
+            gsFontsize: e.gsFontsize,
+            gsItalic: e.gsItalic,
+            gsOffsetValue: e.gsOffsetValue,
+            gsPriceColor: e.gsPriceColor,
+            gsPriceFontsize: e.gsPriceFontsize,
+            gsTitleColor: e.gsTitleColor,
+            gsUnderline: e.gsUnderline,
+            //BUYNOW
+            editText: e.editText,
+            unavailable: e.unavailable,
+            btnWidthValue: e.btnWidthValue,
+            btnheightValue: e.btnheightValue,
+            btnFontsize: e.btnFontsize,
+            btnBorderThickness: e.btnBorderThickness,
+            btnBorderRadius: e.btnBorderRadius,
+            btnBold: e.btnBold,
+            btnItalic: e.btnItalic,
+            btnUnderline: e.btnUnderline,
+            btnTextColor: e.btnTextColor,
+            btnBgColor: e.btnBgColor,
+            btnTexthoverColor: e.btnTexthoverColor,
+            btnBgHoverColor: e.btnBgHoverColor,
+            btnBorderColor: e.btnBorderColor,
+            btnBorderHoverColor: e.btnBorderHoverColor,
+        });
     };
 
     /*ENABLE BUTTON START*/
@@ -113,6 +151,8 @@ export function SideBar(props) {
                         {menu === "1" && (
                             <GeneralSettings
                                 OnReturnToSidebar={navigateToSubMenu}
+                                enable={enable}
+                                //GENERAL
                                 position={props.position}
                                 checkMobile={props.checkMobile}
                                 checkDesktop={props.checkDesktop}
@@ -129,7 +169,23 @@ export function SideBar(props) {
                                 gsAction={props.gsAction}
                                 gsDisplayCondition={props.gsDisplayCondition}
                                 containerHeight={props.containerHeight}
-                                enable={enable}
+                                //BUYNOW
+                                editText={props.editText}
+                                unavailable={props.unavailable}
+                                btnWidthValue={props.btnWidthValue}
+                                btnheightValue={props.btnheightValue}
+                                btnFontsize={props.btnFontsize}
+                                btnBorderThickness={props.btnBorderThickness}
+                                btnBorderRadius={props.btnBorderRadius}
+                                btnBold={props.btnBold}
+                                btnItalic={props.btnItalic}
+                                btnUnderline={props.btnUnderline}
+                                btnTextColor={props.btnTextColor}
+                                btnBgColor={props.btnBgColor}
+                                btnTexthoverColor={props.btnTexthoverColor}
+                                btnBgHoverColor={props.btnBgHoverColor}
+                                btnBorderColor={props.btnBorderColor}
+                                btnBorderHoverColor={props.btnBorderHoverColor}
                                 callback={handleCallback}
                             />
                         )}
@@ -137,7 +193,41 @@ export function SideBar(props) {
                         {menu === "2" && (
                             <BuyNowSettings
                                 OnReturnToSidebar={navigateToSubMenu}
-                                // json_style_data={props.json_style_data}
+                                enable={enable}
+                                //GENERAL
+                                position={props.position}
+                                checkMobile={props.checkMobile}
+                                checkDesktop={props.checkDesktop}
+                                gsBold={props.gsBold}
+                                gsFontsize={props.gsFontsize}
+                                gsPriceFontsize={props.gsPriceFontsize}
+                                gsItalic={props.gsItalic}
+                                gsUnderline={props.gsUnderline}
+                                gsFontFamily={props.gsFontFamily}
+                                gsTitleColor={props.gsTitleColor}
+                                gsPriceColor={props.gsPriceColor}
+                                gsBgColor={props.gsBgColor}
+                                gsOffsetValue={props.gsOffsetValue}
+                                gsAction={props.gsAction}
+                                gsDisplayCondition={props.gsDisplayCondition}
+                                containerHeight={props.containerHeight}
+                                //BUYNOW
+                                editText={props.editText}
+                                unavailable={props.unavailable}
+                                btnWidthValue={props.btnWidthValue}
+                                btnheightValue={props.btnheightValue}
+                                btnFontsize={props.btnFontsize}
+                                btnBorderThickness={props.btnBorderThickness}
+                                btnBorderRadius={props.btnBorderRadius}
+                                btnBold={props.btnBold}
+                                btnItalic={props.btnItalic}
+                                btnUnderline={props.btnUnderline}
+                                btnTextColor={props.btnTextColor}
+                                btnBgColor={props.btnBgColor}
+                                btnTexthoverColor={props.btnTexthoverColor}
+                                btnBgHoverColor={props.btnBgHoverColor}
+                                btnBorderColor={props.btnBorderColor}
+                                btnBorderHoverColor={props.btnBorderHoverColor}
                                 callback={handleCallback}
                             />
                         )}

@@ -1,11 +1,9 @@
 import {
     Card,
-    Text,
     Checkbox,
     FullscreenBar,
     Icon,
     Layout,
-    TextStyle,
     Heading,
     RangeSlider,
     Select,
@@ -21,15 +19,12 @@ import {
 } from "@shopify/polaris-icons";
 import "../css/index.css";
 import { ColorPlate } from "./colorPlate";
+import FontPicker from "font-picker-react";
 // import { Text } from "react-bootstrap/lib/Navbar";
 export function GeneralSettings(props) {
     const [settings, setSettings] = useState("0");
-    const [data, setData] = useState([]);
-    const [enable, setEnable] = useState(true);
-    const [defaultTemplate, setDefaultTemplate] = useState(1);
     /*GENERAL SETTINGS CONSTANTS*/
     const [position, setPosition] = useState(props.position);
-    const [showGeneralSettings, setShowGeneralSettings] = useState(false);
     const [checkMobile, setCheckMobile] = useState(props.checkMobile);
     const [checkDesktop, setCheckDesktop] = useState(props.checkDesktop);
     const [gsBold, setGsBold] = useState(props.gsBold);
@@ -51,6 +46,26 @@ export function GeneralSettings(props) {
     const [containerHeight, setContainerHeight] = useState(
         props.containerHeight
     );
+
+    // console.log(gsBgColor);
+    useEffect(() => {
+        setPosition(props.position);
+        setCheckMobile(props.checkMobile);
+        setCheckDesktop(props.checkDesktop);
+        setGsBold(props.gsBold);
+        setGsFontsize(props.gsFontsize);
+        setGsPriceFontsize(props.gsPriceFontsize);
+        setGsItalic(props.gsItalic);
+        setGsUnderLine(props.gsUnderline);
+        setGsFontFamily(props.gsFontFamily);
+        setGsTitleColor(props.gsTitleColor);
+        setGsPriceColor(props.gsPriceColor);
+        setGsBgColor(props.gsBgColor);
+        setGsOffsetValue(props.gsOffsetValue);
+        setGsAction(props.gsAction);
+        setGsDisplayCondition(props.gsDisplayCondition);
+        setContainerHeight(props.containerHeight);
+    }, [props]);
 
     // CALLBACK FUNCTION TO SEND PROPS START
     useEffect(() => {
@@ -77,6 +92,8 @@ export function GeneralSettings(props) {
 
     const callbackFunction = useCallback(() => {
         props.callback({
+            enable: props.enable,
+            //GENERAL
             position: position,
             checkDesktop: checkDesktop,
             checkMobile: checkMobile,
@@ -93,6 +110,23 @@ export function GeneralSettings(props) {
             gsPriceFontsize: gsPriceFontsize,
             gsTitleColor: gsTitleColor,
             gsUnderline: gsUnderline,
+            //BUYNOW
+            editText: props.editText,
+            unavailable: props.unavailable,
+            btnWidthValue: props.btnWidthValue,
+            btnheightValue: props.btnheightValue,
+            btnFontsize: props.btnFontsize,
+            btnBorderThickness: props.btnBorderThickness,
+            btnBorderRadius: props.btnBorderRadius,
+            btnBold: props.btnBold,
+            btnItalic: props.btnItalic,
+            btnUnderline: props.btnUnderline,
+            btnTextColor: props.btnTextColor,
+            btnBgColor: props.btnBgColor,
+            btnTexthoverColor: props.btnTexthoverColor,
+            btnBgHoverColor: props.btnBgHoverColor,
+            btnBorderColor: props.btnBorderColor,
+            btnBorderHoverColor: props.btnBorderHoverColor,
         });
     }, [
         position,
@@ -352,6 +386,51 @@ export function GeneralSettings(props) {
                 <Heading variant="headingLg" as="h5">
                     Style Settings
                 </Heading>
+            </div>
+            {/* font family */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">Font Family </span>
+                <div className="font_picker_popup">
+                    <FontPicker
+                        apiKey="AIzaSyBRCzvluQdkcyQkKHPjLwltLe2HrkUd5Bs"
+                        activeFontFamily={gsFontFamily}
+                        onChange={handleFontChange}
+                    />
+                </div>
+            </div>
+
+            {/* Title Font-size */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">
+                    Title Font-size
+                </span>
+                <div className="font_picker_popup">
+                    <RangeSlider
+                        label={`${gsFontsize} px`}
+                        value={gsFontsize}
+                        min={8}
+                        max={40}
+                        onChange={handleRangeSliderChange}
+                        output
+                    />
+                </div>
+            </div>
+
+            {/* Price Font-size */}
+            <div className="style__wrapper_div">
+                <span className="display_setting_subtitle">
+                    Price Font-size
+                </span>
+                <div className="font_picker_popup">
+                    <RangeSlider
+                        label={`${gsPriceFontsize} px`}
+                        value={gsPriceFontsize}
+                        min={8}
+                        max={40}
+                        onChange={handlePriceRangeSliderChange}
+                        output
+                    />
+                </div>
             </div>
 
             <div className="style__wrapper_div">

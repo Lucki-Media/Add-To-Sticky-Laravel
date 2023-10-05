@@ -132,10 +132,8 @@ export default function AddToCartSticky() {
     const handleSelectedTemplateOption = (data) => {
         setMenu(data);
     };
-
     const handleTransferData = (data) => {
-        console.log("data");
-        console.log(data);
+        setEnable(data.enable);
         /*GENERAL SETTINGS VALUES*/
         setCheckDesktop(data.checkDesktop);
         setCheckMobile(data.checkMobile);
@@ -153,6 +151,23 @@ export default function AddToCartSticky() {
         setGsOffsetValue(data.gsOffsetValue);
         setGsDisplayCondition(data.gsDisplayCondition);
         setGsAction(data.gsAction);
+        //BUYNOW
+        setEditText(data.editText);
+        setUnavailable(data.unavailable);
+        setBtnWidthValue(data.btnWidthValue);
+        setBtnHeightValue(data.btnheightValue);
+        setBtnFontsize(data.btnFontsize);
+        setBtnBorderThickness(data.btnBorderThickness);
+        setBtnBorderRadius(data.btnBorderRadius);
+        setBtnBold(data.btnBold);
+        setBtnItalic(data.btnItalic);
+        setBtnUnderline(data.btnUnderline);
+        setBtnTextColor(data.btnTextColor);
+        setBtnBgColor(data.btnBgColor);
+        setBtnTexthoverColor(data.btnTexthoverColor);
+        setBtnBgHoverColor(data.btnBgHoverColor);
+        setBtnBorderColor(data.btnBorderColor);
+        setBtnBorderHoverColor(data.btnBorderHoverColor);
     };
     const getAddToStickyCartData = async () => {
         try {
@@ -252,7 +267,6 @@ export default function AddToCartSticky() {
     // TEMPLATE DATA START
     const handleChange = (key) => {
         // console.log(data);
-        setMenu("0");
         setDefaultTemplate(key);
         var currentData;
         switch (key) {
@@ -399,240 +413,6 @@ export default function AddToCartSticky() {
     useEffect(() => {
         getAddToStickyCartData();
     }, []);
-
-    /*ENABLE BUTTON START*/
-    const handleEnable = (value) => {
-        setEnable(!value);
-    };
-    /*ENABLE BUTTON END*/
-
-    /*GENERAL SETTINGS SHOW START*/
-    const hanldeShowGeneralSetting = (value) => {
-        setBuyNowSettings(false);
-        setShowGeneralSettings(!value);
-    };
-    /*GENERAL SETTINGS SHOW END*/
-
-    const hanldeShowGenDisplaySetting = (value) => {
-        setShowGenDisplaySetting(!value);
-        setShowGenStyle(false);
-        setShowGenLayout(false);
-        setShowGenAction(false);
-    };
-    const hanldeShowGenStyle = (value) => {
-        setShowGenStyle(!value);
-        setShowGenDisplaySetting(false);
-        setShowGenLayout(false);
-        setShowGenAction(false);
-    };
-    const hanldeShowGenLayout = (value) => {
-        setShowGenLayout(!value);
-        setShowGenDisplaySetting(false);
-        setShowGenStyle(false);
-        setShowGenAction(false);
-    };
-
-    const hanldeShowGenAction = (value) => {
-        setShowGenAction(!value);
-        setShowGenDisplaySetting(false);
-        setShowGenStyle(false);
-        setShowGenLayout(false);
-    };
-
-    /*BUY NOW SHOW START*/
-    const hanldeBuyNowSetting = (value) => {
-        setShowGeneralSettings(false);
-        setBuyNowSettings(!value);
-    };
-    /*BUY NOW SHOW END*/
-
-    /*STYLE PART START*/
-    /*FONT FAMILY GENERAL SETTINGS*/
-    const handleFontChange = (value) => {
-        setGsFontFamily(value.family);
-    };
-
-    /*TITLE FONT SIZE GENERAL SETTINGS*/
-    const handleRangeSliderChange = useCallback(
-        (value) => setGsFontsize(value),
-        []
-    );
-
-    /*PRICE FONT SIZE GENERAL SETTINGS*/
-    const handlePriceRangeSliderChange = useCallback(
-        (value) => setGsPriceFontsize(value),
-        []
-    );
-
-    /*TITLE STYLE GENERAL SETTINGS*/
-    const handleBold = useCallback((newChecked) => setGsBold(newChecked), []);
-    const handleItalic = useCallback(
-        (newChecked) => setGsItalic(newChecked),
-        []
-    );
-    const handleUnderline = useCallback(
-        (newChecked) => setGsUnderLine(newChecked),
-        []
-    );
-    /*TITLE STYLE GENERAL SETTINGS*/
-
-    /*HEIGHT BUY NOW*/
-    const handleHeightSliderChange = useCallback(
-        (value) => setContainerHeight(value),
-        []
-    );
-    /*HEIGHT BUY NOW*/
-
-    /*STYLE PART END*/
-
-    /*LAYOUT PART START*/
-    /*POSITION GENERAL SETTINGS*/
-    const handlePositionChange = (key) => {
-        setPosition(key);
-    };
-    /*POSITION GENERAL SETTINGS*/
-
-    /*OFFSET GENERAL SETTINGS*/
-    const handleOffsetSliderChange = useCallback(
-        (value) => setGsOffsetValue(value),
-        []
-    );
-    /*LAYOUT PART END*/
-
-    /*ACTION GENERAL SETTINGS*/
-    const handleSelectChange = useCallback((value) => setGsAction(value), []);
-    const options = [
-        { label: "Go to Cart", value: "1" },
-        { label: "Go to Checkout", value: "2" },
-    ];
-
-    /*DISPLAY CONDITION GENERAL SETTINGS*/
-    const handleConditionChange = useCallback(
-        (value) => setGsDisplayCondition(value),
-        []
-    );
-    const conditions = [
-        { label: "Always show", value: "1" },
-        {
-            label: "Only when add to cart is not visible",
-            value: "2",
-        },
-        {
-            label: "Only when user has scrolled down and surpassed the 'Add to cart' button",
-            value: "3",
-        },
-    ];
-    /*DISPLAY SETTING START GENERAL SETTINGS*/
-    const handlecheckboxMobile = useCallback(
-        (newChecked) => setCheckMobile(newChecked),
-        []
-    );
-
-    const handlecheckboxDesktop = useCallback(
-        (newChecked) => setCheckDesktop(newChecked),
-        []
-    );
-    /*DISPLAY SETTING END GENERAL SETTINGS*/
-
-    // COLOR CHANGE HANDLES START GENERAL SETTINGS*/
-    // TITLE COLOR
-    const handleTitleColor = useCallback((value) => setGsTitleColor(value), []);
-
-    // PRICE COLOR
-    const handlePriceColor = useCallback((value) => setGsPriceColor(value), []);
-
-    // PRICE COLOR
-    const handleBGColor = useCallback((value) => setGsBgColor(value), []);
-
-    /*BUY NOW BTN TEXT START*/
-    // EDIT TEXT
-    const handleEditTextField = (val) => {
-        setEditText(val);
-    };
-    // SOLD OUT
-    // const handleSoldOutTextField = (val) => {
-    //     setSoldOut(val);
-    // };
-    // UNAVAILABLE
-    const handleUnavailableTextField = (val) => {
-        setUnavailable(val);
-    };
-    /*BUY NOW BTN TEXT END*/
-
-    /*BUY NOW BTN STYLE START*/
-    // WIDTH
-    const handleWidthSliderChange = useCallback(
-        (value) => setBtnWidthValue(value),
-        []
-    );
-    // BUY NOW BTN HEIGHT
-    const handleBuyButtonHeightSliderChange = useCallback(
-        (value) => setBtnHeightValue(value),
-        []
-    );
-    //BUY NOW  FONT SIZE
-    const handleFontSizeSliderChange = useCallback(
-        (value) => setBtnFontsize(value),
-        []
-    );
-    // BUY NOW  STYLE
-    const handleBoldButton = useCallback(
-        (newChecked) => setBtnBold(newChecked),
-        []
-    );
-    const handleItalicButton = useCallback(
-        (newChecked) => setBtnItalic(newChecked),
-        []
-    );
-    const handleUnderlineButton = useCallback(
-        (newChecked) => setBtnUnderline(newChecked),
-        []
-    );
-    // BORDER THIKNESS
-    const handleBorderSliderChange = useCallback(
-        (value) => setBtnBorderThickness(value),
-        []
-    );
-
-    // BORDER RADIUS
-    const handleRadiusSliderChange = useCallback(
-        (value) => setBtnBorderRadius(value),
-        []
-    );
-    /*BUY NOW BTN STYLE END*/
-
-    // BTN TEXT COLOR
-    const handlebtnTextColor = useCallback(
-        (value) => setBtnTextColor(value),
-        []
-    );
-
-    // TEXT HOVER COLOR
-    const handletexthoverColor = useCallback(
-        (value) => setBtnTexthoverColor(value),
-        []
-    );
-
-    // BG HOVER COLOR
-    const handlebgHoverColor = useCallback(
-        (value) => setBtnBgHoverColor(value),
-        []
-    );
-
-    // BTN BG COLOR
-    const handlebtnBGColor = useCallback((value) => setBtnBgColor(value), []);
-
-    // BORDER COLOR
-    const handleborderColor = useCallback(
-        (value) => setBtnBorderColor(value),
-        []
-    );
-
-    // BORDER HOVER COLOR
-    const handlebordeHoverColor = useCallback(
-        (value) => setBtnBorderHoverColor(value),
-        []
-    );
     // COLOR CHANGE HANDLES END
     // console.log("data");
     // console.log(data);
@@ -688,8 +468,6 @@ export default function AddToCartSticky() {
                             //     onClick: handleSave,
                             // }}
                         >
-                            {toastMarkup}
-                            {toastMarkup1}
                             <div className="shell_template_Card">
                                 <div
                                     style={{
@@ -1115,14 +893,14 @@ export default function AddToCartSticky() {
                                             <div className="lm_add_to_sticky_top_bar_header_bottom">
                                                 <div
                                                     className="lm_add_to_sticky_top_bar_header_out"
-                                                    onClick={handleClick}
+                                                    // onClick={handleClick}
                                                 >
-                                                    <Icon
+                                                    {/* <Icon
                                                         source={ExitMajor}
                                                         color="base"
-                                                    />{" "}
+                                                    />{" "} */}
                                                     <div>
-                                                        Dashboard /{" "}
+                                                        {/* Dashboard /{" "} */}
                                                         <strong>
                                                             Add To Cart Sticky
                                                         </strong>
@@ -1183,6 +961,50 @@ export default function AddToCartSticky() {
                                                             containerHeight
                                                         }
                                                         enable={enable}
+                                                        buyNowSettings={
+                                                            buyNowSettings
+                                                        }
+                                                        editText={editText}
+                                                        // soldOut={soldOut}
+                                                        unavailable={
+                                                            unavailable
+                                                        }
+                                                        btnWidthValue={
+                                                            btnWidthValue
+                                                        }
+                                                        btnheightValue={
+                                                            btnheightValue
+                                                        }
+                                                        btnFontsize={
+                                                            btnFontsize
+                                                        }
+                                                        btnBorderThickness={
+                                                            btnBorderThickness
+                                                        }
+                                                        btnBorderRadius={
+                                                            btnBorderRadius
+                                                        }
+                                                        btnBold={btnBold}
+                                                        btnItalic={btnItalic}
+                                                        btnUnderline={
+                                                            btnUnderline
+                                                        }
+                                                        btnTextColor={
+                                                            btnTextColor
+                                                        }
+                                                        btnBgColor={btnBgColor}
+                                                        btnTexthoverColor={
+                                                            btnTexthoverColor
+                                                        }
+                                                        btnBgHoverColor={
+                                                            btnBgHoverColor
+                                                        }
+                                                        btnBorderColor={
+                                                            btnBorderColor
+                                                        }
+                                                        btnBorderHoverColor={
+                                                            btnBorderHoverColor
+                                                        }
                                                         dataCallback={
                                                             handleTransferData
                                                         }
