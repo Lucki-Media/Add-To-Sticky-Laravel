@@ -1,0 +1,22 @@
+.lm_sticky_cart
+{
+  box-shadow: 0 0 20px #a5a5a5a6;
+}
+.lm_cart_module{
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+.lm_pro_image img{
+height: 100px;
+width: 100px;
+object-fit: cover;
+}
+.lm_middlecontent h5{
+font-size: 20px;
+margin: 0;
+}
+.lm_quantity_selector {}
+.lm_options{
+    
+}
