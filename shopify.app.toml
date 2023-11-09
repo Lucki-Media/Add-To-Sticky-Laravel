@@ -1,2 +1,20 @@
-name = "LM Add To Cart Sticky"
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+name = "LM Add to Cart Sticky DEV"
+client_id = "9a766e1b57dd76f71b885f977f1d8ec5"
+application_url = "https://lmaddtocartsticky.luckistore.in"
+embedded = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
 scopes = "read_inventory,write_inventory,read_products,read_themes,write_themes,read_products,write_products,write_content"
+use_legacy_install_flow = true
+
+[auth]
+redirect_urls = [ "https://lmaddtocartsticky.luckistore.in/authenticate" ]
+
+[webhooks]
+api_version = "2023-04"
+
+[pos]
+embedded = false
