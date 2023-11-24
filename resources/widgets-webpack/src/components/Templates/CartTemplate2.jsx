@@ -601,7 +601,7 @@ export default function CartTemplate2(props) {
                                                             ? "lm_underline"
                                                             : "no-line"
                                                     }${
-                                                        isVibrating
+                                                        props.templateData.animationEnable === true && isVibrating
                                                             ? " lm_vibrating"
                                                             : ""
                                                     }`}

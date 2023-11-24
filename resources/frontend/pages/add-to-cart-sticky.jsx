@@ -83,6 +83,7 @@ export default function AddToCartSticky() {
     ) : null;
     const [data, setData] = useState([]);
     const [enable, setEnable] = useState(true);
+    const [animationEnable, setAnimationEnable] = useState(true);
     const [defaultTemplate, setDefaultTemplate] = useState(1);
     /*GENERAL SETTINGS CONSTANTS*/
     const [position, setPosition] = useState("Top");
@@ -134,6 +135,7 @@ export default function AddToCartSticky() {
     };
     const handleTransferData = (data) => {
         setEnable(data.enable);
+        setAnimationEnable(data.animationEnable);
         /*GENERAL SETTINGS VALUES*/
         setCheckDesktop(data.checkDesktop);
         setCheckMobile(data.checkMobile);
@@ -178,6 +180,7 @@ export default function AddToCartSticky() {
             // console.log(data.data);
             setData(data.data);
             setEnable(data.data.enable);
+            setAnimationEnable(data.data.animationEnable);
             setDefaultTemplate(data.data.defaultTemplate);
             setPosition(data.data.current_template.general_settings.position);
             setGsFontsize(
@@ -299,8 +302,9 @@ export default function AddToCartSticky() {
                 currentData = data.current_template;
                 break;
         }
-        // console.log(currentData);
-        setEnable(data.enable);
+        // console.log(data);
+        // setEnable(data.enable);
+        // setAnimationEnable(data.animationEnable);
         /*GENERAL SETTINGS VALUES*/
         setCheckDesktop(currentData.general_settings.checkDesktop);
         setCheckMobile(currentData.general_settings.checkMobile);
@@ -350,6 +354,7 @@ export default function AddToCartSticky() {
             let payLoad = {
                 shop_domain: document.getElementById("shopOrigin").value,
                 enable: enable,
+                animationEnable: animationEnable,
                 defaultTemplate: defaultTemplate,
                 /*GENERAL SETTINGS START*/
                 checkDesktop: checkDesktop,
@@ -482,6 +487,7 @@ export default function AddToCartSticky() {
                                         <CartTemplate1
                                             template_data={data.template_1}
                                             enable={enable}
+                                            animationEnable={animationEnable}
                                             defaultTemplate={defaultTemplate}
                                             position={position}
                                             checkMobile={checkMobile}
@@ -533,6 +539,7 @@ export default function AddToCartSticky() {
                                         <CartTemplate2
                                             template_data={data.template_2}
                                             enable={enable}
+                                            animationEnable={animationEnable}
                                             defaultTemplate={defaultTemplate}
                                             position={position}
                                             checkMobile={checkMobile}
@@ -584,6 +591,7 @@ export default function AddToCartSticky() {
                                         <CartTemplate3
                                             template_data={data.template_3}
                                             enable={enable}
+                                            animationEnable={animationEnable}
                                             defaultTemplate={defaultTemplate}
                                             position={position}
                                             checkMobile={checkMobile}
@@ -635,6 +643,7 @@ export default function AddToCartSticky() {
                                         <CartTemplate4
                                             template_data={data.template_4}
                                             enable={enable}
+                                            animationEnable={animationEnable}
                                             defaultTemplate={defaultTemplate}
                                             position={position}
                                             checkMobile={checkMobile}
@@ -686,6 +695,7 @@ export default function AddToCartSticky() {
                                         <CartTemplate5
                                             template_data={data.template_5}
                                             enable={enable}
+                                            animationEnable={animationEnable}
                                             defaultTemplate={defaultTemplate}
                                             position={position}
                                             checkMobile={checkMobile}
@@ -737,6 +747,7 @@ export default function AddToCartSticky() {
                                         <CartTemplate6
                                             template_data={data.template_6}
                                             enable={enable}
+                                            animationEnable={animationEnable}
                                             defaultTemplate={defaultTemplate}
                                             position={position}
                                             checkMobile={checkMobile}
@@ -788,6 +799,7 @@ export default function AddToCartSticky() {
                                         <CartTemplate7
                                             template_data={data.template_7}
                                             enable={enable}
+                                            animationEnable={animationEnable}
                                             defaultTemplate={defaultTemplate}
                                             position={position}
                                             checkMobile={checkMobile}
@@ -839,6 +851,7 @@ export default function AddToCartSticky() {
                                         <CartTemplate8
                                             template_data={data.template_8}
                                             enable={enable}
+                                            animationEnable={animationEnable}
                                             defaultTemplate={defaultTemplate}
                                             position={position}
                                             checkMobile={checkMobile}
@@ -961,6 +974,9 @@ export default function AddToCartSticky() {
                                                             containerHeight
                                                         }
                                                         enable={enable}
+                                                        animationEnable={
+                                                            animationEnable
+                                                        }
                                                         buyNowSettings={
                                                             buyNowSettings
                                                         }

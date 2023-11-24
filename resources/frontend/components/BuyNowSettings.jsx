@@ -98,6 +98,7 @@ export function BuyNowSettings(props) {
     const callbackFunction = useCallback(() => {
         props.callback({
             enable: props.enable,
+            animationEnable: props.animationEnable,
             //BUYNOW
             editText: editText,
             unavailable: unavailable,

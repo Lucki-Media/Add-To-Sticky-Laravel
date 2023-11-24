@@ -93,6 +93,7 @@ export function GeneralSettings(props) {
     const callbackFunction = useCallback(() => {
         props.callback({
             enable: props.enable,
+            animationEnable: props.animationEnable,
             //GENERAL
             position: position,
             checkDesktop: checkDesktop,
