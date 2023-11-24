@@ -64,6 +64,7 @@ class AfterAuthenticateJob implements ShouldQueue
         $final_data = [
             'shop_domain' => $this->shopDomain,
             'enable' => '1',
+            'animationEnable' => '1',
             'defaultTemplate' => 1,
             'current_template' => $template_1,
             'template_1' => $template_1,

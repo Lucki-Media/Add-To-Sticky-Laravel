@@ -11,17 +11,19 @@ import { Button, Card, Icon, Layout } from "@shopify/polaris";
 export function SideBar(props) {
     const [menu, setMenu] = useState("0");
     const [enable, setEnable] = useState(props.enable);
+    const [animationEnable, setAnimationEnable] = useState(props.animationEnable);
     const navigateToSubMenu = (submenu) => {
         setMenu(submenu);
         props.OnMenuReturn(submenu);
     };
     useEffect(() => {
         handleCallback(props);
-    }, [enable]);
+    }, [enable, animationEnable]);
 
     const handleCallback = (e) => {
         props.dataCallback({
             enable: enable,
+            animationEnable: animationEnable,
             //GENERAL
             position: e.position,
             checkDesktop: e.checkDesktop,
@@ -65,6 +67,12 @@ export function SideBar(props) {
     };
     /*ENABLE BUTTON END*/
 
+    /*ENABLE ANIMATION BUTTON START*/
+    const handleAnimationEnable = (value) => {
+        setAnimationEnable(!value);
+    };
+    /*ENABLE ANIMATION BUTTON END*/
+
     const renderOptions = () => (
         <div>
             <div className="general_setting_title">
@@ -88,6 +96,33 @@ export function SideBar(props) {
                                     }}
                                 >
                                     {enable === true ? "Disable" : "Enable"}
+                                </Button>
+                            </div>
+                        </Card>
+                    </Layout.Section>
+                </Layout>
+            </div>
+            <div className="general_setting_title">
+                <Layout>
+                    <Layout.Section>
+                        <Card sectioned>
+                            <div className="setting_title">
+                                <span className="show_sticky_span">
+                                    Buy Now Button Animation is{" "}
+                                    <b>
+                                        {animationEnable === true
+                                            ? "Enabled"
+                                            : "Disabled"}
+                                    </b>{" "}
+                                </span>
+                                {/* <div className="show_cart_btn"> */}
+                                <Button
+                                    primary
+                                    onClick={() => {
+                                        handleAnimationEnable(animationEnable);
+                                    }}
+                                >
+                                    {animationEnable === true ? "Disable" : "Enable"}
                                 </Button>
                             </div>
                         </Card>
@@ -152,6 +187,7 @@ export function SideBar(props) {
                             <GeneralSettings
                                 OnReturnToSidebar={navigateToSubMenu}
                                 enable={enable}
+                                animationEnable={animationEnable}
                                 //GENERAL
                                 position={props.position}
                                 checkMobile={props.checkMobile}
@@ -194,6 +230,7 @@ export function SideBar(props) {
                             <BuyNowSettings
                                 OnReturnToSidebar={navigateToSubMenu}
                                 enable={enable}
+                                animationEnable={animationEnable}
                                 //GENERAL
                                 position={props.position}
                                 checkMobile={props.checkMobile}

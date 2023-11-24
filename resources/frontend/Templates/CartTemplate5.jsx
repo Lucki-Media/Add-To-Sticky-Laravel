@@ -7,6 +7,7 @@ import style from "../css/CartTemplate5.module.css";
 export default function CartTemplate5(props) {
     const [isVibrating, setIsVibrating] = useState(false);
     const [enable, setEnable] = useState(props.enable); // FOR MAIN DISPLAY
+    const [animationEnable, setAnimationEnable] = useState(props.animationEnable); // FOR BUTTON ANIMATION
     const [position, setPosition] = useState(props.position);
     const [checkMobile, setCheckMobile] = useState(props.checkMobile);
     const [checkDesktop, setCheckDesktop] = useState(props.checkDesktop);
@@ -80,6 +81,7 @@ export default function CartTemplate5(props) {
 
     useEffect(() => {
         setEnable(props.enable);
+        setAnimationEnable(props.animationEnable);
         setCheckDesktop(props.checkDesktop);
         setCheckMobile(props.checkMobile);
         setGsFontFamily(props.gsFontFamily);
@@ -447,7 +449,8 @@ export default function CartTemplate5(props) {
                                                     ? "lm_underline"
                                                     : "no-line"
                                             }${
-                                                isVibrating
+                                                animationEnable === true
+                                                    && isVibrating
                                                     ? " lm_vibrating"
                                                     : ""
                                             }`}
