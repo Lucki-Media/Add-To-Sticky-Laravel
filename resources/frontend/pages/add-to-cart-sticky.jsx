@@ -18,6 +18,9 @@ import {
     SkeletonDisplayText,
     Loading,
     Spinner,
+    EmptyState,
+    FullscreenBar,
+    ButtonGroup,
 } from "@shopify/polaris";
 import "../css/index.css";
 import {
@@ -53,6 +56,7 @@ export default function AddToCartSticky() {
     const [loading, setLoading] = useState(false);
     const [saveLoader, setSaveLoader] = useState(false);
     const [showTable, setShowTable] = useState(false);
+    const [isFullscreen, setFullscreen] = useState(true);
 
     //toast for success
     const [toastContent, setToastContent] = useState();
@@ -419,6 +423,10 @@ export default function AddToCartSticky() {
         getAddToStickyCartData();
     }, []);
     // COLOR CHANGE HANDLES END
+
+    const handleActionClick = useCallback(() => {
+        setFullscreen(false);
+    }, []);
     // console.log("data");
     // console.log(data);
     if (showTable === false) {
@@ -465,627 +473,68 @@ export default function AddToCartSticky() {
             <>
                 <Frame>
                     <div className="main_app_page">
-                        <Page
-                            fullWidth
-                            // title="Add To Cart Sticky Templates"
-                            // primaryAction={{
-                            //     content: "Save",
-                            //     onClick: handleSave,
-                            // }}
-                        >
-                            <div className="shell_template_Card">
+                        <div className="lm_sticky_fullscreenbar">
+                            <FullscreenBar>
                                 <div
                                     style={{
-                                        height:
-                                            position !== "Top"
-                                                ? 0
-                                                : containerHeight,
-                                        marginTop: position !== "Top" ? 50 : 20,
+                                        display: "flex",
+                                        flexGrow: 1,
+                                        justifyContent: "space-between",
+                                        alignItems: "center",
+                                        paddingLeft: "1rem",
+                                        paddingRight: "1rem",
                                     }}
                                 >
-                                    {defaultTemplate === 1 ? (
-                                        <CartTemplate1
-                                            template_data={data.template_1}
-                                            enable={enable}
-                                            animationEnable={animationEnable}
-                                            defaultTemplate={defaultTemplate}
-                                            position={position}
-                                            checkMobile={checkMobile}
-                                            checkDesktop={checkDesktop}
-                                            gsBold={gsBold}
-                                            gsFontsize={gsFontsize}
-                                            gsPriceFontsize={gsPriceFontsize}
-                                            gsItalic={gsItalic}
-                                            gsUnderline={gsUnderline}
-                                            gsFontFamily={gsFontFamily}
-                                            gsTitleColor={gsTitleColor}
-                                            gsPriceColor={gsPriceColor}
-                                            gsBgColor={gsBgColor}
-                                            gsOffsetValue={gsOffsetValue}
-                                            gsAction={gsAction}
-                                            gsDisplayCondition={
-                                                gsDisplayCondition
-                                            }
-                                            buyNowSettings={buyNowSettings}
-                                            editText={editText}
-                                            // soldOut={soldOut}
-                                            unavailable={unavailable}
-                                            btnWidthValue={btnWidthValue}
-                                            btnheightValue={btnheightValue}
-                                            btnFontsize={btnFontsize}
-                                            containerHeight={containerHeight}
-                                            btnBorderThickness={
-                                                btnBorderThickness
-                                            }
-                                            btnBorderRadius={btnBorderRadius}
-                                            btnBold={btnBold}
-                                            btnItalic={btnItalic}
-                                            btnUnderline={btnUnderline}
-                                            btnTextColor={btnTextColor}
-                                            btnBgColor={btnBgColor}
-                                            btnTexthoverColor={
-                                                btnTexthoverColor
-                                            }
-                                            btnBgHoverColor={btnBgHoverColor}
-                                            btnBorderColor={btnBorderColor}
-                                            btnBorderHoverColor={
-                                                btnBorderHoverColor
-                                            }
-                                        />
-                                    ) : (
-                                        ""
-                                    )}
-                                    {defaultTemplate === 2 ? (
-                                        <CartTemplate2
-                                            template_data={data.template_2}
-                                            enable={enable}
-                                            animationEnable={animationEnable}
-                                            defaultTemplate={defaultTemplate}
-                                            position={position}
-                                            checkMobile={checkMobile}
-                                            checkDesktop={checkDesktop}
-                                            gsBold={gsBold}
-                                            gsFontsize={gsFontsize}
-                                            gsPriceFontsize={gsPriceFontsize}
-                                            gsItalic={gsItalic}
-                                            gsUnderline={gsUnderline}
-                                            gsFontFamily={gsFontFamily}
-                                            gsTitleColor={gsTitleColor}
-                                            gsPriceColor={gsPriceColor}
-                                            gsBgColor={gsBgColor}
-                                            gsOffsetValue={gsOffsetValue}
-                                            gsAction={gsAction}
-                                            gsDisplayCondition={
-                                                gsDisplayCondition
-                                            }
-                                            buyNowSettings={buyNowSettings}
-                                            editText={editText}
-                                            // soldOut={soldOut}
-                                            unavailable={unavailable}
-                                            btnWidthValue={btnWidthValue}
-                                            btnheightValue={btnheightValue}
-                                            btnFontsize={btnFontsize}
-                                            containerHeight={containerHeight}
-                                            btnBorderThickness={
-                                                btnBorderThickness
-                                            }
-                                            btnBorderRadius={btnBorderRadius}
-                                            btnBold={btnBold}
-                                            btnItalic={btnItalic}
-                                            btnUnderline={btnUnderline}
-                                            btnTextColor={btnTextColor}
-                                            btnBgColor={btnBgColor}
-                                            btnTexthoverColor={
-                                                btnTexthoverColor
-                                            }
-                                            btnBgHoverColor={btnBgHoverColor}
-                                            btnBorderColor={btnBorderColor}
-                                            btnBorderHoverColor={
-                                                btnBorderHoverColor
-                                            }
-                                        />
-                                    ) : (
-                                        ""
-                                    )}
-                                    {defaultTemplate === 3 ? (
-                                        <CartTemplate3
-                                            template_data={data.template_3}
-                                            enable={enable}
-                                            animationEnable={animationEnable}
-                                            defaultTemplate={defaultTemplate}
-                                            position={position}
-                                            checkMobile={checkMobile}
-                                            checkDesktop={checkDesktop}
-                                            gsBold={gsBold}
-                                            gsFontsize={gsFontsize}
-                                            gsPriceFontsize={gsPriceFontsize}
-                                            gsItalic={gsItalic}
-                                            gsUnderline={gsUnderline}
-                                            gsFontFamily={gsFontFamily}
-                                            gsTitleColor={gsTitleColor}
-                                            gsPriceColor={gsPriceColor}
-                                            gsBgColor={gsBgColor}
-                                            gsOffsetValue={gsOffsetValue}
-                                            gsAction={gsAction}
-                                            gsDisplayCondition={
-                                                gsDisplayCondition
-                                            }
-                                            buyNowSettings={buyNowSettings}
-                                            editText={editText}
-                                            // soldOut={soldOut}
-                                            unavailable={unavailable}
-                                            btnWidthValue={btnWidthValue}
-                                            btnheightValue={btnheightValue}
-                                            btnFontsize={btnFontsize}
-                                            containerHeight={containerHeight}
-                                            btnBorderThickness={
-                                                btnBorderThickness
-                                            }
-                                            btnBorderRadius={btnBorderRadius}
-                                            btnBold={btnBold}
-                                            btnItalic={btnItalic}
-                                            btnUnderline={btnUnderline}
-                                            btnTextColor={btnTextColor}
-                                            btnBgColor={btnBgColor}
-                                            btnTexthoverColor={
-                                                btnTexthoverColor
-                                            }
-                                            btnBgHoverColor={btnBgHoverColor}
-                                            btnBorderColor={btnBorderColor}
-                                            btnBorderHoverColor={
-                                                btnBorderHoverColor
-                                            }
-                                        />
-                                    ) : (
-                                        ""
-                                    )}
-                                    {defaultTemplate === 4 ? (
-                                        <CartTemplate4
-                                            template_data={data.template_4}
-                                            enable={enable}
-                                            animationEnable={animationEnable}
-                                            defaultTemplate={defaultTemplate}
-                                            position={position}
-                                            checkMobile={checkMobile}
-                                            checkDesktop={checkDesktop}
-                                            gsBold={gsBold}
-                                            gsFontsize={gsFontsize}
-                                            gsPriceFontsize={gsPriceFontsize}
-                                            gsItalic={gsItalic}
-                                            gsUnderline={gsUnderline}
-                                            gsFontFamily={gsFontFamily}
-                                            gsTitleColor={gsTitleColor}
-                                            gsPriceColor={gsPriceColor}
-                                            gsBgColor={gsBgColor}
-                                            gsOffsetValue={gsOffsetValue}
-                                            gsAction={gsAction}
-                                            gsDisplayCondition={
-                                                gsDisplayCondition
-                                            }
-                                            buyNowSettings={buyNowSettings}
-                                            editText={editText}
-                                            // soldOut={soldOut}
-                                            unavailable={unavailable}
-                                            btnWidthValue={btnWidthValue}
-                                            btnheightValue={btnheightValue}
-                                            btnFontsize={btnFontsize}
-                                            containerHeight={containerHeight}
-                                            btnBorderThickness={
-                                                btnBorderThickness
-                                            }
-                                            btnBorderRadius={btnBorderRadius}
-                                            btnBold={btnBold}
-                                            btnItalic={btnItalic}
-                                            btnUnderline={btnUnderline}
-                                            btnTextColor={btnTextColor}
-                                            btnBgColor={btnBgColor}
-                                            btnTexthoverColor={
-                                                btnTexthoverColor
-                                            }
-                                            btnBgHoverColor={btnBgHoverColor}
-                                            btnBorderColor={btnBorderColor}
-                                            btnBorderHoverColor={
-                                                btnBorderHoverColor
-                                            }
-                                        />
-                                    ) : (
-                                        ""
-                                    )}
-                                    {defaultTemplate === 5 ? (
-                                        <CartTemplate5
-                                            template_data={data.template_5}
-                                            enable={enable}
-                                            animationEnable={animationEnable}
-                                            defaultTemplate={defaultTemplate}
-                                            position={position}
-                                            checkMobile={checkMobile}
-                                            checkDesktop={checkDesktop}
-                                            gsBold={gsBold}
-                                            gsFontsize={gsFontsize}
-                                            gsPriceFontsize={gsPriceFontsize}
-                                            gsItalic={gsItalic}
-                                            gsUnderline={gsUnderline}
-                                            gsFontFamily={gsFontFamily}
-                                            gsTitleColor={gsTitleColor}
-                                            gsPriceColor={gsPriceColor}
-                                            gsBgColor={gsBgColor}
-                                            gsOffsetValue={gsOffsetValue}
-                                            gsAction={gsAction}
-                                            gsDisplayCondition={
-                                                gsDisplayCondition
-                                            }
-                                            buyNowSettings={buyNowSettings}
-                                            editText={editText}
-                                            // soldOut={soldOut}
-                                            unavailable={unavailable}
-                                            btnWidthValue={btnWidthValue}
-                                            btnheightValue={btnheightValue}
-                                            btnFontsize={btnFontsize}
-                                            containerHeight={containerHeight}
-                                            btnBorderThickness={
-                                                btnBorderThickness
-                                            }
-                                            btnBorderRadius={btnBorderRadius}
-                                            btnBold={btnBold}
-                                            btnItalic={btnItalic}
-                                            btnUnderline={btnUnderline}
-                                            btnTextColor={btnTextColor}
-                                            btnBgColor={btnBgColor}
-                                            btnTexthoverColor={
-                                                btnTexthoverColor
-                                            }
-                                            btnBgHoverColor={btnBgHoverColor}
-                                            btnBorderColor={btnBorderColor}
-                                            btnBorderHoverColor={
-                                                btnBorderHoverColor
-                                            }
-                                        />
-                                    ) : (
-                                        ""
-                                    )}
-                                    {defaultTemplate === 6 ? (
-                                        <CartTemplate6
-                                            template_data={data.template_6}
-                                            enable={enable}
-                                            animationEnable={animationEnable}
-                                            defaultTemplate={defaultTemplate}
-                                            position={position}
-                                            checkMobile={checkMobile}
-                                            checkDesktop={checkDesktop}
-                                            gsBold={gsBold}
-                                            gsFontsize={gsFontsize}
-                                            gsPriceFontsize={gsPriceFontsize}
-                                            gsItalic={gsItalic}
-                                            gsUnderline={gsUnderline}
-                                            gsFontFamily={gsFontFamily}
-                                            gsTitleColor={gsTitleColor}
-                                            gsPriceColor={gsPriceColor}
-                                            gsBgColor={gsBgColor}
-                                            gsOffsetValue={gsOffsetValue}
-                                            gsAction={gsAction}
-                                            gsDisplayCondition={
-                                                gsDisplayCondition
-                                            }
-                                            buyNowSettings={buyNowSettings}
-                                            editText={editText}
-                                            // soldOut={soldOut}
-                                            unavailable={unavailable}
-                                            btnWidthValue={btnWidthValue}
-                                            btnheightValue={btnheightValue}
-                                            btnFontsize={btnFontsize}
-                                            containerHeight={containerHeight}
-                                            btnBorderThickness={
-                                                btnBorderThickness
-                                            }
-                                            btnBorderRadius={btnBorderRadius}
-                                            btnBold={btnBold}
-                                            btnItalic={btnItalic}
-                                            btnUnderline={btnUnderline}
-                                            btnTextColor={btnTextColor}
-                                            btnBgColor={btnBgColor}
-                                            btnTexthoverColor={
-                                                btnTexthoverColor
-                                            }
-                                            btnBgHoverColor={btnBgHoverColor}
-                                            btnBorderColor={btnBorderColor}
-                                            btnBorderHoverColor={
-                                                btnBorderHoverColor
-                                            }
-                                        />
-                                    ) : (
-                                        ""
-                                    )}
-                                    {defaultTemplate === 7 ? (
-                                        <CartTemplate7
-                                            template_data={data.template_7}
-                                            enable={enable}
-                                            animationEnable={animationEnable}
-                                            defaultTemplate={defaultTemplate}
-                                            position={position}
-                                            checkMobile={checkMobile}
-                                            checkDesktop={checkDesktop}
-                                            gsBold={gsBold}
-                                            gsFontsize={gsFontsize}
-                                            gsPriceFontsize={gsPriceFontsize}
-                                            gsItalic={gsItalic}
-                                            gsUnderline={gsUnderline}
-                                            gsFontFamily={gsFontFamily}
-                                            gsTitleColor={gsTitleColor}
-                                            gsPriceColor={gsPriceColor}
-                                            gsBgColor={gsBgColor}
-                                            gsOffsetValue={gsOffsetValue}
-                                            gsAction={gsAction}
-                                            gsDisplayCondition={
-                                                gsDisplayCondition
-                                            }
-                                            buyNowSettings={buyNowSettings}
-                                            editText={editText}
-                                            // soldOut={soldOut}
-                                            unavailable={unavailable}
-                                            btnWidthValue={btnWidthValue}
-                                            btnheightValue={btnheightValue}
-                                            btnFontsize={btnFontsize}
-                                            containerHeight={containerHeight}
-                                            btnBorderThickness={
-                                                btnBorderThickness
-                                            }
-                                            btnBorderRadius={btnBorderRadius}
-                                            btnBold={btnBold}
-                                            btnItalic={btnItalic}
-                                            btnUnderline={btnUnderline}
-                                            btnTextColor={btnTextColor}
-                                            btnBgColor={btnBgColor}
-                                            btnTexthoverColor={
-                                                btnTexthoverColor
-                                            }
-                                            btnBgHoverColor={btnBgHoverColor}
-                                            btnBorderColor={btnBorderColor}
-                                            btnBorderHoverColor={
-                                                btnBorderHoverColor
-                                            }
-                                        />
-                                    ) : (
-                                        ""
-                                    )}
-                                    {defaultTemplate === 8 ? (
-                                        <CartTemplate8
-                                            template_data={data.template_8}
-                                            enable={enable}
-                                            animationEnable={animationEnable}
-                                            defaultTemplate={defaultTemplate}
-                                            position={position}
-                                            checkMobile={checkMobile}
-                                            checkDesktop={checkDesktop}
-                                            gsBold={gsBold}
-                                            gsFontsize={gsFontsize}
-                                            gsPriceFontsize={gsPriceFontsize}
-                                            gsItalic={gsItalic}
-                                            gsUnderline={gsUnderline}
-                                            gsFontFamily={gsFontFamily}
-                                            gsTitleColor={gsTitleColor}
-                                            gsPriceColor={gsPriceColor}
-                                            gsBgColor={gsBgColor}
-                                            gsOffsetValue={gsOffsetValue}
-                                            gsAction={gsAction}
-                                            gsDisplayCondition={
-                                                gsDisplayCondition
-                                            }
-                                            buyNowSettings={buyNowSettings}
-                                            editText={editText}
-                                            // soldOut={soldOut}
-                                            unavailable={unavailable}
-                                            btnWidthValue={btnWidthValue}
-                                            btnheightValue={btnheightValue}
-                                            btnFontsize={btnFontsize}
-                                            containerHeight={containerHeight}
-                                            btnBorderThickness={
-                                                btnBorderThickness
-                                            }
-                                            btnBorderRadius={btnBorderRadius}
-                                            btnBold={btnBold}
-                                            btnItalic={btnItalic}
-                                            btnUnderline={btnUnderline}
-                                            btnTextColor={btnTextColor}
-                                            btnBgColor={btnBgColor}
-                                            btnTexthoverColor={
-                                                btnTexthoverColor
-                                            }
-                                            btnBgHoverColor={btnBgHoverColor}
-                                            btnBorderColor={btnBorderColor}
-                                            btnBorderHoverColor={
-                                                btnBorderHoverColor
-                                            }
-                                        />
-                                    ) : (
-                                        ""
-                                    )}
-                                </div>
-                                <Card>
-                                    <div className="layout__section">
-                                        <Card>
-                                            <div className="lm_add_to_sticky_top_bar_header_bottom">
-                                                <div
-                                                    className="lm_add_to_sticky_top_bar_header_out"
-                                                    // onClick={handleClick}
-                                                >
-                                                    {/* <Icon
-                                                        source={ExitMajor}
-                                                        color="base"
-                                                    />{" "} */}
-                                                    <div>
-                                                        {/* Dashboard /{" "} */}
-                                                        <strong>
-                                                            Add To Cart Sticky
-                                                        </strong>
-                                                    </div>
-                                                </div>
-                                                <Button
-                                                    loading={loading}
-                                                    onClick={handleSave}
-                                                    primary
-                                                >
-                                                    Save
-                                                </Button>
-                                                {toastMarkup}
-                                                {toastMarkup1}
-                                            </div>
-                                        </Card>
-                                        <Layout>
-                                            <Layout.Section oneThird>
-                                                <Card>
-                                                    <SideBar
-                                                        OnMenuReturn={
-                                                            handleSelectedTemplateOption
-                                                        }
-                                                        position={position}
-                                                        checkMobile={
-                                                            checkMobile
-                                                        }
-                                                        checkDesktop={
-                                                            checkDesktop
-                                                        }
-                                                        gsBold={gsBold}
-                                                        gsFontsize={gsFontsize}
-                                                        gsPriceFontsize={
-                                                            gsPriceFontsize
-                                                        }
-                                                        gsItalic={gsItalic}
-                                                        gsUnderline={
-                                                            gsUnderline
-                                                        }
-                                                        gsFontFamily={
-                                                            gsFontFamily
-                                                        }
-                                                        gsTitleColor={
-                                                            gsTitleColor
-                                                        }
-                                                        gsPriceColor={
-                                                            gsPriceColor
-                                                        }
-                                                        gsBgColor={gsBgColor}
-                                                        gsOffsetValue={
-                                                            gsOffsetValue
-                                                        }
-                                                        gsAction={gsAction}
-                                                        gsDisplayCondition={
-                                                            gsDisplayCondition
-                                                        }
-                                                        containerHeight={
-                                                            containerHeight
-                                                        }
-                                                        enable={enable}
-                                                        animationEnable={
-                                                            animationEnable
-                                                        }
-                                                        buyNowSettings={
-                                                            buyNowSettings
-                                                        }
-                                                        editText={editText}
-                                                        // soldOut={soldOut}
-                                                        unavailable={
-                                                            unavailable
-                                                        }
-                                                        btnWidthValue={
-                                                            btnWidthValue
-                                                        }
-                                                        btnheightValue={
-                                                            btnheightValue
-                                                        }
-                                                        btnFontsize={
-                                                            btnFontsize
-                                                        }
-                                                        btnBorderThickness={
-                                                            btnBorderThickness
-                                                        }
-                                                        btnBorderRadius={
-                                                            btnBorderRadius
-                                                        }
-                                                        btnBold={btnBold}
-                                                        btnItalic={btnItalic}
-                                                        btnUnderline={
-                                                            btnUnderline
-                                                        }
-                                                        btnTextColor={
-                                                            btnTextColor
-                                                        }
-                                                        btnBgColor={btnBgColor}
-                                                        btnTexthoverColor={
-                                                            btnTexthoverColor
-                                                        }
-                                                        btnBgHoverColor={
-                                                            btnBgHoverColor
-                                                        }
-                                                        btnBorderColor={
-                                                            btnBorderColor
-                                                        }
-                                                        btnBorderHoverColor={
-                                                            btnBorderHoverColor
-                                                        }
-                                                        dataCallback={
-                                                            handleTransferData
-                                                        }
-                                                    />
-                                                </Card>
-                                            </Layout.Section>
-
-                                            <Layout.Section>
-                                                <div
-                                                    style={{
-                                                        marginTop: "10px",
-                                                    }}
-                                                >
-                                                    <Card sectioned>
-                                                        <div className="template___Card">
-                                                            Choose the Add To
-                                                            Cart Sticky template
-                                                        </div>
-                                                        <div className="template_option">
-                                                            {TemplateData.map(
-                                                                (item) => (
-                                                                    <div
-                                                                        className="template_option_sticky sticky_child"
-                                                                        key={
-                                                                            item.key
-                                                                        }
-                                                                    >
-                                                                        <img
-                                                                            src={
-                                                                                item.image
-                                                                            }
-                                                                            alt="Template"
-                                                                            height="175px"
-                                                                            width="250px"
-                                                                        />
-                                                                        <div>
-                                                                            <RadioButton
-                                                                                label={
-                                                                                    item.label
-                                                                                }
-                                                                                id={
-                                                                                    item.key
-                                                                                }
-                                                                                checked={
-                                                                                    defaultTemplate ===
-                                                                                    item.key
-                                                                                }
-                                                                                name="template"
-                                                                                onChange={() => {
-                                                                                    handleChange(
-                                                                                        item.key
-                                                                                    );
-                                                                                }}
-                                                                            />
-                                                                        </div>
-                                                                    </div>
-                                                                )
-                                                            )}
-                                                        </div>
-                                                    </Card>
-                                                </div>
-                                            </Layout.Section>
-                                        </Layout>
+                                    <div
+                                        style={{
+                                            marginLeft: "1rem",
+                                            flexGrow: 1,
+                                        }}
+                                    >
+                                        <p className="fullscreen_title">
+                                            Sticky Add To Cart
+                                        </p>
                                     </div>
-                                </Card>
+                                    <ButtonGroup>
+                                        <Button onClick={() => {}}>
+                                            Discard
+                                        </Button>
+                                        <Button
+                                            variant="primary"
+                                            onClick={() => {}}
+                                        >
+                                            Save
+                                        </Button>
+                                    </ButtonGroup>
+                                </div>
+                            </FullscreenBar>
+                        </div>
+
+                        <Page fullWidth>
+                            <div className="lm_sticky_layout">
+                                {" "}
+                                <Layout>
+                                    <Layout.Section oneThird>
+                                        <SideBar />
+                                    </Layout.Section>
+
+                                    <Layout.Section>
+                                        <EmptyState
+                                            heading="Manage your inventory transfers"
+                                            action={{ content: "Add transfer" }}
+                                            secondaryAction={{
+                                                content: "Learn more",
+                                                url: "https://help.shopify.com",
+                                            }}
+                                            image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
+                                        >
+                                            <p>
+                                                Track and receive your incoming
+                                                inventory from suppliers.
+                                            </p>
+                                        </EmptyState>
+                                    </Layout.Section>
+                                </Layout>
                             </div>
                         </Page>
                     </div>
