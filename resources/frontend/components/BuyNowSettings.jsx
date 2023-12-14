@@ -10,6 +10,7 @@ import {
     Select,
     RadioButton,
     TextField,
+    Heading,
 } from "@shopify/polaris";
 import React, { useCallback, useEffect, useState } from "react";
 import {
@@ -337,9 +338,9 @@ export function BuyNowSettings(props) {
     const renderTextSettingsOptions = () => (
         <div>
             <div className="settings___title">
-                <Text variant="headingLg" as="h5">
+                <Heading variant="headingLg" as="h5">
                     Text Settings
-                </Text>
+                </Heading>
             </div>
 
             <div className="style__wrapper_div">
@@ -396,9 +397,9 @@ export function BuyNowSettings(props) {
     const renderStyleSettingsOptions = () => (
         <div>
             <div className="settings___title">
-                <Text variant="headingLg" as="h5">
+                <Heading variant="headingLg" as="h5">
                     Style Settings
-                </Text>
+                </Heading>
             </div>
 
             <div className="style__wrapper_div">
@@ -525,9 +526,9 @@ export function BuyNowSettings(props) {
     const renderBorderSettingsOptions = () => (
         <div>
             <div className="settings___title">
-                <Text variant="headingLg" as="h5">
+                <Heading variant="headingLg" as="h5">
                     Border Settings
-                </Text>
+                </Heading>
             </div>
 
             {/* Border Thickness */}

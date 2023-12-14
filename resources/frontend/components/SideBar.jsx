@@ -5,11 +5,15 @@ import { Badge, Button, Card } from "@shopify/polaris";
 import Switch from "react-switch";
 import "../css/index.css";
 
-export function SideBar() {
+export function SideBar(props) {
     const [isChecked, setChecked] = useState(false);
 
     const handleSwitchChange = (checked) => {
         setChecked(checked);
+    };
+
+    const handleCallback = (e) => {
+        props.dataCallback(e);
     };
     return (
         <div>
@@ -37,91 +41,86 @@ export function SideBar() {
                 </div>
             </Card>
             <Card sectioned>
-                <GeneralSettings />
+                <GeneralSettings
+                    callback={handleCallback}
+                    position={props.position}
+                    checkMobile={props.checkMobile}
+                    checkDesktop={props.checkDesktop}
+                    gsBold={props.gsBold}
+                    gsFontsize={props.gsFontsize}
+                    gsPriceFontsize={props.gsPriceFontsize}
+                    gsItalic={props.gsItalic}
+                    gsUnderline={props.gsUnderline}
+                    gsFontFamily={props.gsFontFamily}
+                    gsTitleColor={props.gsTitleColor}
+                    gsPriceColor={props.gsPriceColor}
+                    gsBgColor={props.gsBgColor}
+                    gsOffsetValue={props.gsOffsetValue}
+                    gsAction={props.gsAction}
+                    gsDisplayCondition={props.gsDisplayCondition}
+                    containerHeight={props.containerHeight}
+                    enable={props.enable}
+                    animationEnable={props.animationEnable}
+                    buyNowSettings={props.buyNowSettings}
+                    editText={props.editText}
+                    // soldOut={props.soldOut}
+                    unavailable={props.unavailable}
+                    btnWidthValue={props.btnWidthValue}
+                    btnheightValue={props.btnheightValue}
+                    btnFontsize={props.btnFontsize}
+                    btnBorderThickness={props.btnBorderThickness}
+                    btnBorderRadius={props.btnBorderRadius}
+                    btnBold={props.btnBold}
+                    btnItalic={props.btnItalic}
+                    btnUnderline={props.btnUnderline}
+                    btnTextColor={props.btnTextColor}
+                    btnBgColor={props.btnBgColor}
+                    btnTexthoverColor={props.btnTexthoverColor}
+                    btnBgHoverColor={props.btnBgHoverColor}
+                    btnBorderColor={props.btnBorderColor}
+                    btnBorderHoverColor={props.btnBorderHoverColor}
+                />
             </Card>
             <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
-            </Card>
-            <Card sectioned>
-                <DesignSettings />
+                <DesignSettings
+                    callback={handleCallback}
+                    position={props.position}
+                    checkMobile={props.checkMobile}
+                    checkDesktop={props.checkDesktop}
+                    gsBold={props.gsBold}
+                    gsFontsize={props.gsFontsize}
+                    gsPriceFontsize={props.gsPriceFontsize}
+                    gsItalic={props.gsItalic}
+                    gsUnderline={props.gsUnderline}
+                    gsFontFamily={props.gsFontFamily}
+                    gsTitleColor={props.gsTitleColor}
+                    gsPriceColor={props.gsPriceColor}
+                    gsBgColor={props.gsBgColor}
+                    gsOffsetValue={props.gsOffsetValue}
+                    gsAction={props.gsAction}
+                    gsDisplayCondition={props.gsDisplayCondition}
+                    containerHeight={props.containerHeight}
+                    enable={props.enable}
+                    animationEnable={props.animationEnable}
+                    buyNowSettings={props.buyNowSettings}
+                    editText={props.editText}
+                    // soldOut={props.soldOut}
+                    unavailable={props.unavailable}
+                    btnWidthValue={props.btnWidthValue}
+                    btnheightValue={props.btnheightValue}
+                    btnFontsize={props.btnFontsize}
+                    btnBorderThickness={props.btnBorderThickness}
+                    btnBorderRadius={props.btnBorderRadius}
+                    btnBold={props.btnBold}
+                    btnItalic={props.btnItalic}
+                    btnUnderline={props.btnUnderline}
+                    btnTextColor={props.btnTextColor}
+                    btnBgColor={props.btnBgColor}
+                    btnTexthoverColor={props.btnTexthoverColor}
+                    btnBgHoverColor={props.btnBgHoverColor}
+                    btnBorderColor={props.btnBorderColor}
+                    btnBorderHoverColor={props.btnBorderHoverColor}
+                />
             </Card>
         </div>
     );
