@@ -12,6 +12,21 @@
 .lm_sticky_fullscreenbar > div > button {
     display: none;
 }
+.lm_sticky_custom_badge_success span {
+    background-color: #cdfee1;
+}
+.lm_sticky_custom_badge_success span span {
+    color: #1c4131;
+}
+.lm_sticky_custom_badge_critical span {
+    background-color: #ffd6a4;
+}
+.lm_sticky_custom_badge_critical span span {
+    color: #5e4200;
+}
+.style__wrapper_div label:nth-child(2) {
+    margin-left: 30px; /* or any other styles you want to apply */
+}
 .lm_sticky_layout > div:first-child > div:nth-child(2) {
     position: sticky;
     top: 3.75rem; /* or any other value */
@@ -22,10 +37,18 @@
     padding-bottom: 5px;
 }
 .style__wrapper_div {
-    margin: 5px 15px;
+    /* margin: 5px 15px; */
+}
+.lm_sticky_position {
+    display: flex;
+    justify-content: space-between;
+}
+.lm_sticky_format_style {
+    display: flex;
+    justify-content: space-between;
 }
 .show_sticky_span {
-    margin-left: 10px;
+    font-weight: 600;
 }
 .deep_link__class > div:first-child {
     margin-bottom: 15px;
@@ -191,7 +214,6 @@
 .display_setting_subtitle {
     font-weight: 600;
 }
-
 div[id^="font-picker"] {
     width: 100% !important;
     border: 1px solid !important;
@@ -199,7 +221,6 @@ div[id^="font-picker"] {
     border-radius: 5px !important;
     margin-top: 5px !important;
     margin-bottom: 10px !important;
-    z-index: 99 !important;
 }
 
 div[id^="font-picker"] .dropdown-button {
@@ -211,8 +232,8 @@ div[id^="font-picker"] .dropdown-button:focus {
 }
 
 .style__wrapper_div {
-    margin-bottom: 15px;
-    border-bottom: 1px solid #ebebec;
+    /* margin-bottom: 15px;
+  border-bottom: 1px solid #ebebec; */
 }
 
 .color_picker_class {
@@ -269,7 +290,7 @@ div[id^="font-picker"] .dropdown-button:focus {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin-left: 10px;
+    /* margin-left: 10px; */
 }
 .buy_now__textfield {
     padding: 5px 0;
