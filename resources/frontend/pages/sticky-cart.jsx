@@ -18,7 +18,6 @@ import {
     SkeletonDisplayText,
     Loading,
     Spinner,
-    Heading,
     FullscreenBar,
 } from "@shopify/polaris";
 import "../css/index.css";

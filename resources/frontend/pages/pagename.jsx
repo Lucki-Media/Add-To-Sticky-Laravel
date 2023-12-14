@@ -1,4 +1,4 @@
-import { Card, Page, Layout, TextContainer, Heading } from "@shopify/polaris";
+import { Card, Page, Layout, TextContainer, Text } from "@shopify/polaris";
 
 export default function PageName() {
   return (
@@ -6,13 +6,13 @@ export default function PageName() {
       <Layout>
         <Layout.Section>
           <Card sectioned>
-            <Heading>Heading</Heading>
+            <Text>Heading</Text>
             <TextContainer>
               <p>Body</p>
             </TextContainer>
           </Card>
           <Card sectioned>
-            <Heading>Heading</Heading>
+            <Text>Heading</Text>
             <TextContainer>
               <p>Body</p>
             </TextContainer>
@@ -20,7 +20,7 @@ export default function PageName() {
         </Layout.Section>
         <Layout.Section secondary>
           <Card sectioned>
-            <Heading>Heading</Heading>
+            <Text>Heading</Text>
             <TextContainer>
               <p>Body</p>
             </TextContainer>
