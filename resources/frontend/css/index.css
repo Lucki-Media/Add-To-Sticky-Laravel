@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&family=Open+Sans&family=Poppins&family=Raleway&family=Roboto+Condensed&family=Roboto:wght@700&display=swap");
 
+.lm_sticky_main_app_page {
+    margin-top: 50px; 
+ padding-bottom: 100px;
+}
 .main_app_page {
     /* margin-top: 50px; */
     /* padding-bottom: 100px; */

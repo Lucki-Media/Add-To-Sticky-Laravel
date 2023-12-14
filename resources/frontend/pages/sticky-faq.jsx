@@ -6,10 +6,8 @@ import {
   Collapsible,
   Icon,
 } from "@shopify/polaris";
-// import { TitleBar } from "@shopify/app-bridge-react";
 import { SideBar } from "../components";
 import "../css/index.css";
-import { ResourcePicker } from "@shopify/app-bridge-react";
 import { useState, useCallback } from "react";
 import { ChevronRightMinor, ChevronDownMinor } from "@shopify/polaris-icons";
 import DataFAQ from "../StaticData/DataFAQ";
