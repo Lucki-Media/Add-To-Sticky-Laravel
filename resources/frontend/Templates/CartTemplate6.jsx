@@ -7,7 +7,9 @@ import style from "../css/CartTemplate6.module.css";
 export default function CartTemplate6(props) {
     const [isVibrating, setIsVibrating] = useState(false);
     const [enable, setEnable] = useState(props.enable); // FOR MAIN DISPLAY
-    const [animationEnable, setAnimationEnable] = useState(props.animationEnable); // FOR BUTTON ANIMATION
+    const [animationEnable, setAnimationEnable] = useState(
+        props.animationEnable
+    ); // FOR BUTTON ANIMATION
     const [position, setPosition] = useState(props.position);
     const [checkMobile, setCheckMobile] = useState(props.checkMobile);
     const [checkDesktop, setCheckDesktop] = useState(props.checkDesktop);
@@ -299,6 +301,7 @@ export default function CartTemplate6(props) {
                             ? "lm_sticky_show_mobile_abc12"
                             : "lm_sticky_hide_mobile_abc12"
                     }  `}
+                    style={{ position: "absolute" }}
                 >
                     <div className={style.lm_container}>
                         <div className={style.lm_cart_module}>
@@ -366,7 +369,7 @@ export default function CartTemplate6(props) {
                                             />
                                         </div>
                                     </div>
-                                    <div
+                                    {/* <div
                                         className={`lm_options ${style.lm_options}`}
                                     >
                                         <div className={style.productInputs}>
@@ -419,7 +422,7 @@ export default function CartTemplate6(props) {
                                                 })}
                                             />
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className={style.button_block}>
                                     <div
@@ -447,8 +450,8 @@ export default function CartTemplate6(props) {
                                                     ? "lm_underline"
                                                     : "no-line"
                                             }${
-                                                animationEnable === true
-                                                    && isVibrating
+                                                animationEnable === true &&
+                                                isVibrating
                                                     ? " lm_vibrating"
                                                     : ""
                                             }`}

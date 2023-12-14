@@ -1,44 +1,66 @@
 import {
+    Badge,
     Card,
     Checkbox,
     FormLayout,
+    Heading,
     RadioButton,
     RangeSlider,
     TextField,
 } from "@shopify/polaris";
 import FontPicker from "font-picker-react";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ColorPlate } from "../colorPlate";
+import Switch from "react-switch";
 
-function DesignSettings() {
-    const [gsFontFamily, setGsFontFamily] = useState();
-    const [gsBgColor, setGsBgColor] = useState();
-    const [containerHeight, setContainerHeight] = useState();
-    const [gsOffsetValue, setGsOffsetValue] = useState();
-    const [position, setPosition] = useState();
-    const [gsTitleColor, setGsTitleColor] = useState();
-    const [gsFontsize, setGsFontsize] = useState();
-    const [gsBold, setGsBold] = useState();
-    const [gsItalic, setGsItalic] = useState();
-    const [gsUnderline, setGsUnderLine] = useState();
-    const [gsPriceFontsize, setGsPriceFontsize] = useState();
-    const [gsPriceColor, setGsPriceColor] = useState();
-    const [editText, setEditText] = useState();
-    const [unavailable, setUnavailable] = useState();
-    const [btnWidthValue, setBtnWidthValue] = useState();
-    const [btnheightValue, setBtnHeightValue] = useState();
-    const [btnFontsize, setBtnFontsize] = useState();
-    const [btnBorderThickness, setBtnBorderThickness] = useState();
-    const [btnBorderRadius, setBtnBorderRadius] = useState();
-    const [btnBold, setBtnBold] = useState();
-    const [btnItalic, setBtnItalic] = useState();
-    const [btnUnderline, setBtnUnderline] = useState();
-    const [btnTextColor, setBtnTextColor] = useState();
-    const [btnBgColor, setBtnBgColor] = useState();
-    const [btnTexthoverColor, setBtnTexthoverColor] = useState();
-    const [btnBgHoverColor, setBtnBgHoverColor] = useState();
-    const [btnBorderColor, setBtnBorderColor] = useState();
-    const [btnBorderHoverColor, setBtnBorderHoverColor] = useState();
+function DesignSettings(props) {
+    const [gsFontFamily, setGsFontFamily] = useState(props.gsFontFamily);
+    const [gsBgColor, setGsBgColor] = useState(props.gsBgColor);
+    const [containerHeight, setContainerHeight] = useState(
+        props.containerHeight
+    );
+    const [gsOffsetValue, setGsOffsetValue] = useState(props.gsOffsetValue);
+    const [position, setPosition] = useState(props.position);
+    const [gsTitleColor, setGsTitleColor] = useState(props.gsTitleColor);
+    const [gsFontsize, setGsFontsize] = useState(props.gsFontsize);
+    const [gsBold, setGsBold] = useState(props.gsBold);
+    const [gsItalic, setGsItalic] = useState(props.gsItalic);
+    const [gsUnderline, setGsUnderLine] = useState(props.gsUnderline);
+    const [gsPriceFontsize, setGsPriceFontsize] = useState(
+        props.gsPriceFontsize
+    );
+    const [gsPriceColor, setGsPriceColor] = useState(props.gsPriceColor);
+    const [editText, setEditText] = useState(props.editText);
+    const [unavailable, setUnavailable] = useState(props.unavailable);
+    const [btnWidthValue, setBtnWidthValue] = useState(props.btnWidthValue);
+    const [btnheightValue, setBtnHeightValue] = useState(props.btnheightValue);
+    const [btnFontsize, setBtnFontsize] = useState(props.btnFontsize);
+    const [btnBorderThickness, setBtnBorderThickness] = useState(
+        props.btnBorderThickness
+    );
+    const [btnBorderRadius, setBtnBorderRadius] = useState(
+        props.btnBorderRadius
+    );
+    const [btnBold, setBtnBold] = useState(props.btnBold);
+    const [btnItalic, setBtnItalic] = useState(props.btnItalic);
+    const [btnUnderline, setBtnUnderline] = useState(props.btnUnderline);
+    const [btnTextColor, setBtnTextColor] = useState(props.btnTextColor);
+    const [btnBgColor, setBtnBgColor] = useState(props.btnBgColor);
+    const [btnTexthoverColor, setBtnTexthoverColor] = useState(
+        props.btnTexthoverColor
+    );
+    const [btnBgHoverColor, setBtnBgHoverColor] = useState(
+        props.btnBgHoverColor
+    );
+    const [btnBorderColor, setBtnBorderColor] = useState(props.btnBorderColor);
+    const [btnBorderHoverColor, setBtnBorderHoverColor] = useState(
+        props.btnBorderHoverColor
+    );
+    const [isChecked, setChecked] = useState(false);
+
+    const handleSwitchChange = (checked) => {
+        setChecked(checked);
+    };
 
     /*FONT FAMILY GENERAL SETTINGS*/
     const handleFontChange = (value) => {
@@ -179,10 +201,87 @@ function DesignSettings() {
     // COLOR CHANGE HANDLES END
     //BUY NOW BUTTON SETTINGS END
 
+    useEffect(() => {
+        callbackFunction();
+    }, [
+        // IT WILL SEND LATEST DATA OF ALL STATES
+        gsFontFamily,
+        gsBgColor,
+        containerHeight,
+        gsOffsetValue,
+        position,
+        gsTitleColor,
+        gsFontsize,
+        gsBold,
+        gsItalic,
+        gsUnderline,
+        gsPriceFontsize,
+        gsPriceColor,
+        editText,
+        unavailable,
+        btnWidthValue,
+        btnheightValue,
+        btnFontsize,
+        btnBorderThickness,
+        btnBorderRadius,
+        btnBold,
+        btnItalic,
+        btnUnderline,
+        btnTextColor,
+        btnBgColor,
+        btnTexthoverColor,
+        btnBgHoverColor,
+        btnBorderColor,
+        btnBorderHoverColor,
+    ]);
+
+    var transfer_data = {
+        general_settings: {
+            selectedTemplate: props.selectedTemplate,
+            checkMobile: props.checkMobile,
+            checkDesktop: props.checkDesktop,
+            gsAction: props.gsAction,
+            gsDisplayCondition: props.gsDisplayCondition,
+        },
+        design_settings: {
+            gsFontFamily: gsFontFamily,
+            gsBgColor: gsBgColor,
+            containerHeight: containerHeight,
+            gsOffsetValue: gsOffsetValue,
+            position: position,
+            gsTitleColor: gsTitleColor,
+            gsFontsize: gsFontsize,
+            gsBold: gsBold,
+            gsItalic: gsItalic,
+            gsUnderline: gsUnderline,
+            gsPriceFontsize: gsPriceFontsize,
+            gsPriceColor: gsPriceColor,
+            editText: editText,
+            unavailable: unavailable,
+            btnWidthValue: btnWidthValue,
+            btnheightValue: btnheightValue,
+            btnFontsize: btnFontsize,
+            btnBorderThickness: btnBorderThickness,
+            btnBorderRadius: btnBorderRadius,
+            btnBold: btnBold,
+            btnItalic: btnItalic,
+            btnUnderline: btnUnderline,
+            btnTextColor: btnTextColor,
+            btnBgColor: btnBgColor,
+            btnTexthoverColor: btnTexthoverColor,
+            btnBgHoverColor: btnBgHoverColor,
+            btnBorderColor: btnBorderColor,
+            btnBorderHoverColor: btnBorderHoverColor,
+        },
+    };
+    const callbackFunction = useCallback(() => {
+        props.callback(transfer_data);
+    }, [transfer_data]);
+
     return (
         <div>
             <Card.Subsection>
-                <Text>Design Settings</Text>
+                <Heading>Design Settings</Heading>
             </Card.Subsection>
             <Card.Subsection>
                 <span className="display_setting_subtitle">Font Family </span>
@@ -197,7 +296,7 @@ function DesignSettings() {
             <Card>
                 <Card.Section>
                     <Card.Subsection>
-                        <Text>Bar</Text>
+                        <Heading>Bar</Heading>
                     </Card.Subsection>
                     <Card.Subsection>
                         <FormLayout>
@@ -280,7 +379,7 @@ function DesignSettings() {
                 </Card.Section>
                 <Card.Section>
                     <Card.Subsection>
-                        <Text>Product Title</Text>
+                        <Heading>Product Title</Heading>
                     </Card.Subsection>
                     <Card.Subsection>
                         <FormLayout>
@@ -346,7 +445,7 @@ function DesignSettings() {
                 </Card.Section>
                 <Card.Section>
                     <Card.Subsection>
-                        <Text>Price</Text>
+                        <Heading>Price</Heading>
                     </Card.Subsection>
                     <Card.Subsection>
                         <FormLayout>
@@ -386,9 +485,45 @@ function DesignSettings() {
                 </Card.Section>
                 <Card.Section>
                     <Card.Subsection>
-                        <Text>Buy Now Button</Text>
+                        <Heading>Buy Now Button</Heading>
                     </Card.Subsection>
                     <Card.Subsection>
+                        <Card.Subsection>
+                            <FormLayout>
+                                <FormLayout.Group condensed>
+                                    <div>
+                                        <span className="display_setting_subtitle">
+                                            Edit Text
+                                        </span>
+                                        <div className="setting_title">
+                                            <span className="show_sticky_span">
+                                                Buy Now Button Animation is{" "}
+                                                {isChecked ? (
+                                                    <span className="lm_sticky_custom_badge_success">
+                                                        <Badge tone="success">
+                                                            Enabled
+                                                        </Badge>
+                                                    </span>
+                                                ) : (
+                                                    <span className="lm_sticky_custom_badge_critical">
+                                                        <Badge tone="critical">
+                                                            Disabled
+                                                        </Badge>
+                                                    </span>
+                                                )}
+                                                {/* <b>{enable === true ? "Enabled" : "Disabled"}</b>{" "} */}
+                                            </span>
+                                            <Switch
+                                                onChange={handleSwitchChange}
+                                                checked={isChecked}
+                                                uncheckedIcon={null}
+                                                checkedIcon={null}
+                                            />
+                                        </div>
+                                    </div>
+                                </FormLayout.Group>
+                            </FormLayout>
+                        </Card.Subsection>
                         <Card.Subsection>
                             <FormLayout>
                                 {/* First row */}

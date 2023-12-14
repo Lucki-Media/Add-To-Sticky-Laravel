@@ -1,25 +1,30 @@
-import { Card, Checkbox, Select, TextField } from "@shopify/polaris";
-import React, { useCallback, useState } from "react";
+import { Card, Checkbox, Heading, Select, TextField } from "@shopify/polaris";
+import React, { useCallback, useEffect, useState } from "react";
 import "../../css/index.css";
 
-function GeneralSettings() {
-    const [selected, setSelected] = useState("today");
-    const [checkMobile, setCheckMobile] = useState("");
-    const [checkDesktop, setCheckDesktop] = useState("");
-    const [gsAction, setGsAction] = useState();
-    const [gsDisplayCondition, setGsDisplayCondition] = useState();
+function GeneralSettings(props) {
+    const [selectedTemplate, setSelectedTemplate] = useState("1");
+    const [checkMobile, setCheckMobile] = useState(props.checkMobile);
+    const [checkDesktop, setCheckDesktop] = useState(props.checkDesktop);
+    const [gsAction, setGsAction] = useState(props.gsAction);
+    const [gsDisplayCondition, setGsDisplayCondition] = useState(
+        props.gsDisplayCondition
+    );
 
-    const handleSelectChange = useCallback((value) => setSelected(value), []);
+    const handleSelectTemplateChange = useCallback(
+        (value) => setSelectedTemplate(value),
+        []
+    );
 
     const options = [
-        { label: "Style 1", value: "style_1" },
-        { label: "Style 2", value: "style_2" },
-        { label: "Style 3", value: "style_3" },
-        { label: "Style 4", value: "style_4" },
-        { label: "Style 5", value: "style_5" },
-        { label: "Style 6", value: "style_6" },
-        { label: "Style 7", value: "style_7" },
-        { label: "Style 8", value: "style_8" },
+        { label: "Style 1", value: "1" },
+        { label: "Style 2", value: "2" },
+        { label: "Style 3", value: "3" },
+        { label: "Style 4", value: "4" },
+        { label: "Style 5", value: "5" },
+        { label: "Style 6", value: "6" },
+        { label: "Style 7", value: "7" },
+        { label: "Style 8", value: "8" },
     ];
     /*DISPLAY SETTING START GENERAL SETTINGS*/
     const handlecheckboxMobile = useCallback(
@@ -57,17 +62,71 @@ function GeneralSettings() {
         },
     ];
     /*DISPLAY SETTING START GENERAL SETTINGS*/
+
+    useEffect(() => {
+        callbackFunction();
+    }, [
+        // IT WILL SEND LATEST DATA OF ALL STATES
+        selectedTemplate,
+        checkMobile,
+        checkDesktop,
+        gsAction,
+        gsDisplayCondition,
+    ]);
+
+    var transfer_data = {
+        general_settings: {
+            selectedTemplate: selectedTemplate,
+            checkMobile: checkMobile,
+            checkDesktop: checkDesktop,
+            gsAction: gsAction,
+            gsDisplayCondition: gsDisplayCondition,
+        },
+        design_settings: {
+            gsFontFamily: props.gsFontFamily,
+            gsBgColor: props.gsBgColor,
+            containerHeight: props.containerHeight,
+            gsOffsetValue: props.gsOffsetValue,
+            position: props.position,
+            gsTitleColor: props.gsTitleColor,
+            gsFontsize: props.gsFontsize,
+            gsBold: props.gsBold,
+            gsItalic: props.gsItalic,
+            gsUnderline: props.gsUnderline,
+            gsPriceFontsize: props.gsPriceFontsize,
+            gsPriceColor: props.gsPriceColor,
+            editText: props.editText,
+            unavailable: props.unavailable,
+            btnWidthValue: props.btnWidthValue,
+            btnheightValue: props.btnheightValue,
+            btnFontsize: props.btnFontsize,
+            btnBorderThickness: props.btnBorderThickness,
+            btnBorderRadius: props.btnBorderRadius,
+            btnBold: props.btnBold,
+            btnItalic: props.btnItalic,
+            btnUnderline: props.btnUnderline,
+            btnTextColor: props.btnTextColor,
+            btnBgColor: props.btnBgColor,
+            btnTexthoverColor: props.btnTexthoverColor,
+            btnBgHoverColor: props.btnBgHoverColor,
+            btnBorderColor: props.btnBorderColor,
+            btnBorderHoverColor: props.btnBorderHoverColor,
+        },
+    };
+    const callbackFunction = useCallback(() => {
+        props.callback(transfer_data);
+    }, [transfer_data]);
     return (
         <div>
             <Card.Subsection>
-                <Text variant="h1">General Settings</Text>
+                <Heading variant="h1">General Settings</Heading>
             </Card.Subsection>
             <Card.Subsection>
                 <Select
                     label="Select Template"
                     options={options}
-                    onChange={handleSelectChange}
-                    value={selected}
+                    onChange={handleSelectTemplateChange}
+                    value={selectedTemplate}
                 />
             </Card.Subsection>
             <Card.Subsection>

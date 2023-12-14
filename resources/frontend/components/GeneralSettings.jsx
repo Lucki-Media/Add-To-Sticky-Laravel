@@ -7,7 +7,8 @@ import {
     RangeSlider,
     Select,
     RadioButton,
-    Text
+    Text,
+    Heading,
 } from "@shopify/polaris";
 import React, { useCallback, useEffect, useState } from "react";
 import {
@@ -358,9 +359,9 @@ export function GeneralSettings(props) {
     const renderDisplaySettingsOptions = () => (
         <div>
             <div className="settings___title">
-                <Text variant="headingLg" as="h5">
+                <Heading variant="headingLg" as="h5">
                     Display Settings
-                </Text>
+                </Heading>
             </div>
 
             {/* POPUP TITLE TEXT */}
@@ -383,9 +384,9 @@ export function GeneralSettings(props) {
     const renderStyleSettingsOptions = () => (
         <div>
             <div className="settings___title">
-                <Text variant="headingLg" as="h5">
+                <Heading variant="headingLg" as="h5">
                     Style Settings
-                </Text>
+                </Heading>
             </div>
             {/* font family */}
             <div className="style__wrapper_div">
@@ -512,9 +513,9 @@ export function GeneralSettings(props) {
     const renderActionSettingsOptions = () => (
         <div>
             <div className="settings___title">
-                <Text variant="headingLg" as="h5">
+                <Heading variant="headingLg" as="h5">
                     Action
-                </Text>
+                </Heading>
             </div>
 
             <div className="style__wrapper_div">
@@ -548,9 +549,9 @@ export function GeneralSettings(props) {
     const renderLayoutSettingsOptions = () => (
         <div>
             <div className="settings___title">
-                <Text variant="headingLg" as="h5">
+                <Heading variant="headingLg" as="h5">
                     Layout
-                </Text>
+                </Heading>
             </div>
 
             {/* Position */}
