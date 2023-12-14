@@ -17,18 +17,17 @@
     "src": "resources/frontend/assets/productimage.png"
   },
   "resources/js/app.css": {
-    "file": "assets/app-da483749.css",
+    "file": "assets/app-4d630253.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
     "assets": [
-      "assets/empty-state-aece716c.svg",
-      "assets/productimage-a213fa31.png"
+      "assets/empty-state-aece716c.svg"
     ],
     "css": [
-      "assets/app-da483749.css"
+      "assets/app-4d630253.css"
     ],
-    "file": "assets/app-b032c111.js",
+    "file": "assets/app-d3d5d7e7.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }
