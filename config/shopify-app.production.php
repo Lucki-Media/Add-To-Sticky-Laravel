@@ -175,7 +175,7 @@ return [
     |
     */
 
-    'api_key' => env('SHOPIFY_API_KEY', '9a766e1b57dd76f71b885f977f1d8ec5'),
+    'api_key' => env('SHOPIFY_API_KEY', '3bddfbe2e8f96dc48574f5cb2a0f1bad'),
 
     /*
     |--------------------------------------------------------------------------
@@ -186,7 +186,7 @@ return [
     |
     */
 
-    'api_secret' => env('SHOPIFY_API_SECRET', '44d01ad0641f193c6ba02a5ea1cdbace'),
+    'api_secret' => env('SHOPIFY_API_SECRET', '62e0d138f8c891f617c91eff6510a525'),
 
     /*
     |--------------------------------------------------------------------------
@@ -343,11 +343,11 @@ return [
     'webhooks' => [
         [
             'topic' => env('SHOPIFY_WEBHOOK_1_TOPIC', 'app/uninstalled'),
-            'address' => env('SHOPIFY_WEBHOOK_1_ADDRESS', 'https://lmaddtocartsticky.luckistore.in/webhook/app-uninstalled'),
+            'address' => env('SHOPIFY_WEBHOOK_1_ADDRESS', 'https://addtostickycart.luckimediadevelopment.com/webhook/app-uninstalled'),
         ],
         // [
         //     'topic' => env('SHOPIFY_WEBHOOK_2_TOPIC', 'shop/update'),
-        //     'address' => env('SHOPIFY_WEBHOOK_2_ADDRESS', 'https://lmaddtocartsticky.luckistore.in/webhook/shop-update')
+        //     'address' => env('SHOPIFY_WEBHOOK_2_ADDRESS', 'https://addtostickycart.luckimediadevelopment.com/webhook/shop-update')
         // ],
     ],
 
@@ -360,7 +360,18 @@ return [
     |
     */
 
-    'scripttags' => [],
+    'scripttags' => [
+        // [
+        //     'src' => env('SHOPIFY_SCRIPTTAG_1_SRC', 'https://lmrequestquote.luckistore.in/widgets/static/js/bundle.js'),
+        //     'event' => env('SHOPIFY_SCRIPTTAG_1_EVENT', 'onload'),
+        //     'display_scope' => env('SHOPIFY_SCRIPTTAG_1_DISPLAY_SCOPE', 'online_store')
+        // ],
+        // [
+        //     'src' => env('SHOPIFY_SCRIPTTAG_1_SRC', env('APP_URL') . '/scripttags/dummy.js'),
+        //     'event' => env('SHOPIFY_SCRIPTTAG_1_EVENT', 'onload'),
+        //     'display_scope' => env('SHOPIFY_SCRIPTTAG_1_DISPLAY_SCOPE', 'online_store')
+        // ]
+    ],
 
     /*
     |--------------------------------------------------------------------------
