@@ -5,7 +5,7 @@ import {
     Icon,
     Layout,
     TextStyle,
-    Heading,
+    Text,
     RangeSlider,
     Select,
     RadioButton,
@@ -337,9 +337,9 @@ export function BuyNowSettings(props) {
     const renderTextSettingsOptions = () => (
         <div>
             <div className="settings___title">
-                <Heading variant="headingLg" as="h5">
+                <Text variant="headingLg" as="h5">
                     Text Settings
-                </Heading>
+                </Text>
             </div>
 
             <div className="style__wrapper_div">
@@ -396,9 +396,9 @@ export function BuyNowSettings(props) {
     const renderStyleSettingsOptions = () => (
         <div>
             <div className="settings___title">
-                <Heading variant="headingLg" as="h5">
+                <Text variant="headingLg" as="h5">
                     Style Settings
-                </Heading>
+                </Text>
             </div>
 
             <div className="style__wrapper_div">
@@ -525,9 +525,9 @@ export function BuyNowSettings(props) {
     const renderBorderSettingsOptions = () => (
         <div>
             <div className="settings___title">
-                <Heading variant="headingLg" as="h5">
+                <Text variant="headingLg" as="h5">
                     Border Settings
-                </Heading>
+                </Text>
             </div>
 
             {/* Border Thickness */}

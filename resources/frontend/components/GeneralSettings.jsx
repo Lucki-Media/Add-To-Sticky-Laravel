@@ -4,10 +4,10 @@ import {
     FullscreenBar,
     Icon,
     Layout,
-    Heading,
     RangeSlider,
     Select,
     RadioButton,
+    Text
 } from "@shopify/polaris";
 import React, { useCallback, useEffect, useState } from "react";
 import {
@@ -20,7 +20,6 @@ import {
 import "../css/index.css";
 import { ColorPlate } from "./colorPlate";
 import FontPicker from "font-picker-react";
-// import { Text } from "react-bootstrap/lib/Navbar";
 export function GeneralSettings(props) {
     const [settings, setSettings] = useState("0");
     /*GENERAL SETTINGS CONSTANTS*/
@@ -359,9 +358,9 @@ export function GeneralSettings(props) {
     const renderDisplaySettingsOptions = () => (
         <div>
             <div className="settings___title">
-                <Heading variant="headingLg" as="h5">
+                <Text variant="headingLg" as="h5">
                     Display Settings
-                </Heading>
+                </Text>
             </div>
 
             {/* POPUP TITLE TEXT */}
@@ -384,9 +383,9 @@ export function GeneralSettings(props) {
     const renderStyleSettingsOptions = () => (
         <div>
             <div className="settings___title">
-                <Heading variant="headingLg" as="h5">
+                <Text variant="headingLg" as="h5">
                     Style Settings
-                </Heading>
+                </Text>
             </div>
             {/* font family */}
             <div className="style__wrapper_div">
@@ -513,9 +512,9 @@ export function GeneralSettings(props) {
     const renderActionSettingsOptions = () => (
         <div>
             <div className="settings___title">
-                <Heading variant="headingLg" as="h5">
+                <Text variant="headingLg" as="h5">
                     Action
-                </Heading>
+                </Text>
             </div>
 
             <div className="style__wrapper_div">
@@ -549,9 +548,9 @@ export function GeneralSettings(props) {
     const renderLayoutSettingsOptions = () => (
         <div>
             <div className="settings___title">
-                <Heading variant="headingLg" as="h5">
+                <Text variant="headingLg" as="h5">
                     Layout
-                </Heading>
+                </Text>
             </div>
 
             {/* Position */}
