@@ -21,7 +21,6 @@ import {
     EmptyState,
     FullscreenBar,
     ButtonGroup,
-    Box,
 } from "@shopify/polaris";
 import "../css/index.css";
 import {
@@ -49,6 +48,7 @@ import CartTemplate7 from "../Templates/CartTemplate7.jsx";
 import CartTemplate8 from "../Templates/CartTemplate8.jsx";
 import axios from "axios";
 import { SideBar } from "../components/SideBar";
+import { Box } from "@material-ui/core";
 
 export default function AddToCartSticky() {
     const shop_url = document.getElementById("shopOrigin").value;
