@@ -425,7 +425,7 @@ export default function CartTemplate2(props) {
                                         />
                                         <div className={style.lm_middlecontent}>
                                             <h5
-                                                className={`font_option apply-font ${
+                                                className={` ${
                                                     style.pro_names
                                                 } ${
                                                     gsBold === true
@@ -601,7 +601,9 @@ export default function CartTemplate2(props) {
                                                             ? "lm_underline"
                                                             : "no-line"
                                                     }${
-                                                        props.templateData.animationEnable === true && isVibrating
+                                                        props.templateData
+                                                            .animationEnable ===
+                                                            true && isVibrating
                                                             ? " lm_vibrating"
                                                             : ""
                                                     }`}

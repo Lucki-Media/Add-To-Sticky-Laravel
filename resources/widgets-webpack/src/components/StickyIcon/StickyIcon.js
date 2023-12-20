@@ -204,18 +204,18 @@ const StickyIcon = () => {
                                 height: btnSize,
                                 width: btnSize,
                                 top: positionTop === 0 ? "" : positionTop + "%",
-                                bottom:
-                                    positionBottom === 0
-                                        ? ""
-                                        : positionBottom + "%",
+                                // bottom:
+                                //     positionBottom === 0
+                                //         ? ""
+                                //         : positionBottom + "%",
                                 left:
                                     positionLeft === 0
                                         ? ""
                                         : positionLeft + "%",
-                                right:
-                                    positionRight === 0
-                                        ? ""
-                                        : positionRight + "%",
+                                // right:
+                                //     positionRight === 0
+                                //         ? ""
+                                //         : positionRight + "%",
                             }}
                             onMouseEnter={handleIconEnter}
                             onMouseLeave={handleIconLeave}
@@ -223,7 +223,7 @@ const StickyIcon = () => {
                         >
                             {enableCount === true ? (
                                 <span
-                                    className="font_option apply-font sticky_Count"
+                                    className=" sticky_Count"
                                     style={{
                                         background: countHover
                                             ? countBgHoverColor
