@@ -23,6 +23,7 @@ import {
     Badge,
     Heading,
     FormLayout,
+    Banner,
 } from "@shopify/polaris";
 import "../css/index.css";
 import { useNavigate } from "react-router-dom";
@@ -50,6 +51,7 @@ import {
     faBagShopping,
 } from "@fortawesome/free-solid-svg-icons";
 import { Box } from "@material-ui/core";
+import { isEqual } from "lodash";
 
 export default function StickyCart() {
     const [menu, setMenu] = useState("0");
@@ -62,9 +64,6 @@ export default function StickyCart() {
     const [loading, setLoading] = useState(false);
     const [showTable, setShowTable] = useState(false);
     const [countHover, setCountHover] = useState(false);
-    const navigateToSubMenu = (submenu) => {
-        setMenu(submenu);
-    };
 
     const templateOptions = [
         { label: "Shopping Cart", value: "1" },
@@ -73,13 +72,6 @@ export default function StickyCart() {
         { label: "Shopping Basket", value: "4" },
         { label: "Shopping Bag", value: "5" },
     ];
-
-    //  HANDLE NAVIGATION ON CLICK ON BACK BUTTON START
-    const handleActionClick = useCallback(() => {
-        if (menu !== "0") {
-            setMenu("0");
-        }
-    });
 
     //toast for success
     const [toastContent, setToastContent] = useState();
@@ -108,31 +100,59 @@ export default function StickyCart() {
     const toastMarkup1 = toastActive1 ? (
         <Toast content={toastContent1} error onDismiss={toggleToastActive1} />
     ) : null;
+    const [originalenableSticky, setoriginalEnableSticky] = useState(true);
     const [enableSticky, setEnableSticky] = useState(true);
+    const [originaldefaultTemplate, setoriginalDefaultTemplate] = useState("1");
     const [defaultTemplate, setDefaultTemplate] = useState("1");
+    const [originalaction, setoriginalAction] = useState("1");
     const [action, setAction] = useState("1");
+    const [originalbtnSize, setoriginalBtnSize] = useState(60);
     const [btnSize, setBtnSize] = useState(60);
+    const [originalbgColor, setoriginalBgColor] = useState("#000000");
     const [bgColor, setBgColor] = useState("#000000");
+    const [originalbgHoverColor, setoriginalBgHoverColor] = useState("#000000");
     const [bgHoverColor, setBgHoverColor] = useState("#000000");
+    const [originalborderSize, setoriginalBorderSize] = useState(1);
     const [borderSize, setBorderSize] = useState(1);
+    const [originalborderColor, setoriginalBorderColor] = useState("#000000");
     const [borderColor, setBorderColor] = useState("#000000");
+    const [originalborderHoverColor, setoriginalBorderHoverColor] =
+        useState("#000000");
     const [borderHoverColor, setBorderHoverColor] = useState("#000000");
+    const [originalpositionTop, setoriginalPositionTop] = useState(20);
     const [positionTop, setPositionTop] = useState(20);
+    const [originalpositionBottom, setoriginalPositionBottom] = useState(0);
     const [positionBottom, setPositionBottom] = useState(0);
+    const [originalpositionLeft, setoriginalPositionLeft] = useState(0);
     const [positionLeft, setPositionLeft] = useState(0);
+    const [originalpositionRight, setoriginalPositionRight] = useState(1);
     const [positionRight, setPositionRight] = useState(1);
+    const [originaliconSize, setoriginalIconSize] = useState(20);
     const [iconSize, setIconSize] = useState(20);
+    const [originaliconColor, setoriginalIconColor] = useState("#000000");
     const [iconColor, setIconColor] = useState("#000000");
+    const [originaliconHoverColor, setoriginalIconHoverColor] =
+        useState("#f08080");
     const [iconHoverColor, setIconHoverColor] = useState("#f08080");
+    const [originalenableCount, setoriginalEnableCount] = useState(false);
     const [enableCount, setEnableCount] = useState(false);
+    const [originalnumberCount, setoriginalNumberCount] = useState(1);
     const [numberCount, setNumberCount] = useState(1);
+    const [originalcountSize, setoriginalCountSize] = useState(16);
     const [countSize, setCountSize] = useState(16);
+    const [originalcountFontSize, setoriginalCountFontSize] = useState(14);
     const [countFontSize, setCountFontSize] = useState(14);
+    const [originalcountColor, setoriginalCountColor] = useState("#000000");
     const [countColor, setCountColor] = useState("#000000");
+    const [originalcountHoverColor, setoriginalCountHoverColor] =
+        useState("#000000");
     const [countHoverColor, setCountHoverColor] = useState("#000000");
+    const [originalcountBgColor, setoriginalCountBgColor] = useState("#000000");
     const [countBgColor, setCountBgColor] = useState("#000000");
+    const [originalcountBgHoverColor, setoriginalCountBgHoverColor] =
+        useState("#000000");
     const [countBgHoverColor, setCountBgHoverColor] = useState("#000000");
-
+    const [unsavedChanges, setUnsavedChanges] = useState(true);
     const handleClick = (data) => {
         navigate("/");
     };
@@ -141,29 +161,63 @@ export default function StickyCart() {
             const response = await fetch("api/getStickyCartData/" + shop_url);
             const data = await response.json();
             setStickyCartData(data.data);
+            setoriginalEnableSticky(data.data.enableSticky);
             setEnableSticky(data.data.enableSticky);
+            setoriginalDefaultTemplate(data.data.defaultTemplate.toString());
             setDefaultTemplate(data.data.defaultTemplate.toString());
+            setoriginalAction(data.data.current_template.action);
             setAction(data.data.current_template.action);
+            setoriginalBtnSize(data.data.current_template.btnSize);
             setBtnSize(data.data.current_template.btnSize);
+            setoriginalBgColor(data.data.current_template.bgColor);
             setBgColor(data.data.current_template.bgColor);
+            setoriginalBgHoverColor(data.data.current_template.bgHoverColor);
             setBgHoverColor(data.data.current_template.bgHoverColor);
+            setoriginalBorderSize(data.data.current_template.borderSize);
             setBorderSize(data.data.current_template.borderSize);
+            setoriginalBorderColor(data.data.current_template.borderColor);
             setBorderColor(data.data.current_template.borderColor);
+            setoriginalBorderHoverColor(
+                data.data.current_template.borderHoverColor
+            );
             setBorderHoverColor(data.data.current_template.borderHoverColor);
+            setoriginalPositionTop(data.data.current_template.positionTop);
             setPositionTop(data.data.current_template.positionTop);
+            setoriginalPositionBottom(
+                data.data.current_template.positionBottom
+            );
             setPositionBottom(data.data.current_template.positionBottom);
+            setoriginalPositionLeft(data.data.current_template.positionLeft);
             setPositionLeft(data.data.current_template.positionLeft);
+            setoriginalPositionRight(data.data.current_template.positionRight);
             setPositionRight(data.data.current_template.positionRight);
+            setoriginalIconSize(data.data.current_template.iconSize);
             setIconSize(data.data.current_template.iconSize);
+            setoriginalIconColor(data.data.current_template.iconColor);
             setIconColor(data.data.current_template.iconColor);
+            setoriginalIconHoverColor(
+                data.data.current_template.iconHoverColor
+            );
             setIconHoverColor(data.data.current_template.iconHoverColor);
+            setoriginalEnableCount(data.data.current_template.enableCount);
             setEnableCount(data.data.current_template.enableCount);
+            setoriginalNumberCount(data.data.current_template.numberCount);
             setNumberCount(data.data.current_template.numberCount);
+            setoriginalCountSize(data.data.current_template.countSize);
             setCountSize(data.data.current_template.countSize);
+            setoriginalCountFontSize(data.data.current_template.countFontSize);
             setCountFontSize(data.data.current_template.countFontSize);
+            setoriginalCountColor(data.data.current_template.countColor);
             setCountColor(data.data.current_template.countColor);
+            setoriginalCountHoverColor(
+                data.data.current_template.countHoverColor
+            );
             setCountHoverColor(data.data.current_template.countHoverColor);
+            setoriginalCountBgColor(data.data.current_template.countBgColor);
             setCountBgColor(data.data.current_template.countBgColor);
+            setoriginalCountBgHoverColor(
+                data.data.current_template.countBgHoverColor
+            );
             setCountBgHoverColor(data.data.current_template.countBgHoverColor);
             setShowTable(true);
             setSaveLoader(true);
@@ -205,6 +259,7 @@ export default function StickyCart() {
     //ICON SELECT
     const handleChange = useCallback(
         (value) => {
+            setUnsavedChanges(isEqual(value, originaldefaultTemplate));
             var currentData;
             switch (value) {
                 case "1":
@@ -252,7 +307,7 @@ export default function StickyCart() {
             setCountBgColor(currentData.countBgColor);
             setCountBgHoverColor(currentData.countBgHoverColor);
         },
-        [stickyCartData]
+        [stickyCartData, originaldefaultTemplate]
     );
 
     let handleSave = async () => {
@@ -308,7 +363,12 @@ export default function StickyCart() {
 
     //GENERAL SETTING START
     // ACTION
-    const handleSelectChange = useCallback((value) => setAction(value), []);
+    const handleSelectChange = useCallback(
+        (value) => {
+            setAction(value), setUnsavedChanges(isEqual(value, originalaction));
+        },
+        [originalaction]
+    );
     const options = [
         { label: "Go to Cart", value: "1" },
         { label: "Go to Checkout", value: "2" },
@@ -316,19 +376,25 @@ export default function StickyCart() {
 
     //SIZE
     const handleRangeSliderChange = useCallback(
-        (value) => setBtnSize(value),
-        []
+        (value) => {
+            setBtnSize(value),
+                setUnsavedChanges(isEqual(value, originalbtnSize));
+        },
+
+        [originalbtnSize]
     );
 
     // BG COLOR
     const handleBGColor = (event) => {
         setBgColor(event.target.value);
+        setUnsavedChanges(isEqual(event.target.value, originalbgColor));
     };
     // = useCallback((value) => setBgColor(value), []);
 
     // BG HOVER COLOR
     const handleBGHoverColor = (event) => {
         setBgHoverColor(event.target.value);
+        setUnsavedChanges(isEqual(event.target.value, originalbgHoverColor));
     };
     // = useCallback(
     //     (value) => setBgHoverColor(value),
@@ -337,19 +403,26 @@ export default function StickyCart() {
 
     // BORDER SIZE
     const handleBorderSliderChange = useCallback(
-        (value) => setBorderSize(value),
-        []
+        (value) => {
+            setBorderSize(value),
+                setUnsavedChanges(isEqual(value, originalborderSize));
+        },
+        [originalborderSize]
     );
 
     // BORDER COLOR
     const handleBorderColor = (event) => {
         setBorderColor(event.target.value);
+        setUnsavedChanges(isEqual(event.target.value, originalborderColor));
     };
     // = useCallback((value) => setBorderColor(value), []);
 
     // BORDER HOVER COLOR
     const handleBorderHoverColor = (event) => {
         setBorderHoverColor(event.target.value);
+        setUnsavedChanges(
+            isEqual(event.target.value, originalborderHoverColor)
+        );
     };
     // = useCallback(
     //     (value) => setBorderHoverColor(value),
@@ -360,23 +433,44 @@ export default function StickyCart() {
 
     //POSITION START
     //TOP
-    const handleEditTopField = (value) => {
-        setPositionTop(value);
-    };
+    const handleEditTopField = useCallback(
+        (value) => {
+            setPositionTop(value),
+                setUnsavedChanges(isEqual(value, originalpositionTop));
+        },
+
+        [originalpositionTop]
+    );
+    // (value) => {
+    //     setPositionTop(value);
+    //     setUnsavedChanges(isEqual(!value, originalpositionTop));
+    // };
     //LEFT
     const handleEditLeftField = useCallback(
-        (value) => setPositionLeft(value),
-        []
+        (value) => {
+            setPositionLeft(value),
+                setUnsavedChanges(isEqual(value, originalpositionLeft));
+        },
+
+        [originalpositionLeft]
     );
     //BOTTOM
     const handleEditBottomField = useCallback(
-        (value) => setPositionBottom(value),
-        []
+        (value) => {
+            setPositionBottom(value),
+                setUnsavedChanges(isEqual(value, originalpositionBottom));
+        },
+
+        [originalpositionBottom]
     );
     //RIGHT
     const handleEditRightField = useCallback(
-        (value) => setPositionRight(value),
-        []
+        (value) => {
+            setPositionRight(value),
+                setUnsavedChanges(isEqual(value, originalpositionRight));
+        },
+
+        [originalpositionRight]
     );
     //POSITION END
 
@@ -391,19 +485,25 @@ export default function StickyCart() {
     };
     //ICON SIZE
     const handleIconSliderChange = useCallback(
-        (value) => setIconSize(value),
-        []
+        (value) => {
+            setIconSize(value),
+                setUnsavedChanges(isEqual(value, originaliconSize));
+        },
+
+        [originaliconSize]
     );
 
     // ICON COLOR
     const handleIconColor = (event) => {
         setIconColor(event.target.value);
+        setUnsavedChanges(isEqual(event.target.value, originaliconColor));
     };
     // = useCallback((value) => setIconColor(value), []);
 
     // ICON HOVER COLOR
     const handleIconHoverColor = (event) => {
         setIconHoverColor(event.target.value);
+        setUnsavedChanges(isEqual(event.target.value, originaliconHoverColor));
     };
     // = useCallback(
     //     (value) => setIconHoverColor(value),
@@ -416,28 +516,39 @@ export default function StickyCart() {
     //ENABLE
     const handlecheckbox = (value) => {
         setEnableCount(!value);
+        setUnsavedChanges(isEqual(!value, originalenableCount));
     };
 
     // COUNT SIZE
     const handleCountSliderChange = useCallback(
-        (value) => setCountSize(value),
-        []
+        (value) => {
+            setCountSize(value),
+                setUnsavedChanges(isEqual(value, originalcountSize));
+        },
+
+        [originalcountSize]
     );
     // COUNT FONT
     const handleCountFontSliderChange = useCallback(
-        (value) => setCountFontSize(value),
-        []
+        (value) => {
+            setCountFontSize(value),
+                setUnsavedChanges(isEqual(value, originalcountFontSize));
+        },
+
+        [originalcountFontSize]
     );
 
     // COUNT COLOR
     const handleCountColor = (event) => {
         setCountColor(event.target.value);
+        setUnsavedChanges(isEqual(event.target.value, originalcountColor));
     };
     // = useCallback((value) => setCountColor(value), []);
 
     // COUNT HOVER COLOR
     const handleCountHoverColor = (event) => {
         setCountHoverColor(event.target.value);
+        setUnsavedChanges(isEqual(event.target.value, originalcountHoverColor));
     };
     // = useCallback(
     //     (value) => setCountHoverColor(value),
@@ -447,6 +558,7 @@ export default function StickyCart() {
     // COUNT BG  COLOR
     const handleBGCountColor = (event) => {
         setCountBgColor(event.target.value);
+        setUnsavedChanges(isEqual(event.target.value, originalcountBgColor));
     };
     // = useCallback(
     //     (value) => setCountBgColor(value),
@@ -456,6 +568,9 @@ export default function StickyCart() {
     // COUNT BG HOVER COLOR
     const handleBGCountHoverColor = (event) => {
         setCountBgHoverColor(event.target.value);
+        setUnsavedChanges(
+            isEqual(event.target.value, originalcountBgHoverColor)
+        );
     };
     // = useCallback(
     //     (value) => setCountBgHoverColor(value),
@@ -475,10 +590,8 @@ export default function StickyCart() {
     // ENABLE BUTTON START
     const handleEnable = (value) => {
         setEnableSticky(!value);
+        setUnsavedChanges(isEqual(!value, originalenableSticky));
     };
-    // console.log("defaultTemplate");
-    // console.log(typeof defaultTemplate);
-    // console.log(defaultTemplate);
     if (showTable === false) {
         return (
             <div>
@@ -562,6 +675,25 @@ export default function StickyCart() {
                                     </ButtonGroup>
                                 </div>
                             </FullscreenBar>
+                        </div>
+                        <div
+                            style={{
+                                visibility: unsavedChanges
+                                    ? "hidden"
+                                    : "visible",
+                                opacity: unsavedChanges ? 0 : 1,
+                                height: unsavedChanges ? 0 : 64,
+                                transition: "all 1s ease-in-out",
+                                position: "sticky",
+                                top: "4.25rem",
+                                zIndex: "99",
+                            }}
+                        >
+                            <Banner
+                                title="Remember to save your changes!!"
+                                tone="warning"
+                                status="warning"
+                            />
                         </div>
                         <Page fullWidth>
                             <div className="lm_sticky_layout">
@@ -821,7 +953,9 @@ export default function StickyCart() {
                                                                             positionTop
                                                                         }
                                                                         min={0}
-                                                                        max={50}
+                                                                        max={
+                                                                            100
+                                                                        }
                                                                         onChange={
                                                                             handleEditTopField
                                                                         }
@@ -840,7 +974,9 @@ export default function StickyCart() {
                                                                             positionLeft
                                                                         }
                                                                         min={0}
-                                                                        max={50}
+                                                                        max={
+                                                                            100
+                                                                        }
                                                                         onChange={
                                                                             handleEditLeftField
                                                                         }
@@ -849,7 +985,7 @@ export default function StickyCart() {
                                                                 </div>
                                                             </div>
                                                         </FormLayout.Group>
-                                                        <FormLayout.Group
+                                                        {/* <FormLayout.Group
                                                             condensed
                                                         >
                                                             <div>
@@ -890,7 +1026,7 @@ export default function StickyCart() {
                                                                     />
                                                                 </div>
                                                             </div>
-                                                        </FormLayout.Group>
+                                                        </FormLayout.Group> */}
                                                     </FormLayout>
                                                 </Card.Subsection>
                                             </div>
@@ -1206,7 +1342,7 @@ export default function StickyCart() {
                                                         alt=""
                                                         width="100%"
                                                         height="auto"
-                                                        src="data:image/jpeg;base64,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"
+                                                        src={`images/ProductDetail.png`}
                                                     />
                                                 </Box>
                                                 <div>
@@ -1241,24 +1377,24 @@ export default function StickyCart() {
                                                                             ? ""
                                                                             : positionTop +
                                                                               "%",
-                                                                    bottom:
-                                                                        positionBottom ===
-                                                                        0
-                                                                            ? ""
-                                                                            : positionBottom +
-                                                                              "%",
+                                                                    // bottom:
+                                                                    //     positionBottom ===
+                                                                    //     0
+                                                                    //         ? ""
+                                                                    //         : positionBottom +
+                                                                    //           "%",
                                                                     left:
                                                                         positionLeft ===
                                                                         0
                                                                             ? ""
                                                                             : positionLeft +
                                                                               "%",
-                                                                    right:
-                                                                        positionRight ===
-                                                                        0
-                                                                            ? ""
-                                                                            : positionRight +
-                                                                              "%",
+                                                                    // right:
+                                                                    //     positionRight ===
+                                                                    //     0
+                                                                    //         ? ""
+                                                                    //         : positionRight +
+                                                                    //           "%",
                                                                 }}
                                                                 onMouseEnter={
                                                                     handleIconEnter

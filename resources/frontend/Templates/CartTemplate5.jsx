@@ -308,9 +308,9 @@ export default function CartTemplate5(props) {
                             <div className={style.lm_pro_image}>
                                 <div className={style.lm_middlecontent}>
                                     <h5
-                                        className={`font_option apply-font ${
-                                            style.pro_names
-                                        } ${gsBold === true ? "lm_bold" : ""} ${
+                                        className={` ${style.pro_names} ${
+                                            gsBold === true ? "lm_bold" : ""
+                                        } ${
                                             gsItalic === true ? "lm_italic" : ""
                                         } ${
                                             gsUnderline === true

@@ -10,7 +10,6 @@ import {
 } from "@shopify/polaris";
 import FontPicker from "font-picker-react";
 import React, { useCallback, useEffect, useState } from "react";
-import { ColorPlate } from "../colorPlate";
 import Switch from "react-switch";
 import "../../css/index.css";
 
@@ -341,21 +340,255 @@ function DesignSettings(props) {
 
     return (
         <div>
-            <Card.Subsection>
-                <Heading>Design Settings</Heading>
-            </Card.Subsection>
-            <Card.Subsection>
-                <span className="display_setting_subtitle">Font Family </span>
-                <div className="font_picker_popup">
-                    <FontPicker
-                        apiKey="AIzaSyBRCzvluQdkcyQkKHPjLwltLe2HrkUd5Bs"
-                        activeFontFamily={gsFontFamily}
-                        onChange={handleFontChange}
-                    />
-                </div>
-            </Card.Subsection>
+            <Card sectioned>
+                {" "}
+                <Card.Subsection>
+                    <Heading>Design Settings</Heading>
+                </Card.Subsection>
+                {/* <Card.Subsection>
+                    <span className="display_setting_subtitle">
+                        Font Family{" "}
+                    </span>
+                    <div className="font_picker_popup">
+                        <FontPicker
+                            apiKey="AIzaSyBRCzvluQdkcyQkKHPjLwltLe2HrkUd5Bs"
+                            activeFontFamily={gsFontFamily}
+                            onChange={handleFontChange}
+                        />
+                    </div>
+                </Card.Subsection> */}
+                <Card.Subsection>
+                    <Heading>Bar</Heading>
+                </Card.Subsection>
+                <Card.Subsection>
+                    <FormLayout>
+                        {/* First row */}
+                        <FormLayout.Group condensed>
+                            <div>
+                                <span className="display_setting_subtitle">
+                                    Background Color
+                                </span>
+                                <div className="lm_sticky_color_box">
+                                    <input
+                                        type="color"
+                                        value={gsBgColor}
+                                        onChange={handleBGColor}
+                                    />
+                                    {/* <ColorPlate
+                                            defaultColor={gsBgColor}
+                                            onChildResult={handleBGColor}
+                                        /> */}
+                                </div>
+                            </div>
+                            <div>
+                                <span className="display_setting_subtitle">
+                                    Position
+                                </span>
+                                <div className="lm_sticky_position">
+                                    <RadioButton
+                                        label={"Top"}
+                                        id={"Top"}
+                                        checked={position === "Top"}
+                                        name="position"
+                                        onChange={() => {
+                                            handlePositionChange("Top");
+                                        }}
+                                    />
+                                    <br />
+                                    <RadioButton
+                                        label={"Bottom"}
+                                        id={"Bottom"}
+                                        checked={position === "Bottom"}
+                                        name="position"
+                                        onChange={() => {
+                                            handlePositionChange("Bottom");
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </FormLayout.Group>
+
+                        {/* Second row */}
+                        <FormLayout.Group condensed>
+                            <div>
+                                <span className="display_setting_subtitle">
+                                    Offset
+                                </span>
+                                <div className="font_picker_popup">
+                                    <RangeSlider
+                                        label={`${gsOffsetValue} px`}
+                                        value={gsOffsetValue}
+                                        min={0}
+                                        max={250}
+                                        onChange={handleOffsetSliderChange}
+                                        output
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <span className="display_setting_subtitle">
+                                    Height
+                                </span>
+                                <div className="font_picker_popup">
+                                    <RangeSlider
+                                        label={`${containerHeight} px`}
+                                        value={containerHeight}
+                                        min={50}
+                                        max={150}
+                                        onChange={handleHeightSliderChange}
+                                        output
+                                    />
+                                </div>
+                            </div>
+                        </FormLayout.Group>
+                    </FormLayout>
+                </Card.Subsection>
+                <Card.Subsection>
+                    <Heading>Product Title</Heading>
+                </Card.Subsection>
+                <Card.Subsection>
+                    <FormLayout>
+                        {/* First row */}
+                        <FormLayout.Group condensed>
+                            <div>
+                                <span className="display_setting_subtitle">
+                                    Color
+                                </span>
+                                <div className="lm_sticky_color_box">
+                                    <input
+                                        type="color"
+                                        value={gsTitleColor}
+                                        onChange={handleTitleColor}
+                                    />
+                                    {/* <ColorPlate
+                                            defaultColor={gsTitleColor}
+                                            onChildResult={handleTitleColor}
+                                        /> */}
+                                </div>
+                            </div>
+                            <div>
+                                <span className="display_setting_subtitle">
+                                    Font-size
+                                </span>
+                                <div className="font_picker_popup">
+                                    <RangeSlider
+                                        label={`${gsFontsize} px`}
+                                        value={gsFontsize}
+                                        min={8}
+                                        max={40}
+                                        onChange={handleRangeSliderChange}
+                                        output
+                                    />
+                                </div>
+                            </div>
+                        </FormLayout.Group>
+
+                        {/* Second row */}
+                        <FormLayout.Group condensed>
+                            <div>
+                                <span className="display_setting_subtitle">
+                                    Style
+                                </span>
+                                <div className="lm_sticky_format_style">
+                                    <Checkbox
+                                        label="Bold"
+                                        checked={gsBold}
+                                        onChange={handleBold}
+                                    />
+                                    <br />
+                                    <Checkbox
+                                        label="Italic"
+                                        checked={gsItalic}
+                                        onChange={handleItalic}
+                                    />
+                                    <br />
+                                    <Checkbox
+                                        label="Underline"
+                                        checked={gsUnderline}
+                                        onChange={handleUnderline}
+                                    />
+                                </div>
+                            </div>
+                        </FormLayout.Group>
+                    </FormLayout>
+                </Card.Subsection>
+                <Card.Subsection>
+                    <Heading>Price</Heading>
+                </Card.Subsection>
+                <Card.Subsection>
+                    <FormLayout>
+                        {/* First row */}
+                        <FormLayout.Group condensed>
+                            <div>
+                                <span className="display_setting_subtitle">
+                                    Color
+                                </span>
+                                <div className="lm_sticky_color_box">
+                                    <input
+                                        type="color"
+                                        value={gsPriceColor}
+                                        onChange={handlePriceColor}
+                                    />
+                                    {/* <ColorPlate
+                                            defaultColor={gsPriceColor}
+                                            onChildResult={handlePriceColor}
+                                        /> */}
+                                </div>
+                            </div>
+                            <div>
+                                <span className="display_setting_subtitle">
+                                    Font-size
+                                </span>
+                                <div className="font_picker_popup">
+                                    <RangeSlider
+                                        label={`${gsPriceFontsize} px`}
+                                        value={gsPriceFontsize}
+                                        min={8}
+                                        max={40}
+                                        onChange={handlePriceRangeSliderChange}
+                                        output
+                                    />
+                                </div>
+                            </div>
+                        </FormLayout.Group>
+                    </FormLayout>
+                </Card.Subsection>
+                <Card.Subsection>
+                    <Heading>Buy Now Button</Heading>
+                </Card.Subsection>
+                <Card.Subsection>
                     <Card.Subsection>
-                        <Heading>Bar</Heading>
+                        <FormLayout>
+                            <FormLayout.Group condensed>
+                                <div>
+                                    <div className="setting_title">
+                                        <span className="show_sticky_span">
+                                            Buy Now Button Animation is{" "}
+                                            {animationEnable ? (
+                                                <span className="lm_sticky_custom_badge_success">
+                                                    <Badge tone="success">
+                                                        Enabled
+                                                    </Badge>
+                                                </span>
+                                            ) : (
+                                                <span className="lm_sticky_custom_badge_critical">
+                                                    <Badge tone="critical">
+                                                        Disabled
+                                                    </Badge>
+                                                </span>
+                                            )}
+                                            {/* <b>{enable === true ? "Enabled" : "Disabled"}</b>{" "} */}
+                                        </span>
+                                        <Switch
+                                            onChange={handleSwitchChange}
+                                            checked={animationEnable}
+                                            uncheckedIcon={null}
+                                            checkedIcon={null}
+                                        />
+                                    </div>
+                                </div>
+                            </FormLayout.Group>
+                        </FormLayout>
                     </Card.Subsection>
                     <Card.Subsection>
                         <FormLayout>
@@ -363,61 +596,156 @@ function DesignSettings(props) {
                             <FormLayout.Group condensed>
                                 <div>
                                     <span className="display_setting_subtitle">
+                                        Edit Text
+                                    </span>
+                                    <div className="buy_now__textfield">
+                                        <TextField
+                                            value={editText}
+                                            onChange={handleEditTextField}
+                                            autoComplete="off"
+                                            maxLength={15}
+                                            placeholder="Example: BUY NOW"
+                                            showCharacterCount
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <span className="display_setting_subtitle">
+                                        Unavailable
+                                    </span>
+                                    <div className="buy_now__textfield">
+                                        <TextField
+                                            value={unavailable}
+                                            onChange={
+                                                handleUnavailableTextField
+                                            }
+                                            autoComplete="off"
+                                            maxLength={15}
+                                            placeholder="Example: Unavailable"
+                                            showCharacterCount
+                                        />
+                                    </div>
+                                </div>
+                            </FormLayout.Group>
+                        </FormLayout>
+                    </Card.Subsection>
+                    <Card.Subsection>
+                        <FormLayout>
+                            {/* Third row */}
+                            <FormLayout.Group condensed>
+                                <div>
+                                    <span className="display_setting_subtitle">
+                                        Style
+                                    </span>
+                                    <div className="lm_sticky_format_style">
+                                        <Checkbox
+                                            label="Bold"
+                                            checked={btnBold}
+                                            onChange={handleBoldButton}
+                                        />
+                                        <br />
+                                        <Checkbox
+                                            label="Italic"
+                                            checked={btnItalic}
+                                            onChange={handleItalicButton}
+                                        />
+                                        <br />
+                                        <Checkbox
+                                            label="Underline"
+                                            checked={btnUnderline}
+                                            onChange={handleUnderlineButton}
+                                        />
+                                    </div>
+                                </div>
+                            </FormLayout.Group>
+                            {/* Fourth row */}
+                            <FormLayout.Group condensed>
+                                <div>
+                                    <span className="display_setting_subtitle">
+                                        Text Color
+                                    </span>
+                                    <div className="lm_sticky_color_box">
+                                        <input
+                                            type="color"
+                                            value={btnTextColor}
+                                            onChange={handlebtnTextColor}
+                                        />
+                                        {/* <ColorPlate
+                                                defaultColor={btnTextColor}
+                                                onChildResult={
+                                                    handlebtnTextColor
+                                                }
+                                            /> */}
+                                    </div>
+                                </div>
+                                <div>
+                                    <span className="display_setting_subtitle">
                                         Background Color
                                     </span>
                                     <div className="lm_sticky_color_box">
                                         <input
                                             type="color"
-                                            value={gsBgColor}
-                                            onChange={handleBGColor}
+                                            value={btnBgColor}
+                                            onChange={handlebtnBGColor}
                                         />
                                         {/* <ColorPlate
-                                            defaultColor={gsBgColor}
-                                            onChildResult={handleBGColor}
-                                        /> */}
-                                    </div>
-                                </div>
-                                <div>
-                                    <span className="display_setting_subtitle">
-                                        Position
-                                    </span>
-                                    <div className="lm_sticky_position">
-                                        <RadioButton
-                                            label={"Top"}
-                                            id={"Top"}
-                                            checked={position === "Top"}
-                                            name="position"
-                                            onChange={() => {
-                                                handlePositionChange("Top");
-                                            }}
-                                        />
-                                        <br />
-                                        <RadioButton
-                                            label={"Bottom"}
-                                            id={"Bottom"}
-                                            checked={position === "Bottom"}
-                                            name="position"
-                                            onChange={() => {
-                                                handlePositionChange("Bottom");
-                                            }}
-                                        />
+                                                defaultColor={btnBgColor}
+                                                onChildResult={handlebtnBGColor}
+                                            /> */}
                                     </div>
                                 </div>
                             </FormLayout.Group>
-
-                            {/* Second row */}
+                            {/* Fifth row */}
                             <FormLayout.Group condensed>
                                 <div>
                                     <span className="display_setting_subtitle">
-                                        Offset
+                                        Text Hover Color
+                                    </span>
+                                    <div className="lm_sticky_color_box">
+                                        <input
+                                            type="color"
+                                            value={btnTexthoverColor}
+                                            onChange={handletexthoverColor}
+                                        />
+                                        {/* <ColorPlate
+                                                defaultColor={btnTexthoverColor}
+                                                onChildResult={
+                                                    handletexthoverColor
+                                                }
+                                            /> */}
+                                    </div>
+                                </div>
+                                <div>
+                                    <span className="display_setting_subtitle">
+                                        Background Hover Color
+                                    </span>
+                                    <div className="lm_sticky_color_box">
+                                        <input
+                                            type="color"
+                                            value={btnBgHoverColor}
+                                            onChange={handlebgHoverColor}
+                                        />
+                                        {/* <ColorPlate
+                                                defaultColor={btnBgHoverColor}
+                                                onChildResult={
+                                                    handlebgHoverColor
+                                                }
+                                            /> */}
+                                    </div>
+                                </div>
+                            </FormLayout.Group>
+                            <FormLayout.Group condensed>
+                                <div>
+                                    <span className="display_setting_subtitle">
+                                        Width
                                     </span>
                                     <div className="font_picker_popup">
                                         <RangeSlider
-                                            label={`${gsOffsetValue} px`}
-                                            value={gsOffsetValue}
+                                            label={`${btnWidthValue} px`}
+                                            value={btnWidthValue}
                                             min={0}
                                             max={250}
-                                            onChange={handleOffsetSliderChange}
+                                            onChange={handleWidthSliderChange}
                                             output
                                         />
                                     </div>
@@ -428,122 +756,29 @@ function DesignSettings(props) {
                                     </span>
                                     <div className="font_picker_popup">
                                         <RangeSlider
-                                            label={`${containerHeight} px`}
-                                            value={containerHeight}
-                                            min={50}
-                                            max={150}
-                                            onChange={handleHeightSliderChange}
-                                            output
-                                        />
-                                    </div>
-                                </div>
-                            </FormLayout.Group>
-                        </FormLayout>
-                    </Card.Subsection>
-                    <Card.Subsection>
-                        <Heading>Product Title</Heading>
-                    </Card.Subsection>
-                    <Card.Subsection>
-                        <FormLayout>
-                            {/* First row */}
-                            <FormLayout.Group condensed>
-                                <div>
-                                    <span className="display_setting_subtitle">
-                                        Color
-                                    </span>
-                                    <div className="lm_sticky_color_box">
-                                        <input
-                                            type="color"
-                                            value={gsTitleColor}
-                                            onChange={handleTitleColor}
-                                        />
-                                        {/* <ColorPlate
-                                            defaultColor={gsTitleColor}
-                                            onChildResult={handleTitleColor}
-                                        /> */}
-                                    </div>
-                                </div>
-                                <div>
-                                    <span className="display_setting_subtitle">
-                                        Font-size
-                                    </span>
-                                    <div className="font_picker_popup">
-                                        <RangeSlider
-                                            label={`${gsFontsize} px`}
-                                            value={gsFontsize}
-                                            min={8}
-                                            max={40}
-                                            onChange={handleRangeSliderChange}
-                                            output
-                                        />
-                                    </div>
-                                </div>
-                            </FormLayout.Group>
-
-                            {/* Second row */}
-                            <FormLayout.Group condensed>
-                                <div>
-                                    <span className="display_setting_subtitle">
-                                        Style
-                                    </span>
-                                    <div className="lm_sticky_format_style">
-                                        <Checkbox
-                                            label="Bold"
-                                            checked={gsBold}
-                                            onChange={handleBold}
-                                        />
-                                        <br />
-                                        <Checkbox
-                                            label="Italic"
-                                            checked={gsItalic}
-                                            onChange={handleItalic}
-                                        />
-                                        <br />
-                                        <Checkbox
-                                            label="Underline"
-                                            checked={gsUnderline}
-                                            onChange={handleUnderline}
-                                        />
-                                    </div>
-                                </div>
-                            </FormLayout.Group>
-                        </FormLayout>
-                    </Card.Subsection>
-                    <Card.Subsection>
-                        <Heading>Price</Heading>
-                    </Card.Subsection>
-                    <Card.Subsection>
-                        <FormLayout>
-                            {/* First row */}
-                            <FormLayout.Group condensed>
-                                <div>
-                                    <span className="display_setting_subtitle">
-                                        Color
-                                    </span>
-                                    <div className="lm_sticky_color_box">
-                                        <input
-                                            type="color"
-                                            value={gsPriceColor}
-                                            onChange={handlePriceColor}
-                                        />
-                                        {/* <ColorPlate
-                                            defaultColor={gsPriceColor}
-                                            onChildResult={handlePriceColor}
-                                        /> */}
-                                    </div>
-                                </div>
-                                <div>
-                                    <span className="display_setting_subtitle">
-                                        Font-size
-                                    </span>
-                                    <div className="font_picker_popup">
-                                        <RangeSlider
-                                            label={`${gsPriceFontsize} px`}
-                                            value={gsPriceFontsize}
-                                            min={8}
-                                            max={40}
+                                            label={`${btnheightValue} px`}
+                                            value={btnheightValue}
+                                            min={0}
+                                            max={250}
                                             onChange={
-                                                handlePriceRangeSliderChange
+                                                handleBuyButtonHeightSliderChange
+                                            }
+                                            output
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <span className="display_setting_subtitle">
+                                        Font-size
+                                    </span>
+                                    <div className="font_picker_popup">
+                                        <RangeSlider
+                                            label={`${btnFontsize} px`}
+                                            value={btnFontsize}
+                                            min={8}
+                                            max={50}
+                                            onChange={
+                                                handleFontSizeSliderChange
                                             }
                                             output
                                         />
@@ -553,274 +788,38 @@ function DesignSettings(props) {
                         </FormLayout>
                     </Card.Subsection>
                     <Card.Subsection>
-                        <Heading>Buy Now Button</Heading>
-                    </Card.Subsection>
-                    <Card.Subsection>
-                        <Card.Subsection>
-                            <FormLayout>
-                                <FormLayout.Group condensed>
-                                    <div>
-                                        <div className="setting_title">
-                                            <span className="show_sticky_span">
-                                                Buy Now Button Animation is{" "}
-                                                {animationEnable ? (
-                                                    <span className="lm_sticky_custom_badge_success">
-                                                        <Badge tone="success">
-                                                            Enabled
-                                                        </Badge>
-                                                    </span>
-                                                ) : (
-                                                    <span className="lm_sticky_custom_badge_critical">
-                                                        <Badge tone="critical">
-                                                            Disabled
-                                                        </Badge>
-                                                    </span>
-                                                )}
-                                                {/* <b>{enable === true ? "Enabled" : "Disabled"}</b>{" "} */}
-                                            </span>
-                                            <Switch
-                                                onChange={handleSwitchChange}
-                                                checked={animationEnable}
-                                                uncheckedIcon={null}
-                                                checkedIcon={null}
-                                            />
-                                        </div>
-                                    </div>
-                                </FormLayout.Group>
-                            </FormLayout>
-                        </Card.Subsection>
-                        <Card.Subsection>
-                            <FormLayout>
-                                {/* First row */}
-                                <FormLayout.Group condensed>
-                                    <div>
-                                        <span className="display_setting_subtitle">
-                                            Edit Text
-                                        </span>
-                                        <div className="buy_now__textfield">
-                                            <TextField
-                                                value={editText}
-                                                onChange={handleEditTextField}
-                                                autoComplete="off"
-                                                maxLength={15}
-                                                placeholder="Example: BUY NOW"
-                                                showCharacterCount
-                                            />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <span className="display_setting_subtitle">
-                                            Unavailable
-                                        </span>
-                                        <div className="buy_now__textfield">
-                                            <TextField
-                                                value={unavailable}
-                                                onChange={
-                                                    handleUnavailableTextField
-                                                }
-                                                autoComplete="off"
-                                                maxLength={15}
-                                                placeholder="Example: Unavailable"
-                                                showCharacterCount
-                                            />
-                                        </div>
-                                    </div>
-                                </FormLayout.Group>
-                            </FormLayout>
-                        </Card.Subsection>
-                        <Card.Subsection>
-                            <FormLayout>
-                                {/* Third row */}
-                                <FormLayout.Group condensed>
-                                    <div>
-                                        <span className="display_setting_subtitle">
-                                            Style
-                                        </span>
-                                        <div className="lm_sticky_format_style">
-                                            <Checkbox
-                                                label="Bold"
-                                                checked={btnBold}
-                                                onChange={handleBoldButton}
-                                            />
-                                            <br />
-                                            <Checkbox
-                                                label="Italic"
-                                                checked={btnItalic}
-                                                onChange={handleItalicButton}
-                                            />
-                                            <br />
-                                            <Checkbox
-                                                label="Underline"
-                                                checked={btnUnderline}
-                                                onChange={handleUnderlineButton}
-                                            />
-                                        </div>
-                                    </div>
-                                </FormLayout.Group>
-                                {/* Fourth row */}
-                                <FormLayout.Group condensed>
-                                    <div>
-                                        <span className="display_setting_subtitle">
-                                            Text Color
-                                        </span>
-                                        <div className="lm_sticky_color_box">
-                                            <input
-                                                type="color"
-                                                value={btnTextColor}
-                                                onChange={handlebtnTextColor}
-                                            />
-                                            {/* <ColorPlate
-                                                defaultColor={btnTextColor}
-                                                onChildResult={
-                                                    handlebtnTextColor
-                                                }
-                                            /> */}
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <span className="display_setting_subtitle">
-                                            Background Color
-                                        </span>
-                                        <div className="lm_sticky_color_box">
-                                            <input
-                                                type="color"
-                                                value={btnBgColor}
-                                                onChange={handlebtnBGColor}
-                                            />
-                                            {/* <ColorPlate
-                                                defaultColor={btnBgColor}
-                                                onChildResult={handlebtnBGColor}
-                                            /> */}
-                                        </div>
-                                    </div>
-                                </FormLayout.Group>
-                                {/* Fifth row */}
-                                <FormLayout.Group condensed>
-                                    <div>
-                                        <span className="display_setting_subtitle">
-                                            Text Hover Color
-                                        </span>
-                                        <div className="lm_sticky_color_box">
-                                            <input
-                                                type="color"
-                                                value={btnTexthoverColor}
-                                                onChange={handletexthoverColor}
-                                            />
-                                            {/* <ColorPlate
-                                                defaultColor={btnTexthoverColor}
-                                                onChildResult={
-                                                    handletexthoverColor
-                                                }
-                                            /> */}
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <span className="display_setting_subtitle">
-                                            Background Hover Color
-                                        </span>
-                                        <div className="lm_sticky_color_box">
-                                            <input
-                                                type="color"
-                                                value={btnBgHoverColor}
-                                                onChange={handlebgHoverColor}
-                                            />
-                                            {/* <ColorPlate
-                                                defaultColor={btnBgHoverColor}
-                                                onChildResult={
-                                                    handlebgHoverColor
-                                                }
-                                            /> */}
-                                        </div>
-                                    </div>
-                                </FormLayout.Group>
-                                <FormLayout.Group condensed>
-                                    <div>
-                                        <span className="display_setting_subtitle">
-                                            Width
-                                        </span>
-                                        <div className="font_picker_popup">
-                                            <RangeSlider
-                                                label={`${btnWidthValue} px`}
-                                                value={btnWidthValue}
-                                                min={0}
-                                                max={250}
-                                                onChange={
-                                                    handleWidthSliderChange
-                                                }
-                                                output
-                                            />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <span className="display_setting_subtitle">
-                                            Height
-                                        </span>
-                                        <div className="font_picker_popup">
-                                            <RangeSlider
-                                                label={`${btnheightValue} px`}
-                                                value={btnheightValue}
-                                                min={0}
-                                                max={250}
-                                                onChange={
-                                                    handleBuyButtonHeightSliderChange
-                                                }
-                                                output
-                                            />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <span className="display_setting_subtitle">
-                                            Font-size
-                                        </span>
-                                        <div className="font_picker_popup">
-                                            <RangeSlider
-                                                label={`${btnFontsize} px`}
-                                                value={btnFontsize}
-                                                min={8}
-                                                max={50}
-                                                onChange={
-                                                    handleFontSizeSliderChange
-                                                }
-                                                output
-                                            />
-                                        </div>
-                                    </div>
-                                </FormLayout.Group>
-                            </FormLayout>
-                        </Card.Subsection>
-                        <Card.Subsection>
-                            <FormLayout>
-                                {/* Seventh row */}
-                                <FormLayout.Group condensed>
-                                    <div>
-                                        <span className="display_setting_subtitle">
-                                            Border Color
-                                        </span>
-                                        <div className="lm_sticky_color_box">
-                                            <input
-                                                type="color"
-                                                value={btnBorderColor}
-                                                onChange={handleborderColor}
-                                            />
-                                            {/* <ColorPlate
+                        <FormLayout>
+                            {/* Seventh row */}
+                            <FormLayout.Group condensed>
+                                <div>
+                                    <span className="display_setting_subtitle">
+                                        Border Color
+                                    </span>
+                                    <div className="lm_sticky_color_box">
+                                        <input
+                                            type="color"
+                                            value={btnBorderColor}
+                                            onChange={handleborderColor}
+                                        />
+                                        {/* <ColorPlate
                                                 defaultColor={btnBorderColor}
                                                 onChildResult={
                                                     handleborderColor
                                                 }
                                             /> */}
-                                        </div>
                                     </div>
-                                    <div>
-                                        <span className="display_setting_subtitle">
-                                            Border Hover Color
-                                        </span>
-                                        <div className="lm_sticky_color_box">
-                                            <input
-                                                type="color"
-                                                value={btnBorderHoverColor}
-                                                onChange={handlebordeHoverColor}
-                                            />
-                                            {/* <ColorPlate
+                                </div>
+                                <div>
+                                    <span className="display_setting_subtitle">
+                                        Border Hover Color
+                                    </span>
+                                    <div className="lm_sticky_color_box">
+                                        <input
+                                            type="color"
+                                            value={btnBorderHoverColor}
+                                            onChange={handlebordeHoverColor}
+                                        />
+                                        {/* <ColorPlate
                                                 defaultColor={
                                                     btnBorderHoverColor
                                                 }
@@ -828,49 +827,46 @@ function DesignSettings(props) {
                                                     handlebordeHoverColor
                                                 }
                                             /> */}
-                                        </div>
                                     </div>
-                                </FormLayout.Group>
-                                {/* Sixth row */}
-                                <FormLayout.Group condensed>
-                                    <div>
-                                        <span className="display_setting_subtitle">
-                                            Border Thickness
-                                        </span>
-                                        <div className="font_picker_popup">
-                                            <RangeSlider
-                                                label={`${btnBorderThickness} px`}
-                                                value={btnBorderThickness}
-                                                min={0}
-                                                max={10}
-                                                onChange={
-                                                    handleBorderSliderChange
-                                                }
-                                                output
-                                            />
-                                        </div>
+                                </div>
+                            </FormLayout.Group>
+                            {/* Sixth row */}
+                            <FormLayout.Group condensed>
+                                <div>
+                                    <span className="display_setting_subtitle">
+                                        Border Thickness
+                                    </span>
+                                    <div className="font_picker_popup">
+                                        <RangeSlider
+                                            label={`${btnBorderThickness} px`}
+                                            value={btnBorderThickness}
+                                            min={0}
+                                            max={10}
+                                            onChange={handleBorderSliderChange}
+                                            output
+                                        />
                                     </div>
-                                    <div>
-                                        <span className="display_setting_subtitle">
-                                            Border Radius
-                                        </span>
-                                        <div className="font_picker_popup">
-                                            <RangeSlider
-                                                label={`${btnBorderRadius} px`}
-                                                value={btnBorderRadius}
-                                                min={0}
-                                                max={50}
-                                                onChange={
-                                                    handleRadiusSliderChange
-                                                }
-                                                output
-                                            />
-                                        </div>
+                                </div>
+                                <div>
+                                    <span className="display_setting_subtitle">
+                                        Border Radius
+                                    </span>
+                                    <div className="font_picker_popup">
+                                        <RangeSlider
+                                            label={`${btnBorderRadius} px`}
+                                            value={btnBorderRadius}
+                                            min={0}
+                                            max={50}
+                                            onChange={handleRadiusSliderChange}
+                                            output
+                                        />
                                     </div>
-                                </FormLayout.Group>
-                            </FormLayout>
-                        </Card.Subsection>
+                                </div>
+                            </FormLayout.Group>
+                        </FormLayout>
                     </Card.Subsection>
+                </Card.Subsection>
+            </Card>
         </div>
     );
 }
