@@ -17,7 +17,7 @@
     "src": "resources/frontend/assets/productimage.png"
   },
   "resources/js/app.css": {
-    "file": "assets/app-70a340c1.css",
+    "file": "assets/app-97a388f5.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
@@ -26,9 +26,9 @@
       "assets/productimage-a213fa31.png"
     ],
     "css": [
-      "assets/app-70a340c1.css"
+      "assets/app-97a388f5.css"
     ],
-    "file": "assets/app-970485d3.js",
+    "file": "assets/app-79e4b28e.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }

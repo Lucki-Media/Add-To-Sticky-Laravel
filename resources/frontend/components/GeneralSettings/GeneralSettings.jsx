@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import "../../css/index.css";
 
 function GeneralSettings(props) {
-    const [selectedTemplate, setSelectedTemplate] = useState("1");
     const [checkMobile, setCheckMobile] = useState(props.checkMobile);
     const [checkDesktop, setCheckDesktop] = useState(props.checkDesktop);
     const [gsAction, setGsAction] = useState(props.gsAction);
@@ -11,21 +10,6 @@ function GeneralSettings(props) {
         props.gsDisplayCondition
     );
 
-    const handleSelectTemplateChange = useCallback(
-        (value) => setSelectedTemplate(value),
-        []
-    );
-
-    const options = [
-        { label: "Style 1", value: "1" },
-        { label: "Style 2", value: "2" },
-        { label: "Style 3", value: "3" },
-        { label: "Style 4", value: "4" },
-        { label: "Style 5", value: "5" },
-        { label: "Style 6", value: "6" },
-        { label: "Style 7", value: "7" },
-        { label: "Style 8", value: "8" },
-    ];
     /*DISPLAY SETTING START GENERAL SETTINGS*/
     const handlecheckboxMobile = useCallback(
         (newChecked) => setCheckMobile(newChecked),
@@ -64,10 +48,16 @@ function GeneralSettings(props) {
     /*DISPLAY SETTING START GENERAL SETTINGS*/
 
     useEffect(() => {
+        setCheckDesktop(props.checkMobile);
+        setCheckDesktop(props.checkDesktop);
+        setGsAction(props.gsAction);
+        setGsDisplayCondition(props.gsDisplayCondition);
+    }, [props]);
+
+    useEffect(() => {
         callbackFunction();
     }, [
         // IT WILL SEND LATEST DATA OF ALL STATES
-        selectedTemplate,
         checkMobile,
         checkDesktop,
         gsAction,
@@ -76,7 +66,6 @@ function GeneralSettings(props) {
 
     var transfer_data = {
         general_settings: {
-            selectedTemplate: selectedTemplate,
             checkMobile: checkMobile,
             checkDesktop: checkDesktop,
             gsAction: gsAction,
@@ -84,6 +73,7 @@ function GeneralSettings(props) {
         },
         design_settings: {
             gsFontFamily: props.gsFontFamily,
+            animationEnable: props.animationEnable,
             gsBgColor: props.gsBgColor,
             containerHeight: props.containerHeight,
             gsOffsetValue: props.gsOffsetValue,
@@ -121,14 +111,7 @@ function GeneralSettings(props) {
             <Card.Subsection>
                 <Heading variant="h1">General Settings</Heading>
             </Card.Subsection>
-            <Card.Subsection>
-                <Select
-                    label="Select Template"
-                    options={options}
-                    onChange={handleSelectTemplateChange}
-                    value={selectedTemplate}
-                />
-            </Card.Subsection>
+
             <Card.Subsection>
                 <span className="display_setting_subtitle">
                     Device Settings

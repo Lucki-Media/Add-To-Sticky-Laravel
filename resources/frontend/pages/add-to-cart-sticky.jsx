@@ -21,23 +21,10 @@ import {
     EmptyState,
     FullscreenBar,
     ButtonGroup,
+    Badge,
 } from "@shopify/polaris";
 import "../css/index.css";
-import {
-    ChevronLeftMinor,
-    ExitMajor,
-    ChevronRightMinor,
-    ChevronDownMinor,
-    SettingsMajor,
-    CheckoutMajor,
-} from "@shopify/polaris-icons";
-import { Scrollbars } from "react-custom-scrollbars";
-import { useNavigate } from "react-router-dom";
 import { useState, useCallback, useEffect } from "react";
-import TemplateData from "../StaticData/templateData";
-import TemplateStyle from "../StaticData/TemplateStyle";
-import FontPicker from "font-picker-react";
-import { ColorPlate } from "../components/colorPlate";
 import CartTemplate1 from "../Templates/CartTemplate.jsx";
 import CartTemplate2 from "../Templates/CartTemplate2.jsx";
 import CartTemplate3 from "../Templates/CartTemplate3.jsx";
@@ -49,15 +36,13 @@ import CartTemplate8 from "../Templates/CartTemplate8.jsx";
 import axios from "axios";
 import { SideBar } from "../components/SideBar";
 import { Box } from "@material-ui/core";
+import Switch from "react-switch";
 
 export default function AddToCartSticky() {
     const shop_url = document.getElementById("shopOrigin").value;
-    const navigate = useNavigate();
-    const [menu, setMenu] = useState("0");
     const [loading, setLoading] = useState(false);
     const [saveLoader, setSaveLoader] = useState(false);
     const [showTable, setShowTable] = useState(false);
-    const [isFullscreen, setFullscreen] = useState(true);
 
     //toast for success
     const [toastContent, setToastContent] = useState();
@@ -89,10 +74,9 @@ export default function AddToCartSticky() {
     const [data, setData] = useState([]);
     const [enable, setEnable] = useState(true);
     const [animationEnable, setAnimationEnable] = useState(true);
-    const [defaultTemplate, setDefaultTemplate] = useState(1);
+    const [defaultTemplate, setDefaultTemplate] = useState("1");
     /*GENERAL SETTINGS CONSTANTS*/
     const [position, setPosition] = useState("Top");
-    const [showGeneralSettings, setShowGeneralSettings] = useState(false);
     const [checkMobile, setCheckMobile] = useState(false);
     const [checkDesktop, setCheckDesktop] = useState(false);
     const [gsBold, setGsBold] = useState(false);
@@ -101,17 +85,13 @@ export default function AddToCartSticky() {
     const [gsItalic, setGsItalic] = useState(false);
     const [gsUnderline, setGsUnderLine] = useState(false);
     const [gsFontFamily, setGsFontFamily] = useState("Roboto");
-    const [gsTitleColor, setGsTitleColor] = useState("rgba(0, 0, 0, 0)");
-    const [gsPriceColor, setGsPriceColor] = useState("rgba(255, 0, 0, 1)");
-    const [gsBgColor, setGsBgColor] = useState("rgba(0, 1, 255, 1)");
+    const [gsTitleColor, setGsTitleColor] = useState("#000000");
+    const [gsPriceColor, setGsPriceColor] = useState("#ff0000");
+    const [gsBgColor, setGsBgColor] = useState("#0001ff");
     const [gsOffsetValue, setGsOffsetValue] = useState(0);
     const [gsAction, setGsAction] = useState("1");
     const [gsDisplayCondition, setGsDisplayCondition] = useState("1");
     const [containerHeight, setContainerHeight] = useState(70);
-    const [showGenDisplaySetting, setShowGenDisplaySetting] = useState(false);
-    const [showGenStyle, setShowGenStyle] = useState(false);
-    const [showGenLayout, setShowGenLayout] = useState(false);
-    const [showGenAction, setShowGenAction] = useState(false);
 
     /*BUY NOW CONSTANTS*/
     const [buyNowSettings, setBuyNowSettings] = useState(false);
@@ -126,24 +106,14 @@ export default function AddToCartSticky() {
     const [btnBold, setBtnBold] = useState(false);
     const [btnItalic, setBtnItalic] = useState(false);
     const [btnUnderline, setBtnUnderline] = useState(false);
-    const [btnTextColor, setBtnTextColor] = useState("rgba(0, 1, 0, 1)");
-    const [btnBgColor, setBtnBgColor] = useState("rgba(0, 1, 234, 1)");
-    const [btnTexthoverColor, setBtnTexthoverColor] =
-        useState("rgba(0, 144, 1, 1)");
-    const [btnBgHoverColor, setBtnBgHoverColor] = useState("rgba(0, 1, 0, 1)");
-    const [btnBorderColor, setBtnBorderColor] = useState("rgba(0, 1, 143, 1)");
+    const [btnTextColor, setBtnTextColor] = useState("0, 1, 0, 1");
+    const [btnBgColor, setBtnBgColor] = useState("0, 1, 234, 1");
+    const [btnTexthoverColor, setBtnTexthoverColor] = useState("#009001");
+    const [btnBgHoverColor, setBtnBgHoverColor] = useState("#000100");
+    const [btnBorderColor, setBtnBorderColor] = useState("#00018f");
     const [btnBorderHoverColor, setBtnBorderHoverColor] =
         useState("rgba(1, 255, 0, 1)");
-    const [transferData, SetTransferData] = useState();
-    const handleSelectedTemplateOption = (data) => {
-        setMenu(data);
-    };
     const handleTransferData = (data) => {
-        // console.log("data");
-        // console.log(data);
-        // setDefaultTemplate(data.general_settings.selectedTemplate);
-        // setEnable(data.enable);
-        // setAnimationEnable(data.animationEnable);
         /*GENERAL SETTINGS VALUES*/
         setCheckDesktop(data.general_settings.checkDesktop);
         setCheckMobile(data.general_settings.checkMobile);
@@ -151,6 +121,7 @@ export default function AddToCartSticky() {
         setGsDisplayCondition(data.general_settings.gsDisplayCondition);
         //DESIGN SETTINGS
         setPosition(data.design_settings.position);
+        setAnimationEnable(data.design_settings.animationEnable);
         setGsFontsize(data.design_settings.gsFontsize);
         setGsPriceFontsize(data.design_settings.gsPriceFontsize);
         setGsFontFamily(data.design_settings.gsFontFamily);
@@ -274,93 +245,6 @@ export default function AddToCartSticky() {
             console.log(err);
         }
     };
-
-    // useEffect(() => {
-    //     handleChange(defaultTemplate);
-    // }, [defaultTemplate]);
-
-    // TEMPLATE DATA START
-    const handleChange = (key) => {
-        // console.log(data);
-        // setDefaultTemplate(key);
-        var currentData;
-        switch (key) {
-            case 1:
-                currentData = data.template_1;
-                break;
-            case 2:
-                currentData = data.template_2;
-                break;
-            case 3:
-                currentData = data.template_3;
-                break;
-            case 4:
-                currentData = data.template_4;
-                break;
-            case 5:
-                currentData = data.template_5;
-                break;
-            case 6:
-                currentData = data.template_6;
-                break;
-            case 7:
-                currentData = data.template_7;
-                break;
-            case 8:
-                currentData = data.template_8;
-                break;
-
-            default:
-                currentData = data.current_template;
-                break;
-        }
-        // console.log(data);
-        // setEnable(data.enable);
-        // setAnimationEnable(data.animationEnable);
-        /*GENERAL SETTINGS VALUES*/
-        setCheckDesktop(currentData.general_settings.checkDesktop);
-        setCheckMobile(currentData.general_settings.checkMobile);
-        setPosition(currentData.general_settings.position);
-        setGsFontsize(currentData.general_settings.gsFontsize);
-        setGsPriceFontsize(currentData.general_settings.gsPriceFontsize);
-        setGsFontFamily(currentData.general_settings.gsFontFamily);
-        setGsBold(currentData.general_settings.gsBold);
-        setGsItalic(currentData.general_settings.gsItalic);
-        setGsUnderLine(currentData.general_settings.gsUnderline);
-        setGsTitleColor(currentData.general_settings.gsTitleColor);
-        setContainerHeight(currentData.general_settings.containerHeight);
-        setGsPriceColor(currentData.general_settings.gsPriceColor);
-        setGsBgColor(currentData.general_settings.gsBgColor);
-        setGsOffsetValue(currentData.general_settings.gsOffsetValue);
-        setGsDisplayCondition(currentData.general_settings.gsDisplayCondition);
-        setGsAction(currentData.general_settings.gsAction);
-        /*BUY NOW BUTTON VALUES*/
-        setEditText(currentData.buy_btn_settings.editText);
-        // setSoldOut(currentData.buy_btn_settings.soldOut);
-        setUnavailable(currentData.buy_btn_settings.unavailable);
-        setBtnHeightValue(currentData.buy_btn_settings.btnheightValue);
-        setBtnWidthValue(currentData.buy_btn_settings.btnWidthValue);
-        setBtnFontsize(currentData.buy_btn_settings.btnFontsize);
-        setBtnBold(currentData.buy_btn_settings.btnBold);
-        setBtnItalic(currentData.buy_btn_settings.btnItalic);
-        setBtnUnderline(currentData.buy_btn_settings.btnUnderline);
-        setBtnTextColor(currentData.buy_btn_settings.btnTextColor);
-        setBtnBgColor(currentData.buy_btn_settings.btnBgColor);
-        setBtnTexthoverColor(currentData.buy_btn_settings.btnTexthoverColor);
-        setBtnBgHoverColor(currentData.buy_btn_settings.btnBgHoverColor);
-        setBtnBorderThickness(currentData.buy_btn_settings.btnBorderThickness);
-        setBtnBorderRadius(currentData.buy_btn_settings.btnBorderRadius);
-        setBtnBorderColor(currentData.buy_btn_settings.btnBorderColor);
-        setBtnBorderHoverColor(
-            currentData.buy_btn_settings.btnBorderHoverColor
-        );
-    };
-    // TEMPLATE DATA END
-    // DASHBOARD REDIRECT START
-    const handleClick = (data) => {
-        navigate("/");
-    };
-    //   DASHBOARD REDIRECT END
     let handleSave = async () => {
         try {
             let payLoad = {
@@ -426,8 +310,105 @@ export default function AddToCartSticky() {
             console.log(err);
         }
     };
-    console.log("defaultTemplate");
-    console.log(defaultTemplate);
+
+    const handleSwitchChange = (checked) => {
+        setEnable(checked);
+    };
+    const options = [
+        { label: "Style 1", value: "1" },
+        { label: "Style 2", value: "2" },
+        { label: "Style 3", value: "3" },
+        { label: "Style 4", value: "4" },
+        { label: "Style 5", value: "5" },
+        { label: "Style 6", value: "6" },
+        { label: "Style 7", value: "7" },
+        { label: "Style 8", value: "8" },
+    ];
+    const handleSelectTemplateChange = useCallback(
+        (value) => {
+            var currentData;
+            switch (value) {
+                case "1":
+                    currentData = data.template_1;
+                    break;
+                case "2":
+                    currentData = data.template_2;
+                    break;
+                case "3":
+                    currentData = data.template_3;
+                    break;
+                case "4":
+                    currentData = data.template_4;
+                    break;
+                case "5":
+                    currentData = data.template_5;
+                    break;
+                case "6":
+                    currentData = data.template_6;
+                    break;
+                case "7":
+                    currentData = data.template_7;
+                    break;
+                case "8":
+                    currentData = data.template_8;
+                    break;
+
+                default:
+                    currentData = data.current_template;
+                    break;
+            }
+            console.log("currentData");
+            console.log(currentData);
+            // console.log(data);
+            // setEnable(data.enable);
+            // setAnimationEnable(data.animationEnable);
+            /*GENERAL SETTINGS VALUES*/
+            setCheckDesktop(currentData.general_settings.checkDesktop);
+            setCheckMobile(currentData.general_settings.checkMobile);
+            setPosition(currentData.general_settings.position);
+            setGsFontsize(currentData.general_settings.gsFontsize);
+            setGsPriceFontsize(currentData.general_settings.gsPriceFontsize);
+            setGsFontFamily(currentData.general_settings.gsFontFamily);
+            setGsBold(currentData.general_settings.gsBold);
+            setGsItalic(currentData.general_settings.gsItalic);
+            setGsUnderLine(currentData.general_settings.gsUnderline);
+            setGsTitleColor(currentData.general_settings.gsTitleColor);
+            setContainerHeight(currentData.general_settings.containerHeight);
+            setGsPriceColor(currentData.general_settings.gsPriceColor);
+            setGsBgColor(currentData.general_settings.gsBgColor);
+            setGsOffsetValue(currentData.general_settings.gsOffsetValue);
+            setGsDisplayCondition(
+                currentData.general_settings.gsDisplayCondition
+            );
+            setGsAction(currentData.general_settings.gsAction);
+            /*BUY NOW BUTTON VALUES*/
+            setEditText(currentData.buy_btn_settings.editText);
+            // setSoldOut(currentData.buy_btn_settings.soldOut);
+            setUnavailable(currentData.buy_btn_settings.unavailable);
+            setBtnHeightValue(currentData.buy_btn_settings.btnheightValue);
+            setBtnWidthValue(currentData.buy_btn_settings.btnWidthValue);
+            setBtnFontsize(currentData.buy_btn_settings.btnFontsize);
+            setBtnBold(currentData.buy_btn_settings.btnBold);
+            setBtnItalic(currentData.buy_btn_settings.btnItalic);
+            setBtnUnderline(currentData.buy_btn_settings.btnUnderline);
+            setBtnTextColor(currentData.buy_btn_settings.btnTextColor);
+            setBtnBgColor(currentData.buy_btn_settings.btnBgColor);
+            setBtnTexthoverColor(
+                currentData.buy_btn_settings.btnTexthoverColor
+            );
+            setBtnBgHoverColor(currentData.buy_btn_settings.btnBgHoverColor);
+            setBtnBorderThickness(
+                currentData.buy_btn_settings.btnBorderThickness
+            );
+            setBtnBorderRadius(currentData.buy_btn_settings.btnBorderRadius);
+            setBtnBorderColor(currentData.buy_btn_settings.btnBorderColor);
+            setBtnBorderHoverColor(
+                currentData.buy_btn_settings.btnBorderHoverColor
+            );
+        },
+        [data]
+    );
+
     // USE EFFECT
     useEffect(() => {
         getAddToStickyCartData();
@@ -478,7 +459,7 @@ export default function AddToCartSticky() {
         return (
             <>
                 <Frame>
-                    <div className="main_app_page">
+                    <div className="lm_sticky_main_app_page">
                         <div className="lm_sticky_fullscreenbar">
                             <FullscreenBar>
                                 <div
@@ -502,15 +483,11 @@ export default function AddToCartSticky() {
                                         </p>
                                     </div>
                                     <ButtonGroup>
-                                        <Button onClick={() => {}}>
-                                            Discard
-                                        </Button>
-                                        <Button
-                                            variant="primary"
-                                            onClick={() => {}}
-                                        >
+                                        <Button primary onClick={handleSave}>
                                             Save
                                         </Button>
+                                        {toastMarkup}
+                                        {toastMarkup1}
                                     </ButtonGroup>
                                 </div>
                             </FullscreenBar>
@@ -521,6 +498,49 @@ export default function AddToCartSticky() {
                                 {" "}
                                 <Layout>
                                     <Layout.Section oneThird>
+                                        <Card sectioned>
+                                            <div className="setting_title">
+                                                <span className="show_sticky_span">
+                                                    Sticky Add To Cart is{" "}
+                                                    {enable ? (
+                                                        <span className="lm_sticky_custom_badge_success">
+                                                            <Badge tone="success">
+                                                                Enabled
+                                                            </Badge>
+                                                        </span>
+                                                    ) : (
+                                                        <span className="lm_sticky_custom_badge_critical">
+                                                            <Badge tone="critical">
+                                                                Disabled
+                                                            </Badge>
+                                                        </span>
+                                                    )}
+                                                    {/* <b>{enable === true ? "Enabled" : "Disabled"}</b>{" "} */}
+                                                </span>
+                                                <Switch
+                                                    onChange={
+                                                        handleSwitchChange
+                                                    }
+                                                    checked={enable}
+                                                    uncheckedIcon={null}
+                                                    checkedIcon={null}
+                                                />
+                                            </div>
+                                        </Card>
+                                        <Card sectioned>
+                                            <Select
+                                                label="Select Template"
+                                                options={options}
+                                                onChange={(value) => {
+                                                    setDefaultTemplate(value);
+                                                    handleSelectTemplateChange(
+                                                        value
+                                                    );
+                                                }}
+                                                value={defaultTemplate}
+                                            />
+                                        </Card>
+
                                         <SideBar
                                             dataCallback={handleTransferData}
                                             position={position}
@@ -592,7 +612,7 @@ export default function AddToCartSticky() {
                                                                 : 20,
                                                     }}
                                                 >
-                                                    {defaultTemplate === 1 ? (
+                                                    {defaultTemplate === "1" ? (
                                                         <CartTemplate1
                                                             template_data={
                                                                 data.template_1
@@ -696,7 +716,7 @@ export default function AddToCartSticky() {
                                                     ) : (
                                                         ""
                                                     )}
-                                                    {defaultTemplate === 2 ? (
+                                                    {defaultTemplate === "2" ? (
                                                         <CartTemplate2
                                                             template_data={
                                                                 data.template_2
@@ -800,7 +820,7 @@ export default function AddToCartSticky() {
                                                     ) : (
                                                         ""
                                                     )}
-                                                    {defaultTemplate === 3 ? (
+                                                    {defaultTemplate === "3" ? (
                                                         <CartTemplate3
                                                             template_data={
                                                                 data.template_3
@@ -904,7 +924,7 @@ export default function AddToCartSticky() {
                                                     ) : (
                                                         ""
                                                     )}
-                                                    {defaultTemplate === 4 ? (
+                                                    {defaultTemplate === "4" ? (
                                                         <CartTemplate4
                                                             template_data={
                                                                 data.template_4
@@ -1008,7 +1028,7 @@ export default function AddToCartSticky() {
                                                     ) : (
                                                         ""
                                                     )}
-                                                    {defaultTemplate === 5 ? (
+                                                    {defaultTemplate === "5" ? (
                                                         <CartTemplate5
                                                             template_data={
                                                                 data.template_5
@@ -1112,7 +1132,7 @@ export default function AddToCartSticky() {
                                                     ) : (
                                                         ""
                                                     )}
-                                                    {defaultTemplate === 6 ? (
+                                                    {defaultTemplate === "6" ? (
                                                         <CartTemplate6
                                                             template_data={
                                                                 data.template_6
@@ -1216,7 +1236,7 @@ export default function AddToCartSticky() {
                                                     ) : (
                                                         ""
                                                     )}
-                                                    {defaultTemplate === 7 ? (
+                                                    {defaultTemplate === "7" ? (
                                                         <CartTemplate7
                                                             template_data={
                                                                 data.template_7
@@ -1320,7 +1340,7 @@ export default function AddToCartSticky() {
                                                     ) : (
                                                         ""
                                                     )}
-                                                    {defaultTemplate === 8 ? (
+                                                    {defaultTemplate === "8" ? (
                                                         <CartTemplate8
                                                             template_data={
                                                                 data.template_8

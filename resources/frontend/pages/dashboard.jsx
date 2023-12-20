@@ -87,8 +87,7 @@ export default function Dashboard(props) {
     } else {
         return (
             <>
-                <div className="topbar_title">LM ADD TO CART STICKY</div>
-                <div className="main_app_page">
+                <div className="lm_sticky_main_app_page">
                     <Modal
                         // activator={activator}
                         open={active}

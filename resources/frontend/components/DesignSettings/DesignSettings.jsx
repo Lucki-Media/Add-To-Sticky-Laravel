@@ -12,9 +12,13 @@ import FontPicker from "font-picker-react";
 import React, { useCallback, useEffect, useState } from "react";
 import { ColorPlate } from "../colorPlate";
 import Switch from "react-switch";
+import "../../css/index.css";
 
 function DesignSettings(props) {
     const [gsFontFamily, setGsFontFamily] = useState(props.gsFontFamily);
+    const [animationEnable, setAnimationEnable] = useState(
+        props.animationEnable
+    );
     const [gsBgColor, setGsBgColor] = useState(props.gsBgColor);
     const [containerHeight, setContainerHeight] = useState(
         props.containerHeight
@@ -56,10 +60,8 @@ function DesignSettings(props) {
     const [btnBorderHoverColor, setBtnBorderHoverColor] = useState(
         props.btnBorderHoverColor
     );
-    const [isChecked, setChecked] = useState(false);
-
     const handleSwitchChange = (checked) => {
-        setChecked(checked);
+        setAnimationEnable(checked);
     };
 
     /*FONT FAMILY GENERAL SETTINGS*/
@@ -68,7 +70,10 @@ function DesignSettings(props) {
     };
 
     //BAR SETTINGS START
-    const handleBGColor = useCallback((value) => setGsBgColor(value), []);
+    const handleBGColor = (event) => {
+        setGsBgColor(event.target.value);
+    };
+    //   = useCallback((value) => setGsBgColor(value), []);
 
     const handleHeightSliderChange = useCallback(
         (value) => setContainerHeight(value),
@@ -84,7 +89,10 @@ function DesignSettings(props) {
     );
     //BAR SETTINGS END
     // PRODUCT TITLE START
-    const handleTitleColor = useCallback((value) => setGsTitleColor(value), []);
+    const handleTitleColor = (event) => {
+        setGsTitleColor(event.target.value);
+    };
+    // = useCallback((value) => setGsTitleColor(value), []);
     const handleRangeSliderChange = useCallback(
         (value) => setGsFontsize(value),
         []
@@ -105,7 +113,10 @@ function DesignSettings(props) {
         (value) => setGsPriceFontsize(value),
         []
     );
-    const handlePriceColor = useCallback((value) => setGsPriceColor(value), []);
+    const handlePriceColor = (event) => {
+        setGsPriceColor(event.target.value);
+    };
+    // = useCallback((value) => setGsPriceColor(value), []);
     // PRICE SETTINGS END
 
     //BUY NOW BUTTON SETTINGS START
@@ -167,45 +178,96 @@ function DesignSettings(props) {
     /*BUY NOW BTN STYLE END*/
 
     // BTN TEXT COLOR
-    const handlebtnTextColor = useCallback(
-        (value) => setBtnTextColor(value),
-        []
-    );
+    const handlebtnTextColor = (event) => {
+        setBtnTextColor(event.target.value);
+    };
+    // = useCallback(
+    //     (value) => setBtnTextColor(value),
+    //     []
+    // );
 
     // TEXT HOVER COLOR
-    const handletexthoverColor = useCallback(
-        (value) => setBtnTexthoverColor(value),
-        []
-    );
+    const handletexthoverColor = (event) => {
+        setBtnTexthoverColor(event.target.value);
+    };
+    // = useCallback(
+    //     (value) => setBtnTexthoverColor(value),
+    //     []
+    // );
 
     // BG HOVER COLOR
-    const handlebgHoverColor = useCallback(
-        (value) => setBtnBgHoverColor(value),
-        []
-    );
+    const handlebgHoverColor = (event) => {
+        setBtnBgHoverColor(event.target.value);
+    };
+    // = useCallback(
+    //     (value) => setBtnBgHoverColor(value),
+    //     []
+    // );
 
     // BTN BG COLOR
-    const handlebtnBGColor = useCallback((value) => setBtnBgColor(value), []);
+    const handlebtnBGColor = (event) => {
+        setBtnBgColor(event.target.value);
+    };
+    // = useCallback((value) => setBtnBgColor(value), []);
 
     // BORDER COLOR
-    const handleborderColor = useCallback(
-        (value) => setBtnBorderColor(value),
-        []
-    );
+    const handleborderColor = (event) => {
+        setBtnBorderColor(event.target.value);
+    };
+    // = useCallback(
+    //     (value) => setBtnBorderColor(value),
+    //     []
+    // );
 
     // BORDER HOVER COLOR
-    const handlebordeHoverColor = useCallback(
-        (value) => setBtnBorderHoverColor(value),
-        []
-    );
+    const handlebordeHoverColor = (event) => {
+        setBtnBorderHoverColor(event.target.value);
+    };
+    // = useCallback(
+    //     (value) => setBtnBorderHoverColor(value),
+    //     []
+    // );
     // COLOR CHANGE HANDLES END
     //BUY NOW BUTTON SETTINGS END
+
+    useEffect(() => {
+        setGsFontFamily(props.gsFontFamily);
+        setAnimationEnable(props.animationEnable);
+        setGsBgColor(props.gsBgColor);
+        setContainerHeight(props.containerHeight);
+        setGsOffsetValue(props.gsOffsetValue);
+        setPosition(props.position);
+        setGsTitleColor(props.gsTitleColor);
+        setGsFontsize(props.gsFontsize);
+        setGsBold(props.gsBold);
+        setGsItalic(props.gsItalic);
+        setGsUnderLine(props.gsUnderline);
+        setGsPriceFontsize(props.gsPriceFontsize);
+        setGsPriceColor(props.gsPriceColor);
+        setEditText(props.editText);
+        setUnavailable(props.unavailable);
+        setBtnWidthValue(props.btnWidthValue);
+        setBtnHeightValue(props.btnheightValue);
+        setBtnFontsize(props.btnFontsize);
+        setBtnBorderThickness(props.btnBorderThickness);
+        setBtnBorderRadius(props.btnBorderRadius);
+        setBtnBold(props.btnBold);
+        setBtnItalic(props.btnItalic);
+        setBtnUnderline(props.btnUnderline);
+        setBtnTextColor(props.btnTextColor);
+        setBtnBgColor(props.btnBgColor);
+        setBtnTexthoverColor(props.btnTexthoverColor);
+        setBtnBgHoverColor(props.btnBgHoverColor);
+        setBtnBorderColor(props.btnBorderColor);
+        setBtnBorderHoverColor(props.btnBorderHoverColor);
+    }, [props]);
 
     useEffect(() => {
         callbackFunction();
     }, [
         // IT WILL SEND LATEST DATA OF ALL STATES
         gsFontFamily,
+        animationEnable,
         gsBgColor,
         containerHeight,
         gsOffsetValue,
@@ -234,10 +296,8 @@ function DesignSettings(props) {
         btnBorderColor,
         btnBorderHoverColor,
     ]);
-
     var transfer_data = {
         general_settings: {
-            selectedTemplate: props.selectedTemplate,
             checkMobile: props.checkMobile,
             checkDesktop: props.checkDesktop,
             gsAction: props.gsAction,
@@ -245,6 +305,7 @@ function DesignSettings(props) {
         },
         design_settings: {
             gsFontFamily: gsFontFamily,
+            animationEnable: animationEnable,
             gsBgColor: gsBgColor,
             containerHeight: containerHeight,
             gsOffsetValue: gsOffsetValue,
@@ -306,11 +367,16 @@ function DesignSettings(props) {
                                     <span className="display_setting_subtitle">
                                         Background Color
                                     </span>
-                                    <div>
-                                        <ColorPlate
+                                    <div className="lm_sticky_color_box">
+                                        <input
+                                            type="color"
+                                            value={gsBgColor}
+                                            onChange={handleBGColor}
+                                        />
+                                        {/* <ColorPlate
                                             defaultColor={gsBgColor}
                                             onChildResult={handleBGColor}
-                                        />
+                                        /> */}
                                     </div>
                                 </div>
                                 <div>
@@ -389,11 +455,16 @@ function DesignSettings(props) {
                                     <span className="display_setting_subtitle">
                                         Color
                                     </span>
-                                    <div>
-                                        <ColorPlate
+                                    <div className="lm_sticky_color_box">
+                                        <input
+                                            type="color"
+                                            value={gsTitleColor}
+                                            onChange={handleTitleColor}
+                                        />
+                                        {/* <ColorPlate
                                             defaultColor={gsTitleColor}
                                             onChildResult={handleTitleColor}
-                                        />
+                                        /> */}
                                     </div>
                                 </div>
                                 <div>
@@ -455,11 +526,16 @@ function DesignSettings(props) {
                                     <span className="display_setting_subtitle">
                                         Color
                                     </span>
-                                    <div>
-                                        <ColorPlate
+                                    <div className="lm_sticky_color_box">
+                                        <input
+                                            type="color"
+                                            value={gsPriceColor}
+                                            onChange={handlePriceColor}
+                                        />
+                                        {/* <ColorPlate
                                             defaultColor={gsPriceColor}
                                             onChildResult={handlePriceColor}
-                                        />
+                                        /> */}
                                     </div>
                                 </div>
                                 <div>
@@ -492,13 +568,10 @@ function DesignSettings(props) {
                             <FormLayout>
                                 <FormLayout.Group condensed>
                                     <div>
-                                        <span className="display_setting_subtitle">
-                                            Edit Text
-                                        </span>
                                         <div className="setting_title">
                                             <span className="show_sticky_span">
                                                 Buy Now Button Animation is{" "}
-                                                {isChecked ? (
+                                                {animationEnable ? (
                                                     <span className="lm_sticky_custom_badge_success">
                                                         <Badge tone="success">
                                                             Enabled
@@ -515,7 +588,7 @@ function DesignSettings(props) {
                                             </span>
                                             <Switch
                                                 onChange={handleSwitchChange}
-                                                checked={isChecked}
+                                                checked={animationEnable}
                                                 uncheckedIcon={null}
                                                 checkedIcon={null}
                                             />
@@ -598,24 +671,34 @@ function DesignSettings(props) {
                                         <span className="display_setting_subtitle">
                                             Text Color
                                         </span>
-                                        <div>
-                                            <ColorPlate
+                                        <div className="lm_sticky_color_box">
+                                            <input
+                                                type="color"
+                                                value={btnTextColor}
+                                                onChange={handlebtnTextColor}
+                                            />
+                                            {/* <ColorPlate
                                                 defaultColor={btnTextColor}
                                                 onChildResult={
                                                     handlebtnTextColor
                                                 }
-                                            />
+                                            /> */}
                                         </div>
                                     </div>
                                     <div>
                                         <span className="display_setting_subtitle">
                                             Background Color
                                         </span>
-                                        <div>
-                                            <ColorPlate
+                                        <div className="lm_sticky_color_box">
+                                            <input
+                                                type="color"
+                                                value={btnBgColor}
+                                                onChange={handlebtnBGColor}
+                                            />
+                                            {/* <ColorPlate
                                                 defaultColor={btnBgColor}
                                                 onChildResult={handlebtnBGColor}
-                                            />
+                                            /> */}
                                         </div>
                                     </div>
                                 </FormLayout.Group>
@@ -625,25 +708,88 @@ function DesignSettings(props) {
                                         <span className="display_setting_subtitle">
                                             Text Hover Color
                                         </span>
-                                        <div>
-                                            <ColorPlate
+                                        <div className="lm_sticky_color_box">
+                                            <input
+                                                type="color"
+                                                value={btnTexthoverColor}
+                                                onChange={handletexthoverColor}
+                                            />
+                                            {/* <ColorPlate
                                                 defaultColor={btnTexthoverColor}
                                                 onChildResult={
                                                     handletexthoverColor
                                                 }
-                                            />
+                                            /> */}
                                         </div>
                                     </div>
                                     <div>
                                         <span className="display_setting_subtitle">
                                             Background Hover Color
                                         </span>
-                                        <div>
-                                            <ColorPlate
+                                        <div className="lm_sticky_color_box">
+                                            <input
+                                                type="color"
+                                                value={btnBgHoverColor}
+                                                onChange={handlebgHoverColor}
+                                            />
+                                            {/* <ColorPlate
                                                 defaultColor={btnBgHoverColor}
                                                 onChildResult={
                                                     handlebgHoverColor
                                                 }
+                                            /> */}
+                                        </div>
+                                    </div>
+                                </FormLayout.Group>
+                                <FormLayout.Group condensed>
+                                    <div>
+                                        <span className="display_setting_subtitle">
+                                            Width
+                                        </span>
+                                        <div className="font_picker_popup">
+                                            <RangeSlider
+                                                label={`${btnWidthValue} px`}
+                                                value={btnWidthValue}
+                                                min={0}
+                                                max={250}
+                                                onChange={
+                                                    handleWidthSliderChange
+                                                }
+                                                output
+                                            />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span className="display_setting_subtitle">
+                                            Height
+                                        </span>
+                                        <div className="font_picker_popup">
+                                            <RangeSlider
+                                                label={`${btnheightValue} px`}
+                                                value={btnheightValue}
+                                                min={0}
+                                                max={250}
+                                                onChange={
+                                                    handleBuyButtonHeightSliderChange
+                                                }
+                                                output
+                                            />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span className="display_setting_subtitle">
+                                            Font-size
+                                        </span>
+                                        <div className="font_picker_popup">
+                                            <RangeSlider
+                                                label={`${btnFontsize} px`}
+                                                value={btnFontsize}
+                                                min={8}
+                                                max={50}
+                                                onChange={
+                                                    handleFontSizeSliderChange
+                                                }
+                                                output
                                             />
                                         </div>
                                     </div>
@@ -658,28 +804,38 @@ function DesignSettings(props) {
                                         <span className="display_setting_subtitle">
                                             Border Color
                                         </span>
-                                        <div>
-                                            <ColorPlate
+                                        <div className="lm_sticky_color_box">
+                                            <input
+                                                type="color"
+                                                value={btnBorderColor}
+                                                onChange={handleborderColor}
+                                            />
+                                            {/* <ColorPlate
                                                 defaultColor={btnBorderColor}
                                                 onChildResult={
                                                     handleborderColor
                                                 }
-                                            />
+                                            /> */}
                                         </div>
                                     </div>
                                     <div>
                                         <span className="display_setting_subtitle">
                                             Border Hover Color
                                         </span>
-                                        <div>
-                                            <ColorPlate
+                                        <div className="lm_sticky_color_box">
+                                            <input
+                                                type="color"
+                                                value={btnBorderHoverColor}
+                                                onChange={handlebordeHoverColor}
+                                            />
+                                            {/* <ColorPlate
                                                 defaultColor={
                                                     btnBorderHoverColor
                                                 }
                                                 onChildResult={
                                                     handlebordeHoverColor
                                                 }
-                                            />
+                                            /> */}
                                         </div>
                                     </div>
                                 </FormLayout.Group>
