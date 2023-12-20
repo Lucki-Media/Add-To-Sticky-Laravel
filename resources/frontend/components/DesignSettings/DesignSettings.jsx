@@ -354,8 +354,6 @@ function DesignSettings(props) {
                     />
                 </div>
             </Card.Subsection>
-            <Card>
-                <Card.Section>
                     <Card.Subsection>
                         <Heading>Bar</Heading>
                     </Card.Subsection>
@@ -442,8 +440,6 @@ function DesignSettings(props) {
                             </FormLayout.Group>
                         </FormLayout>
                     </Card.Subsection>
-                </Card.Section>
-                <Card.Section>
                     <Card.Subsection>
                         <Heading>Product Title</Heading>
                     </Card.Subsection>
@@ -513,8 +509,6 @@ function DesignSettings(props) {
                             </FormLayout.Group>
                         </FormLayout>
                     </Card.Subsection>
-                </Card.Section>
-                <Card.Section>
                     <Card.Subsection>
                         <Heading>Price</Heading>
                     </Card.Subsection>
@@ -558,8 +552,6 @@ function DesignSettings(props) {
                             </FormLayout.Group>
                         </FormLayout>
                     </Card.Subsection>
-                </Card.Section>
-                <Card.Section>
                     <Card.Subsection>
                         <Heading>Buy Now Button</Heading>
                     </Card.Subsection>
@@ -879,8 +871,6 @@ function DesignSettings(props) {
                             </FormLayout>
                         </Card.Subsection>
                     </Card.Subsection>
-                </Card.Section>
-            </Card>
         </div>
     );
 }
