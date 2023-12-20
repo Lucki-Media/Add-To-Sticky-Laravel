@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&family=Montserrat&family=Open+Sans&family=Poppins&family=Raleway&family=Roboto+Condensed&family=Roboto:wght@700&display=swap");
 
 .lm_sticky_main_app_page {
-    margin-top: 50px;
+    /* margin-top: 50px; */
     padding-bottom: 100px;
 }
 .lm_sticky_box {
@@ -16,9 +16,26 @@
     width: 100%;
     height: 100%;
 }
+.lm_sticky_sidebar {
+    margin-top: 15px;
+}
+.lm_sticky_color_box input {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
 .main_app_page {
     /* margin-top: 50px; */
     /* padding-bottom: 100px; */
+}
+.lm_sticky_select select {
+    padding: 10px;
+}
+.lm_sticky_color_picker {
+    /* border: 1px solid;
+    padding: 15px;
+    background: white;
+    border-radius: 5px; */
 }
 .lm_sticky_fullscreenbar {
     position: sticky;

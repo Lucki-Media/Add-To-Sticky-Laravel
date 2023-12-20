@@ -34,7 +34,7 @@ export function ColorPlate(props) {
 
     return (
         <>
-            <div>
+            <div className="lm_sticky_color_picker">
                 {open ? (
                     <>
                         <div className="color_picker_class">

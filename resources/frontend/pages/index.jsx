@@ -83,7 +83,6 @@ export default function HomePage(props) {
     } else {
         return (
             <>
-                <div className="topbar_title">LM ADD TO CART STICKY</div>
                 <div className="lm_sticky_main_app_page">
                     <Modal
                         // activator={activator}
