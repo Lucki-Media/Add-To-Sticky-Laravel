@@ -168,8 +168,8 @@ function CartTemplate1(props) {
                         font-size: 14px;
                     }
                     .lm_quantity_picker .quantity-modifier{
-                        height: 28px;
-                        width: 28px;
+                        height: 35px;
+                        width: 30px;
                         border: none;
                         font-size: 16px;
                         color: black;
@@ -178,7 +178,7 @@ function CartTemplate1(props) {
                     }
                     .lm_quantity_picker .quantity-picker{
                         background-color: #fff;
-                        border: none;
+                        border: 1px solid #dddddd8c;
                         border-radius:0;
                         display: flex;
                         align-items: center;
@@ -193,19 +193,22 @@ function CartTemplate1(props) {
                         text-decoration: underline;
                     }
                 .lm-sticky-Bottom{
-                    box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
+                    box-shadow: rgba(149, 157, 165, 0.4) 0 -8px 24px;
                     background: ${gsBgColor};
                     height: ${containerHeight}px;
                     bottom:  ${gsOffsetValue}px;
                 }
-                .lm-sticky-Top{
-                    box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
+                .lm-sticky-Top{                    
+                    box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
                     background: ${gsBgColor};
                     height: ${containerHeight}px;
                     top:  ${gsOffsetValue}px;
                 }
                 .img_size {
                     height: ${containerHeight}px;
+                    margin-right:15px;
+                    display: flex;
+    align-items: center;
                 }
                 .font_option {
                     color: ${gsTitleColor};
@@ -241,9 +244,10 @@ function CartTemplate1(props) {
                     width: 100px;
                 }
                 .lm_options .pro_select_menu > div{
-                    border: 0;
+                    border: 1px solid #dddddd8c;
                     font-size: 12px;
-                    min-height: 25px;
+                    min-height: 36px;
+                    box-shadow: none;
 
                 }
                 .css-1jqq78o-placeholder{
@@ -277,11 +281,13 @@ function CartTemplate1(props) {
                     <div className={style.lm_container}>
                         <div className={style.lm_cart_module}>
                             <div className={style.lm_pro_image}>
+                                <div className={`img_size ${style.image_border}`}>
                                 <img
-                                    className="img_size"
+                                    className="img_sizes"
                                     src={proimage}
                                     alt="product image"
                                 />
+                                </div>
                                 <div className={style.lm_middlecontent}>
                                     <h5
                                         className={` ${style.pro_names} ${

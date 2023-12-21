@@ -1335,16 +1335,47 @@ export default function StickyCart() {
                                     </Layout.Section>
 
                                     <Layout.Section>
+                                        <div classname="preview_section">
                                         <Card>
                                             <div className="lm_sticky_box">
-                                                <Box shadow="300">
+                                            <div class="lm_screen_bar">
+                                                        <div class="r_1"></div>
+                                                        <div class="r_1"></div>
+                                                        <div class="r_1"></div>
+                                                        <div class="sq_1"></div>
+                                                    </div>
+                                                <div className="lm_product_block">
+                                                    <div className="product_details">
+                                               
+                                                        <div className="pagewidth">
+                                                            <div className="product_details_main">
+
+                                                                    <div className="product_image"> 
+                                                                    <div className="product_imagess">
+                                                                    <img src={`images/cart-bag-image2.png`} alt="" />
+                                                                    </div>
+                                                                       
+                                                                    </div>
+
+                                                                    <div className="p_details">
+                                                                    
+                                                                        <h2>Demo Product</h2>                          
+                                                                        <span>$20.00</span>                                                                       
+                                                                        <a className="addtocartbtn">Add to cart</a>                                                                        
+                                                                        <div className="product_content"> Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</div>
+                                                                    </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {/* <Box shadow="300">
                                                     <img
                                                         alt=""
                                                         width="100%"
                                                         height="auto"
                                                         src={`images/ProductDetail.png`}
                                                     />
-                                                </Box>
+                                                </Box> */}
                                                 <div>
                                                     {enableSticky === true ? (
                                                         <div className="main_sticky___div">
@@ -1492,6 +1523,7 @@ export default function StickyCart() {
                                                 </div>
                                             </div>
                                         </Card>
+                                        </div>
                                     </Layout.Section>
                                 </Layout>
                             </div>
