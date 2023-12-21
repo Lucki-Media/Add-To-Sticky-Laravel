@@ -22,10 +22,15 @@
 }
 .lm_pro_image img {
     object-fit: cover;
-    margin-right: 15px;
+    margin-right: 0;
+    height: 90%;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
 }
 .lm_middlecontent .pro_names {
-    margin: 0;
+    margin: 0 0 8px;
     display: inline-block;
 }
 .lm_quantity_selector {
@@ -40,7 +45,7 @@
 }
 .lm_middlecontent span {
     position: relative;
-    margin-right: 20px;
+    margin-right: 15px;
 }
 .lm_middlecontent span.compare_lm_price {
     text-decoration: line-through;
@@ -51,7 +56,7 @@
     background-color: #000;
     height: 15px;
     width: 1px;
-    left: -11px;
+    left: -9px;
     /* top: 5px; */
     top: 50%;
     transform: translate(0px, -50%);
@@ -96,12 +101,13 @@
 .lm_out_stock {
     background-color: #931111;
     color: #fff;
-    padding: 5px 10px;
+    padding: 5px 5px;
     text-align: center;
-    font-size: 10px;
+    font-size: 8px;
     line-height: 12px;
     width: auto;
     border-radius: 15px;
+    margin-right: 0;
 }
 .lm_sale {
     background-color: #30874d;

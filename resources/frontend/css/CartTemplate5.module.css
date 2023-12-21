@@ -23,12 +23,16 @@
 
 .lm_pro_image img {
     object-fit: cover;
-    margin-right: 15px;
+    margin-right: 0;
+    height: 90%;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
 }
-
 .lm_middlecontent .pro_names {
     display: inline-block;
-    margin: 0 22px 0 0;
+    margin: 0 22px 8px 0;
 }
 
 .lm_quantity_selector {
@@ -49,7 +53,15 @@
     position: relative;
     margin-right: 20px;
 }
-
+.lmblock_right img{
+    object-fit: cover;
+    margin-right: 0;
+    height: 90%;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
 .lm_middlecontent span.compare_lm_price {
     text-decoration: line-through;
 }

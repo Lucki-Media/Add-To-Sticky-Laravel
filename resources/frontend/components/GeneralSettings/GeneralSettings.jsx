@@ -114,7 +114,7 @@ function GeneralSettings(props) {
 
             <Card.Subsection>
                 <span className="display_setting_subtitle">
-                    Device Settings
+                    Device1 Settings
                 </span>
                 <div className="style__wrapper_div">
                     <Checkbox
