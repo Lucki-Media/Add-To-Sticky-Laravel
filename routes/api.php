@@ -17,8 +17,7 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::namespace('App\\Http\\Controllers')->group(function (){
-
+Route::namespace('App\\Http\\Controllers')->group(function () {
     /*ADD TO CART STICKY API START*/
     Route::post('saveAddToStickyCartData', 'AddToCartStickyController@saveAddToStickyCartData');
     Route::get('getAddToStickyCartData/{shop_domain}', 'AddToCartStickyController@getAddToStickyCartData');
@@ -28,7 +27,6 @@ Route::namespace('App\\Http\\Controllers')->group(function (){
     Route::post('saveStickyCartData', 'StickyCartController@saveStickyCartData');
     Route::get('getStickyCartData/{shop_domain}', 'StickyCartController@getStickyCartData');
     /*STICKY CART API END*/
-
 
     /*POST BUTTON CLICKS API START*/
     Route::post('addBuyButtonClicks', 'DashboardController@addBuyButtonClicks');

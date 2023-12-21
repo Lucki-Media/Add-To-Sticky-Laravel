@@ -16,6 +16,7 @@ use Mail;
 use App\Models\AddToCartStickyData;
 use App\Models\StickyCartData;
 use App\Mail\YourEmailClass;
+use MailerLite\MailerLite;
 
 class AfterAuthenticateJob implements ShouldQueue
 {
@@ -48,10 +49,43 @@ class AfterAuthenticateJob implements ShouldQueue
         $path = public_path();
         $shop = User::where('name', $this->shopDomain)->firstOrFail();
         $shopDecode = json_decode($shop);
+        $shopifyData = $shop->api()->rest('GET', '/admin/shop.json')['body'];
+        // file_put_contents($path . '/shopifyData.txt', json_encode($mailerAPIKey));
         // echo '<pre>';print_r($shopDecode);exit;
         $api_key = env('SHOPIFY_API_KEY');
         $path = public_path();
         $shop_arr = json_decode($shop, true);
+
+        /*MAILER LITE INTEGRATION START*/
+        /*CREATING SUBSCRIBER*/
+
+        $data = [
+            'email' => $shopifyData['shop']['email'],
+            'groups' => [env('MAILER_GROUP_ID')],
+        ];
+        $data_string = json_encode($data);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+        $url = 'https://api.mailerlite.com/api/v2/subscribers';
+        // echo '<pre>';print_r($url);exit;
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json', 'X-MailerLite-ApiKey:' . env('MAILERLITE_API_KEY')]);
+        $server_output = curl_exec($ch);
+        $response = json_decode($server_output, true);
+        file_put_contents($path . '/subscribers.txt', json_encode($response));
+        /*CREATING SUBSCRIBER COMPLETE*/
+        /*ASSIGNING SUBSCRIBER TO LM-STICKY GROUP*/
+        // $mailerLite = new MailerLite(['api_key' => 'key']);
+
+        // $groupId = '108161502776656925';
+        // $subscriberId = '456';
+
+        // $response = $mailerLite->groups->assignSubscriber($groupId, $subscriberId);
+        /*MAILER LITE INTEGRATION END*/
+
         /*ADD TO CART STICKY TEMPLATE INSERT START*/
         $template_1 = json_encode(require $path . '/template_files/template_1.php');
         $template_2 = json_encode(require $path . '/template_files/template_2.php');
@@ -76,7 +110,11 @@ class AfterAuthenticateJob implements ShouldQueue
             'template_7' => $template_7,
             'template_8' => $template_8,
         ];
-        $updateOrInsert = AddToCartStickyData::insert($final_data);
+        $uniqueKey = ['shop_domain' => $this->shopDomain];
+
+        // Use updateOrInsert to perform the upsert
+        AddToCartStickyData::updateOrInsert($uniqueKey, $final_data);
+        // $updateOrInsert = AddToCartStickyData::insert($final_data);
         /*ADD TO CART STICKY TEMPLATE INSERT END*/
 
         /*STICKY CART TEMPLATE INSERT START*/
@@ -96,7 +134,12 @@ class AfterAuthenticateJob implements ShouldQueue
             'sticky_template_4' => $sticky_template_4,
             'sticky_template_5' => $sticky_template_5,
         ];
-        $updateOrInsert = StickyCartData::insert($final_data_sticky);
+        // Specify the unique key and values to check for existing records
+        $uniqueKey = ['shop_domain' => $this->shopDomain];
+
+        // Use updateOrInsert to perform the upsert
+        StickyCartData::updateOrInsert($uniqueKey, $final_data_sticky);
+        // $updateOrInsert = StickyCartData::insert($final_data_sticky);
         /*STICKY CART TEMPLATE INSERT END*/
 
         /*INSERT INITIAL DATA IN add_to_cart_sticky_counts TABLE END*/
@@ -143,16 +186,16 @@ class AfterAuthenticateJob implements ShouldQueue
         $setStickyCartCount->save();
         /*INSERT INITIAL DATA IN sticky_cart_counts TABLE END*/
         // SENDING MAIL TO AUTHORIZED PERSONS
-        $recipients = ['somin.parate@gmail.com', 'info.lmrequest@gmail.com', 'bhumil.luckimedia@gmail.com', 'vidhee.luckimedia@gmail.com'];
+        // $recipients = ['somin.parate@gmail.com', 'info.lmrequest@gmail.com', 'bhumil.luckimedia@gmail.com', 'vidhee.luckimedia@gmail.com'];
 
-        $mailData = [
-            'subject' => 'LM Add To Cart Sticky Installed in New Store',
-            'shop_name' => $shop['name'],
-            'shop_email' => $shop['email'],
-            'view' => 'mailTemplate',
-            'mail' => 'app_install',
-        ];
+        // $mailData = [
+        //     'subject' => 'LM Add To Cart Sticky Installed in New Store',
+        //     'shop_name' => $shop['name'],
+        //     'shop_email' => $shop['email'],
+        //     'view' => 'mailTemplate',
+        //     'mail' => 'app_install',
+        // ];
 
-        Mail::to($recipients)->send(new YourEmailClass($mailData));
+        // Mail::to($recipients)->send(new YourEmailClass($mailData));
     }
 }

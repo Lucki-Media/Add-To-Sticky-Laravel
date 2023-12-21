@@ -12,7 +12,7 @@ return [
         'gsTitleColor' => '#000000',
         'containerHeight' => 70,
         'gsPriceColor' => '#f26c4f',
-        'gsBgColor' => 'rgba(243, 243, 243, 1)',
+        'gsBgColor' => '#ffffff',
         'position' => 'Top',
         'gsOffsetValue' => '00',
         'gsAction' => '1',
