@@ -190,21 +190,24 @@ export default function CartTemplate4(props) {
             .lm_underline{
               text-decoration: underline;
             }
-          .lm-sticky-Bottom{
-            box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
-            background: ${gsBgColor};
+            .lm-sticky-Bottom{
+                box-shadow: rgba(149, 157, 165, 0.4) 0 -8px 24px;
+                background: ${gsBgColor};
+                height: ${containerHeight}px;
+                bottom:  ${gsOffsetValue}px;
+            }
+            .lm-sticky-Top{                    
+                box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
+                background: ${gsBgColor};
+                height: ${containerHeight}px;
+                top:  ${gsOffsetValue}px;
+            }
+          .img_size {
             height: ${containerHeight}px;
-            bottom:  ${gsOffsetValue}px;
-          }
-          .lm-sticky-Top{
-            box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
-            background: ${gsBgColor};
-            height: ${containerHeight}px;
-            top:  ${gsOffsetValue}px;
-          }
-        .img_size {
-            height: ${containerHeight}px;
-          }
+            margin-right:15px;
+            display: flex;
+align-items: center;
+        }
           .font_option {
             color: ${gsTitleColor};
             font-size: ${gsFontsize}px;
@@ -304,11 +307,13 @@ export default function CartTemplate4(props) {
                     <div className={style.lm_container}>
                         <div className={style.lm_cart_module}>
                             <div className={style.lm_pro_image}>
+                            <div className={`img_size ${style.image_border}`}>
                                 <img
-                                    className="img_size"
+                                    className="img_sizes"
                                     src={proimage}
                                     alt="product image"
                                 />
+                                </div>
                                 <div className={style.lm_middlecontent}>
                                     <h5
                                         className={` ${style.pro_names} ${
