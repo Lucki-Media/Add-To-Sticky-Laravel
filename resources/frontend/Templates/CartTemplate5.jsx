@@ -166,8 +166,8 @@ export default function CartTemplate5(props) {
         color: #000;
         }
         .lm_quantity_picker .quantity-modifier{
-        height: ${containerHeight}px;
-        width: 28px;
+        height: 35px;
+        width: 30px;
         border: none;
         font-size: 16px;
         color: #000;
@@ -176,7 +176,8 @@ export default function CartTemplate5(props) {
         }
         .lm_quantity_picker .quantity-picker{
         background-color: #fff;
-        border: none;
+        border: 1px solid #ddd;
+        margin-left: 15px;
         border-radius:0;
         display: flex;
         align-items: center;
@@ -190,21 +191,24 @@ export default function CartTemplate5(props) {
         .lm_underline{
           text-decoration: underline;
         }
-      .lm-sticky-Bottom{
-        box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
-        background: ${gsBgColor};
-        height: ${containerHeight}px;
-        bottom:  ${gsOffsetValue}px;
-      }
-      .lm-sticky-Top{
-        box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
-        background: ${gsBgColor};
-        height: ${containerHeight}px;
-        top:  ${gsOffsetValue}px;
-      }
-    .img_size {
-        height: ${containerHeight}px;
-        margin-right: 10px;
+        .lm-sticky-Bottom{
+            box-shadow: rgba(149, 157, 165, 0.4) 0 -8px 24px;
+            background: ${gsBgColor};
+            height: ${containerHeight}px;
+            bottom:  ${gsOffsetValue}px;
+        }
+        .lm-sticky-Top{                    
+            box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
+            background: ${gsBgColor};
+            height: ${containerHeight}px;
+            top:  ${gsOffsetValue}px;
+        }
+    .img_size {        
+            height: ${containerHeight}px;
+            margin-right:10px;
+            display: flex;
+align-items: center;
+        
         float: left;
       }
       .font_option {
@@ -228,9 +232,9 @@ export default function CartTemplate5(props) {
         width: 100px;
       }
       .lm_options .pro_select_menu > div{
-        border: 0;
+        border:1px solid #ddd;
         font-size: 12px;
-        min-height: ${containerHeight}px;
+        min-height: 35px;
         box-shadow: none !important;
 
       }
@@ -336,11 +340,13 @@ export default function CartTemplate5(props) {
                                 </div>
                             </div>
                             <div className={style.lmblock_right}>
+                            <div className={`img_size ${style.image_border}`}>
                                 <img
-                                    className="img_size"
+                                    className="img_sizes"
                                     src={proimage}
                                     alt="product image"
                                 />
+                                </div>
                                 <div className={style.var_options}>
                                     <div
                                         className={`lm_options ${style.lm_options}`}

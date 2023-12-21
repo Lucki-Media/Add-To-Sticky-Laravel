@@ -340,7 +340,6 @@ function DesignSettings(props) {
 
     return (
         <div>
-            <Card sectioned>
                 {" "}
                 <Card.Subsection>
                     <Heading>Design Settings</Heading>
@@ -866,7 +865,7 @@ function DesignSettings(props) {
                         </FormLayout>
                     </Card.Subsection>
                 </Card.Subsection>
-            </Card>
+            
         </div>
     );
 }

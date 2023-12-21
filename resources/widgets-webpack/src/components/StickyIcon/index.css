@@ -152,7 +152,9 @@
 }
 
 .display_setting_subtitle {
-  font-weight: 600;
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: block;
 }
 
 div[id^="font-picker"] {
@@ -272,4 +274,12 @@ div[id^="font-picker"] .dropdown-button:focus {
 .sticky_faq_div > div:first-child > div:first-child {
   font-size: 16px;
   font-weight: 600;
+}
+
+.Polaris-Label__Text{
+font-weight: 600;
+margin-bottom: 6px;
+}
+.Polaris-Choice__Label{
+  font-weight: 600;  
 }
