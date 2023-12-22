@@ -307,7 +307,7 @@ export default function AddToCartSticky() {
             setData(data.data);
             setEnable(data.data.enable);
             setAnimationEnable(data.data.animationEnable);
-            // setDefaultTemplate(data.data.defaultTemplate);
+            setDefaultTemplate(data.data.defaultTemplate.toString());
             setPosition(data.data.current_template.general_settings.position);
             setGsFontsize(
                 data.data.current_template.general_settings.gsFontsize
@@ -391,6 +391,7 @@ export default function AddToCartSticky() {
             );
             setShowTable(true);
             setSaveLoader(true);
+            setIsSaveButtonDisabled(true);
         } catch (err) {
             console.log(err);
         }
@@ -404,6 +405,45 @@ export default function AddToCartSticky() {
         // console.log("data");
         // console.log(data);
         SetTransferData({
+            general_settings: {
+                checkDesktop: data.general_settings.checkDesktop,
+                checkMobile: data.general_settings.checkMobile,
+                gsAction: data.general_settings.gsAction,
+                gsDisplayCondition: data.general_settings.gsDisplayCondition,
+            },
+            design_settings: {
+                gsFontFamily: data.design_settings.gsFontFamily,
+                animationEnable: data.design_settings.animationEnable,
+                gsBgColor: data.design_settings.gsBgColor,
+                containerHeight: data.design_settings.containerHeight,
+                gsOffsetValue: data.design_settings.gsOffsetValue,
+                position: data.design_settings.position,
+                gsTitleColor: data.design_settings.gsTitleColor,
+                gsFontsize: data.design_settings.gsFontsize,
+                gsBold: data.design_settings.gsBold,
+                gsItalic: data.design_settings.gsItalic,
+                gsUnderline: data.design_settings.gsUnderline,
+                gsPriceFontsize: data.design_settings.gsPriceFontsize,
+                gsPriceColor: data.design_settings.gsPriceColor,
+                editText: data.design_settings.editText,
+                unavailable: data.design_settings.unavailable,
+                btnWidthValue: data.design_settings.btnWidthValue,
+                btnheightValue: data.design_settings.btnheightValue,
+                btnFontsize: data.design_settings.btnFontsize,
+                btnBorderThickness: data.design_settings.btnBorderThickness,
+                btnBorderRadius: data.design_settings.btnBorderRadius,
+                btnBold: data.design_settings.btnBold,
+                btnItalic: data.design_settings.btnItalic,
+                btnUnderline: data.design_settings.btnUnderline,
+                btnTextColor: data.design_settings.btnTextColor,
+                btnBgColor: data.design_settings.btnBgColor,
+                btnTexthoverColor: data.design_settings.btnTexthoverColor,
+                btnBgHoverColor: data.design_settings.btnBgHoverColor,
+                btnBorderColor: data.design_settings.btnBorderColor,
+                btnBorderHoverColor: data.design_settings.btnBorderHoverColor,
+            },
+        });
+        SetAPIresponse({
             general_settings: {
                 checkDesktop: data.general_settings.checkDesktop,
                 checkMobile: data.general_settings.checkMobile,
@@ -478,6 +518,7 @@ export default function AddToCartSticky() {
         setBtnBorderColor(data.design_settings.btnBorderColor);
         setBtnBorderHoverColor(data.design_settings.btnBorderHoverColor);
         setSaveLoader(true);
+        setIsSaveButtonDisabled(true);
     };
     let handleSave = async () => {
         try {
@@ -538,6 +579,7 @@ export default function AddToCartSticky() {
                 getAddToStickyCartData();
                 setToastContent(response.data.message);
                 toggleActive();
+                setIsSaveButtonDisabled(true);
             } else {
                 setToastContent1(response.data.message);
                 toggleActive1();
@@ -546,6 +588,8 @@ export default function AddToCartSticky() {
             console.log(err);
         }
     };
+    console.log("isSaveButtonDisabled");
+    console.log(isSaveButtonDisabled);
     const handleSwitchChange = (checked) => {
         setEnable(checked);
     };
@@ -559,8 +603,10 @@ export default function AddToCartSticky() {
         { label: "Style 7", value: "7" },
         { label: "Style 8", value: "8" },
     ];
+
     const handleSelectTemplateChange = useCallback(
         (value) => {
+            setIsSaveButtonDisabled(isEqual(value, originalDefaultTemplate));
             var currentData;
             switch (value) {
                 case "1":
@@ -640,6 +686,7 @@ export default function AddToCartSticky() {
             setBtnBorderHoverColor(
                 currentData.buy_btn_settings.btnBorderHoverColor
             );
+            setIsSaveButtonDisabled(true);
         },
         [data]
     );
@@ -660,13 +707,6 @@ export default function AddToCartSticky() {
         originalEnable,
         originalDefaultTemplate,
     ]);
-    const handleDiscardSettings = async () => {
-        setTimeout(() => {
-            setSaveLoader(true);
-        }, 200);
-        setSaveLoader(false);
-        getAddToStickyCartData();
-    };
     // COLOR CHANGE HANDLES END
     if (showTable === false) {
         return (
@@ -741,16 +781,6 @@ export default function AddToCartSticky() {
                                         </p>
                                     </div>
                                     <ButtonGroup>
-                                        {!isSaveButtonDisabled ? (
-                                            <Button
-                                                onClick={handleDiscardSettings}
-                                            >
-                                                Discard
-                                            </Button>
-                                        ) : (
-                                            ""
-                                        )}
-
                                         <Button primary onClick={handleSave}>
                                             Save
                                         </Button>

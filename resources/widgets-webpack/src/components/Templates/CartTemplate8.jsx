@@ -275,30 +275,47 @@ export default function CartTemplate8(props) {
                             .apply-font{
                                 font-family : ${gsFontFamily};
                             }
-                    .lm_quantity_picker .quantity-picker .quantity-display{
-                    padding: 0;
-                    background-color: #fff;
-                    width: 28px !important;
-                    font-size: 14px;
-                    color: #000;
-                    box-shadow: none;
-                    }
-                    .lm_quantity_picker .quantity-modifier{
-                    height: ${containerHeight}px;
-                    width: 28px;
-                    border: none;
-                    font-size: 16px;
-                    color: #000;
-                    background-color: #fff;
-                    border-radius: 0;
-                    }
-                    .lm_quantity_picker .quantity-picker{
-                    background-color: #fff;
-                    border: none;
-                    border-radius:0;
-                    display: flex;
-                    align-items: center;
-                    }
+                        .lm_quantity_picker .quantity-picker .quantity-display{
+        padding: 0;
+        background-color: #fff;
+        width: 28px !important;
+        font-size: 14px;
+        color: #000;
+        box-shadow: none;
+        }
+        .lm_quantity_picker .quantity-modifier{
+        height: 35px;
+        width: 30px;
+        border: none;
+        font-size: 16px;
+        color: #000;
+        background-color: #fff;
+        border-radius: 0;
+        }
+        .lm_quantity_picker .quantity-picker{
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius:0;
+        display: flex;
+        align-items: center;
+
+        }
+
+         .lm_options {
+        position: relative;
+      }
+      .lm_options .pro_select_menu{
+        display: inline-block;
+        width: 100px;
+     margin-right: 15px;
+      }
+      .lm_options .pro_select_menu > div{
+        border: 1px solid #ddd;
+        font-size: 12px;
+        min-height: 35px;
+        box-shadow: none !important;
+        border-radius:0;
+      }
                     .lm_bold{
                     font-weight: bolder;
                     }
@@ -308,21 +325,24 @@ export default function CartTemplate8(props) {
                     .lm_underline{
                     text-decoration: underline;
                     }
-                .lm-sticky-Bottom{
-                    box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
+              .lm-sticky-Bottom{
+                    box-shadow: rgba(149, 157, 165, 0.4) 0 -8px 24px;
                     background: ${gsBgColor};
                     height: ${containerHeight}px;
                     bottom:  ${gsOffsetValue}px;
                 }
                 .lm-sticky-Top{
-                    box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
+                    box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
                     background: ${gsBgColor};
                     height: ${containerHeight}px;
                     top:  ${gsOffsetValue}px;
                 }
-                .img_size {
-                    height: ${containerHeight}px;
-                }
+                        .img_size {
+                            height: ${containerHeight}px;
+                            margin-right:15px;
+                            display: flex;
+                             align-items: center;
+                        }
                 .font_option {
                     color: ${gsTitleColor};
                     font-size: ${gsFontsize}px;
@@ -337,20 +357,7 @@ export default function CartTemplate8(props) {
                     font-size: ${gsPriceFontsize}px;
                 }
 
-                .lm_options {
-                    position: relative;
-                }
-                .lm_options .pro_select_menu{
-                    display: inline-block;
-                    width: 100px;
-                }
-                .lm_options .pro_select_menu > div{
-                    border: 0;
-                    font-size: 12px;
-                    min-height: ${containerHeight}px;
-                    box-shadow: none !important;
-                    border-radius:0;
-                }
+
                 .css-1jqq78o-placeholder{
                     font-size:12px;
                     color: #000;
@@ -420,26 +427,31 @@ export default function CartTemplate8(props) {
                                 <div className={style.lm_cart_module}>
                                     <div className={style.lm_pro_image}>
                                         {/* if there is no variant or if variant has no image then it will take produt image and if product image will null then it will show default product image  */}
-                                        <img
-                                            className="img_size"
-                                            src={
-                                                selectedVariant.featured_image !==
-                                                null
-                                                    ? selectedVariant
-                                                          .featured_image.src
-                                                    : props.productImage !==
-                                                          null &&
-                                                      props.productImage !==
-                                                          undefined
-                                                    ? props.productImage
-                                                    : process.env
-                                                          .REACT_APP_IMAGE_URL +
-                                                      "images/default_product.png"
-                                            }
-                                            alt="product "
-                                        />
+                                        <div
+                                            className={`img_size ${style.image_border}`}
+                                        >
+                                            <img
+                                                className="img_sizeS"
+                                                src={
+                                                    selectedVariant.featured_image !==
+                                                    null
+                                                        ? selectedVariant
+                                                              .featured_image
+                                                              .src
+                                                        : props.productImage !==
+                                                              null &&
+                                                          props.productImage !==
+                                                              undefined
+                                                        ? props.productImage
+                                                        : process.env
+                                                              .REACT_APP_IMAGE_URL +
+                                                          "images/default_product.png"
+                                                }
+                                                alt="product "
+                                            />
+                                        </div>
                                         <div className={style.lm_middlecontent}>
-                                            <h5
+                                            <h2
                                                 className={`${
                                                     style.pro_names
                                                 } ${
@@ -457,7 +469,7 @@ export default function CartTemplate8(props) {
                                                 }`}
                                             >
                                                 {props.product.title}
-                                            </h5>
+                                            </h2>
                                         </div>
                                     </div>
                                     <div className={style.lmblock_right}>
