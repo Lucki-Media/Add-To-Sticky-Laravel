@@ -9,6 +9,7 @@ import {
     TextContainer,
     Banner,
     Modal,
+    CalloutCard,
 } from "@shopify/polaris";
 import { SideBar } from "../components";
 import "../css/index.css";
@@ -120,7 +121,7 @@ export default function Dashboard(props) {
                                     </p>
                                 </Banner>
                             </Card>
-                            <div style={{ marginBottom: "10px" }}>
+                            {/* <div style={{ marginBottom: "10px" }}>
                                 <Card>
                                     <Banner title="How does the app works?">
                                         <p>
@@ -132,18 +133,64 @@ export default function Dashboard(props) {
                                         </p>
                                     </Banner>
                                 </Card>
-                            </div>
+                            </div> */}
                         </div>
+                        <div className="lm_add_to_sticky_callout_card">
+                            <Layout>
+                                <Layout.Section>
+                                    {" "}
+                                    <CalloutCard
+                                        title="Add To Cart Sticky Bar"
+                                        illustration="https://cdn.shopify.com/s/assets/admin/checkout/settings-customizecart-705f57c725ac05be5a34ec20c05b94298cb8afd10aac7bd9c7ad02030f48cfa0.svg"
+                                        primaryAction={{
+                                            content: "Customize",
+                                            url: "/add-to-cart-sticky",
+                                            style: {
+                                                backgroundColor: "#008060",
+                                                color: "#ffffff",
+                                            },
+                                        }}
+                                    >
+                                        <p>
+                                            Incorporating a sticky 'Add to Cart'
+                                            bar enhances user experience, making
+                                            it effortless for users to swiftly
+                                            add products to their cart,
+                                            ultimately driving revenue growth.
+                                        </p>
+                                    </CalloutCard>
+                                </Layout.Section>
+                                <Layout.Section>
+                                    {" "}
+                                    <CalloutCard
+                                        title="Sticky Cart"
+                                        illustration="https://cdn.shopify.com/s/assets/admin/checkout/settings-customizecart-705f57c725ac05be5a34ec20c05b94298cb8afd10aac7bd9c7ad02030f48cfa0.svg"
+                                        primaryAction={{
+                                            content: "Customize",
+                                            url: "/sticky-cart",
+                                            style: {
+                                                backgroundColor: "#008060",
+                                                color: "#ffffff",
+                                            },
+                                        }}
+                                    >
+                                        <p>
+                                            Introducing a Fixed Cart feature
+                                            elevates the shopping journey,
+                                            empowering users to efficiently
+                                            complete bulk checkouts for their
+                                            selected products and enhance
+                                            overall conversion rates.
+                                        </p>
+                                    </CalloutCard>
+                                </Layout.Section>
+                            </Layout>
+                        </div>
+
                         <Layout>
-                            {/* <Layout.Section oneThird>
-                                <Card title="Add To Sticky" sectioned>
-                                <div className="sidebar_title">Dashboard</div>
-                                <SideBar />
-                                </Card>
-                            </Layout.Section> */}
                             <Layout.Section>
                                 <div className="sidebar_title">
-                                    {currentMonth}
+                                    {currentMonth} , {currentYear}
                                 </div>
                                 <div className="clickdetails_layout">
                                     <Layout>
