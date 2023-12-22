@@ -475,7 +475,7 @@ export function GeneralSettings(props) {
                     <RangeSlider
                         label={`${containerHeight} px`}
                         value={containerHeight}
-                        min={50}
+                        min={70}
                         max={150}
                         onChange={handleHeightSliderChange}
                         output

@@ -197,7 +197,7 @@ export default function CartTemplate4(props) {
                         height: ${containerHeight}px;
                         bottom:  ${gsOffsetValue}px;
                     }
-                    .lm-sticky-Top{                    
+                    .lm-sticky-Top{
                         box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
                         background: ${gsBgColor};
                         height: ${containerHeight}px;
@@ -304,18 +304,20 @@ export default function CartTemplate4(props) {
                     <div className={style.lm_container}>
                         <div className={style.lm_cart_module}>
                             <div className={style.lm_pro_image}>
-                            <div className={`img_size ${style.image_border}`}>
-                                <img
-                                    className="img_sizes"
-                                    src={proimage}
-                                    alt="product image"
-                                />
+                                <div
+                                    className={`img_size ${style.image_border}`}
+                                >
+                                    <img
+                                        className="img_sizes"
+                                        src={proimage}
+                                        alt="product image"
+                                    />
                                 </div>
                                 <div className={style.lm_middlecontent}>
                                     <h5
-                                        className={` ${style.pro_names} ${
-                                            gsBold === true ? "lm_bold" : ""
-                                        } ${
+                                        className={`font_option ${
+                                            style.pro_names
+                                        } ${gsBold === true ? "lm_bold" : ""} ${
                                             gsItalic === true ? "lm_italic" : ""
                                         } ${
                                             gsUnderline === true

@@ -197,18 +197,18 @@ export default function CartTemplate5(props) {
             height: ${containerHeight}px;
             bottom:  ${gsOffsetValue}px;
         }
-        .lm-sticky-Top{                    
+        .lm-sticky-Top{
             box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
             background: ${gsBgColor};
             height: ${containerHeight}px;
             top:  ${gsOffsetValue}px;
         }
-    .img_size {        
+    .img_size {
             height: ${containerHeight}px;
             margin-right:10px;
             display: flex;
 align-items: center;
-        
+
         float: left;
       }
       .font_option {
@@ -312,9 +312,9 @@ align-items: center;
                             <div className={style.lm_pro_image}>
                                 <div className={style.lm_middlecontent}>
                                     <h5
-                                        className={` ${style.pro_names} ${
-                                            gsBold === true ? "lm_bold" : ""
-                                        } ${
+                                        className={`font_option ${
+                                            style.pro_names
+                                        } ${gsBold === true ? "lm_bold" : ""} ${
                                             gsItalic === true ? "lm_italic" : ""
                                         } ${
                                             gsUnderline === true
@@ -340,12 +340,14 @@ align-items: center;
                                 </div>
                             </div>
                             <div className={style.lmblock_right}>
-                            <div className={`img_size ${style.image_border}`}>
-                                <img
-                                    className="img_sizes"
-                                    src={proimage}
-                                    alt="product image"
-                                />
+                                <div
+                                    className={`img_size ${style.image_border}`}
+                                >
+                                    <img
+                                        className="img_sizes"
+                                        src={proimage}
+                                        alt="product image"
+                                    />
                                 </div>
                                 <div className={style.var_options}>
                                     <div
