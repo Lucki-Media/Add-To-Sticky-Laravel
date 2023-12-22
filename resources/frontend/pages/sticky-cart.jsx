@@ -221,6 +221,7 @@ export default function StickyCart() {
             setCountBgHoverColor(data.data.current_template.countBgHoverColor);
             setShowTable(true);
             setSaveLoader(true);
+            setUnsavedChanges(true);
         } catch (err) {
             console.log(err);
         }
@@ -281,8 +282,8 @@ export default function StickyCart() {
                     currentData = stickyCartData.current_template;
                     break;
             }
-            console.log("currentData");
-            console.log(currentData);
+            // console.log("currentData");
+            // console.log(currentData);
             setEnableSticky(stickyCartData.enableSticky);
             setAction(currentData.action);
             setBtnSize(currentData.btnSize);
@@ -351,6 +352,7 @@ export default function StickyCart() {
                 getStickyCartData();
                 setToastContent(response.data.message);
                 toggleActive();
+                setUnsavedChanges(true);
             } else {
                 setToastContent1(response.data.message);
                 toggleActive1();
@@ -590,13 +592,7 @@ export default function StickyCart() {
         setEnableSticky(!value);
         setUnsavedChanges(isEqual(!value, originalenableSticky));
     };
-    const handleDiscardSettings = async () => {
-        setTimeout(() => {
-            setSaveLoader(true);
-        }, 200);
-        setSaveLoader(false);
-        getStickyCartData();
-    };
+
     if (showTable === false) {
         return (
             <div>
@@ -678,15 +674,6 @@ export default function StickyCart() {
                                         </p>
                                     </div>
                                     <ButtonGroup>
-                                        {!unsavedChanges ? (
-                                            <Button
-                                                onClick={handleDiscardSettings}
-                                            >
-                                                Discard
-                                            </Button>
-                                        ) : (
-                                            ""
-                                        )}
                                         <Button primary onClick={handleSave}>
                                             Save
                                         </Button>

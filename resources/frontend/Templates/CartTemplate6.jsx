@@ -320,7 +320,7 @@ export default function CartTemplate6(props) {
                                     />
                                 </div>
                                 <div className={style.lm_middlecontent}>
-                                    <h5
+                                    <h2
                                         className={`font_option ${
                                             style.pro_names
                                         } ${gsBold === true ? "lm_bold" : ""} ${
@@ -332,7 +332,7 @@ export default function CartTemplate6(props) {
                                         }`}
                                     >
                                         50 Pocket Jean - 30 / Indigo
-                                    </h5>
+                                    </h2>
                                 </div>
                             </div>
                             <div className={style.lmblock_right}>

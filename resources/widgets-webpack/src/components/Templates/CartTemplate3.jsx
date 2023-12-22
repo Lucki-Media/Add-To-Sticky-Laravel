@@ -284,8 +284,8 @@ export default function CartTemplate3(props) {
                             box-shadow: none;
                             }
                             .lm_quantity_picker .quantity-modifier{
-                            height: ${containerHeight}px;
-                            width: 28px;
+                            height: 35px;
+                            width: 30px;
                             border: none;
                             font-size: 16px;
                             color: #000;
@@ -294,10 +294,11 @@ export default function CartTemplate3(props) {
                             }
                             .lm_quantity_picker .quantity-picker{
                             background-color: #fff;
-                            border: none;
+                            border: 1px solid #ddd;
                             border-radius:0;
                             display: flex;
                             align-items: center;
+                                margin-left: 15px;
                             }
                             .lm_bold{
                             font-weight: bolder;
@@ -308,22 +309,23 @@ export default function CartTemplate3(props) {
                             .lm_underline{
                             text-decoration: underline;
                             }
-                        .lm-sticky-Bottom{
-                            box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
+                          .lm-sticky-Bottom{
+                            box-shadow: rgba(149, 157, 165, 0.4) 0 -8px 24px;
                             background: ${gsBgColor};
                             height: ${containerHeight}px;
                             bottom:  ${gsOffsetValue}px;
-                            animation: slide-in-bottom 1s ease forwards;
                         }
                         .lm-sticky-Top{
-                            box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
+                            box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
                             background: ${gsBgColor};
                             height: ${containerHeight}px;
                             top:  ${gsOffsetValue}px;
-                            animation: slide-in-top 1s ease forwards;
                         }
                         .img_size {
                             height: ${containerHeight}px;
+                            margin-right:15px;
+                            display: flex;
+                            align-items: center;
                         }
                         .font_option {
                             color: ${gsTitleColor};
@@ -346,12 +348,12 @@ export default function CartTemplate3(props) {
                             display: inline-block;
                             width: 100px;
                         }
-                        .lm_options .pro_select_menu > div{
-                            border: 0;
+                         .lm_options .pro_select_menu > div {
                             font-size: 12px;
-                            min-height: ${containerHeight}px;
-                            box-shadow: none !important;
+                            min-height: 35px;
                             border-radius: 0;
+                            border: 1px solid #ddd;
+                            box-shadow: none;
                         }
                         .css-1jqq78o-placeholder{
                             font-size:12px;
@@ -418,26 +420,31 @@ export default function CartTemplate3(props) {
                             <div className={style.lm_container}>
                                 <div className={style.lm_cart_module}>
                                     <div className={style.lm_pro_image}>
-                                        <img
-                                            className="img_size"
-                                            src={
-                                                selectedVariant.featured_image !==
-                                                null
-                                                    ? selectedVariant
-                                                          .featured_image.src
-                                                    : props.productImage !==
-                                                          null &&
-                                                      props.productImage !==
-                                                          undefined
-                                                    ? props.productImage
-                                                    : process.env
-                                                          .REACT_APP_IMAGE_URL +
-                                                      "images/default_product.png"
-                                            }
-                                            alt="product"
-                                        />
+                                        <div
+                                            className={`img_size ${style.image_border}`}
+                                        >
+                                            <img
+                                                className="img_sizes"
+                                                src={
+                                                    selectedVariant.featured_image !==
+                                                    null
+                                                        ? selectedVariant
+                                                              .featured_image
+                                                              .src
+                                                        : props.productImage !==
+                                                              null &&
+                                                          props.productImage !==
+                                                              undefined
+                                                        ? props.productImage
+                                                        : process.env
+                                                              .REACT_APP_IMAGE_URL +
+                                                          "images/default_product.png"
+                                                }
+                                                alt="product"
+                                            />
+                                        </div>
                                         <div className={style.lm_middlecontent}>
-                                            <h5
+                                            <h2
                                                 className={` ${
                                                     style.pro_names
                                                 } ${
@@ -455,7 +462,7 @@ export default function CartTemplate3(props) {
                                                 }`}
                                             >
                                                 {props.product.title}
-                                            </h5>
+                                            </h2>
                                             <div className="p_color">
                                                 {oldPrice !== "" ? (
                                                     <span

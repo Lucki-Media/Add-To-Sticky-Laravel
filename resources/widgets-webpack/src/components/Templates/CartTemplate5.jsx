@@ -284,8 +284,8 @@ export default function CartTemplate5(props) {
         box-shadow: none;
         }
         .lm_quantity_picker .quantity-modifier{
-        height: ${containerHeight}px;
-        width: 28px;
+        height: 35px;
+        width: 30px;
         border: none;
         font-size: 16px;
         color: #000;
@@ -294,11 +294,27 @@ export default function CartTemplate5(props) {
         }
         .lm_quantity_picker .quantity-picker{
         background-color: #fff;
-        border: none;
+        border: 1px solid #ddd;
         border-radius:0;
         display: flex;
         align-items: center;
         }
+
+         .lm_options {
+        position: relative;
+      }
+      .lm_options .pro_select_menu{
+        display: inline-block;
+        width: 100px;
+     margin-right: 15px;
+      }
+      .lm_options .pro_select_menu > div{
+        border: 1px solid #ddd;
+        font-size: 12px;
+        min-height: 35px;
+        box-shadow: none !important;
+        border-radius:0;
+      }
         .lm_bold{
           font-weight: bolder;
         }
@@ -308,23 +324,24 @@ export default function CartTemplate5(props) {
         .lm_underline{
           text-decoration: underline;
         }
-      .lm-sticky-Bottom{
-        box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
-        background: ${gsBgColor};
-        height: ${containerHeight}px;
-        bottom:  ${gsOffsetValue}px;
-      }
-      .lm-sticky-Top{
-        box-shadow: 0 0px 20px 0px rgba(165, 165, 165, 0.65);
-        background: ${gsBgColor};
-        height: ${containerHeight}px;
-        top:  ${gsOffsetValue}px;
-      }
-    .img_size {
-        height: ${containerHeight}px;
-        margin-right: 10px;
-        float: left;
-      }
+              .lm-sticky-Bottom{
+                    box-shadow: rgba(149, 157, 165, 0.4) 0 -8px 24px;
+                    background: ${gsBgColor};
+                    height: ${containerHeight}px;
+                    bottom:  ${gsOffsetValue}px;
+                }
+                .lm-sticky-Top{
+                    box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
+                    background: ${gsBgColor};
+                    height: ${containerHeight}px;
+                    top:  ${gsOffsetValue}px;
+                }
+                        .img_size {
+                            height: ${containerHeight}px;
+                            margin-right:15px;
+                            display: flex;
+                             align-items: center;
+                        }
       .font_option {
         color: ${gsTitleColor};
         font-size: ${gsFontsize}px;
@@ -339,20 +356,7 @@ export default function CartTemplate5(props) {
         font-size: ${gsPriceFontsize}px;
       }
 
-      .lm_options {
-        position: relative;
-      }
-      .lm_options .pro_select_menu{
-        display: inline-block;
-        width: 100px;
-      }
-      .lm_options .pro_select_menu > div{
-        border: 0;
-        font-size: 12px;
-        min-height: ${containerHeight}px;
-        box-shadow: none !important;
-        border-radius:0;
-      }
+
       .css-1jqq78o-placeholder{
         font-size:12px;
         color: #000;
@@ -396,6 +400,15 @@ export default function CartTemplate5(props) {
         margin-bottom: 22px;
     margin-top: 22px;
       }
+      .image_lm_right-image img{
+          object-fit: cover;
+    margin-right: 0;
+    height: 90%;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+      }
       @media screen and (max-width: 991px) {
         .lm_options .pro_select_menu > div {
           min-height: 40px;        }
@@ -427,7 +440,7 @@ export default function CartTemplate5(props) {
                                 <div className={style.lm_cart_module}>
                                     <div className={style.lm_pro_image}>
                                         <div className={style.lm_middlecontent}>
-                                            <h5
+                                            <h2
                                                 className={`${
                                                     style.pro_names
                                                 } ${
@@ -445,7 +458,7 @@ export default function CartTemplate5(props) {
                                                 }`}
                                             >
                                                 {props.product.title}
-                                            </h5>
+                                            </h2>
                                             <div className="p_color">
                                                 {oldPrice !== "" ? (
                                                     <span
@@ -481,24 +494,30 @@ export default function CartTemplate5(props) {
                                         </div>
                                     </div>
                                     <div className={style.lmblock_right}>
-                                        <img
-                                            className="img_size"
-                                            src={
-                                                selectedVariant.featured_image !==
-                                                null
-                                                    ? selectedVariant
-                                                          .featured_image.src
-                                                    : props.productImage !==
-                                                          null &&
-                                                      props.productImage !==
-                                                          undefined
-                                                    ? props.productImage
-                                                    : process.env
-                                                          .REACT_APP_IMAGE_URL +
-                                                      "images/default_product.png"
-                                            }
-                                            alt="product "
-                                        />
+                                        <div
+                                            className={`image_lm_right-image img_size ${style.image_border}`}
+                                        >
+                                            <img
+                                                className="img_sizes"
+                                                src={
+                                                    selectedVariant.featured_image !==
+                                                    null
+                                                        ? selectedVariant
+                                                              .featured_image
+                                                              .src
+                                                        : props.productImage !==
+                                                              null &&
+                                                          props.productImage !==
+                                                              undefined
+                                                        ? props.productImage
+                                                        : process.env
+                                                              .REACT_APP_IMAGE_URL +
+                                                          "images/default_product.png"
+                                                }
+                                                alt="product "
+                                            />
+                                        </div>
+
                                         <div className={style.var_options}>
                                             {selectedVariant.option1 !==
                                                 "Default Title" &&

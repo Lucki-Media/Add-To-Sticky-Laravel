@@ -312,7 +312,7 @@ export default function CartTemplate3(props) {
                                     />
                                 </div>
                                 <div className={style.lm_middlecontent}>
-                                    <h5
+                                    <h2
                                         // font_option
                                         // apply-font
                                         className={`font_option ${
@@ -326,7 +326,7 @@ export default function CartTemplate3(props) {
                                         }`}
                                     >
                                         50 Pocket Jean - 30 / Indigo
-                                    </h5>
+                                    </h2>
                                     <div className="p_color">
                                         <span
                                             className={style.compare_lm_price}

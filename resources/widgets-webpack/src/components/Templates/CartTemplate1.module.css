@@ -24,7 +24,12 @@
 }
 .lm_pro_image img {
     object-fit: cover;
-    margin-right: 15px;
+    margin-right: 0;
+    height: 90%;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
 }
 .lm_middlecontent .pro_names {
     margin: 0 0 8px 0;
@@ -45,7 +50,7 @@
 .lm_middlecontent span {
     position: relative;
     margin-right: 20px;
-    font-size: 15px;
+    font-size: 12px;
 }
 .lm_middlecontent span.compare_lm_price {
     text-decoration: line-through;
@@ -102,7 +107,7 @@
 .lm_out_stock {
     background-color: #931111;
     color: #fff;
-    padding: 5px 10px;
+    padding: 5px 5px;
     text-align: center;
     font-size: 10px;
     line-height: 12px;
