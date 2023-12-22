@@ -316,6 +316,9 @@ export default function CartTemplate1(props) {
                         }
                         .img_size {
                             height: ${containerHeight}px;
+                            margin-right:15px;
+                            display: flex;
+            align-items: center;
                         }
                         .font_option {
                             color: ${gsTitleColor};
@@ -391,8 +394,11 @@ export default function CartTemplate1(props) {
                             <div className={style.lm_container}>
                                 <div className={style.lm_cart_module}>
                                     <div className={style.lm_pro_image}>
+                                    <div
+                                    className={`img_size ${style.image_border}`}
+                                >
                                         <img
-                                            className="img_size"
+                                            className="img_sizes"
                                             src={
                                                 selectedVariant.featured_image !==
                                                 null
@@ -409,6 +415,7 @@ export default function CartTemplate1(props) {
                                             }
                                             alt="product"
                                         />
+                                        </div>
                                         <div className={style.lm_middlecontent}>
                                             <h5
                                                 className={` ${
