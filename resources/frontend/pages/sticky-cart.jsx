@@ -674,7 +674,7 @@ export default function StickyCart() {
                                         </p>
                                     </div>
                                     <ButtonGroup>
-                                        <Button primary onClick={handleSave}>
+                                        <Button primary onClick={handleSave} disabled={unsavedChanges}>
                                             Save
                                         </Button>
                                         {toastMarkup}

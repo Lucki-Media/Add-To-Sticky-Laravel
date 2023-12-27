@@ -13,9 +13,11 @@
 }
 .showDiscardButton > div:first-child {
     /* Background color when Discard button is visible */
-    background-color: #f5c452 !important; /* Replace with your desired background color */
-    transition: background-color 0.5s ease;
+    background-color: #000!important;
+    transition: background-color .5s ease;
+    color: #fff !important;
 }
+
 .lm_add_to_sticky_callout_card {
     margin-bottom: 10px;
 }
@@ -157,7 +159,10 @@
     font-size: 22px;
     margin-bottom: 3px;
 }
-
+.disclaimer_tag{
+    font-size: 13px;
+    color: #777777;
+}
 .sidebar_title {
     font-size: 18px;
     font-weight: 600;
@@ -275,7 +280,7 @@
 }
 
 .display_setting_subtitle {
-    font-weight: 700;
+    font-weight: 600;
     margin-bottom: 6px;
     display: block;
 }

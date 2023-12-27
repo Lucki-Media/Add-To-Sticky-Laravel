@@ -63,7 +63,6 @@ export default function CartTemplate4(props) {
     /*PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS START*/
     const price = selectedVariant?.price
         ? getSymbolFromCurrency(window.Shopify.currency.active) +
-          " " +
           selectedVariant.price / 100
         : " ";
     /*PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS END*/
