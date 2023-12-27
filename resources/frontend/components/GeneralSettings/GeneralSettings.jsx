@@ -114,7 +114,7 @@ function GeneralSettings(props) {
 
             <Card.Subsection>
                 <span className="display_setting_subtitle">
-                    Device1 Settings
+                    Device Settings
                 </span>
                 <div className="style__wrapper_div">
                     <Checkbox
@@ -128,6 +128,7 @@ function GeneralSettings(props) {
                         onChange={handlecheckboxMobile}
                     />
                 </div>
+                <span className="disclaimer_tag">On which device/s you would like to show Add To Cart Sticky on your store</span>
             </Card.Subsection>
             <Card.Subsection>
                 <Select

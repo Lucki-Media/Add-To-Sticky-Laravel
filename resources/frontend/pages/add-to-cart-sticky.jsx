@@ -89,12 +89,11 @@ export default function AddToCartSticky() {
     const [gsFontFamily, setGsFontFamily] = useState("Roboto");
     const [gsTitleColor, setGsTitleColor] = useState("#000000");
     const [gsPriceColor, setGsPriceColor] = useState("#ff0000");
-    const [gsBgColor, setGsBgColor] = useState("#0001ff");
+    const [gsBgColor, setGsBgColor] = useState("#ffffff");
     const [gsOffsetValue, setGsOffsetValue] = useState(0);
     const [gsAction, setGsAction] = useState("1");
     const [gsDisplayCondition, setGsDisplayCondition] = useState("1");
     const [containerHeight, setContainerHeight] = useState(70);
-
     /*BUY NOW CONSTANTS*/
     const [buyNowSettings, setBuyNowSettings] = useState(false);
     const [editText, setEditText] = useState("BUY NOW");
@@ -148,26 +147,26 @@ export default function AddToCartSticky() {
                     gsBgColor:
                         data.data.current_template.general_settings.gsBgColor,
                     containerHeight:
-                        data.data.current_template.general_settings
-                            .containerHeight,
+                    parseInt(data.data.current_template.general_settings
+                            .containerHeight),
                     gsOffsetValue:
-                        data.data.current_template.general_settings
-                            .gsOffsetValue,
+                    parseInt(data.data.current_template.general_settings
+                            .gsOffsetValue),
                     position:
-                        data.data.current_template.general_settings.position,
+                    data.data.current_template.general_settings.position,
                     gsTitleColor:
                         data.data.current_template.general_settings
                             .gsTitleColor,
                     gsFontsize:
-                        data.data.current_template.general_settings.gsFontsize,
+                    parseInt(data.data.current_template.general_settings.gsFontsize),
                     gsBold: data.data.current_template.general_settings.gsBold,
                     gsItalic:
                         data.data.current_template.general_settings.gsItalic,
                     gsUnderline:
                         data.data.current_template.general_settings.gsUnderline,
                     gsPriceFontsize:
-                        data.data.current_template.general_settings
-                            .gsPriceFontsize,
+                    parseInt(data.data.current_template.general_settings
+                            .gsPriceFontsize),
                     gsPriceColor:
                         data.data.current_template.general_settings
                             .gsPriceColor,
@@ -176,19 +175,19 @@ export default function AddToCartSticky() {
                     unavailable:
                         data.data.current_template.buy_btn_settings.unavailable,
                     btnWidthValue:
-                        data.data.current_template.buy_btn_settings
-                            .btnWidthValue,
+                    parseInt(data.data.current_template.buy_btn_settings
+                            .btnWidthValue),
                     btnheightValue:
-                        data.data.current_template.buy_btn_settings
-                            .btnheightValue,
+                    parseInt(data.data.current_template.buy_btn_settings
+                            .btnheightValue),
                     btnFontsize:
-                        data.data.current_template.buy_btn_settings.btnFontsize,
+                    parseInt(data.data.current_template.buy_btn_settings.btnFontsize),
                     btnBorderThickness:
-                        data.data.current_template.buy_btn_settings
-                            .btnBorderThickness,
+                    parseInt(data.data.current_template.buy_btn_settings
+                            .btnBorderThickness),
                     btnBorderRadius:
-                        data.data.current_template.buy_btn_settings
-                            .btnBorderRadius,
+                    parseInt(data.data.current_template.buy_btn_settings
+                            .btnBorderRadius),
                     btnBold:
                         data.data.current_template.buy_btn_settings.btnBold,
                     btnItalic:
@@ -236,18 +235,17 @@ export default function AddToCartSticky() {
                     gsBgColor:
                         data.data.current_template.general_settings.gsBgColor,
                     containerHeight:
-                        data.data.current_template.general_settings
-                            .containerHeight,
+                    parseInt(data.data.current_template.general_settings
+                            .containerHeight),
                     gsOffsetValue:
-                        data.data.current_template.general_settings
-                            .gsOffsetValue,
-                    position:
-                        data.data.current_template.general_settings.position,
+                    parseInt(data.data.current_template.general_settings
+                            .gsOffsetValue),
+                    position: data.data.current_template.general_settings.position,
                     gsTitleColor:
                         data.data.current_template.general_settings
                             .gsTitleColor,
                     gsFontsize:
-                        data.data.current_template.general_settings.gsFontsize,
+                    parseInt(data.data.current_template.general_settings.gsFontsize),
                     gsBold: data.data.current_template.general_settings.gsBold,
                     gsItalic:
                         data.data.current_template.general_settings.gsItalic,
@@ -264,19 +262,19 @@ export default function AddToCartSticky() {
                     unavailable:
                         data.data.current_template.buy_btn_settings.unavailable,
                     btnWidthValue:
-                        data.data.current_template.buy_btn_settings
-                            .btnWidthValue,
+                    parseInt(data.data.current_template.buy_btn_settings
+                            .btnWidthValue),
                     btnheightValue:
-                        data.data.current_template.buy_btn_settings
-                            .btnheightValue,
+                    parseInt(data.data.current_template.buy_btn_settings
+                            .btnheightValue),
                     btnFontsize:
-                        data.data.current_template.buy_btn_settings.btnFontsize,
+                    parseInt(data.data.current_template.buy_btn_settings.btnFontsize),
                     btnBorderThickness:
-                        data.data.current_template.buy_btn_settings
-                            .btnBorderThickness,
+                    parseInt(data.data.current_template.buy_btn_settings
+                            .btnBorderThickness),
                     btnBorderRadius:
-                        data.data.current_template.buy_btn_settings
-                            .btnBorderRadius,
+                    parseInt(data.data.current_template.buy_btn_settings
+                            .btnBorderRadius),
                     btnBold:
                         data.data.current_template.buy_btn_settings.btnBold,
                     btnItalic:
@@ -306,8 +304,10 @@ export default function AddToCartSticky() {
             // console.log(data.data);
             setData(data.data);
             setEnable(data.data.enable);
+            setOriginalEnable(data.data.enable);
             setAnimationEnable(data.data.animationEnable);
             setDefaultTemplate(data.data.defaultTemplate.toString());
+            setOriginalDefaultTemplate(data.data.defaultTemplate.toString());
             setPosition(data.data.current_template.general_settings.position);
             setGsFontsize(
                 data.data.current_template.general_settings.gsFontsize
@@ -391,7 +391,7 @@ export default function AddToCartSticky() {
             );
             setShowTable(true);
             setSaveLoader(true);
-            setIsSaveButtonDisabled(true);
+            // setIsSaveButtonDisabled(true);
         } catch (err) {
             console.log(err);
         }
@@ -415,23 +415,23 @@ export default function AddToCartSticky() {
                 gsFontFamily: data.design_settings.gsFontFamily,
                 animationEnable: data.design_settings.animationEnable,
                 gsBgColor: data.design_settings.gsBgColor,
-                containerHeight: data.design_settings.containerHeight,
-                gsOffsetValue: data.design_settings.gsOffsetValue,
+                containerHeight: parseInt(data.design_settings.containerHeight),
+                gsOffsetValue: parseInt(data.design_settings.gsOffsetValue),
                 position: data.design_settings.position,
                 gsTitleColor: data.design_settings.gsTitleColor,
-                gsFontsize: data.design_settings.gsFontsize,
+                gsFontsize: parseInt(data.design_settings.gsFontsize),
                 gsBold: data.design_settings.gsBold,
                 gsItalic: data.design_settings.gsItalic,
                 gsUnderline: data.design_settings.gsUnderline,
-                gsPriceFontsize: data.design_settings.gsPriceFontsize,
+                gsPriceFontsize: parseInt(data.design_settings.gsPriceFontsize),
                 gsPriceColor: data.design_settings.gsPriceColor,
                 editText: data.design_settings.editText,
                 unavailable: data.design_settings.unavailable,
-                btnWidthValue: data.design_settings.btnWidthValue,
-                btnheightValue: data.design_settings.btnheightValue,
-                btnFontsize: data.design_settings.btnFontsize,
-                btnBorderThickness: data.design_settings.btnBorderThickness,
-                btnBorderRadius: data.design_settings.btnBorderRadius,
+                btnWidthValue: parseInt(data.design_settings.btnWidthValue),
+                btnheightValue: parseInt(data.design_settings.btnheightValue),
+                btnFontsize: parseInt(data.design_settings.btnFontsize),
+                btnBorderThickness: parseInt(data.design_settings.btnBorderThickness),
+                btnBorderRadius: parseInt(data.design_settings.btnBorderRadius),
                 btnBold: data.design_settings.btnBold,
                 btnItalic: data.design_settings.btnItalic,
                 btnUnderline: data.design_settings.btnUnderline,
@@ -443,45 +443,45 @@ export default function AddToCartSticky() {
                 btnBorderHoverColor: data.design_settings.btnBorderHoverColor,
             },
         });
-        SetAPIresponse({
-            general_settings: {
-                checkDesktop: data.general_settings.checkDesktop,
-                checkMobile: data.general_settings.checkMobile,
-                gsAction: data.general_settings.gsAction,
-                gsDisplayCondition: data.general_settings.gsDisplayCondition,
-            },
-            design_settings: {
-                gsFontFamily: data.design_settings.gsFontFamily,
-                animationEnable: data.design_settings.animationEnable,
-                gsBgColor: data.design_settings.gsBgColor,
-                containerHeight: data.design_settings.containerHeight,
-                gsOffsetValue: data.design_settings.gsOffsetValue,
-                position: data.design_settings.position,
-                gsTitleColor: data.design_settings.gsTitleColor,
-                gsFontsize: data.design_settings.gsFontsize,
-                gsBold: data.design_settings.gsBold,
-                gsItalic: data.design_settings.gsItalic,
-                gsUnderline: data.design_settings.gsUnderline,
-                gsPriceFontsize: data.design_settings.gsPriceFontsize,
-                gsPriceColor: data.design_settings.gsPriceColor,
-                editText: data.design_settings.editText,
-                unavailable: data.design_settings.unavailable,
-                btnWidthValue: data.design_settings.btnWidthValue,
-                btnheightValue: data.design_settings.btnheightValue,
-                btnFontsize: data.design_settings.btnFontsize,
-                btnBorderThickness: data.design_settings.btnBorderThickness,
-                btnBorderRadius: data.design_settings.btnBorderRadius,
-                btnBold: data.design_settings.btnBold,
-                btnItalic: data.design_settings.btnItalic,
-                btnUnderline: data.design_settings.btnUnderline,
-                btnTextColor: data.design_settings.btnTextColor,
-                btnBgColor: data.design_settings.btnBgColor,
-                btnTexthoverColor: data.design_settings.btnTexthoverColor,
-                btnBgHoverColor: data.design_settings.btnBgHoverColor,
-                btnBorderColor: data.design_settings.btnBorderColor,
-                btnBorderHoverColor: data.design_settings.btnBorderHoverColor,
-            },
-        });
+        // SetAPIresponse({
+        //     general_settings: {
+        //         checkDesktop: data.general_settings.checkDesktop,
+        //         checkMobile: data.general_settings.checkMobile,
+        //         gsAction: data.general_settings.gsAction,
+        //         gsDisplayCondition: data.general_settings.gsDisplayCondition,
+        //     },
+        //     design_settings: {
+        //         gsFontFamily: data.design_settings.gsFontFamily,
+        //         animationEnable: data.design_settings.animationEnable,
+        //         gsBgColor: data.design_settings.gsBgColor,
+        //         containerHeight: data.design_settings.containerHeight,
+        //         gsOffsetValue: data.design_settings.gsOffsetValue,
+        //         position: data.design_settings.position,
+        //         gsTitleColor: data.design_settings.gsTitleColor,
+        //         gsFontsize: data.design_settings.gsFontsize,
+        //         gsBold: data.design_settings.gsBold,
+        //         gsItalic: data.design_settings.gsItalic,
+        //         gsUnderline: data.design_settings.gsUnderline,
+        //         gsPriceFontsize: data.design_settings.gsPriceFontsize,
+        //         gsPriceColor: data.design_settings.gsPriceColor,
+        //         editText: data.design_settings.editText,
+        //         unavailable: data.design_settings.unavailable,
+        //         btnWidthValue: data.design_settings.btnWidthValue,
+        //         btnheightValue: data.design_settings.btnheightValue,
+        //         btnFontsize: data.design_settings.btnFontsize,
+        //         btnBorderThickness: data.design_settings.btnBorderThickness,
+        //         btnBorderRadius: data.design_settings.btnBorderRadius,
+        //         btnBold: data.design_settings.btnBold,
+        //         btnItalic: data.design_settings.btnItalic,
+        //         btnUnderline: data.design_settings.btnUnderline,
+        //         btnTextColor: data.design_settings.btnTextColor,
+        //         btnBgColor: data.design_settings.btnBgColor,
+        //         btnTexthoverColor: data.design_settings.btnTexthoverColor,
+        //         btnBgHoverColor: data.design_settings.btnBgHoverColor,
+        //         btnBorderColor: data.design_settings.btnBorderColor,
+        //         btnBorderHoverColor: data.design_settings.btnBorderHoverColor,
+        //     },
+        // });
         /*GENERAL SETTINGS VALUES*/
         setCheckDesktop(data.general_settings.checkDesktop);
         setCheckMobile(data.general_settings.checkMobile);
@@ -518,7 +518,7 @@ export default function AddToCartSticky() {
         setBtnBorderColor(data.design_settings.btnBorderColor);
         setBtnBorderHoverColor(data.design_settings.btnBorderHoverColor);
         setSaveLoader(true);
-        setIsSaveButtonDisabled(true);
+        // setIsSaveButtonDisabled(true);
     };
     let handleSave = async () => {
         try {
@@ -579,7 +579,7 @@ export default function AddToCartSticky() {
                 getAddToStickyCartData();
                 setToastContent(response.data.message);
                 toggleActive();
-                setIsSaveButtonDisabled(true);
+                // setIsSaveButtonDisabled(true);
             } else {
                 setToastContent1(response.data.message);
                 toggleActive1();
@@ -588,8 +588,6 @@ export default function AddToCartSticky() {
             console.log(err);
         }
     };
-    console.log("isSaveButtonDisabled");
-    console.log(isSaveButtonDisabled);
     const handleSwitchChange = (checked) => {
         setEnable(checked);
     };
@@ -606,7 +604,7 @@ export default function AddToCartSticky() {
 
     const handleSelectTemplateChange = useCallback(
         (value) => {
-            setIsSaveButtonDisabled(isEqual(value, originalDefaultTemplate));
+            // setIsSaveButtonDisabled(isEqual(value, originalDefaultTemplate));
             var currentData;
             switch (value) {
                 case "1":
@@ -686,16 +684,16 @@ export default function AddToCartSticky() {
             setBtnBorderHoverColor(
                 currentData.buy_btn_settings.btnBorderHoverColor
             );
-            setIsSaveButtonDisabled(true);
+            // setIsSaveButtonDisabled(true);
         },
         [data]
     );
-    // TO ENABLE OR DISABLE SAVE BUTTON
+
     useEffect(() => {
         setIsSaveButtonDisabled(isEqual(transferData, APIresponse));
         if (
             enable !== originalEnable ||
-            defaultTemplate !== originalDefaultTemplate
+            defaultTemplate !== originalDefaultTemplate 
         ) {
             setIsSaveButtonDisabled(false);
         }
@@ -707,6 +705,7 @@ export default function AddToCartSticky() {
         originalEnable,
         originalDefaultTemplate,
     ]);
+
     // COLOR CHANGE HANDLES END
     if (showTable === false) {
         return (
@@ -754,7 +753,7 @@ export default function AddToCartSticky() {
                     <div className="lm_sticky_main_app_page">
                         <div
                             className={`${
-                                !isSaveButtonDisabled ? "showDiscardButton" : ""
+                                isSaveButtonDisabled ? "" : "showDiscardButton"
                             } lm_sticky_fullscreenbar`}
                         >
                             <FullscreenBar>
@@ -775,13 +774,17 @@ export default function AddToCartSticky() {
                                         }}
                                     >
                                         <p className="fullscreen_title">
-                                            {!isSaveButtonDisabled
-                                                ? "Unsaved Changes"
-                                                : "Sticky Add To Cart"}
+                                            {isSaveButtonDisabled
+                                                ? "Sticky Add To Cart"
+                                                : "Unsaved Changes"}
                                         </p>
                                     </div>
                                     <ButtonGroup>
-                                        <Button primary onClick={handleSave}>
+                                        <Button
+                                            primary
+                                            onClick={handleSave}
+                                            disabled={isSaveButtonDisabled}
+                                        >
                                             Save
                                         </Button>
                                         {toastMarkup}

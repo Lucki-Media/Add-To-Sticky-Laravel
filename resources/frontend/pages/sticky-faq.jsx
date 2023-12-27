@@ -73,6 +73,10 @@ export default function StickyFAQ() {
                                                     dangerouslySetInnerHTML={{
                                                         __html: item.answer,
                                                     }}
+                                                    style={{
+                                                        fontSize: 14,
+                                                        lineHeight:"22px",
+                                                    }}
                                                 ></p>
                                             </Collapsible>
                                         </div>
