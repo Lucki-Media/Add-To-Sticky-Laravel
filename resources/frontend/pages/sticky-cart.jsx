@@ -1482,7 +1482,7 @@ export default function StickyCart() {
                                                                     {enableCount ===
                                                                     true ? (
                                                                         <span
-                                                                            className="apply-font sticky_Count"
+                                                                            className="sticky_Count"
                                                                             style={{
                                                                                 background:
                                                                                     countHover

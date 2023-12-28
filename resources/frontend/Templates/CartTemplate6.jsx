@@ -217,7 +217,7 @@ export default function CartTemplate6(props) {
                     .label_color{
                         color: ${gsTitleColor};
                     }
-                    .p_color{
+                    .lm_sticky_p_color{
                         color: ${gsPriceColor};
                         display: inline-flex;
                         align-items:center;
@@ -276,19 +276,16 @@ export default function CartTemplate6(props) {
                     .css-1f43avz-a11yText-A11yText{
                         display: none;
                     }
-                    .p_color span{
-                        margin-right: 20px;
-                    }
                     .css-tj5bde-Svg{
                         fill: #333;
                     }
                     @media screen and (max-width: 1100px) {
-                        // .p_color span{
+                        // .lm_sticky_p_color span{
                         // // margin-right:10px;
                         // }
                     }
                     @media screen and (max-width: 767px) {
-                        .p_color{
+                        .lm_sticky_p_color{
                         margin-bottom : 10px !important;
                         }
                     }
@@ -336,7 +333,7 @@ export default function CartTemplate6(props) {
                                 </div>
                             </div>
                             <div className={style.lmblock_right}>
-                                <div className="p_color">
+                                <div className="lm_sticky_p_color">
                                     <span className={style.compare_lm_price}>
                                         $50.00
                                     </span>{" "}

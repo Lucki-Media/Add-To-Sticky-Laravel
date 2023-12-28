@@ -2,6 +2,7 @@
     position: fixed;
     width: 100%;
     z-index: 999;
+    font-family: var(--font-body-family);
 }
 .lm_container {
     transition-duration: 2s;
@@ -49,21 +50,21 @@
 }
 .lm_middlecontent span {
     position: relative;
-    margin-right: 20px;
-    font-size: 12px;
+    margin-right: 10px;
+    /* font-size: 12px; */
 }
 .lm_middlecontent span.compare_lm_price {
     text-decoration: line-through;
-    font-size: 15px;
+    /* font-size: 15px; */
 }
-.lm_middlecontent .simple_price::before {
+/* .lm_middlecontent .simple_price::before {
     position: absolute;
     content: "";
     background-color: #000;
     height: 15px;
     width: 1px;
     left: -11px;
-    /* top:2px; */
+    top:2px;
     top: 50%;
     transform: translate(0px, -50%);
 }
@@ -75,10 +76,10 @@
     height: 15px;
     width: 1px;
     left: -11px;
-    /* top:4px; */
+    top:4px;
     top: 50%;
     transform: translate(0px, -50%);
-}
+} */
 .lmblock_right .lm_quantity_selector {
     margin: 0 15px 0 8px;
 }
@@ -167,8 +168,8 @@
     .button_block {
         margin-top: 10px;
     }
-    .lm_middlecontent h5 {
-        font-size: 14px;
+    .lm_middlecontent span {
+        /* font-size: 14px; */
     }
     .lm_container {
         padding: 0 6px;

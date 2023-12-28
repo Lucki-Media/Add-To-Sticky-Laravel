@@ -177,7 +177,7 @@ export default function CartTemplate4(props) {
                     .lm_quantity_picker .quantity-picker{
                     background-color: #fff;
                     border: 1px solid #ddd;
-                    margin-left: 15px;
+                    margin: 0 15px;
                     border-radius:0;
                     display: flex;
                     align-items: center;
@@ -216,7 +216,7 @@ export default function CartTemplate4(props) {
                 .label_color{
                     color: ${gsTitleColor};
                 }
-                .p_color{
+                .lm_sticky_p_color{
                     color: ${gsPriceColor};
                     display: inline-flex;
                     align-items:center;
@@ -275,10 +275,6 @@ export default function CartTemplate4(props) {
                   }
                 .pro_select_menu svg{
                     fill: #000;
-                }
-                .p_color span{
-                    margin: 0 15px;
-                    position: relative;
                 }
                 @media screen and (max-width: 991px) {
                     .lm_options .pro_select_menu > div {
@@ -426,7 +422,7 @@ export default function CartTemplate4(props) {
                                         />
                                     </div>
                                     <div className={style.lm_block_price}>
-                                        <div className="p_color">
+                                        <div className="lm_sticky_p_color">
                                             <span
                                                 className={
                                                     style.compare_lm_price

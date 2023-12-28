@@ -354,7 +354,7 @@ export default function CartTemplate6(props) {
       .label_color{
         color: ${gsTitleColor};
       }
-      .p_color{
+      .lm_sticky_p_color {
         color: ${gsPriceColor};
         display: inline-flex;
         align-items:center;
@@ -396,19 +396,11 @@ export default function CartTemplate6(props) {
         display: none;
       }
       .css-7pg0cj-a11yText { display: none  !important; }
-      .p_color span{
-        margin-right: 20px;
-      }
       .css-tj5bde-Svg{
         fill: #333;
       }
-      @media screen and (max-width: 1100px) {
-        // .p_color span{
-        //   margin-right:10px;
-        // }
-      }
       @media screen and (max-width: 767px) {
-        .p_color{
+        .lm_sticky_p_color{
           margin-bottom : 10px !important;
         }
       }
@@ -457,7 +449,7 @@ export default function CartTemplate6(props) {
 
                                         <div className={style.lm_middlecontent}>
                                             <h2
-                                                className={` ${
+                                                className={`font_option ${
                                                     style.pro_names
                                                 } ${
                                                     gsBold === true
@@ -478,7 +470,7 @@ export default function CartTemplate6(props) {
                                         </div>
                                     </div>
                                     <div className={style.lmblock_right}>
-                                        <div className="p_color">
+                                        <div className="lm_sticky_p_color">
                                             {oldPrice !== "" ? (
                                                 <span
                                                     className={
@@ -575,7 +567,7 @@ export default function CartTemplate6(props) {
                                                                             key={
                                                                                 optionName
                                                                             }
-                                                                            className={`pro_select_menu apply-font ${style.pro_names}`}
+                                                                            className={`pro_select_menu font_option ${style.pro_names}`}
                                                                             defaultValue={
                                                                                 defaultOption[0]
                                                                             }
@@ -623,7 +615,7 @@ export default function CartTemplate6(props) {
                                                         (() => checkCondition,
                                                         handleAddProduct)
                                                     }
-                                                    className={`lm_btn slide_right apply-font ${
+                                                    className={`lm_btn slide_right font_option ${
                                                         btnBold === true
                                                             ? "lm_bold"
                                                             : ""

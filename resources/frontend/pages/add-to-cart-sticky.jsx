@@ -573,6 +573,7 @@ export default function AddToCartSticky() {
             if (response.data.status == true) {
                 SetTransferData(response.data);
                 SetAPIresponse(response.data);
+                setData(response.data);
                 // console.log("success");
                 setSaveLoader(true);
                 setLoading(false);
@@ -636,8 +637,10 @@ export default function AddToCartSticky() {
                     currentData = data.current_template;
                     break;
             }
-            // console.log("currentData");
-            // console.log(currentData);
+            console.log('data');
+            console.log(data);
+            console.log("currentData");
+            console.log(currentData);
             // console.log(data);
             // setEnable(data.enable);
             // setAnimationEnable(data.animationEnable);
@@ -685,8 +688,7 @@ export default function AddToCartSticky() {
                 currentData.buy_btn_settings.btnBorderHoverColor
             );
             // setIsSaveButtonDisabled(true);
-        },
-        [data]
+        }
     );
 
     useEffect(() => {
