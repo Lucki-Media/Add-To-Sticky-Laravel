@@ -57,23 +57,23 @@
     left: -30px;
     background-color: #000;
 }
-.lmblock_right span {
+.lmblock_right h5 {
     position: relative;
-    margin-right: 0;
+    margin-right: 10px;
 }
 
-.lmblock_right span.compare_lm_price {
+.lmblock_right h5.compare_lm_price {
     text-decoration: line-through;
 }
 
-.lmblock_right .simple_price::before {
+/* .lmblock_right .simple_price::before {
     position: absolute;
     content: "";
     background-color: #999999;
     height: 15px;
     width: 1px;
     left: -11px;
-    /* top: 4px; */
+    top: 4px;
     top: 50%;
     transform: translate(0px, -50%);
 }
@@ -86,10 +86,10 @@
     height: 15px;
     width: 1px;
     left: -11px;
-    /* top: 0; */
+    top: 0;
     top: 50%;
     transform: translate(0px, -50%);
-}
+} */
 
 .lmblock_right .lm_quantity_selector {
     margin: 0 15px 0 8px;
@@ -131,6 +131,9 @@
     line-height: 12px;
     width: auto;
     border-radius: 15px;
+}
+.lm_sticky_p_color h5{
+    margin-right: 10px;
 }
 
 .lm_sale {

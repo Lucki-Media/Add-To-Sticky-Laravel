@@ -334,7 +334,7 @@ export default function CartTemplate1(props) {
                         .label_color{
                             color: ${gsTitleColor};
                         }
-                        .p_color{
+                        .lm_sticky_p_color{
                             color: ${gsPriceColor};
                             margin-bottom:5px;
                             font-size: ${gsPriceFontsize}px;
@@ -421,7 +421,7 @@ export default function CartTemplate1(props) {
                                         </div>
                                         <div className={style.lm_middlecontent}>
                                             <h2
-                                                className={` ${
+                                                className={`font_option ${
                                                     style.pro_names
                                                 } ${
                                                     gsBold === true
@@ -439,7 +439,7 @@ export default function CartTemplate1(props) {
                                             >
                                                 {props.product.title}
                                             </h2>
-                                            <div className="p_color">
+                                            <div className="lm_sticky_p_color">
                                                 {oldPrice !== "" ? (
                                                     <span
                                                         className={

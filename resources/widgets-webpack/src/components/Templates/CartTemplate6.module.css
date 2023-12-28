@@ -2,6 +2,7 @@
     position: fixed;
     width: 100%;
     z-index: 999;
+    font-family: var(--font-body-family);
 }
 
 .lm_container {
@@ -59,21 +60,21 @@
 }
 .lmblock_right span {
     position: relative;
-    margin-right: 0;
+    margin-right: 10px;
 }
 
 .lmblock_right span.compare_lm_price {
     text-decoration: line-through;
 }
 
-.lmblock_right .simple_price::before {
+/* .lmblock_right .simple_price::before {
     position: absolute;
     content: "";
     background-color: #999999;
     height: 15px;
     width: 1px;
     left: -10px;
-    /* top: 0; */
+    top: 0;
     top: 50%;
     transform: translate(0px, -50%);
 }
@@ -86,10 +87,10 @@
     height: 15px;
     width: 1px;
     left: -10px;
-    /* top: 0; */
+    top: 0;
     top: 50%;
     transform: translate(0px, -50%);
-}
+} */
 
 .lmblock_right .lm_quantity_selector {
     margin: 0 15px 0 8px;
@@ -201,7 +202,7 @@
         /* margin-top: 10px; */
     }
 
-    .lm_middlecontent h5 {
+    .lm_middlecontent span {
         font-size: 14px;
     }
 

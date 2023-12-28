@@ -217,7 +217,7 @@ function CartTemplate1(props) {
                 .label_color{
                     color: ${gsTitleColor};
                 }
-                .p_color{
+                .lm_sticky_p_color{
                     color: ${gsPriceColor};
                     font-size: ${gsPriceFontsize}px;
                 }
@@ -304,7 +304,7 @@ function CartTemplate1(props) {
                                     >
                                         5 Pocket Jean - 30 / Indigo
                                     </h2>
-                                    <div className="p_color">
+                                    <div className="lm_sticky_p_color">
                                         <span
                                             className={style.compare_lm_price}
                                         >

@@ -218,7 +218,7 @@ align-items: center;
       .label_color{
         color: ${gsTitleColor};
       }
-      .p_color{
+      .lm_sticky_p_color{
         color: ${gsPriceColor};
         display:block;
         font-size: ${gsPriceFontsize}px;
@@ -324,7 +324,7 @@ align-items: center;
                                     >
                                         50 Pocket Jean - 30 / Indigo
                                     </h2>
-                                    <div className="p_color">
+                                    <div className="lm_sticky_p_color">
                                         <span
                                             className={style.compare_lm_price}
                                         >

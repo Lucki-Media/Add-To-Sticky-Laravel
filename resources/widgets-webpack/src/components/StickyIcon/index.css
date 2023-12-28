@@ -256,7 +256,8 @@ div[id^="font-picker"] .dropdown-button:focus {
   left: 0;
 }
 .main_sticky___div {
-  /* position: absolute;
+    font-family: var(--font-body-family);
+    /* position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -29,6 +29,7 @@
     position: fixed;
     width: 100%;
     z-index: 999;
+    font-family: var(--font-body-family);
 }
 
 .lm_container {
@@ -79,14 +80,14 @@
 
 .lm_middlecontent span {
     position: relative;
-    margin: 10px 10px;
+    margin-right: 10px;
 }
 
 .lm_middlecontent span.compare_lm_price {
     text-decoration: line-through;
 }
 
-.lm_middlecontent .simple_price::before,
+/* .lm_middlecontent .simple_price::before,
 .lm_middlecontent .compare_lm_price::before {
     position: absolute;
     content: "";
@@ -108,7 +109,7 @@
     left: -10px;
     top: 50%;
     transform: translate(0px, -50%);
-}
+} */
 
 /* .lmblock_right .lm_quantity_selector {
     margin: 0 15px 0 8px;
@@ -204,7 +205,7 @@
         margin-top: 10px;
     }
 
-    .lm_middlecontent h5 {
+    .lm_middlecontent span {
         font-size: 14px;
     }
 

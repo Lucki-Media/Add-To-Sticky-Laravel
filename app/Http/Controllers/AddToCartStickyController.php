@@ -57,14 +57,14 @@ class AddToCartStickyController extends Controller
             'animationEnable' => $requestData['animationEnable'],
             'defaultTemplate' => $requestData['defaultTemplate'],
             'current_template' => json_encode($current_template),
-            'template_1' => $requestData['defaultTemplate'] === 1 ? json_encode($current_template) : $sac_data['template_1'],
-            'template_2' => $requestData['defaultTemplate'] === 2 ? json_encode($current_template) : $sac_data['template_2'],
-            'template_3' => $requestData['defaultTemplate'] === 3 ? json_encode($current_template) : $sac_data['template_3'],
-            'template_4' => $requestData['defaultTemplate'] === 4 ? json_encode($current_template) : $sac_data['template_4'],
-            'template_5' => $requestData['defaultTemplate'] === 5 ? json_encode($current_template) : $sac_data['template_5'],
-            'template_6' => $requestData['defaultTemplate'] === 6 ? json_encode($current_template) : $sac_data['template_6'],
-            'template_7' => $requestData['defaultTemplate'] === 7 ? json_encode($current_template) : $sac_data['template_7'],
-            'template_8' => $requestData['defaultTemplate'] === 8 ? json_encode($current_template) : $sac_data['template_8'],
+            'template_1' => $requestData['defaultTemplate'] === '1' ? json_encode($current_template) : $sac_data['template_1'],
+            'template_2' => $requestData['defaultTemplate'] === '2' ? json_encode($current_template) : $sac_data['template_2'],
+            'template_3' => $requestData['defaultTemplate'] === '3' ? json_encode($current_template) : $sac_data['template_3'],
+            'template_4' => $requestData['defaultTemplate'] === '4' ? json_encode($current_template) : $sac_data['template_4'],
+            'template_5' => $requestData['defaultTemplate'] === '5' ? json_encode($current_template) : $sac_data['template_5'],
+            'template_6' => $requestData['defaultTemplate'] === '6' ? json_encode($current_template) : $sac_data['template_6'],
+            'template_7' => $requestData['defaultTemplate'] === '7' ? json_encode($current_template) : $sac_data['template_7'],
+            'template_8' => $requestData['defaultTemplate'] === '8' ? json_encode($current_template) : $sac_data['template_8'],
         ];
         if ($sac_data) {
             $updateOrInsert = AddToCartStickyData::where('shop_domain', $requestData['shop_domain'])->update($final_data);

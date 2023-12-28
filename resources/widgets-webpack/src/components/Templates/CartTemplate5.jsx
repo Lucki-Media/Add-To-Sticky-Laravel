@@ -348,7 +348,7 @@ export default function CartTemplate5(props) {
       .label_color{
         color: ${gsTitleColor};
       }
-      .p_color{
+      .lm_sticky_p_color {
         color: ${gsPriceColor};
         display:block;
         margin-top:5px;
@@ -440,7 +440,7 @@ export default function CartTemplate5(props) {
                                     <div className={style.lm_pro_image}>
                                         <div className={style.lm_middlecontent}>
                                             <h2
-                                                className={`${
+                                                className={`font_option ${
                                                     style.pro_names
                                                 } ${
                                                     gsBold === true
@@ -458,7 +458,7 @@ export default function CartTemplate5(props) {
                                             >
                                                 {props.product.title}
                                             </h2>
-                                            <div className="p_color">
+                                            <div className="lm_sticky_p_color">
                                                 {oldPrice !== "" ? (
                                                     <span
                                                         className={
@@ -582,7 +582,7 @@ export default function CartTemplate5(props) {
                                                                             key={
                                                                                 optionName
                                                                             }
-                                                                            className={`pro_select_menu apply-font ${style.pro_names}`}
+                                                                            className={`pro_select_menu font_option ${style.pro_names}`}
                                                                             defaultValue={
                                                                                 defaultOption[0]
                                                                             }
@@ -630,7 +630,7 @@ export default function CartTemplate5(props) {
                                                         (() => checkCondition,
                                                         handleAddProduct)
                                                     }
-                                                    className={`lm_btn slide_right apply-font ${
+                                                    className={`lm_btn slide_right font_option ${
                                                         btnBold === true
                                                             ? "lm_bold"
                                                             : ""
