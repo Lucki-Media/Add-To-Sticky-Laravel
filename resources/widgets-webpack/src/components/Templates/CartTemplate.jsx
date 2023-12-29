@@ -63,6 +63,7 @@ export default function CartTemplate1(props) {
     /*PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS START*/
     const price = selectedVariant?.price
         ? getSymbolFromCurrency(window.Shopify.currency.active) +
+          " " +
           selectedVariant.price / 100
         : " ";
     /*PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS END*/
@@ -70,6 +71,7 @@ export default function CartTemplate1(props) {
     /*COMPARE AT PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS START*/
     const oldPrice = selectedVariant?.compare_at_price
         ? getSymbolFromCurrency(window.Shopify.currency.active) +
+          " " +
           selectedVariant.compare_at_price / 100
         : "";
     /*COMPARE AT PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS START*/
@@ -440,7 +442,8 @@ export default function CartTemplate1(props) {
                                                 {props.product.title}
                                             </h2>
                                             <div className="lm_sticky_p_color">
-                                                {oldPrice !== "" ? (
+                                                {oldPrice > price &&
+                                                oldPrice !== "" ? (
                                                     <span
                                                         className={
                                                             style.compare_lm_price
@@ -448,7 +451,7 @@ export default function CartTemplate1(props) {
                                                     >
                                                         {oldPrice}
                                                     </span>
-                                                ) : null}{" "}
+                                                ) : null}
                                                 <span
                                                     className={`
                                                         ${style.simple_price}${
@@ -575,7 +578,7 @@ export default function CartTemplate1(props) {
                                                     className={style.quantity12}
                                                     value={1}
                                                     min={1}
-                                                    max={10}
+                                                    max={1000000000000}
                                                 />
                                             </div>
                                             <div className={style.lm_buy_btn}>

@@ -48,7 +48,7 @@ function GeneralSettings(props) {
     /*DISPLAY SETTING START GENERAL SETTINGS*/
 
     useEffect(() => {
-        setCheckDesktop(props.checkMobile);
+        setCheckMobile(props.checkMobile);
         setCheckDesktop(props.checkDesktop);
         setGsAction(props.gsAction);
         setGsDisplayCondition(props.gsDisplayCondition);
@@ -128,7 +128,10 @@ function GeneralSettings(props) {
                         onChange={handlecheckboxMobile}
                     />
                 </div>
-                <span className="disclaimer_tag">On which device/s you would like to show Add To Cart Sticky on your store</span>
+                <span className="disclaimer_tag">
+                    (<strong>Note:</strong> On which device/s you would like to
+                    show Add To Cart Sticky on your store)
+                </span>
             </Card.Subsection>
             <Card.Subsection>
                 <Select
