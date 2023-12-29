@@ -578,6 +578,7 @@ function DesignSettings(props) {
                                         )}
                                         {/* <b>{enable === true ? "Enabled" : "Disabled"}</b>{" "} */}
                                     </span>
+
                                     <Switch
                                         onChange={handleSwitchChange}
                                         checked={animationEnable}
@@ -585,6 +586,11 @@ function DesignSettings(props) {
                                         checkedIcon={null}
                                     />
                                 </div>
+                                <span className="disclaimer_tag">
+                                    (<strong>Note:</strong> Enabling Button
+                                    Animation globally activates them <br></br>
+                                    across all templates.)
+                                </span>
                             </div>
                         </FormLayout.Group>
                     </FormLayout>
