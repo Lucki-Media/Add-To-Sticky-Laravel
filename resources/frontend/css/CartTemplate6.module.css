@@ -62,7 +62,7 @@
     margin-right: 10px;
 }
 
-.lmblock_right h5.compare_lm_price {
+.lmblock_right span.compare_lm_price {
     text-decoration: line-through;
 }
 
