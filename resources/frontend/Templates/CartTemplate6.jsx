@@ -223,7 +223,9 @@ export default function CartTemplate6(props) {
                         align-items:center;
                         font-size: ${gsPriceFontsize}px;
                     }
-
+                    .lm_sticky_p_color span{
+                        margin-right : 10px !important;
+                        }
                     .lm_options {
                         position: relative;
                     }

@@ -129,7 +129,7 @@ function GeneralSettings(props) {
                     />
                 </div>
                 <span className="disclaimer_tag">
-                    (<strong>Note:</strong> On which device/s you would like to
+                    (<strong>Note:</strong> On which device you would like to
                     show Add To Cart Sticky on your store)
                 </span>
             </Card.Subsection>
