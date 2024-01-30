@@ -317,10 +317,10 @@ export default function CartTemplate2(props) {
                                         <span
                                             className={style.compare_lm_price}
                                         >
-                                            $50.00
+                                            ${parseFloat(50).toFixed(2)}
                                         </span>{" "}
                                         <span className={style.simple_price}>
-                                            $4
+                                            ${parseFloat(4).toFixed(2)}
                                         </span>{" "}
                                         <span className={style.lm_out_stock}>
                                             {unavailable}

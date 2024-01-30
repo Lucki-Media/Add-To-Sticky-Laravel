@@ -64,7 +64,7 @@ export default function CartTemplate8(props) {
     const price = selectedVariant?.price
         ? getSymbolFromCurrency(window.Shopify.currency.active) +
           " " +
-          selectedVariant.price / 100
+          parseFloat(selectedVariant.price / 100).toFixed(2)
         : " ";
     /*PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS END*/
     /*--------------------------------------------------------------------------------------------------*/
@@ -72,7 +72,7 @@ export default function CartTemplate8(props) {
     const oldPrice = selectedVariant?.compare_at_price
         ? getSymbolFromCurrency(window.Shopify.currency.active) +
           " " +
-          selectedVariant.compare_at_price / 100
+          parseFloat(selectedVariant.compare_at_price / 100).toFixed(2)
         : "";
     /*COMPARE AT PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS START*/
     /*--------------------------------------------------------------------------------------------------*/
@@ -482,10 +482,8 @@ export default function CartTemplate8(props) {
                                                             "option" + i;
                                                         const defaultOption = [
                                                             {
-                                                                value: opt
-                                                                    .values[0],
-                                                                label: opt
-                                                                    .values[0],
+                                                                value: selectedOptions?.[optionName],
+                                                                label: selectedOptions?.[optionName],
                                                             },
                                                         ];
                                                         return (

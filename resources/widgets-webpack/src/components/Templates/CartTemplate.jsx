@@ -64,15 +64,15 @@ export default function CartTemplate1(props) {
     const price = selectedVariant?.price
         ? getSymbolFromCurrency(window.Shopify.currency.active) +
           " " +
-          selectedVariant.price / 100
-        : " ";
+          parseFloat(selectedVariant.price / 100).toFixed(2)
+          : " ";
     /*PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS END*/
     /*--------------------------------------------------------------------------------------------------*/
     /*COMPARE AT PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS START*/
     const oldPrice = selectedVariant?.compare_at_price
         ? getSymbolFromCurrency(window.Shopify.currency.active) +
           " " +
-          selectedVariant.compare_at_price / 100
+          parseFloat(selectedVariant.compare_at_price / 100).toFixed(2)
         : "";
     /*COMPARE AT PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS START*/
     /*--------------------------------------------------------------------------------------------------*/
@@ -396,7 +396,7 @@ export default function CartTemplate1(props) {
                             }  `}
                         >
                             <div className={style.lm_container}>
-                                <div className={style.lm_cart_module}>
+                                <   div className={style.lm_cart_module}>
                                     <div className={style.lm_pro_image}>
                                         <div
                                             className={`img_size ${style.image_border}`}
@@ -489,10 +489,8 @@ export default function CartTemplate1(props) {
                                                             "option" + i;
                                                         const defaultOption = [
                                                             {
-                                                                value: opt
-                                                                    .values[0],
-                                                                label: opt
-                                                                    .values[0],
+                                                                value: selectedOptions?.[optionName],
+                                                                label: selectedOptions?.[optionName],
                                                             },
                                                         ];
                                                         return (
