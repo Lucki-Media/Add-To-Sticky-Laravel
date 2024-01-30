@@ -73,7 +73,7 @@ const ProductContainer = (props) => {
     } else {
         return (
             <>
-                <div style={{ height: heightValue, marginTop: 50 }}>
+                <div>
                     {templateData.defaultTemplate === 1 ? (
                         <CartTemplate1
                             product={productData}
