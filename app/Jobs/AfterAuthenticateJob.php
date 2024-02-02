@@ -62,6 +62,9 @@ class AfterAuthenticateJob implements ShouldQueue
         $data = [
             'email' => $shopifyData['shop']['email'],
             'groups' => [env('MAILER_GROUP_ID')],
+            'fields' => (object)[
+                "phone" =>  (string)$shopifyData['shop']['phone'],
+            ]
         ];
         $data_string = json_encode($data);
         $ch = curl_init();
