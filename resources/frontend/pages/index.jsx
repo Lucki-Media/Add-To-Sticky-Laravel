@@ -7,30 +7,35 @@ import {
     SkeletonBodyText,
     SkeletonDisplayText,
     TextContainer,
-    Modal,
+    // Modal,
     Banner,
     CalloutCard,
 } from "@shopify/polaris";
-import { SideBar } from "../components";
+// import { SideBar } from "../components";
 import "../css/index.css";
 import { CChart } from "@coreui/react-chartjs";
-import { useCallback, useEffect, useState } from "react";
+import {
+    // useCallback,
+    useEffect,
+    useState,
+} from "react";
 
-export default function HomePage(props) {
+export default function HomePage() {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const monthOptions = { month: "long" };
     const currentMonth = currentDate.toLocaleString("en-US", monthOptions);
     const shop_url = document.getElementById("shopOrigin").value;
-    const [showTable, setShowTable] = useState(false);
+    const [showTable, setShowTable] = useState(true);
     const [sacCount, setSacCount] = useState("0");
     const [sCartCount, setSCartCount] = useState("0");
     const [sacArray, setSacArray] = useState([
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     ]);
     const [sCartArray, setSCartArray] = useState([
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     ]);
+
     const getAddToStickyCartData = async () => {
         try {
             const response = await fetch("api/getDashboardCount/" + shop_url);
@@ -50,9 +55,9 @@ export default function HomePage(props) {
         document.getElementById("shopOrigin").value +
         "/admin/themes/current/editor?context=apps";
 
-    const [active, setActive] = useState(false);
+    // const [active, setActive] = useState(false);
+    // const handleChange = useCallback(() => setActive(!active), [active]);
 
-    const handleChange = useCallback(() => setActive(!active), [active]);
     useEffect(() => {
         getAddToStickyCartData();
     }, []);
@@ -85,7 +90,7 @@ export default function HomePage(props) {
         return (
             <>
                 <div className="lm_sticky_main_app_page">
-                    <Modal
+                    {/* <Modal
                         // activator={activator}
                         open={active}
                         onClose={handleChange}
@@ -101,7 +106,7 @@ export default function HomePage(props) {
                                 Your browser does not support the video tag.
                             </video>
                         </Modal.Section>
-                    </Modal>
+                    </Modal> */}
                     <Page>
                         <div className="deep_link__class">
                             <Card>
