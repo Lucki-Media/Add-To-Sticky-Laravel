@@ -4,6 +4,7 @@ import {
     Checkbox,
     FormLayout,
     Heading,
+    InlineError,
     RadioButton,
     RangeSlider,
     TextField,
@@ -340,13 +341,12 @@ function DesignSettings(props) {
 
     return (
         <div>
-            {" "}
             <Card.Subsection>
                 <Heading>Design Settings</Heading>
             </Card.Subsection>
             {/* <Card.Subsection>
                     <span className="display_setting_subtitle">
-                        Font Family{" "}
+                        Font Family
                     </span>
                     <div className="font_picker_popup">
                         <FontPicker
@@ -562,7 +562,7 @@ function DesignSettings(props) {
                             <div>
                                 <div className="setting_title">
                                     <span className="show_sticky_span">
-                                        Buy Now Button Animation is{" "}
+                                        Buy Now Button Animation is
                                         {animationEnable ? (
                                             <span className="lm_sticky_custom_badge_success">
                                                 <Badge tone="success">
@@ -576,7 +576,7 @@ function DesignSettings(props) {
                                                 </Badge>
                                             </span>
                                         )}
-                                        {/* <b>{enable === true ? "Enabled" : "Disabled"}</b>{" "} */}
+                                        {/* <b>{enable === true ? "Enabled" : "Disabled"}</b> */}
                                     </span>
 
                                     <Switch
@@ -605,13 +605,27 @@ function DesignSettings(props) {
                                 </span>
                                 <div className="buy_now__textfield">
                                     <TextField
-                                        value={editText}
+                                        error={
+                                            editText == "" || editText == null
+                                        }
+                                        value={editText ?? ""}
                                         onChange={handleEditTextField}
                                         autoComplete="off"
                                         maxLength={15}
+                                        id="editText"
                                         placeholder="Example: BUY NOW"
                                         showCharacterCount
                                     />
+                                    {(editText == "" || editText == null) && (
+                                        <div style={{ marginTop: "4px" }}>
+                                            <InlineError
+                                                message={
+                                                    "This field is required"
+                                                }
+                                                fieldID={"editText"}
+                                            />
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                             <div>
@@ -620,13 +634,30 @@ function DesignSettings(props) {
                                 </span>
                                 <div className="buy_now__textfield">
                                     <TextField
-                                        value={unavailable}
+                                        error={
+                                            unavailable == "" ||
+                                            unavailable == null
+                                        }
+                                        value={unavailable ?? ""}
                                         onChange={handleUnavailableTextField}
                                         autoComplete="off"
                                         maxLength={15}
                                         placeholder="Example: Unavailable"
+                                        id="unavailable"
                                         showCharacterCount
+                                        required
                                     />
+                                    {(unavailable == "" ||
+                                        unavailable == null) && (
+                                        <div style={{ marginTop: "4px" }}>
+                                            <InlineError
+                                                message={
+                                                    "This field is required"
+                                                }
+                                                fieldID={"unavailable"}
+                                            />
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </FormLayout.Group>
