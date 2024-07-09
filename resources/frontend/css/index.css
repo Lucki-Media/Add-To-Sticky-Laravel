@@ -485,7 +485,7 @@ div[id^="font-picker"] .dropdown-button:focus {
 }
 .lm_product_block {
     background-color: #f4f6f8;
-    border-radius: 6px;
+    /* border-radius: 6px; */
 }
 .product_details {
     background-color: #fff;
