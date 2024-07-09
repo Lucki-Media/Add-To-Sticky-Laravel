@@ -131,7 +131,7 @@ export default function HomePage(props) {
                                 </Card>
                             </div> */}
                         </div>
-                        <div className="lm_add_to_sticky_callout_card">
+                        {/* <div className="lm_add_to_sticky_callout_card">
                             <Layout>
                                 <Layout.Section>
                                     {" "}
@@ -181,7 +181,7 @@ export default function HomePage(props) {
                                     </CalloutCard>
                                 </Layout.Section>
                             </Layout>
-                        </div>
+                        </div> */}
 
                         <Layout>
                             <Layout.Section>

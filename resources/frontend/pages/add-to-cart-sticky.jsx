@@ -23,6 +23,8 @@ import {
     ButtonGroup,
     Badge,
     Banner,
+    ContextualSaveBar,
+    TopBar,
 } from "@shopify/polaris";
 import "../css/index.css";
 import { useState, useCallback, useEffect } from "react";
@@ -762,7 +764,14 @@ export default function AddToCartSticky() {
     } else {
         return (
             <>
-                <Frame>
+                <Frame
+                // topBar={<TopBar />}
+                // logo={{
+                //     topBarSource:
+                //         "https://cdn.shopify.com/s/files/1/2376/3301/files/Shopify_Secondary_Inverted.png",
+                //     width: 86,
+                // }}
+                >
                     <div className="lm_sticky_main_app_page">
                         <div
                             className={`${
@@ -828,7 +837,6 @@ export default function AddToCartSticky() {
 
                         <Page fullWidth>
                             <div className="lm_sticky_layout">
-                                {" "}
                                 <Layout>
                                     <Layout.Section oneThird>
                                         <Card sectioned>
