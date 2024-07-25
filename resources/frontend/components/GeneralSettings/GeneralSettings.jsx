@@ -1,4 +1,4 @@
-import { Card, Checkbox, Select, Text, TextField } from "@shopify/polaris";
+import { Card, Checkbox, Text, Select, TextField } from "@shopify/polaris";
 import React, { useCallback, useEffect, useState } from "react";
 import "../../css/index.css";
 
@@ -109,10 +109,7 @@ function GeneralSettings(props) {
     return (
         <div>
             <Card.Subsection>
-                <Text variant="headingMd" as="h6">
-                    {" "}
-                    General Settings
-                </Text>
+                <Text variant="h1">General Settings</Text>
             </Card.Subsection>
 
             <Card.Subsection>

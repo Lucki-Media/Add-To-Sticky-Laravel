@@ -175,7 +175,7 @@ return [
     |
     */
 
-    'api_key' => env('SHOPIFY_API_KEY', '9a766e1b57dd76f71b885f977f1d8ec5'),
+    'api_key' => env('SHOPIFY_API_KEY', 'cdf6bbb1b18f0ed5936fc6ab052b2980'),
 
     /*
     |--------------------------------------------------------------------------
@@ -186,7 +186,7 @@ return [
     |
     */
 
-    'api_secret' => env('SHOPIFY_API_SECRET', '44d01ad0641f193c6ba02a5ea1cdbace'),
+    'api_secret' => env('SHOPIFY_API_SECRET', '52a81fad37768dfcd827f494a051dfc0'),
 
     /*
     |--------------------------------------------------------------------------
@@ -345,11 +345,11 @@ return [
     'webhooks' => [
         [
             'topic' => env('SHOPIFY_WEBHOOK_1_TOPIC', 'app/uninstalled'),
-            'address' => env('SHOPIFY_WEBHOOK_1_ADDRESS', 'https://lmaddtocartsticky.luckistore.in/webhook/app-uninstalled'),
+            'address' => env('SHOPIFY_WEBHOOK_1_ADDRESS', 'https://lmaddtocartstickydev.luckistore.in/webhook/app-uninstalled'),
         ],
         // [
         //     'topic' => env('SHOPIFY_WEBHOOK_2_TOPIC', 'shop/update'),
-        //     'address' => env('SHOPIFY_WEBHOOK_2_ADDRESS', 'https://lmaddtocartsticky.luckistore.in/webhook/shop-update')
+        //     'address' => env('SHOPIFY_WEBHOOK_2_ADDRESS', 'https://lmaddtocartstickydev.luckistore.in/webhook/shop-update')
         // ],
     ],
 

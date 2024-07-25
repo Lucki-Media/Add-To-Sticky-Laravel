@@ -342,9 +342,7 @@ function DesignSettings(props) {
     return (
         <div>
             <Card.Subsection>
-                <Text variant="headingMd" as="h6">
-                    Design Settings
-                </Text>
+                <Text>Design Settings</Text>
             </Card.Subsection>
             {/* <Card.Subsection>
                     <span className="display_setting_subtitle">
@@ -359,9 +357,7 @@ function DesignSettings(props) {
                     </div>
                 </Card.Subsection> */}
             <Card.Subsection>
-                <Text variant="headingMd" as="h6">
-                    Bar
-                </Text>
+                <Text>Bar</Text>
             </Card.Subsection>
             <Card.Subsection>
                 <FormLayout>
@@ -447,9 +443,7 @@ function DesignSettings(props) {
                 </FormLayout>
             </Card.Subsection>
             <Card.Subsection>
-                <Text variant="headingMd" as="h6">
-                    Product Title
-                </Text>
+                <Text>Product Title</Text>
             </Card.Subsection>
             <Card.Subsection>
                 <FormLayout>
@@ -518,9 +512,7 @@ function DesignSettings(props) {
                 </FormLayout>
             </Card.Subsection>
             <Card.Subsection>
-                <Text variant="headingMd" as="h6">
-                    Price
-                </Text>
+                <Text>Price</Text>
             </Card.Subsection>
             <Card.Subsection>
                 <FormLayout>
@@ -561,9 +553,7 @@ function DesignSettings(props) {
                 </FormLayout>
             </Card.Subsection>
             <Card.Subsection>
-                <Text variant="headingMd" as="h6">
-                    Buy Now Button
-                </Text>
+                <Text>Buy Now Button</Text>
             </Card.Subsection>
             <Card.Subsection>
                 <Card.Subsection>

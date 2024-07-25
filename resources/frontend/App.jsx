@@ -23,10 +23,6 @@ export default function App() {
                         <NavigationMenu
                             navigationLinks={[
                                 {
-                                    label: "Dashboard",
-                                    destination: "/dashboard",
-                                },
-                                {
                                     label: "Add To Cart Sticky",
                                     destination: "/add-to-cart-sticky",
                                 },

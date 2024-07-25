@@ -7,7 +7,6 @@ import style from "./CartTemplate6.module.css";
 import getSymbolFromCurrency from "currency-symbol-map";
 
 export default function CartTemplate6(props) {
-    const [isVibrating, setIsVibrating] = useState(false);
     const template_data = props.templateData.current_template;
     const position = template_data.general_settings.position,
         checkMobile = template_data.general_settings.checkMobile,
@@ -155,8 +154,8 @@ export default function CartTemplate6(props) {
         const neededVariant = props.product.variants.find(
             (variant) => variant.title === title
         );
-        console.log("SelectedVariant");
-        console.log(neededVariant);
+        // console.log("SelectedVariant");
+        // console.log(neededVariant);
         if (neededVariant) {
             setShouldDisable(neededVariant.available === false ? true : false);
             setSelectedVariant(neededVariant);
@@ -219,19 +218,19 @@ export default function CartTemplate6(props) {
             setShowContainer(true);
         }
 
-        const startVibration = () => {
-            setIsVibrating(true);
-            setTimeout(() => setIsVibrating(false), 2000); // Duration of the animation (0.2s)
-        };
+        // const startVibration = () => {
+        //     setIsVibrating(true);
+        //     setTimeout(() => setIsVibrating(false), 2000); // Duration of the animation (0.2s)
+        // };
 
-        // Start the initial vibration
-        startVibration();
+        // // Start the initial vibration
+        // startVibration();
 
-        // Set up a recurring interval to vibrate every 5 seconds
-        const interval = setInterval(startVibration, 5000);
+        // // Set up a recurring interval to vibrate every 5 seconds
+        // const interval = setInterval(startVibration, 5000);
 
-        // Clean up the interval on component unmount
-        return () => clearInterval(interval);
+        // // Clean up the interval on component unmount
+        // return () => clearInterval(interval);
     }, [
         selectedOptions?.option0,
         selectedOptions?.option1,
@@ -251,26 +250,19 @@ export default function CartTemplate6(props) {
                 <div>
                     <style>
                         {`
-                            @keyframes vibrate {
-                                0% {
-                                    transform: translateX(0);
-                                }
-                                25% {
-                                    transform: translateX(-5px) rotate(-1deg);
-                                }
-                                50% {
-                                    transform: translateX(5px) rotate(1deg);
-                                }
-                                75% {
-                                    transform: translateX(-5px) rotate(-1deg);
-                                }
-                                100% {
-                                    transform: translateX(5px) rotate(1deg);
-                                }
+                            @keyframes shake-animation {
+                                0% { transform:translate(0,0) }
+                                1.78571% { transform:translate(10px,0) }
+                                3.57143% { transform:translate(0,0) }
+                                5.35714% { transform:translate(10px,0) }
+                                7.14286% { transform:translate(0,0) }
+                                8.92857% { transform:translate(10px,0) }
+                                10.71429% { transform:translate(0,0) }
+                                100% { transform:translate(0,0) }
                             }
 
                             .lm_vibrating {
-                                animation: vibrate .2s ease infinite;
+                                animation: shake-animation 4.72s ease infinite;
                             }
                             @import url("https://fonts.googleapis.com/css2?family=${gsFontFamily}&display=swap");
                             .apply-font{
@@ -517,8 +509,12 @@ export default function CartTemplate6(props) {
                                                             "option" + i;
                                                         const defaultOption = [
                                                             {
-                                                                value: selectedOptions?.[optionName],
-                                                                label: selectedOptions?.[optionName],
+                                                                value: selectedOptions?.[
+                                                                    optionName
+                                                                ],
+                                                                label: selectedOptions?.[
+                                                                    optionName
+                                                                ],
                                                             },
                                                         ];
                                                         return (
@@ -631,7 +627,7 @@ export default function CartTemplate6(props) {
                                                     }${
                                                         props.templateData
                                                             .animationEnable ===
-                                                            true && isVibrating
+                                                        true
                                                             ? " lm_vibrating"
                                                             : ""
                                                     }`}
@@ -644,7 +640,7 @@ export default function CartTemplate6(props) {
                                                     }}
                                                 >
                                                     {loading === true
-                                                        ? "Loading..."
+                                                        ? "Adding to Cart..."
                                                         : `${editText}`}
                                                 </button>
                                             </div>

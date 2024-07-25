@@ -68,9 +68,9 @@ class StickyCartController extends Controller
             $updateOrInsert = StickyCartData::insert($final_data);
         }
         if($updateOrInsert){
-            return self::sendResponse($final_data, 'Sticky Cart Data Updated/Inserted Successfully!');
+            return self::sendResponse($final_data, 'Data Updated/Inserted!');
         }else{
-            return self::sendError([], 'Sticky Cart Data Failed To Update/Insert!');
+            return self::sendError([], 'Data Failed To Update/Insert!');
         }
     }
 }

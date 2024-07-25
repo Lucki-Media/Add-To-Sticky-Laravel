@@ -30,7 +30,7 @@ const ProductContainer = (props) => {
         try {
             const response = await fetch(window.location.href + ".json");
             const data = await response.json();
-            console.log(response);
+            // console.log(response);
             // console.log(data.product.image);
             setProductImage(
                 data.product.image !== undefined &&
