@@ -1,0 +1,20 @@
+.lm_add_to_quote_button {
+    cursor: pointer;
+    position: relative;
+    /* color: #fff; */
+    font-size: 14px;
+    border-radius: 5px;
+    text-align: center;
+    width: 70%;
+    margin-top: 5px;
+    margin-bottom: 12px;
+    -webkit-appearance: initial;
+    z-index: 9999999;
+}
+.lm_add_to_quote_button a {
+    text-decoration: none;
+    color: white;
+    width: 100%;
+    padding: 15px;
+    display: block;
+}
