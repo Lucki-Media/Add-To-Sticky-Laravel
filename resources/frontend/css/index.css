@@ -13,8 +13,8 @@
 }
 .showDiscardButton > div:first-child {
     /* Background color when Discard button is visible */
-    background-color: #000!important;
-    transition: background-color .5s ease;
+    background-color: #000 !important;
+    transition: background-color 0.5s ease;
     color: #fff !important;
 }
 
@@ -92,6 +92,10 @@
 .style__wrapper_div label:nth-child(2) {
     margin-left: 30px; /* or any other styles you want to apply */
 }
+.lm_sticky_layout {
+    max-width: 1200px;
+    margin: 0 auto;
+}
 .lm_sticky_layout > div:first-child > div:nth-child(2) {
     position: sticky;
     top: 3.75rem; /* or any other value */
@@ -113,9 +117,12 @@
     justify-content: space-between;
 }
 .show_sticky_span {
-    font-weight: normal;
-    font-size: 15px;
+    font-weight: 600;
 }
+.deep_link__class {
+    padding-bottom: 20px;
+}
+
 .deep_link__class > div:first-child {
     margin-bottom: 15px;
 }
@@ -160,26 +167,26 @@
     font-size: 22px;
     margin-bottom: 3px;
 }
-.disclaimer_tag{
+.disclaimer_tag {
     font-size: 13px;
     color: #777777;
 }
 .sidebar_title {
     font-size: 18px;
-    font-weight: normal;
-    padding: 5px;
+    font-weight: 600;
+    padding: 25px 5px 0;
 }
 
 .clickdetails_layout {
     margin: 10px 0;
 }
-
+/* 
 .clickdetails_card > div:first-child {
     height: 230px;
     display: flex;
     justify-content: space-around;
     align-items: center;
-}
+} */
 
 .clickdetails_card {
     padding-bottom: 20px;
@@ -188,15 +195,14 @@
 .click_count {
     font-size: 25px;
     font-weight: 700;
-    text-align: center;
-    padding: 15px;
 }
 
 .click_countdetail {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 500;
-    text-align: center;
-    padding: 15px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .dashboard_tag {
@@ -486,11 +492,12 @@ div[id^="font-picker"] .dropdown-button:focus {
 }
 .lm_product_block {
     background-color: #f4f6f8;
-    border-radius: 6px;
+    /* border-radius: 6px; */
 }
 .product_details {
     background-color: #fff;
     margin: 0 10px 10px;
+    position: relative;
 }
 .lm_product_block {
     display: flex;
@@ -522,8 +529,8 @@ div[id^="font-picker"] .dropdown-button:focus {
 }
 .product_image .product_imagess {
     opacity: 0.8;
-    height: 350px;
-    width: 350px;
+    height: 320px;
+    width: 320px;
     margin: 0 auto;
     border: 2px solid #ddd;
     background-color: #ddd;

@@ -44,7 +44,9 @@ export default function StickyFAQ() {
                                             <span>
                                                 {expanded === item.panel ? (
                                                     <Icon
-                                                        source={ChevronDownIcon}
+                                                        source={
+                                                            ChevronDownIcon
+                                                        }
                                                     />
                                                 ) : (
                                                     <Icon
@@ -73,7 +75,7 @@ export default function StickyFAQ() {
                                                     }}
                                                     style={{
                                                         fontSize: 14,
-                                                        lineHeight: "22px",
+                                                        lineHeight:"22px",
                                                     }}
                                                 ></p>
                                             </Collapsible>

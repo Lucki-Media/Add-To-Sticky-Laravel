@@ -100,10 +100,10 @@ class AfterAuthenticateJob implements ShouldQueue
         $template_8 = json_encode(require $path . '/template_files/template_8.php');
         $final_data = [
             'shop_domain' => $this->shopDomain,
-            'enable' => '1',
+            'enable' => '0',
             'animationEnable' => '1',
-            'defaultTemplate' => 1,
-            'current_template' => $template_1,
+            'defaultTemplate' => 2,
+            'current_template' => $template_2,
             'template_1' => $template_1,
             'template_2' => $template_2,
             'template_3' => $template_3,
@@ -128,7 +128,7 @@ class AfterAuthenticateJob implements ShouldQueue
         $sticky_template_5 = json_encode(require $path . '/template_files/sticky_template_5.php');
         $final_data_sticky = [
             'shop_domain' => $this->shopDomain,
-            'enableSticky' => '1',
+            'enableSticky' => '0',
             'defaultTemplate' => 1,
             'current_template' => $sticky_template_1,
             'sticky_template_1' => $sticky_template_1,

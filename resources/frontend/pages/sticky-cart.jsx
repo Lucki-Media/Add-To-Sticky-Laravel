@@ -21,15 +21,23 @@ import {
     FullscreenBar,
     ButtonGroup,
     Badge,
+    Text,
     FormLayout,
     Banner,
-    Text,
 } from "@shopify/polaris";
 import "../css/index.css";
 import { useNavigate } from "react-router-dom";
 import { Scrollbars } from "react-custom-scrollbars";
 import Switch from "react-switch";
 
+import {
+    CartMajor,
+    FaviconMajor,
+    ExitMajor,
+    ChevronRightMinor,
+    LocationMajor,
+    SettingsMinor,
+} from "@shopify/polaris-icons";
 import { useState, useCallback, useEffect } from "react";
 import stickyData from "../StaticData/stickyData";
 import defaultSticky from "../StaticData/defaultSticky";
@@ -752,10 +760,7 @@ export default function StickyCart() {
                                         <Card sectioned>
                                             <div>
                                                 <Card.Subsection>
-                                                    <Text
-                                                        variant="headingMd"
-                                                        as="h6"
-                                                    >
+                                                    <Text variant="h1">
                                                         General Settings
                                                     </Text>
                                                 </Card.Subsection>
@@ -938,10 +943,7 @@ export default function StickyCart() {
                                         <Card sectioned>
                                             <div>
                                                 <Card.Subsection>
-                                                    <Text
-                                                        variant="headingMd"
-                                                        as="h6"
-                                                    >
+                                                    <Text variant="h1">
                                                         Position Settings
                                                     </Text>
                                                 </Card.Subsection>
@@ -1040,10 +1042,7 @@ export default function StickyCart() {
                                         <Card sectioned>
                                             <div>
                                                 <Card.Subsection>
-                                                    <Text
-                                                        variant="headingMd"
-                                                        as="h6"
-                                                    >
+                                                    <Text variant="h1">
                                                         Icon Settings
                                                     </Text>
                                                 </Card.Subsection>
@@ -1129,10 +1128,7 @@ export default function StickyCart() {
                                         <Card sectioned>
                                             <div>
                                                 <Card.Subsection>
-                                                    <Text
-                                                        variant="headingMd"
-                                                        as="h6"
-                                                    >
+                                                    <Text variant="h1">
                                                         Cart Count Settings
                                                     </Text>
                                                 </Card.Subsection>
@@ -1357,6 +1353,152 @@ export default function StickyCart() {
                                                     </div>
                                                     <div className="lm_product_block">
                                                         <div className="product_details">
+                                                            <div>
+                                                                {enableSticky ===
+                                                                true ? (
+                                                                    <div className="main_sticky___div">
+                                                                        <div
+                                                                            className="stickyCart__icon"
+                                                                            style={{
+                                                                                position:
+                                                                                    "absolute",
+                                                                                fontSize:
+                                                                                    iconSize,
+                                                                                color: iconHover
+                                                                                    ? iconHoverColor
+                                                                                    : iconColor,
+                                                                                border: iconHover
+                                                                                    ? borderSize +
+                                                                                      "px solid " +
+                                                                                      borderHoverColor
+                                                                                    : borderSize +
+                                                                                      "px solid " +
+                                                                                      borderColor,
+                                                                                background:
+                                                                                    iconHover
+                                                                                        ? bgHoverColor
+                                                                                        : bgColor,
+                                                                                height: btnSize,
+                                                                                width: btnSize,
+                                                                                top:
+                                                                                    positionTop ===
+                                                                                    0
+                                                                                        ? ""
+                                                                                        : positionTop +
+                                                                                          "%",
+                                                                                // bottom:
+                                                                                //     positionBottom ===
+                                                                                //     0
+                                                                                //         ? ""
+                                                                                //         : positionBottom +
+                                                                                //           "%",
+                                                                                left:
+                                                                                    positionLeft ===
+                                                                                    0
+                                                                                        ? ""
+                                                                                        : positionLeft +
+                                                                                          "%",
+                                                                                // right:
+                                                                                //     positionRight ===
+                                                                                //     0
+                                                                                //         ? ""
+                                                                                //         : positionRight +
+                                                                                //           "%",
+                                                                            }}
+                                                                            onMouseEnter={
+                                                                                handleIconEnter
+                                                                            }
+                                                                            onMouseLeave={
+                                                                                handleIconLeave
+                                                                            }
+                                                                        >
+                                                                            {enableCount ===
+                                                                            true ? (
+                                                                                <span
+                                                                                    className="sticky_Count"
+                                                                                    style={{
+                                                                                        background:
+                                                                                            countHover
+                                                                                                ? countBgHoverColor
+                                                                                                : countBgColor,
+                                                                                        width: countSize,
+                                                                                        height: countSize,
+                                                                                        fontSize:
+                                                                                            countFontSize,
+                                                                                        color: countHover
+                                                                                            ? countHoverColor
+                                                                                            : countColor,
+                                                                                    }}
+                                                                                    onMouseEnter={
+                                                                                        handleCountEnter
+                                                                                    }
+                                                                                    onMouseLeave={
+                                                                                        handleCountLeave
+                                                                                    }
+                                                                                >
+                                                                                    {
+                                                                                        numberCount
+                                                                                    }
+                                                                                </span>
+                                                                            ) : (
+                                                                                ""
+                                                                            )}
+                                                                            {defaultTemplate ===
+                                                                            "1" ? (
+                                                                                <FontAwesomeIcon
+                                                                                    icon={
+                                                                                        faCartShopping
+                                                                                    }
+                                                                                />
+                                                                            ) : (
+                                                                                ""
+                                                                            )}
+                                                                            {defaultTemplate ===
+                                                                            "2" ? (
+                                                                                <FontAwesomeIcon
+                                                                                    icon={
+                                                                                        faCartPlus
+                                                                                    }
+                                                                                />
+                                                                            ) : (
+                                                                                ""
+                                                                            )}
+                                                                            {defaultTemplate ===
+                                                                            "3" ? (
+                                                                                <FontAwesomeIcon
+                                                                                    icon={
+                                                                                        faCartArrowDown
+                                                                                    }
+                                                                                />
+                                                                            ) : (
+                                                                                ""
+                                                                            )}
+                                                                            {defaultTemplate ===
+                                                                            "4" ? (
+                                                                                <FontAwesomeIcon
+                                                                                    icon={
+                                                                                        faBasketShopping
+                                                                                    }
+                                                                                />
+                                                                            ) : (
+                                                                                ""
+                                                                            )}
+                                                                            {defaultTemplate ===
+                                                                            "5" ? (
+                                                                                <FontAwesomeIcon
+                                                                                    icon={
+                                                                                        faBagShopping
+                                                                                    }
+                                                                                />
+                                                                            ) : (
+                                                                                ""
+                                                                            )}
+                                                                        </div>
+                                                                    </div>
+                                                                ) : (
+                                                                    ""
+                                                                )}
+                                                            </div>
                                                             <div className="pagewidth">
                                                                 <div className="product_details_main">
                                                                     <div className="product_image">
@@ -1428,152 +1570,6 @@ export default function StickyCart() {
                                                         src={`images/ProductDetail.png`}
                                                     />
                                                 </Box> */}
-                                                    <div>
-                                                        {enableSticky ===
-                                                        true ? (
-                                                            <div className="main_sticky___div">
-                                                                <div
-                                                                    className="stickyCart__icon"
-                                                                    style={{
-                                                                        position:
-                                                                            "absolute",
-                                                                        fontSize:
-                                                                            iconSize,
-                                                                        color: iconHover
-                                                                            ? iconHoverColor
-                                                                            : iconColor,
-                                                                        border: iconHover
-                                                                            ? borderSize +
-                                                                              "px solid " +
-                                                                              borderHoverColor
-                                                                            : borderSize +
-                                                                              "px solid " +
-                                                                              borderColor,
-                                                                        background:
-                                                                            iconHover
-                                                                                ? bgHoverColor
-                                                                                : bgColor,
-                                                                        height: btnSize,
-                                                                        width: btnSize,
-                                                                        top:
-                                                                            positionTop ===
-                                                                            0
-                                                                                ? ""
-                                                                                : positionTop +
-                                                                                  "%",
-                                                                        // bottom:
-                                                                        //     positionBottom ===
-                                                                        //     0
-                                                                        //         ? ""
-                                                                        //         : positionBottom +
-                                                                        //           "%",
-                                                                        left:
-                                                                            positionLeft ===
-                                                                            0
-                                                                                ? ""
-                                                                                : positionLeft +
-                                                                                  "%",
-                                                                        // right:
-                                                                        //     positionRight ===
-                                                                        //     0
-                                                                        //         ? ""
-                                                                        //         : positionRight +
-                                                                        //           "%",
-                                                                    }}
-                                                                    onMouseEnter={
-                                                                        handleIconEnter
-                                                                    }
-                                                                    onMouseLeave={
-                                                                        handleIconLeave
-                                                                    }
-                                                                >
-                                                                    {enableCount ===
-                                                                    true ? (
-                                                                        <span
-                                                                            className="sticky_Count"
-                                                                            style={{
-                                                                                background:
-                                                                                    countHover
-                                                                                        ? countBgHoverColor
-                                                                                        : countBgColor,
-                                                                                width: countSize,
-                                                                                height: countSize,
-                                                                                fontSize:
-                                                                                    countFontSize,
-                                                                                color: countHover
-                                                                                    ? countHoverColor
-                                                                                    : countColor,
-                                                                            }}
-                                                                            onMouseEnter={
-                                                                                handleCountEnter
-                                                                            }
-                                                                            onMouseLeave={
-                                                                                handleCountLeave
-                                                                            }
-                                                                        >
-                                                                            {
-                                                                                numberCount
-                                                                            }
-                                                                        </span>
-                                                                    ) : (
-                                                                        ""
-                                                                    )}
-                                                                    {defaultTemplate ===
-                                                                    "1" ? (
-                                                                        <FontAwesomeIcon
-                                                                            icon={
-                                                                                faCartShopping
-                                                                            }
-                                                                        />
-                                                                    ) : (
-                                                                        ""
-                                                                    )}
-                                                                    {defaultTemplate ===
-                                                                    "2" ? (
-                                                                        <FontAwesomeIcon
-                                                                            icon={
-                                                                                faCartPlus
-                                                                            }
-                                                                        />
-                                                                    ) : (
-                                                                        ""
-                                                                    )}
-                                                                    {defaultTemplate ===
-                                                                    "3" ? (
-                                                                        <FontAwesomeIcon
-                                                                            icon={
-                                                                                faCartArrowDown
-                                                                            }
-                                                                        />
-                                                                    ) : (
-                                                                        ""
-                                                                    )}
-                                                                    {defaultTemplate ===
-                                                                    "4" ? (
-                                                                        <FontAwesomeIcon
-                                                                            icon={
-                                                                                faBasketShopping
-                                                                            }
-                                                                        />
-                                                                    ) : (
-                                                                        ""
-                                                                    )}
-                                                                    {defaultTemplate ===
-                                                                    "5" ? (
-                                                                        <FontAwesomeIcon
-                                                                            icon={
-                                                                                faBagShopping
-                                                                            }
-                                                                        />
-                                                                    ) : (
-                                                                        ""
-                                                                    )}
-                                                                </div>
-                                                            </div>
-                                                        ) : (
-                                                            ""
-                                                        )}
-                                                    </div>
                                                 </div>
                                             </Card>
                                         </div>
