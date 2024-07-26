@@ -21,7 +21,18 @@ export default function StickyFAQ() {
         <>
             <div className="lm_sticky_main_app_page">
                 <Page>
-                    {/* <TitleBar title="FAQs" primaryAction={null} /> */}
+                    <ui-title-bar title="Products">
+                        <button onclick="console.log('Secondary action')">
+                            Secondary action
+                        </button>
+                        <button
+                            variant="primary"
+                            onclick="console.log('Primary action')"
+                        >
+                            Primary action
+                        </button>
+                    </ui-title-bar>
+
                     <Layout>
                         <Layout.Section>
                             <div className="sidebar_title sticky_faq">
@@ -44,9 +55,7 @@ export default function StickyFAQ() {
                                             <span>
                                                 {expanded === item.panel ? (
                                                     <Icon
-                                                        source={
-                                                            ChevronDownIcon
-                                                        }
+                                                        source={ChevronDownIcon}
                                                     />
                                                 ) : (
                                                     <Icon
@@ -75,7 +84,7 @@ export default function StickyFAQ() {
                                                     }}
                                                     style={{
                                                         fontSize: 14,
-                                                        lineHeight:"22px",
+                                                        lineHeight: "22px",
                                                     }}
                                                 ></p>
                                             </Collapsible>
