@@ -175,7 +175,6 @@ const LMRequestForQuotePage = (props) => {
                             <div className="skelton-info">
                                 {/* <h4 className="div-left"><Skeleton /></h4> */}
                                 <div className="div-right">
-                                    {" "}
                                     <Skeleton count={8} height={60} />
                                 </div>
                             </div>

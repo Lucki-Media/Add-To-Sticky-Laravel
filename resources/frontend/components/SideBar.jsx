@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import DesignSettings from "./DesignSettings/DesignSettings";
 import GeneralSettings from "./GeneralSettings/GeneralSettings";
-import { Badge, Button, Card } from "@shopify/polaris";
+import { Badge, BlockStack, Button, Card } from "@shopify/polaris";
 import "../css/index.css";
 
 export function SideBar(props) {
@@ -9,7 +9,7 @@ export function SideBar(props) {
         props.dataCallback(e);
     };
     return (
-        <div className="lm_sticky_sidebar">
+        <BlockStack gap="400">
             <Card sectioned>
                 <GeneralSettings
                     callback={handleCallback}
@@ -88,6 +88,6 @@ export function SideBar(props) {
                     btnBorderHoverColor={props.btnBorderHoverColor}
                 />
             </Card>
-        </div>
+        </BlockStack>
     );
 }

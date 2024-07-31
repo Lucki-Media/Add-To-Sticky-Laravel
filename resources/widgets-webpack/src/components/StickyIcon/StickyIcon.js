@@ -26,9 +26,9 @@ const StickyIcon = () => {
     const [borderHoverColor, setBorderHoverColor] =
         useState("rgba(0, 0, 0, 0)");
     const [positionTop, setPositionTop] = useState(20);
-    const [positionBottom, setPositionBottom] = useState(0);
+    // const [positionBottom, setPositionBottom] = useState(0);
     const [positionLeft, setPositionLeft] = useState(0);
-    const [positionRight, setPositionRight] = useState(1);
+    // const [positionRight, setPositionRight] = useState(1);
     const [iconSize, setIconSize] = useState(20);
     const [iconColor, setIconColor] = useState("rgba(0, 0, 0, 0)");
     const [iconHoverColor, setIconHoverColor] = useState(
@@ -110,9 +110,9 @@ const StickyIcon = () => {
             setBorderColor(data.data.current_template.borderColor);
             setBorderHoverColor(data.data.current_template.borderHoverColor);
             setPositionTop(data.data.current_template.positionTop);
-            setPositionBottom(data.data.current_template.positionBottom);
+            // setPositionBottom(data.data.current_template.positionBottom);
             setPositionLeft(data.data.current_template.positionLeft);
-            setPositionRight(data.data.current_template.positionRight);
+            // setPositionRight(data.data.current_template.positionRight);
             setIconSize(data.data.current_template.iconSize);
             setIconColor(data.data.current_template.iconColor);
             setIconHoverColor(data.data.current_template.iconHoverColor);
@@ -186,7 +186,7 @@ const StickyIcon = () => {
                             font-family : ${fontFamily};
                         }
                     `}
-                </style>{" "}
+                </style>
                 {enableSticky === true ? (
                     <div className="main_sticky___div">
                         <div

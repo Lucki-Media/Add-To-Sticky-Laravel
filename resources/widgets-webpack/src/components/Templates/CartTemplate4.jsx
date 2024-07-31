@@ -484,7 +484,7 @@ export default function CartTemplate4(props) {
                                                     `}
                                                 >
                                                     {price}
-                                                </span>{" "}
+                                                </span>
                                                 {selectedVariant.available ===
                                                 false ? (
                                                     <span

@@ -1,4 +1,12 @@
-import { Card, Checkbox, Text, Select, TextField } from "@shopify/polaris";
+import {
+    Card,
+    Checkbox,
+    Text,
+    Select,
+    TextField,
+    Divider,
+    BlockStack,
+} from "@shopify/polaris";
 import React, { useCallback, useEffect, useState } from "react";
 import "../../css/index.css";
 
@@ -108,14 +116,19 @@ function GeneralSettings(props) {
     }, [transfer_data]);
     return (
         <div>
-            <Card.Subsection>
-                <Text variant="h1">General Settings</Text>
-            </Card.Subsection>
+            <Text variant="headingLg" fontWeight="medium">
+                General Settings
+            </Text>
 
-            <Card.Subsection>
-                <span className="display_setting_subtitle">
+            <div style={{ margin: "15px 0" }}>
+                <Divider borderColor="border" />
+            </div>
+
+            {/* Device Settings */}
+            <BlockStack gap="200">
+                <Text variant="headingMd" as="span" fontWeight="medium">
                     Device Settings
-                </span>
+                </Text>
                 <div className="style__wrapper_div">
                     <Checkbox
                         label="Desktop"
@@ -128,27 +141,52 @@ function GeneralSettings(props) {
                         onChange={handlecheckboxMobile}
                     />
                 </div>
-                <span className="disclaimer_tag">
+                <Text
+                    variant="headingMd"
+                    as="span"
+                    fontWeight="regular"
+                    tone="subdued"
+                >
                     (<strong>Note:</strong> On which device you would like to
                     show Add To Cart Sticky on your store)
-                </span>
-            </Card.Subsection>
-            <Card.Subsection>
+                </Text>
+            </BlockStack>
+
+            <div style={{ margin: "15px 0" }}>
+                <Divider borderColor="border" />
+            </div>
+
+            {/* Button Action onclick */}
+            <BlockStack gap="200">
+                <Text variant="headingMd" as="span" fontWeight="medium">
+                    Button Action onclick
+                </Text>
                 <Select
                     label="Button Action onclick"
                     options={optionsGS}
                     onChange={handleSelectGSChange}
                     value={gsAction}
+                    labelHidden
                 />
-            </Card.Subsection>
-            <Card.Subsection>
+            </BlockStack>
+
+            <div style={{ margin: "15px 0" }}>
+                <Divider borderColor="border" />
+            </div>
+
+            {/* Display Condition */}
+            <BlockStack gap="200">
+                <Text variant="headingMd" as="span" fontWeight="medium">
+                    Display Condition
+                </Text>
                 <Select
                     label="Display Condition"
                     options={conditions}
                     onChange={handleConditionChange}
                     value={gsDisplayCondition}
+                    labelHidden
                 />
-            </Card.Subsection>
+            </BlockStack>
         </div>
     );
 }

@@ -17,7 +17,14 @@
     transition: background-color 0.5s ease;
     color: #fff !important;
 }
-
+.font_picker_popup{
+    margin-bottom: 8px;
+}
+.lm_ds_title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 10px 1px;
+}
 .lm_add_to_sticky_callout_card {
     margin-bottom: 10px;
 }
@@ -34,7 +41,7 @@
 }
 .lm_sticky_box {
     background: #dfe3e8;
-    height: 670px;
+    min-height: 600px;
     position: relative;
     user-select: none;
 }
@@ -53,6 +60,7 @@
     width: 40px;
     height: 40px;
     cursor: pointer;
+    margin-top: 8px;
 }
 .main_app_page {
     /* margin-top: 50px; */
@@ -524,8 +532,8 @@ div[id^="font-picker"] .dropdown-button:focus {
     height: auto;
     padding: 10px;
     background-color: #f4f6f8;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    /* border-top-left-radius: 5px;
+    border-top-right-radius: 5px; */
 }
 .product_image .product_imagess {
     opacity: 0.8;
