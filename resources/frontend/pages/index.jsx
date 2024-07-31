@@ -74,9 +74,7 @@ export default function HomePage() {
 
     return (
         <div className="lm_sticky_main_app_page">
-            {/* Title bar for the page  */}
-            <ui-title-bar title="Tealium App"></ui-title-bar>
-            {/* <div className={`lm_sticky_fullscreenbar`}>
+            <div className={`lm_sticky_fullscreenbar`}>
                 <FullscreenBar>
                     <div
                         style={{
@@ -98,7 +96,7 @@ export default function HomePage() {
                         </div>
                     </div>
                 </FullscreenBar>
-            </div> */}
+            </div>
             <Page>
                 <div style={{ padding: "5px 5px 20px" }}>
                     {showTable === true ? (
@@ -318,7 +316,6 @@ export default function HomePage() {
                                         borderRadius: 8,
                                     }}
                                 >
-                                    {" "}
                                     <Button
                                         size="large"
                                         textAlign="center"

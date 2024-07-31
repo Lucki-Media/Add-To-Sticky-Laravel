@@ -477,7 +477,7 @@ export default function CartTemplate3(props) {
                                                     `}
                                                 >
                                                     {price}
-                                                </span>{" "}
+                                                </span>
                                                 {selectedVariant.available ===
                                                 false ? (
                                                     <span

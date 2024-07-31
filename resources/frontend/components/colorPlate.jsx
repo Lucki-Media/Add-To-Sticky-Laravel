@@ -63,7 +63,7 @@ export function ColorPlate(props) {
                                 >
                                     OK
                                 </Button>
-                            </div>{" "}
+                            </div>
                         </div>
                     </>
                 ) : (

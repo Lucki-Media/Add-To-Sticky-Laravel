@@ -21,18 +21,6 @@ export default function StickyFAQ() {
         <>
             <div className="lm_sticky_main_app_page">
                 <Page>
-                    <ui-title-bar title="Products">
-                        <button onclick="console.log('Secondary action')">
-                            Secondary action
-                        </button>
-                        <button
-                            variant="primary"
-                            onclick="console.log('Primary action')"
-                        >
-                            Primary action
-                        </button>
-                    </ui-title-bar>
-
                     <Layout>
                         <Layout.Section>
                             <div className="sidebar_title sticky_faq">
