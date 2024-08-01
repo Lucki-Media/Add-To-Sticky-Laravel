@@ -23,7 +23,7 @@ return [
         // 'soldOut'=> "Sold out",
         'unavailable' => 'SOLD',
         'btnheightValue' => 90,
-        'btnWidthValue' => 150,
+        'btnWidthValue' => 120,
         'btnFontsize' => 16,
         'btnBold' => true,
         'btnItalic' => false,
