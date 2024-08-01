@@ -5,7 +5,6 @@ import { QuantityPicker } from "react-qty-picker";
 import style from "../css/CartTemplate7.module.css";
 
 export default function CartTemplate7(props) {
-    const [isVibrating, setIsVibrating] = useState(false);
     const [enable, setEnable] = useState(props.enable); // FOR MAIN DISPLAY
     const [animationEnable, setAnimationEnable] = useState(
         props.animationEnable
@@ -116,16 +115,16 @@ export default function CartTemplate7(props) {
         setBtnBorderColor(props.btnBorderColor);
         setBtnBorderHoverColor(props.btnBorderHoverColor);
 
-        const interval = setInterval(() => {
-            setIsVibrating(true);
-            setTimeout(() => setIsVibrating(false), 2000); // Duration of the vibrate animation (0.2s)
+        // const interval = setInterval(() => {
+        //     setIsVibrating(true);
+        //     setTimeout(() => setIsVibrating(false), 2000); // Duration of the vibrate animation (0.2s)
 
-            // Clear the interval after 5 seconds (5000 milliseconds)
-            setTimeout(() => clearInterval(interval), 5000);
-        }, 5000); // Trigger every 5 seconds (5000 milliseconds)
+        //     // Clear the interval after 5 seconds (5000 milliseconds)
+        //     setTimeout(() => clearInterval(interval), 5000);
+        // }, 5000); // Trigger every 5 seconds (5000 milliseconds)
 
-        // Cleanup the interval on component unmount
-        return () => clearInterval(interval);
+        // // Cleanup the interval on component unmount
+        // return () => clearInterval(interval);
     });
     const customStyles = {
         indicatorSeparator: (provided) => ({
@@ -137,26 +136,19 @@ export default function CartTemplate7(props) {
         <>
             <style>
                 {`
-                    @keyframes vibrate {
-                        0% {
-                            transform: translateX(0);
-                        }
-                        25% {
-                            transform: translateX(-5px) rotate(-1deg);
-                        }
-                        50% {
-                            transform: translateX(5px) rotate(1deg);
-                        }
-                        75% {
-                            transform: translateX(-5px) rotate(-1deg);
-                        }
-                        100% {
-                            transform: translateX(5px) rotate(1deg);
-                        }
+                    @keyframes shake-animation {
+                        0% { transform:translate(0,0) }
+                        1.78571% { transform:translate(10px,0) }
+                        3.57143% { transform:translate(0,0) }
+                        5.35714% { transform:translate(10px,0) }
+                        7.14286% { transform:translate(0,0) }
+                        8.92857% { transform:translate(10px,0) }
+                        10.71429% { transform:translate(0,0) }
+                        100% { transform:translate(0,0) }
                     }
 
                     .lm_vibrating {
-                        animation: vibrate .2s ease infinite;
+                        animation: shake-animation 4.72s ease infinite;
                     }
         .lm_quantity_picker .quantity-picker .quantity-display{
         padding: 0;
@@ -321,12 +313,12 @@ align-items: center;
                                                 : "no-line"
                                         }`}
                                     >
-                                        50 Pocket Jean - 30 / Indigo
+                                        Juice Bottle Mockup (Red)
                                     </h2>
                                 </div>
                             </div>
                             <div className={style.lmblock_right}>
-                                <div className={style.var_options}>
+                                {/* <div className={style.var_options}>
                                     <div
                                         className={`lm_options ${style.lm_options}`}
                                     >
@@ -409,8 +401,8 @@ align-items: center;
                                                 })}
                                             />
                                         </div>
-                                    </div> */}
-                                </div>
+                                    </div> 
+                                </div> */}
                                 <div className={style.button_block}>
                                     <div
                                         className={`lm_quantity_picker ${style.lm_quantity_selector}`}
@@ -458,8 +450,7 @@ align-items: center;
                                                     ? "lm_underline"
                                                     : "no-line"
                                             }${
-                                                animationEnable === true &&
-                                                isVibrating
+                                                animationEnable === true
                                                     ? " lm_vibrating"
                                                     : ""
                                             }`}

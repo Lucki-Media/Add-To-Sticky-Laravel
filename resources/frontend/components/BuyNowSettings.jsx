@@ -483,9 +483,7 @@ export function BuyNowSettings(props) {
 
             {/* Background Color */}
             <div className="style__wrapper_div">
-                <span className="display_setting_subtitle">
-                    Background Color
-                </span>
+                <span className="display_setting_subtitle">BG Color</span>
                 <div>
                     <ColorPlate
                         defaultColor={btnBgColor}
@@ -509,9 +507,7 @@ export function BuyNowSettings(props) {
 
             {/* Background Hover Color */}
             <div className="style__wrapper_div">
-                <span className="display_setting_subtitle">
-                    Background Hover Color
-                </span>
+                <span className="display_setting_subtitle">BG Hover Color</span>
                 <div>
                     <ColorPlate
                         defaultColor={btnBgHoverColor}

@@ -8,7 +8,7 @@ import {
 } from "@shopify/polaris";
 import "../css/index.css";
 import { useState, useCallback } from "react";
-import { ChevronRightMinor, ChevronDownMinor } from "@shopify/polaris-icons";
+import { ChevronRightIcon, ChevronDownIcon } from "@shopify/polaris-icons";
 import DataFAQ from "../StaticData/DataFAQ";
 
 export default function StickyFAQ() {
@@ -21,7 +21,6 @@ export default function StickyFAQ() {
         <>
             <div className="lm_sticky_main_app_page">
                 <Page>
-                    {/* <TitleBar title="FAQs" primaryAction={null} /> */}
                     <Layout>
                         <Layout.Section>
                             <div className="sidebar_title sticky_faq">
@@ -44,14 +43,12 @@ export default function StickyFAQ() {
                                             <span>
                                                 {expanded === item.panel ? (
                                                     <Icon
-                                                        source={
-                                                            ChevronDownMinor
-                                                        }
+                                                        source={ChevronDownIcon}
                                                     />
                                                 ) : (
                                                     <Icon
                                                         source={
-                                                            ChevronRightMinor
+                                                            ChevronRightIcon
                                                         }
                                                     />
                                                 )}
@@ -75,7 +72,7 @@ export default function StickyFAQ() {
                                                     }}
                                                     style={{
                                                         fontSize: 14,
-                                                        lineHeight:"22px",
+                                                        lineHeight: "22px",
                                                     }}
                                                 ></p>
                                             </Collapsible>

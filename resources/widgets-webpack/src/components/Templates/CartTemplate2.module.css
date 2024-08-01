@@ -29,16 +29,13 @@
     height: 90%;
     width: 100%;
     padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
+    /* border: 1px solid #ddd;
+    border-radius: 3px; */
 }
 
 .lm_middlecontent .pro_names {
     display: inline-block;
     margin: 0 22px 0 0;
-}
-
-.lm_quantity_selector {
 }
 
 .lm_options {
@@ -91,9 +88,6 @@
     /* cursor: pointer; */
     /* transition: .2s ease-out; */
     border-style: solid;
-}
-
-.select_size {
 }
 
 .productInputs label {

@@ -26,15 +26,14 @@
     height: 90%;
     width: 100%;
     padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
+    /* border: 1px solid #ddd;
+    border-radius: 3px; */
 }
 .lm_middlecontent .pro_names {
     margin: 0 0 8px;
     display: inline-block;
 }
-.lm_quantity_selector {
-}
+
 .lm_options {
     margin: 0 7px;
 }
@@ -50,8 +49,8 @@
 .lm_middlecontent span.compare_lm_price {
     text-decoration: line-through;
 }
-.lm_middlecontent .simple_price::before {
-    /* position: absolute;
+/* .lm_middlecontent .simple_price::before {
+    position: absolute;
     content: "";
     background-color: #000;
     height: 15px;
@@ -59,11 +58,11 @@
     left: -9px;
     top: 5px;
     top: 50%;
-    transform: translate(0px, -50%); */
+    transform: translate(0px, -50%);
 }
 .lm_middlecontent .lm_out_stock::before,
 .lm_middlecontent .lm_sale::before {
-    /* position: absolute;
+    position: absolute;
     content: "";
     background-color: #000;
     height: 15px;
@@ -71,8 +70,8 @@
     left: -11px;
     top: 1px;
     top: 50%;
-    transform: translate(0px, -50%); */
-}
+    transform: translate(0px, -50%);
+} */
 .lmblock_right .lm_quantity_selector {
     margin: 0 15px 0 8px;
 }
@@ -81,8 +80,7 @@
     transition: 0.2s ease-out;
     border-style: solid;
 }
-.select_size {
-}
+
 .productInputs label {
     color: #000;
     font-size: 14px;

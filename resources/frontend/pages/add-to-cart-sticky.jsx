@@ -1,33 +1,25 @@
 import {
-    Icon,
-    Card,
-    Page,
-    Button,
-    RangeSlider,
-    TextField,
-    Layout,
-    Select,
-    Scrollable,
-    Checkbox,
-    RadioButton,
-    Toast,
-    Frame,
-    SkeletonPage,
-    SkeletonBodyText,
-    TextContainer,
-    SkeletonDisplayText,
-    Loading,
-    Spinner,
-    EmptyState,
-    FullscreenBar,
-    ButtonGroup,
     Badge,
-    Banner,
-    ContextualSaveBar,
-    TopBar,
+    BlockStack,
+    Button,
+    ButtonGroup,
+    Card,
+    Frame,
+    FullscreenBar,
+    Layout,
+    Loading,
+    Page,
+    Select,
+    SkeletonBodyText,
+    SkeletonDisplayText,
+    SkeletonPage,
+    Spinner,
+    Text,
+    TextContainer,
+    Toast,
 } from "@shopify/polaris";
-import "../css/index.css";
-import { useState, useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import isEqual from "lodash/isEqual";
 import CartTemplate1 from "../Templates/CartTemplate.jsx";
 import CartTemplate2 from "../Templates/CartTemplate2.jsx";
 import CartTemplate3 from "../Templates/CartTemplate3.jsx";
@@ -36,49 +28,24 @@ import CartTemplate5 from "../Templates/CartTemplate5.jsx";
 import CartTemplate6 from "../Templates/CartTemplate6.jsx";
 import CartTemplate7 from "../Templates/CartTemplate7.jsx";
 import CartTemplate8 from "../Templates/CartTemplate8.jsx";
+import proimage from "../assets/productimage.png";
 import axios from "axios";
-import { SideBar } from "../components/SideBar";
-import { Box } from "@material-ui/core";
 import Switch from "react-switch";
-import isEqual from "lodash/isEqual";
+import { SideBar } from "../components/SideBar";
+import "../css/index.css";
 
 export default function AddToCartSticky() {
+    // Getting Shop Domain
     const shop_url = document.getElementById("shopOrigin").value;
-    const [loading, setLoading] = useState(false);
-    const [saveLoader, setSaveLoader] = useState(false);
+
+    // loading states
     const [showTable, setShowTable] = useState(false);
+    const [saveLoader, setSaveLoader] = useState(false);
 
-    //toast for success
-    const [toastContent, setToastContent] = useState();
-    const [toastActive, setToastActive] = useState(false);
-    const toggleToastActive = () => {
-        setToastActive(!toastActive);
-    };
-    const toggleActive = useCallback(
-        () => setToastActive((toastActive) => !toastActive),
-        []
-    );
-    const toastMarkup = toastActive ? (
-        <Toast content={toastContent} onDismiss={toggleToastActive} />
-    ) : null;
-
-    //toast for error
-    const [toastContent1, setToastContent1] = useState();
-    const [toastActive1, setToastActive1] = useState(false);
-    const toggleToastActive1 = () => {
-        setToastActive1(!toastActive1);
-    };
-    const toggleActive1 = useCallback(
-        () => setToastActive1((toastActive1) => !toastActive1),
-        []
-    );
-    const toastMarkup1 = toastActive1 ? (
-        <Toast content={toastContent1} error onDismiss={toggleToastActive1} />
-    ) : null;
     const [data, setData] = useState([]);
     const [enable, setEnable] = useState(true);
     const [animationEnable, setAnimationEnable] = useState(true);
-    const [defaultTemplate, setDefaultTemplate] = useState("1");
+    const [defaultTemplate, setDefaultTemplate] = useState("2");
     /*GENERAL SETTINGS CONSTANTS*/
     const [position, setPosition] = useState("Top");
     const [checkMobile, setCheckMobile] = useState(false);
@@ -120,8 +87,60 @@ export default function AddToCartSticky() {
     const [APIresponse, SetAPIresponse] = useState([]);
     const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(true);
     const [originalEnable, setOriginalEnable] = useState(true);
-    const [originalDefaultTemplate, setOriginalDefaultTemplate] = useState("1");
+    const [originalDefaultTemplate, setOriginalDefaultTemplate] = useState("2");
 
+    //toast for success
+    const [toastContent, setToastContent] = useState();
+    const [toastActive, setToastActive] = useState(false);
+    const toggleToastActive = () => {
+        setToastActive(!toastActive);
+    };
+    const toggleActive = useCallback(
+        () => setToastActive((toastActive) => !toastActive),
+        []
+    );
+    const toastMarkup = toastActive ? (
+        <Toast content={toastContent} onDismiss={toggleToastActive} />
+    ) : null;
+
+    //toast for error
+    const [toastContent1, setToastContent1] = useState();
+    const [toastActive1, setToastActive1] = useState(false);
+    const toggleToastActive1 = () => {
+        setToastActive1(!toastActive1);
+    };
+    const toggleActive1 = useCallback(
+        () => setToastActive1((toastActive1) => !toastActive1),
+        []
+    );
+    const toastMarkup1 = toastActive1 ? (
+        <Toast content={toastContent1} error onDismiss={toggleToastActive1} />
+    ) : null;
+
+    // SAVE BUTTON LOGIC
+    useEffect(() => {
+        setIsSaveButtonDisabled(isEqual(transferData, APIresponse));
+        if (
+            enable !== originalEnable ||
+            defaultTemplate !== originalDefaultTemplate
+        ) {
+            setIsSaveButtonDisabled(false);
+        }
+    }, [
+        transferData,
+        APIresponse,
+        enable,
+        defaultTemplate,
+        originalEnable,
+        originalDefaultTemplate,
+    ]);
+
+    // USE EFFECT
+    useEffect(() => {
+        getAddToStickyCartData();
+    }, []);
+
+    // INIT API
     const getAddToStickyCartData = async () => {
         try {
             const response = await fetch(
@@ -416,132 +435,8 @@ export default function AddToCartSticky() {
             console.log(err);
         }
     };
-    // USE EFFECT
-    useEffect(() => {
-        getAddToStickyCartData();
-    }, []);
-    const handleTransferData = (data) => {
-        setSaveLoader(false);
-        // console.log("data");
-        // console.log(data);
-        SetTransferData({
-            general_settings: {
-                checkDesktop: data.general_settings.checkDesktop,
-                checkMobile: data.general_settings.checkMobile,
-                gsAction: data.general_settings.gsAction,
-                gsDisplayCondition: data.general_settings.gsDisplayCondition,
-            },
-            design_settings: {
-                gsFontFamily: data.design_settings.gsFontFamily,
-                animationEnable: data.design_settings.animationEnable,
-                gsBgColor: data.design_settings.gsBgColor,
-                containerHeight: parseInt(data.design_settings.containerHeight),
-                gsOffsetValue: parseInt(data.design_settings.gsOffsetValue),
-                position: data.design_settings.position,
-                gsTitleColor: data.design_settings.gsTitleColor,
-                gsFontsize: parseInt(data.design_settings.gsFontsize),
-                gsBold: data.design_settings.gsBold,
-                gsItalic: data.design_settings.gsItalic,
-                gsUnderline: data.design_settings.gsUnderline,
-                gsPriceFontsize: parseInt(data.design_settings.gsPriceFontsize),
-                gsPriceColor: data.design_settings.gsPriceColor,
-                editText: data.design_settings.editText,
-                unavailable: data.design_settings.unavailable,
-                btnWidthValue: parseInt(data.design_settings.btnWidthValue),
-                btnheightValue: parseInt(data.design_settings.btnheightValue),
-                btnFontsize: parseInt(data.design_settings.btnFontsize),
-                btnBorderThickness: parseInt(
-                    data.design_settings.btnBorderThickness
-                ),
-                btnBorderRadius: parseInt(data.design_settings.btnBorderRadius),
-                btnBold: data.design_settings.btnBold,
-                btnItalic: data.design_settings.btnItalic,
-                btnUnderline: data.design_settings.btnUnderline,
-                btnTextColor: data.design_settings.btnTextColor,
-                btnBgColor: data.design_settings.btnBgColor,
-                btnTexthoverColor: data.design_settings.btnTexthoverColor,
-                btnBgHoverColor: data.design_settings.btnBgHoverColor,
-                btnBorderColor: data.design_settings.btnBorderColor,
-                btnBorderHoverColor: data.design_settings.btnBorderHoverColor,
-            },
-        });
-        // SetAPIresponse({
-        //     general_settings: {
-        //         checkDesktop: data.general_settings.checkDesktop,
-        //         checkMobile: data.general_settings.checkMobile,
-        //         gsAction: data.general_settings.gsAction,
-        //         gsDisplayCondition: data.general_settings.gsDisplayCondition,
-        //     },
-        //     design_settings: {
-        //         gsFontFamily: data.design_settings.gsFontFamily,
-        //         animationEnable: data.design_settings.animationEnable,
-        //         gsBgColor: data.design_settings.gsBgColor,
-        //         containerHeight: data.design_settings.containerHeight,
-        //         gsOffsetValue: data.design_settings.gsOffsetValue,
-        //         position: data.design_settings.position,
-        //         gsTitleColor: data.design_settings.gsTitleColor,
-        //         gsFontsize: data.design_settings.gsFontsize,
-        //         gsBold: data.design_settings.gsBold,
-        //         gsItalic: data.design_settings.gsItalic,
-        //         gsUnderline: data.design_settings.gsUnderline,
-        //         gsPriceFontsize: data.design_settings.gsPriceFontsize,
-        //         gsPriceColor: data.design_settings.gsPriceColor,
-        //         editText: data.design_settings.editText,
-        //         unavailable: data.design_settings.unavailable,
-        //         btnWidthValue: data.design_settings.btnWidthValue,
-        //         btnheightValue: data.design_settings.btnheightValue,
-        //         btnFontsize: data.design_settings.btnFontsize,
-        //         btnBorderThickness: data.design_settings.btnBorderThickness,
-        //         btnBorderRadius: data.design_settings.btnBorderRadius,
-        //         btnBold: data.design_settings.btnBold,
-        //         btnItalic: data.design_settings.btnItalic,
-        //         btnUnderline: data.design_settings.btnUnderline,
-        //         btnTextColor: data.design_settings.btnTextColor,
-        //         btnBgColor: data.design_settings.btnBgColor,
-        //         btnTexthoverColor: data.design_settings.btnTexthoverColor,
-        //         btnBgHoverColor: data.design_settings.btnBgHoverColor,
-        //         btnBorderColor: data.design_settings.btnBorderColor,
-        //         btnBorderHoverColor: data.design_settings.btnBorderHoverColor,
-        //     },
-        // });
-        /*GENERAL SETTINGS VALUES*/
-        setCheckDesktop(data.general_settings.checkDesktop);
-        setCheckMobile(data.general_settings.checkMobile);
-        setGsAction(data.general_settings.gsAction);
-        setGsDisplayCondition(data.general_settings.gsDisplayCondition);
-        //DESIGN SETTINGS
-        setPosition(data.design_settings.position);
-        setAnimationEnable(data.design_settings.animationEnable);
-        setGsFontsize(data.design_settings.gsFontsize);
-        setGsPriceFontsize(data.design_settings.gsPriceFontsize);
-        setGsFontFamily(data.design_settings.gsFontFamily);
-        setGsBold(data.design_settings.gsBold);
-        setGsItalic(data.design_settings.gsItalic);
-        setGsUnderLine(data.design_settings.gsUnderline);
-        setGsTitleColor(data.design_settings.gsTitleColor);
-        setContainerHeight(data.design_settings.containerHeight);
-        setGsPriceColor(data.design_settings.gsPriceColor);
-        setGsBgColor(data.design_settings.gsBgColor);
-        setGsOffsetValue(data.design_settings.gsOffsetValue);
-        setEditText(data.design_settings.editText);
-        setUnavailable(data.design_settings.unavailable);
-        setBtnWidthValue(data.design_settings.btnWidthValue);
-        setBtnHeightValue(data.design_settings.btnheightValue);
-        setBtnFontsize(data.design_settings.btnFontsize);
-        setBtnBorderThickness(data.design_settings.btnBorderThickness);
-        setBtnBorderRadius(data.design_settings.btnBorderRadius);
-        setBtnBold(data.design_settings.btnBold);
-        setBtnItalic(data.design_settings.btnItalic);
-        setBtnUnderline(data.design_settings.btnUnderline);
-        setBtnTextColor(data.design_settings.btnTextColor);
-        setBtnBgColor(data.design_settings.btnBgColor);
-        setBtnTexthoverColor(data.design_settings.btnTexthoverColor);
-        setBtnBgHoverColor(data.design_settings.btnBgHoverColor);
-        setBtnBorderColor(data.design_settings.btnBorderColor);
-        setBtnBorderHoverColor(data.design_settings.btnBorderHoverColor);
-        setSaveLoader(true);
-        // setIsSaveButtonDisabled(true);
-    };
+
+    // SAVE API
     let handleSave = async () => {
         try {
             let payLoad = {
@@ -587,7 +482,6 @@ export default function AddToCartSticky() {
                 btnBorderHoverColor: btnBorderHoverColor,
                 /*BUY NOW END*/
             };
-            setLoading(true);
             setSaveLoader(false);
             let response = await axios.post("/api/saveAddToStickyCartData", {
                 data: payLoad,
@@ -598,7 +492,6 @@ export default function AddToCartSticky() {
                 setData(response.data);
                 // console.log("success");
                 setSaveLoader(true);
-                setLoading(false);
                 getAddToStickyCartData();
                 setToastContent(response.data.message);
                 toggleActive();
@@ -611,9 +504,13 @@ export default function AddToCartSticky() {
             console.log(err);
         }
     };
+
+    // SWITCH LOGIC
     const handleSwitchChange = (checked) => {
         setEnable(checked);
     };
+
+    // SELECT LOGIC STARTS
     const options = [
         { label: "Style 1", value: "1" },
         { label: "Style 2", value: "2" },
@@ -624,9 +521,7 @@ export default function AddToCartSticky() {
         { label: "Style 7", value: "7" },
         { label: "Style 8", value: "8" },
     ];
-
     const handleSelectTemplateChange = useCallback((value) => {
-        // setIsSaveButtonDisabled(isEqual(value, originalDefaultTemplate));
         var currentData;
         switch (value) {
             case "1":
@@ -658,13 +553,6 @@ export default function AddToCartSticky() {
                 currentData = data.current_template;
                 break;
         }
-        // console.log("data");
-        // console.log(data);
-        // console.log("currentData");
-        // console.log(currentData);
-        // console.log(data);
-        // setEnable(data.enable);
-        // setAnimationEnable(data.animationEnable);
         /*GENERAL SETTINGS VALUES*/
         setCheckDesktop(currentData.general_settings.checkDesktop);
         setCheckMobile(currentData.general_settings.checkMobile);
@@ -704,24 +592,91 @@ export default function AddToCartSticky() {
         );
         // setIsSaveButtonDisabled(true);
     });
-    useEffect(() => {
-        setIsSaveButtonDisabled(isEqual(transferData, APIresponse));
-        if (
-            enable !== originalEnable ||
-            defaultTemplate !== originalDefaultTemplate
-        ) {
-            setIsSaveButtonDisabled(false);
-        }
-    }, [
-        transferData,
-        APIresponse,
-        enable,
-        defaultTemplate,
-        originalEnable,
-        originalDefaultTemplate,
-    ]);
 
-    // COLOR CHANGE HANDLES END
+    const handleTransferData = (data) => {
+        setSaveLoader(false);
+        // console.log("data");
+        // console.log(data);
+        SetTransferData({
+            general_settings: {
+                checkDesktop: data.general_settings.checkDesktop,
+                checkMobile: data.general_settings.checkMobile,
+                gsAction: data.general_settings.gsAction,
+                gsDisplayCondition: data.general_settings.gsDisplayCondition,
+            },
+            design_settings: {
+                gsFontFamily: data.design_settings.gsFontFamily,
+                animationEnable: data.design_settings.animationEnable,
+                gsBgColor: data.design_settings.gsBgColor,
+                containerHeight: parseInt(data.design_settings.containerHeight),
+                gsOffsetValue: parseInt(data.design_settings.gsOffsetValue),
+                position: data.design_settings.position,
+                gsTitleColor: data.design_settings.gsTitleColor,
+                gsFontsize: parseInt(data.design_settings.gsFontsize),
+                gsBold: data.design_settings.gsBold,
+                gsItalic: data.design_settings.gsItalic,
+                gsUnderline: data.design_settings.gsUnderline,
+                gsPriceFontsize: parseInt(data.design_settings.gsPriceFontsize),
+                gsPriceColor: data.design_settings.gsPriceColor,
+                editText: data.design_settings.editText,
+                unavailable: data.design_settings.unavailable,
+                btnWidthValue: parseInt(data.design_settings.btnWidthValue),
+                btnheightValue: parseInt(data.design_settings.btnheightValue),
+                btnFontsize: parseInt(data.design_settings.btnFontsize),
+                btnBorderThickness: parseInt(
+                    data.design_settings.btnBorderThickness
+                ),
+                btnBorderRadius: parseInt(data.design_settings.btnBorderRadius),
+                btnBold: data.design_settings.btnBold,
+                btnItalic: data.design_settings.btnItalic,
+                btnUnderline: data.design_settings.btnUnderline,
+                btnTextColor: data.design_settings.btnTextColor,
+                btnBgColor: data.design_settings.btnBgColor,
+                btnTexthoverColor: data.design_settings.btnTexthoverColor,
+                btnBgHoverColor: data.design_settings.btnBgHoverColor,
+                btnBorderColor: data.design_settings.btnBorderColor,
+                btnBorderHoverColor: data.design_settings.btnBorderHoverColor,
+            },
+        });
+        /*GENERAL SETTINGS VALUES*/
+        setCheckDesktop(data.general_settings.checkDesktop);
+        setCheckMobile(data.general_settings.checkMobile);
+        setGsAction(data.general_settings.gsAction);
+        setGsDisplayCondition(data.general_settings.gsDisplayCondition);
+        //DESIGN SETTINGS
+        setPosition(data.design_settings.position);
+        setAnimationEnable(data.design_settings.animationEnable);
+        setGsFontsize(data.design_settings.gsFontsize);
+        setGsPriceFontsize(data.design_settings.gsPriceFontsize);
+        setGsFontFamily(data.design_settings.gsFontFamily);
+        setGsBold(data.design_settings.gsBold);
+        setGsItalic(data.design_settings.gsItalic);
+        setGsUnderLine(data.design_settings.gsUnderline);
+        setGsTitleColor(data.design_settings.gsTitleColor);
+        setContainerHeight(data.design_settings.containerHeight);
+        setGsPriceColor(data.design_settings.gsPriceColor);
+        setGsBgColor(data.design_settings.gsBgColor);
+        setGsOffsetValue(data.design_settings.gsOffsetValue);
+        setEditText(data.design_settings.editText);
+        setUnavailable(data.design_settings.unavailable);
+        setBtnWidthValue(data.design_settings.btnWidthValue);
+        setBtnHeightValue(data.design_settings.btnheightValue);
+        setBtnFontsize(data.design_settings.btnFontsize);
+        setBtnBorderThickness(data.design_settings.btnBorderThickness);
+        setBtnBorderRadius(data.design_settings.btnBorderRadius);
+        setBtnBold(data.design_settings.btnBold);
+        setBtnItalic(data.design_settings.btnItalic);
+        setBtnUnderline(data.design_settings.btnUnderline);
+        setBtnTextColor(data.design_settings.btnTextColor);
+        setBtnBgColor(data.design_settings.btnBgColor);
+        setBtnTexthoverColor(data.design_settings.btnTexthoverColor);
+        setBtnBgHoverColor(data.design_settings.btnBgHoverColor);
+        setBtnBorderColor(data.design_settings.btnBorderColor);
+        setBtnBorderHoverColor(data.design_settings.btnBorderHoverColor);
+        setSaveLoader(true);
+        // setIsSaveButtonDisabled(true);
+    };
+
     if (showTable === false) {
         return (
             <div>
@@ -752,7 +707,6 @@ export default function AddToCartSticky() {
                 <Frame>
                     <Loading />
                     <div style={{ marginLeft: "50%", marginTop: "20%" }}>
-                        {" "}
                         <Spinner
                             accessibilityLabel="Spinner example"
                             size="large"
@@ -764,14 +718,7 @@ export default function AddToCartSticky() {
     } else {
         return (
             <>
-                <Frame
-                // topBar={<TopBar />}
-                // logo={{
-                //     topBarSource:
-                //         "https://cdn.shopify.com/s/files/1/2376/3301/files/Shopify_Secondary_Inverted.png",
-                //     width: 86,
-                // }}
-                >
+                <Frame>
                     <div className="lm_sticky_main_app_page">
                         <div
                             className={`${
@@ -803,7 +750,7 @@ export default function AddToCartSticky() {
                                     </div>
                                     <ButtonGroup>
                                         <Button
-                                            primary
+                                            size="large"
                                             onClick={handleSave}
                                             disabled={isSaveButtonDisabled}
                                         >
@@ -815,119 +762,131 @@ export default function AddToCartSticky() {
                                 </div>
                             </FullscreenBar>
                         </div>
-                        {/* <div
-                            style={{
-                                visibility: isSaveButtonDisabled
-                                    ? "hidden"
-                                    : "visible",
-                                opacity: isSaveButtonDisabled ? 0 : 1,
-                                height: isSaveButtonDisabled ? 0 : 64,
-                                transition: "all 1s ease-in-out",
-                                position: "sticky",
-                                top: "4.25rem",
-                                zIndex: "99",
-                            }}
-                        >
-                            <Banner
-                                title="Remember to save your changes!!"
-                                tone="warning"
-                                status="warning"
-                            />
-                        </div> */}
 
                         <Page fullWidth>
                             <div className="lm_sticky_layout">
                                 <Layout>
-                                    <Layout.Section oneThird>
-                                        <Card sectioned>
-                                            <div className="setting_title">
-                                                <span className="show_sticky_span">
-                                                    Sticky Add To Cart is{" "}
-                                                    {enable ? (
-                                                        <span className="lm_sticky_custom_badge_success">
-                                                            <Badge tone="success">
-                                                                Enabled
-                                                            </Badge>
-                                                        </span>
-                                                    ) : (
-                                                        <span className="lm_sticky_custom_badge_critical">
-                                                            <Badge tone="critical">
-                                                                Disabled
-                                                            </Badge>
-                                                        </span>
-                                                    )}
-                                                    {/* <b>{enable === true ? "Enabled" : "Disabled"}</b>{" "} */}
-                                                </span>
-                                                <Switch
-                                                    onChange={
-                                                        handleSwitchChange
-                                                    }
-                                                    checked={enable}
-                                                    uncheckedIcon={null}
-                                                    checkedIcon={null}
-                                                />
-                                            </div>
-                                        </Card>
-                                        <Card sectioned>
-                                            <Select
-                                                label="Select Template"
-                                                options={options}
-                                                onChange={(value) => {
-                                                    setDefaultTemplate(value);
-                                                    handleSelectTemplateChange(
-                                                        value
-                                                    );
-                                                }}
-                                                value={defaultTemplate}
+                                    <Layout.Section variant="oneThird">
+                                        <BlockStack gap="400">
+                                            <Card>
+                                                <div className="setting_title">
+                                                    <Text
+                                                        variant="bodyLg"
+                                                        as="span"
+                                                        alignment="start"
+                                                        fontWeight="medium"
+                                                    >
+                                                        Sticky Add To Cart is{" "}
+                                                        {enable ? (
+                                                            <span className="lm_sticky_custom_badge_success">
+                                                                <Badge tone="success">
+                                                                    Enabled
+                                                                </Badge>
+                                                            </span>
+                                                        ) : (
+                                                            <span className="lm_sticky_custom_badge_critical">
+                                                                <Badge tone="critical">
+                                                                    Disabled
+                                                                </Badge>
+                                                            </span>
+                                                        )}
+                                                    </Text>
+                                                    <Switch
+                                                        onChange={
+                                                            handleSwitchChange
+                                                        }
+                                                        checked={enable}
+                                                        uncheckedIcon={null}
+                                                        checkedIcon={null}
+                                                    />
+                                                </div>
+                                            </Card>
+                                            <Card>
+                                                <BlockStack gap="200">
+                                                    <Text
+                                                        variant="bodyLg"
+                                                        as="span"
+                                                        alignment="start"
+                                                        fontWeight="medium"
+                                                    >
+                                                        Select Template
+                                                    </Text>
+                                                    <Select
+                                                        label="Select Template"
+                                                        options={options}
+                                                        onChange={(value) => {
+                                                            setDefaultTemplate(
+                                                                value
+                                                            );
+                                                            handleSelectTemplateChange(
+                                                                value
+                                                            );
+                                                        }}
+                                                        value={defaultTemplate}
+                                                        labelHidden
+                                                    />
+                                                </BlockStack>
+                                            </Card>
+                                            <SideBar
+                                                dataCallback={
+                                                    handleTransferData
+                                                }
+                                                position={position}
+                                                checkMobile={checkMobile}
+                                                checkDesktop={checkDesktop}
+                                                gsBold={gsBold}
+                                                gsFontsize={gsFontsize}
+                                                gsPriceFontsize={
+                                                    gsPriceFontsize
+                                                }
+                                                gsItalic={gsItalic}
+                                                gsUnderline={gsUnderline}
+                                                gsFontFamily={gsFontFamily}
+                                                gsTitleColor={gsTitleColor}
+                                                gsPriceColor={gsPriceColor}
+                                                gsBgColor={gsBgColor}
+                                                gsOffsetValue={gsOffsetValue}
+                                                gsAction={gsAction}
+                                                gsDisplayCondition={
+                                                    gsDisplayCondition
+                                                }
+                                                containerHeight={
+                                                    containerHeight
+                                                }
+                                                enable={enable}
+                                                animationEnable={
+                                                    animationEnable
+                                                }
+                                                buyNowSettings={buyNowSettings}
+                                                editText={editText}
+                                                // soldOut={soldOut}
+                                                unavailable={unavailable}
+                                                btnWidthValue={btnWidthValue}
+                                                btnheightValue={btnheightValue}
+                                                btnFontsize={btnFontsize}
+                                                btnBorderThickness={
+                                                    btnBorderThickness
+                                                }
+                                                btnBorderRadius={
+                                                    btnBorderRadius
+                                                }
+                                                btnBold={btnBold}
+                                                btnItalic={btnItalic}
+                                                btnUnderline={btnUnderline}
+                                                btnTextColor={btnTextColor}
+                                                btnBgColor={btnBgColor}
+                                                btnTexthoverColor={
+                                                    btnTexthoverColor
+                                                }
+                                                btnBgHoverColor={
+                                                    btnBgHoverColor
+                                                }
+                                                btnBorderColor={btnBorderColor}
+                                                btnBorderHoverColor={
+                                                    btnBorderHoverColor
+                                                }
                                             />
-                                        </Card>
-                                        <SideBar
-                                            dataCallback={handleTransferData}
-                                            position={position}
-                                            checkMobile={checkMobile}
-                                            checkDesktop={checkDesktop}
-                                            gsBold={gsBold}
-                                            gsFontsize={gsFontsize}
-                                            gsPriceFontsize={gsPriceFontsize}
-                                            gsItalic={gsItalic}
-                                            gsUnderline={gsUnderline}
-                                            gsFontFamily={gsFontFamily}
-                                            gsTitleColor={gsTitleColor}
-                                            gsPriceColor={gsPriceColor}
-                                            gsBgColor={gsBgColor}
-                                            gsOffsetValue={gsOffsetValue}
-                                            gsAction={gsAction}
-                                            gsDisplayCondition={
-                                                gsDisplayCondition
-                                            }
-                                            containerHeight={containerHeight}
-                                            enable={enable}
-                                            animationEnable={animationEnable}
-                                            buyNowSettings={buyNowSettings}
-                                            editText={editText}
-                                            // soldOut={soldOut}
-                                            unavailable={unavailable}
-                                            btnWidthValue={btnWidthValue}
-                                            btnheightValue={btnheightValue}
-                                            btnFontsize={btnFontsize}
-                                            btnBorderThickness={
-                                                btnBorderThickness
-                                            }
-                                            btnBorderRadius={btnBorderRadius}
-                                            btnBold={btnBold}
-                                            btnItalic={btnItalic}
-                                            btnUnderline={btnUnderline}
-                                            btnTextColor={btnTextColor}
-                                            btnBgColor={btnBgColor}
-                                            btnTexthoverColor={
-                                                btnTexthoverColor
-                                            }
-                                            btnBgHoverColor={btnBgHoverColor}
-                                            btnBorderColor={btnBorderColor}
-                                            btnBorderHoverColor={
-                                                btnBorderHoverColor
-                                            }
-                                        />
+                                        </BlockStack>
                                     </Layout.Section>
                                     <Layout.Section>
                                         <div className="preview_section">
@@ -941,12 +900,981 @@ export default function AddToCartSticky() {
                                                     </div>
                                                     <div className="lm_product_block">
                                                         <div className="product_details">
+                                                            <div
+                                                                style={{
+                                                                    height:
+                                                                        position !==
+                                                                        "Top"
+                                                                            ? 0
+                                                                            : containerHeight,
+                                                                    marginTop:
+                                                                        position !==
+                                                                        "Top"
+                                                                            ? 50
+                                                                            : 20,
+                                                                }}
+                                                            >
+                                                                {defaultTemplate ===
+                                                                "1" ? (
+                                                                    <CartTemplate1
+                                                                        template_data={
+                                                                            data.template_1
+                                                                        }
+                                                                        enable={
+                                                                            enable
+                                                                        }
+                                                                        animationEnable={
+                                                                            animationEnable
+                                                                        }
+                                                                        defaultTemplate={
+                                                                            defaultTemplate
+                                                                        }
+                                                                        position={
+                                                                            position
+                                                                        }
+                                                                        checkMobile={
+                                                                            checkMobile
+                                                                        }
+                                                                        checkDesktop={
+                                                                            checkDesktop
+                                                                        }
+                                                                        gsBold={
+                                                                            gsBold
+                                                                        }
+                                                                        gsFontsize={
+                                                                            gsFontsize
+                                                                        }
+                                                                        gsPriceFontsize={
+                                                                            gsPriceFontsize
+                                                                        }
+                                                                        gsItalic={
+                                                                            gsItalic
+                                                                        }
+                                                                        gsUnderline={
+                                                                            gsUnderline
+                                                                        }
+                                                                        gsFontFamily={
+                                                                            gsFontFamily
+                                                                        }
+                                                                        gsTitleColor={
+                                                                            gsTitleColor
+                                                                        }
+                                                                        gsPriceColor={
+                                                                            gsPriceColor
+                                                                        }
+                                                                        gsBgColor={
+                                                                            gsBgColor
+                                                                        }
+                                                                        gsOffsetValue={
+                                                                            gsOffsetValue
+                                                                        }
+                                                                        gsAction={
+                                                                            gsAction
+                                                                        }
+                                                                        gsDisplayCondition={
+                                                                            gsDisplayCondition
+                                                                        }
+                                                                        buyNowSettings={
+                                                                            buyNowSettings
+                                                                        }
+                                                                        editText={
+                                                                            editText
+                                                                        }
+                                                                        // soldOut={soldOut}
+                                                                        unavailable={
+                                                                            unavailable
+                                                                        }
+                                                                        btnWidthValue={
+                                                                            btnWidthValue
+                                                                        }
+                                                                        btnheightValue={
+                                                                            btnheightValue
+                                                                        }
+                                                                        btnFontsize={
+                                                                            btnFontsize
+                                                                        }
+                                                                        containerHeight={
+                                                                            containerHeight
+                                                                        }
+                                                                        btnBorderThickness={
+                                                                            btnBorderThickness
+                                                                        }
+                                                                        btnBorderRadius={
+                                                                            btnBorderRadius
+                                                                        }
+                                                                        btnBold={
+                                                                            btnBold
+                                                                        }
+                                                                        btnItalic={
+                                                                            btnItalic
+                                                                        }
+                                                                        btnUnderline={
+                                                                            btnUnderline
+                                                                        }
+                                                                        btnTextColor={
+                                                                            btnTextColor
+                                                                        }
+                                                                        btnBgColor={
+                                                                            btnBgColor
+                                                                        }
+                                                                        btnTexthoverColor={
+                                                                            btnTexthoverColor
+                                                                        }
+                                                                        btnBgHoverColor={
+                                                                            btnBgHoverColor
+                                                                        }
+                                                                        btnBorderColor={
+                                                                            btnBorderColor
+                                                                        }
+                                                                        btnBorderHoverColor={
+                                                                            btnBorderHoverColor
+                                                                        }
+                                                                    />
+                                                                ) : (
+                                                                    ""
+                                                                )}
+                                                                {defaultTemplate ===
+                                                                "2" ? (
+                                                                    <CartTemplate2
+                                                                        template_data={
+                                                                            data.template_2
+                                                                        }
+                                                                        enable={
+                                                                            enable
+                                                                        }
+                                                                        animationEnable={
+                                                                            animationEnable
+                                                                        }
+                                                                        defaultTemplate={
+                                                                            defaultTemplate
+                                                                        }
+                                                                        position={
+                                                                            position
+                                                                        }
+                                                                        checkMobile={
+                                                                            checkMobile
+                                                                        }
+                                                                        checkDesktop={
+                                                                            checkDesktop
+                                                                        }
+                                                                        gsBold={
+                                                                            gsBold
+                                                                        }
+                                                                        gsFontsize={
+                                                                            gsFontsize
+                                                                        }
+                                                                        gsPriceFontsize={
+                                                                            gsPriceFontsize
+                                                                        }
+                                                                        gsItalic={
+                                                                            gsItalic
+                                                                        }
+                                                                        gsUnderline={
+                                                                            gsUnderline
+                                                                        }
+                                                                        gsFontFamily={
+                                                                            gsFontFamily
+                                                                        }
+                                                                        gsTitleColor={
+                                                                            gsTitleColor
+                                                                        }
+                                                                        gsPriceColor={
+                                                                            gsPriceColor
+                                                                        }
+                                                                        gsBgColor={
+                                                                            gsBgColor
+                                                                        }
+                                                                        gsOffsetValue={
+                                                                            gsOffsetValue
+                                                                        }
+                                                                        gsAction={
+                                                                            gsAction
+                                                                        }
+                                                                        gsDisplayCondition={
+                                                                            gsDisplayCondition
+                                                                        }
+                                                                        buyNowSettings={
+                                                                            buyNowSettings
+                                                                        }
+                                                                        editText={
+                                                                            editText
+                                                                        }
+                                                                        // soldOut={soldOut}
+                                                                        unavailable={
+                                                                            unavailable
+                                                                        }
+                                                                        btnWidthValue={
+                                                                            btnWidthValue
+                                                                        }
+                                                                        btnheightValue={
+                                                                            btnheightValue
+                                                                        }
+                                                                        btnFontsize={
+                                                                            btnFontsize
+                                                                        }
+                                                                        containerHeight={
+                                                                            containerHeight
+                                                                        }
+                                                                        btnBorderThickness={
+                                                                            btnBorderThickness
+                                                                        }
+                                                                        btnBorderRadius={
+                                                                            btnBorderRadius
+                                                                        }
+                                                                        btnBold={
+                                                                            btnBold
+                                                                        }
+                                                                        btnItalic={
+                                                                            btnItalic
+                                                                        }
+                                                                        btnUnderline={
+                                                                            btnUnderline
+                                                                        }
+                                                                        btnTextColor={
+                                                                            btnTextColor
+                                                                        }
+                                                                        btnBgColor={
+                                                                            btnBgColor
+                                                                        }
+                                                                        btnTexthoverColor={
+                                                                            btnTexthoverColor
+                                                                        }
+                                                                        btnBgHoverColor={
+                                                                            btnBgHoverColor
+                                                                        }
+                                                                        btnBorderColor={
+                                                                            btnBorderColor
+                                                                        }
+                                                                        btnBorderHoverColor={
+                                                                            btnBorderHoverColor
+                                                                        }
+                                                                    />
+                                                                ) : (
+                                                                    ""
+                                                                )}
+                                                                {defaultTemplate ===
+                                                                "3" ? (
+                                                                    <CartTemplate3
+                                                                        template_data={
+                                                                            data.template_3
+                                                                        }
+                                                                        enable={
+                                                                            enable
+                                                                        }
+                                                                        animationEnable={
+                                                                            animationEnable
+                                                                        }
+                                                                        defaultTemplate={
+                                                                            defaultTemplate
+                                                                        }
+                                                                        position={
+                                                                            position
+                                                                        }
+                                                                        checkMobile={
+                                                                            checkMobile
+                                                                        }
+                                                                        checkDesktop={
+                                                                            checkDesktop
+                                                                        }
+                                                                        gsBold={
+                                                                            gsBold
+                                                                        }
+                                                                        gsFontsize={
+                                                                            gsFontsize
+                                                                        }
+                                                                        gsPriceFontsize={
+                                                                            gsPriceFontsize
+                                                                        }
+                                                                        gsItalic={
+                                                                            gsItalic
+                                                                        }
+                                                                        gsUnderline={
+                                                                            gsUnderline
+                                                                        }
+                                                                        gsFontFamily={
+                                                                            gsFontFamily
+                                                                        }
+                                                                        gsTitleColor={
+                                                                            gsTitleColor
+                                                                        }
+                                                                        gsPriceColor={
+                                                                            gsPriceColor
+                                                                        }
+                                                                        gsBgColor={
+                                                                            gsBgColor
+                                                                        }
+                                                                        gsOffsetValue={
+                                                                            gsOffsetValue
+                                                                        }
+                                                                        gsAction={
+                                                                            gsAction
+                                                                        }
+                                                                        gsDisplayCondition={
+                                                                            gsDisplayCondition
+                                                                        }
+                                                                        buyNowSettings={
+                                                                            buyNowSettings
+                                                                        }
+                                                                        editText={
+                                                                            editText
+                                                                        }
+                                                                        // soldOut={soldOut}
+                                                                        unavailable={
+                                                                            unavailable
+                                                                        }
+                                                                        btnWidthValue={
+                                                                            btnWidthValue
+                                                                        }
+                                                                        btnheightValue={
+                                                                            btnheightValue
+                                                                        }
+                                                                        btnFontsize={
+                                                                            btnFontsize
+                                                                        }
+                                                                        containerHeight={
+                                                                            containerHeight
+                                                                        }
+                                                                        btnBorderThickness={
+                                                                            btnBorderThickness
+                                                                        }
+                                                                        btnBorderRadius={
+                                                                            btnBorderRadius
+                                                                        }
+                                                                        btnBold={
+                                                                            btnBold
+                                                                        }
+                                                                        btnItalic={
+                                                                            btnItalic
+                                                                        }
+                                                                        btnUnderline={
+                                                                            btnUnderline
+                                                                        }
+                                                                        btnTextColor={
+                                                                            btnTextColor
+                                                                        }
+                                                                        btnBgColor={
+                                                                            btnBgColor
+                                                                        }
+                                                                        btnTexthoverColor={
+                                                                            btnTexthoverColor
+                                                                        }
+                                                                        btnBgHoverColor={
+                                                                            btnBgHoverColor
+                                                                        }
+                                                                        btnBorderColor={
+                                                                            btnBorderColor
+                                                                        }
+                                                                        btnBorderHoverColor={
+                                                                            btnBorderHoverColor
+                                                                        }
+                                                                    />
+                                                                ) : (
+                                                                    ""
+                                                                )}
+                                                                {defaultTemplate ===
+                                                                "4" ? (
+                                                                    <CartTemplate4
+                                                                        template_data={
+                                                                            data.template_4
+                                                                        }
+                                                                        enable={
+                                                                            enable
+                                                                        }
+                                                                        animationEnable={
+                                                                            animationEnable
+                                                                        }
+                                                                        defaultTemplate={
+                                                                            defaultTemplate
+                                                                        }
+                                                                        position={
+                                                                            position
+                                                                        }
+                                                                        checkMobile={
+                                                                            checkMobile
+                                                                        }
+                                                                        checkDesktop={
+                                                                            checkDesktop
+                                                                        }
+                                                                        gsBold={
+                                                                            gsBold
+                                                                        }
+                                                                        gsFontsize={
+                                                                            gsFontsize
+                                                                        }
+                                                                        gsPriceFontsize={
+                                                                            gsPriceFontsize
+                                                                        }
+                                                                        gsItalic={
+                                                                            gsItalic
+                                                                        }
+                                                                        gsUnderline={
+                                                                            gsUnderline
+                                                                        }
+                                                                        gsFontFamily={
+                                                                            gsFontFamily
+                                                                        }
+                                                                        gsTitleColor={
+                                                                            gsTitleColor
+                                                                        }
+                                                                        gsPriceColor={
+                                                                            gsPriceColor
+                                                                        }
+                                                                        gsBgColor={
+                                                                            gsBgColor
+                                                                        }
+                                                                        gsOffsetValue={
+                                                                            gsOffsetValue
+                                                                        }
+                                                                        gsAction={
+                                                                            gsAction
+                                                                        }
+                                                                        gsDisplayCondition={
+                                                                            gsDisplayCondition
+                                                                        }
+                                                                        buyNowSettings={
+                                                                            buyNowSettings
+                                                                        }
+                                                                        editText={
+                                                                            editText
+                                                                        }
+                                                                        // soldOut={soldOut}
+                                                                        unavailable={
+                                                                            unavailable
+                                                                        }
+                                                                        btnWidthValue={
+                                                                            btnWidthValue
+                                                                        }
+                                                                        btnheightValue={
+                                                                            btnheightValue
+                                                                        }
+                                                                        btnFontsize={
+                                                                            btnFontsize
+                                                                        }
+                                                                        containerHeight={
+                                                                            containerHeight
+                                                                        }
+                                                                        btnBorderThickness={
+                                                                            btnBorderThickness
+                                                                        }
+                                                                        btnBorderRadius={
+                                                                            btnBorderRadius
+                                                                        }
+                                                                        btnBold={
+                                                                            btnBold
+                                                                        }
+                                                                        btnItalic={
+                                                                            btnItalic
+                                                                        }
+                                                                        btnUnderline={
+                                                                            btnUnderline
+                                                                        }
+                                                                        btnTextColor={
+                                                                            btnTextColor
+                                                                        }
+                                                                        btnBgColor={
+                                                                            btnBgColor
+                                                                        }
+                                                                        btnTexthoverColor={
+                                                                            btnTexthoverColor
+                                                                        }
+                                                                        btnBgHoverColor={
+                                                                            btnBgHoverColor
+                                                                        }
+                                                                        btnBorderColor={
+                                                                            btnBorderColor
+                                                                        }
+                                                                        btnBorderHoverColor={
+                                                                            btnBorderHoverColor
+                                                                        }
+                                                                    />
+                                                                ) : (
+                                                                    ""
+                                                                )}
+                                                                {defaultTemplate ===
+                                                                "5" ? (
+                                                                    <CartTemplate5
+                                                                        template_data={
+                                                                            data.template_5
+                                                                        }
+                                                                        enable={
+                                                                            enable
+                                                                        }
+                                                                        animationEnable={
+                                                                            animationEnable
+                                                                        }
+                                                                        defaultTemplate={
+                                                                            defaultTemplate
+                                                                        }
+                                                                        position={
+                                                                            position
+                                                                        }
+                                                                        checkMobile={
+                                                                            checkMobile
+                                                                        }
+                                                                        checkDesktop={
+                                                                            checkDesktop
+                                                                        }
+                                                                        gsBold={
+                                                                            gsBold
+                                                                        }
+                                                                        gsFontsize={
+                                                                            gsFontsize
+                                                                        }
+                                                                        gsPriceFontsize={
+                                                                            gsPriceFontsize
+                                                                        }
+                                                                        gsItalic={
+                                                                            gsItalic
+                                                                        }
+                                                                        gsUnderline={
+                                                                            gsUnderline
+                                                                        }
+                                                                        gsFontFamily={
+                                                                            gsFontFamily
+                                                                        }
+                                                                        gsTitleColor={
+                                                                            gsTitleColor
+                                                                        }
+                                                                        gsPriceColor={
+                                                                            gsPriceColor
+                                                                        }
+                                                                        gsBgColor={
+                                                                            gsBgColor
+                                                                        }
+                                                                        gsOffsetValue={
+                                                                            gsOffsetValue
+                                                                        }
+                                                                        gsAction={
+                                                                            gsAction
+                                                                        }
+                                                                        gsDisplayCondition={
+                                                                            gsDisplayCondition
+                                                                        }
+                                                                        buyNowSettings={
+                                                                            buyNowSettings
+                                                                        }
+                                                                        editText={
+                                                                            editText
+                                                                        }
+                                                                        // soldOut={soldOut}
+                                                                        unavailable={
+                                                                            unavailable
+                                                                        }
+                                                                        btnWidthValue={
+                                                                            btnWidthValue
+                                                                        }
+                                                                        btnheightValue={
+                                                                            btnheightValue
+                                                                        }
+                                                                        btnFontsize={
+                                                                            btnFontsize
+                                                                        }
+                                                                        containerHeight={
+                                                                            containerHeight
+                                                                        }
+                                                                        btnBorderThickness={
+                                                                            btnBorderThickness
+                                                                        }
+                                                                        btnBorderRadius={
+                                                                            btnBorderRadius
+                                                                        }
+                                                                        btnBold={
+                                                                            btnBold
+                                                                        }
+                                                                        btnItalic={
+                                                                            btnItalic
+                                                                        }
+                                                                        btnUnderline={
+                                                                            btnUnderline
+                                                                        }
+                                                                        btnTextColor={
+                                                                            btnTextColor
+                                                                        }
+                                                                        btnBgColor={
+                                                                            btnBgColor
+                                                                        }
+                                                                        btnTexthoverColor={
+                                                                            btnTexthoverColor
+                                                                        }
+                                                                        btnBgHoverColor={
+                                                                            btnBgHoverColor
+                                                                        }
+                                                                        btnBorderColor={
+                                                                            btnBorderColor
+                                                                        }
+                                                                        btnBorderHoverColor={
+                                                                            btnBorderHoverColor
+                                                                        }
+                                                                    />
+                                                                ) : (
+                                                                    ""
+                                                                )}
+                                                                {defaultTemplate ===
+                                                                "6" ? (
+                                                                    <CartTemplate6
+                                                                        template_data={
+                                                                            data.template_6
+                                                                        }
+                                                                        enable={
+                                                                            enable
+                                                                        }
+                                                                        animationEnable={
+                                                                            animationEnable
+                                                                        }
+                                                                        defaultTemplate={
+                                                                            defaultTemplate
+                                                                        }
+                                                                        position={
+                                                                            position
+                                                                        }
+                                                                        checkMobile={
+                                                                            checkMobile
+                                                                        }
+                                                                        checkDesktop={
+                                                                            checkDesktop
+                                                                        }
+                                                                        gsBold={
+                                                                            gsBold
+                                                                        }
+                                                                        gsFontsize={
+                                                                            gsFontsize
+                                                                        }
+                                                                        gsPriceFontsize={
+                                                                            gsPriceFontsize
+                                                                        }
+                                                                        gsItalic={
+                                                                            gsItalic
+                                                                        }
+                                                                        gsUnderline={
+                                                                            gsUnderline
+                                                                        }
+                                                                        gsFontFamily={
+                                                                            gsFontFamily
+                                                                        }
+                                                                        gsTitleColor={
+                                                                            gsTitleColor
+                                                                        }
+                                                                        gsPriceColor={
+                                                                            gsPriceColor
+                                                                        }
+                                                                        gsBgColor={
+                                                                            gsBgColor
+                                                                        }
+                                                                        gsOffsetValue={
+                                                                            gsOffsetValue
+                                                                        }
+                                                                        gsAction={
+                                                                            gsAction
+                                                                        }
+                                                                        gsDisplayCondition={
+                                                                            gsDisplayCondition
+                                                                        }
+                                                                        buyNowSettings={
+                                                                            buyNowSettings
+                                                                        }
+                                                                        editText={
+                                                                            editText
+                                                                        }
+                                                                        // soldOut={soldOut}
+                                                                        unavailable={
+                                                                            unavailable
+                                                                        }
+                                                                        btnWidthValue={
+                                                                            btnWidthValue
+                                                                        }
+                                                                        btnheightValue={
+                                                                            btnheightValue
+                                                                        }
+                                                                        btnFontsize={
+                                                                            btnFontsize
+                                                                        }
+                                                                        containerHeight={
+                                                                            containerHeight
+                                                                        }
+                                                                        btnBorderThickness={
+                                                                            btnBorderThickness
+                                                                        }
+                                                                        btnBorderRadius={
+                                                                            btnBorderRadius
+                                                                        }
+                                                                        btnBold={
+                                                                            btnBold
+                                                                        }
+                                                                        btnItalic={
+                                                                            btnItalic
+                                                                        }
+                                                                        btnUnderline={
+                                                                            btnUnderline
+                                                                        }
+                                                                        btnTextColor={
+                                                                            btnTextColor
+                                                                        }
+                                                                        btnBgColor={
+                                                                            btnBgColor
+                                                                        }
+                                                                        btnTexthoverColor={
+                                                                            btnTexthoverColor
+                                                                        }
+                                                                        btnBgHoverColor={
+                                                                            btnBgHoverColor
+                                                                        }
+                                                                        btnBorderColor={
+                                                                            btnBorderColor
+                                                                        }
+                                                                        btnBorderHoverColor={
+                                                                            btnBorderHoverColor
+                                                                        }
+                                                                    />
+                                                                ) : (
+                                                                    ""
+                                                                )}
+                                                                {defaultTemplate ===
+                                                                "7" ? (
+                                                                    <CartTemplate7
+                                                                        template_data={
+                                                                            data.template_7
+                                                                        }
+                                                                        enable={
+                                                                            enable
+                                                                        }
+                                                                        animationEnable={
+                                                                            animationEnable
+                                                                        }
+                                                                        defaultTemplate={
+                                                                            defaultTemplate
+                                                                        }
+                                                                        position={
+                                                                            position
+                                                                        }
+                                                                        checkMobile={
+                                                                            checkMobile
+                                                                        }
+                                                                        checkDesktop={
+                                                                            checkDesktop
+                                                                        }
+                                                                        gsBold={
+                                                                            gsBold
+                                                                        }
+                                                                        gsFontsize={
+                                                                            gsFontsize
+                                                                        }
+                                                                        gsPriceFontsize={
+                                                                            gsPriceFontsize
+                                                                        }
+                                                                        gsItalic={
+                                                                            gsItalic
+                                                                        }
+                                                                        gsUnderline={
+                                                                            gsUnderline
+                                                                        }
+                                                                        gsFontFamily={
+                                                                            gsFontFamily
+                                                                        }
+                                                                        gsTitleColor={
+                                                                            gsTitleColor
+                                                                        }
+                                                                        gsPriceColor={
+                                                                            gsPriceColor
+                                                                        }
+                                                                        gsBgColor={
+                                                                            gsBgColor
+                                                                        }
+                                                                        gsOffsetValue={
+                                                                            gsOffsetValue
+                                                                        }
+                                                                        gsAction={
+                                                                            gsAction
+                                                                        }
+                                                                        gsDisplayCondition={
+                                                                            gsDisplayCondition
+                                                                        }
+                                                                        buyNowSettings={
+                                                                            buyNowSettings
+                                                                        }
+                                                                        editText={
+                                                                            editText
+                                                                        }
+                                                                        // soldOut={soldOut}
+                                                                        unavailable={
+                                                                            unavailable
+                                                                        }
+                                                                        btnWidthValue={
+                                                                            btnWidthValue
+                                                                        }
+                                                                        btnheightValue={
+                                                                            btnheightValue
+                                                                        }
+                                                                        btnFontsize={
+                                                                            btnFontsize
+                                                                        }
+                                                                        containerHeight={
+                                                                            containerHeight
+                                                                        }
+                                                                        btnBorderThickness={
+                                                                            btnBorderThickness
+                                                                        }
+                                                                        btnBorderRadius={
+                                                                            btnBorderRadius
+                                                                        }
+                                                                        btnBold={
+                                                                            btnBold
+                                                                        }
+                                                                        btnItalic={
+                                                                            btnItalic
+                                                                        }
+                                                                        btnUnderline={
+                                                                            btnUnderline
+                                                                        }
+                                                                        btnTextColor={
+                                                                            btnTextColor
+                                                                        }
+                                                                        btnBgColor={
+                                                                            btnBgColor
+                                                                        }
+                                                                        btnTexthoverColor={
+                                                                            btnTexthoverColor
+                                                                        }
+                                                                        btnBgHoverColor={
+                                                                            btnBgHoverColor
+                                                                        }
+                                                                        btnBorderColor={
+                                                                            btnBorderColor
+                                                                        }
+                                                                        btnBorderHoverColor={
+                                                                            btnBorderHoverColor
+                                                                        }
+                                                                    />
+                                                                ) : (
+                                                                    ""
+                                                                )}
+                                                                {defaultTemplate ===
+                                                                "8" ? (
+                                                                    <CartTemplate8
+                                                                        template_data={
+                                                                            data.template_8
+                                                                        }
+                                                                        enable={
+                                                                            enable
+                                                                        }
+                                                                        animationEnable={
+                                                                            animationEnable
+                                                                        }
+                                                                        defaultTemplate={
+                                                                            defaultTemplate
+                                                                        }
+                                                                        position={
+                                                                            position
+                                                                        }
+                                                                        checkMobile={
+                                                                            checkMobile
+                                                                        }
+                                                                        checkDesktop={
+                                                                            checkDesktop
+                                                                        }
+                                                                        gsBold={
+                                                                            gsBold
+                                                                        }
+                                                                        gsFontsize={
+                                                                            gsFontsize
+                                                                        }
+                                                                        gsPriceFontsize={
+                                                                            gsPriceFontsize
+                                                                        }
+                                                                        gsItalic={
+                                                                            gsItalic
+                                                                        }
+                                                                        gsUnderline={
+                                                                            gsUnderline
+                                                                        }
+                                                                        gsFontFamily={
+                                                                            gsFontFamily
+                                                                        }
+                                                                        gsTitleColor={
+                                                                            gsTitleColor
+                                                                        }
+                                                                        gsPriceColor={
+                                                                            gsPriceColor
+                                                                        }
+                                                                        gsBgColor={
+                                                                            gsBgColor
+                                                                        }
+                                                                        gsOffsetValue={
+                                                                            gsOffsetValue
+                                                                        }
+                                                                        gsAction={
+                                                                            gsAction
+                                                                        }
+                                                                        gsDisplayCondition={
+                                                                            gsDisplayCondition
+                                                                        }
+                                                                        buyNowSettings={
+                                                                            buyNowSettings
+                                                                        }
+                                                                        editText={
+                                                                            editText
+                                                                        }
+                                                                        // soldOut={soldOut}
+                                                                        unavailable={
+                                                                            unavailable
+                                                                        }
+                                                                        btnWidthValue={
+                                                                            btnWidthValue
+                                                                        }
+                                                                        btnheightValue={
+                                                                            btnheightValue
+                                                                        }
+                                                                        btnFontsize={
+                                                                            btnFontsize
+                                                                        }
+                                                                        containerHeight={
+                                                                            containerHeight
+                                                                        }
+                                                                        btnBorderThickness={
+                                                                            btnBorderThickness
+                                                                        }
+                                                                        btnBorderRadius={
+                                                                            btnBorderRadius
+                                                                        }
+                                                                        btnBold={
+                                                                            btnBold
+                                                                        }
+                                                                        btnItalic={
+                                                                            btnItalic
+                                                                        }
+                                                                        btnUnderline={
+                                                                            btnUnderline
+                                                                        }
+                                                                        btnTextColor={
+                                                                            btnTextColor
+                                                                        }
+                                                                        btnBgColor={
+                                                                            btnBgColor
+                                                                        }
+                                                                        btnTexthoverColor={
+                                                                            btnTexthoverColor
+                                                                        }
+                                                                        btnBgHoverColor={
+                                                                            btnBgHoverColor
+                                                                        }
+                                                                        btnBorderColor={
+                                                                            btnBorderColor
+                                                                        }
+                                                                        btnBorderHoverColor={
+                                                                            btnBorderHoverColor
+                                                                        }
+                                                                    />
+                                                                ) : (
+                                                                    ""
+                                                                )}
+                                                            </div>
                                                             <div className="pagewidth">
                                                                 <div className="product_details_main">
                                                                     <div className="product_image">
                                                                         <div className="product_imagess">
                                                                             <img
-                                                                                src={`images/cart-bag-image2.png`}
+                                                                                src={
+                                                                                    proimage
+                                                                                }
                                                                                 alt=""
                                                                             />
                                                                         </div>
@@ -954,11 +1882,16 @@ export default function AddToCartSticky() {
 
                                                                     <div className="p_details">
                                                                         <h2>
-                                                                            Demo
-                                                                            Product
+                                                                            Juice
+                                                                            Bottle
+                                                                            Mockup
+                                                                            (Red)
                                                                         </h2>
                                                                         <span>
-                                                                            $20.00
+                                                                            <strike>
+                                                                                $50.00
+                                                                            </strike>{" "}
+                                                                            $4.00
                                                                         </span>
                                                                         <a className="addtocartbtn">
                                                                             Add
@@ -966,986 +1899,51 @@ export default function AddToCartSticky() {
                                                                             cart
                                                                         </a>
                                                                         <div className="product_content">
-                                                                            {" "}
-                                                                            Lorem
-                                                                            Ipsum
-                                                                            has
-                                                                            been
-                                                                            the
-                                                                            industry's
-                                                                            standard
-                                                                            dummy
-                                                                            text
-                                                                            ever
-                                                                            since
-                                                                            the
-                                                                            1500s,
-                                                                            when
-                                                                            an
-                                                                            unknown
-                                                                            printer
-                                                                            took
+                                                                            The
+                                                                            Juice
+                                                                            Bottle
+                                                                            Mockup
+                                                                            (Red)
+                                                                            features
                                                                             a
-                                                                            galley
-                                                                            of
-                                                                            type
+                                                                            realistic
+                                                                            red
+                                                                            juice
+                                                                            bottle,
+                                                                            ideal
+                                                                            for
+                                                                            showcasing
+                                                                            beverage
+                                                                            branding.
+                                                                            It
+                                                                            provides
+                                                                            a
+                                                                            high-quality,
+                                                                            customizable
+                                                                            template
+                                                                            for
+                                                                            marketing
                                                                             and
-                                                                            scrambled
+                                                                            packaging
+                                                                            designs,
+                                                                            making
                                                                             it
-                                                                            to
-                                                                            make
-                                                                            a
-                                                                            type
-                                                                            specimen
-                                                                            book.
+                                                                            perfect
+                                                                            for
+                                                                            visualizing
+                                                                            labels
+                                                                            on
+                                                                            fruit
+                                                                            juices,
+                                                                            smoothies,
+                                                                            or
+                                                                            energy
+                                                                            drinks.
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    {/* <Box shadow="300">
-                                                    <img
-                                                        alt=""
-                                                        width="100%"
-                                                        height="auto"
-                                                        src={`images/ProductDetail.png`}
-                                                    />
-                                                </Box> */}
-                                                    <div
-                                                        style={{
-                                                            height:
-                                                                position !==
-                                                                "Top"
-                                                                    ? 0
-                                                                    : containerHeight,
-                                                            marginTop:
-                                                                position !==
-                                                                "Top"
-                                                                    ? 50
-                                                                    : 20,
-                                                        }}
-                                                    >
-                                                        {defaultTemplate ===
-                                                        "1" ? (
-                                                            <CartTemplate1
-                                                                template_data={
-                                                                    data.template_1
-                                                                }
-                                                                enable={enable}
-                                                                animationEnable={
-                                                                    animationEnable
-                                                                }
-                                                                defaultTemplate={
-                                                                    defaultTemplate
-                                                                }
-                                                                position={
-                                                                    position
-                                                                }
-                                                                checkMobile={
-                                                                    checkMobile
-                                                                }
-                                                                checkDesktop={
-                                                                    checkDesktop
-                                                                }
-                                                                gsBold={gsBold}
-                                                                gsFontsize={
-                                                                    gsFontsize
-                                                                }
-                                                                gsPriceFontsize={
-                                                                    gsPriceFontsize
-                                                                }
-                                                                gsItalic={
-                                                                    gsItalic
-                                                                }
-                                                                gsUnderline={
-                                                                    gsUnderline
-                                                                }
-                                                                gsFontFamily={
-                                                                    gsFontFamily
-                                                                }
-                                                                gsTitleColor={
-                                                                    gsTitleColor
-                                                                }
-                                                                gsPriceColor={
-                                                                    gsPriceColor
-                                                                }
-                                                                gsBgColor={
-                                                                    gsBgColor
-                                                                }
-                                                                gsOffsetValue={
-                                                                    gsOffsetValue
-                                                                }
-                                                                gsAction={
-                                                                    gsAction
-                                                                }
-                                                                gsDisplayCondition={
-                                                                    gsDisplayCondition
-                                                                }
-                                                                buyNowSettings={
-                                                                    buyNowSettings
-                                                                }
-                                                                editText={
-                                                                    editText
-                                                                }
-                                                                // soldOut={soldOut}
-                                                                unavailable={
-                                                                    unavailable
-                                                                }
-                                                                btnWidthValue={
-                                                                    btnWidthValue
-                                                                }
-                                                                btnheightValue={
-                                                                    btnheightValue
-                                                                }
-                                                                btnFontsize={
-                                                                    btnFontsize
-                                                                }
-                                                                containerHeight={
-                                                                    containerHeight
-                                                                }
-                                                                btnBorderThickness={
-                                                                    btnBorderThickness
-                                                                }
-                                                                btnBorderRadius={
-                                                                    btnBorderRadius
-                                                                }
-                                                                btnBold={
-                                                                    btnBold
-                                                                }
-                                                                btnItalic={
-                                                                    btnItalic
-                                                                }
-                                                                btnUnderline={
-                                                                    btnUnderline
-                                                                }
-                                                                btnTextColor={
-                                                                    btnTextColor
-                                                                }
-                                                                btnBgColor={
-                                                                    btnBgColor
-                                                                }
-                                                                btnTexthoverColor={
-                                                                    btnTexthoverColor
-                                                                }
-                                                                btnBgHoverColor={
-                                                                    btnBgHoverColor
-                                                                }
-                                                                btnBorderColor={
-                                                                    btnBorderColor
-                                                                }
-                                                                btnBorderHoverColor={
-                                                                    btnBorderHoverColor
-                                                                }
-                                                            />
-                                                        ) : (
-                                                            ""
-                                                        )}
-                                                        {defaultTemplate ===
-                                                        "2" ? (
-                                                            <CartTemplate2
-                                                                template_data={
-                                                                    data.template_2
-                                                                }
-                                                                enable={enable}
-                                                                animationEnable={
-                                                                    animationEnable
-                                                                }
-                                                                defaultTemplate={
-                                                                    defaultTemplate
-                                                                }
-                                                                position={
-                                                                    position
-                                                                }
-                                                                checkMobile={
-                                                                    checkMobile
-                                                                }
-                                                                checkDesktop={
-                                                                    checkDesktop
-                                                                }
-                                                                gsBold={gsBold}
-                                                                gsFontsize={
-                                                                    gsFontsize
-                                                                }
-                                                                gsPriceFontsize={
-                                                                    gsPriceFontsize
-                                                                }
-                                                                gsItalic={
-                                                                    gsItalic
-                                                                }
-                                                                gsUnderline={
-                                                                    gsUnderline
-                                                                }
-                                                                gsFontFamily={
-                                                                    gsFontFamily
-                                                                }
-                                                                gsTitleColor={
-                                                                    gsTitleColor
-                                                                }
-                                                                gsPriceColor={
-                                                                    gsPriceColor
-                                                                }
-                                                                gsBgColor={
-                                                                    gsBgColor
-                                                                }
-                                                                gsOffsetValue={
-                                                                    gsOffsetValue
-                                                                }
-                                                                gsAction={
-                                                                    gsAction
-                                                                }
-                                                                gsDisplayCondition={
-                                                                    gsDisplayCondition
-                                                                }
-                                                                buyNowSettings={
-                                                                    buyNowSettings
-                                                                }
-                                                                editText={
-                                                                    editText
-                                                                }
-                                                                // soldOut={soldOut}
-                                                                unavailable={
-                                                                    unavailable
-                                                                }
-                                                                btnWidthValue={
-                                                                    btnWidthValue
-                                                                }
-                                                                btnheightValue={
-                                                                    btnheightValue
-                                                                }
-                                                                btnFontsize={
-                                                                    btnFontsize
-                                                                }
-                                                                containerHeight={
-                                                                    containerHeight
-                                                                }
-                                                                btnBorderThickness={
-                                                                    btnBorderThickness
-                                                                }
-                                                                btnBorderRadius={
-                                                                    btnBorderRadius
-                                                                }
-                                                                btnBold={
-                                                                    btnBold
-                                                                }
-                                                                btnItalic={
-                                                                    btnItalic
-                                                                }
-                                                                btnUnderline={
-                                                                    btnUnderline
-                                                                }
-                                                                btnTextColor={
-                                                                    btnTextColor
-                                                                }
-                                                                btnBgColor={
-                                                                    btnBgColor
-                                                                }
-                                                                btnTexthoverColor={
-                                                                    btnTexthoverColor
-                                                                }
-                                                                btnBgHoverColor={
-                                                                    btnBgHoverColor
-                                                                }
-                                                                btnBorderColor={
-                                                                    btnBorderColor
-                                                                }
-                                                                btnBorderHoverColor={
-                                                                    btnBorderHoverColor
-                                                                }
-                                                            />
-                                                        ) : (
-                                                            ""
-                                                        )}
-                                                        {defaultTemplate ===
-                                                        "3" ? (
-                                                            <CartTemplate3
-                                                                template_data={
-                                                                    data.template_3
-                                                                }
-                                                                enable={enable}
-                                                                animationEnable={
-                                                                    animationEnable
-                                                                }
-                                                                defaultTemplate={
-                                                                    defaultTemplate
-                                                                }
-                                                                position={
-                                                                    position
-                                                                }
-                                                                checkMobile={
-                                                                    checkMobile
-                                                                }
-                                                                checkDesktop={
-                                                                    checkDesktop
-                                                                }
-                                                                gsBold={gsBold}
-                                                                gsFontsize={
-                                                                    gsFontsize
-                                                                }
-                                                                gsPriceFontsize={
-                                                                    gsPriceFontsize
-                                                                }
-                                                                gsItalic={
-                                                                    gsItalic
-                                                                }
-                                                                gsUnderline={
-                                                                    gsUnderline
-                                                                }
-                                                                gsFontFamily={
-                                                                    gsFontFamily
-                                                                }
-                                                                gsTitleColor={
-                                                                    gsTitleColor
-                                                                }
-                                                                gsPriceColor={
-                                                                    gsPriceColor
-                                                                }
-                                                                gsBgColor={
-                                                                    gsBgColor
-                                                                }
-                                                                gsOffsetValue={
-                                                                    gsOffsetValue
-                                                                }
-                                                                gsAction={
-                                                                    gsAction
-                                                                }
-                                                                gsDisplayCondition={
-                                                                    gsDisplayCondition
-                                                                }
-                                                                buyNowSettings={
-                                                                    buyNowSettings
-                                                                }
-                                                                editText={
-                                                                    editText
-                                                                }
-                                                                // soldOut={soldOut}
-                                                                unavailable={
-                                                                    unavailable
-                                                                }
-                                                                btnWidthValue={
-                                                                    btnWidthValue
-                                                                }
-                                                                btnheightValue={
-                                                                    btnheightValue
-                                                                }
-                                                                btnFontsize={
-                                                                    btnFontsize
-                                                                }
-                                                                containerHeight={
-                                                                    containerHeight
-                                                                }
-                                                                btnBorderThickness={
-                                                                    btnBorderThickness
-                                                                }
-                                                                btnBorderRadius={
-                                                                    btnBorderRadius
-                                                                }
-                                                                btnBold={
-                                                                    btnBold
-                                                                }
-                                                                btnItalic={
-                                                                    btnItalic
-                                                                }
-                                                                btnUnderline={
-                                                                    btnUnderline
-                                                                }
-                                                                btnTextColor={
-                                                                    btnTextColor
-                                                                }
-                                                                btnBgColor={
-                                                                    btnBgColor
-                                                                }
-                                                                btnTexthoverColor={
-                                                                    btnTexthoverColor
-                                                                }
-                                                                btnBgHoverColor={
-                                                                    btnBgHoverColor
-                                                                }
-                                                                btnBorderColor={
-                                                                    btnBorderColor
-                                                                }
-                                                                btnBorderHoverColor={
-                                                                    btnBorderHoverColor
-                                                                }
-                                                            />
-                                                        ) : (
-                                                            ""
-                                                        )}
-                                                        {defaultTemplate ===
-                                                        "4" ? (
-                                                            <CartTemplate4
-                                                                template_data={
-                                                                    data.template_4
-                                                                }
-                                                                enable={enable}
-                                                                animationEnable={
-                                                                    animationEnable
-                                                                }
-                                                                defaultTemplate={
-                                                                    defaultTemplate
-                                                                }
-                                                                position={
-                                                                    position
-                                                                }
-                                                                checkMobile={
-                                                                    checkMobile
-                                                                }
-                                                                checkDesktop={
-                                                                    checkDesktop
-                                                                }
-                                                                gsBold={gsBold}
-                                                                gsFontsize={
-                                                                    gsFontsize
-                                                                }
-                                                                gsPriceFontsize={
-                                                                    gsPriceFontsize
-                                                                }
-                                                                gsItalic={
-                                                                    gsItalic
-                                                                }
-                                                                gsUnderline={
-                                                                    gsUnderline
-                                                                }
-                                                                gsFontFamily={
-                                                                    gsFontFamily
-                                                                }
-                                                                gsTitleColor={
-                                                                    gsTitleColor
-                                                                }
-                                                                gsPriceColor={
-                                                                    gsPriceColor
-                                                                }
-                                                                gsBgColor={
-                                                                    gsBgColor
-                                                                }
-                                                                gsOffsetValue={
-                                                                    gsOffsetValue
-                                                                }
-                                                                gsAction={
-                                                                    gsAction
-                                                                }
-                                                                gsDisplayCondition={
-                                                                    gsDisplayCondition
-                                                                }
-                                                                buyNowSettings={
-                                                                    buyNowSettings
-                                                                }
-                                                                editText={
-                                                                    editText
-                                                                }
-                                                                // soldOut={soldOut}
-                                                                unavailable={
-                                                                    unavailable
-                                                                }
-                                                                btnWidthValue={
-                                                                    btnWidthValue
-                                                                }
-                                                                btnheightValue={
-                                                                    btnheightValue
-                                                                }
-                                                                btnFontsize={
-                                                                    btnFontsize
-                                                                }
-                                                                containerHeight={
-                                                                    containerHeight
-                                                                }
-                                                                btnBorderThickness={
-                                                                    btnBorderThickness
-                                                                }
-                                                                btnBorderRadius={
-                                                                    btnBorderRadius
-                                                                }
-                                                                btnBold={
-                                                                    btnBold
-                                                                }
-                                                                btnItalic={
-                                                                    btnItalic
-                                                                }
-                                                                btnUnderline={
-                                                                    btnUnderline
-                                                                }
-                                                                btnTextColor={
-                                                                    btnTextColor
-                                                                }
-                                                                btnBgColor={
-                                                                    btnBgColor
-                                                                }
-                                                                btnTexthoverColor={
-                                                                    btnTexthoverColor
-                                                                }
-                                                                btnBgHoverColor={
-                                                                    btnBgHoverColor
-                                                                }
-                                                                btnBorderColor={
-                                                                    btnBorderColor
-                                                                }
-                                                                btnBorderHoverColor={
-                                                                    btnBorderHoverColor
-                                                                }
-                                                            />
-                                                        ) : (
-                                                            ""
-                                                        )}
-                                                        {defaultTemplate ===
-                                                        "5" ? (
-                                                            <CartTemplate5
-                                                                template_data={
-                                                                    data.template_5
-                                                                }
-                                                                enable={enable}
-                                                                animationEnable={
-                                                                    animationEnable
-                                                                }
-                                                                defaultTemplate={
-                                                                    defaultTemplate
-                                                                }
-                                                                position={
-                                                                    position
-                                                                }
-                                                                checkMobile={
-                                                                    checkMobile
-                                                                }
-                                                                checkDesktop={
-                                                                    checkDesktop
-                                                                }
-                                                                gsBold={gsBold}
-                                                                gsFontsize={
-                                                                    gsFontsize
-                                                                }
-                                                                gsPriceFontsize={
-                                                                    gsPriceFontsize
-                                                                }
-                                                                gsItalic={
-                                                                    gsItalic
-                                                                }
-                                                                gsUnderline={
-                                                                    gsUnderline
-                                                                }
-                                                                gsFontFamily={
-                                                                    gsFontFamily
-                                                                }
-                                                                gsTitleColor={
-                                                                    gsTitleColor
-                                                                }
-                                                                gsPriceColor={
-                                                                    gsPriceColor
-                                                                }
-                                                                gsBgColor={
-                                                                    gsBgColor
-                                                                }
-                                                                gsOffsetValue={
-                                                                    gsOffsetValue
-                                                                }
-                                                                gsAction={
-                                                                    gsAction
-                                                                }
-                                                                gsDisplayCondition={
-                                                                    gsDisplayCondition
-                                                                }
-                                                                buyNowSettings={
-                                                                    buyNowSettings
-                                                                }
-                                                                editText={
-                                                                    editText
-                                                                }
-                                                                // soldOut={soldOut}
-                                                                unavailable={
-                                                                    unavailable
-                                                                }
-                                                                btnWidthValue={
-                                                                    btnWidthValue
-                                                                }
-                                                                btnheightValue={
-                                                                    btnheightValue
-                                                                }
-                                                                btnFontsize={
-                                                                    btnFontsize
-                                                                }
-                                                                containerHeight={
-                                                                    containerHeight
-                                                                }
-                                                                btnBorderThickness={
-                                                                    btnBorderThickness
-                                                                }
-                                                                btnBorderRadius={
-                                                                    btnBorderRadius
-                                                                }
-                                                                btnBold={
-                                                                    btnBold
-                                                                }
-                                                                btnItalic={
-                                                                    btnItalic
-                                                                }
-                                                                btnUnderline={
-                                                                    btnUnderline
-                                                                }
-                                                                btnTextColor={
-                                                                    btnTextColor
-                                                                }
-                                                                btnBgColor={
-                                                                    btnBgColor
-                                                                }
-                                                                btnTexthoverColor={
-                                                                    btnTexthoverColor
-                                                                }
-                                                                btnBgHoverColor={
-                                                                    btnBgHoverColor
-                                                                }
-                                                                btnBorderColor={
-                                                                    btnBorderColor
-                                                                }
-                                                                btnBorderHoverColor={
-                                                                    btnBorderHoverColor
-                                                                }
-                                                            />
-                                                        ) : (
-                                                            ""
-                                                        )}
-                                                        {defaultTemplate ===
-                                                        "6" ? (
-                                                            <CartTemplate6
-                                                                template_data={
-                                                                    data.template_6
-                                                                }
-                                                                enable={enable}
-                                                                animationEnable={
-                                                                    animationEnable
-                                                                }
-                                                                defaultTemplate={
-                                                                    defaultTemplate
-                                                                }
-                                                                position={
-                                                                    position
-                                                                }
-                                                                checkMobile={
-                                                                    checkMobile
-                                                                }
-                                                                checkDesktop={
-                                                                    checkDesktop
-                                                                }
-                                                                gsBold={gsBold}
-                                                                gsFontsize={
-                                                                    gsFontsize
-                                                                }
-                                                                gsPriceFontsize={
-                                                                    gsPriceFontsize
-                                                                }
-                                                                gsItalic={
-                                                                    gsItalic
-                                                                }
-                                                                gsUnderline={
-                                                                    gsUnderline
-                                                                }
-                                                                gsFontFamily={
-                                                                    gsFontFamily
-                                                                }
-                                                                gsTitleColor={
-                                                                    gsTitleColor
-                                                                }
-                                                                gsPriceColor={
-                                                                    gsPriceColor
-                                                                }
-                                                                gsBgColor={
-                                                                    gsBgColor
-                                                                }
-                                                                gsOffsetValue={
-                                                                    gsOffsetValue
-                                                                }
-                                                                gsAction={
-                                                                    gsAction
-                                                                }
-                                                                gsDisplayCondition={
-                                                                    gsDisplayCondition
-                                                                }
-                                                                buyNowSettings={
-                                                                    buyNowSettings
-                                                                }
-                                                                editText={
-                                                                    editText
-                                                                }
-                                                                // soldOut={soldOut}
-                                                                unavailable={
-                                                                    unavailable
-                                                                }
-                                                                btnWidthValue={
-                                                                    btnWidthValue
-                                                                }
-                                                                btnheightValue={
-                                                                    btnheightValue
-                                                                }
-                                                                btnFontsize={
-                                                                    btnFontsize
-                                                                }
-                                                                containerHeight={
-                                                                    containerHeight
-                                                                }
-                                                                btnBorderThickness={
-                                                                    btnBorderThickness
-                                                                }
-                                                                btnBorderRadius={
-                                                                    btnBorderRadius
-                                                                }
-                                                                btnBold={
-                                                                    btnBold
-                                                                }
-                                                                btnItalic={
-                                                                    btnItalic
-                                                                }
-                                                                btnUnderline={
-                                                                    btnUnderline
-                                                                }
-                                                                btnTextColor={
-                                                                    btnTextColor
-                                                                }
-                                                                btnBgColor={
-                                                                    btnBgColor
-                                                                }
-                                                                btnTexthoverColor={
-                                                                    btnTexthoverColor
-                                                                }
-                                                                btnBgHoverColor={
-                                                                    btnBgHoverColor
-                                                                }
-                                                                btnBorderColor={
-                                                                    btnBorderColor
-                                                                }
-                                                                btnBorderHoverColor={
-                                                                    btnBorderHoverColor
-                                                                }
-                                                            />
-                                                        ) : (
-                                                            ""
-                                                        )}
-                                                        {defaultTemplate ===
-                                                        "7" ? (
-                                                            <CartTemplate7
-                                                                template_data={
-                                                                    data.template_7
-                                                                }
-                                                                enable={enable}
-                                                                animationEnable={
-                                                                    animationEnable
-                                                                }
-                                                                defaultTemplate={
-                                                                    defaultTemplate
-                                                                }
-                                                                position={
-                                                                    position
-                                                                }
-                                                                checkMobile={
-                                                                    checkMobile
-                                                                }
-                                                                checkDesktop={
-                                                                    checkDesktop
-                                                                }
-                                                                gsBold={gsBold}
-                                                                gsFontsize={
-                                                                    gsFontsize
-                                                                }
-                                                                gsPriceFontsize={
-                                                                    gsPriceFontsize
-                                                                }
-                                                                gsItalic={
-                                                                    gsItalic
-                                                                }
-                                                                gsUnderline={
-                                                                    gsUnderline
-                                                                }
-                                                                gsFontFamily={
-                                                                    gsFontFamily
-                                                                }
-                                                                gsTitleColor={
-                                                                    gsTitleColor
-                                                                }
-                                                                gsPriceColor={
-                                                                    gsPriceColor
-                                                                }
-                                                                gsBgColor={
-                                                                    gsBgColor
-                                                                }
-                                                                gsOffsetValue={
-                                                                    gsOffsetValue
-                                                                }
-                                                                gsAction={
-                                                                    gsAction
-                                                                }
-                                                                gsDisplayCondition={
-                                                                    gsDisplayCondition
-                                                                }
-                                                                buyNowSettings={
-                                                                    buyNowSettings
-                                                                }
-                                                                editText={
-                                                                    editText
-                                                                }
-                                                                // soldOut={soldOut}
-                                                                unavailable={
-                                                                    unavailable
-                                                                }
-                                                                btnWidthValue={
-                                                                    btnWidthValue
-                                                                }
-                                                                btnheightValue={
-                                                                    btnheightValue
-                                                                }
-                                                                btnFontsize={
-                                                                    btnFontsize
-                                                                }
-                                                                containerHeight={
-                                                                    containerHeight
-                                                                }
-                                                                btnBorderThickness={
-                                                                    btnBorderThickness
-                                                                }
-                                                                btnBorderRadius={
-                                                                    btnBorderRadius
-                                                                }
-                                                                btnBold={
-                                                                    btnBold
-                                                                }
-                                                                btnItalic={
-                                                                    btnItalic
-                                                                }
-                                                                btnUnderline={
-                                                                    btnUnderline
-                                                                }
-                                                                btnTextColor={
-                                                                    btnTextColor
-                                                                }
-                                                                btnBgColor={
-                                                                    btnBgColor
-                                                                }
-                                                                btnTexthoverColor={
-                                                                    btnTexthoverColor
-                                                                }
-                                                                btnBgHoverColor={
-                                                                    btnBgHoverColor
-                                                                }
-                                                                btnBorderColor={
-                                                                    btnBorderColor
-                                                                }
-                                                                btnBorderHoverColor={
-                                                                    btnBorderHoverColor
-                                                                }
-                                                            />
-                                                        ) : (
-                                                            ""
-                                                        )}
-                                                        {defaultTemplate ===
-                                                        "8" ? (
-                                                            <CartTemplate8
-                                                                template_data={
-                                                                    data.template_8
-                                                                }
-                                                                enable={enable}
-                                                                animationEnable={
-                                                                    animationEnable
-                                                                }
-                                                                defaultTemplate={
-                                                                    defaultTemplate
-                                                                }
-                                                                position={
-                                                                    position
-                                                                }
-                                                                checkMobile={
-                                                                    checkMobile
-                                                                }
-                                                                checkDesktop={
-                                                                    checkDesktop
-                                                                }
-                                                                gsBold={gsBold}
-                                                                gsFontsize={
-                                                                    gsFontsize
-                                                                }
-                                                                gsPriceFontsize={
-                                                                    gsPriceFontsize
-                                                                }
-                                                                gsItalic={
-                                                                    gsItalic
-                                                                }
-                                                                gsUnderline={
-                                                                    gsUnderline
-                                                                }
-                                                                gsFontFamily={
-                                                                    gsFontFamily
-                                                                }
-                                                                gsTitleColor={
-                                                                    gsTitleColor
-                                                                }
-                                                                gsPriceColor={
-                                                                    gsPriceColor
-                                                                }
-                                                                gsBgColor={
-                                                                    gsBgColor
-                                                                }
-                                                                gsOffsetValue={
-                                                                    gsOffsetValue
-                                                                }
-                                                                gsAction={
-                                                                    gsAction
-                                                                }
-                                                                gsDisplayCondition={
-                                                                    gsDisplayCondition
-                                                                }
-                                                                buyNowSettings={
-                                                                    buyNowSettings
-                                                                }
-                                                                editText={
-                                                                    editText
-                                                                }
-                                                                // soldOut={soldOut}
-                                                                unavailable={
-                                                                    unavailable
-                                                                }
-                                                                btnWidthValue={
-                                                                    btnWidthValue
-                                                                }
-                                                                btnheightValue={
-                                                                    btnheightValue
-                                                                }
-                                                                btnFontsize={
-                                                                    btnFontsize
-                                                                }
-                                                                containerHeight={
-                                                                    containerHeight
-                                                                }
-                                                                btnBorderThickness={
-                                                                    btnBorderThickness
-                                                                }
-                                                                btnBorderRadius={
-                                                                    btnBorderRadius
-                                                                }
-                                                                btnBold={
-                                                                    btnBold
-                                                                }
-                                                                btnItalic={
-                                                                    btnItalic
-                                                                }
-                                                                btnUnderline={
-                                                                    btnUnderline
-                                                                }
-                                                                btnTextColor={
-                                                                    btnTextColor
-                                                                }
-                                                                btnBgColor={
-                                                                    btnBgColor
-                                                                }
-                                                                btnTexthoverColor={
-                                                                    btnTexthoverColor
-                                                                }
-                                                                btnBgHoverColor={
-                                                                    btnBgHoverColor
-                                                                }
-                                                                btnBorderColor={
-                                                                    btnBorderColor
-                                                                }
-                                                                btnBorderHoverColor={
-                                                                    btnBorderHoverColor
-                                                                }
-                                                            />
-                                                        ) : (
-                                                            ""
-                                                        )}
                                                     </div>
                                                 </div>
                                             </Card>
