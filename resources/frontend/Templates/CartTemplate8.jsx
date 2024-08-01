@@ -169,7 +169,7 @@ export default function CartTemplate4(props) {
                     .lm_quantity_picker .quantity-picker{
                     background-color: #fff;
                     border: 1px solid #ddd;
-                    margin: 0 15px;
+                    margin: 0 0px;
                     border-radius:0;
                     display: flex;
                     align-items: center;

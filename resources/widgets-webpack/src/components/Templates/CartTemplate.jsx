@@ -608,7 +608,7 @@ export default function CartTemplate1(props) {
                                                     }}
                                                 >
                                                     {loading === true
-                                                        ? "Adding to Cart..."
+                                                        ? "Adding..."
                                                         : `${editText}`}
                                                 </button>
                                                 {/* </CustomizedButton> */}

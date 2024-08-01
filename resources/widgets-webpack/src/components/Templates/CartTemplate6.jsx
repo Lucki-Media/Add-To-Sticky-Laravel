@@ -640,7 +640,7 @@ export default function CartTemplate6(props) {
                                                     }}
                                                 >
                                                     {loading === true
-                                                        ? "Adding to Cart..."
+                                                        ? "Adding..."
                                                         : `${editText}`}
                                                 </button>
                                             </div>

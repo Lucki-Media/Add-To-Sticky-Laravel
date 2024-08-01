@@ -651,7 +651,7 @@ export default function CartTemplate5(props) {
                                                     }}
                                                 >
                                                     {loading === true
-                                                        ? "Adding to Cart..."
+                                                        ? "Adding..."
                                                         : `${editText}`}
                                                 </button>
 
