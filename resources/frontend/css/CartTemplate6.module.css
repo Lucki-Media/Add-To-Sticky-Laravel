@@ -33,7 +33,7 @@
 
 .lm_middlecontent .pro_names {
     display: inline-block;
-    margin: 0 22px 0 0;
+    margin: 0 22px 8px 0;
 }
 
 .lm_options {
@@ -46,12 +46,15 @@
     flex-wrap: nowrap;
     position: relative;
 }
+.lm_pro_image .image_border{
+    aspect-ratio: 1/1;
+}
 .lmblock_right::after {
     position: absolute;
     content: "";
     height: 100%;
     width: 1px;
-    left: -30px;
+    left: -15px;
     background-color: #CDCDCD;
 }
 .lmblock_right h5 {
@@ -59,8 +62,12 @@
     margin-right: 10px;
 }
 
+.lmblock_right span{
+    font-weight: 600;
+}
 .lmblock_right span.compare_lm_price {
     text-decoration: line-through;
+    opacity: 0.5;
 }
 
 /* .lmblock_right .simple_price::before {
@@ -140,7 +147,19 @@
     width: auto;
     border-radius: 15px;
 }
-
+@media screen and (max-width: 1420px) {
+    .lm_sticky_cart {
+        height: auto !important;
+        padding: 10px 0;
+    }
+    .lm_buy_btn button{
+        width: auto;
+    }
+   .lm_cart_module{
+    flex-wrap: wrap;
+    justify-content: center;
+   }
+}
 @media screen and (max-width: 1100px) {
     .lm_sticky_cart {
         height: auto !important;
@@ -184,6 +203,12 @@
     .lmblock_right .lm_sale::before {
         content: "";
     }
+    .lmblock_right{
+        flex-wrap: wrap;
+    }
+    .button_block {
+        margin-top: 10px;
+    }
 }
 
 @media screen and (max-width: 767px) {
@@ -224,6 +249,11 @@
 
     .lm_cart_module {
         display: block;
+    }
+    .lm_buy_btn button{
+        padding: 10px 20px;
+        height: auto;
+
     }
 }
 

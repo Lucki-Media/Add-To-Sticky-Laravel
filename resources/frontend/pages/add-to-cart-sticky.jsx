@@ -901,18 +901,18 @@ export default function AddToCartSticky() {
                                                     <div className="lm_product_block">
                                                         <div className="product_details">
                                                             <div
-                                                                style={{
-                                                                    height:
-                                                                        position !==
-                                                                        "Top"
-                                                                            ? 0
-                                                                            : containerHeight,
-                                                                    marginTop:
-                                                                        position !==
-                                                                        "Top"
-                                                                            ? 50
-                                                                            : 20,
-                                                                }}
+                                                                // style={{
+                                                                //     height:
+                                                                //         position !==
+                                                                //         "Top"
+                                                                //             ? 0
+                                                                //             : containerHeight,
+                                                                //     marginTop:
+                                                                //         position !==
+                                                                //         "Top"
+                                                                //             ? 50
+                                                                //             : 20,
+                                                                // }}
                                                             >
                                                                 {defaultTemplate ===
                                                                 "1" ? (

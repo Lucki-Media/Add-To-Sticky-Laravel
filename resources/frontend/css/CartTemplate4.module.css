@@ -33,7 +33,7 @@
 
 .lm_middlecontent .pro_names {
     display: inline-block;
-    margin: 0 22px 0 0;
+    margin: 0 22px 8px 0;
 }
 
 .lm_quantity_selector {
@@ -53,10 +53,12 @@
 .lm_middlecontent span {
     position: relative;
     margin-right: 10px;
+    font-weight: bold;
 }
 
 .lm_middlecontent span.compare_lm_price {
     text-decoration: line-through;
+    opacity: 0.5;
 }
 
 /* .lm_middlecontent .simple_price::before,
@@ -140,13 +142,18 @@
     width: auto;
     border-radius: 15px;
 }
-
+.lm_pro_image .image_border{
+    aspect-ratio: 1/1;
+}
 @media screen and (max-width: 1100px) {
     .lm_sticky_cart {
         height: auto !important;
         padding: 10px 0;
     }
-
+    .lm_cart_module{
+        flex-wrap: wrap;
+        justify-content: center;
+    }
     /* .lm_cart_module{
      flex-direction: column;
     } */

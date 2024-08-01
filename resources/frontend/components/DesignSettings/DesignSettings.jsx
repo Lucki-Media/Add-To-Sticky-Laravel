@@ -830,7 +830,7 @@ function DesignSettings(props) {
                                     <RangeSlider
                                         label={`${btnheightValue} px`}
                                         value={btnheightValue}
-                                        min={0}
+                                        min={30}
                                         max={150}
                                         onChange={
                                             handleBuyButtonHeightSliderChange

@@ -144,9 +144,9 @@
   } */
 }
 @media screen and (max-width: 991px) {
-    .lm_cart_module {
+    /* .lm_cart_module {
         display: block;
-    }
+    } */
     .button_block {
         margin-top: 0;
     }
