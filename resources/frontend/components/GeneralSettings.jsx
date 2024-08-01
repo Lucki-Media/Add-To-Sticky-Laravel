@@ -497,7 +497,7 @@ export function GeneralSettings(props) {
             {/* Background Color */}
             <div className="style__wrapper_div">
                 <span className="display_setting_subtitle">
-                    Background Color
+                BG Color
                 </span>
                 <div>
                     <ColorPlate

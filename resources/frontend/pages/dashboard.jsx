@@ -138,7 +138,6 @@ export default function Dashboard(props) {
                         <div className="lm_add_to_sticky_callout_card">
                             <Layout>
                                 <Layout.Section>
-                                    {" "}
                                     <CalloutCard
                                         title="Add To Cart Sticky Bar"
                                         illustration="https://cdn.shopify.com/s/assets/admin/checkout/settings-customizecart-705f57c725ac05be5a34ec20c05b94298cb8afd10aac7bd9c7ad02030f48cfa0.svg"
@@ -161,7 +160,6 @@ export default function Dashboard(props) {
                                     </CalloutCard>
                                 </Layout.Section>
                                 <Layout.Section>
-                                    {" "}
                                     <CalloutCard
                                         title="Sticky Cart"
                                         illustration="https://cdn.shopify.com/s/assets/admin/checkout/settings-customizecart-705f57c725ac05be5a34ec20c05b94298cb8afd10aac7bd9c7ad02030f48cfa0.svg"
