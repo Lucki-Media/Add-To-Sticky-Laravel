@@ -192,14 +192,14 @@
         justify-content: center;
     }
 
-    .lmblock_right {
+    /* .lmblock_right {
         display: block;
-    }
+    } */
 
     .lm_pro_image {
         align-items: center;
         margin-bottom: 8px;
-        justify-content: left;
+        justify-content: center;
     }
 
     .productInputs label {
@@ -208,6 +208,10 @@
 
     .lm_cart_module {
         display: block;
+    }
+    .image_border img {
+        width: 100%;
+        height: 100%;
     }
 }
 
