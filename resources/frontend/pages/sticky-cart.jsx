@@ -25,6 +25,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import Switch from "react-switch";
 import { isEqual } from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import proimage from "../assets/productimage.png";
 import {
     faCartArrowDown,
     faCartPlus,
@@ -1317,7 +1318,9 @@ export default function StickyCart() {
                                                                     <div className="product_image">
                                                                         <div className="product_imagess">
                                                                             <img
-                                                                                src={`images/cart-bag-image2.png`}
+                                                                                src={
+                                                                                    proimage
+                                                                                }
                                                                                 alt=""
                                                                             />
                                                                         </div>
@@ -1325,11 +1328,16 @@ export default function StickyCart() {
 
                                                                     <div className="p_details">
                                                                         <h2>
-                                                                            Demo
-                                                                            Product
+                                                                            Juice
+                                                                            Bottle
+                                                                            Mockup
+                                                                            (Red)
                                                                         </h2>
                                                                         <span>
-                                                                            $20.00
+                                                                            <strike>
+                                                                                $50.00
+                                                                            </strike>{" "}
+                                                                            $4.00
                                                                         </span>
                                                                         <a className="addtocartbtn">
                                                                             Add
@@ -1337,37 +1345,46 @@ export default function StickyCart() {
                                                                             cart
                                                                         </a>
                                                                         <div className="product_content">
-                                                                            Lorem
-                                                                            Ipsum
-                                                                            has
-                                                                            been
-                                                                            the
-                                                                            industry's
-                                                                            standard
-                                                                            dummy
-                                                                            text
-                                                                            ever
-                                                                            since
-                                                                            the
-                                                                            1500s,
-                                                                            when
-                                                                            an
-                                                                            unknown
-                                                                            printer
-                                                                            took
+                                                                            The
+                                                                            Juice
+                                                                            Bottle
+                                                                            Mockup
+                                                                            (Red)
+                                                                            features
                                                                             a
-                                                                            galley
-                                                                            of
-                                                                            type
+                                                                            realistic
+                                                                            red
+                                                                            juice
+                                                                            bottle,
+                                                                            ideal
+                                                                            for
+                                                                            showcasing
+                                                                            beverage
+                                                                            branding.
+                                                                            It
+                                                                            provides
+                                                                            a
+                                                                            high-quality,
+                                                                            customizable
+                                                                            template
+                                                                            for
+                                                                            marketing
                                                                             and
-                                                                            scrambled
+                                                                            packaging
+                                                                            designs,
+                                                                            making
                                                                             it
-                                                                            to
-                                                                            make
-                                                                            a
-                                                                            type
-                                                                            specimen
-                                                                            book.
+                                                                            perfect
+                                                                            for
+                                                                            visualizing
+                                                                            labels
+                                                                            on
+                                                                            fruit
+                                                                            juices,
+                                                                            smoothies,
+                                                                            or
+                                                                            energy
+                                                                            drinks.
                                                                         </div>
                                                                     </div>
                                                                 </div>

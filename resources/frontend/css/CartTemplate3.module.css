@@ -20,11 +20,13 @@
     display: flex;
     align-items: center;
 }
-
+.lm_pro_image .image_border{
+width: 100px;
+}
 .lm_pro_image img {
     object-fit: cover;
     margin-right: 0;
-    height: 90%;
+    height: 100%;
     width: 100%;
     padding: 5px;
     /* border: 1px solid #ddd;
@@ -33,7 +35,7 @@
 
 .lm_middlecontent .pro_names {
     display: inline-block;
-    margin: 0 22px 0 0;
+    margin: 0 22px 8px 0;
 }
 
 .lm_quantity_selector {
@@ -53,10 +55,12 @@
 .lm_middlecontent span {
     position: relative;
     margin-right: 10px;
+    font-weight: bold;
 }
 
 .lm_middlecontent span.compare_lm_price {
     text-decoration: line-through;
+    opacity: 0.5;
 }
 
 /* .lm_middlecontent .simple_price::before,
@@ -137,15 +141,21 @@
     border-radius: 15px;
 }
 @media screen and (max-width: 460px) {
-    .lmblock_right {
+    /* .lmblock_right {
         margin-left: 100px;
-    }
+    } */
 }
 
 @media screen and (max-width: 1100px) {
     .lm_sticky_cart {
         height: auto !important;
         padding: 10px 0;
+    }
+    .button_block{
+    flex-wrap: wrap;
+    }
+    .lm_buy_btn{
+        margin: 10px;
     }
 
     /* .lm_cart_module{
