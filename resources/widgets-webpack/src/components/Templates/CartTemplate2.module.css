@@ -52,10 +52,13 @@
 .lm_middlecontent span {
     position: relative;
     margin-right: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
 .lm_middlecontent span.compare_lm_price {
     text-decoration: line-through;
+    opacity: 0.5;
 }
 
 /* .lm_middlecontent .simple_price::before,

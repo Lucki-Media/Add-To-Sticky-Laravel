@@ -53,15 +53,18 @@
     height: 100%;
     width: 1px;
     left: -30px;
-    background-color: #CDCDCD;
+    background-color: #cdcdcd;
 }
 .lmblock_right span {
     position: relative;
     margin-right: 10px;
+    letter-spacing: 0.5px;
+    font-weight: 600;
 }
 
 .lmblock_right span.compare_lm_price {
     text-decoration: line-through;
+    opacity: 0.5;
 }
 
 /* .lmblock_right .simple_price::before {
