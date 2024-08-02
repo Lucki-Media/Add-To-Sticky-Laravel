@@ -14,6 +14,8 @@ import {
     Icon,
     Banner,
     List,
+    ButtonGroup,
+    CalloutCard,
 } from "@shopify/polaris";
 import { QuestionCircleIcon } from "@shopify/polaris-icons";
 import "../css/index.css";
@@ -94,6 +96,16 @@ export default function HomePage() {
                         >
                             <p className="fullscreen_title">Dashboard </p>
                         </div>
+                        <ButtonGroup>
+                            <Button
+                                size="large"
+                                variant="primary"
+                                url="https://forms.gle/CTSsW3kpKgVturgX7"
+                                external
+                            >
+                                Get Support
+                            </Button>
+                        </ButtonGroup>
                     </div>
                 </FullscreenBar>
             </div>
@@ -456,6 +468,26 @@ export default function HomePage() {
                                         </SkeletonPage>
                                     </Layout.Section>
                                 )}
+                                <Layout.Section>
+                                    <div style={{ paddingTop: 15 }}>
+                                        <CalloutCard
+                                            title="Need any help?"
+                                            primaryAction={{
+                                                content:
+                                                    "Fill out our Google Form",
+                                                url: "https://forms.gle/CTSsW3kpKgVturgX7",
+                                                target: "_blank",
+                                            }}
+                                        >
+                                            <p>
+                                                If we're not available on live
+                                                chat, please fill out our Google
+                                                Form, and we'll get back to you
+                                                ASAP.
+                                            </p>
+                                        </CalloutCard>
+                                    </div>
+                                </Layout.Section>
                             </Layout>
                         </div>
                     </Layout.Section>

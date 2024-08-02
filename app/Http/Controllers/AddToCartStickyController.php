@@ -54,6 +54,7 @@ class AddToCartStickyController extends Controller
         $final_data = [
             'shop_domain' => $requestData['shop_domain'],
             'enable' => $requestData['enable'],
+            'homePageProduct' => $requestData['homePageProduct'],
             'animationEnable' => $requestData['animationEnable'],
             'defaultTemplate' => $requestData['defaultTemplate'],
             'current_template' => json_encode($current_template),
@@ -85,6 +86,7 @@ class AddToCartStickyController extends Controller
         $final_data = [
             'shop_domain' => $sac_data['shop_domain'],
             'enable' => $sac_data['enable'] === '1' ? true : false,
+            'homePageProduct' => $sac_data['homePageProduct'] ?? "",
             'animationEnable' => (int) $sac_data['animationEnable'] === 1 ? true : false,
             'defaultTemplate' => (int) $sac_data['defaultTemplate'],
             'current_template' => json_decode($sac_data['current_template']),
