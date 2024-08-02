@@ -53,6 +53,7 @@
 .lm_block_price span {
     position: relative;
     margin-right: 10px;
+    letter-spacing: 0.5px;
 }
 
 .lm_block_price span.compare_lm_price {

@@ -53,6 +53,7 @@
     position: relative;
     margin-right: 10px;
     font-weight: 600;
+    letter-spacing: 0.5px;
 }
 .lmblock_right .image_border{
     aspect-ratio: 1/1;
