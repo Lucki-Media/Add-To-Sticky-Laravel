@@ -55,6 +55,7 @@
 .lm_middlecontent span {
     position: relative;
     margin-right: 20px;
+    letter-spacing: 0.5px;
 }
 
 .lm_block_price span.compare_lm_price {
@@ -115,6 +116,7 @@
     margin-right: 10px;
     position: relative;
     font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
 .lm_out_stock {
