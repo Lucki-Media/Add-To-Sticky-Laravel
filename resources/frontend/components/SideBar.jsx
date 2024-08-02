@@ -14,6 +14,7 @@ export function SideBar(props) {
                 <GeneralSettings
                     callback={handleCallback}
                     position={props.position}
+                    homePageProduct={props.homePageProduct}
                     checkMobile={props.checkMobile}
                     checkDesktop={props.checkDesktop}
                     gsBold={props.gsBold}
@@ -53,6 +54,7 @@ export function SideBar(props) {
                 <DesignSettings
                     callback={handleCallback}
                     position={props.position}
+                    homePageProduct={props.homePageProduct}
                     checkMobile={props.checkMobile}
                     checkDesktop={props.checkDesktop}
                     gsBold={props.gsBold}

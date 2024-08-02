@@ -300,6 +300,7 @@ function DesignSettings(props) {
     ]);
     var transfer_data = {
         general_settings: {
+            homePageProduct: props.homePageProduct,
             checkMobile: props.checkMobile,
             checkDesktop: props.checkDesktop,
             gsAction: props.gsAction,

@@ -6,17 +6,33 @@ import {
     TextField,
     Divider,
     BlockStack,
+    Badge,
 } from "@shopify/polaris";
 import React, { useCallback, useEffect, useState } from "react";
 import "../../css/index.css";
+import Switch from "react-switch";
 
 function GeneralSettings(props) {
+    const [productSwitch, setProductSwitch] = useState(
+        props.homePageProduct !== "" &&
+            props.homePageProduct !== null &&
+            props.homePageProduct !== undefined
+    );
+    const [homePageProduct, setHomePageProduct] = useState(
+        props.homePageProduct
+    );
     const [checkMobile, setCheckMobile] = useState(props.checkMobile);
     const [checkDesktop, setCheckDesktop] = useState(props.checkDesktop);
     const [gsAction, setGsAction] = useState(props.gsAction);
     const [gsDisplayCondition, setGsDisplayCondition] = useState(
         props.gsDisplayCondition
     );
+
+    // HOME PAGE PRODUCT SWITCH LOGIC
+    const handleSwitchChange = (checked) => {
+        setProductSwitch(checked);
+        console.log("helloo  ", checked);
+    };
 
     /*DISPLAY SETTING START GENERAL SETTINGS*/
     const handlecheckboxMobile = useCallback(
@@ -66,6 +82,7 @@ function GeneralSettings(props) {
         callbackFunction();
     }, [
         // IT WILL SEND LATEST DATA OF ALL STATES
+        homePageProduct,
         checkMobile,
         checkDesktop,
         gsAction,
@@ -74,6 +91,7 @@ function GeneralSettings(props) {
 
     var transfer_data = {
         general_settings: {
+            homePageProduct: homePageProduct,
             checkMobile: checkMobile,
             checkDesktop: checkDesktop,
             gsAction: gsAction,
@@ -187,6 +205,37 @@ function GeneralSettings(props) {
                     labelHidden
                 />
             </BlockStack>
+
+            <div style={{ margin: "15px 0" }}>
+                <Divider borderColor="border" />
+            </div>
+
+            {/* Show Product on home page */}
+            <div className="setting_title">
+                <Text
+                    variant="bodyLg"
+                    as="span"
+                    alignment="start"
+                    fontWeight="medium"
+                >
+                    Show specific product on homepage?{" "}
+                    {productSwitch ? (
+                        <span className="lm_sticky_custom_badge_success">
+                            <Badge tone="success">Yes</Badge>
+                        </span>
+                    ) : (
+                        <span className="lm_sticky_custom_badge_critical">
+                            <Badge tone="critical">No</Badge>
+                        </span>
+                    )}
+                </Text>
+                <Switch
+                    onChange={handleSwitchChange}
+                    checked={productSwitch}
+                    uncheckedIcon={null}
+                    checkedIcon={null}
+                />
+            </div>
         </div>
     );
 }

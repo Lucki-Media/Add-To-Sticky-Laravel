@@ -44,6 +44,7 @@ export default function AddToCartSticky() {
 
     const [data, setData] = useState([]);
     const [enable, setEnable] = useState(true);
+    const [homePageProduct, setHomePageProduct] = useState();
     const [animationEnable, setAnimationEnable] = useState(true);
     const [defaultTemplate, setDefaultTemplate] = useState("2");
     /*GENERAL SETTINGS CONSTANTS*/
@@ -343,6 +344,7 @@ export default function AddToCartSticky() {
             // console.log(data.data);
             setData(data.data);
             setEnable(data.data.enable);
+            setHomePageProduct(data.data.homePageProduct);
             setOriginalEnable(data.data.enable);
             setAnimationEnable(data.data.animationEnable);
             setDefaultTemplate(data.data.defaultTemplate.toString());
@@ -442,6 +444,7 @@ export default function AddToCartSticky() {
             let payLoad = {
                 shop_domain: document.getElementById("shopOrigin").value,
                 enable: enable,
+                homePageProduct: homePageProduct,
                 animationEnable: animationEnable,
                 defaultTemplate: defaultTemplate,
                 /*GENERAL SETTINGS START*/
@@ -854,6 +857,9 @@ export default function AddToCartSticky() {
                                                     containerHeight
                                                 }
                                                 enable={enable}
+                                                homePageProduct={
+                                                    homePageProduct
+                                                }
                                                 animationEnable={
                                                     animationEnable
                                                 }
@@ -901,18 +907,18 @@ export default function AddToCartSticky() {
                                                     <div className="lm_product_block">
                                                         <div className="product_details">
                                                             <div
-                                                                // style={{
-                                                                //     height:
-                                                                //         position !==
-                                                                //         "Top"
-                                                                //             ? 0
-                                                                //             : containerHeight,
-                                                                //     marginTop:
-                                                                //         position !==
-                                                                //         "Top"
-                                                                //             ? 50
-                                                                //             : 20,
-                                                                // }}
+                                                            // style={{
+                                                            //     height:
+                                                            //         position !==
+                                                            //         "Top"
+                                                            //             ? 0
+                                                            //             : containerHeight,
+                                                            //     marginTop:
+                                                            //         position !==
+                                                            //         "Top"
+                                                            //             ? 50
+                                                            //             : 20,
+                                                            // }}
                                                             >
                                                                 {defaultTemplate ===
                                                                 "1" ? (
