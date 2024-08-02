@@ -53,6 +53,7 @@
 
 .lm_block_price span.compare_lm_price {
     text-decoration: line-through;
+    opacity: 0.5;
 }
 
 .lm_buy_btn {
@@ -105,9 +106,11 @@
     border-radius: 15px;
 }
 
-.lm_block_price span{
-  margin-right: 10px;
-  position: relative;
+.lm_block_price span {
+    margin-right: 10px;
+    position: relative;
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
 /* .lm_block_price .simple_price::before {
