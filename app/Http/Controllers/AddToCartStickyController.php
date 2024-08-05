@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\AddToCartStickyData;
 
@@ -100,6 +101,27 @@ class AddToCartStickyController extends Controller
             'template_8' => json_decode($sac_data['template_8']),
         ];
         return self::sendResponse($final_data, 'Success');
+        // echo '<pre>';print_r(json_encode($data));exit;
+    }
+
+    public function getAllProducts($shopDomain)
+    {
+        // get required details
+        $apiKey = config('shopify-app.api_key');
+        $user = User::where(['name' => $shopDomain])->first();
+
+        // get all products
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
+        $url = 'https://' . $apiKey . ':' . $user['password'] . '@' . $shopDomain . '/admin/api/' . env('SHOPIFY_API_VERSION') . '/products.json?fields=id%2Cimage%2Ctitle';
+        curl_setopt($ch, CURLOPT_URL, $url);
+        $server_output = curl_exec($ch);
+        $product_data = json_decode($server_output, true);
+
+        return self::sendResponse($product_data, 'Success');
         // echo '<pre>';print_r(json_encode($data));exit;
     }
 }

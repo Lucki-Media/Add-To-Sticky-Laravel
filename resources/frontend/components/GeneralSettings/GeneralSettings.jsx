@@ -1,9 +1,7 @@
 import {
-    Card,
     Checkbox,
     Text,
     Select,
-    TextField,
     Divider,
     BlockStack,
     Badge,
@@ -11,6 +9,7 @@ import {
 import React, { useCallback, useEffect, useState } from "react";
 import "../../css/index.css";
 import Switch from "react-switch";
+import ProductSelection from "./ProductSelection";
 
 function GeneralSettings(props) {
     const [productSwitch, setProductSwitch] = useState(
@@ -31,7 +30,6 @@ function GeneralSettings(props) {
     // HOME PAGE PRODUCT SWITCH LOGIC
     const handleSwitchChange = (checked) => {
         setProductSwitch(checked);
-        console.log("helloo  ", checked);
     };
 
     /*DISPLAY SETTING START GENERAL SETTINGS*/
@@ -236,6 +234,9 @@ function GeneralSettings(props) {
                     checkedIcon={null}
                 />
             </div>
+
+            {/* Product Selection */}
+            {productSwitch && <ProductSelection />}
         </div>
     );
 }
