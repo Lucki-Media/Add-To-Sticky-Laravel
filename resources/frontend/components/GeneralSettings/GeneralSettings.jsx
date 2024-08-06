@@ -30,6 +30,7 @@ function GeneralSettings(props) {
     // HOME PAGE PRODUCT SWITCH LOGIC
     const handleSwitchChange = (checked) => {
         setProductSwitch(checked);
+        setHomePageProduct("");
     };
 
     /*DISPLAY SETTING START GENERAL SETTINGS*/
@@ -236,7 +237,14 @@ function GeneralSettings(props) {
             </div>
 
             {/* Product Selection */}
-            {productSwitch && <ProductSelection />}
+            {productSwitch && (
+                <ProductSelection
+                    homePageProduct={homePageProduct}
+                    productSelectionCallBack={(value) =>
+                        setHomePageProduct(value)
+                    }
+                />
+            )}
         </div>
     );
 }

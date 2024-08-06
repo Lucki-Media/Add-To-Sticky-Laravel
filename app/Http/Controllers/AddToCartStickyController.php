@@ -124,4 +124,33 @@ class AddToCartStickyController extends Controller
         return self::sendResponse($product_data, 'Success');
         // echo '<pre>';print_r(json_encode($data));exit;
     }
+
+    public function getProductHandle($shopDomain, $productID)
+    {
+        // get product ID if stored 
+        $homePageProduct = AddToCartStickyData::where('shop_domain', $shopDomain)->value('homePageProduct');
+
+        if ($homePageProduct && $homePageProduct != "") {
+
+            // get required details
+            $apiKey = config('shopify-app.api_key');
+            $user = User::where(['name' => $shopDomain])->first();
+
+            // get all products
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_HEADER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
+            $url = 'https://' . $apiKey . ':' . $user['password'] . '@' . $shopDomain . '/admin/api/' . env('SHOPIFY_API_VERSION') . '/products/' . $productID . '.json?fields=handle';
+            curl_setopt($ch, CURLOPT_URL, $url);
+            $server_output = curl_exec($ch);
+            $product_data = json_decode($server_output, true);
+
+            $handle = $product_data && $product_data['product'] && $product_data['product']['handle'] ? $product_data['product']['handle'] : "";
+            return self::sendResponse($handle, 'Success');
+        } else {
+            return self::sendResponse("", 'Success');
+        }
+    }
 }
