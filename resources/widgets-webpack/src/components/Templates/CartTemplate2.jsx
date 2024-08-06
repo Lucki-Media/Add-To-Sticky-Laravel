@@ -405,8 +405,10 @@ export default function CartTemplate2(props) {
                                             <img
                                                 className="img_sizes"
                                                 src={
-                                                    selectedVariant.featured_image !==
-                                                    null
+                                                    selectedVariant &&
+                                                    selectedVariant.featured_image &&
+                                                    selectedVariant
+                                                        .featured_image.src
                                                         ? selectedVariant
                                                               .featured_image
                                                               .src

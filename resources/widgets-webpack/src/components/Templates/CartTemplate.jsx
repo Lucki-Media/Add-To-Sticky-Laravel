@@ -63,7 +63,7 @@ export default function CartTemplate1(props) {
     const price = selectedVariant?.price
         ? getSymbolFromCurrency(window.Shopify.currency.active) +
           parseFloat(selectedVariant.price / 100).toFixed(2)
-          : " ";
+        : " ";
     /*PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS END*/
     /*--------------------------------------------------------------------------------------------------*/
     /*COMPARE AT PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS START*/
@@ -360,12 +360,12 @@ export default function CartTemplate1(props) {
                         .css-1xc3v61-indicatorContainer{
                             padding: 0 8px;
                         }
-      .css-1nmdiq5-menu{
-        margin:0 auto !important;
-      }
-      .css-14h4o58-menu{
-        margin:0 auto !important;
-      }
+                        .css-1nmdiq5-menu{
+                            margin:0 auto !important;
+                        }
+                        .css-14h4o58-menu{
+                            margin:0 auto !important;
+                        }
                         .apply-font{
                             font-family : ${gsFontFamily};
                         }
@@ -386,7 +386,7 @@ export default function CartTemplate1(props) {
                             }  `}
                         >
                             <div className={style.lm_container}>
-                                <   div className={style.lm_cart_module}>
+                                <div className={style.lm_cart_module}>
                                     <div className={style.lm_pro_image}>
                                         <div
                                             className={`img_size ${style.image_border}`}
@@ -394,8 +394,10 @@ export default function CartTemplate1(props) {
                                             <img
                                                 className="img_sizes"
                                                 src={
-                                                    selectedVariant.featured_image !==
-                                                    null
+                                                    selectedVariant &&
+                                                    selectedVariant.featured_image &&
+                                                    selectedVariant
+                                                        .featured_image.src
                                                         ? selectedVariant
                                                               .featured_image
                                                               .src
@@ -479,8 +481,12 @@ export default function CartTemplate1(props) {
                                                             "option" + i;
                                                         const defaultOption = [
                                                             {
-                                                                value: selectedOptions?.[optionName],
-                                                                label: selectedOptions?.[optionName],
+                                                                value: selectedOptions?.[
+                                                                    optionName
+                                                                ],
+                                                                label: selectedOptions?.[
+                                                                    optionName
+                                                                ],
                                                             },
                                                         ];
                                                         return (
@@ -593,7 +599,7 @@ export default function CartTemplate1(props) {
                                                     }${
                                                         props.templateData
                                                             .animationEnable ===
-                                                            true
+                                                        true
                                                             ? " lm_vibrating"
                                                             : ""
                                                     }`}
