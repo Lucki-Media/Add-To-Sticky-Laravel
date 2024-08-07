@@ -65,7 +65,6 @@ export default function AddToCartSticky() {
     const [gsDisplayCondition, setGsDisplayCondition] = useState("1");
     const [containerHeight, setContainerHeight] = useState(70);
     /*BUY NOW CONSTANTS*/
-    const [buyNowSettings, setBuyNowSettings] = useState(false);
     const [editText, setEditText] = useState("BUY NOW");
     // const [soldOut, setSoldOut] = useState("Sold out");
     const [unavailable, setUnavailable] = useState("Unavailable");
@@ -89,6 +88,7 @@ export default function AddToCartSticky() {
     const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(true);
     const [originalEnable, setOriginalEnable] = useState(true);
     const [originalDefaultTemplate, setOriginalDefaultTemplate] = useState("2");
+    const [originalHomePageProduct, setOriginalHomePageProduct] = useState();
 
     //toast for success
     const [toastContent, setToastContent] = useState();
@@ -123,7 +123,8 @@ export default function AddToCartSticky() {
         setIsSaveButtonDisabled(isEqual(transferData, APIresponse));
         if (
             enable !== originalEnable ||
-            defaultTemplate !== originalDefaultTemplate
+            defaultTemplate !== originalDefaultTemplate ||
+            homePageProduct !== originalHomePageProduct
         ) {
             setIsSaveButtonDisabled(false);
         }
@@ -134,6 +135,7 @@ export default function AddToCartSticky() {
         defaultTemplate,
         originalEnable,
         originalDefaultTemplate,
+        originalHomePageProduct,
     ]);
 
     // USE EFFECT
@@ -344,6 +346,7 @@ export default function AddToCartSticky() {
             // console.log(data.data);
             setData(data.data);
             setEnable(data.data.enable);
+            setOriginalHomePageProduct(data.data.homePageProduct);
             setHomePageProduct(data.data.homePageProduct);
             setOriginalEnable(data.data.enable);
             setAnimationEnable(data.data.animationEnable);
@@ -646,6 +649,7 @@ export default function AddToCartSticky() {
         setCheckMobile(data.general_settings.checkMobile);
         setGsAction(data.general_settings.gsAction);
         setGsDisplayCondition(data.general_settings.gsDisplayCondition);
+        setHomePageProduct(data.general_settings.homePageProduct);
         //DESIGN SETTINGS
         setPosition(data.design_settings.position);
         setAnimationEnable(data.design_settings.animationEnable);
@@ -863,7 +867,6 @@ export default function AddToCartSticky() {
                                                 animationEnable={
                                                     animationEnable
                                                 }
-                                                buyNowSettings={buyNowSettings}
                                                 editText={editText}
                                                 // soldOut={soldOut}
                                                 unavailable={unavailable}
@@ -979,9 +982,6 @@ export default function AddToCartSticky() {
                                                                         }
                                                                         gsDisplayCondition={
                                                                             gsDisplayCondition
-                                                                        }
-                                                                        buyNowSettings={
-                                                                            buyNowSettings
                                                                         }
                                                                         editText={
                                                                             editText
@@ -1099,9 +1099,6 @@ export default function AddToCartSticky() {
                                                                         gsDisplayCondition={
                                                                             gsDisplayCondition
                                                                         }
-                                                                        buyNowSettings={
-                                                                            buyNowSettings
-                                                                        }
                                                                         editText={
                                                                             editText
                                                                         }
@@ -1217,9 +1214,6 @@ export default function AddToCartSticky() {
                                                                         }
                                                                         gsDisplayCondition={
                                                                             gsDisplayCondition
-                                                                        }
-                                                                        buyNowSettings={
-                                                                            buyNowSettings
                                                                         }
                                                                         editText={
                                                                             editText
@@ -1337,9 +1331,6 @@ export default function AddToCartSticky() {
                                                                         gsDisplayCondition={
                                                                             gsDisplayCondition
                                                                         }
-                                                                        buyNowSettings={
-                                                                            buyNowSettings
-                                                                        }
                                                                         editText={
                                                                             editText
                                                                         }
@@ -1455,9 +1446,6 @@ export default function AddToCartSticky() {
                                                                         }
                                                                         gsDisplayCondition={
                                                                             gsDisplayCondition
-                                                                        }
-                                                                        buyNowSettings={
-                                                                            buyNowSettings
                                                                         }
                                                                         editText={
                                                                             editText
@@ -1575,9 +1563,6 @@ export default function AddToCartSticky() {
                                                                         gsDisplayCondition={
                                                                             gsDisplayCondition
                                                                         }
-                                                                        buyNowSettings={
-                                                                            buyNowSettings
-                                                                        }
                                                                         editText={
                                                                             editText
                                                                         }
@@ -1693,9 +1678,6 @@ export default function AddToCartSticky() {
                                                                         }
                                                                         gsDisplayCondition={
                                                                             gsDisplayCondition
-                                                                        }
-                                                                        buyNowSettings={
-                                                                            buyNowSettings
                                                                         }
                                                                         editText={
                                                                             editText
@@ -1813,9 +1795,6 @@ export default function AddToCartSticky() {
                                                                         gsDisplayCondition={
                                                                             gsDisplayCondition
                                                                         }
-                                                                        buyNowSettings={
-                                                                            buyNowSettings
-                                                                        }
                                                                         editText={
                                                                             editText
                                                                         }
@@ -1885,7 +1864,6 @@ export default function AddToCartSticky() {
                                                                             />
                                                                         </div>
                                                                     </div>
-
                                                                     <div className="p_details">
                                                                         <h2>
                                                                             Juice
@@ -1904,6 +1882,7 @@ export default function AddToCartSticky() {
                                                                             to
                                                                             cart
                                                                         </a>
+
                                                                         <div className="product_content">
                                                                             The
                                                                             Juice

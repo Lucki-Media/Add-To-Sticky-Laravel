@@ -3,6 +3,7 @@ import Select from "react-select";
 import proimage from "../assets/productimage.png";
 import { QuantityPicker } from "react-qty-picker";
 import style from "../css/CartTemplate6.module.css";
+import Notification from "../pages/Notification.jsx";
 
 export default function CartTemplate6(props) {
     const [enable, setEnable] = useState(props.enable); // FOR MAIN DISPLAY

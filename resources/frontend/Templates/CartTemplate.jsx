@@ -5,6 +5,7 @@ import "select2/dist/js/select2.min";
 import proimage from "../assets/productimage.png";
 import { QuantityPicker } from "react-qty-picker";
 import style from "../css/CartTemplate1.module.css";
+import Notification from "../pages/Notification.jsx";
 
 function CartTemplate1(props) {
     const [enable, setEnable] = useState(props.enable); // FOR MAIN DISPLAY
@@ -36,6 +37,8 @@ function CartTemplate1(props) {
     const [btnBorderHoverColor, setBtnBorderHoverColor] = useState(
         props.btnBorderHoverColor
     );
+    const [gsAction, setGsAction] = useState(props.gsAction);
+
     const [btnFontsize, setBtnFontsize] = useState(props.btnFontsize);
     const [gsFontsize, setGsFontsize] = useState(props.gsFontsize);
     const [gsPriceFontsize, setGsPriceFontsize] = useState(
@@ -116,6 +119,7 @@ function CartTemplate1(props) {
         setBtnBorderRadius(props.btnBorderRadius);
         setBtnBorderColor(props.btnBorderColor);
         setBtnBorderHoverColor(props.btnBorderHoverColor);
+        setGsAction(props.gsAction);
 
         // const interval = setInterval(() => {
         //     setIsVibrating(true);
@@ -450,6 +454,7 @@ function CartTemplate1(props) {
                                 </div>
                             </div>
                         </div>
+                        {gsAction === "3" && <Notification />}
                     </div>
                 </div>
             ) : (

@@ -1,57 +1,33 @@
 import {
     Autocomplete,
     BlockStack,
+    Box,
     Button,
     Icon,
     InlineStack,
-    ResourceItem,
-    ResourceList,
     SkeletonBodyText,
     SkeletonThumbnail,
     Text,
     Thumbnail,
 } from "@shopify/polaris";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { SearchIcon, XIcon } from "@shopify/polaris-icons";
+import noImage from "../../assets/no_image.jpg";
 
-export default function ProductSelection() {
+export default function ProductSelection(props) {
     // Getting Shop Domain
     const shop_url = document.getElementById("shopOrigin").value;
 
-    const deselectedOptions = useMemo(
-        () => [
-            {
-                media: "https://burst.shopifycdn.com/photos/freelance-designer-working-on-laptop.jpg?width=746",
-                value: "rustic",
-                label: "Rustic",
-            },
-            {
-                media: "https://burst.shopifycdn.com/photos/freelance-designer-working-on-laptop.jpg?width=746",
-                value: "antique",
-                label: "Antique",
-            },
-            {
-                media: "https://burst.shopifycdn.com/photos/freelance-designer-working-on-laptop.jpg?width=746",
-                value: "vinyl",
-                label: "Vinyl",
-            },
-            {
-                media: "https://burst.shopifycdn.com/photos/freelance-designer-working-on-laptop.jpg?width=746",
-                value: "vintage",
-                label: "Vintage",
-            },
-            {
-                media: "https://burst.shopifycdn.com/photos/freelance-designer-working-on-laptop.jpg?width=746",
-                value: "refurbished",
-                label: "Refurbished",
-            },
-        ],
-        []
-    );
     const [loadingState, setLoadingState] = useState(true);
+    const [homePageProduct, setHomePageProduct] = useState(
+        props.homePageProduct
+    );
+    const [selectedItem, setSelectedItem] = useState([]);
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [inputValue, setInputValue] = useState("");
-    const [options, setOptions] = useState(deselectedOptions);
+    const [options, setOptions] = useState([]);
+    const [deselectedOptions, setDeselectedOptions] = useState([]);
+    const [productResponse, setProductResponse] = useState([]);
 
     const updateText = useCallback(
         (value) => {
@@ -73,18 +49,36 @@ export default function ProductSelection() {
 
     const updateSelection = useCallback(
         (selected) => {
-            const selectedValue = selected.map((selectedItem) => {
-                const matchedOption = options.find((option) => {
-                    return option.value.match(selectedItem);
-                });
-                return matchedOption && matchedOption.label;
-            });
+            // Find the object with the matching id
+            const product = productResponse.find(
+                (option) => String(option.id) === String(selected)
+            );
 
+            // Transform the found product into the desired structure
+            const selectedObject = product
+                ? {
+                      id: String(product.id),
+                      title: product.title,
+                      src:
+                          product.image && product.image.src
+                              ? product.image.src
+                              : noImage,
+                  }
+                : null;
+
+            // Update the selected options and item state
             setSelectedOptions(selected);
-            setInputValue(selectedValue[0] || "");
+            setSelectedItem(selectedObject);
+            setHomePageProduct(String(selected));
         },
-        [options]
+        [productResponse]
     );
+
+    const removeProduct = () => {
+        setSelectedItem([]);
+        setSelectedOptions([]);
+        setHomePageProduct("");
+    };
 
     const textField = (
         <Autocomplete.TextField
@@ -102,13 +96,63 @@ export default function ProductSelection() {
         getAllProducts();
     }, []);
 
+    useEffect(() => {
+        props.productSelectionCallBack(homePageProduct);
+    }, [homePageProduct]);
+
     // INIT API
     const getAllProducts = async () => {
         try {
             setLoadingState(true);
             const response = await fetch("api/getAllProducts/" + shop_url);
             const data = await response.json();
-            console.log(data.data);
+            // console.log(data.data.products);
+
+            var productArray = data.data.products.map((product) => ({
+                media: (
+                    <Thumbnail
+                        source={
+                            product.image && product.image.src
+                                ? product.image.src
+                                : noImage
+                        }
+                        size="small"
+                    />
+                ),
+                value: String(product.id),
+                label: product.title,
+            }));
+
+            setProductResponse(data.data.products);
+            setDeselectedOptions(productArray);
+            setOptions(productArray);
+
+            // set product showcase code start
+            let selected = [props.homePageProduct];
+
+            // Find the object with the matching id
+            const product = data.data.products.find(
+                (option) => String(option.id) === String(selected)
+            );
+
+            // Transform the found product into the desired structure
+            const selectedObject = product
+                ? {
+                      id: String(product.id),
+                      title: product.title,
+                      src:
+                          product.image && product.image.src
+                              ? product.image.src
+                              : noImage,
+                  }
+                : null;
+
+            // Update the selected options and item state
+            setSelectedOptions(selected);
+            setSelectedItem(selectedObject);
+            setHomePageProduct(String(selected));
+            // set product showcase code end
+
             setLoadingState(false);
         } catch (err) {
             console.log(err);
@@ -144,58 +188,38 @@ export default function ProductSelection() {
                             />
                         </div>
 
-                        <ResourceList
-                            resourceName={{
-                                singular: "Product",
-                                plural: "Products",
-                            }}
-                            items={[
-                                {
-                                    id: "145",
-                                    url: "#",
-                                    avatarSource:
-                                        "https://burst.shopifycdn.com/photos/freelance-designer-working-on-laptop.jpg?width=746",
-                                    name: "Yi So-Yeon",
-                                    location: "Gwangju, South Korea",
-                                    lastOrder: "Emerald Silk Gown",
-                                },
-                            ]}
-                            renderItem={(item) => {
-                                const { id, name } = item;
-                                return (
-                                    <ResourceItem
-                                        verticalAlignment="center"
-                                        id={id}
-                                        media={
-                                            <Thumbnail
-                                                source="https://burst.shopifycdn.com/photos/black-leather-choker-necklace_373x@2x.jpg"
-                                                size="small"
-                                            />
-                                        }
-                                        name={name}
-                                    >
-                                        <InlineStack align="space-between">
-                                            <Text
-                                                variant="bodyMd"
-                                                fontWeight="medium"
-                                                as="span"
-                                            >
-                                                {name}
-                                            </Text>
-
-                                            <Button
-                                                icon={XIcon}
-                                                variant="plain"
-                                                tone="base"
-                                                onClick={() =>
-                                                    console.log("hello...")
-                                                }
-                                            />
-                                        </InlineStack>
-                                    </ResourceItem>
-                                );
-                            }}
-                        />
+                        {selectedItem && selectedItem.id !== undefined && (
+                            <Box
+                                padding="400"
+                                background="bg-surface-secondary-hover"
+                                borderRadius="100"
+                            >
+                                <InlineStack
+                                    align="space-between"
+                                    blockAlign="center"
+                                >
+                                    <InlineStack align="start" gap={200}>
+                                        <Thumbnail
+                                            source={selectedItem.src}
+                                            size="small"
+                                        />
+                                        <Text
+                                            variant="bodyMd"
+                                            fontWeight="medium"
+                                            as="span"
+                                        >
+                                            {selectedItem.title}
+                                        </Text>
+                                    </InlineStack>
+                                    <Button
+                                        icon={XIcon}
+                                        variant="plain"
+                                        tone="base"
+                                        onClick={removeProduct}
+                                    />
+                                </InlineStack>
+                            </Box>
+                        )}
                     </>
                 )}
             </BlockStack>

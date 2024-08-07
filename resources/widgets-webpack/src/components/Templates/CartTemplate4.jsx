@@ -62,7 +62,6 @@ export default function CartTemplate4(props) {
     /*PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS START*/
     const price = selectedVariant?.price
         ? getSymbolFromCurrency(window.Shopify.currency.active) +
-          
           parseFloat(selectedVariant.price / 100).toFixed(2)
         : " ";
     /*PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS END*/
@@ -70,7 +69,6 @@ export default function CartTemplate4(props) {
     /*COMPARE AT PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS START*/
     const oldPrice = selectedVariant?.compare_at_price
         ? getSymbolFromCurrency(window.Shopify.currency.active) +
-          
           parseFloat(selectedVariant.compare_at_price / 100).toFixed(2)
         : "";
     /*COMPARE AT PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS START*/
@@ -426,8 +424,10 @@ export default function CartTemplate4(props) {
                                             <img
                                                 className="img_size"
                                                 src={
-                                                    selectedVariant.featured_image !==
-                                                    null
+                                                    selectedVariant &&
+                                                    selectedVariant.featured_image &&
+                                                    selectedVariant
+                                                        .featured_image.src
                                                         ? selectedVariant
                                                               .featured_image
                                                               .src
@@ -511,8 +511,12 @@ export default function CartTemplate4(props) {
                                                             "option" + i;
                                                         const defaultOption = [
                                                             {
-                                                                value: selectedOptions?.[optionName],
-                                                                label: selectedOptions?.[optionName],
+                                                                value: selectedOptions?.[
+                                                                    optionName
+                                                                ],
+                                                                label: selectedOptions?.[
+                                                                    optionName
+                                                                ],
                                                             },
                                                         ];
                                                         return (
@@ -625,7 +629,7 @@ export default function CartTemplate4(props) {
                                                     }${
                                                         props.templateData
                                                             .animationEnable ===
-                                                            true
+                                                        true
                                                             ? " lm_vibrating"
                                                             : ""
                                                     }`}
