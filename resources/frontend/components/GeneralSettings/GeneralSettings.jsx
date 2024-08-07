@@ -30,6 +30,7 @@ function GeneralSettings(props) {
     // HOME PAGE PRODUCT SWITCH LOGIC
     const handleSwitchChange = (checked) => {
         setProductSwitch(checked);
+        setHomePageProduct("");
     };
 
     /*DISPLAY SETTING START GENERAL SETTINGS*/
@@ -49,6 +50,7 @@ function GeneralSettings(props) {
     const optionsGS = [
         { label: "Go to Cart", value: "1" },
         { label: "Go to Checkout", value: "2" },
+        { label: "Stay on Same Page", value: "3" },
     ];
 
     /*DISPLAY CONDITION GENERAL SETTINGS*/
@@ -236,7 +238,14 @@ function GeneralSettings(props) {
             </div>
 
             {/* Product Selection */}
-            {productSwitch && <ProductSelection />}
+            {productSwitch && (
+                <ProductSelection
+                    homePageProduct={homePageProduct}
+                    productSelectionCallBack={(value) =>
+                        setHomePageProduct(value)
+                    }
+                />
+            )}
         </div>
     );
 }

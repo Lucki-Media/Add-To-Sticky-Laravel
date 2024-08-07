@@ -1,0 +1,39 @@
+.gridFeatures {
+    display: grid;
+    gap: 25px;
+    grid-template-columns: 50% 50%;
+}
+.flex {
+    display: flex;
+    align-items: center;
+}
+.flex a {
+    color: #007ace;
+    text-decoration: none;
+    display: block;
+}
+.Polaris_card {
+    padding: 2rem;
+}
+.Polaris_Thumbnail {
+    height: 5rem;
+    flex: 0 0 5rem;
+    background: #f6f6f6;
+}
+.list_icons {
+    background-color: #f6f6f6;
+    padding: 20px;
+    margin-right: 10px;
+}
+.secondary_text {
+    color: rgb(116 113 113);
+}
+.lm_quote_page_width {
+    max-width: 1200px;
+    margin: auto;
+}
+.overall_card {
+    margin-top: 20px;
+}
+
+

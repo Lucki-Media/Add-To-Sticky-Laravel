@@ -12,23 +12,28 @@
     "file": "assets/home-trophy-d70b3542.png",
     "src": "resources/frontend/assets/home-trophy.png"
   },
+  "resources/frontend/assets/no_image.jpg": {
+    "file": "assets/no_image-03f60945.jpg",
+    "src": "resources/frontend/assets/no_image.jpg"
+  },
   "resources/frontend/assets/productimage.png": {
     "file": "assets/productimage-a213fa31.png",
     "src": "resources/frontend/assets/productimage.png"
   },
   "resources/js/app.css": {
-    "file": "assets/app-3c56f2ca.css",
+    "file": "assets/app-1b52f12b.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
     "assets": [
       "assets/empty-state-aece716c.svg",
-      "assets/productimage-a213fa31.png"
+      "assets/productimage-a213fa31.png",
+      "assets/no_image-03f60945.jpg"
     ],
     "css": [
-      "assets/app-3c56f2ca.css"
+      "assets/app-1b52f12b.css"
     ],
-    "file": "assets/app-72eeb365.js",
+    "file": "assets/app-dc4e81d6.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }

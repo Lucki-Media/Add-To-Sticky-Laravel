@@ -1,0 +1,26 @@
+#notification_bar {
+    position: fixed;
+    width: 58.5%;
+    top: 25%;
+    background-color: #0348bc;
+    clear: both;
+    z-index: 999;
+  }
+  
+  #notification_bar .nbcontainer {
+    margin: 0 auto;
+    padding: 5px;
+  }
+  
+  #notification_bar p {
+    display: inline-block;
+
+    font-size: 15px;
+    font-weight: 300;
+    float: center;
+    margin: 0 25px 0 0;
+    padding: 0;
+    line-height: 45px;
+    color: #fff;
+    text-align: center;
+  }
