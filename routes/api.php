@@ -26,7 +26,7 @@ Route::
 
             /* PRODUCT GET API */
             Route::get('getAllProducts/{shop_domain}', 'AddToCartStickyController@getAllProducts');
-            Route::get('getProductHandle/{shop_domain}/{product_id}', 'AddToCartStickyController@getProductHandle');
+            Route::get('getProductHandle/{shop_domain}', 'AddToCartStickyController@getProductHandle');
 
             /*STICKY CART API START*/
             Route::post('saveStickyCartData', 'StickyCartController@saveStickyCartData');
