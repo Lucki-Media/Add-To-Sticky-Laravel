@@ -125,12 +125,12 @@ class AddToCartStickyController extends Controller
         // echo '<pre>';print_r(json_encode($data));exit;
     }
 
-    public function getProductHandle($shopDomain, $productID)
+    public function getProductHandle($shopDomain)
     {
         // get product ID if stored 
-        $homePageProduct = AddToCartStickyData::where('shop_domain', $shopDomain)->value('homePageProduct');
+        $sac_data = AddToCartStickyData::where('shop_domain', $shopDomain)->first();
 
-        if ($homePageProduct && $homePageProduct != "") {
+        if ($sac_data['homePageProduct'] && $sac_data['homePageProduct'] != "") {
 
             // get required details
             $apiKey = config('shopify-app.api_key');
@@ -142,13 +142,33 @@ class AddToCartStickyController extends Controller
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
             curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
-            $url = 'https://' . $apiKey . ':' . $user['password'] . '@' . $shopDomain . '/admin/api/' . env('SHOPIFY_API_VERSION') . '/products/' . $productID . '.json?fields=handle';
+            $url = 'https://' . $apiKey . ':' . $user['password'] . '@' . $shopDomain . '/admin/api/' . env('SHOPIFY_API_VERSION') . '/products/' . $sac_data['homePageProduct'] . '.json?fields=handle';
             curl_setopt($ch, CURLOPT_URL, $url);
             $server_output = curl_exec($ch);
             $product_data = json_decode($server_output, true);
 
             $handle = $product_data && $product_data['product'] && $product_data['product']['handle'] ? $product_data['product']['handle'] : "";
-            return self::sendResponse($handle, 'Success');
+
+            $final_data = [
+                'shop_domain' => $sac_data['shop_domain'],
+                'enable' => $sac_data['enable'] === '1' ? true : false,
+                'homePageProduct' => $sac_data['homePageProduct'] ?? "",
+                'animationEnable' => (int) $sac_data['animationEnable'] === 1 ? true : false,
+                'defaultTemplate' => (int) $sac_data['defaultTemplate'],
+                'current_template' => json_decode($sac_data['current_template']),
+                'template_1' => json_decode($sac_data['template_1']),
+                'template_2' => json_decode($sac_data['template_2']),
+                'template_3' => json_decode($sac_data['template_3']),
+                'template_4' => json_decode($sac_data['template_4']),
+                'template_5' => json_decode($sac_data['template_5']),
+                'template_6' => json_decode($sac_data['template_6']),
+                'template_7' => json_decode($sac_data['template_7']),
+                'template_8' => json_decode($sac_data['template_8']),
+            ];
+            return self::sendResponse([
+                'final_data' => $final_data,
+                'handle' => $handle
+            ], 'Success');
         } else {
             return self::sendResponse("", 'Success');
         }
