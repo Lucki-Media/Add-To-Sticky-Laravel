@@ -25,7 +25,7 @@ import {
 
 export default function StickyCartPreview(props) {
     // Device selection states
-    const [activePreview, setActivePreview] = useState(1);
+    const [activePreview, setActivePreview] = useState(2);
     const [selectedDevice, setSelectedDevice] = useState(0);
 
     // Sticky icon states
@@ -292,7 +292,7 @@ export default function StickyCartPreview(props) {
                                                                 <strike>
                                                                     $50.00
                                                                 </strike>{" "}
-                                                                $4.00
+                                                                $40.00
                                                             </span>
                                                             <a className="addtocartbtn">
                                                                 Add to cart
