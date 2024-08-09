@@ -26,10 +26,14 @@ import Switch from "react-switch";
 import { isEqual } from "lodash";
 import "../css/index.css";
 import StickyCartPreview from "../components/Preview/StickyCartPreview";
+import StickyIconSettings from "../components/StickyCartUpsell/StickyIconSettings";
+import DrawerSettings from "../components/StickyCartUpsell/DrawerSettings";
 
 export default function StickyCart() {
     // Getting Shop Domain
     const shop_url = document.getElementById("shopOrigin").value;
+
+    const [showSettings, setShowSettings] = useState(1);
 
     // loading states
     const [showTable, setShowTable] = useState(false);
@@ -59,7 +63,6 @@ export default function StickyCart() {
     const [positionTop, setPositionTop] = useState(20);
     const [originalpositionLeft, setoriginalPositionLeft] = useState(0);
     const [positionLeft, setPositionLeft] = useState(0);
-    // const [positionRight, setPositionRight] = useState(1);
     const [originaliconSize, setoriginalIconSize] = useState(20);
     const [iconSize, setIconSize] = useState(20);
     const [originaliconColor, setoriginalIconColor] = useState("#000000");
@@ -85,14 +88,6 @@ export default function StickyCart() {
         useState("#000000");
     const [countBgHoverColor, setCountBgHoverColor] = useState("#000000");
     const [unsavedChanges, setUnsavedChanges] = useState(true);
-
-    const templateOptions = [
-        { label: "Shopping Cart", value: "1" },
-        { label: "Cart With Plus", value: "2" },
-        { label: "Cart With Down Arrow", value: "3" },
-        { label: "Shopping Basket", value: "4" },
-        { label: "Shopping Bag", value: "5" },
-    ];
 
     //toast for success
     const [toastContent, setToastContent] = useState();
@@ -127,6 +122,10 @@ export default function StickyCart() {
         getStickyCartData();
     }, []);
 
+    const handleIconCallBack = (iconData) => {
+        console.log("iconData");
+        console.log(iconData);
+    };
     // INIT API
     const getStickyCartData = async () => {
         try {
@@ -157,7 +156,6 @@ export default function StickyCart() {
             setPositionTop(data.data.current_template.positionTop);
             setoriginalPositionLeft(data.data.current_template.positionLeft);
             setPositionLeft(data.data.current_template.positionLeft);
-            // setPositionRight(data.data.current_template.positionRight);
             setoriginalIconSize(data.data.current_template.iconSize);
             setIconSize(data.data.current_template.iconSize);
             setoriginalIconColor(data.data.current_template.iconColor);
@@ -209,7 +207,6 @@ export default function StickyCart() {
                 borderHoverColor: borderHoverColor,
                 positionTop: positionTop,
                 positionLeft: positionLeft,
-                // positionRight: positionRight,
                 iconSize: iconSize,
                 iconColor: iconColor,
                 iconHoverColor: iconHoverColor,
@@ -242,210 +239,8 @@ export default function StickyCart() {
         }
     };
 
-    // ENABLE BUTTON LOGIC
-    const handleEnable = (value) => {
-        setEnableSticky(!value);
-        setUnsavedChanges(isEqual(!value, originalenableSticky));
-    };
-
-    //ENABLE COUNT SHOW LOGIC
-    const handlecheckbox = (value) => {
-        setEnableCount(!value);
-        setUnsavedChanges(isEqual(!value, originalenableCount));
-    };
-
-    //ICON SELECT
-    const handleChange = useCallback(
-        (value) => {
-            setUnsavedChanges(isEqual(value, originaldefaultTemplate));
-            var currentData;
-            switch (value) {
-                case "1":
-                    currentData = stickyCartData.sticky_template_1;
-                    break;
-                case "2":
-                    currentData = stickyCartData.sticky_template_2;
-                    break;
-                case "3":
-                    currentData = stickyCartData.sticky_template_3;
-                    break;
-                case "4":
-                    currentData = stickyCartData.sticky_template_4;
-                    break;
-                case "5":
-                    currentData = stickyCartData.sticky_template_5;
-                    break;
-                default:
-                    currentData = stickyCartData.current_template;
-                    break;
-            }
-            // console.log("currentData");
-            // console.log(currentData);
-            setEnableSticky(stickyCartData.enableSticky);
-            setAction(currentData.action);
-            setBtnSize(currentData.btnSize);
-            setBgColor(currentData.bgColor);
-            setBgHoverColor(currentData.bgHoverColor);
-            setBorderSize(currentData.borderSize);
-            setBorderColor(currentData.borderColor);
-            setBorderHoverColor(currentData.borderHoverColor);
-            setPositionTop(currentData.positionTop);
-            setPositionLeft(currentData.positionLeft);
-            // setPositionRight(currentData.positionRight);
-            setIconSize(currentData.iconSize);
-            setIconColor(currentData.iconColor);
-            setIconHoverColor(currentData.iconHoverColor);
-            setEnableCount(currentData.enableCount);
-            setNumberCount(currentData.numberCount);
-            setCountSize(currentData.countSize);
-            setCountFontSize(currentData.countFontSize);
-            setCountColor(currentData.countColor);
-            setCountHoverColor(currentData.countHoverColor);
-            setCountBgColor(currentData.countBgColor);
-            setCountBgHoverColor(currentData.countBgHoverColor);
-        },
-        [stickyCartData, originaldefaultTemplate]
-    );
-
-    // ACTION
-    const handleSelectChange = useCallback(
-        (value) => {
-            setAction(value), setUnsavedChanges(isEqual(value, originalaction));
-        },
-        [originalaction]
-    );
-    const options = [
-        { label: "Go to Cart", value: "1" },
-        { label: "Go to Checkout", value: "2" },
-    ];
-
-    //SIZE
-    const handleRangeSliderChange = useCallback(
-        (value) => {
-            setBtnSize(value),
-                setUnsavedChanges(isEqual(value, originalbtnSize));
-        },
-
-        [originalbtnSize]
-    );
-
-    // BORDER SIZE
-    const handleBorderSliderChange = useCallback(
-        (value) => {
-            setBorderSize(value),
-                setUnsavedChanges(isEqual(value, originalborderSize));
-        },
-        [originalborderSize]
-    );
-
-    // BG COLOR
-    const handleBGColor = (event) => {
-        setBgColor(event.target.value);
-        setUnsavedChanges(isEqual(event.target.value, originalbgColor));
-    };
-
-    // BG HOVER COLOR
-    const handleBGHoverColor = (event) => {
-        setBgHoverColor(event.target.value);
-        setUnsavedChanges(isEqual(event.target.value, originalbgHoverColor));
-    };
-
-    // BORDER COLOR
-    const handleBorderColor = (event) => {
-        setBorderColor(event.target.value);
-        setUnsavedChanges(isEqual(event.target.value, originalborderColor));
-    };
-
-    // BORDER HOVER COLOR
-    const handleBorderHoverColor = (event) => {
-        setBorderHoverColor(event.target.value);
-        setUnsavedChanges(
-            isEqual(event.target.value, originalborderHoverColor)
-        );
-    };
-    //TOP
-    const handleEditTopField = useCallback(
-        (value) => {
-            setPositionTop(value),
-                setUnsavedChanges(isEqual(value, originalpositionTop));
-        },
-
-        [originalpositionTop]
-    );
-    //LEFT
-    const handleEditLeftField = useCallback(
-        (value) => {
-            setPositionLeft(value),
-                setUnsavedChanges(isEqual(value, originalpositionLeft));
-        },
-
-        [originalpositionLeft]
-    );
-    //ICON SIZE
-    const handleIconSliderChange = useCallback(
-        (value) => {
-            setIconSize(value),
-                setUnsavedChanges(isEqual(value, originaliconSize));
-        },
-
-        [originaliconSize]
-    );
-
-    // ICON COLOR
-    const handleIconColor = (event) => {
-        setIconColor(event.target.value);
-        setUnsavedChanges(isEqual(event.target.value, originaliconColor));
-    };
-
-    // ICON HOVER COLOR
-    const handleIconHoverColor = (event) => {
-        setIconHoverColor(event.target.value);
-        setUnsavedChanges(isEqual(event.target.value, originaliconHoverColor));
-    };
-
-    // COUNT SIZE
-    const handleCountSliderChange = useCallback(
-        (value) => {
-            setCountSize(value),
-                setUnsavedChanges(isEqual(value, originalcountSize));
-        },
-
-        [originalcountSize]
-    );
-    // COUNT FONT
-    const handleCountFontSliderChange = useCallback(
-        (value) => {
-            setCountFontSize(value),
-                setUnsavedChanges(isEqual(value, originalcountFontSize));
-        },
-
-        [originalcountFontSize]
-    );
-
-    // COUNT COLOR
-    const handleCountColor = (event) => {
-        setCountColor(event.target.value);
-        setUnsavedChanges(isEqual(event.target.value, originalcountColor));
-    };
-
-    // COUNT HOVER COLOR
-    const handleCountHoverColor = (event) => {
-        setCountHoverColor(event.target.value);
-        setUnsavedChanges(isEqual(event.target.value, originalcountHoverColor));
-    };
-
-    // COUNT BG  COLOR
-    const handleBGCountColor = (event) => {
-        setCountBgColor(event.target.value);
-        setUnsavedChanges(isEqual(event.target.value, originalcountBgColor));
-    };
-
-    // COUNT BG HOVER COLOR
-    const handleBGCountHoverColor = (event) => {
-        setCountBgHoverColor(event.target.value);
-        setUnsavedChanges(
-            isEqual(event.target.value, originalcountBgHoverColor)
-        );
+    const handleShowSettings = (activePreview) => {
+        setShowSettings(activePreview);
     };
 
     if (showTable === false) {
@@ -491,11 +286,11 @@ export default function StickyCart() {
             <>
                 <style>
                     {`
-                @import url("https://fonts.googleapis.com/css2?family=Oswald&display=swap");
-                .apply-font{
-                    font-family : Oswald;
-                }
-            `}
+                            @import url("https://fonts.googleapis.com/css2?family=Oswald&display=swap");
+                            .apply-font{
+                                font-family : Oswald;
+                            }
+                        `}
                 </style>
                 <Frame>
                     <div className="">
@@ -546,601 +341,112 @@ export default function StickyCart() {
                             <div className="lm_sticky_layout">
                                 <Layout>
                                     <Layout.Section variant="oneThird">
-                                        <BlockStack gap="400">
-                                            {/* Sticky Enable */}
-                                            <Card>
-                                                <div className="setting_title">
-                                                    <Text
-                                                        variant="bodyLg"
-                                                        as="span"
-                                                        alignment="start"
-                                                        fontWeight="medium"
-                                                    >
-                                                        Sticky Cart is{" "}
-                                                        {enableSticky ? (
-                                                            <span className="lm_sticky_custom_badge_success">
-                                                                <Badge tone="success">
-                                                                    Enabled
-                                                                </Badge>
-                                                            </span>
-                                                        ) : (
-                                                            <span className="lm_sticky_custom_badge_critical">
-                                                                <Badge tone="critical">
-                                                                    Disabled
-                                                                </Badge>
-                                                            </span>
-                                                        )}
-                                                    </Text>
-                                                    <Switch
-                                                        onChange={() => {
-                                                            handleEnable(
-                                                                enableSticky
-                                                            );
-                                                        }}
-                                                        checked={enableSticky}
-                                                        uncheckedIcon={null}
-                                                        checkedIcon={null}
-                                                    />
-                                                </div>
-                                            </Card>
-
-                                            {/* Select Template */}
-                                            <Card>
-                                                <BlockStack gap="200">
-                                                    <Text
-                                                        variant="bodyLg"
-                                                        as="span"
-                                                        alignment="start"
-                                                        fontWeight="medium"
-                                                    >
-                                                        Select Template
-                                                    </Text>
-                                                    <Select
-                                                        label="Select Template"
-                                                        options={
-                                                            templateOptions
-                                                        }
-                                                        onChange={(value) => {
-                                                            setDefaultTemplate(
-                                                                value
-                                                            );
-                                                            handleChange(value);
-                                                        }}
-                                                        value={defaultTemplate}
-                                                        labelHidden
-                                                    />
-                                                </BlockStack>
-                                            </Card>
-
-                                            {/* General Settings */}
-                                            <Card sectioned>
-                                                <Text
-                                                    variant="headingLg"
-                                                    fontWeight="medium"
-                                                >
-                                                    General Settings
-                                                </Text>
-
-                                                <div
-                                                    style={{ margin: "15px 0" }}
-                                                >
-                                                    <Divider borderColor="border" />
-                                                </div>
-
-                                                {/* Action */}
-                                                <BlockStack gap="200">
-                                                    <Text
-                                                        variant="headingMd"
-                                                        as="span"
-                                                        fontWeight="medium"
-                                                    >
-                                                        Action
-                                                    </Text>
-                                                    <Select
-                                                        label="Action"
-                                                        options={options}
-                                                        onChange={
-                                                            handleSelectChange
-                                                        }
-                                                        value={action}
-                                                        labelHidden
-                                                    />
-                                                </BlockStack>
-
-                                                <div
-                                                    style={{ margin: "15px 0" }}
-                                                >
-                                                    <Divider borderColor="border" />
-                                                </div>
-
-                                                <FormLayout>
-                                                    <FormLayout.Group condensed>
-                                                        <div>
-                                                            <Text
-                                                                variant="headingMd"
-                                                                as="span"
-                                                                fontWeight="medium"
-                                                            >
-                                                                Size
-                                                            </Text>
-                                                            <div className="font_picker_popup">
-                                                                <RangeSlider
-                                                                    label={`${btnSize} px`}
-                                                                    value={
-                                                                        btnSize
-                                                                    }
-                                                                    min={10}
-                                                                    max={100}
-                                                                    onChange={
-                                                                        handleRangeSliderChange
-                                                                    }
-                                                                    output
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <Text
-                                                                variant="headingMd"
-                                                                as="span"
-                                                                fontWeight="medium"
-                                                            >
-                                                                Border Size
-                                                            </Text>
-                                                            <div className="font_picker_popup">
-                                                                <RangeSlider
-                                                                    label={`${borderSize} px`}
-                                                                    value={
-                                                                        borderSize
-                                                                    }
-                                                                    min={0}
-                                                                    max={10}
-                                                                    onChange={
-                                                                        handleBorderSliderChange
-                                                                    }
-                                                                    output
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </FormLayout.Group>
-                                                    <FormLayout.Group condensed>
-                                                        <div>
-                                                            <Text
-                                                                variant="headingMd"
-                                                                as="span"
-                                                                fontWeight="medium"
-                                                            >
-                                                                BG Color
-                                                            </Text>
-                                                            <div className="lm_sticky_color_box">
-                                                                <input
-                                                                    type="color"
-                                                                    value={
-                                                                        bgColor
-                                                                    }
-                                                                    onChange={
-                                                                        handleBGColor
-                                                                    }
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <Text
-                                                                variant="headingMd"
-                                                                as="span"
-                                                                fontWeight="medium"
-                                                            >
-                                                                BG Hover Color
-                                                            </Text>
-                                                            <div className="lm_sticky_color_box">
-                                                                <input
-                                                                    type="color"
-                                                                    value={
-                                                                        bgHoverColor
-                                                                    }
-                                                                    onChange={
-                                                                        handleBGHoverColor
-                                                                    }
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </FormLayout.Group>
-                                                    <FormLayout.Group condensed>
-                                                        <div>
-                                                            <Text
-                                                                variant="headingMd"
-                                                                as="span"
-                                                                fontWeight="medium"
-                                                            >
-                                                                Border Color
-                                                            </Text>
-                                                            <div className="lm_sticky_color_box">
-                                                                <input
-                                                                    type="color"
-                                                                    value={
-                                                                        borderColor
-                                                                    }
-                                                                    onChange={
-                                                                        handleBorderColor
-                                                                    }
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <Text
-                                                                variant="headingMd"
-                                                                as="span"
-                                                                fontWeight="medium"
-                                                            >
-                                                                Border Hover
-                                                                Color
-                                                            </Text>
-                                                            <div className="lm_sticky_color_box">
-                                                                <input
-                                                                    type="color"
-                                                                    value={
-                                                                        borderHoverColor
-                                                                    }
-                                                                    onChange={
-                                                                        handleBorderHoverColor
-                                                                    }
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </FormLayout.Group>
-                                                </FormLayout>
-                                            </Card>
-
-                                            {/* Position Settings */}
-                                            <Card sectioned>
-                                                <Text
-                                                    variant="headingLg"
-                                                    fontWeight="medium"
-                                                >
-                                                    Position Settings
-                                                </Text>
-
-                                                <div
-                                                    style={{ margin: "15px 0" }}
-                                                >
-                                                    <Divider borderColor="border" />
-                                                </div>
-
-                                                <FormLayout>
-                                                    <FormLayout.Group condensed>
-                                                        <div>
-                                                            <Text
-                                                                variant="headingMd"
-                                                                as="span"
-                                                                fontWeight="medium"
-                                                            >
-                                                                Top
-                                                            </Text>
-                                                            <div className="font_picker_popup">
-                                                                <RangeSlider
-                                                                    label={`${positionTop}%`}
-                                                                    value={
-                                                                        positionTop
-                                                                    }
-                                                                    min={1}
-                                                                    max={90}
-                                                                    onChange={
-                                                                        handleEditTopField
-                                                                    }
-                                                                    output
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <Text
-                                                                variant="headingMd"
-                                                                as="span"
-                                                                fontWeight="medium"
-                                                            >
-                                                                Left
-                                                            </Text>
-                                                            <div className="font_picker_popup">
-                                                                <RangeSlider
-                                                                    label={`${positionLeft}%`}
-                                                                    value={
-                                                                        positionLeft
-                                                                    }
-                                                                    min={0}
-                                                                    max={95}
-                                                                    onChange={
-                                                                        handleEditLeftField
-                                                                    }
-                                                                    output
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </FormLayout.Group>
-                                                </FormLayout>
-                                            </Card>
-
-                                            {/* Icon Settings */}
-                                            <Card sectioned>
-                                                <Text
-                                                    variant="headingLg"
-                                                    fontWeight="medium"
-                                                >
-                                                    Icon Settings
-                                                </Text>
-
-                                                <div
-                                                    style={{ margin: "15px 0" }}
-                                                >
-                                                    <Divider borderColor="border" />
-                                                </div>
-
-                                                <div className="style__wrapper_div">
-                                                    <Text
-                                                        variant="headingMd"
-                                                        as="span"
-                                                        fontWeight="medium"
-                                                    >
-                                                        Icon Size
-                                                    </Text>
-                                                    <div className="font_picker_popup">
-                                                        <RangeSlider
-                                                            label={`${iconSize} px`}
-                                                            value={iconSize}
-                                                            min={11}
-                                                            max={50}
-                                                            onChange={
-                                                                handleIconSliderChange
-                                                            }
-                                                            output
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                <FormLayout>
-                                                    <FormLayout.Group condensed>
-                                                        <div>
-                                                            <Text
-                                                                variant="headingMd"
-                                                                as="span"
-                                                                fontWeight="medium"
-                                                            >
-                                                                Icon Color
-                                                            </Text>
-                                                            <div className="lm_sticky_color_box">
-                                                                <input
-                                                                    type="color"
-                                                                    value={
-                                                                        iconColor
-                                                                    }
-                                                                    onChange={
-                                                                        handleIconColor
-                                                                    }
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <Text
-                                                                variant="headingMd"
-                                                                as="span"
-                                                                fontWeight="medium"
-                                                            >
-                                                                Icon Hover Color
-                                                            </Text>
-                                                            <div className="lm_sticky_color_box">
-                                                                <input
-                                                                    type="color"
-                                                                    value={
-                                                                        iconHoverColor
-                                                                    }
-                                                                    onChange={
-                                                                        handleIconHoverColor
-                                                                    }
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </FormLayout.Group>
-                                                </FormLayout>
-                                            </Card>
-
-                                            {/* Cart Count Settings */}
-                                            <Card sectioned>
-                                                <Text
-                                                    variant="headingLg"
-                                                    fontWeight="medium"
-                                                >
-                                                    Cart Count Settings
-                                                </Text>
-
-                                                <div
-                                                    style={{ margin: "15px 0" }}
-                                                >
-                                                    <Divider borderColor="border" />
-                                                </div>
-
-                                                <div className="setting_title">
-                                                    <Text
-                                                        variant="bodyLg"
-                                                        as="span"
-                                                        alignment="start"
-                                                        fontWeight="medium"
-                                                    >
-                                                        Sticky Cart Count is{" "}
-                                                        {enableCount ? (
-                                                            <span className="lm_sticky_custom_badge_success">
-                                                                <Badge tone="success">
-                                                                    Enabled
-                                                                </Badge>
-                                                            </span>
-                                                        ) : (
-                                                            <span className="lm_sticky_custom_badge_critical">
-                                                                <Badge tone="critical">
-                                                                    Disabled
-                                                                </Badge>
-                                                            </span>
-                                                        )}
-                                                    </Text>
-                                                    <Switch
-                                                        onChange={() => {
-                                                            handlecheckbox(
-                                                                enableCount
-                                                            );
-                                                        }}
-                                                        checked={enableCount}
-                                                        uncheckedIcon={null}
-                                                        checkedIcon={null}
-                                                    />
-                                                </div>
-
-                                                <div
-                                                    style={{ margin: "15px 0" }}
-                                                >
-                                                    <Divider borderColor="border" />
-                                                </div>
-
-                                                <FormLayout>
-                                                    <FormLayout.Group condensed>
-                                                        <div>
-                                                            <Text
-                                                                variant="headingMd"
-                                                                as="span"
-                                                                fontWeight="medium"
-                                                            >
-                                                                Size
-                                                            </Text>
-
-                                                            <div className="font_picker_popup">
-                                                                <RangeSlider
-                                                                    label={`${countSize} px`}
-                                                                    value={
-                                                                        countSize
-                                                                    }
-                                                                    min={8}
-                                                                    max={40}
-                                                                    onChange={
-                                                                        handleCountSliderChange
-                                                                    }
-                                                                    output
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <Text
-                                                                variant="headingMd"
-                                                                as="span"
-                                                                fontWeight="medium"
-                                                            >
-                                                                Font Size
-                                                            </Text>
-
-                                                            <div className="font_picker_popup">
-                                                                <RangeSlider
-                                                                    label={`${countFontSize} px`}
-                                                                    value={
-                                                                        countFontSize
-                                                                    }
-                                                                    min={8}
-                                                                    max={40}
-                                                                    onChange={
-                                                                        handleCountFontSliderChange
-                                                                    }
-                                                                    output
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </FormLayout.Group>
-                                                    <FormLayout.Group condensed>
-                                                        <div>
-                                                            <Text
-                                                                variant="headingMd"
-                                                                as="span"
-                                                                fontWeight="medium"
-                                                            >
-                                                                Count Color
-                                                            </Text>
-
-                                                            <div className="lm_sticky_color_box">
-                                                                <input
-                                                                    type="color"
-                                                                    value={
-                                                                        countColor
-                                                                    }
-                                                                    onChange={
-                                                                        handleCountColor
-                                                                    }
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <Text
-                                                                variant="headingMd"
-                                                                as="span"
-                                                                fontWeight="medium"
-                                                            >
-                                                                Count Hover
-                                                                Color
-                                                            </Text>
-
-                                                            <div className="lm_sticky_color_box">
-                                                                <input
-                                                                    type="color"
-                                                                    value={
-                                                                        countHoverColor
-                                                                    }
-                                                                    onChange={
-                                                                        handleCountHoverColor
-                                                                    }
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </FormLayout.Group>
-                                                    <FormLayout.Group condensed>
-                                                        <div>
-                                                            <Text
-                                                                variant="headingMd"
-                                                                as="span"
-                                                                fontWeight="medium"
-                                                            >
-                                                                BG Color
-                                                            </Text>
-
-                                                            <div className="lm_sticky_color_box">
-                                                                <input
-                                                                    type="color"
-                                                                    value={
-                                                                        countBgColor
-                                                                    }
-                                                                    onChange={
-                                                                        handleBGCountColor
-                                                                    }
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                        <div>
-                                                            <Text
-                                                                variant="headingMd"
-                                                                as="span"
-                                                                fontWeight="medium"
-                                                            >
-                                                                BG Hover Color
-                                                            </Text>
-
-                                                            <div className="lm_sticky_color_box">
-                                                                <input
-                                                                    type="color"
-                                                                    value={
-                                                                        countBgHoverColor
-                                                                    }
-                                                                    onChange={
-                                                                        handleBGCountHoverColor
-                                                                    }
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </FormLayout.Group>
-                                                </FormLayout>
-                                            </Card>
-                                        </BlockStack>
+                                        {showSettings === 1 && (
+                                            <StickyIconSettings
+                                                iconCallBack={
+                                                    handleIconCallBack
+                                                }
+                                                originalenableSticky={
+                                                    originalenableSticky
+                                                }
+                                                enableSticky={enableSticky}
+                                                originaldefaultTemplate={
+                                                    originaldefaultTemplate
+                                                }
+                                                defaultTemplate={
+                                                    defaultTemplate
+                                                }
+                                                originalaction={originalaction}
+                                                action={action}
+                                                originalbtnSize={
+                                                    originalbtnSize
+                                                }
+                                                btnSize={btnSize}
+                                                originalbgColor={
+                                                    originalbgColor
+                                                }
+                                                bgColor={bgColor}
+                                                originalbgHoverColor={
+                                                    originalbgHoverColor
+                                                }
+                                                bgHoverColor={bgHoverColor}
+                                                originalborderSize={
+                                                    originalborderSize
+                                                }
+                                                borderSize={borderSize}
+                                                originalborderColor={
+                                                    originalborderColor
+                                                }
+                                                borderColor={borderColor}
+                                                originalborderHoverColor={
+                                                    originalborderHoverColor
+                                                }
+                                                borderHoverColor={
+                                                    borderHoverColor
+                                                }
+                                                originalpositionTop={
+                                                    originalpositionTop
+                                                }
+                                                positionTop={positionTop}
+                                                originalpositionLeft={
+                                                    originalpositionLeft
+                                                }
+                                                positionLeft={positionLeft}
+                                                originaliconSize={
+                                                    originaliconSize
+                                                }
+                                                iconSize={iconSize}
+                                                originaliconColor={
+                                                    originaliconColor
+                                                }
+                                                iconColor={iconColor}
+                                                originaliconHoverColor={
+                                                    originaliconHoverColor
+                                                }
+                                                iconHoverColor={iconHoverColor}
+                                                originalenableCount={
+                                                    originalenableCount
+                                                }
+                                                enableCount={enableCount}
+                                                numberCount={numberCount}
+                                                originalcountSize={
+                                                    originalcountSize
+                                                }
+                                                countSize={countSize}
+                                                originalcountFontSize={
+                                                    originalcountFontSize
+                                                }
+                                                countFontSize={countFontSize}
+                                                originalcountColor={
+                                                    originalcountColor
+                                                }
+                                                countColor={countColor}
+                                                originalcountHoverColor={
+                                                    originalcountHoverColor
+                                                }
+                                                countHoverColor={
+                                                    countHoverColor
+                                                }
+                                                originalcountBgColor={
+                                                    originalcountBgColor
+                                                }
+                                                countBgColor={countBgColor}
+                                                originalcountBgHoverColor={
+                                                    originalcountBgHoverColor
+                                                }
+                                                countBgHoverColor={
+                                                    countBgHoverColor
+                                                }
+                                                unsavedChanges={unsavedChanges}
+                                            />
+                                        )}
+                                        {showSettings === 2 && (
+                                            <DrawerSettings />
+                                        )}
                                     </Layout.Section>
                                     <Layout.Section>
                                         <StickyCartPreview
+                                            onPreviewChange={handleShowSettings}
                                             enableSticky={enableSticky}
                                             iconSize={iconSize}
                                             iconHoverColor={iconHoverColor}

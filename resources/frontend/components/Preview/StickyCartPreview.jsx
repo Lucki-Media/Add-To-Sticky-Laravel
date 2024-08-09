@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "../../css/index.css";
 import {
     BlockStack,
@@ -49,13 +49,13 @@ export default function StickyCartPreview(props) {
     const deviceTabs = [
         {
             id: "desktop",
-            content: <Icon source={DesktopIcon} tone="base" />,
+            content: <Icon source={DesktopIcon} tone="primary" />,
             accessibilityLabel: "All customers",
             panelID: "desktop",
         },
         {
             id: "mobile",
-            content: <Icon source={MobileIcon} tone="base" />,
+            content: <Icon source={MobileIcon} tone="primary" />,
             panelID: "mobile",
         },
     ];
@@ -79,6 +79,9 @@ export default function StickyCartPreview(props) {
         setCountHover(false);
     };
 
+    useEffect(() => {
+        props.onPreviewChange(activePreview);
+    },[activePreview])
     return (
         <div classname="preview_section">
             <Card>
@@ -102,22 +105,37 @@ export default function StickyCartPreview(props) {
                                 fitted
                             ></Tabs>
                         </Box>
-                        <ButtonGroup variant="segmented">
-                            <Button
-                                size="large"
-                                pressed={activePreview === 1}
-                                onClick={() => handleActivePreview(1)}
-                            >
-                                Sticky Icon
-                            </Button>
-                            <Button
-                                size="large"
-                                pressed={activePreview === 2}
-                                onClick={() => handleActivePreview(2)}
-                            >
-                                Drawer Cart
-                            </Button>
-                        </ButtonGroup>
+                        <div
+                            style={{
+                                background: "rgba(0, 0, 0, .02)",
+                                border: "1px solid #e3e3e3",
+                                borderRadius: 8,
+                                padding: 8,
+                            }}
+                        >
+                            <ButtonGroup variant="segmented">
+                                <Button
+                                    size="large"
+                                    // pressed=
+                                    variant={
+                                        activePreview === 1 ? "primary" : ""
+                                    }
+                                    onClick={() => handleActivePreview(1)}
+                                >
+                                    Sticky Icon
+                                </Button>
+                                <Button
+                                    size="large"
+                                    // pressed=
+                                    variant={
+                                        activePreview === 2 ? "primary" : ""
+                                    }
+                                    onClick={() => handleActivePreview(2)}
+                                >
+                                    Drawer Cart
+                                </Button>
+                            </ButtonGroup>
+                        </div>
                     </InlineStack>
 
                     {/* Preview Section  */}
