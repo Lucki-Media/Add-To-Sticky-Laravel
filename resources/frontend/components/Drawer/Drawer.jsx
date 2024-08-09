@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import style from "../../css/Drawer.module.css";
 import proimage from "../../assets/productimage.png";
 import { QuantityPicker } from "react-qty-picker";
+import recommended_products from "../../assets/recommended_products.js";
 
 export default function Drawer({ isOpen }) {
     return (
@@ -33,12 +34,12 @@ export default function Drawer({ isOpen }) {
             </style>
             <div
                 className={`${style.lm_drawer_wrapper} ${
-                    isOpen ? style.lm_drawer_open : ""
+                    isOpen && style.lm_drawer_open
                 }`}
             >
                 <div
                     className={`${style.lm_drawer} ${
-                        isOpen ? style.lm_drawer_open : ""
+                        isOpen && style.lm_drawer_open
                     } ${style.lm_drawer_right}`}
                 >
                     {/* Drawer Header */}
@@ -49,127 +50,204 @@ export default function Drawer({ isOpen }) {
                         </span>
                     </div>
 
-                    {/* Free Shipping Bar */}
-                    <div className={style.lm_drawer_free_shipping_bar}>
-                        <div className={style.lm_free_shipping_heading}>
-                            Only $15 left to get free shipping
+                    <div className={style.lm_drawer_content}>
+                        {/* Free Shipping Bar */}
+                        <div className={style.lm_drawer_free_shipping_bar}>
+                            <div className={style.lm_free_shipping_heading}>
+                                Only $15 left to get free shipping
+                            </div>
+                            <div className={style.lm_shipping_bar__outer_div}>
+                                <div
+                                    className={style.lm_shipping_bar_inner_div}
+                                ></div>
+                            </div>
+                            <span className={style.lm_shipping_bar_sub_title}>
+                                Add products to receive free shipping
+                            </span>
                         </div>
-                        <div className={style.lm_shipping_bar__outer_div}>
-                            <div
-                                className={style.lm_shipping_bar_inner_div}
-                            ></div>
-                        </div>
-                        <span className={style.lm_shipping_bar_sub_title}>
-                            Add products to receive free shipping
-                        </span>
-                    </div>
 
-                    {/* Cart Items */}
-                    <div className={style.lm_drawer_cart_item_wrapper}>
-                        <table className={style.lm_drawer_cart_items}>
-                            <tbody>
-                                <tr className={style.lm_cart_drawer_item_row}>
-                                    <td className={style.lm_cart_item_media}>
-                                        <a
-                                            href="javascript:void(0)"
-                                            className={style.lm_cart_item_link}
+                        {/* Cart Items */}
+                        <div className={style.lm_drawer_cart_item_wrapper}>
+                            <table className={style.lm_drawer_cart_items}>
+                                <tbody>
+                                    <tr
+                                        className={
+                                            style.lm_cart_drawer_item_row
+                                        }
+                                    >
+                                        <td
+                                            className={style.lm_cart_item_media}
                                         >
-                                            <img
-                                                src={proimage}
-                                                alt=""
+                                            <a
+                                                href="javascript:void(0)"
                                                 className={
-                                                    style.lm_cart_item_img
+                                                    style.lm_cart_item_link
                                                 }
-                                            />
-                                        </a>
-                                    </td>
-                                    <td className={style.lm_cart_item_media}>
+                                            >
+                                                <img
+                                                    src={proimage}
+                                                    alt=""
+                                                    className={
+                                                        style.lm_cart_item_img
+                                                    }
+                                                />
+                                            </a>
+                                        </td>
+                                        <td
+                                            className={style.lm_cart_item_media}
+                                        >
+                                            <div
+                                                className={
+                                                    style.lm_cart_item_content
+                                                }
+                                            >
+                                                <div
+                                                    className={
+                                                        style.lm_cart_item_title
+                                                    }
+                                                >
+                                                    <a href="javascript:void(0)">
+                                                        Juice Bottle Mockup
+                                                        (Red)
+                                                    </a>
+                                                </div>
+                                                <div
+                                                    className={
+                                                        style.lm_cart_item_price_wrapper
+                                                    }
+                                                >
+                                                    <div
+                                                        className={
+                                                            style.lm_cart_item_actual_price
+                                                        }
+                                                    >
+                                                        $40.00
+                                                    </div>
+                                                    <div
+                                                        className={
+                                                            style.lm_cart_item_compare_price
+                                                        }
+                                                    >
+                                                        $50.00
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    className={
+                                                        style.lm_cart_item_varient_wrapper
+                                                    }
+                                                >
+                                                    <div
+                                                        className={
+                                                            style.lm_cart_item_varient
+                                                        }
+                                                    >
+                                                        <span>
+                                                            <strong>
+                                                                Size :{" "}
+                                                            </strong>
+                                                        </span>
+                                                        <span>M</span>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    className={
+                                                        style.lm_cart_item_footer
+                                                    }
+                                                >
+                                                    <div
+                                                        className={`lm_quantity_picker ${style.lm_quantity_selector}`}
+                                                    >
+                                                        <QuantityPicker
+                                                            className={
+                                                                style.quantity12
+                                                            }
+                                                            min={1}
+                                                            max={10}
+                                                        />
+                                                    </div>
+                                                    <div
+                                                        className={
+                                                            style.lm_cart_item_price
+                                                        }
+                                                    >
+                                                        $40.00
+                                                    </div>
+                                                </div>
+                                                <span
+                                                    className={
+                                                        style.lm_cart_item_remove_icon
+                                                    }
+                                                >
+                                                    &times;
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {/* Recommended Products */}
+                        <div className={style.lm_recommended_products_wrapper}>
+                            <div className={style.lm_recommendation_header}>
+                                Recommended Products
+                            </div>
+                            <div className={style.lm_recommendation_list}>
+                                {recommended_products.map((product) => (
+                                    <div
+                                        className={style.lm_recommended_product}
+                                    >
                                         <div
                                             className={
-                                                style.lm_cart_item_content
+                                                style.lm_rec_product_image
                                             }
                                         >
-                                            <div
-                                                className={
-                                                    style.lm_cart_item_title
-                                                }
-                                            >
-                                                <a href="javascript:void(0)">
-                                                    Juice Bottle Mockup (Red)
-                                                </a>
-                                            </div>
-                                            <div
-                                                className={
-                                                    style.lm_cart_item_price_wrapper
-                                                }
-                                            >
-                                                <div
-                                                    className={
-                                                        style.lm_cart_item_actual_price
-                                                    }
-                                                >
-                                                    $40.00
-                                                </div>
-                                                <div
-                                                    className={
-                                                        style.lm_cart_item_compare_price
-                                                    }
-                                                >
-                                                    $50.00
-                                                </div>
-                                            </div>
-                                            <div
-                                                className={
-                                                    style.lm_cart_item_varient_wrapper
-                                                }
-                                            >
-                                                <div
-                                                    className={
-                                                        style.lm_cart_item_varient
-                                                    }
-                                                >
-                                                    <span>
-                                                        <strong>Size : </strong>
-                                                    </span>{" "}
-                                                    <span>M</span>
-                                                </div>
-                                            </div>
-                                            <div
-                                                className={
-                                                    style.lm_cart_item_footer
-                                                }
-                                            >
-                                                <div
-                                                    className={`lm_quantity_picker ${style.lm_quantity_selector}`}
-                                                >
-                                                    <QuantityPicker
-                                                        className={
-                                                            style.quantity12
-                                                        }
-                                                        min={1}
-                                                        max={10}
-                                                    />
-                                                </div>
-                                                <div
-                                                    className={
-                                                        style.lm_cart_item_price
-                                                    }
-                                                >
-                                                    $40.00
-                                                </div>
-                                            </div>
-                                            <span
-                                                className={
-                                                    style.lm_cart_item_remove_icon
-                                                }
-                                            >
-                                                &times;
-                                            </span>
+                                            <a href="javascript:void(0)">
+                                                <img
+                                                    src={product.image}
+                                                    alt=""
+                                                />
+                                            </a>
                                         </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                        <div
+                                            className={
+                                                style.lm_rec_product_content
+                                            }
+                                        >
+                                            <a
+                                                href="javascript:void(0)"
+                                                className={
+                                                    style.lm_rec_product_title
+                                                }
+                                            >
+                                                {product.title}
+                                            </a>
+                                            <div
+                                                className={
+                                                    style.lm_rec_product_price
+                                                }
+                                            >
+                                                <span>
+                                                    {product.actual_price}
+                                                </span>
+                                                <span>
+                                                    <strike>
+                                                        {product.compare_price}
+                                                    </strike>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div
+                                            className={
+                                                style.lm_rec_product_action
+                                            }
+                                        >
+                                            <button type="button">Buy</button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
 
                     {/* Drawer Footer */}
