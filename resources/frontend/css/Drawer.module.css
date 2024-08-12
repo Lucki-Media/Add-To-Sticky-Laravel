@@ -189,6 +189,7 @@ span.lm_shipping_bar_sub_title {
     width: 100%;
     padding: 10px 16px;
     border-top: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .lm_cart_footer_sub_total {
     display: flex;
