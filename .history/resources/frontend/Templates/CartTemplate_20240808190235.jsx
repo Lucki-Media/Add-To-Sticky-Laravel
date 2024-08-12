@@ -39,7 +39,8 @@ function CartTemplate1(props) {
     );
     const [gsAction, setGsAction] = useState(props.gsAction);
 
-    const defaultNotificationMessage = "Great news! Here's something special for you!";
+    const defaultNotificationMessage =
+        "Great news! Here's something special for you!";
 
     const [gsNotificationBarText, setGsNotificationBarText] = useState(
         props.gsNotificationBarText
@@ -473,10 +474,12 @@ function CartTemplate1(props) {
                     </div>
                     {gsAction === "3" && (
                         <Notification
-                            gsNotificationBarText={gsNotificationBarText || defaultNotificationMessage}
+                            gsNotificationBarText={
+                                gsNotificationBarText ||
+                                defaultNotificationMessage
+                            }
                             gsNotificationBarItalic={gsNotificationBarItalic}
                             gsNotificationBarBold={gsNotificationBarBold}
-
                         />
                     )}
                 </div>

@@ -17,6 +17,13 @@ return [
         'gsOffsetValue' => '0',
         'gsAction' => '1',
         'gsDisplayCondition' => '1',
+        "gsNotificationBarText" => "Great news! Here's something special for you!",
+        "gsNotificationBarItalic" => false,
+        "gsNotificationBarBold" => false,
+        "gsNotificationBarTextColor" => "#ffffff",
+        "gsNotificationBarBgColor" => '#000000',
+        "gsNotificationBarFontSize" => 12,
+        "gsNotificationBarHeight" => 5
     ],
     'buy_btn_settings' => [
         'editText' => 'ADD TO CART',

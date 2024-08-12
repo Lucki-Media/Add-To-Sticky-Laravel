@@ -58,7 +58,7 @@ export default function CartTemplate3(props) {
     const [gsAction, setGsAction] = useState(props.gsAction);
 
     const defaultNotificationMessage =
-    "Great news! Here's something special for you!";
+        "Great news! Here's something special for you!";
 
     const [gsNotificationBarText, setGsNotificationBarText] = useState(
         props.gsNotificationBarText
