@@ -135,7 +135,7 @@ export function BuyNowSettings(props) {
             gsDisplayCondition: props.gsDisplayCondition,
             gsNotificationBarText: props.gsNotificationBarText,
             gsNotificationBarItalic: props.gsNotificationBarItalic,
-            gsNotificationBarBold: props.gsNotificationBarBold
+            gsNotificationBarBold: props.gsNotificationBarBold,
             containerHeight: props.containerHeight,
         });
     }, [
