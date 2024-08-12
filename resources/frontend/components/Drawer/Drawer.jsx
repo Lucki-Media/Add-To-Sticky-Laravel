@@ -23,7 +23,8 @@ export default function Drawer({ isOpen }) {
                         width: 1.5rem;
                         font-size: 0.8rem;
                         background: #f3f3f3;
-                        color: #888;
+                        color: #000;
+                        opacity: .5;
                         border: 0 solid #dbdbdb;
                         text-align: center;
                         cursor: pointer;

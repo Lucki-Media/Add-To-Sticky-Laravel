@@ -1,29 +1,20 @@
 import {
-    Badge,
-    BlockStack,
     Button,
     ButtonGroup,
     Card,
-    Divider,
-    FormLayout,
     Frame,
     FullscreenBar,
     Layout,
     Loading,
     Page,
-    RangeSlider,
-    Select,
     SkeletonBodyText,
     SkeletonDisplayText,
     SkeletonPage,
     Spinner,
-    Text,
     TextContainer,
     Toast,
 } from "@shopify/polaris";
 import React, { useCallback, useEffect, useState } from "react";
-import Switch from "react-switch";
-import { isEqual } from "lodash";
 import "../css/index.css";
 import StickyCartPreview from "../components/Preview/StickyCartPreview";
 import StickyIconSettings from "../components/StickyCartUpsell/StickyIconSettings";
@@ -123,9 +114,31 @@ export default function StickyCart() {
     }, []);
 
     const handleIconCallBack = (iconData) => {
-        console.log("iconData");
-        console.log(iconData);
+        setEnableSticky(iconData.enableSticky);
+        setDefaultTemplate(iconData.defaultTemplate.toString());
+        setAction(iconData.action);
+        setBtnSize(iconData.btnSize);
+        setBgColor(iconData.bgColor);
+        setBgHoverColor(iconData.bgHoverColor);
+        setBorderSize(iconData.borderSize);
+        setBorderColor(iconData.borderColor);
+        setBorderHoverColor(iconData.borderHoverColor);
+        setPositionTop(iconData.positionTop);
+        setPositionLeft(iconData.positionLeft);
+        setIconSize(iconData.iconSize);
+        setIconColor(iconData.iconColor);
+        setIconHoverColor(iconData.iconHoverColor);
+        setEnableCount(iconData.enableCount);
+        setNumberCount(iconData.numberCount);
+        setCountSize(iconData.countSize);
+        setCountFontSize(iconData.countFontSize);
+        setCountColor(iconData.countColor);
+        setCountHoverColor(iconData.countHoverColor);
+        setCountBgColor(iconData.countBgColor);
+        setCountBgHoverColor(iconData.countBgHoverColor);
+        setUnsavedChanges(iconData.unsavedChanges);
     };
+
     // INIT API
     const getStickyCartData = async () => {
         try {
@@ -346,6 +359,7 @@ export default function StickyCart() {
                                                 iconCallBack={
                                                     handleIconCallBack
                                                 }
+                                                stickyCartData={stickyCartData}
                                                 originalenableSticky={
                                                     originalenableSticky
                                                 }
