@@ -328,6 +328,25 @@ export default function CartTemplate4(props) {
                     } `}
                     style={{ position: "absolute" }}
                 >
+                    {gsAction === "3" && position === "Bottom" && (
+                        <Notification
+                            gsNotificationBarText={
+                                gsNotificationBarText ||
+                                defaultNotificationMessage
+                            }
+                            gsNotificationBarItalic={gsNotificationBarItalic}
+                            gsNotificationBarBold={gsNotificationBarBold}
+                            gsNotificationBarTextColor={
+                                gsNotificationBarTextColor
+                            }
+                            gsNotificationBarBgColor={gsNotificationBarBgColor}
+                            gsNotificationBarFontSize={
+                                gsNotificationBarFontSize
+                            }
+                            gsNotificationBarHeight={gsNotificationBarHeight}
+                        />
+                    )}
+
                     <div className={style.lm_container}>
                         <div className={style.lm_cart_module}>
                             <div className={style.lm_pro_image}>
@@ -506,7 +525,7 @@ export default function CartTemplate4(props) {
                             </div>
                         </div>
                     </div>
-                    {gsAction === "3" && (
+                    {gsAction === "3" && position === "Top" && (
                         <Notification
                             gsNotificationBarText={
                                 gsNotificationBarText ||
