@@ -338,6 +338,25 @@ align-items: center;
                     }  `}
                     style={{ position: "absolute" }}
                 >
+                    {gsAction === "3" && position === "Bottom" && (
+                        <Notification
+                            gsNotificationBarText={
+                                gsNotificationBarText ||
+                                defaultNotificationMessage
+                            }
+                            gsNotificationBarItalic={gsNotificationBarItalic}
+                            gsNotificationBarBold={gsNotificationBarBold}
+                            gsNotificationBarTextColor={
+                                gsNotificationBarTextColor
+                            }
+                            gsNotificationBarBgColor={gsNotificationBarBgColor}
+                            gsNotificationBarFontSize={
+                                gsNotificationBarFontSize
+                            }
+                            gsNotificationBarHeight={gsNotificationBarHeight}
+                        />
+                    )}
+
                     <div className={style.lm_container}>
                         <div className={style.lm_cart_module}>
                             <div className={style.lm_pro_image}>
@@ -508,7 +527,7 @@ align-items: center;
                             </div>
                         </div>
                     </div>
-                    {gsAction === "3" && (
+                    {gsAction === "3" && position === "Top" && (
                         <Notification
                             gsNotificationBarText={
                                 gsNotificationBarText ||

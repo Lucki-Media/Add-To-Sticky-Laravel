@@ -1,26 +1,33 @@
-import style from "../css/notification.module.css";
-
 export default function NotificationBar(props) {
     return (
         <>
             <style>
                 {`
-                #notification_bar {
+                #notification_bar-Top {
                     position: relative;
                     width:100%;
                     background-color:${props.gsNotificationBarBgColor};
                     clear: both;
                     z-index: 999;
                 }
-                
-                #notification_bar .nbcontainer {
-                    margin: 0 auto;
-                    padding: 5px;
+
+                #notification_bar-Bottom {
+                    position: fixed;
+                    width: 100%;
+                    background-color: ${props.gsNotificationBarBgColor};
+                    clear: both;
+                    z-index: 999;
+                    bottom: ${props.containerHeight}px;
                 }
                 
-                #notification_bar p {
+                #notification_bar-Top .nbcontainer , #notification_bar-Bottom .nbcontainer{
+                    margin: 0 auto;
+                    padding: ${props.gsNotificationBarHeight}px;
+                }
+                
+                #notification_bar-Top p , #notification_bar-Bottom p{
                     display: block;
-                    font-size: 12px;
+                    font-size: ${props.gsNotificationBarFontSize}px;
                     font-weight: 300;
                     margin: 0 0px 0 0;
                     padding: 0;
@@ -29,16 +36,16 @@ export default function NotificationBar(props) {
                     text-align: center;
                     
                 }
-                #notification_bar p.nb_italic{
+                #notification_bar-Top p.nb_italic , #notification_bar-Bottom p.nb_italic{
                     font-style: italic;
                 }
-                #notification_bar p.nb_bolder{
+                #notification_bar-Top p.nb_bolder , #notification_bar-Bottom p.nb_bolder{
                     font-weight: bolder;
                 }
             `}
             </style>
 
-            <div id="notification_bar">
+            <div id={`notification_bar-${props.position}`}>
                 <div className="nbcontainer">
                     <i className="fa fa-times-circle"></i>
                     <p

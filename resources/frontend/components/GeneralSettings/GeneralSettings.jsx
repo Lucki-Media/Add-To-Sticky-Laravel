@@ -398,7 +398,7 @@ function GeneralSettings(props) {
                                         label=""
                                         value={gsNotificationBarFontSize}
                                         min={8}
-                                        max={50}
+                                        max={30}
                                         onChange={handleFontSize}
                                         output
                                     />
