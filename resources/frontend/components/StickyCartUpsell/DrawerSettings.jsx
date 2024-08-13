@@ -52,22 +52,22 @@ export default function DrawerSettings() {
             </Card>
 
             {/* Cart Header Settings */}
-            <CartHeaderSettings />
+            {/* <CartHeaderSettings /> */}
 
             {/* Empty Cart Settings */}
-            <EmptyCartSettings />
+            {/* <EmptyCartSettings /> */}
 
             {/* Free Shipping Bar Settings */}
-            <ShippingBarSettings />
+            {/* <ShippingBarSettings /> */}
 
             {/* Product List Settings */}
-            <ProductListSettings />
+            {/* <ProductListSettings /> */}
 
             {/* Cart Upsell Settings */}
             <CartUpsellSettings />
 
             {/* Bottom Section Settings */}
-            <BottomSectionSettings />
+            {/* <BottomSectionSettings /> */}
         </BlockStack>
     );
 }

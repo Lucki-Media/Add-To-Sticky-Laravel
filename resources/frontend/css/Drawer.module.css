@@ -229,7 +229,7 @@ span.lm_shipping_bar_sub_title {
     align-items: center;
     justify-content: center;
     color: var(--sc-text-color);
-    font-size: 0.9em;
+    font-size: 12px;
     padding: 10px 0;
     opacity: 0.8;
     text-decoration: none;
