@@ -14,7 +14,7 @@ import {
 import React, { useCallback, useState } from "react";
 import Switch from "react-switch";
 import "../../css/index.css";
-import ProductListSelection from "./ProductListSelection";
+import ProductListSelection from "./CartUpsellSettings/ProductListSelection";
 
 export default function CartUpsellSettings() {
     const [CUEnable, setCUEnable] = useState(true);
