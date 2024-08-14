@@ -31,6 +31,7 @@ Route::
             /*STICKY CART API START*/
             Route::post('saveStickyCartData', 'StickyCartController@saveStickyCartData');
             Route::get('getStickyCartData/{shop_domain}', 'StickyCartController@getStickyCartData');
+            Route::get('getManualSelectionData/{shop_domain}', 'StickyCartController@getManualSelectionData');
             /*STICKY CART API END*/
 
             /*POST BUTTON CLICKS API START*/
