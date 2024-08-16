@@ -11,28 +11,68 @@ import {
     Text,
     TextField,
 } from "@shopify/polaris";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Switch from "react-switch";
 import "../../css/index.css";
 import ProductListSelection from "./CartUpsellSettings/ProductListSelection";
 
-export default function CartUpsellSettings() {
-    const [CUEnable, setCUEnable] = useState(true);
-    const [CULayout, setCULayout] = useState("List");
+export default function CartUpsellSettings(props) {
+    const [CUEnable, setCUEnable] = useState(
+        props.customizationData.cartUpsell.CUEnable
+    );
+    const [CULayout, setCULayout] = useState(
+        props.customizationData.cartUpsell.CULayout
+    );
 
-    const [CUHeadingText, setCUHeadingText] = useState("Recommended Products");
-    const [CUBuyBtnText, setCUBuyBtnText] = useState("Checkout");
+    const [CUHeadingText, setCUHeadingText] = useState(
+        props.customizationData.cartUpsell.CUHeadingText
+    );
+    const [CUBuyBtnText, setCUBuyBtnText] = useState(
+        props.customizationData.cartUpsell.CUBuyBtnText
+    );
 
-    const [CUHeadingFontSize, setCUHeadingFontSize] = useState(16);
-    const [CUBodyFontSize, setCUBodyFontSize] = useState(14);
-    const [CUBuyBtnFontSize, setCUBuyBtnFontSize] = useState(14);
+    const [CUHeadingFontSize, setCUHeadingFontSize] = useState(
+        props.customizationData.cartUpsell.CUHeadingFontSize
+    );
+    const [CUBodyFontSize, setCUBodyFontSize] = useState(
+        props.customizationData.cartUpsell.CUBodyFontSize
+    );
+    const [CUBuyBtnFontSize, setCUBuyBtnFontSize] = useState(
+        props.customizationData.cartUpsell.CUBuyBtnFontSize
+    );
 
-    const [CUHeadingColor, setCUHeadingColor] = useState("#FFF");
-    const [CUBodyColor, setCUBodyColor] = useState("#FFF");
-    const [CUBtnTextColor, setCUBtnTextColor] = useState("#FFF");
-    const [CUBtnBGColor, setCUBtnBGColor] = useState("#000");
-    const [CUBtnTextHoverColor, setCUBtnTextHoverColor] = useState("#FFF");
-    const [CUBtnBGHoverColor, setCUBtnBGHoverColor] = useState("#000");
+    const [CUHeadingColor, setCUHeadingColor] = useState(
+        props.customizationData.cartUpsell.CUHeadingColor
+    );
+    const [CUBodyColor, setCUBodyColor] = useState(
+        props.customizationData.cartUpsell.CUBodyColor
+    );
+    const [CUBtnTextColor, setCUBtnTextColor] = useState(
+        props.customizationData.cartUpsell.CUBtnTextColor
+    );
+    const [CUBtnBGColor, setCUBtnBGColor] = useState(
+        props.customizationData.cartUpsell.CUBtnBGColor
+    );
+    const [CUBtnTextHoverColor, setCUBtnTextHoverColor] = useState(
+        props.customizationData.cartUpsell.CUBtnTextHoverColor
+    );
+    const [CUBtnBGHoverColor, setCUBtnBGHoverColor] = useState(
+        props.customizationData.cartUpsell.CUBtnBGHoverColor
+    );
+
+    // PRODUCT LIST SELECTION STATES
+    const [CUPLSelection, setCUPLSelection] = useState(
+        props.customizationData.cartUpsell.CUPLSelection
+    );
+    const [CUPLManualSelection, setCUPLManualSelection] = useState(
+        props.customizationData.cartUpsell.CUPLManualSelection
+    );
+    const [SelectedCollectionID, setSelectedCollectionID] = useState(
+        props.customizationData.cartUpsell.SelectedCollectionID
+    );
+    const [SelectedProductIDs, setSelectedProductIDs] = useState(
+        props.customizationData.cartUpsell.SelectedProductIDs
+    );
 
     // ENABLE CART UPSELL BUTTON LOGIC
     const handleEnable = (value) => {
@@ -103,6 +143,68 @@ export default function CartUpsellSettings() {
         setCUBtnBGHoverColor(event.target.value);
     };
 
+    // HANDLE PRODUCT LIST CALLBACK
+    const handleProductListCallback = (callbackData) => {
+        setCUPLSelection(callbackData.CUPLSelection);
+        setCUPLManualSelection(callbackData.CUPLManualSelection);
+        setSelectedCollectionID(callbackData.SelectedCollectionID);
+        setSelectedProductIDs(callbackData.SelectedProductIDs);
+    };
+
+    // HANDLING MAIN JSON DATA START
+    var jsonData = {
+        cartHeader: props.customizationData.cartHeader,
+        emptyCart: props.customizationData.emptyCart,
+        shippingBar: props.customizationData.shippingBar,
+        productList: props.customizationData.productList,
+        cartUpsell: {
+            CUEnable: CUEnable,
+            CULayout: CULayout,
+            CUHeadingText: CUHeadingText,
+            CUBuyBtnText: CUBuyBtnText,
+            CUHeadingFontSize: CUHeadingFontSize,
+            CUBodyFontSize: CUBodyFontSize,
+            CUBuyBtnFontSize: CUBuyBtnFontSize,
+            CUHeadingColor: CUHeadingColor,
+            CUBodyColor: CUBodyColor,
+            CUBtnTextColor: CUBtnTextColor,
+            CUBtnBGColor: CUBtnBGColor,
+            CUBtnTextHoverColor: CUBtnTextHoverColor,
+            CUBtnBGHoverColor: CUBtnBGHoverColor,
+            CUPLSelection: CUPLSelection,
+            CUPLManualSelection: CUPLManualSelection,
+            SelectedCollectionID: SelectedCollectionID,
+            SelectedProductIDs: SelectedProductIDs,
+        },
+        bottomSection: props.customizationData.bottomSection,
+    };
+    // useEffect(() => {
+    //     callbackFunction();
+    // }, [
+    //     CUEnable,
+    //     CULayout,
+    //     CUHeadingText,
+    //     CUBuyBtnText,
+    //     CUHeadingFontSize,
+    //     CUBodyFontSize,
+    //     CUBuyBtnFontSize,
+    //     CUHeadingColor,
+    //     CUBodyColor,
+    //     CUBtnTextColor,
+    //     CUBtnBGColor,
+    //     CUBtnTextHoverColor,
+    //     CUBtnBGHoverColor,
+    //     CUPLSelection,
+    //     CUPLManualSelection,
+    //     SelectedCollectionID,
+    //     SelectedProductIDs,
+    // ]);
+
+    // const callbackFunction = useCallback(() => {
+    //     props.settingDataCallback(jsonData);
+    // }, [jsonData]);
+    // HANDLING MAIN JSON DATA END
+
     return (
         <Card sectioned>
             <Text variant="headingLg" fontWeight="medium">
@@ -149,7 +251,13 @@ export default function CartUpsellSettings() {
                 </div>
 
                 {/* Product List Selection */}
-                <ProductListSelection />
+                <ProductListSelection
+                    productListCallback={handleProductListCallback}
+                    CUPLSelection={CUPLSelection}
+                    CUPLManualSelection={CUPLManualSelection}
+                    SelectedCollectionID={SelectedCollectionID}
+                    SelectedProductIDs={SelectedProductIDs}
+                />
 
                 <div style={{ margin: "0" }}>
                     <Divider borderColor="border" />

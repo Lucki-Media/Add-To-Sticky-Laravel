@@ -10,30 +10,60 @@ import {
     InlineError,
     RangeSlider,
 } from "@shopify/polaris";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
-export default function BottomSectionSettings() {
-    const [BSCheckoutTextEnable, setBSCheckoutTextEnable] = useState(false);
-    const [BSContinueEnable, setBSContinueEnable] = useState(false);
-    const [BSViewCartEnable, setBSViewCartEnable] = useState(false);
-
-    const [BSSubtotalText, setBSSubtotalText] = useState("Subtotal");
-    const [BSCheckoutMsgText, setBSCheckoutMsgText] = useState(
-        "Taxes and shipping calculated at checkout"
+export default function BottomSectionSettings(props) {
+    const [BSCheckoutTextEnable, setBSCheckoutTextEnable] = useState(
+        props.customizationData.bottomSection.BSCheckoutTextEnable
     );
-    const [BSCheckoutBtnText, setBSCheckoutBtnText] = useState("Checkout");
-    const [BSContinueText, setBSContinueText] = useState("Continue Shopping");
-    const [BSViewCartText, setBSViewCartText] = useState("View Cart");
+    const [BSContinueEnable, setBSContinueEnable] = useState(
+        props.customizationData.bottomSection.BSContinueEnable
+    );
+    const [BSViewCartEnable, setBSViewCartEnable] = useState(
+        props.customizationData.bottomSection.BSViewCartEnable
+    );
 
-    const [BSPrimaryFontSize, setBSPrimaryFontSize] = useState(14);
-    const [BSSecondaryFontSize, setBSSecondaryFontSize] = useState(12);
-    const [BSCheckoutBtnFontSize, setBSCheckoutBtnFontSize] = useState(18);
+    const [BSSubtotalText, setBSSubtotalText] = useState(
+        props.customizationData.bottomSection.BSSubtotalText
+    );
+    const [BSCheckoutMsgText, setBSCheckoutMsgText] = useState(
+        props.customizationData.bottomSection.BSCheckoutMsgText
+    );
+    const [BSCheckoutBtnText, setBSCheckoutBtnText] = useState(
+        props.customizationData.bottomSection.BSCheckoutBtnText
+    );
+    const [BSContinueText, setBSContinueText] = useState(
+        props.customizationData.bottomSection.BSContinueText
+    );
+    const [BSViewCartText, setBSViewCartText] = useState(
+        props.customizationData.bottomSection.BSViewCartText
+    );
 
-    const [BSBtnTextColor, setBSBtnTextColor] = useState("#FFF");
-    const [BSBtnBGColor, setBSBtnBGColor] = useState("#000");
-    const [BSBtnTextHoverColor, setBSBtnTextHoverColor] = useState("#FFF");
-    const [BSBtnBGHoverColor, setBSBtnBGHoverColor] = useState("#000");
-    const [BSColor, setBSColor] = useState("#000");
+    const [BSPrimaryFontSize, setBSPrimaryFontSize] = useState(
+        props.customizationData.bottomSection.BSPrimaryFontSize
+    );
+    const [BSSecondaryFontSize, setBSSecondaryFontSize] = useState(
+        props.customizationData.bottomSection.BSSecondaryFontSize
+    );
+    const [BSCheckoutBtnFontSize, setBSCheckoutBtnFontSize] = useState(
+        props.customizationData.bottomSection.BSCheckoutBtnFontSize
+    );
+
+    const [BSBtnTextColor, setBSBtnTextColor] = useState(
+        props.customizationData.bottomSection.BSBtnTextColor
+    );
+    const [BSBtnBGColor, setBSBtnBGColor] = useState(
+        props.customizationData.bottomSection.BSBtnBGColor
+    );
+    const [BSBtnTextHoverColor, setBSBtnTextHoverColor] = useState(
+        props.customizationData.bottomSection.BSBtnTextHoverColor
+    );
+    const [BSBtnBGHoverColor, setBSBtnBGHoverColor] = useState(
+        props.customizationData.bottomSection.BSBtnBGHoverColor
+    );
+    const [BSColor, setBSColor] = useState(
+        props.customizationData.bottomSection.BSColor
+    );
 
     // CHECKOUT TEXT ENABLE LOGIC
     const handleBSCheckoutTextEnable = useCallback(
@@ -120,6 +150,59 @@ export default function BottomSectionSettings() {
     const handleBSColor = (event) => {
         setBSColor(event.target.value);
     };
+
+    // HANDLING MAIN JSON DATA START
+    var jsonData = {
+        cartHeader: props.customizationData.cartHeader,
+        emptyCart: props.customizationData.emptyCart,
+        shippingBar: props.customizationData.shippingBar,
+        productList: props.customizationData.productList,
+        cartUpsell: props.customizationData.cartUpsell,
+        bottomSection: {
+            BSCheckoutTextEnable: BSCheckoutTextEnable,
+            BSContinueEnable: BSContinueEnable,
+            BSViewCartEnable: BSViewCartEnable,
+            BSSubtotalText: BSSubtotalText,
+            BSCheckoutMsgText: BSCheckoutMsgText,
+            BSCheckoutBtnText: BSCheckoutBtnText,
+            BSContinueText: BSContinueText,
+            BSViewCartText: BSViewCartText,
+            BSPrimaryFontSize: BSPrimaryFontSize,
+            BSSecondaryFontSize: BSSecondaryFontSize,
+            BSCheckoutBtnFontSize: BSCheckoutBtnFontSize,
+            BSBtnTextColor: BSBtnTextColor,
+            BSBtnBGColor: BSBtnBGColor,
+            BSBtnTextHoverColor: BSBtnTextHoverColor,
+            BSBtnBGHoverColor: BSBtnBGHoverColor,
+            BSColor: BSColor,
+        },
+    };
+    // useEffect(() => {
+    //     callbackFunction();
+    //     [
+    //         BSCheckoutTextEnable,
+    //         BSContinueEnable,
+    //         BSViewCartEnable,
+    //         BSSubtotalText,
+    //         BSCheckoutMsgText,
+    //         BSCheckoutBtnText,
+    //         BSContinueText,
+    //         BSViewCartText,
+    //         BSPrimaryFontSize,
+    //         BSSecondaryFontSize,
+    //         BSCheckoutBtnFontSize,
+    //         BSBtnTextColor,
+    //         BSBtnBGColor,
+    //         BSBtnTextHoverColor,
+    //         BSBtnBGHoverColor,
+    //         BSColor,
+    //     ];
+    // });
+
+    // const callbackFunction = useCallback(() => {
+    //     props.settingDataCallback(jsonData);
+    // }, [jsonData]);
+    // HANDLING MAIN JSON DATA END
 
     return (
         <Card sectioned>

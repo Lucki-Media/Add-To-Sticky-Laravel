@@ -1,4 +1,4 @@
-const recommended_products = [
+const recommendedProducts = [
     {
         image: "../../assets/product_image_1.jpg",
         title: "Orange juice bottle mockup",
@@ -19,4 +19,4 @@ const recommended_products = [
     },
 ];
 
-export default recommended_products;
+export default recommendedProducts;

@@ -12,9 +12,9 @@ import { SearchIcon } from "@shopify/polaris-icons";
 import noImage from "../../../assets/no_image.jpg";
 
 export default function CollectionSelection(props) {
-    const [selectedCollectionID, setSelectedCollectionID] = useState(
-        [props.selectedCollectionID]
-    );
+    const [SelectedCollectionID, setSelectedCollectionID] = useState([
+        props.SelectedCollectionID,
+    ]);
     const [defaultCollections, setDefaultCollections] = useState([]);
     const [collectionInput, setCollectionInput] = useState("");
     const [collectionOptions, setCollectionOptions] = useState([]);
@@ -93,7 +93,7 @@ export default function CollectionSelection(props) {
         setCollectionOptions(collectionArray);
 
         // set product showcase code start
-        let selected = [props.selectedCollectionID];
+        let selected = [props.SelectedCollectionID];
 
         // Find the object with the matching id
         const collection = props.collectionResponse.find(
@@ -106,20 +106,22 @@ export default function CollectionSelection(props) {
                   id: String(collection.id),
                   handle: collection.handle,
                   title: collection.title,
-                  image:
-                      collection.image !== "" ? collection.image : noImage,
+                  image: collection.image !== "" ? collection.image : noImage,
               }
             : null;
 
         // Update the selected options and item state
         setSelectedCollectionID(selected);
         setSelectedCollection(selectedObject);
-
     }, []);
 
     useEffect(() => {
-        props.collectionCallback(selectedCollectionID);
-    }, [selectedCollectionID]);
+        callbackFunction();
+    }, [SelectedCollectionID]);
+
+    const callbackFunction = useCallback(() => {
+        props.collectionCallback(SelectedCollectionID);
+    }, [SelectedCollectionID]);
 
     return (
         <BlockStack gap="200">
@@ -129,7 +131,7 @@ export default function CollectionSelection(props) {
             <div style={{ maxHeight: "225px" }}>
                 <Autocomplete
                     options={collectionOptions}
-                    selected={selectedCollectionID}
+                    selected={SelectedCollectionID}
                     onSelect={updateCollectionSelection}
                     textField={collectionTextField}
                 />
