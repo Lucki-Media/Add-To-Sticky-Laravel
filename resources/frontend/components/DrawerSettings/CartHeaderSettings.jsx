@@ -8,14 +8,22 @@ import {
     Text,
     TextField,
 } from "@shopify/polaris";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "../../css/index.css";
 
-export default function CartHeaderSettings() {
-    const [DCTitleText, setDCTitleText] = useState("Your Cart");
-    const [DCTitleFontSize, setDCTitleFontSize] = useState(20);
-    const [DCBGColor, setDCBGColor] = useState("#FFF");
-    const [DCTitleColor, setDCTitleColor] = useState("#000");
+export default function CartHeaderSettings(props) {
+    const [DCTitleText, setDCTitleText] = useState(
+        props.customizationData.cartHeader.DCTitleText
+    );
+    const [DCTitleFontSize, setDCTitleFontSize] = useState(
+        props.customizationData.cartHeader.DCTitleFontSize
+    );
+    const [DCBGColor, setDCBGColor] = useState(
+        props.customizationData.cartHeader.DCBGColor
+    );
+    const [DCTitleColor, setDCTitleColor] = useState(
+        props.customizationData.cartHeader.DCTitleColor
+    );
 
     // TITLE TEXT
     const handleDCTitleTextField = (val) => {
@@ -37,6 +45,29 @@ export default function CartHeaderSettings() {
     const handleDCTitleColor = (event) => {
         setDCTitleColor(event.target.value);
     };
+
+    // HANDLING MAIN JSON DATA START
+    var jsonData = {
+        cartHeader: {
+            DCTitleText: DCTitleText,
+            DCTitleFontSize: DCTitleFontSize,
+            DCBGColor: DCBGColor,
+            DCTitleColor: DCTitleColor,
+        },
+        emptyCart: props.customizationData.emptyCart,
+        shippingBar: props.customizationData.shippingBar,
+        productList: props.customizationData.productList,
+        cartUpsell: props.customizationData.cartUpsell,
+        bottomSection: props.customizationData.bottomSection,
+    };
+    // useEffect(() => {
+    //     callbackFunction();
+    // }, [DCTitleText, DCTitleFontSize, DCBGColor, DCTitleColor]);
+
+    // const callbackFunction = useCallback(() => {
+    //     props.settingDataCallback(jsonData);
+    // }, [jsonData]);
+    // HANDLING MAIN JSON DATA END
 
     return (
         <Card sectioned>

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import style from "../../css/Drawer.module.css";
 import proimage from "../../assets/productimage.png";
 import { QuantityPicker } from "react-qty-picker";
-import recommended_products from "../../assets/recommended_products.js";
+import recommendedProducts from "../../assets/recommendedProducts.js";
 
-export default function Drawer({ isOpen }) {
+export default function Drawer({ isOpen, customizationData }) {
     return (
         <>
             <style>
@@ -42,31 +42,80 @@ export default function Drawer({ isOpen }) {
                     className={`${style.lm_drawer} ${
                         isOpen && style.lm_drawer_open
                     } ${style.lm_drawer_right}`}
+                    style={{
+                        background: customizationData.cartHeader.DCBGColor,
+                    }}
                 >
                     {/* Drawer Header */}
                     <div className={style.lm_drawer_header}>
-                        <div className={style.lm_drawer_title}>Your Cart</div>
-                        <span className={style.lm_drawer_close_icon}>
+                        <div
+                            className={style.lm_drawer_title}
+                            style={{
+                                fontSize:
+                                    customizationData.cartHeader
+                                        .DCTitleFontSize,
+                                color: customizationData.cartHeader
+                                    .DCTitleColor,
+                            }}
+                        >
+                            {customizationData.cartHeader.DCTitleText}
+                        </div>
+                        <span
+                            className={style.lm_drawer_close_icon}
+                            style={{
+                                fontSize:
+                                    customizationData.cartHeader
+                                        .DCTitleFontSize,
+                                color: customizationData.cartHeader
+                                    .DCTitleColor,
+                            }}
+                        >
                             &times;
                         </span>
                     </div>
 
                     <div className={style.lm_drawer_content}>
                         {/* Free Shipping Bar */}
-                        <div className={style.lm_drawer_free_shipping_bar}>
-                            <div className={style.lm_free_shipping_heading}>
-                                Only $15 left to get free shipping
-                            </div>
-                            <div className={style.lm_shipping_bar__outer_div}>
+                        {customizationData.shippingBar.FSBenable && (
+                            <div className={style.lm_drawer_free_shipping_bar}>
                                 <div
-                                    className={style.lm_shipping_bar_inner_div}
-                                ></div>
+                                    className={style.lm_free_shipping_heading}
+                                    style={{
+                                        fontSize:
+                                            customizationData.shippingBar
+                                                .FSBPrimaryFontSize,
+                                    }}
+                                >
+                                    {customizationData.shippingBar.FSBReminderText.replace(
+                                        "{'price'}",
+                                        customizationData.shippingBar
+                                            .FSBShippingTarget
+                                    )}
+                                </div>
+                                <div
+                                    className={style.lm_shipping_bar__outer_div}
+                                >
+                                    <div
+                                        className={
+                                            style.lm_shipping_bar_inner_div
+                                        }
+                                    ></div>
+                                </div>
+                                <span
+                                    className={style.lm_shipping_bar_sub_title}
+                                    style={{
+                                        fontSize:
+                                            customizationData.shippingBar
+                                                .FSBSecondaryFontSize,
+                                    }}
+                                >
+                                    {
+                                        customizationData.shippingBar
+                                            .FSBSecondaryText
+                                    }
+                                </span>
                             </div>
-                            <span className={style.lm_shipping_bar_sub_title}>
-                                Add products to receive free shipping
-                            </span>
-                        </div>
-
+                        )}
                         {/* Cart Items */}
                         <div className={style.lm_drawer_cart_item_wrapper}>
                             <table className={style.lm_drawer_cart_items}>
@@ -194,7 +243,7 @@ export default function Drawer({ isOpen }) {
                                 Recommended Products
                             </div>
                             <div className={style.lm_recommendation_list}>
-                                {recommended_products.map((product) => (
+                                {recommendedProducts.map((product) => (
                                     <div
                                         className={style.lm_recommended_product}
                                     >

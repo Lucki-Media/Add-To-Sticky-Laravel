@@ -12,18 +12,24 @@ import React, { useCallback, useEffect, useState } from "react";
 import ManualProductSelection from "./ManualProductSelection";
 import CollectionSelection from "./CollectionSelection";
 
-export default function ProductListSelection() {
+export default function ProductListSelection(props) {
     // Getting Shop Domain
     const shop_url = document.getElementById("shopOrigin").value;
 
     const [loadingState, setLoadingState] = useState(true);
-    const [CUPLSelection, setCUPLSelection] = useState("2");
-    const [CUPLManualSelection, setCUPLManualSelection] = useState("1");
+    const [CUPLSelection, setCUPLSelection] = useState(props.CUPLSelection);
+    const [CUPLManualSelection, setCUPLManualSelection] = useState(
+        props.CUPLManualSelection
+    );
 
-    const [selectedCollectionID, setSelectedCollectionID] = useState("");
+    const [SelectedCollectionID, setSelectedCollectionID] = useState(
+        props.SelectedCollectionID
+    );
     const [collectionResponse, setCollectionResponse] = useState([]);
 
-    const [selectedProductIDs, setSelectedProductIDs] = useState([]);
+    const [SelectedProductIDs, setSelectedProductIDs] = useState(
+        props.SelectedProductIDs
+    );
     const [productResponse, setProductResponse] = useState([]);
 
     // PRODUCT LIST LOGIC
@@ -60,7 +66,7 @@ export default function ProductListSelection() {
             );
             const data = await response.json();
             setCollectionResponse(data.data.collection_data);
-            setProductResponse(data.data.product_data)
+            setProductResponse(data.data.product_data);
             setLoadingState(false);
         } catch (err) {
             console.log(err);
@@ -74,6 +80,30 @@ export default function ProductListSelection() {
         }
     }, [CUPLSelection]);
 
+    // HANDLE CALLBACK
+    useEffect(() => {
+        callbackFunction();
+    }, [
+        CUPLSelection,
+        CUPLManualSelection,
+        SelectedCollectionID,
+        SelectedProductIDs,
+    ]);
+
+    const callbackFunction = useCallback(() => {
+        props.productListCallback({
+            CUPLSelection: CUPLSelection,
+            CUPLManualSelection: CUPLManualSelection,
+            SelectedCollectionID: SelectedCollectionID,
+            SelectedProductIDs: SelectedProductIDs,
+        });
+    }, [
+        CUPLSelection,
+        CUPLManualSelection,
+        SelectedCollectionID,
+        SelectedProductIDs,
+    ]);
+    
     return (
         <BlockStack gap="300">
             <FormLayout.Group condensed>
@@ -147,15 +177,15 @@ export default function ProductListSelection() {
                             </BlockStack>
                         </FormLayout.Group>
                         {CUPLManualSelection === "1" ? (
-                            <ManualProductSelection 
-                            productCallback={handleProductCallback}
-                            selectedProductIDs={selectedProductIDs}
-                            productResponse={productResponse}
-                        />
+                            <ManualProductSelection
+                                productCallback={handleProductCallback}
+                                SelectedProductIDs={SelectedProductIDs}
+                                productResponse={productResponse}
+                            />
                         ) : (
                             <CollectionSelection
                                 collectionCallback={handleCollectionCallback}
-                                selectedCollectionID={selectedCollectionID}
+                                SelectedCollectionID={SelectedCollectionID}
                                 collectionResponse={collectionResponse}
                             />
                         )}

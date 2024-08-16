@@ -1,5 +1,5 @@
 import { Badge, BlockStack, Card, Text } from "@shopify/polaris";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Switch from "react-switch";
 import "../../css/index.css";
 import CartHeaderSettings from "../DrawerSettings/CartHeaderSettings";
@@ -9,14 +9,27 @@ import EmptyCartSettings from "../DrawerSettings/EmptyCartSettings";
 import CartUpsellSettings from "../DrawerSettings/CartUpsellSettings";
 import BottomSectionSettings from "../DrawerSettings/BottomSectionSettings";
 
-export default function DrawerSettings() {
+export default function DrawerSettings(props) {
     const [enableDrawer, setEnableDrawer] = useState(true);
+    const [customizationData, setCustomizationData] = useState(
+        props.customizationData
+    );
 
     // ENABLE DRAWER BUTTON LOGIC
     const handleEnable = (value) => {
         setEnableDrawer(!value);
         // setUnsavedChanges(isEqual(!value, props.originalenableSticky));
     };
+
+    // HANDLE CALLBACK
+    // const handleDataCallback = (data) => {
+    //     setCustomizationData(data);
+    //     callbackFunction(); // Call it directly after setting the data.
+    // };
+
+    // const callbackFunction = useCallback(() => {
+    //     props.drawerDataCallback(customizationData);
+    // }, [customizationData]);
 
     return (
         <BlockStack gap="400">
@@ -52,22 +65,40 @@ export default function DrawerSettings() {
             </Card>
 
             {/* Cart Header Settings */}
-            {/* <CartHeaderSettings /> */}
+            <CartHeaderSettings
+                customizationData={customizationData}
+                // settingDataCallback={handleDataCallback}
+            />
 
             {/* Empty Cart Settings */}
-            {/* <EmptyCartSettings /> */}
+            <EmptyCartSettings
+                customizationData={customizationData}
+                // settingDataCallback={handleDataCallback}
+            />
 
             {/* Free Shipping Bar Settings */}
-            {/* <ShippingBarSettings /> */}
+            <ShippingBarSettings
+                customizationData={customizationData}
+                // settingDataCallback={handleDataCallback}
+            />
 
             {/* Product List Settings */}
-            {/* <ProductListSettings /> */}
+            <ProductListSettings
+                customizationData={customizationData}
+                // settingDataCallback={handleDataCallback}
+            />
 
             {/* Cart Upsell Settings */}
-            <CartUpsellSettings />
+            <CartUpsellSettings
+                customizationData={customizationData}
+                // settingDataCallback={handleDataCallback}
+            />
 
             {/* Bottom Section Settings */}
-            {/* <BottomSectionSettings /> */}
+            <BottomSectionSettings
+                customizationData={customizationData}
+                // settingDataCallback={handleDataCallback}
+            />
         </BlockStack>
     );
 }

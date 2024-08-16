@@ -19,6 +19,7 @@ import "../css/index.css";
 import StickyCartPreview from "../components/Preview/StickyCartPreview";
 import StickyIconSettings from "../components/StickyCartUpsell/StickyIconSettings";
 import DrawerSettings from "../components/StickyCartUpsell/DrawerSettings";
+import drawerCartData from "../assets/drawerCartData.js";
 
 export default function StickyCart() {
     // Getting Shop Domain
@@ -79,6 +80,9 @@ export default function StickyCart() {
         useState("#000000");
     const [countBgHoverColor, setCountBgHoverColor] = useState("#000000");
     const [unsavedChanges, setUnsavedChanges] = useState(true);
+
+    // DRAWER STATES
+    const [customizationData, setCustomizationData] = useState(drawerCartData);
 
     //toast for success
     const [toastContent, setToastContent] = useState();
@@ -254,6 +258,11 @@ export default function StickyCart() {
 
     const handleShowSettings = (activePreview) => {
         setShowSettings(activePreview);
+    };
+
+    // HANDLE DRAWER DATA CALLBACK
+    const handleDrawerDataCallback = (data) => {
+        setCustomizationData(data);
     };
 
     if (showTable === false) {
@@ -455,7 +464,14 @@ export default function StickyCart() {
                                             />
                                         )}
                                         {showSettings === 2 && (
-                                            <DrawerSettings />
+                                            <DrawerSettings
+                                                drawerDataCallback={
+                                                    handleDrawerDataCallback
+                                                }
+                                                customizationData={
+                                                    customizationData
+                                                }
+                                            />
                                         )}
                                     </Layout.Section>
                                     <Layout.Section>
@@ -484,6 +500,10 @@ export default function StickyCart() {
                                             countColor={countColor}
                                             numberCount={numberCount}
                                             defaultTemplate={defaultTemplate}
+                                            // Drawer props
+                                            customizationData={
+                                                customizationData
+                                            }
                                         />
                                     </Layout.Section>
                                 </Layout>

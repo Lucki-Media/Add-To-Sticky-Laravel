@@ -6,13 +6,15 @@ import {
     Text,
     TextField,
 } from "@shopify/polaris";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
-export default function EmptyCartSettings() {
+export default function EmptyCartSettings(props) {
     const [ECContentText, setECContentText] = useState(
-        "Oops! Your Cart is Empty!"
+        props.customizationData.emptyCart.ECContentText
     );
-    const [ECButtonText, setECButtonText] = useState("Continue Shopping");
+    const [ECButtonText, setECButtonText] = useState(
+        props.customizationData.emptyCart.ECButtonText
+    );
 
     // CONTENT TEXT
     const handleECContentTextField = (val) => {
@@ -23,6 +25,27 @@ export default function EmptyCartSettings() {
     const handleECButtonTextField = (val) => {
         setECButtonText(val);
     };
+
+    // HANDLING MAIN JSON DATA START
+    var jsonData = {
+        cartHeader: props.customizationData.cartHeader,
+        emptyCart: {
+            ECContentText: ECContentText,
+            ECButtonText: ECButtonText,
+        },
+        shippingBar: props.customizationData.shippingBar,
+        productList: props.customizationData.productList,
+        cartUpsell: props.customizationData.cartUpsell,
+        bottomSection: props.customizationData.bottomSection,
+    };
+    // useEffect(() => {
+    //     callbackFunction();
+    // }, [ECContentText, ECButtonText]);
+
+    // const callbackFunction = useCallback(() => {
+    //     props.settingDataCallback(jsonData);
+    // }, [jsonData]);
+    // HANDLING MAIN JSON DATA END
 
     return (
         <Card sectioned>

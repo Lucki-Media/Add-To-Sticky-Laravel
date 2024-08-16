@@ -5,16 +5,19 @@ import {
     BlockStack,
     Text,
     Thumbnail,
+    Box,
+    InlineStack,
+    Button,
 } from "@shopify/polaris";
 import { useState, useCallback, useEffect } from "react";
-import { SearchIcon } from "@shopify/polaris-icons";
+import { SearchIcon, XIcon } from "@shopify/polaris-icons";
 import noImage from "../../../assets/no_image.jpg";
 
 export default function ManualProductSelection(props) {
-    const paginationInterval = 5;
+    const paginationInterval = 10;
 
-    const [selectedProductIDs, setSelectedProductIDs] = useState(
-        props.selectedProductIDs
+    const [SelectedProductIDs, setSelectedProductIDs] = useState(
+        props.SelectedProductIDs
     );
     const [defaultProducts, setDefaultProducts] = useState([]);
     const [productInput, setProductInput] = useState("");
@@ -49,12 +52,20 @@ export default function ManualProductSelection(props) {
     }, [willLoadMoreResults, visibleOptionIndex, productOptions.length]);
 
     const removeTag = useCallback(
-        (tag) => () => {
-            const productOptions = [...selectedProductIDs];
-            productOptions.splice(productOptions.indexOf(tag), 1);
+        (productID) => () => {
+            // update selected IDs
+            const productOptions = [...SelectedProductIDs];
+            productOptions.splice(productOptions.indexOf(productID), 1);
             setSelectedProductIDs(productOptions);
+
+            // update selected IDs Details Object Array
+            let selectedProductArray = [...selectedProduct];
+            selectedProductArray = selectedProductArray.filter(
+                (item) => item.id !== productID
+            );
+            setSelectedProduct(selectedProductArray);
         },
-        [selectedProductIDs]
+        [SelectedProductIDs]
     );
 
     const updateProductSelection = useCallback(
@@ -123,18 +134,45 @@ export default function ManualProductSelection(props) {
     const tagsMarkup = hasSelectedOptions
         ? selectedProduct.map((option) => {
               return (
-                  <Tag
-                      key={`option${option.id}`}
-                      onRemove={removeTag(option.id)}
+                  <Box
+                      padding="400"
+                      background="bg-surface-secondary-hover"
+                      borderRadius="100"
                   >
-                      {option.title}
-                  </Tag>
+                      {/* <Tag
+                          key={`option${option.id}`}
+                          onRemove={removeTag(option.id)}
+                      >
+                          {option.title}
+                      </Tag> */}
+                      <InlineStack align="space-between" blockAlign="center">
+                          <InlineStack align="start" gap={200}>
+                              <Thumbnail
+                                  source={option.image ?? noImage}
+                                  size="small"
+                              />
+                              <Text
+                                  variant="bodyMd"
+                                  fontWeight="medium"
+                                  as="span"
+                              >
+                                  {option.title}
+                              </Text>
+                          </InlineStack>
+                          <Button
+                              icon={XIcon}
+                              variant="plain"
+                              tone="base"
+                              onClick={removeTag(option.id)}
+                          />
+                      </InlineStack>
+                  </Box>
               );
           })
         : null;
     const optionList = productOptions.slice(0, visibleOptionIndex);
     const selectedTagMarkup = hasSelectedOptions ? (
-        <BlockStack spacing="extraTight">{tagsMarkup}</BlockStack>
+        <BlockStack gap={100}>{tagsMarkup}</BlockStack>
     ) : null;
 
     // USE EFFECT
@@ -155,34 +193,38 @@ export default function ManualProductSelection(props) {
         }));
         setDefaultProducts(productArray);
         setProductOptions(productArray);
+    }, []);
 
-        // set product showcase code start
-        let selectedProducts = props.selectedProductIDs;
-        setSelectedProductIDs(selectedProducts);
+    useEffect(() => {
+        // callback start
+        callbackFunction();
+        // callback end
 
-        const updatedSelectedProducts = selectedProducts
-            .map((selected) => {
-                // Find the object with the matching id
-                const product = props.productResponse.find(
-                    (option) => String(option.id) === String(selected)
-                ); // Transform the found product into the desired structure
+        const updatedSelectedProducts = SelectedProductIDs.map((selected) => {
+            // Find the object with the matching id
+            const product = props.productResponse.find(
+                (option) => String(option.id) === String(selected)
+            ); // Transform the found product into the desired structure
 
-                return product
-                    ? {
-                          id: String(product.id),
-                          title: product.title,
-                          image:
-                              product.image && product.image.src
-                                  ? product.image.src
-                                  : noImage,
-                      }
-                    : null;
-            })
-            .filter((item) => item !== null);
+            return product
+                ? {
+                      id: String(product.id),
+                      title: product.title,
+                      image:
+                          product.image && product.image.src
+                              ? product.image.src
+                              : noImage,
+                  }
+                : null;
+        }).filter((item) => item !== null);
 
         // Update the state with the array of selected products
         setSelectedProduct(updatedSelectedProducts);
-    }, []);
+    }, [SelectedProductIDs]);
+
+    const callbackFunction = useCallback(() => {
+        props.productCallback(SelectedProductIDs);
+    }, [SelectedProductIDs]);
 
     return (
         <BlockStack gap="200">
@@ -193,7 +235,7 @@ export default function ManualProductSelection(props) {
                 <Autocomplete
                     allowMultiple
                     options={optionList}
-                    selected={selectedProductIDs}
+                    selected={SelectedProductIDs}
                     textField={productTextField}
                     onSelect={updateProductSelection}
                     loading={isLoading}

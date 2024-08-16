@@ -6,12 +6,16 @@ import {
     RangeSlider,
     Text,
 } from "@shopify/polaris";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "../../css/index.css";
 
-export default function ProductListSettings() {
-    const [PLFontSize, setPLFontSize] = useState(14);
-    const [PLTextColor, setPLTextColor] = useState("#000");
+export default function ProductListSettings(props) {
+    const [PLFontSize, setPLFontSize] = useState(
+        props.customizationData.productList.PLFontSize
+    );
+    const [PLTextColor, setPLTextColor] = useState(
+        props.customizationData.productList.PLTextColor
+    );
 
     // FONT SIZE
     const handlePLFontSize = useCallback((value) => setPLFontSize(value), []);
@@ -20,6 +24,27 @@ export default function ProductListSettings() {
     const handlePLTextColor = (event) => {
         setPLTextColor(event.target.value);
     };
+
+    // HANDLING MAIN JSON DATA START
+    var jsonData = {
+        cartHeader: props.customizationData.cartHeader,
+        emptyCart: props.customizationData.emptyCart,
+        shippingBar: props.customizationData.shippingBar,
+        productList: {
+            PLFontSize: PLFontSize,
+            PLTextColor: PLTextColor,
+        },
+        cartUpsell: props.customizationData.cartUpsell,
+        bottomSection: props.customizationData.bottomSection,
+    };
+    // useEffect(() => {
+    //     callbackFunction();
+    // }, [PLFontSize, PLTextColor]);
+
+    // const callbackFunction = useCallback(() => {
+    //     props.settingDataCallback(jsonData);
+    // }, [jsonData]);
+    // HANDLING MAIN JSON DATA END
 
     return (
         <Card sectioned>

@@ -9,25 +9,35 @@ import {
     Text,
     TextField,
 } from "@shopify/polaris";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Switch from "react-switch";
 import "../../css/index.css";
 
-export default function ShippingBarSettings() {
-    const [FSBenable, setFSBenable] = useState(true);
-    const [FSBShippingTarget, setFSBShippingTarget] = useState(15);
+export default function ShippingBarSettings(props) {
+    const [FSBenable, setFSBenable] = useState(
+        props.customizationData.shippingBar.FSBenable
+    );
+    const [FSBShippingTarget, setFSBShippingTarget] = useState(
+        props.customizationData.shippingBar.FSBShippingTarget
+    );
     const [FSBReminderText, setFSBReminderText] = useState(
-        "Only ${'price'} left to get free shipping"
+        props.customizationData.shippingBar.FSBReminderText
     );
     const [FSBWinningText, setFSBWinningText] = useState(
-        "Yayy! You won Free Shipping"
+        props.customizationData.shippingBar.FSBWinningText
     );
     const [FSBSecondaryText, setFSBSecondaryText] = useState(
-        "Add products to receive free shipping"
+        props.customizationData.shippingBar.FSBSecondaryText
     );
-    const [FSBPrimaryFontSize, setFSBPrimaryFontSize] = useState(18);
-    const [FSBSecondaryFontSize, setFSBSecondaryFontSize] = useState(14);
-    const [FSBColor, setFSBColor] = useState("#000");
+    const [FSBPrimaryFontSize, setFSBPrimaryFontSize] = useState(
+        props.customizationData.shippingBar.FSBPrimaryFontSize
+    );
+    const [FSBSecondaryFontSize, setFSBSecondaryFontSize] = useState(
+        props.customizationData.shippingBar.FSBSecondaryFontSize
+    );
+    const [FSBColor, setFSBColor] = useState(
+        props.customizationData.shippingBar.FSBColor
+    );
 
     // ENABLE SHIPPING BAR BUTTON LOGIC
     const handleEnable = (value) => {
@@ -71,6 +81,42 @@ export default function ShippingBarSettings() {
     const handleFSBColor = (event) => {
         setFSBColor(event.target.value);
     };
+
+    // HANDLING MAIN JSON DATA START
+    var jsonData = {
+        cartHeader: props.customizationData.cartHeader,
+        emptyCart: props.customizationData.emptyCart,
+        shippingBar: {
+            FSBenable: FSBenable,
+            FSBShippingTarget: FSBShippingTarget,
+            FSBReminderText: FSBReminderText,
+            FSBWinningText: FSBWinningText,
+            FSBSecondaryText: FSBSecondaryText,
+            FSBPrimaryFontSize: FSBPrimaryFontSize,
+            FSBSecondaryFontSize: FSBSecondaryFontSize,
+            FSBColor: FSBColor,
+        },
+        productList: props.customizationData.productList,
+        cartUpsell: props.customizationData.cartUpsell,
+        bottomSection: props.customizationData.bottomSection,
+    };
+    // useEffect(() => {
+    //     callbackFunction();
+    // }, [
+    //     FSBenable,
+    //     FSBShippingTarget,
+    //     FSBReminderText,
+    //     FSBWinningText,
+    //     FSBSecondaryText,
+    //     FSBPrimaryFontSize,
+    //     FSBSecondaryFontSize,
+    //     FSBColor,
+    // ]);
+
+    // const callbackFunction = useCallback(() => {
+    //     props.settingDataCallback(jsonData);
+    // }, [jsonData]);
+    // HANDLING MAIN JSON DATA END
 
     return (
         <Card sectioned>

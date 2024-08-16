@@ -81,7 +81,8 @@ export default function StickyCartPreview(props) {
 
     useEffect(() => {
         props.onPreviewChange(activePreview);
-    },[activePreview])
+    }, [activePreview]);
+
     return (
         <div classname="preview_section">
             <Card>
@@ -342,8 +343,12 @@ export default function StickyCartPreview(props) {
                                                         </div>
                                                     </div>
                                                 </div>
+                                                {/* {console.log(props.customizationData)} */}
                                                 <Drawer
                                                     isOpen={activePreview === 2}
+                                                    customizationData={
+                                                        props.customizationData
+                                                    }
                                                 />
                                             </div>
                                         </div>
