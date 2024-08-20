@@ -153,6 +153,7 @@ export default function CartUpsellSettings(props) {
 
     // HANDLING MAIN JSON DATA START
     var jsonData = {
+        enableDrawer: props.customizationData.enableDrawer,
         cartHeader: props.customizationData.cartHeader,
         emptyCart: props.customizationData.emptyCart,
         shippingBar: props.customizationData.shippingBar,
@@ -178,31 +179,32 @@ export default function CartUpsellSettings(props) {
         },
         bottomSection: props.customizationData.bottomSection,
     };
-    // useEffect(() => {
-    //     callbackFunction();
-    // }, [
-    //     CUEnable,
-    //     CULayout,
-    //     CUHeadingText,
-    //     CUBuyBtnText,
-    //     CUHeadingFontSize,
-    //     CUBodyFontSize,
-    //     CUBuyBtnFontSize,
-    //     CUHeadingColor,
-    //     CUBodyColor,
-    //     CUBtnTextColor,
-    //     CUBtnBGColor,
-    //     CUBtnTextHoverColor,
-    //     CUBtnBGHoverColor,
-    //     CUPLSelection,
-    //     CUPLManualSelection,
-    //     SelectedCollectionID,
-    //     SelectedProductIDs,
-    // ]);
 
-    // const callbackFunction = useCallback(() => {
-    //     props.settingDataCallback(jsonData);
-    // }, [jsonData]);
+    useEffect(() => {
+        callbackFunction();
+    }, [
+        CUEnable,
+        CULayout,
+        CUHeadingText,
+        CUBuyBtnText,
+        CUHeadingFontSize,
+        CUBodyFontSize,
+        CUBuyBtnFontSize,
+        CUHeadingColor,
+        CUBodyColor,
+        CUBtnTextColor,
+        CUBtnBGColor,
+        CUBtnTextHoverColor,
+        CUBtnBGHoverColor,
+        CUPLSelection,
+        CUPLManualSelection,
+        SelectedCollectionID,
+        SelectedProductIDs,
+    ]);
+
+    const callbackFunction = useCallback(() => {
+        props.settingDataCallback(jsonData);
+    }, [jsonData]);
     // HANDLING MAIN JSON DATA END
 
     return (
@@ -246,245 +248,305 @@ export default function CartUpsellSettings(props) {
                     </div>
                 </FormLayout.Group>
 
-                <div style={{ margin: "0" }}>
-                    <Divider borderColor="border" />
-                </div>
+                {CUEnable && (
+                    <BlockStack gap="400">
+                        <div style={{ margin: "0" }}>
+                            <Divider borderColor="border" />
+                        </div>
 
-                {/* Product List Selection */}
-                <ProductListSelection
-                    productListCallback={handleProductListCallback}
-                    CUPLSelection={CUPLSelection}
-                    CUPLManualSelection={CUPLManualSelection}
-                    SelectedCollectionID={SelectedCollectionID}
-                    SelectedProductIDs={SelectedProductIDs}
-                />
-
-                <div style={{ margin: "0" }}>
-                    <Divider borderColor="border" />
-                </div>
-
-                {/* Text fields */}
-                <FormLayout.Group condensed>
-                    {/* Heading Text */}
-                    <BlockStack gap="200">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Heading Text
-                        </Text>
-                        <TextField
-                            error={CUHeadingText == "" || CUHeadingText == null}
-                            value={CUHeadingText ?? ""}
-                            onChange={handleCUHeadingTextField}
-                            autoComplete="off"
-                            maxLength={30}
-                            id="CUHeadingText"
-                            placeholder="Example: Recommended Products"
-                            showCharacterCount
+                        {/* Product List Selection */}
+                        <ProductListSelection
+                            productListCallback={handleProductListCallback}
+                            CUPLSelection={CUPLSelection}
+                            CUPLManualSelection={CUPLManualSelection}
+                            SelectedCollectionID={SelectedCollectionID}
+                            SelectedProductIDs={SelectedProductIDs}
                         />
-                        {(CUHeadingText == "" || CUHeadingText == null) && (
-                            <div style={{ marginTop: "4px" }}>
-                                <InlineError
-                                    message={"This field is required"}
-                                    fieldID={"CUHeadingText"}
+
+                        <div style={{ margin: "0" }}>
+                            <Divider borderColor="border" />
+                        </div>
+
+                        {/* Text fields */}
+                        <FormLayout.Group condensed>
+                            {/* Heading Text */}
+                            <BlockStack gap="200">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Heading Text
+                                </Text>
+                                <TextField
+                                    error={
+                                        CUHeadingText == "" ||
+                                        CUHeadingText == null
+                                    }
+                                    value={CUHeadingText ?? ""}
+                                    onChange={handleCUHeadingTextField}
+                                    autoComplete="off"
+                                    maxLength={30}
+                                    id="CUHeadingText"
+                                    placeholder="Example: Recommended Products"
+                                    showCharacterCount
                                 />
-                            </div>
-                        )}
-                    </BlockStack>
+                                {(CUHeadingText == "" ||
+                                    CUHeadingText == null) && (
+                                    <div style={{ marginTop: "4px" }}>
+                                        <InlineError
+                                            message={"This field is required"}
+                                            fieldID={"CUHeadingText"}
+                                        />
+                                    </div>
+                                )}
+                            </BlockStack>
 
-                    {/* Checkout Button Text */}
-                    <BlockStack gap="200">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Checkout Button Text
-                        </Text>
-                        <TextField
-                            error={CUBuyBtnText == "" || CUBuyBtnText == null}
-                            value={CUBuyBtnText ?? ""}
-                            onChange={handleCUBuyBtnTextField}
-                            autoComplete="off"
-                            maxLength={10}
-                            id="CUBuyBtnText"
-                            placeholder="Example: Checkout"
-                            showCharacterCount
-                        />
-                        {(CUBuyBtnText == "" || CUBuyBtnText == null) && (
-                            <div style={{ marginTop: "4px" }}>
-                                <InlineError
-                                    message={"This field is required"}
-                                    fieldID={"CUBuyBtnText"}
+                            {/* Buy Button Text */}
+                            <BlockStack gap="200">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Buy Button Text
+                                </Text>
+                                <TextField
+                                    error={
+                                        CUBuyBtnText == "" ||
+                                        CUBuyBtnText == null
+                                    }
+                                    value={CUBuyBtnText ?? ""}
+                                    onChange={handleCUBuyBtnTextField}
+                                    autoComplete="off"
+                                    maxLength={10}
+                                    id="CUBuyBtnText"
+                                    placeholder="Example: Buy"
+                                    showCharacterCount
                                 />
-                            </div>
-                        )}
-                    </BlockStack>
-                </FormLayout.Group>
+                                {(CUBuyBtnText == "" ||
+                                    CUBuyBtnText == null) && (
+                                    <div style={{ marginTop: "4px" }}>
+                                        <InlineError
+                                            message={"This field is required"}
+                                            fieldID={"CUBuyBtnText"}
+                                        />
+                                    </div>
+                                )}
+                            </BlockStack>
+                        </FormLayout.Group>
 
-                {/* Font-Size and radio buttons start*/}
-                <FormLayout.Group condensed>
-                    {/* Heading Font Size */}
-                    <BlockStack gap="0">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Heading Font
-                        </Text>
-                        <RangeSlider
-                            label={`${CUHeadingFontSize} px`}
-                            value={CUHeadingFontSize}
-                            min={14}
-                            max={24}
-                            onChange={handleCUHeadingFontSize}
-                            output
-                        />
-                    </BlockStack>
+                        {/* Font-Size and radio buttons start*/}
+                        <FormLayout.Group condensed>
+                            {/* Heading Font Size */}
+                            <BlockStack gap="0">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Heading Font
+                                </Text>
+                                <RangeSlider
+                                    label={`${CUHeadingFontSize} px`}
+                                    value={CUHeadingFontSize}
+                                    min={14}
+                                    max={24}
+                                    onChange={handleCUHeadingFontSize}
+                                    output
+                                />
+                            </BlockStack>
 
-                    {/* Body Font Size */}
-                    <BlockStack gap="0">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Body Font
-                        </Text>
-                        <RangeSlider
-                            label={`${CUBodyFontSize} px`}
-                            value={CUBodyFontSize}
-                            min={10}
-                            max={16}
-                            onChange={handleCUBodyFontSize}
-                            output
-                        />
-                    </BlockStack>
-                </FormLayout.Group>
+                            {/* Body Font Size */}
+                            <BlockStack gap="0">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Body Font
+                                </Text>
+                                <RangeSlider
+                                    label={`${CUBodyFontSize} px`}
+                                    value={CUBodyFontSize}
+                                    min={10}
+                                    max={16}
+                                    onChange={handleCUBodyFontSize}
+                                    output
+                                />
+                            </BlockStack>
+                        </FormLayout.Group>
 
-                <FormLayout.Group condensed>
-                    {/* Buy Button Font Size */}
-                    <BlockStack gap="0">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Button Font
-                        </Text>
-                        <RangeSlider
-                            label={`${CUBuyBtnFontSize} px`}
-                            value={CUBuyBtnFontSize}
-                            min={10}
-                            max={16}
-                            onChange={handleCUBuyBtnFontSize}
-                            output
-                        />
-                    </BlockStack>
+                        <FormLayout.Group condensed>
+                            {/* Buy Button Font Size */}
+                            <BlockStack gap="0">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Button Font
+                                </Text>
+                                <RangeSlider
+                                    label={`${CUBuyBtnFontSize} px`}
+                                    value={CUBuyBtnFontSize}
+                                    min={10}
+                                    max={16}
+                                    onChange={handleCUBuyBtnFontSize}
+                                    output
+                                />
+                            </BlockStack>
 
-                    {/* Layout */}
-                    <BlockStack gap="200">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Layout
-                        </Text>
-                        <InlineStack gap="1200" wrap={false}>
-                            <RadioButton
-                                label={"List"}
-                                id={"List"}
-                                checked={CULayout === "List"}
-                                name="CULayout"
-                                onChange={() => {
-                                    handleCULayoutChange("List");
-                                }}
-                            />
-                            <RadioButton
-                                label={"Slider"}
-                                id={"Slider"}
-                                checked={CULayout === "Slider"}
-                                name="CULayout"
-                                onChange={() => {
-                                    handleCULayoutChange("Slider");
-                                }}
-                            />
-                        </InlineStack>
-                    </BlockStack>
-                </FormLayout.Group>
-                {/* Font-Size and radio buttons end*/}
+                            {/* Layout */}
+                            <BlockStack gap="200">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Layout
+                                </Text>
+                                <InlineStack gap="1200" wrap={false}>
+                                    <RadioButton
+                                        label={"List"}
+                                        id={"List"}
+                                        checked={CULayout === "List"}
+                                        name="CULayout"
+                                        onChange={() => {
+                                            handleCULayoutChange("List");
+                                        }}
+                                    />
+                                    <RadioButton
+                                        label={"Slider"}
+                                        id={"Slider"}
+                                        checked={CULayout === "Slider"}
+                                        name="CULayout"
+                                        onChange={() => {
+                                            handleCULayoutChange("Slider");
+                                        }}
+                                    />
+                                </InlineStack>
+                            </BlockStack>
+                        </FormLayout.Group>
+                        {/* Font-Size and radio buttons end*/}
 
-                {/* Colors start */}
-                <FormLayout.Group condensed>
-                    {/* Heading Color */}
-                    <BlockStack gap="0">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Heading Color
-                        </Text>
-                        <div className="lm_sticky_color_box">
-                            <input
-                                type="color"
-                                value={CUHeadingColor}
-                                onChange={handleCUHeadingColor}
-                            />
-                        </div>
-                    </BlockStack>
+                        {/* Colors start */}
+                        <FormLayout.Group condensed>
+                            {/* Heading Color */}
+                            <BlockStack gap="0">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Heading Color
+                                </Text>
+                                <div className="lm_sticky_color_box">
+                                    <input
+                                        type="color"
+                                        value={CUHeadingColor}
+                                        onChange={handleCUHeadingColor}
+                                    />
+                                </div>
+                            </BlockStack>
 
-                    {/* Body Color */}
-                    <BlockStack gap="0">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Body Color
-                        </Text>
-                        <div className="lm_sticky_color_box">
-                            <input
-                                type="color"
-                                value={CUBodyColor}
-                                onChange={handleCUBodyColor}
-                            />
-                        </div>
-                    </BlockStack>
-                </FormLayout.Group>
+                            {/* Body Color */}
+                            <BlockStack gap="0">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Body Color
+                                </Text>
+                                <div className="lm_sticky_color_box">
+                                    <input
+                                        type="color"
+                                        value={CUBodyColor}
+                                        onChange={handleCUBodyColor}
+                                    />
+                                </div>
+                            </BlockStack>
+                        </FormLayout.Group>
 
-                <FormLayout.Group condensed>
-                    {/* Button Text Color */}
-                    <BlockStack gap="0">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Button Text Color
-                        </Text>
-                        <div className="lm_sticky_color_box">
-                            <input
-                                type="color"
-                                value={CUBtnTextColor}
-                                onChange={handleCUBtnTextColor}
-                            />
-                        </div>
-                    </BlockStack>
+                        <FormLayout.Group condensed>
+                            {/* Button Text Color */}
+                            <BlockStack gap="0">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Button Text Color
+                                </Text>
+                                <div className="lm_sticky_color_box">
+                                    <input
+                                        type="color"
+                                        value={CUBtnTextColor}
+                                        onChange={handleCUBtnTextColor}
+                                    />
+                                </div>
+                            </BlockStack>
 
-                    {/* Button BG Color */}
-                    <BlockStack gap="0">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Button BG Color
-                        </Text>
-                        <div className="lm_sticky_color_box">
-                            <input
-                                type="color"
-                                value={CUBtnBGColor}
-                                onChange={handleCUBtnBGColor}
-                            />
-                        </div>
-                    </BlockStack>
-                </FormLayout.Group>
+                            {/* Button BG Color */}
+                            <BlockStack gap="0">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Button BG Color
+                                </Text>
+                                <div className="lm_sticky_color_box">
+                                    <input
+                                        type="color"
+                                        value={CUBtnBGColor}
+                                        onChange={handleCUBtnBGColor}
+                                    />
+                                </div>
+                            </BlockStack>
+                        </FormLayout.Group>
 
-                <FormLayout.Group condensed>
-                    {/* Button Text Hover Color */}
-                    <BlockStack gap="0">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Button Text Hover Color
-                        </Text>
-                        <div className="lm_sticky_color_box">
-                            <input
-                                type="color"
-                                value={CUBtnTextHoverColor}
-                                onChange={handleCUBtnTextHoverColor}
-                            />
-                        </div>
-                    </BlockStack>
+                        <FormLayout.Group condensed>
+                            {/* Button Text Hover Color */}
+                            <BlockStack gap="0">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Button Text Hover Color
+                                </Text>
+                                <div className="lm_sticky_color_box">
+                                    <input
+                                        type="color"
+                                        value={CUBtnTextHoverColor}
+                                        onChange={handleCUBtnTextHoverColor}
+                                    />
+                                </div>
+                            </BlockStack>
 
-                    {/* Button BG Hover Color */}
-                    <BlockStack gap="0">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Button BG Hover Color
-                        </Text>
-                        <div className="lm_sticky_color_box">
-                            <input
-                                type="color"
-                                value={CUBtnBGHoverColor}
-                                onChange={handleCUBtnBGHoverColor}
-                            />
-                        </div>
+                            {/* Button BG Hover Color */}
+                            <BlockStack gap="0">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Button BG Hover Color
+                                </Text>
+                                <div className="lm_sticky_color_box">
+                                    <input
+                                        type="color"
+                                        value={CUBtnBGHoverColor}
+                                        onChange={handleCUBtnBGHoverColor}
+                                    />
+                                </div>
+                            </BlockStack>
+                        </FormLayout.Group>
+                        {/* Colors end */}
                     </BlockStack>
-                </FormLayout.Group>
-                {/* Colors end */}
+                )}
             </FormLayout>
         </Card>
     );

@@ -25,7 +25,7 @@ import {
 
 export default function StickyCartPreview(props) {
     // Device selection states
-    const [activePreview, setActivePreview] = useState(2);
+    const [activePreview, setActivePreview] = useState(1);
     const [selectedDevice, setSelectedDevice] = useState(0);
 
     // Sticky icon states
@@ -343,9 +343,12 @@ export default function StickyCartPreview(props) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {/* {console.log(props.customizationData)} */}
                                                 <Drawer
-                                                    isOpen={activePreview === 2}
+                                                    isOpen={
+                                                        activePreview === 2 &&
+                                                        props.customizationData
+                                                            .enableDrawer
+                                                    }
                                                     customizationData={
                                                         props.customizationData
                                                     }

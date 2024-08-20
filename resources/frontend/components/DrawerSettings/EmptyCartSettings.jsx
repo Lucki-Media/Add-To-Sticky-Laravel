@@ -28,6 +28,7 @@ export default function EmptyCartSettings(props) {
 
     // HANDLING MAIN JSON DATA START
     var jsonData = {
+        enableDrawer: props.customizationData.enableDrawer,
         cartHeader: props.customizationData.cartHeader,
         emptyCart: {
             ECContentText: ECContentText,
@@ -38,13 +39,14 @@ export default function EmptyCartSettings(props) {
         cartUpsell: props.customizationData.cartUpsell,
         bottomSection: props.customizationData.bottomSection,
     };
-    // useEffect(() => {
-    //     callbackFunction();
-    // }, [ECContentText, ECButtonText]);
 
-    // const callbackFunction = useCallback(() => {
-    //     props.settingDataCallback(jsonData);
-    // }, [jsonData]);
+    useEffect(() => {
+        callbackFunction();
+    }, [ECContentText, ECButtonText]);
+
+    const callbackFunction = useCallback(() => {
+        props.settingDataCallback(jsonData);
+    }, [jsonData]);
     // HANDLING MAIN JSON DATA END
 
     return (
