@@ -48,6 +48,7 @@ export default function CartHeaderSettings(props) {
 
     // HANDLING MAIN JSON DATA START
     var jsonData = {
+        enableDrawer: props.customizationData.enableDrawer,
         cartHeader: {
             DCTitleText: DCTitleText,
             DCTitleFontSize: DCTitleFontSize,
@@ -60,13 +61,14 @@ export default function CartHeaderSettings(props) {
         cartUpsell: props.customizationData.cartUpsell,
         bottomSection: props.customizationData.bottomSection,
     };
-    // useEffect(() => {
-    //     callbackFunction();
-    // }, [DCTitleText, DCTitleFontSize, DCBGColor, DCTitleColor]);
 
-    // const callbackFunction = useCallback(() => {
-    //     props.settingDataCallback(jsonData);
-    // }, [jsonData]);
+    useEffect(() => {
+        callbackFunction();
+    }, [DCTitleText, DCTitleFontSize, DCBGColor, DCTitleColor]);
+
+    const callbackFunction = useCallback(() => {
+        props.settingDataCallback(jsonData);
+    }, [jsonData]);
     // HANDLING MAIN JSON DATA END
 
     return (

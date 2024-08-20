@@ -84,6 +84,7 @@ export default function ShippingBarSettings(props) {
 
     // HANDLING MAIN JSON DATA START
     var jsonData = {
+        enableDrawer: props.customizationData.enableDrawer,
         cartHeader: props.customizationData.cartHeader,
         emptyCart: props.customizationData.emptyCart,
         shippingBar: {
@@ -100,22 +101,23 @@ export default function ShippingBarSettings(props) {
         cartUpsell: props.customizationData.cartUpsell,
         bottomSection: props.customizationData.bottomSection,
     };
-    // useEffect(() => {
-    //     callbackFunction();
-    // }, [
-    //     FSBenable,
-    //     FSBShippingTarget,
-    //     FSBReminderText,
-    //     FSBWinningText,
-    //     FSBSecondaryText,
-    //     FSBPrimaryFontSize,
-    //     FSBSecondaryFontSize,
-    //     FSBColor,
-    // ]);
 
-    // const callbackFunction = useCallback(() => {
-    //     props.settingDataCallback(jsonData);
-    // }, [jsonData]);
+    useEffect(() => {
+        callbackFunction();
+    }, [
+        FSBenable,
+        FSBShippingTarget,
+        FSBReminderText,
+        FSBWinningText,
+        FSBSecondaryText,
+        FSBPrimaryFontSize,
+        FSBSecondaryFontSize,
+        FSBColor,
+    ]);
+
+    const callbackFunction = useCallback(() => {
+        props.settingDataCallback(jsonData);
+    }, [jsonData]);
     // HANDLING MAIN JSON DATA END
 
     return (
@@ -159,179 +161,219 @@ export default function ShippingBarSettings(props) {
                     </div>
                 </FormLayout.Group>
 
-                <div style={{ margin: "0" }}>
-                    <Divider borderColor="border" />
-                </div>
-
-                <FormLayout.Group condensed>
-                    {/* Shipping Target */}
-                    <BlockStack gap="200">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Shipping Target
-                        </Text>
-                        <TextField
-                            error={
-                                FSBShippingTarget == "" ||
-                                FSBShippingTarget == null ||
-                                FSBShippingTarget < 1
-                            }
-                            value={FSBShippingTarget ?? ""}
-                            onChange={handleFSBShippingTargetField}
-                            autoComplete="off"
-                            min={1}
-                            max={10000}
-                            type="number"
-                            id="FSBShippingTarget"
-                        />
-                        {(FSBShippingTarget == "" ||
-                            FSBShippingTarget == null ||
-                            FSBShippingTarget < 1) && (
-                            <div style={{ marginTop: "4px" }}>
-                                <InlineError
-                                    message={"Enter Valid Data in this field"}
-                                    fieldID={"FSBShippingTarget"}
-                                />
-                            </div>
-                        )}
-                    </BlockStack>
-                </FormLayout.Group>
-
-                <FormLayout.Group condensed>
-                    {/* Reminder Text */}
-                    <BlockStack gap="200">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Reminder Text
-                        </Text>
-                        <TextField
-                            error={
-                                FSBReminderText == "" || FSBReminderText == null
-                            }
-                            value={FSBReminderText ?? ""}
-                            onChange={handleFSBReminderTextField}
-                            autoComplete="off"
-                            maxLength={60}
-                            id="FSBReminderText"
-                            placeholder="Example: Little Far to get free shipping"
-                            showCharacterCount
-                        />
-                        {(FSBReminderText == "" || FSBReminderText == null) && (
-                            <div style={{ marginTop: "4px" }}>
-                                <InlineError
-                                    message={"This field is required"}
-                                    fieldID={"FSBReminderText"}
-                                />
-                            </div>
-                        )}
-                    </BlockStack>
-                </FormLayout.Group>
-
-                <FormLayout.Group condensed>
-                    {/* Winning Text */}
-                    <BlockStack gap="200">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Winning Text
-                        </Text>
-                        <TextField
-                            error={
-                                FSBWinningText == "" || FSBWinningText == null
-                            }
-                            value={FSBWinningText ?? ""}
-                            onChange={handleFSBWinningTextField}
-                            autoComplete="off"
-                            maxLength={60}
-                            id="FSBWinningText"
-                            placeholder="Example: Yayy! You won Free Shipping"
-                            showCharacterCount
-                        />
-                        {(FSBWinningText == "" || FSBWinningText == null) && (
-                            <div style={{ marginTop: "4px" }}>
-                                <InlineError
-                                    message={"This field is required"}
-                                    fieldID={"FSBWinningText"}
-                                />
-                            </div>
-                        )}
-                    </BlockStack>
-                </FormLayout.Group>
-
-                <FormLayout.Group condensed>
-                    {/* Secondary Text */}
-                    <BlockStack gap="200">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Secondary Text
-                        </Text>
-                        <TextField
-                            error={
-                                FSBSecondaryText == "" ||
-                                FSBSecondaryText == null
-                            }
-                            value={FSBSecondaryText ?? ""}
-                            onChange={handleFSBSecondaryTextField}
-                            autoComplete="off"
-                            maxLength={60}
-                            id="FSBSecondaryText"
-                            placeholder="Example: Add products to receive free shipping"
-                            showCharacterCount
-                        />
-                        {(FSBSecondaryText == "" ||
-                            FSBSecondaryText == null) && (
-                            <div style={{ marginTop: "4px" }}>
-                                <InlineError
-                                    message={"This field is required"}
-                                    fieldID={"FSBSecondaryText"}
-                                />
-                            </div>
-                        )}
-                    </BlockStack>
-                </FormLayout.Group>
-
-                <FormLayout.Group condensed>
-                    {/* Primary Font Size */}
-                    <BlockStack gap="0">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Primary Font-size
-                        </Text>
-                        <RangeSlider
-                            label={`${FSBPrimaryFontSize} px`}
-                            value={FSBPrimaryFontSize}
-                            min={14}
-                            max={30}
-                            onChange={handleFSBPrimaryFontSize}
-                            output
-                        />
-                    </BlockStack>
-
-                    {/* Secondary Font Size */}
-                    <BlockStack gap="0">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Secondary Font-size
-                        </Text>
-                        <RangeSlider
-                            label={`${FSBSecondaryFontSize} px`}
-                            value={FSBSecondaryFontSize}
-                            min={12}
-                            max={24}
-                            onChange={handleFSBSecondaryFontSize}
-                            output
-                        />
-                    </BlockStack>
-                </FormLayout.Group>
-
-                <FormLayout.Group condensed>
-                    {/* Color */}
-                    <BlockStack gap="0">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Color
-                        </Text>
-                        <div className="lm_sticky_color_box">
-                            <input
-                                type="color"
-                                value={FSBColor}
-                                onChange={handleFSBColor}
-                            />
+                {FSBenable && (
+                    <BlockStack gap="400">
+                        <div style={{ margin: "0" }}>
+                            <Divider borderColor="border" />
                         </div>
+
+                        <FormLayout.Group condensed>
+                            {/* Shipping Target */}
+                            <BlockStack gap="200">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Shipping Target
+                                </Text>
+                                <TextField
+                                    error={
+                                        FSBShippingTarget == "" ||
+                                        FSBShippingTarget == null ||
+                                        FSBShippingTarget < 1 ||
+                                        FSBShippingTarget > 10000
+                                    }
+                                    value={FSBShippingTarget ?? ""}
+                                    onChange={handleFSBShippingTargetField}
+                                    autoComplete="off"
+                                    min={1}
+                                    max={10000}
+                                    type="number"
+                                    id="FSBShippingTarget"
+                                />
+                                {(FSBShippingTarget == "" ||
+                                    FSBShippingTarget == null ||
+                                    FSBShippingTarget < 1 ||
+                                    FSBShippingTarget > 10000) && (
+                                    <div style={{ marginTop: "4px" }}>
+                                        <InlineError
+                                            message={
+                                                "Enter Valid Data in this field"
+                                            }
+                                            fieldID={"FSBShippingTarget"}
+                                        />
+                                    </div>
+                                )}
+                            </BlockStack>
+                        </FormLayout.Group>
+
+                        <FormLayout.Group condensed>
+                            {/* Reminder Text */}
+                            <BlockStack gap="200">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Reminder Text
+                                </Text>
+                                <TextField
+                                    error={
+                                        FSBReminderText == "" ||
+                                        FSBReminderText == null
+                                    }
+                                    value={FSBReminderText ?? ""}
+                                    onChange={handleFSBReminderTextField}
+                                    autoComplete="off"
+                                    maxLength={60}
+                                    id="FSBReminderText"
+                                    placeholder="Example: Little Far to get free shipping"
+                                    showCharacterCount
+                                />
+                                {(FSBReminderText == "" ||
+                                    FSBReminderText == null) && (
+                                    <div style={{ marginTop: "4px" }}>
+                                        <InlineError
+                                            message={"This field is required"}
+                                            fieldID={"FSBReminderText"}
+                                        />
+                                    </div>
+                                )}
+                            </BlockStack>
+                        </FormLayout.Group>
+
+                        <FormLayout.Group condensed>
+                            {/* Winning Text */}
+                            <BlockStack gap="200">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Winning Text
+                                </Text>
+                                <TextField
+                                    error={
+                                        FSBWinningText == "" ||
+                                        FSBWinningText == null
+                                    }
+                                    value={FSBWinningText ?? ""}
+                                    onChange={handleFSBWinningTextField}
+                                    autoComplete="off"
+                                    maxLength={60}
+                                    id="FSBWinningText"
+                                    placeholder="Example: Yayy! You won Free Shipping"
+                                    showCharacterCount
+                                />
+                                {(FSBWinningText == "" ||
+                                    FSBWinningText == null) && (
+                                    <div style={{ marginTop: "4px" }}>
+                                        <InlineError
+                                            message={"This field is required"}
+                                            fieldID={"FSBWinningText"}
+                                        />
+                                    </div>
+                                )}
+                            </BlockStack>
+                        </FormLayout.Group>
+
+                        <FormLayout.Group condensed>
+                            {/* Secondary Text */}
+                            <BlockStack gap="200">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Secondary Text
+                                </Text>
+                                <TextField
+                                    error={
+                                        FSBSecondaryText == "" ||
+                                        FSBSecondaryText == null
+                                    }
+                                    value={FSBSecondaryText ?? ""}
+                                    onChange={handleFSBSecondaryTextField}
+                                    autoComplete="off"
+                                    maxLength={60}
+                                    id="FSBSecondaryText"
+                                    placeholder="Example: Add products to receive free shipping"
+                                    showCharacterCount
+                                />
+                                {(FSBSecondaryText == "" ||
+                                    FSBSecondaryText == null) && (
+                                    <div style={{ marginTop: "4px" }}>
+                                        <InlineError
+                                            message={"This field is required"}
+                                            fieldID={"FSBSecondaryText"}
+                                        />
+                                    </div>
+                                )}
+                            </BlockStack>
+                        </FormLayout.Group>
+
+                        <FormLayout.Group condensed>
+                            {/* Primary Font Size */}
+                            <BlockStack gap="0">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Primary Font-size
+                                </Text>
+                                <RangeSlider
+                                    label={`${FSBPrimaryFontSize} px`}
+                                    value={FSBPrimaryFontSize}
+                                    min={14}
+                                    max={30}
+                                    onChange={handleFSBPrimaryFontSize}
+                                    output
+                                />
+                            </BlockStack>
+
+                            {/* Secondary Font Size */}
+                            <BlockStack gap="0">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Secondary Font-size
+                                </Text>
+                                <RangeSlider
+                                    label={`${FSBSecondaryFontSize} px`}
+                                    value={FSBSecondaryFontSize}
+                                    min={12}
+                                    max={24}
+                                    onChange={handleFSBSecondaryFontSize}
+                                    output
+                                />
+                            </BlockStack>
+                        </FormLayout.Group>
+
+                        <FormLayout.Group condensed>
+                            {/* Color */}
+                            <BlockStack gap="0">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Color
+                                </Text>
+                                <div className="lm_sticky_color_box">
+                                    <input
+                                        type="color"
+                                        value={FSBColor}
+                                        onChange={handleFSBColor}
+                                    />
+                                </div>
+                            </BlockStack>
+                        </FormLayout.Group>
                     </BlockStack>
-                </FormLayout.Group>
+                )}
             </FormLayout>
         </Card>
     );

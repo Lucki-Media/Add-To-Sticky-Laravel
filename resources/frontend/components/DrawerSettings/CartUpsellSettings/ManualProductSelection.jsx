@@ -1,6 +1,5 @@
 import {
     Autocomplete,
-    Tag,
     Icon,
     BlockStack,
     Text,
@@ -8,6 +7,7 @@ import {
     Box,
     InlineStack,
     Button,
+    Toast,
 } from "@shopify/polaris";
 import { useState, useCallback, useEffect } from "react";
 import { SearchIcon, XIcon } from "@shopify/polaris-icons";
@@ -28,6 +28,17 @@ export default function ManualProductSelection(props) {
     const [willLoadMoreResults, setWillLoadMoreResults] = useState(true);
     const [visibleOptionIndex, setVisibleOptionIndex] =
         useState(paginationInterval);
+
+    // TOAST LOGIC START
+    const [toastActive, setToastActive] = useState(false);
+    const toggleActive = useCallback(
+        () => setToastActive((toastActive) => !toastActive),
+        []
+    );
+    const toastMarkup = toastActive && (
+        <Toast content="Select up to 3 products." onDismiss={toggleActive} />
+    );
+    // TOAST LOGIC END
 
     const handleLoadMoreResults = useCallback(() => {
         if (willLoadMoreResults) {
@@ -70,29 +81,34 @@ export default function ManualProductSelection(props) {
 
     const updateProductSelection = useCallback(
         (selectedProducts) => {
-            setSelectedProductIDs(selectedProducts);
-            const updatedSelectedProducts = selectedProducts
-                .map((selected) => {
-                    // Find the object with the matching id
-                    const product = props.productResponse.find(
-                        (option) => String(option.id) === String(selected)
-                    ); // Transform the found product into the desired structure
+            // setup limitation upto 3 products
+            if (selectedProducts.length <= 3) {
+                setSelectedProductIDs(selectedProducts);
+                const updatedSelectedProducts = selectedProducts
+                    .map((selected) => {
+                        // Find the object with the matching id
+                        const product = props.productResponse.find(
+                            (option) => String(option.id) === String(selected)
+                        ); // Transform the found product into the desired structure
 
-                    return product
-                        ? {
-                              id: String(product.id),
-                              title: product.title,
-                              image:
-                                  product.image && product.image.src
-                                      ? product.image.src
-                                      : noImage,
-                          }
-                        : null;
-                })
-                .filter((item) => item !== null);
+                        return product
+                            ? {
+                                  id: String(product.id),
+                                  title: product.title,
+                                  image:
+                                      product.image && product.image.src
+                                          ? product.image.src
+                                          : noImage,
+                              }
+                            : null;
+                    })
+                    .filter((item) => item !== null);
 
-            // Update the state with the array of selected products
-            setSelectedProduct(updatedSelectedProducts);
+                // Update the state with the array of selected products
+                setSelectedProduct(updatedSelectedProducts);
+            } else {
+                toggleActive();
+            }
         },
         [props.productResponse]
     );
@@ -244,6 +260,9 @@ export default function ManualProductSelection(props) {
                 />
             </div>
             {selectedTagMarkup}
+
+            {/* Toast Markup */}
+            {toastMarkup}
         </BlockStack>
     );
 }

@@ -27,6 +27,7 @@ export default function ProductListSettings(props) {
 
     // HANDLING MAIN JSON DATA START
     var jsonData = {
+        enableDrawer: props.customizationData.enableDrawer,
         cartHeader: props.customizationData.cartHeader,
         emptyCart: props.customizationData.emptyCart,
         shippingBar: props.customizationData.shippingBar,
@@ -37,13 +38,14 @@ export default function ProductListSettings(props) {
         cartUpsell: props.customizationData.cartUpsell,
         bottomSection: props.customizationData.bottomSection,
     };
-    // useEffect(() => {
-    //     callbackFunction();
-    // }, [PLFontSize, PLTextColor]);
 
-    // const callbackFunction = useCallback(() => {
-    //     props.settingDataCallback(jsonData);
-    // }, [jsonData]);
+    useEffect(() => {
+        callbackFunction();
+    }, [PLFontSize, PLTextColor]);
+
+    const callbackFunction = useCallback(() => {
+        props.settingDataCallback(jsonData);
+    }, [jsonData]);
     // HANDLING MAIN JSON DATA END
 
     return (

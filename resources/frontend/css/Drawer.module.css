@@ -198,12 +198,13 @@ span.lm_shipping_bar_sub_title {
     font-weight: 700;
     line-height: 1.5rem;
     letter-spacing: 0.5px;
+    padding-bottom: 10px;
 }
 .lm_cart_footer_message {
     margin: auto;
     width: 100%;
     text-align: center;
-    padding: 10px 0;
+    padding-bottom: 10px;
     line-height: 1.5rem;
     color: #000;
     opacity: 0.6;

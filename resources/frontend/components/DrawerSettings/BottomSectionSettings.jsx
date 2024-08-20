@@ -153,6 +153,7 @@ export default function BottomSectionSettings(props) {
 
     // HANDLING MAIN JSON DATA START
     var jsonData = {
+        enableDrawer: props.customizationData.enableDrawer,
         cartHeader: props.customizationData.cartHeader,
         emptyCart: props.customizationData.emptyCart,
         shippingBar: props.customizationData.shippingBar,
@@ -177,31 +178,31 @@ export default function BottomSectionSettings(props) {
             BSColor: BSColor,
         },
     };
-    // useEffect(() => {
-    //     callbackFunction();
-    //     [
-    //         BSCheckoutTextEnable,
-    //         BSContinueEnable,
-    //         BSViewCartEnable,
-    //         BSSubtotalText,
-    //         BSCheckoutMsgText,
-    //         BSCheckoutBtnText,
-    //         BSContinueText,
-    //         BSViewCartText,
-    //         BSPrimaryFontSize,
-    //         BSSecondaryFontSize,
-    //         BSCheckoutBtnFontSize,
-    //         BSBtnTextColor,
-    //         BSBtnBGColor,
-    //         BSBtnTextHoverColor,
-    //         BSBtnBGHoverColor,
-    //         BSColor,
-    //     ];
-    // });
 
-    // const callbackFunction = useCallback(() => {
-    //     props.settingDataCallback(jsonData);
-    // }, [jsonData]);
+    useEffect(() => {
+        callbackFunction();
+    }, [
+        BSCheckoutTextEnable,
+        BSContinueEnable,
+        BSViewCartEnable,
+        BSSubtotalText,
+        BSCheckoutMsgText,
+        BSCheckoutBtnText,
+        BSContinueText,
+        BSViewCartText,
+        BSPrimaryFontSize,
+        BSSecondaryFontSize,
+        BSCheckoutBtnFontSize,
+        BSBtnTextColor,
+        BSBtnBGColor,
+        BSBtnTextHoverColor,
+        BSBtnBGHoverColor,
+        BSColor,
+    ]);
+
+    const callbackFunction = useCallback(() => {
+        props.settingDataCallback(jsonData);
+    }, [jsonData]);
     // HANDLING MAIN JSON DATA END
 
     return (
@@ -227,6 +228,7 @@ export default function BottomSectionSettings(props) {
                     label="Enable Continue Shopping Option"
                     checked={BSContinueEnable}
                     onChange={handleBSContinueEnable}
+                    disabled={BSViewCartEnable} // Because we need to show only one from continue or view cart button
                 />
 
                 {/* View Cart Option */}
@@ -234,6 +236,7 @@ export default function BottomSectionSettings(props) {
                     label=" Enable View Cart Option"
                     checked={BSViewCartEnable}
                     onChange={handleBSViewCartEnable}
+                    disabled={BSContinueEnable} //  Because we need to show only one from continue or view cart button
                 />
             </BlockStack>
 
@@ -301,94 +304,116 @@ export default function BottomSectionSettings(props) {
                     </BlockStack>
                 </FormLayout.Group>
 
-                <FormLayout.Group condensed>
-                    {/* Checkout Message Text */}
-                    <BlockStack gap="200">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Checkout Message Text
-                        </Text>
-                        <TextField
-                            error={
-                                BSCheckoutMsgText == "" ||
-                                BSCheckoutMsgText == null
-                            }
-                            value={BSCheckoutMsgText ?? ""}
-                            onChange={handleBSCheckoutMsgTextField}
-                            autoComplete="off"
-                            maxLength={60}
-                            id="BSCheckoutMsgText"
-                            placeholder="Example: Taxes and shipping calculated at checkout"
-                            showCharacterCount
-                        />
-                        {(BSCheckoutMsgText == "" ||
-                            BSCheckoutMsgText == null) && (
-                            <div style={{ marginTop: "4px" }}>
-                                <InlineError
-                                    message={"This field is required"}
-                                    fieldID={"BSCheckoutMsgText"}
-                                />
-                            </div>
-                        )}
-                    </BlockStack>
-                </FormLayout.Group>
+                {BSCheckoutTextEnable && (
+                    <FormLayout.Group condensed>
+                        {/* Checkout Message Text */}
+                        <BlockStack gap="200">
+                            <Text
+                                variant="headingMd"
+                                as="span"
+                                fontWeight="medium"
+                            >
+                                Checkout Message Text
+                            </Text>
+                            <TextField
+                                error={
+                                    BSCheckoutMsgText == "" ||
+                                    BSCheckoutMsgText == null
+                                }
+                                value={BSCheckoutMsgText ?? ""}
+                                onChange={handleBSCheckoutMsgTextField}
+                                autoComplete="off"
+                                maxLength={60}
+                                id="BSCheckoutMsgText"
+                                placeholder="Example: Taxes and shipping calculated at checkout"
+                                showCharacterCount
+                            />
+                            {(BSCheckoutMsgText == "" ||
+                                BSCheckoutMsgText == null) && (
+                                <div style={{ marginTop: "4px" }}>
+                                    <InlineError
+                                        message={"This field is required"}
+                                        fieldID={"BSCheckoutMsgText"}
+                                    />
+                                </div>
+                            )}
+                        </BlockStack>
+                    </FormLayout.Group>
+                )}
 
-                <FormLayout.Group condensed>
-                    {/* Continue Shopping Text */}
-                    <BlockStack gap="200">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Continue Shopping Text
-                        </Text>
-                        <TextField
-                            error={
-                                BSContinueText == "" || BSContinueText == null
-                            }
-                            value={BSContinueText ?? ""}
-                            onChange={handleBSContinueTextField}
-                            autoComplete="off"
-                            maxLength={20}
-                            id="BSContinueText"
-                            placeholder="Example: Continue Shopping"
-                            showCharacterCount
-                        />
-                        {(BSContinueText == "" || BSContinueText == null) && (
-                            <div style={{ marginTop: "4px" }}>
-                                <InlineError
-                                    message={"This field is required"}
-                                    fieldID={"BSContinueText"}
-                                />
-                            </div>
-                        )}
-                    </BlockStack>
-                </FormLayout.Group>
+                {BSContinueEnable && (
+                    <FormLayout.Group condensed>
+                        {/* Continue Shopping Text */}
+                        <BlockStack gap="200">
+                            <Text
+                                variant="headingMd"
+                                as="span"
+                                fontWeight="medium"
+                            >
+                                Continue Shopping Text
+                            </Text>
+                            <TextField
+                                error={
+                                    BSContinueText == "" ||
+                                    BSContinueText == null
+                                }
+                                value={BSContinueText ?? ""}
+                                onChange={handleBSContinueTextField}
+                                autoComplete="off"
+                                maxLength={20}
+                                id="BSContinueText"
+                                placeholder="Example: Continue Shopping"
+                                showCharacterCount
+                            />
+                            {(BSContinueText == "" ||
+                                BSContinueText == null) && (
+                                <div style={{ marginTop: "4px" }}>
+                                    <InlineError
+                                        message={"This field is required"}
+                                        fieldID={"BSContinueText"}
+                                    />
+                                </div>
+                            )}
+                        </BlockStack>
+                    </FormLayout.Group>
+                )}
 
-                <FormLayout.Group condensed>
-                    {/* View Cart Text */}
-                    <BlockStack gap="200">
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            View Cart Text
-                        </Text>
-                        <TextField
-                            error={
-                                BSViewCartText == "" || BSViewCartText == null
-                            }
-                            value={BSViewCartText ?? ""}
-                            onChange={handleBSViewCartTextField}
-                            autoComplete="off"
-                            maxLength={20}
-                            id="BSViewCartText"
-                            placeholder="Example: View Cart"
-                            showCharacterCount
-                        />
-                        {(BSViewCartText == "" || BSViewCartText == null) && (
-                            <div style={{ marginTop: "4px" }}>
-                                <InlineError
-                                    message={"This field is required"}
-                                    fieldID={"BSViewCartText"}
-                                />
-                            </div>
-                        )}
-                    </BlockStack>
-                </FormLayout.Group>
+                {BSViewCartEnable && (
+                    <FormLayout.Group condensed>
+                        {/* View Cart Text */}
+                        <BlockStack gap="200">
+                            <Text
+                                variant="headingMd"
+                                as="span"
+                                fontWeight="medium"
+                            >
+                                View Cart Text
+                            </Text>
+                            <TextField
+                                error={
+                                    BSViewCartText == "" ||
+                                    BSViewCartText == null
+                                }
+                                value={BSViewCartText ?? ""}
+                                onChange={handleBSViewCartTextField}
+                                autoComplete="off"
+                                maxLength={20}
+                                id="BSViewCartText"
+                                placeholder="Example: View Cart"
+                                showCharacterCount
+                            />
+                            {(BSViewCartText == "" ||
+                                BSViewCartText == null) && (
+                                <div style={{ marginTop: "4px" }}>
+                                    <InlineError
+                                        message={"This field is required"}
+                                        fieldID={"BSViewCartText"}
+                                    />
+                                </div>
+                            )}
+                        </BlockStack>
+                    </FormLayout.Group>
+                )}
                 {/* Textfields End */}
 
                 {/* Font-size and Color Start */}
