@@ -110,6 +110,22 @@ export default function CartTemplate8(props) {
     const currentYear = currentDate.getFullYear();
     const monthOptions = { month: "short" };
     const currentMonth = currentDate.toLocaleString("en-US", monthOptions);
+
+    /* CART COUNT API CALL START*/
+    const getCartCount = async () => {
+        axios
+            .get("https://" + window.location.host + "/cart.json")
+            .then((response) => {
+                updateCartDrawer(response.data.item_count);
+            });
+    };
+
+    function updateCartDrawer(cartCount) {
+        // Update the cart item count (example)
+        document.querySelector(".cart-count-bubble").textContent = cartCount;
+        document.querySelector(".sticky_Count").textContent = cartCount;
+    }
+
     let handleAddProduct = async () => {
         setLoading(true);
         const requestOptions = {
@@ -150,6 +166,10 @@ export default function CartTemplate8(props) {
                 } else {
                     window.location.href = "/checkout";
                 }
+
+                setTimeout(function () {
+                    getCartCount();
+                }, 1000);
             } catch (error) {
                 console.log();
             }

@@ -6,6 +6,7 @@ import { QuantityPicker } from "react-qty-picker";
 import style from "./CartTemplate1.module.css";
 import getSymbolFromCurrency from "currency-symbol-map";
 import NotificationBar from "./NotificationBar";
+import axios from "axios";
 
 export default function CartTemplate1(props) {
     const template_data = props.templateData.current_template;
@@ -60,6 +61,7 @@ export default function CartTemplate1(props) {
     const [showContainer, setShowContainer] = useState(false);
     const [showNotificationBar, setShowNotificationBar] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [numberCount, setNumberCount] = useState(0);
     // console.log(props.templateData);
     const [selectedVariant, setSelectedVariant] = useState(
         props.product.variants?.length && props.product.variants[0]
@@ -110,6 +112,22 @@ export default function CartTemplate1(props) {
     const currentYear = currentDate.getFullYear();
     const monthOptions = { month: "short" };
     const currentMonth = currentDate.toLocaleString("en-US", monthOptions);
+
+    /* CART COUNT API CALL START*/
+    const getCartCount = async () => {
+        axios
+            .get("https://" + window.location.host + "/cart.json")
+            .then((response) => {
+                updateCartDrawer(response.data.item_count);
+            });
+    };
+
+    function updateCartDrawer(cartCount) {
+        // Update the cart item count (example)
+        document.querySelector(".cart-count-bubble").textContent = cartCount;
+        document.querySelector(".sticky_Count").textContent = cartCount;
+    }
+
     let handleAddProduct = async () => {
         setLoading(true);
         const requestOptions = {
@@ -131,6 +149,7 @@ export default function CartTemplate1(props) {
                 year: currentYear,
             }),
         };
+
         if (selectedVariant) {
             try {
                 await fetch(
@@ -149,11 +168,16 @@ export default function CartTemplate1(props) {
                 } else {
                     window.location.href = "/checkout";
                 }
+
+                setTimeout(function () {
+                    getCartCount();
+                }, 1000);
             } catch (error) {
                 console.log();
             }
         }
     };
+
     useEffect(() => {
         const option0 = selectedOptions?.option0;
         const option1 = selectedOptions?.option1;
