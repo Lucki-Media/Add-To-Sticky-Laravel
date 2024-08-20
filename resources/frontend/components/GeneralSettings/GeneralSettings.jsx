@@ -26,6 +26,7 @@ function GeneralSettings(props) {
     const [checkMobile, setCheckMobile] = useState(props.checkMobile);
     const [checkDesktop, setCheckDesktop] = useState(props.checkDesktop);
     const [gsAction, setGsAction] = useState(props.gsAction);
+    const [enableUpSell, setEnableUpSell] = useState(true);
     const [gsDisplayCondition, setGsDisplayCondition] = useState(
         props.gsDisplayCondition
     );
@@ -429,6 +430,28 @@ function GeneralSettings(props) {
                     </FormLayout>
                 </BlockStack>
             )}
+
+            <div style={{ margin: "15px 0" }}>
+                <Divider borderColor="border" />
+            </div>
+
+            <Text
+                variant="bodyLg"
+                as="span"
+                alignment="start"
+                fontWeight="medium"
+            >
+                UpSell Popup
+                {enableUpSell ? (
+                    <span className="lm_sticky_custom_badge_success">
+                        <Badge tone="success">Enabled</Badge>
+                    </span>
+                ) : (
+                    <span className="lm_sticky_custom_badge_critical">
+                        <Badge tone="critical">Disabled</Badge>
+                    </span>
+                )}
+            </Text>
 
             <div style={{ margin: "15px 0" }}>
                 <Divider borderColor="border" />
