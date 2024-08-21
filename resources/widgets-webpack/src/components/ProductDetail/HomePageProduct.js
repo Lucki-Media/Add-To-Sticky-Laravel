@@ -11,8 +11,6 @@ import CartTemplate8 from "../Templates/CartTemplate8.jsx";
 import "./index.css";
 
 const HomePageProduct = (props) => {
-    const [value, setValue] = useState(1);
-    const [heightValue, setHeightValue] = useState(70);
     const [productData, setProductData] = useState([]);
     const [templateData, setTemplateData] = useState([]);
     const [productImage, setProductImage] = useState();
@@ -27,15 +25,20 @@ const HomePageProduct = (props) => {
             );
             const dataHandle = await responseHandle.json();
 
-            if (dataHandle.data !== "") {
+            if (dataHandle.data.handle !== "") {
+                // set template data
+                setTemplateData(dataHandle.data.final_data);
+
+                // call js API to get product details
                 const response = await fetch(
-                    "/products/" + dataHandle.data + ".js"
+                    "/products/" + dataHandle.data.handle + ".js"
                 );
                 const data = await response.json();
                 setProductData(data);
 
+                // call json API to get product image details
                 const responseImage = await fetch(
-                    "/products/" + dataHandle.data + ".json"
+                    "/products/" + dataHandle.data.handle + ".json"
                 );
                 const dataImage = await responseImage.json();
                 setProductImage(
@@ -53,11 +56,6 @@ const HomePageProduct = (props) => {
     // USE EFFECT
     useEffect(() => {
         getProductHandle();
-
-        setValue(TemplateStyle.default_template);
-        setHeightValue(
-            TemplateStyle.current_template.general_settings.font_height
-        );
     }, []);
 
     if (productData.length <= 0) {

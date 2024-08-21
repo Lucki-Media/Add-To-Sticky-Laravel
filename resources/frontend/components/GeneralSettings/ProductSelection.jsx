@@ -106,9 +106,9 @@ export default function ProductSelection(props) {
             setLoadingState(true);
             const response = await fetch("api/getAllProducts/" + shop_url);
             const data = await response.json();
-            // console.log(data.data.products);
+            // console.log(data.data);
 
-            var productArray = data.data.products.map((product) => ({
+            var productArray = data.data.map((product) => ({
                 media: (
                     <Thumbnail
                         source={
@@ -123,7 +123,7 @@ export default function ProductSelection(props) {
                 label: product.title,
             }));
 
-            setProductResponse(data.data.products);
+            setProductResponse(data.data);
             setDeselectedOptions(productArray);
             setOptions(productArray);
 
@@ -131,7 +131,7 @@ export default function ProductSelection(props) {
             let selected = [props.homePageProduct];
 
             // Find the object with the matching id
-            const product = data.data.products.find(
+            const product = data.data.find(
                 (option) => String(option.id) === String(selected)
             );
 
