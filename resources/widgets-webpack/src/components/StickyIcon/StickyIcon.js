@@ -8,6 +8,7 @@ import {
     faBagShopping,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import Drawer from "../Drawer/Drawer";
 require("./index.css");
 const StickyIcon = () => {
     const [font, setFont] = useState("");
@@ -50,6 +51,8 @@ const StickyIcon = () => {
 
     // DRAWER DATA
     const [drawerData, setDrawerData] = useState([]);
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [cartData, setCartData] = useState();
 
     let handleClick = async () => {
         const requestOptions = {
@@ -66,10 +69,15 @@ const StickyIcon = () => {
                 `${process.env.REACT_APP_API_URL}` + "addStickyButtonClicks",
                 requestOptions
             );
-            if (action === "1") {
-                window.location.href = "/cart";
+            // If drawer cart is enabled, then open otherwise redirect to action
+            if (drawerData.enableDrawer === true) {
+                setIsDrawerOpen(true);
             } else {
-                window.location.href = "/checkout";
+                if (action === "1") {
+                    window.location.href = "/cart";
+                } else {
+                    window.location.href = "/checkout";
+                }
             }
             // console.log(cart_added);
         } catch (error) {
@@ -133,13 +141,12 @@ const StickyIcon = () => {
         }
     };
 
-    console.log(drawerData);
-
     /* CART COUNT API CALL START*/
     const getCartCount = async () => {
         axios
             .get("https://" + window.location.host + "/cart.json")
             .then((response) => {
+                setCartData(response.data);
                 setNumberCount(response.data.item_count);
             });
     };
@@ -191,11 +198,11 @@ const StickyIcon = () => {
                     {`
                         @import url("https://fonts.googleapis.com/css2?family=${fontFamily}&display=swap");
                         .apply-font{
-                            font-family : ${fontFamily};
+                            font-family : ${fontFamily} !important;
                         }
                     `}
                 </style>
-                {enableSticky === true ? (
+                {enableSticky === true && (
                     <div className="main_sticky___div">
                         <div
                             className="stickyCart__icon"
@@ -278,8 +285,16 @@ const StickyIcon = () => {
                             )}
                         </div>
                     </div>
-                ) : (
-                    ""
+                )}
+                {isDrawerOpen === true && (
+                    <Drawer
+                        isOpen={isDrawerOpen}
+                        customizationData={drawerData}
+                        handleClose={() => {
+                            setIsDrawerOpen(false);
+                        }}
+                        cartData={cartData}
+                    />
                 )}
             </div>
         );

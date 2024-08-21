@@ -1,12 +1,18 @@
 import React, { useState } from "react";
-import style from "../../css/Drawer.module.css";
-import proimage from "../../assets/productimage.png";
+import style from "./Drawer.module.css";
+import proimage from "./productimage.png";
 import { QuantityPicker } from "react-qty-picker";
-import recommendedProducts from "../../assets/recommendedProducts.js";
+import recommendedProducts from "./recommendedProducts.js";
 
-export default function Drawer({ isOpen, customizationData }) {
+export default function Drawer({
+    isOpen,
+    customizationData,
+    handleClose,
+    cartData,
+}) {
     const [checkoutBtnHover, setCheckoutBtnHover] = useState(false);
     const [hoverState, setHoverState] = useState({});
+    console.log(cartData);
 
     const handleMouseEnter = (id) => {
         setHoverState((prevState) => ({
@@ -30,10 +36,16 @@ export default function Drawer({ isOpen, customizationData }) {
         let b = bigint & 255;
         return `${r}, ${g}, ${b}`;
     };
+
     return (
         <>
             <style>
                 {`
+                    @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+                        .lm_drawer {
+                            font-family : Inter !important;
+                        }
+
                     .lm_quantity_picker .quantity-picker .quantity-display {
                         width: 1.5rem !important;
                         padding: 0.25rem;
@@ -63,14 +75,16 @@ export default function Drawer({ isOpen, customizationData }) {
                 className={`${style.lm_drawer_wrapper} ${
                     isOpen && style.lm_drawer_open
                 }`}
+                onClick={handleClose}
             >
                 <div
                     className={`${style.lm_drawer} ${
                         isOpen && style.lm_drawer_open
-                    }`}
+                    } lm_drawer`}
                     style={{
                         background: customizationData.cartHeader.DCBGColor,
                     }}
+                    onClick={(e) => e.stopPropagation()}
                 >
                     {/* Drawer Header */}
                     <div className={style.lm_drawer_header}>
@@ -95,6 +109,7 @@ export default function Drawer({ isOpen, customizationData }) {
                                 color: customizationData.cartHeader
                                     .DCTitleColor,
                             }}
+                            onClick={handleClose}
                         >
                             &times;
                         </span>
@@ -566,6 +581,9 @@ export default function Drawer({ isOpen, customizationData }) {
                                 onMouseLeave={() => {
                                     setCheckoutBtnHover(false);
                                 }}
+                                onClick={() => {
+                                    window.location.href = "/checkout";
+                                }}
                             >
                                 {
                                     customizationData.bottomSection
@@ -584,6 +602,7 @@ export default function Drawer({ isOpen, customizationData }) {
                                     color: customizationData.bottomSection
                                         .BSColor,
                                 }}
+                                onClick={handleClose}
                             >
                                 {customizationData.bottomSection.BSContinueText}
                             </a>
@@ -599,6 +618,7 @@ export default function Drawer({ isOpen, customizationData }) {
                                     color: customizationData.bottomSection
                                         .BSColor,
                                 }}
+                                onClick={handleClose}
                             >
                                 {customizationData.bottomSection.BSViewCartText}
                             </a>
@@ -606,6 +626,7 @@ export default function Drawer({ isOpen, customizationData }) {
                     </div>
                 </div>
             </div>
+            ;
         </>
     );
 }
