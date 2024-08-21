@@ -148,7 +148,7 @@ function GeneralSettings(props) {
 
     // SWITCH LOGIC
     const handleUpSellSwitchChange = (checked) => {
-        setEnableUpSell(checked);
+        setEnableU(checked);
     };
 
     // Notification Bar Height Handle Event
@@ -458,7 +458,9 @@ function GeneralSettings(props) {
                 )}
             </Text>
             <Switch
-                onChange={handleUpSellSwitchChange}
+                onChange={
+                    handleSwitchChange
+                }
                 checked={enableUpSell}
                 uncheckedIcon={null}
                 checkedIcon={null}

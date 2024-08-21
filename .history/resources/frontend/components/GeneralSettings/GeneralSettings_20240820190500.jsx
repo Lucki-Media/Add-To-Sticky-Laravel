@@ -146,11 +146,6 @@ function GeneralSettings(props) {
         []
     );
 
-    // SWITCH LOGIC
-    const handleUpSellSwitchChange = (checked) => {
-        setEnableUpSell(checked);
-    };
-
     // Notification Bar Height Handle Event
     // const handleHeight = (event) => {
     //     console.log("event.target.value");
@@ -457,12 +452,6 @@ function GeneralSettings(props) {
                     </span>
                 )}
             </Text>
-            <Switch
-                onChange={handleUpSellSwitchChange}
-                checked={enableUpSell}
-                uncheckedIcon={null}
-                checkedIcon={null}
-            />
 
             <div style={{ margin: "15px 0" }}>
                 <Divider borderColor="border" />
