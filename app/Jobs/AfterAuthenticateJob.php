@@ -127,6 +127,7 @@ class AfterAuthenticateJob implements ShouldQueue
         $sticky_template_3 = json_encode(require $path . '/template_files/sticky_template_3.php');
         $sticky_template_4 = json_encode(require $path . '/template_files/sticky_template_4.php');
         $sticky_template_5 = json_encode(require $path . '/template_files/sticky_template_5.php');
+        $drawer_cart_data = json_encode(require $path . '/template_files/drawerCartData.php');
         $final_data_sticky = [
             'shop_domain' => $this->shopDomain,
             'enableSticky' => '0',
@@ -137,6 +138,7 @@ class AfterAuthenticateJob implements ShouldQueue
             'sticky_template_3' => $sticky_template_3,
             'sticky_template_4' => $sticky_template_4,
             'sticky_template_5' => $sticky_template_5,
+            'drawer_cart_data' => $drawer_cart_data,
         ];
         // Specify the unique key and values to check for existing records
         $uniqueKey = ['shop_domain' => $this->shopDomain];

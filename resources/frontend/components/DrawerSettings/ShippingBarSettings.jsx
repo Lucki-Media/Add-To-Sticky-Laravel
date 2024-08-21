@@ -42,7 +42,6 @@ export default function ShippingBarSettings(props) {
     // ENABLE SHIPPING BAR BUTTON LOGIC
     const handleEnable = (value) => {
         setFSBenable(!value);
-        // setUnsavedchanges(isEqual(!value, props.originalenableSticky));
     };
 
     // SHIPPING TARGET

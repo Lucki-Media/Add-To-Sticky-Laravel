@@ -10,7 +10,6 @@ export default function EnableSettings(props) {
     // ENABLE DRAWER BUTTON LOGIC
     const handleEnable = (value) => {
         setEnableDrawer(!value);
-        // setUnsavedChanges(isEqual(!value, props.originalenableSticky));
     };
 
     // HANDLING MAIN JSON DATA START

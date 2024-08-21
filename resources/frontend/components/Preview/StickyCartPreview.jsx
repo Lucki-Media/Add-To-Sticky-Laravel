@@ -165,34 +165,34 @@ export default function StickyCartPreview(props) {
                                                                     position:
                                                                         "absolute",
                                                                     fontSize:
-                                                                        props.iconSize,
+                                                                        props.stickyData.iconSize,
                                                                     color: iconHover
-                                                                        ? props.iconHoverColor
-                                                                        : props.iconColor,
+                                                                        ? props.stickyData.iconHoverColor
+                                                                        : props.stickyData.iconColor,
                                                                     border: iconHover
-                                                                        ? props.borderSize +
+                                                                        ? props.stickyData.borderSize +
                                                                           "px solid " +
-                                                                          props.borderHoverColor
-                                                                        : props.borderSize +
+                                                                          props.stickyData.borderHoverColor
+                                                                        : props.stickyData.borderSize +
                                                                           "px solid " +
-                                                                          props.borderColor,
+                                                                          props.stickyData.borderColor,
                                                                     background:
                                                                         iconHover
-                                                                            ? props.bgHoverColor
-                                                                            : props.bgColor,
-                                                                    height: props.btnSize,
-                                                                    width: props.btnSize,
+                                                                            ? props.stickyData.bgHoverColor
+                                                                            : props.stickyData.bgColor,
+                                                                    height: props.stickyData.btnSize,
+                                                                    width: props.stickyData.btnSize,
                                                                     top:
-                                                                        props.positionTop ===
+                                                                        props.stickyData.positionTop ===
                                                                         0
                                                                             ? ""
-                                                                            : props.positionTop +
+                                                                            : props.stickyData.positionTop +
                                                                               "%",
                                                                     left:
-                                                                        props.positionLeft ===
+                                                                        props.stickyData.positionLeft ===
                                                                         0
                                                                             ? ""
-                                                                            : props.positionLeft +
+                                                                            : props.stickyData.positionLeft +
                                                                               "%",
                                                                 }}
                                                                 onMouseEnter={
@@ -202,22 +202,22 @@ export default function StickyCartPreview(props) {
                                                                     handleIconLeave
                                                                 }
                                                             >
-                                                                {props.enableCount ===
+                                                                {props.stickyData.enableCount ===
                                                                 true ? (
                                                                     <span
                                                                         className="sticky_Count"
                                                                         style={{
                                                                             background:
                                                                                 countHover
-                                                                                    ? props.countBgHoverColor
-                                                                                    : props.countBgColor,
-                                                                            width: props.countSize,
-                                                                            height: props.countSize,
+                                                                                    ? props.stickyData.countBgHoverColor
+                                                                                    : props.stickyData.countBgColor,
+                                                                            width: props.stickyData.countSize,
+                                                                            height: props.stickyData.countSize,
                                                                             fontSize:
-                                                                                props.countFontSize,
+                                                                                props.stickyData.countFontSize,
                                                                             color: countHover
-                                                                                ? props.countHoverColor
-                                                                                : props.countColor,
+                                                                                ? props.stickyData.countHoverColor
+                                                                                : props.stickyData.countColor,
                                                                         }}
                                                                         onMouseEnter={
                                                                             handleCountEnter
@@ -227,7 +227,7 @@ export default function StickyCartPreview(props) {
                                                                         }
                                                                     >
                                                                         {
-                                                                            props.numberCount
+                                                                            props.stickyData.numberCount
                                                                         }
                                                                     </span>
                                                                 ) : (

@@ -20,69 +20,34 @@ import StickyCartPreview from "../components/Preview/StickyCartPreview";
 import StickyIconSettings from "../components/StickyCartUpsell/StickyIconSettings";
 import DrawerSettings from "../components/StickyCartUpsell/DrawerSettings";
 import drawerCartData from "../assets/drawerCartData.js";
+import stickyIconData from "../assets/stickyIconData.js";
+import { isEqual } from "lodash";
 
 export default function StickyCart() {
     // Getting Shop Domain
     const shop_url = document.getElementById("shopOrigin").value;
 
     const [showSettings, setShowSettings] = useState(1);
+    const [unsavedChanges, setUnsavedChanges] = useState(true);
 
     // loading states
     const [showTable, setShowTable] = useState(false);
     const [saveLoader, setSaveLoader] = useState(false);
 
+    // STICKY ICON DATA
+    const [stickyData, setStickyData] = useState(stickyIconData);
+    const [stickyAPIResponse, setStickyAPIResponse] = useState(stickyIconData);
     const [stickyCartData, setStickyCartData] = useState([]);
+
     const [originalenableSticky, setoriginalEnableSticky] = useState(true);
     const [enableSticky, setEnableSticky] = useState(true);
+
     const [originaldefaultTemplate, setoriginalDefaultTemplate] = useState("1");
     const [defaultTemplate, setDefaultTemplate] = useState("1");
-    const [originalaction, setoriginalAction] = useState("1");
-    const [action, setAction] = useState("1");
-    const [originalbtnSize, setoriginalBtnSize] = useState(60);
-    const [btnSize, setBtnSize] = useState(60);
-    const [originalbgColor, setoriginalBgColor] = useState("#000000");
-    const [bgColor, setBgColor] = useState("#000000");
-    const [originalbgHoverColor, setoriginalBgHoverColor] = useState("#000000");
-    const [bgHoverColor, setBgHoverColor] = useState("#000000");
-    const [originalborderSize, setoriginalBorderSize] = useState(1);
-    const [borderSize, setBorderSize] = useState(1);
-    const [originalborderColor, setoriginalBorderColor] = useState("#000000");
-    const [borderColor, setBorderColor] = useState("#000000");
-    const [originalborderHoverColor, setoriginalBorderHoverColor] =
-        useState("#000000");
-    const [borderHoverColor, setBorderHoverColor] = useState("#000000");
-    const [originalpositionTop, setoriginalPositionTop] = useState(20);
-    const [positionTop, setPositionTop] = useState(20);
-    const [originalpositionLeft, setoriginalPositionLeft] = useState(0);
-    const [positionLeft, setPositionLeft] = useState(0);
-    const [originaliconSize, setoriginalIconSize] = useState(20);
-    const [iconSize, setIconSize] = useState(20);
-    const [originaliconColor, setoriginalIconColor] = useState("#000000");
-    const [iconColor, setIconColor] = useState("#000000");
-    const [originaliconHoverColor, setoriginalIconHoverColor] =
-        useState("#f08080");
-    const [iconHoverColor, setIconHoverColor] = useState("#f08080");
-    const [originalenableCount, setoriginalEnableCount] = useState(false);
-    const [enableCount, setEnableCount] = useState(false);
-    const [numberCount, setNumberCount] = useState(1);
-    const [originalcountSize, setoriginalCountSize] = useState(16);
-    const [countSize, setCountSize] = useState(16);
-    const [originalcountFontSize, setoriginalCountFontSize] = useState(14);
-    const [countFontSize, setCountFontSize] = useState(14);
-    const [originalcountColor, setoriginalCountColor] = useState("#000000");
-    const [countColor, setCountColor] = useState("#000000");
-    const [originalcountHoverColor, setoriginalCountHoverColor] =
-        useState("#000000");
-    const [countHoverColor, setCountHoverColor] = useState("#000000");
-    const [originalcountBgColor, setoriginalCountBgColor] = useState("#000000");
-    const [countBgColor, setCountBgColor] = useState("#000000");
-    const [originalcountBgHoverColor, setoriginalCountBgHoverColor] =
-        useState("#000000");
-    const [countBgHoverColor, setCountBgHoverColor] = useState("#000000");
-    const [unsavedChanges, setUnsavedChanges] = useState(true);
 
     // DRAWER STATES
     const [customizationData, setCustomizationData] = useState(drawerCartData);
+    const [drawerAPIResponse, setDrawerAPIResponse] = useState(drawerCartData);
 
     //toast for success
     const [toastContent, setToastContent] = useState();
@@ -120,27 +85,7 @@ export default function StickyCart() {
     const handleIconCallBack = (iconData) => {
         setEnableSticky(iconData.enableSticky);
         setDefaultTemplate(iconData.defaultTemplate.toString());
-        setAction(iconData.action);
-        setBtnSize(iconData.btnSize);
-        setBgColor(iconData.bgColor);
-        setBgHoverColor(iconData.bgHoverColor);
-        setBorderSize(iconData.borderSize);
-        setBorderColor(iconData.borderColor);
-        setBorderHoverColor(iconData.borderHoverColor);
-        setPositionTop(iconData.positionTop);
-        setPositionLeft(iconData.positionLeft);
-        setIconSize(iconData.iconSize);
-        setIconColor(iconData.iconColor);
-        setIconHoverColor(iconData.iconHoverColor);
-        setEnableCount(iconData.enableCount);
-        setNumberCount(iconData.numberCount);
-        setCountSize(iconData.countSize);
-        setCountFontSize(iconData.countFontSize);
-        setCountColor(iconData.countColor);
-        setCountHoverColor(iconData.countHoverColor);
-        setCountBgColor(iconData.countBgColor);
-        setCountBgHoverColor(iconData.countBgHoverColor);
-        setUnsavedChanges(iconData.unsavedChanges);
+        setStickyData(iconData.transfer_data);
     };
 
     // INIT API
@@ -148,58 +93,20 @@ export default function StickyCart() {
         try {
             const response = await fetch("api/getStickyCartData/" + shop_url);
             const data = await response.json();
+
+            // STICKY ICON DATA
             setStickyCartData(data.data);
             setoriginalEnableSticky(data.data.enableSticky);
             setEnableSticky(data.data.enableSticky);
             setoriginalDefaultTemplate(data.data.defaultTemplate.toString());
             setDefaultTemplate(data.data.defaultTemplate.toString());
-            setoriginalAction(data.data.current_template.action);
-            setAction(data.data.current_template.action);
-            setoriginalBtnSize(data.data.current_template.btnSize);
-            setBtnSize(data.data.current_template.btnSize);
-            setoriginalBgColor(data.data.current_template.bgColor);
-            setBgColor(data.data.current_template.bgColor);
-            setoriginalBgHoverColor(data.data.current_template.bgHoverColor);
-            setBgHoverColor(data.data.current_template.bgHoverColor);
-            setoriginalBorderSize(data.data.current_template.borderSize);
-            setBorderSize(data.data.current_template.borderSize);
-            setoriginalBorderColor(data.data.current_template.borderColor);
-            setBorderColor(data.data.current_template.borderColor);
-            setoriginalBorderHoverColor(
-                data.data.current_template.borderHoverColor
-            );
-            setBorderHoverColor(data.data.current_template.borderHoverColor);
-            setoriginalPositionTop(data.data.current_template.positionTop);
-            setPositionTop(data.data.current_template.positionTop);
-            setoriginalPositionLeft(data.data.current_template.positionLeft);
-            setPositionLeft(data.data.current_template.positionLeft);
-            setoriginalIconSize(data.data.current_template.iconSize);
-            setIconSize(data.data.current_template.iconSize);
-            setoriginalIconColor(data.data.current_template.iconColor);
-            setIconColor(data.data.current_template.iconColor);
-            setoriginalIconHoverColor(
-                data.data.current_template.iconHoverColor
-            );
-            setIconHoverColor(data.data.current_template.iconHoverColor);
-            setoriginalEnableCount(data.data.current_template.enableCount);
-            setEnableCount(data.data.current_template.enableCount);
-            setNumberCount(data.data.current_template.numberCount);
-            setoriginalCountSize(data.data.current_template.countSize);
-            setCountSize(data.data.current_template.countSize);
-            setoriginalCountFontSize(data.data.current_template.countFontSize);
-            setCountFontSize(data.data.current_template.countFontSize);
-            setoriginalCountColor(data.data.current_template.countColor);
-            setCountColor(data.data.current_template.countColor);
-            setoriginalCountHoverColor(
-                data.data.current_template.countHoverColor
-            );
-            setCountHoverColor(data.data.current_template.countHoverColor);
-            setoriginalCountBgColor(data.data.current_template.countBgColor);
-            setCountBgColor(data.data.current_template.countBgColor);
-            setoriginalCountBgHoverColor(
-                data.data.current_template.countBgHoverColor
-            );
-            setCountBgHoverColor(data.data.current_template.countBgHoverColor);
+            setStickyData(data.data.current_template);
+            setStickyAPIResponse(data.data.current_template);
+
+            // DRAWER CART DATA
+            setCustomizationData(data.data.drawer_cart_data);
+            setDrawerAPIResponse(data.data.drawer_cart_data);
+
             setShowTable(true);
             setSaveLoader(true);
             setUnsavedChanges(true);
@@ -215,26 +122,8 @@ export default function StickyCart() {
                 shop_domain: document.getElementById("shopOrigin").value,
                 enableSticky: enableSticky,
                 defaultTemplate: defaultTemplate,
-                action: action,
-                btnSize: btnSize,
-                bgColor: bgColor,
-                bgHoverColor: bgHoverColor,
-                borderSize: borderSize,
-                borderColor: borderColor,
-                borderHoverColor: borderHoverColor,
-                positionTop: positionTop,
-                positionLeft: positionLeft,
-                iconSize: iconSize,
-                iconColor: iconColor,
-                iconHoverColor: iconHoverColor,
-                enableCount: enableCount,
-                numberCount: numberCount,
-                countSize: countSize,
-                countFontSize: countFontSize,
-                countColor: countColor,
-                countHoverColor: countHoverColor,
-                countBgColor: countBgColor,
-                countBgHoverColor: countBgHoverColor,
+                stickyData: stickyData,
+                drawer_cart_data: customizationData,
             };
             setSaveLoader(false);
             let response = await axios.post("/api/saveStickyCartData", {
@@ -264,6 +153,25 @@ export default function StickyCart() {
     const handleDrawerDataCallback = (data) => {
         setCustomizationData(data);
     };
+
+    // SAVE BUTTON LOGIC
+    useEffect(() => {
+        setUnsavedChanges(
+            isEqual(customizationData, drawerAPIResponse) &&
+                isEqual(stickyData, stickyAPIResponse) &&
+                String(originaldefaultTemplate) === String(defaultTemplate) &&
+                originalenableSticky === enableSticky
+        );
+    }, [
+        customizationData,
+        drawerAPIResponse,
+        stickyData,
+        stickyAPIResponse,
+        originaldefaultTemplate,
+        defaultTemplate,
+        originalenableSticky,
+        enableSticky,
+    ]);
 
     if (showTable === false) {
         return (
@@ -365,102 +273,15 @@ export default function StickyCart() {
                                     <Layout.Section variant="oneThird">
                                         {showSettings === 1 && (
                                             <StickyIconSettings
+                                                enableSticky={enableSticky}
+                                                stickyData={stickyData}
                                                 iconCallBack={
                                                     handleIconCallBack
                                                 }
                                                 stickyCartData={stickyCartData}
-                                                originalenableSticky={
-                                                    originalenableSticky
-                                                }
-                                                enableSticky={enableSticky}
-                                                originaldefaultTemplate={
-                                                    originaldefaultTemplate
-                                                }
                                                 defaultTemplate={
                                                     defaultTemplate
                                                 }
-                                                originalaction={originalaction}
-                                                action={action}
-                                                originalbtnSize={
-                                                    originalbtnSize
-                                                }
-                                                btnSize={btnSize}
-                                                originalbgColor={
-                                                    originalbgColor
-                                                }
-                                                bgColor={bgColor}
-                                                originalbgHoverColor={
-                                                    originalbgHoverColor
-                                                }
-                                                bgHoverColor={bgHoverColor}
-                                                originalborderSize={
-                                                    originalborderSize
-                                                }
-                                                borderSize={borderSize}
-                                                originalborderColor={
-                                                    originalborderColor
-                                                }
-                                                borderColor={borderColor}
-                                                originalborderHoverColor={
-                                                    originalborderHoverColor
-                                                }
-                                                borderHoverColor={
-                                                    borderHoverColor
-                                                }
-                                                originalpositionTop={
-                                                    originalpositionTop
-                                                }
-                                                positionTop={positionTop}
-                                                originalpositionLeft={
-                                                    originalpositionLeft
-                                                }
-                                                positionLeft={positionLeft}
-                                                originaliconSize={
-                                                    originaliconSize
-                                                }
-                                                iconSize={iconSize}
-                                                originaliconColor={
-                                                    originaliconColor
-                                                }
-                                                iconColor={iconColor}
-                                                originaliconHoverColor={
-                                                    originaliconHoverColor
-                                                }
-                                                iconHoverColor={iconHoverColor}
-                                                originalenableCount={
-                                                    originalenableCount
-                                                }
-                                                enableCount={enableCount}
-                                                numberCount={numberCount}
-                                                originalcountSize={
-                                                    originalcountSize
-                                                }
-                                                countSize={countSize}
-                                                originalcountFontSize={
-                                                    originalcountFontSize
-                                                }
-                                                countFontSize={countFontSize}
-                                                originalcountColor={
-                                                    originalcountColor
-                                                }
-                                                countColor={countColor}
-                                                originalcountHoverColor={
-                                                    originalcountHoverColor
-                                                }
-                                                countHoverColor={
-                                                    countHoverColor
-                                                }
-                                                originalcountBgColor={
-                                                    originalcountBgColor
-                                                }
-                                                countBgColor={countBgColor}
-                                                originalcountBgHoverColor={
-                                                    originalcountBgHoverColor
-                                                }
-                                                countBgHoverColor={
-                                                    countBgHoverColor
-                                                }
-                                                unsavedChanges={unsavedChanges}
                                             />
                                         )}
                                         {showSettings === 2 && (
@@ -476,29 +297,9 @@ export default function StickyCart() {
                                     </Layout.Section>
                                     <Layout.Section>
                                         <StickyCartPreview
+                                            stickyData={stickyData}
                                             onPreviewChange={handleShowSettings}
                                             enableSticky={enableSticky}
-                                            iconSize={iconSize}
-                                            iconHoverColor={iconHoverColor}
-                                            borderSize={borderSize}
-                                            iconColor={iconColor}
-                                            borderHoverColor={borderHoverColor}
-                                            borderColor={borderColor}
-                                            bgHoverColor={bgHoverColor}
-                                            bgColor={bgColor}
-                                            btnSize={btnSize}
-                                            positionTop={positionTop}
-                                            positionLeft={positionLeft}
-                                            enableCount={enableCount}
-                                            countBgHoverColor={
-                                                countBgHoverColor
-                                            }
-                                            countBgColor={countBgColor}
-                                            countSize={countSize}
-                                            countFontSize={countFontSize}
-                                            countHoverColor={countHoverColor}
-                                            countColor={countColor}
-                                            numberCount={numberCount}
                                             defaultTemplate={defaultTemplate}
                                             // Drawer props
                                             customizationData={
