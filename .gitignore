@@ -25,3 +25,5 @@ Homestead.json
 build/
 build_old/
 *.zip
+
+.history/
