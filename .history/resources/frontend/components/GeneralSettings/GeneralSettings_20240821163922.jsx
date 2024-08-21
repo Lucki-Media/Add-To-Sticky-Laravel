@@ -458,7 +458,9 @@ function GeneralSettings(props) {
                 )}
             </Text>
             <Switch
-                onChange={handleUpSellSwitchChange}
+                onChange={
+                    handleUpSellSwitchChange
+                }
                 checked={enableUpSell}
                 uncheckedIcon={null}
                 checkedIcon={null}
