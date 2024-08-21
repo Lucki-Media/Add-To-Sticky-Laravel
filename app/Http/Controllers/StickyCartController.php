@@ -20,7 +20,8 @@ class StickyCartController extends Controller
             'sticky_template_2' => json_decode($sticky_cart_data['sticky_template_2']),
             'sticky_template_3' => json_decode($sticky_cart_data['sticky_template_3']),
             'sticky_template_4' => json_decode($sticky_cart_data['sticky_template_4']),
-            'sticky_template_5' => json_decode($sticky_cart_data['sticky_template_5'])
+            'sticky_template_5' => json_decode($sticky_cart_data['sticky_template_5']),
+            'drawer_cart_data' => json_decode($sticky_cart_data['drawer_cart_data'])
         ];
         return self::sendResponse($final_data, 'Success');
     }
@@ -30,32 +31,10 @@ class StickyCartController extends Controller
         $requestData = $request['data'];
         $sticky_cart_data = StickyCartData::where('shop_domain', $requestData['shop_domain'])->first();
         // echo '<pre>';print_r($requestData);exit;
-        $current_template = [
-            'action' => $requestData['action'],
-            'btnSize' => $requestData['btnSize'],
-            'bgColor' => $requestData['bgColor'],
-            'bgHoverColor' => $requestData['bgHoverColor'],
-            'borderSize' => $requestData['borderSize'],
-            'borderColor' => $requestData['borderColor'],
-            'borderHoverColor' => $requestData['borderHoverColor'],
-            'positionTop' => $requestData['positionTop'],
-            // 'positionBottom'        => $requestData['positionBottom'],
-            'positionLeft' => $requestData['positionLeft'],
-            // 'positionRight'         => $requestData['positionRight'],
-            'iconSize' => $requestData['iconSize'],
-            'iconColor' => $requestData['iconColor'],
-            'iconHoverColor' => $requestData['iconHoverColor'],
-            'enableCount' => $requestData['enableCount'],
-            'numberCount' => $requestData['numberCount'],
-            'countSize' => $requestData['countSize'],
-            'countFontSize' => $requestData['countFontSize'],
-            'countColor' => $requestData['countColor'],
-            'countHoverColor' => $requestData['countHoverColor'],
-            'countBgColor' => $requestData['countBgColor'],
-            'countBgHoverColor' => $requestData['countBgHoverColor'],
-        ];
+        $current_template = $requestData['stickyData'];
         $final_data = [
             'shop_domain' => $requestData['shop_domain'],
+            'drawer_cart_data' => json_encode($requestData['drawer_cart_data']),
             'enableSticky' => $requestData['enableSticky'],
             'defaultTemplate' => $requestData['defaultTemplate'],
             'current_template' => json_encode($current_template),

@@ -77,7 +77,6 @@ export default function CartUpsellSettings(props) {
     // ENABLE CART UPSELL BUTTON LOGIC
     const handleEnable = (value) => {
         setCUEnable(!value);
-        // setUnsavedchanges(isEqual(!value, props.originalenableSticky));
     };
 
     // LAYOUT LOGIC

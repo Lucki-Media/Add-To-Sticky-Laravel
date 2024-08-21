@@ -5,8 +5,22 @@ import { QuantityPicker } from "react-qty-picker";
 import recommendedProducts from "../../assets/recommendedProducts.js";
 
 export default function Drawer({ isOpen, customizationData }) {
-    const [buyBtnHover, setBuyBtnHover] = useState(false);
     const [checkoutBtnHover, setCheckoutBtnHover] = useState(false);
+    const [hoverState, setHoverState] = useState({});
+
+    const handleMouseEnter = (id) => {
+        setHoverState((prevState) => ({
+            ...prevState,
+            [id]: true,
+        }));
+    };
+
+    const handleMouseLeave = (id) => {
+        setHoverState((prevState) => ({
+            ...prevState,
+            [id]: false,
+        }));
+    };
 
     const hexToRgb = (hex) => {
         hex = hex.replace(/^#/, "");
@@ -357,6 +371,7 @@ export default function Drawer({ isOpen, customizationData }) {
                                             className={
                                                 style.lm_recommended_product
                                             }
+                                            key={product.id}
                                         >
                                             <div
                                                 className={
@@ -442,14 +457,18 @@ export default function Drawer({ isOpen, customizationData }) {
                                                             customizationData
                                                                 .cartUpsell
                                                                 .CUBuyBtnFontSize,
-                                                        color: buyBtnHover
+                                                        color: hoverState[
+                                                            product.id
+                                                        ]
                                                             ? customizationData
                                                                   .cartUpsell
                                                                   .CUBtnTextHoverColor
                                                             : customizationData
                                                                   .cartUpsell
                                                                   .CUBtnTextColor,
-                                                        background: buyBtnHover
+                                                        background: hoverState[
+                                                            product.id
+                                                        ]
                                                             ? customizationData
                                                                   .cartUpsell
                                                                   .CUBtnBGHoverColor
@@ -457,12 +476,16 @@ export default function Drawer({ isOpen, customizationData }) {
                                                                   .cartUpsell
                                                                   .CUBtnBGColor,
                                                     }}
-                                                    onMouseEnter={() => {
-                                                        setBuyBtnHover(true);
-                                                    }}
-                                                    onMouseLeave={() => {
-                                                        setBuyBtnHover(false);
-                                                    }}
+                                                    onMouseEnter={() =>
+                                                        handleMouseEnter(
+                                                            product.id
+                                                        )
+                                                    }
+                                                    onMouseLeave={() =>
+                                                        handleMouseLeave(
+                                                            product.id
+                                                        )
+                                                    }
                                                 >
                                                     {
                                                         customizationData

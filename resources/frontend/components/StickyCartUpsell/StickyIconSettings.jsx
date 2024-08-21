@@ -11,40 +11,57 @@ import {
 import React, { useCallback, useEffect, useState } from "react";
 import Switch from "react-switch";
 import "../../css/index.css";
-import { isEqual } from "lodash";
 
 export default function StickyIconSettings(props) {
     const [enableSticky, setEnableSticky] = useState(props.enableSticky);
     const [defaultTemplate, setDefaultTemplate] = useState(
         props.defaultTemplate
     );
-    const [action, setAction] = useState(props.action);
-    const [btnSize, setBtnSize] = useState(props.btnSize);
-    const [bgColor, setBgColor] = useState(props.bgColor);
-    const [bgHoverColor, setBgHoverColor] = useState(props.bgHoverColor);
-    const [borderSize, setBorderSize] = useState(props.borderSize);
-    const [borderColor, setBorderColor] = useState(props.borderColor);
+
+    const [action, setAction] = useState(props.stickyData.action);
+    const [btnSize, setBtnSize] = useState(props.stickyData.btnSize);
+    const [bgColor, setBgColor] = useState(props.stickyData.bgColor);
+    const [bgHoverColor, setBgHoverColor] = useState(
+        props.stickyData.bgHoverColor
+    );
+    const [borderSize, setBorderSize] = useState(props.stickyData.borderSize);
+    const [borderColor, setBorderColor] = useState(
+        props.stickyData.borderColor
+    );
     const [borderHoverColor, setBorderHoverColor] = useState(
-        props.borderHoverColor
+        props.stickyData.borderHoverColor
     );
-    const [positionTop, setPositionTop] = useState(props.positionTop);
-    const [positionLeft, setPositionLeft] = useState(props.positionLeft);
-    const [iconSize, setIconSize] = useState(props.iconSize);
-    const [iconColor, setIconColor] = useState(props.iconColor);
-    const [iconHoverColor, setIconHoverColor] = useState(props.iconHoverColor);
-    const [enableCount, setEnableCount] = useState(props.enableCount);
-    const [numberCount, setNumberCount] = useState(props.numberCount);
-    const [countSize, setCountSize] = useState(props.countSize);
-    const [countFontSize, setCountFontSize] = useState(props.countFontSize);
-    const [countColor, setCountColor] = useState(props.countColor);
+    const [positionTop, setPositionTop] = useState(
+        props.stickyData.positionTop
+    );
+    const [positionLeft, setPositionLeft] = useState(
+        props.stickyData.positionLeft
+    );
+    const [iconSize, setIconSize] = useState(props.stickyData.iconSize);
+    const [iconColor, setIconColor] = useState(props.stickyData.iconColor);
+    const [iconHoverColor, setIconHoverColor] = useState(
+        props.stickyData.iconHoverColor
+    );
+    const [enableCount, setEnableCount] = useState(
+        props.stickyData.enableCount
+    );
+    const [numberCount, setNumberCount] = useState(
+        props.stickyData.numberCount
+    );
+    const [countSize, setCountSize] = useState(props.stickyData.countSize);
+    const [countFontSize, setCountFontSize] = useState(
+        props.stickyData.countFontSize
+    );
+    const [countColor, setCountColor] = useState(props.stickyData.countColor);
     const [countHoverColor, setCountHoverColor] = useState(
-        props.countHoverColor
+        props.stickyData.countHoverColor
     );
-    const [countBgColor, setCountBgColor] = useState(props.countBgColor);
+    const [countBgColor, setCountBgColor] = useState(
+        props.stickyData.countBgColor
+    );
     const [countBgHoverColor, setCountBgHoverColor] = useState(
-        props.countBgHoverColor
+        props.stickyData.countBgHoverColor
     );
-    const [unsavedChanges, setUnsavedChanges] = useState(props.unsavedChanges);
 
     const templateOptions = [
         { label: "Shopping Cart", value: "1" },
@@ -57,19 +74,16 @@ export default function StickyIconSettings(props) {
     // ENABLE BUTTON LOGIC
     const handleEnable = (value) => {
         setEnableSticky(!value);
-        setUnsavedChanges(isEqual(!value, props.originalenableSticky));
     };
 
     //ENABLE COUNT SHOW LOGIC
     const handlecheckbox = (value) => {
         setEnableCount(!value);
-        setUnsavedChanges(isEqual(!value, props.originalenableCount));
     };
 
     //ICON SELECT
     const handleChange = useCallback(
         (value) => {
-            setUnsavedChanges(isEqual(value, props.originaldefaultTemplate));
             var currentData;
             switch (value) {
                 case "1":
@@ -115,161 +129,97 @@ export default function StickyIconSettings(props) {
             setCountBgColor(currentData.countBgColor);
             setCountBgHoverColor(currentData.countBgHoverColor);
         },
-        [props.stickyCartData, props.originaldefaultTemplate]
+        [props.stickyCartData]
     );
 
     // ACTION
-    const handleSelectChange = useCallback(
-        (value) => {
-            setAction(value),
-                setUnsavedChanges(isEqual(value, props.originalaction));
-        },
-        [props.originalaction]
-    );
+    const handleSelectChange = useCallback((value) => {
+        setAction(value);
+    }, []);
     const options = [
         { label: "Go to Cart", value: "1" },
         { label: "Go to Checkout", value: "2" },
     ];
 
     //SIZE
-    const handleRangeSliderChange = useCallback(
-        (value) => {
-            setBtnSize(value),
-                setUnsavedChanges(isEqual(value, props.originalbtnSize));
-        },
-
-        [props.originalbtnSize]
-    );
+    const handleRangeSliderChange = useCallback((value) => {
+        setBtnSize(value);
+    }, []);
 
     // BORDER SIZE
-    const handleBorderSliderChange = useCallback(
-        (value) => {
-            setBorderSize(value),
-                setUnsavedChanges(isEqual(value, props.originalborderSize));
-        },
-        [props.originalborderSize]
-    );
+    const handleBorderSliderChange = useCallback((value) => {
+        setBorderSize(value);
+    }, []);
 
     // BG COLOR
     const handleBGColor = (event) => {
         setBgColor(event.target.value);
-        setUnsavedChanges(isEqual(event.target.value, props.originalbgColor));
     };
 
     // BG HOVER COLOR
     const handleBGHoverColor = (event) => {
         setBgHoverColor(event.target.value);
-        setUnsavedChanges(
-            isEqual(event.target.value, props.originalbgHoverColor)
-        );
     };
 
     // BORDER COLOR
     const handleBorderColor = (event) => {
         setBorderColor(event.target.value);
-        setUnsavedChanges(
-            isEqual(event.target.value, props.originalborderColor)
-        );
     };
 
     // BORDER HOVER COLOR
     const handleBorderHoverColor = (event) => {
         setBorderHoverColor(event.target.value);
-        setUnsavedChanges(
-            isEqual(event.target.value, props.originalborderHoverColor)
-        );
     };
     //TOP
-    const handleEditTopField = useCallback(
-        (value) => {
-            setPositionTop(value),
-                setUnsavedChanges(isEqual(value, props.originalpositionTop));
-        },
-
-        [props.originalpositionTop]
-    );
+    const handleEditTopField = useCallback((value) => {
+        setPositionTop(value);
+    }, []);
     //LEFT
-    const handleEditLeftField = useCallback(
-        (value) => {
-            setPositionLeft(value),
-                setUnsavedChanges(isEqual(value, props.originalpositionLeft));
-        },
-
-        [props.originalpositionLeft]
-    );
+    const handleEditLeftField = useCallback((value) => {
+        setPositionLeft(value);
+    }, []);
     //ICON SIZE
-    const handleIconSliderChange = useCallback(
-        (value) => {
-            setIconSize(value),
-                setUnsavedChanges(isEqual(value, props.originaliconSize));
-        },
-
-        [props.originaliconSize]
-    );
+    const handleIconSliderChange = useCallback((value) => {
+        setIconSize(value);
+    }, []);
 
     // ICON COLOR
     const handleIconColor = (event) => {
         setIconColor(event.target.value);
-        setUnsavedChanges(isEqual(event.target.value, props.originaliconColor));
     };
 
     // ICON HOVER COLOR
     const handleIconHoverColor = (event) => {
         setIconHoverColor(event.target.value);
-        setUnsavedChanges(
-            isEqual(event.target.value, props.originaliconHoverColor)
-        );
     };
 
     // COUNT SIZE
-    const handleCountSliderChange = useCallback(
-        (value) => {
-            setCountSize(value),
-                setUnsavedChanges(isEqual(value, props.originalcountSize));
-        },
-
-        [props.originalcountSize]
-    );
+    const handleCountSliderChange = useCallback((value) => {
+        setCountSize(value);
+    }, []);
     // COUNT FONT
-    const handleCountFontSliderChange = useCallback(
-        (value) => {
-            setCountFontSize(value),
-                setUnsavedChanges(isEqual(value, props.originalcountFontSize));
-        },
-
-        [props.originalcountFontSize]
-    );
+    const handleCountFontSliderChange = useCallback((value) => {
+        setCountFontSize(value);
+    }, []);
 
     // COUNT COLOR
     const handleCountColor = (event) => {
         setCountColor(event.target.value);
-        setUnsavedChanges(
-            isEqual(event.target.value, props.originalcountColor)
-        );
     };
 
     // COUNT HOVER COLOR
     const handleCountHoverColor = (event) => {
         setCountHoverColor(event.target.value);
-        setUnsavedChanges(
-            isEqual(event.target.value, props.originalcountHoverColor)
-        );
     };
 
     // COUNT BG  COLOR
     const handleBGCountColor = (event) => {
         setCountBgColor(event.target.value);
-        setUnsavedChanges(
-            isEqual(event.target.value, props.originalcountBgColor)
-        );
     };
 
     // COUNT BG HOVER COLOR
     const handleBGCountHoverColor = (event) => {
         setCountBgHoverColor(event.target.value);
-        setUnsavedChanges(
-            isEqual(event.target.value, props.originalcountBgHoverColor)
-        );
     };
 
     useEffect(() => {
@@ -298,12 +248,9 @@ export default function StickyIconSettings(props) {
         countHoverColor,
         countBgColor,
         countBgHoverColor,
-        unsavedChanges,
     ]);
 
     var transfer_data = {
-        enableSticky: enableSticky,
-        defaultTemplate: defaultTemplate,
         action: action,
         btnSize: btnSize,
         bgColor: bgColor,
@@ -324,11 +271,14 @@ export default function StickyIconSettings(props) {
         countHoverColor: countHoverColor,
         countBgColor: countBgColor,
         countBgHoverColor: countBgHoverColor,
-        unsavedChanges: unsavedChanges,
     };
     const callbackFunction = useCallback(() => {
-        props.iconCallBack(transfer_data);
-    }, [transfer_data]);
+        props.iconCallBack({
+            transfer_data: transfer_data,
+            enableSticky: enableSticky,
+            defaultTemplate: defaultTemplate,
+        });
+    }, [transfer_data, enableSticky, defaultTemplate]);
 
     return (
         <BlockStack gap="400">
