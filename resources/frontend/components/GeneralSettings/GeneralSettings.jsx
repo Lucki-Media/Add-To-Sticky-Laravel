@@ -8,11 +8,15 @@ import {
     FormLayout,
     RangeSlider,
     TextField,
+    Card,
+    InlineGrid,
 } from "@shopify/polaris";
 import React, { useCallback, useEffect, useState } from "react";
 import "../../css/index.css";
 import Switch from "react-switch";
 import ProductSelection from "./ProductSelection";
+import ProductListSelection from "../DrawerSettings/CartUpsellSettings/ProductListSelection";
+import drawerCartData from "../../assets/drawerCartData.js";
 
 function GeneralSettings(props) {
     const [productSwitch, setProductSwitch] = useState(
@@ -56,6 +60,20 @@ function GeneralSettings(props) {
 
     const [gsNotificationBarHeight, setGsNotificationBarHeight] = useState(
         props.gsNotificationBarHeight
+    );
+
+    // PRODUCT LIST SELECTION STATES
+    const [UPLSelection, setUPLSelection] = useState(
+        drawerCartData.cartUpsell.CUPLSelection
+    );
+    const [UPLManualSelection, setUPLManualSelection] = useState(
+        drawerCartData.cartUpsell.CUPLManualSelection
+    );
+    const [SelectedCollectionID, setSelectedCollectionID] = useState(
+        drawerCartData.cartUpsell.SelectedCollectionID
+    );
+    const [SelectedProductIDs, setSelectedProductIDs] = useState(
+        drawerCartData.cartUpsell.SelectedProductIDs
     );
 
     // HOME PAGE PRODUCT SWITCH LOGIC
@@ -149,6 +167,14 @@ function GeneralSettings(props) {
     // SWITCH LOGIC
     const handleUpSellSwitchChange = (checked) => {
         setEnableUpSell(checked);
+    };
+
+    // HANDLE PRODUCT LIST CALLBACK
+    const handleProductListCallback = (callbackData) => {
+        setUPLSelection(callbackData.UPLSelection);
+        setUPLManualSelection(callbackData.UPLManualSelection);
+        setSelectedCollectionID(callbackData.SelectedCollectionID);
+        setSelectedProductIDs(callbackData.SelectedProductIDs);
     };
 
     // Notification Bar Height Handle Event
@@ -440,29 +466,50 @@ function GeneralSettings(props) {
                 <Divider borderColor="border" />
             </div>
 
-            <Text
-                variant="bodyLg"
-                as="span"
-                alignment="start"
-                fontWeight="medium"
-            >
-                UpSell Popup
-                {enableUpSell ? (
-                    <span className="lm_sticky_custom_badge_success">
-                        <Badge tone="success">Enabled</Badge>
-                    </span>
-                ) : (
-                    <span className="lm_sticky_custom_badge_critical">
-                        <Badge tone="critical">Disabled</Badge>
-                    </span>
+            <Card>
+                <InlineGrid columns={["twoThirds", "oneThird"]}>
+                    <Text
+                        variant="bodyLg"
+                        as="span"
+                        alignment="start"
+                        fontWeight="medium"
+                    >
+                        UpSell Popup
+                        {enableUpSell ? (
+                            <span className="lm_sticky_custom_badge_success">
+                                <Badge tone="success">Enabled</Badge>
+                            </span>
+                        ) : (
+                            <span className="lm_sticky_custom_badge_critical">
+                                <Badge tone="critical">Disabled</Badge>
+                            </span>
+                        )}
+                    </Text>
+                    <Switch
+                        onChange={handleUpSellSwitchChange}
+                        checked={enableUpSell}
+                        uncheckedIcon={null}
+                        checkedIcon={null}
+                    />
+                </InlineGrid>
+
+                {enableUpSell && (
+                    <BlockStack gap="400">
+                        <div style={{ margin: "0" }}>
+                            <Divider borderColor="border" />
+                        </div>
+
+                        {/* Product List Selection */}
+                        <ProductListSelection
+                            productListCallback={handleProductListCallback}
+                            CUPLSelection={UPLSelection}
+                            CUPLManualSelection={UPLManualSelection}
+                            SelectedCollectionID={SelectedCollectionID}
+                            SelectedProductIDs={SelectedProductIDs}
+                        />
+                    </BlockStack>
                 )}
-            </Text>
-            <Switch
-                onChange={handleUpSellSwitchChange}
-                checked={enableUpSell}
-                uncheckedIcon={null}
-                checkedIcon={null}
-            />
+            </Card>
 
             <div style={{ margin: "15px 0" }}>
                 <Divider borderColor="border" />
