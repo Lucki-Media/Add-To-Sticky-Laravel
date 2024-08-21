@@ -47,6 +47,10 @@ const StickyIcon = () => {
     const currentYear = currentDate.getFullYear();
     const monthOptions = { month: "short" };
     const currentMonth = currentDate.toLocaleString("en-US", monthOptions);
+
+    // DRAWER DATA
+    const [drawerData, setDrawerData] = useState([]);
+
     let handleClick = async () => {
         const requestOptions = {
             method: "POST",
@@ -100,6 +104,7 @@ const StickyIcon = () => {
             );
             const data = await response.json();
             setStickyData(data);
+            setDrawerData(data.data.drawer_cart_data);
             setEnableSticky(data.data.enableSticky);
             setDefaultTemplate(data.data.defaultTemplate);
             setAction(data.data.current_template.action);
@@ -127,6 +132,9 @@ const StickyIcon = () => {
             console.log(err);
         }
     };
+
+    console.log(drawerData);
+
     /* CART COUNT API CALL START*/
     const getCartCount = async () => {
         axios

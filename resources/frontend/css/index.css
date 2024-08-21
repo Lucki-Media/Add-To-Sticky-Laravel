@@ -11,6 +11,10 @@
 .fadeInAnimation {
     animation: fadeIn 0.5s ease-in-out;
 }
+
+#preview_title {
+    margin: auto 0;
+}
 .showDiscardButton > div:first-child {
     /* Background color when Discard button is visible */
     background-color: #000 !important;

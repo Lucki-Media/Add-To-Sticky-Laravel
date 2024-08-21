@@ -2216,7 +2216,7 @@ export default function AddToCartSticky() {
                                                                             <strike>
                                                                                 $50.00
                                                                             </strike>{" "}
-                                                                            $4.00
+                                                                            $40.00
                                                                         </span>
                                                                         <a className="addtocartbtn">
                                                                             Add
