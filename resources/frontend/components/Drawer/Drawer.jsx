@@ -250,22 +250,6 @@ export default function Drawer({ isOpen, customizationData }) {
                                                     >
                                                         $40.00
                                                     </div>
-                                                    <div
-                                                        className={
-                                                            style.lm_cart_item_compare_price
-                                                        }
-                                                        style={{
-                                                            fontSize:
-                                                                customizationData
-                                                                    .productList
-                                                                    .PLFontSize,
-                                                            color: customizationData
-                                                                .productList
-                                                                .PLTextColor,
-                                                        }}
-                                                    >
-                                                        $50.00
-                                                    </div>
                                                 </div>
                                                 <div
                                                     className={

@@ -105,7 +105,7 @@ span.lm_shipping_bar_sub_title {
 .lm_drawer_cart_item_wrapper {
     display: flex;
     padding: 0 16px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.08); */
 }
 .lm_drawer_cart_items {
     display: flex;
@@ -118,6 +118,10 @@ span.lm_shipping_bar_sub_title {
 }
 .lm_cart_drawer_item_row {
     position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
 }
 .lm_cart_drawer_item_row td:first-child {
     width: 30%;
@@ -137,19 +141,21 @@ span.lm_shipping_bar_sub_title {
 }
 .lm_cart_item_title {
     padding-right: 15px;
+    padding-bottom: 5px;
 }
 .lm_cart_item_title a {
     text-decoration: none;
     color: #000;
     font-size: 14px;
     font-weight: 600;
-    line-height: 1.5rem;
+    line-height: 1.5;
 }
 .lm_cart_item_price_wrapper {
     display: flex;
-    line-height: 1.5rem;
+    line-height: 1.5;
     letter-spacing: 0.5px;
     font-size: 14px;
+    padding-bottom: 5px;
 }
 .lm_cart_item_actual_price {
     opacity: 1;
@@ -160,9 +166,12 @@ span.lm_shipping_bar_sub_title {
     text-decoration: line-through;
     opacity: 0.7;
 }
+.lm_cart_item_varient_wrapper{
+    padding-bottom: 5px;
+}
 .lm_cart_item_varient {
     display: flex;
-    line-height: 1.5rem;
+    line-height: 1.5;
     letter-spacing: 0.5px;
     font-size: 14px;
 }
@@ -198,7 +207,7 @@ span.lm_shipping_bar_sub_title {
     justify-content: space-between;
     font-size: 16px;
     font-weight: 700;
-    line-height: 1.5rem;
+    line-height: 1.5;
     letter-spacing: 0.5px;
     padding-bottom: 10px;
 }
@@ -207,7 +216,7 @@ span.lm_shipping_bar_sub_title {
     width: 100%;
     text-align: center;
     padding-bottom: 10px;
-    line-height: 1.5rem;
+    line-height: 1.5;
     color: #000;
     opacity: 0.6;
     font-size: 14px;
@@ -305,6 +314,35 @@ span.lm_shipping_bar_sub_title {
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: capitalize;
+    cursor: pointer;
+}
+.lm_empty_cart_wrapper {
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.lm_empty_cart_heading {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    margin: 16px auto;
+    line-height: normal;
+}
+.lm_empty_cart_button_wrapper {
+    padding-bottom: 8px;
+}
+.lm_empty_cart_button_wrapper button {
+    width: 100%;
+    background: #000;
+    color: #fff;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
 }
 /* DRAWER CSS END */
