@@ -10,9 +10,8 @@ import {
 import axios from "axios";
 import Drawer from "../Drawer/Drawer";
 require("./index.css");
+
 const StickyIcon = () => {
-    const [font, setFont] = useState("");
-    const [fontFamily, setfontFamily] = useState("Oswald");
     const [stickyData, setStickyData] = useState([]);
     const [iconHover, setIconHover] = useState(false);
     const [countHover, setCountHover] = useState(false);
@@ -27,9 +26,7 @@ const StickyIcon = () => {
     const [borderHoverColor, setBorderHoverColor] =
         useState("rgba(0, 0, 0, 0)");
     const [positionTop, setPositionTop] = useState(20);
-    // const [positionBottom, setPositionBottom] = useState(0);
     const [positionLeft, setPositionLeft] = useState(0);
-    // const [positionRight, setPositionRight] = useState(1);
     const [iconSize, setIconSize] = useState(20);
     const [iconColor, setIconColor] = useState("rgba(0, 0, 0, 0)");
     const [iconHoverColor, setIconHoverColor] = useState(
@@ -53,6 +50,7 @@ const StickyIcon = () => {
     const [drawerData, setDrawerData] = useState([]);
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [cartData, setCartData] = useState();
+    const [CUProducts, setCUProducts] = useState([]);
 
     let handleClick = async () => {
         const requestOptions = {
@@ -79,27 +77,8 @@ const StickyIcon = () => {
                     window.location.href = "/checkout";
                 }
             }
-            // console.log(cart_added);
         } catch (error) {
             console.log();
-        }
-    };
-    const getAddToStickyCartData = async () => {
-        try {
-            const response = await fetch(
-                `${process.env.REACT_APP_API_URL}` +
-                    "getAddToStickyCartData/" +
-                    window.Shopify.shop
-            );
-            const data = await response.json();
-            // console.log(data.data);
-            setFont(data.data);
-            // console.log();
-            setfontFamily(
-                data.data.current_template.general_settings.gsFontFamily
-            );
-        } catch (err) {
-            console.log(err);
         }
     };
 
@@ -152,7 +131,7 @@ const StickyIcon = () => {
     };
     /* CART COUNT API CALL END*/
     useEffect(() => {
-        getAddToStickyCartData();
+        // getAddToStickyCartData();
         getStickyCartData();
         /*ADDING EVENT LISTENER TO UPDATE CART COUNT START*/
         if (window.meta.page.pageType === "product") {
@@ -189,6 +168,107 @@ const StickyIcon = () => {
     };
     // COUNT END
 
+    // CART UPSELL API CALL
+    const getCartUpsellProducts = async () => {
+        if (drawerData.cartUpsell.CUPLSelection === "1") {
+            // Default Recommendation
+            axios
+                .get(
+                    "https://" +
+                        window.location.host +
+                        "/recommendations/products.json?product_id=" +
+                        cartData.items[0].product_id + // get cart's first item's related product
+                        "&limit=3"
+                )
+                .then(async (response) => {
+                    setCUProducts(response.data.products);
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+        } else {
+            // Manually Select
+            if (drawerData.cartUpsell.CUPLManualSelection === "1") {
+                // Manual Products
+                if (drawerData.cartUpsell.SelectedProductIDs.length > 0) {
+                    // Create an array of promises
+                    const productPromises =
+                        drawerData.cartUpsell.SelectedProductIDs.map(
+                            (productHandle) => {
+                                return getProductByHandle(productHandle);
+                            }
+                        );
+
+                    // Wait for all promises to resolve
+                    Promise.all(productPromises).then((productArray) => {
+                        // Filter out any null values from failed requests
+                        productArray = productArray.filter(
+                            (product) => product !== null
+                        );
+                        setCUProducts(productArray);
+                    });
+                }
+            } else {
+                // Manual Collection
+                if (drawerData.cartUpsell.SelectedCollectionID) {
+                    axios
+                        .get(
+                            "https://" +
+                                window.location.host +
+                                "/collections/" +
+                                drawerData.cartUpsell.SelectedCollectionID +
+                                "/products.json?limit=3"
+                        )
+                        .then(async (response) => {
+                            // Create an array of promises
+                            const productPromises = response.data.products.map(
+                                (product) => {
+                                    return getProductByHandle(product.handle);
+                                }
+                            );
+
+                            // Wait for all promises to resolve
+                            Promise.all(productPromises).then(
+                                (productArray) => {
+                                    // Filter out any null values from failed requests
+                                    productArray = productArray.filter(
+                                        (product) => product !== null
+                                    );
+                                    setCUProducts(productArray);
+                                }
+                            );
+                        })
+                        .catch((error) => {
+                            console.error("Error:", error);
+                        });
+                }
+            }
+        }
+    };
+
+    // Helper function
+    const getProductByHandle = (productHandle) => {
+        return axios
+            .get(
+                "https://" +
+                    window.location.host +
+                    "/products/" +
+                    productHandle +
+                    ".js"
+            )
+            .then((response) => {
+                return response.data;
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                return null; // Return null for any failed requests
+            });
+    };
+
+    useEffect(() => {
+        drawerData && numberCount > 0 && getCartUpsellProducts();
+    }, [drawerData]);
+
     if (stickyData.length <= 0) {
         return <div>Loading</div>;
     } else {
@@ -196,9 +276,9 @@ const StickyIcon = () => {
             <div>
                 <style>
                     {`
-                        @import url("https://fonts.googleapis.com/css2?family=${fontFamily}&display=swap");
+                        @import url("https://fonts.googleapis.com/css2?family=Oswald&display=swap");
                         .apply-font{
-                            font-family : ${fontFamily} !important;
+                            font-family : Oswald !important;
                         }
                     `}
                 </style>
@@ -287,14 +367,23 @@ const StickyIcon = () => {
                     </div>
                 )}
                 {isDrawerOpen === true && (
-                    <Drawer
-                        isOpen={isDrawerOpen}
-                        customizationData={drawerData}
-                        handleClose={() => {
-                            setIsDrawerOpen(false);
-                        }}
-                        cartData={cartData}
-                    />
+                    <>
+                        <Drawer
+                            isOpen={isDrawerOpen}
+                            customizationData={drawerData}
+                            showCartUpsell={
+                                drawerData.cartUpsell.CUEnable ?? false
+                            }
+                            CUProducts={CUProducts}
+                            handleClose={() => {
+                                setIsDrawerOpen(false);
+                            }}
+                            cartData={cartData}
+                            cartUpdated={() => {
+                                getCartCount();
+                            }}
+                        />
+                    </>
                 )}
             </div>
         );

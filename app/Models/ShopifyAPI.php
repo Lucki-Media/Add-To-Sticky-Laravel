@@ -21,7 +21,7 @@ class ShopifyAPI extends Model
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
-        $url = 'https://' . $apiKey . ':' . $user['password'] . '@' . $shopDomain . '/admin/api/' . env('SHOPIFY_API_VERSION') . '/products.json?fields=id%2Cimage%2Ctitle';
+        $url = 'https://' . $apiKey . ':' . $user['password'] . '@' . $shopDomain . '/admin/api/' . env('SHOPIFY_API_VERSION') . '/products.json?fields=id%2Cimage%2Ctitle%2Chandle';
         curl_setopt($ch, CURLOPT_URL, $url);
         $server_output = curl_exec($ch);
         $product_data = json_decode($server_output, true);

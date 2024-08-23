@@ -22,9 +22,9 @@ export default function CollectionSelection(props) {
 
     const updateCollectionSelection = useCallback(
         (selected) => {
-            // Find the object with the matching id
+            // Find the object with the matching handle
             const collection = props.collectionResponse.find(
-                (option) => String(option.id) === String(selected)
+                (option) => String(option.handle) === String(selected)
             );
 
             // Transform the found product into the desired structure
@@ -86,7 +86,7 @@ export default function CollectionSelection(props) {
                     size="small"
                 />
             ),
-            value: String(collection.id),
+            value: String(collection.handle),
             label: collection.title,
         }));
         setDefaultCollections(collectionArray);
@@ -95,9 +95,9 @@ export default function CollectionSelection(props) {
         // set product showcase code start
         let selected = [props.SelectedCollectionID];
 
-        // Find the object with the matching id
+        // Find the object with the matching handle
         const collection = props.collectionResponse.find(
-            (option) => String(option.id) === String(selected)
+            (option) => String(option.handle) === String(selected)
         );
 
         // Transform the found product into the desired structure
@@ -136,7 +136,7 @@ export default function CollectionSelection(props) {
                     textField={collectionTextField}
                 />
             </div>
-            {selectedCollection && selectedCollection.id !== undefined && (
+            {selectedCollection && selectedCollection.handle !== undefined && (
                 <Box
                     padding="200"
                     background="bg-surface-secondary-hover"
