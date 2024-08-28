@@ -5,6 +5,9 @@ import { QuantityPicker } from "react-qty-picker";
 import recommendedProducts from "../../assets/recommendedProducts.js";
 
 export default function Drawer({ isOpen, customizationData }) {
+    const [showBottomSlider, setShowBottomSlider] = useState(false);
+    const [sliderProduct, setSliderProduct] = useState({});
+
     const [checkoutBtnHover, setCheckoutBtnHover] = useState(false);
     const [hoverState, setHoverState] = useState({});
 
@@ -65,9 +68,9 @@ export default function Drawer({ isOpen, customizationData }) {
                 }`}
             >
                 <div
-                    className={`${style.lm_drawer} ${
-                        isOpen && style.lm_drawer_open
-                    }`}
+                    className={`${showBottomSlider && style.lm_bottom_overlay} 
+                    ${style.lm_drawer} 
+                    ${isOpen && style.lm_drawer_open}`}
                     style={{
                         background: customizationData.cartHeader.DCBGColor,
                     }}
@@ -287,6 +290,7 @@ export default function Drawer({ isOpen, customizationData }) {
                                                             className={
                                                                 style.quantity12
                                                             }
+                                                            value={1}
                                                             min={1}
                                                             max={10}
                                                         />
@@ -470,6 +474,14 @@ export default function Drawer({ isOpen, customizationData }) {
                                                             product.id
                                                         )
                                                     }
+                                                    onClick={() => {
+                                                        setSliderProduct(
+                                                            product
+                                                        );
+                                                        setShowBottomSlider(
+                                                            true
+                                                        );
+                                                    }}
                                                 >
                                                     {
                                                         customizationData
@@ -587,6 +599,218 @@ export default function Drawer({ isOpen, customizationData }) {
                                 {customizationData.bottomSection.BSViewCartText}
                             </a>
                         )}
+                    </div>
+
+                    {/* Bottom Slider */}
+                    <div
+                        className={`${
+                            showBottomSlider && style.lm_Slide_div_open
+                        } ${style.lm_Slide_div}`}
+                        style={{
+                            background: customizationData.cartHeader.DCBGColor,
+                        }}
+                    >
+                        <div
+                            className={style.lm_Slide_close_btn}
+                            onClick={() => {
+                                setShowBottomSlider(false);
+                            }}
+                            style={{
+                                fontSize:
+                                    customizationData.cartUpsell.CUBodyFontSize,
+                                color: customizationData.cartUpsell.CUBodyColor,
+                            }}
+                        >
+                            <span
+                                style={{
+                                    color: customizationData.cartUpsell
+                                        .CUBodyColor,
+                                }}
+                            >
+                                &times;
+                            </span>
+                        </div>
+                        <div className={style.lm_Slide_card}>
+                            <div className={style.lm_Slide_pro_image}>
+                                <img src={sliderProduct.image} alt="" />
+                            </div>
+                            <div className={style.lm_Slide_pro}>
+                                <div
+                                    className={style.lm_Slide_pro_title}
+                                    style={{
+                                        fontSize:
+                                            customizationData.cartUpsell
+                                                .CUBodyFontSize,
+                                        color: customizationData.cartUpsell
+                                            .CUBodyColor,
+                                    }}
+                                >
+                                    {sliderProduct.title}
+                                </div>
+
+                                <div
+                                    className={style.lm_Slide_pro_price_wrapper}
+                                >
+                                    <div
+                                        className={style.lm_Slide_product_price}
+                                        style={{
+                                            fontSize:
+                                                customizationData.cartUpsell
+                                                    .CUBodyFontSize,
+                                            color: customizationData.cartUpsell
+                                                .CUBodyColor,
+                                        }}
+                                    >
+                                        {sliderProduct.actual_price}
+                                    </div>
+                                    <div
+                                        className={
+                                            style.lm_Slide_pro_compare_price
+                                        }
+                                        style={{
+                                            fontSize:
+                                                customizationData.cartUpsell
+                                                    .CUBodyFontSize,
+                                            color: customizationData.cartUpsell
+                                                .CUBodyColor,
+                                        }}
+                                    >
+                                        <strike>
+                                            {sliderProduct.compare_price}
+                                        </strike>
+                                    </div>
+                                </div>
+
+                                <div
+                                    className={`lm_quantity_picker ${style.lm_quantity_selector}`}
+                                >
+                                    <QuantityPicker
+                                        className={style.quantity12}
+                                        value={1}
+                                        min={1}
+                                        max={10}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className={style.lm_variation_dropdown}>
+                            <div
+                                className={
+                                    style.lm_variation_dropdown__variants
+                                }
+                            >
+                                <label
+                                    className={style.lm_select__inline}
+                                    for="lm_variation_dropdown_COLOR"
+                                >
+                                    <span
+                                        className={
+                                            style.lm_variation_select_label
+                                        }
+                                        style={{
+                                            fontSize:
+                                                customizationData.cartUpsell
+                                                    .CUBodyFontSize,
+                                            color: customizationData.cartUpsell
+                                                .CUBodyColor,
+                                        }}
+                                    >
+                                        COLOR:
+                                    </span>
+                                    <select
+                                        className={
+                                            style.lm_variation_select__select
+                                        }
+                                        style={{
+                                            fontSize:
+                                                customizationData.cartUpsell
+                                                    .CUBodyFontSize,
+                                            color: customizationData.cartUpsell
+                                                .CUBodyColor,
+                                            background:
+                                                customizationData.cartHeader
+                                                    .DCBGColor,
+                                        }}
+                                        id="lm_variation_dropdown_COLOR"
+                                    >
+                                        <option value="White">White</option>
+                                        <option value="Black">Black</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div
+                                className={
+                                    style.lm_variation_dropdown__variants
+                                }
+                            >
+                                <label
+                                    className={style.lm_select__inline}
+                                    for="lm_variation_dropdown_COLOR"
+                                >
+                                    <span
+                                        className={
+                                            style.lm_variation_select_label
+                                        }
+                                        style={{
+                                            fontSize:
+                                                customizationData.cartUpsell
+                                                    .CUBodyFontSize,
+                                            color: customizationData.cartUpsell
+                                                .CUBodyColor,
+                                        }}
+                                    >
+                                        Size:
+                                    </span>
+                                    <select
+                                        className={
+                                            style.lm_variation_select__select
+                                        }
+                                        style={{
+                                            fontSize:
+                                                customizationData.cartUpsell
+                                                    .CUBodyFontSize,
+                                            color: customizationData.cartUpsell
+                                                .CUBodyColor,
+                                            background:
+                                                customizationData.cartHeader
+                                                    .DCBGColor,
+                                        }}
+                                        id="lm_variation_dropdown_COLOR"
+                                    >
+                                        <option value="White">1</option>
+                                        <option value="Black">2</option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                        <div className={style.lm_Add_to_cart}>
+                            <button
+                                style={{
+                                    fontSize:
+                                        customizationData.bottomSection
+                                            .BSCheckoutBtnFontSize,
+                                    color: checkoutBtnHover
+                                        ? customizationData.bottomSection
+                                              .BSBtnTextHoverColor
+                                        : customizationData.bottomSection
+                                              .BSBtnTextColor,
+                                    background: checkoutBtnHover
+                                        ? customizationData.bottomSection
+                                              .BSBtnBGHoverColor
+                                        : customizationData.bottomSection
+                                              .BSBtnBGColor,
+                                }}
+                                onMouseEnter={() => {
+                                    setCheckoutBtnHover(true);
+                                }}
+                                onMouseLeave={() => {
+                                    setCheckoutBtnHover(false);
+                                }}
+                            >
+                                Add To Cart
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
