@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import style from "./Drawer.module.css";
 import { QuantityPicker } from "react-qty-picker";
 import getSymbolFromCurrency from "currency-symbol-map";
+import BottomSlider from "./BottomSlider";
+import axios from "axios";
 
 export default function Drawer({
     isOpen,
@@ -21,6 +23,10 @@ export default function Drawer({
     const [cartItems, setCartItems] = useState([]);
     const [FSBwidth, setFSBwidth] = useState(0);
     const [FSBprice, setFSBprice] = useState(0);
+
+    // Bottom slider
+    const [showBottomSlider, setShowBottomSlider] = useState(false);
+    const [sliderProduct, setSliderProduct] = useState({});
 
     const handleMouseEnter = (id) => {
         setHoverState((prevState) => ({
@@ -87,39 +93,61 @@ export default function Drawer({
         }
     };
 
+    // Cart Add API call
+    const CartAdd = async (variant_id, quantity) => {
+        try {
+            // Add item to cart
+            await fetch(`https://${window.location.host}/cart/add.json`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: variant_id, quantity: quantity }),
+            });
+
+            // Fetch updated cart details
+            await axios
+                .get("https://" + window.location.host + "/cart.json")
+                .then((res) => {
+                    setCartDetail(res.data);
+                    setCartItems(res.data.items);
+                    setShowBottomSlider(false); // close bottom slider
+                });
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
+
     return (
         <>
             <style>
                 {`
                     @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
-                        .lm_drawer {
-                            font-family : Inter !important;
-                        }
-
-                    .lm_quantity_picker .quantity-picker .quantity-display {
-                        width: 2.5rem !important;
-                        padding: 0.25rem;
-                        font-size: ${customizationData.productList.PLFontSize}px;
-                        border: 0;
-                        border-top: 0 solid #dbdbdb;
-                        border-bottom: 0 solid #dbdbdb;
-                        text-align: center;
-                        color: ${customizationData.productList.PLTextColor};
+                    .lm_drawer {
+                        font-family : Inter !important;
                     }
-                    .lm_quantity_picker .quantity-modifier {
-                        height: 100%;
-                        width: 2.5rem;
+                    .lm_quantity_picker .quantity-picker .quantity-display{
+                        padding: 0;
+                        background-color: #fff;
+                        width: 28px !important;
                         font-size: ${customizationData.productList.PLFontSize}px;
-                        background: #f3f3f3;
-                        color: ${customizationData.productList.PLTextColor};
-                        opacity: .5;
-                        border: 0 solid #dbdbdb;
-                        text-align: center;
-                        cursor: pointer;
+                        box-shadow: none;
                     }
-                    .lm_quantity_picker .quantity-picker {
-                        border: 1px solid #dddddd8c;
-                    }`}
+                    .lm_quantity_picker .quantity-modifier{
+                        height: 25px;
+                        width: 30px;
+                        border: none;
+                        font-size: ${customizationData.productList.PLFontSize}px;
+                        color: black;
+                        background-color: #fff;
+                        border-radius: 0;
+                    }
+                    .lm_quantity_picker .quantity-picker{
+                        background-color: #fff;
+                        border: 1px solid #ddd;
+                        border-radius:0;
+                        display: flex;
+                        align-items: center;
+                    }
+                `}
             </style>
             <div
                 className={`${style.lm_drawer_wrapper} ${
@@ -128,7 +156,8 @@ export default function Drawer({
                 onClick={handleClose}
             >
                 <div
-                    className={`${style.lm_drawer} ${
+                    className={`${showBottomSlider && style.lm_bottom_overlay} 
+                    ${style.lm_drawer}  ${
                         isOpen && style.lm_drawer_open
                     } lm_drawer`}
                     style={{
@@ -368,7 +397,14 @@ export default function Drawer({
                                                                     {getSymbolFromCurrency(
                                                                         cartDetail.currency
                                                                     ) +
-                                                                        item.presentment_price}
+                                                                        (
+                                                                            Number(
+                                                                                item.final_price
+                                                                            ) /
+                                                                            100
+                                                                        ).toFixed(
+                                                                            2
+                                                                        )}
                                                                 </div>
                                                             </div>
                                                             <div
@@ -460,7 +496,7 @@ export default function Drawer({
                                                                     ) +
                                                                         (
                                                                             Number(
-                                                                                item.line_price
+                                                                                item.final_line_price
                                                                             ) /
                                                                             100
                                                                         ).toFixed(
@@ -686,6 +722,14 @@ export default function Drawer({
                                                                     product.id
                                                                 )
                                                             }
+                                                            onClick={() => {
+                                                                setSliderProduct(
+                                                                    product
+                                                                );
+                                                                setShowBottomSlider(
+                                                                    true
+                                                                );
+                                                            }}
                                                         >
                                                             {
                                                                 customizationData
@@ -839,6 +883,20 @@ export default function Drawer({
                                     </a>
                                 )}
                             </div>
+
+                            {/* Bottom Slider */}
+                            <BottomSlider
+                                showBottomSlider={showBottomSlider}
+                                sliderProduct={sliderProduct}
+                                customizationData={customizationData}
+                                cartCurrency={cartDetail.currency}
+                                handleBottomSlider={() => {
+                                    setShowBottomSlider(false);
+                                }}
+                                handleCartAdd={(variant_id, quantity) => {
+                                    CartAdd(variant_id, quantity);
+                                }}
+                            />
                         </>
                     ) : (
                         // Empty state details
@@ -878,9 +936,7 @@ export default function Drawer({
                                     onMouseLeave={() => {
                                         setCheckoutBtnHover(false);
                                     }}
-                                    onClick={() => {
-                                        window.location.href = "/checkout";
-                                    }}
+                                    onClick={handleClose}
                                 >
                                     {customizationData.emptyCart.ECButtonText}
                                 </button>
