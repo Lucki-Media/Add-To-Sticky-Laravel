@@ -70,6 +70,8 @@ export function GeneralSettings(props) {
         props.gsNotificationBarHeight
     );
 
+    const [enableUpSell, setEnableUpSell] = useState(props.enableUpSell);
+
     const [containerHeight, setContainerHeight] = useState(
         props.containerHeight
     );
@@ -98,6 +100,7 @@ export function GeneralSettings(props) {
         setGsNotificationBarBgColor(props.gsNotificationBarBgColor);
         setGsNotificationBarFontSize(props.gsNotificationBarFontSize);
         setGsNotificationBarHeight(props.gsNotificationBarHeight);
+        setEnableUpSell(props.enableUpSell);
         setContainerHeight(props.containerHeight);
     }, [props]);
 
@@ -121,6 +124,8 @@ export function GeneralSettings(props) {
         gsNotificationBarBgColor,
         gsNotificationBarFontSize,
         gsNotificationBarHeight,
+        enableUpSell,
+        //GENERAL
         gsFontFamily,
         gsFontsize,
         gsItalic,

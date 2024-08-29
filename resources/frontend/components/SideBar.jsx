@@ -39,6 +39,7 @@ export function SideBar(props) {
                     gsNotificationBarBgColor={props.gsNotificationBarBgColor}
                     gsNotificationBarFontSize={props.gsNotificationBarFontSize}
                     gsNotificationBarHeight={props.gsNotificationBarHeight}
+                    enableUpSell={props.enableUpSell}
                     containerHeight={props.containerHeight}
                     animationEnable={props.animationEnable}
                     editText={props.editText}
@@ -88,6 +89,7 @@ export function SideBar(props) {
                     gsNotificationBarBgColor={props.gsNotificationBarBgColor}
                     gsNotificationBarFontSize={props.gsNotificationBarFontSize}
                     gsNotificationBarHeight={props.gsNotificationBarHeight}
+                    enableUpSell={props.enableUpSell}
                     containerHeight={props.containerHeight}
                     animationEnable={props.animationEnable}
                     editText={props.editText}

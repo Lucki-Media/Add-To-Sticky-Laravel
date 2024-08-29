@@ -28,6 +28,7 @@ import CartTemplate5 from "../Templates/CartTemplate5.jsx";
 import CartTemplate6 from "../Templates/CartTemplate6.jsx";
 import CartTemplate7 from "../Templates/CartTemplate7.jsx";
 import CartTemplate8 from "../Templates/CartTemplate8.jsx";
+import UpSellBottomSheet from "../pages/UpSellBottomSheet.jsx";
 import proimage from "../assets/productimage.png";
 import axios from "axios";
 import Switch from "react-switch";
@@ -76,6 +77,7 @@ export default function AddToCartSticky() {
     const [gsNotificationBarFontSize, setGsNotificationBarFontSize] =
         useState(12);
     const [gsNotificationBarHeight, setGsNotificationBarHeight] = useState(5);
+    const [enableUpSell, setEnableUpSell] = useState(false);
     const [containerHeight, setContainerHeight] = useState(70);
     /*BUY NOW CONSTANTS*/
     const [editText, setEditText] = useState("BUY NOW");
@@ -196,6 +198,9 @@ export default function AddToCartSticky() {
                     gsNotificationBarHeight:
                         data.data.current_template.general_settings
                             .gsNotificationBarHeight,
+                    enableUpSell:
+                        data.data.current_template.general_settings
+                            .enableUpSell,
                 },
                 design_settings: {
                     gsFontFamily:
@@ -314,6 +319,9 @@ export default function AddToCartSticky() {
                     gsNotificationBarHeight:
                         data.data.current_template.general_settings
                             .gsNotificationBarHeight,
+                    enableUpSell:
+                        data.data.current_template.general_settings
+                            .enableUpSell,
                 },
                 design_settings: {
                     gsFontFamily:
@@ -472,6 +480,9 @@ export default function AddToCartSticky() {
                 data.data.current_template.general_settings
                     .gsNotificationBarHeight
             );
+            setEnableUpSell(
+                data.data.current_template.general_settings.enableUpSell
+            );
 
             setGsAction(data.data.current_template.general_settings.gsAction);
             setEditText(data.data.current_template.buy_btn_settings.editText);
@@ -557,6 +568,7 @@ export default function AddToCartSticky() {
                 gsNotificationBarBgColor: gsNotificationBarBgColor,
                 gsNotificationBarFontSize: gsNotificationBarFontSize,
                 gsNotificationBarHeight: gsNotificationBarHeight,
+                enableUpSell: enableUpSell,
                 /*GENERAL SETTINGS END*/
 
                 /*BUY NOW START*/
@@ -689,6 +701,7 @@ export default function AddToCartSticky() {
         setGsNotificationBarHeight(
             currentData.general_settings.gsNotificationBarHeight
         );
+        setEnableUpSell(currentData.general_settings.enableUpSell);
 
         setGsAction(currentData.general_settings.gsAction);
         /*BUY NOW BUTTON VALUES*/
@@ -736,6 +749,7 @@ export default function AddToCartSticky() {
                     data.general_settings.gsNotificationBarFontSize,
                 gsNotificationBarHeight:
                     data.general_settings.gsNotificationBarHeight,
+                enableUpSell: data.general_settings.enableUpSell,
             },
             design_settings: {
                 gsFontFamily: data.design_settings.gsFontFamily,
@@ -793,6 +807,7 @@ export default function AddToCartSticky() {
         setGsNotificationBarHeight(
             data.general_settings.gsNotificationBarHeight
         );
+        setEnableUpSell(data.general_settings.enableUpSell);
         setHomePageProduct(data.general_settings.homePageProduct);
         //DESIGN SETTINGS
         setPosition(data.design_settings.position);
@@ -1022,6 +1037,7 @@ export default function AddToCartSticky() {
                                                 gsNotificationBarHeight={
                                                     gsNotificationBarHeight
                                                 }
+                                                enableUpSell={enableUpSell}
                                                 containerHeight={
                                                     containerHeight
                                                 }
@@ -1169,6 +1185,9 @@ export default function AddToCartSticky() {
                                                                         gsNotificationBarHeight={
                                                                             gsNotificationBarHeight
                                                                         }
+                                                                        enableUpSell={
+                                                                            enableUpSell
+                                                                        }
                                                                         conta
                                                                         editText={
                                                                             editText
@@ -1306,6 +1325,9 @@ export default function AddToCartSticky() {
                                                                         }
                                                                         gsNotificationBarHeight={
                                                                             gsNotificationBarHeight
+                                                                        }
+                                                                        enableUpSell={
+                                                                            enableUpSell
                                                                         }
                                                                         conta
                                                                         editText={
@@ -1445,6 +1467,9 @@ export default function AddToCartSticky() {
                                                                         gsNotificationBarHeight={
                                                                             gsNotificationBarHeight
                                                                         }
+                                                                        enableUpSell={
+                                                                            enableUpSell
+                                                                        }
                                                                         conta
                                                                         editText={
                                                                             editText
@@ -1582,6 +1607,9 @@ export default function AddToCartSticky() {
                                                                         }
                                                                         gsNotificationBarHeight={
                                                                             gsNotificationBarHeight
+                                                                        }
+                                                                        enableUpSell={
+                                                                            enableUpSell
                                                                         }
                                                                         conta
                                                                         editText={
@@ -1721,6 +1749,9 @@ export default function AddToCartSticky() {
                                                                         gsNotificationBarHeight={
                                                                             gsNotificationBarHeight
                                                                         }
+                                                                        enableUpSell={
+                                                                            enableUpSell
+                                                                        }
                                                                         conta
                                                                         editText={
                                                                             editText
@@ -1858,6 +1889,9 @@ export default function AddToCartSticky() {
                                                                         }
                                                                         gsNotificationBarHeight={
                                                                             gsNotificationBarHeight
+                                                                        }
+                                                                        enableUpSell={
+                                                                            enableUpSell
                                                                         }
                                                                         conta
                                                                         editText={
@@ -1997,6 +2031,9 @@ export default function AddToCartSticky() {
                                                                         gsNotificationBarHeight={
                                                                             gsNotificationBarHeight
                                                                         }
+                                                                        enableUpSell={
+                                                                            enableUpSell
+                                                                        }
                                                                         conta
                                                                         editText={
                                                                             editText
@@ -2134,6 +2171,9 @@ export default function AddToCartSticky() {
                                                                         }
                                                                         gsNotificationBarHeight={
                                                                             gsNotificationBarHeight
+                                                                        }
+                                                                        enableUpSell={
+                                                                            enableUpSell
                                                                         }
                                                                         conta
                                                                         editText={
@@ -2273,6 +2313,10 @@ export default function AddToCartSticky() {
                                                     </div>
                                                 </div>
                                             </Card>
+
+                                            <UpSellBottomSheet
+                                                enableUpSell={enableUpSell}
+                                            />
                                         </div>
                                     </Layout.Section>
                                 </Layout>

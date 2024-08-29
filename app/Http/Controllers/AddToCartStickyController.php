@@ -39,6 +39,7 @@ class AddToCartStickyController extends Controller
                 'gsNotificationBarBgColor' => $requestData['gsNotificationBarBgColor'],
                 'gsNotificationBarFontSize' => $requestData['gsNotificationBarFontSize'],
                 'gsNotificationBarHeight' => $requestData['gsNotificationBarHeight'],
+                'enableUpSell' => $requestData['enableUpSell'],
             ],
             'buy_btn_settings' => [
                 'editText' => $requestData['editText'],

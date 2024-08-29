@@ -30,7 +30,6 @@ function GeneralSettings(props) {
     const [checkMobile, setCheckMobile] = useState(props.checkMobile);
     const [checkDesktop, setCheckDesktop] = useState(props.checkDesktop);
     const [gsAction, setGsAction] = useState(props.gsAction);
-    const [enableUpSell, setEnableUpSell] = useState(true);
     const [gsDisplayCondition, setGsDisplayCondition] = useState(
         props.gsDisplayCondition
     );
@@ -61,6 +60,8 @@ function GeneralSettings(props) {
     const [gsNotificationBarHeight, setGsNotificationBarHeight] = useState(
         props.gsNotificationBarHeight
     );
+
+    const [enableUpSell, setEnableUpSell] = useState(props.enableUpSell);
 
     // PRODUCT LIST SELECTION STATES
     const [UPLSelection, setUPLSelection] = useState(
@@ -198,6 +199,7 @@ function GeneralSettings(props) {
         setGsNotificationBarBgColor(props.gsNotificationBarBgColor);
         setGsNotificationBarFontSize(props.gsNotificationBarFontSize);
         setGsNotificationBarHeight(props.gsNotificationBarHeight);
+        setEnableUpSell(props.enableUpSell);
     }, [props]);
 
     useEffect(() => {
@@ -216,6 +218,7 @@ function GeneralSettings(props) {
         gsNotificationBarBgColor,
         gsNotificationBarFontSize,
         gsNotificationBarHeight,
+        enableUpSell
     ]);
 
     var transfer_data = {
@@ -232,6 +235,7 @@ function GeneralSettings(props) {
             gsNotificationBarBgColor: gsNotificationBarBgColor,
             gsNotificationBarFontSize: gsNotificationBarFontSize,
             gsNotificationBarHeight: gsNotificationBarHeight,
+            enableUpSell: enableUpSell,
         },
         design_settings: {
             gsFontFamily: props.gsFontFamily,
@@ -333,183 +337,206 @@ function GeneralSettings(props) {
             {/* Notification Bar Settings */}
             {gsAction === "3" && (
                 <BlockStack gap="500">
-                    <FormLayout>
-                        {/* Third row */}
-                        <FormLayout.Group condensed>
-                            <div>
+                    <div
+                        style={{
+                            boxShadow: "rgba(227, 227, 227, 1) 5px 5px",
+                            borderRadius: "12px",
+                        }}
+                    >
+                        <Card>
+                            <FormLayout>
+                                {/* Third row */}
+                                <FormLayout.Group condensed>
+                                    <div>
+                                        <Text
+                                            variant="headingMd"
+                                            as="span"
+                                            fontWeight="medium"
+                                        >
+                                            Notification Bar Settings
+                                        </Text>
+
+                                        <div style={{ margin: "5px 0" }}>
+                                            <Divider borderColor="transparent" />
+                                        </div>
+
+                                        <FormLayout>
+                                            <TextField
+                                                value={gsNotificationBarText}
+                                                onChange={
+                                                    handleNbTextFieldChange
+                                                }
+                                                placeholder="Add Notification Content"
+                                                autoComplete="off"
+                                            />
+                                        </FormLayout>
+
+                                        <div style={{ margin: "5px 0" }}>
+                                            <Divider borderColor="transparent" />
+                                        </div>
+
+                                        <div className="lm_sticky_format_style">
+                                            <Checkbox
+                                                label="Bold"
+                                                checked={gsNotificationBarBold}
+                                                onChange={handleBold}
+                                            />
+                                            <br />
+                                            <Checkbox
+                                                label="Italic"
+                                                checked={
+                                                    gsNotificationBarItalic
+                                                }
+                                                onChange={handleItalic}
+                                            />
+                                            <br />
+                                        </div>
+                                    </div>
+                                </FormLayout.Group>
+                                {/* Fourth row */}
+                                <FormLayout.Group condensed>
+                                    <div>
+                                        <Text
+                                            variant="headingMd"
+                                            as="span"
+                                            fontWeight="medium"
+                                        >
+                                            Text Color
+                                        </Text>
+                                        <div className="lm_sticky_color_box">
+                                            <input
+                                                type="color"
+                                                value={
+                                                    gsNotificationBarTextColor
+                                                }
+                                                onChange={handleTextColor}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <Text
+                                            variant="headingMd"
+                                            as="span"
+                                            fontWeight="medium"
+                                        >
+                                            BG Color
+                                        </Text>
+                                        <div className="lm_sticky_color_box">
+                                            <input
+                                                type="color"
+                                                value={gsNotificationBarBgColor}
+                                                onChange={handleBgColor}
+                                            />
+                                        </div>
+                                    </div>
+                                </FormLayout.Group>
+                                {/* Fifth row */}
+
+                                <FormLayout.Group condensed>
+                                    <div>
+                                        <Text
+                                            variant="headingMd"
+                                            as="span"
+                                            fontWeight="medium"
+                                        >
+                                            Font-size
+                                        </Text>
+                                        <div className="font_picker_popup">
+                                            <RangeSlider
+                                                label=""
+                                                value={
+                                                    gsNotificationBarFontSize
+                                                }
+                                                min={8}
+                                                max={30}
+                                                onChange={handleFontSize}
+                                                output
+                                            />
+                                        </div>
+                                    </div>
+                                </FormLayout.Group>
+                                <FormLayout.Group condensed>
+                                    <div>
+                                        <Text
+                                            variant="headingMd"
+                                            as="span"
+                                            fontWeight="medium"
+                                        >
+                                            Height
+                                        </Text>
+                                        <div className="font_picker_popup">
+                                            <RangeSlider
+                                                label=""
+                                                value={gsNotificationBarHeight}
+                                                min={5}
+                                                max={20}
+                                                onChange={handleHeight}
+                                                output
+                                            />
+                                        </div>
+                                    </div>
+                                </FormLayout.Group>
+                            </FormLayout>
+
+                            <div style={{ margin: "15px 0" }}>
+                                <Divider borderColor="border" />
+                            </div>
+
+                            <InlineGrid columns={["twoThirds", "oneThird"]}>
                                 <Text
-                                    variant="headingMd"
+                                    variant="bodyLg"
                                     as="span"
+                                    alignment="start"
                                     fontWeight="medium"
                                 >
-                                    Notification Bar Settings
+                                    UpSell Popup
+                                    {enableUpSell ? (
+                                        <span className="lm_sticky_custom_badge_success">
+                                            <Badge tone="success">
+                                                Enabled
+                                            </Badge>
+                                        </span>
+                                    ) : (
+                                        <span className="lm_sticky_custom_badge_critical">
+                                            <Badge tone="critical">
+                                                Disabled
+                                            </Badge>
+                                        </span>
+                                    )}
                                 </Text>
+                                <Switch
+                                    onChange={handleUpSellSwitchChange}
+                                    checked={enableUpSell}
+                                    uncheckedIcon={null}
+                                    checkedIcon={null}
+                                />
+                            </InlineGrid>
 
-                                <div style={{ margin: "5px 0" }}>
-                                    <Divider borderColor="transparent" />
-                                </div>
+                            {enableUpSell && (
+                                <BlockStack>
+                                    <div style={{ margin: "15px 0" }}>
+                                        <Divider borderColor="border" />
+                                    </div>
 
-                                <FormLayout>
-                                    <TextField
-                                        value={gsNotificationBarText}
-                                        onChange={handleNbTextFieldChange}
-                                        placeholder="Add Notification Content"
-                                        autoComplete="off"
+                                    {/* Product List Selection */}
+                                    <ProductListSelection
+                                        productListCallback={
+                                            handleProductListCallback
+                                        }
+                                        CUPLSelection={UPLSelection}
+                                        CUPLManualSelection={UPLManualSelection}
+                                        SelectedCollectionID={
+                                            SelectedCollectionID
+                                        }
+                                        SelectedProductIDs={SelectedProductIDs}
                                     />
-                                </FormLayout>
-
-                                <div style={{ margin: "5px 0" }}>
-                                    <Divider borderColor="transparent" />
-                                </div>
-
-                                <div className="lm_sticky_format_style">
-                                    <Checkbox
-                                        label="Bold"
-                                        checked={gsNotificationBarBold}
-                                        onChange={handleBold}
-                                    />
-                                    <br />
-                                    <Checkbox
-                                        label="Italic"
-                                        checked={gsNotificationBarItalic}
-                                        onChange={handleItalic}
-                                    />
-                                    <br />
-                                </div>
-                            </div>
-                        </FormLayout.Group>
-                        {/* Fourth row */}
-                        <FormLayout.Group condensed>
-                            <div>
-                                <Text
-                                    variant="headingMd"
-                                    as="span"
-                                    fontWeight="medium"
-                                >
-                                    Text Color
-                                </Text>
-                                <div className="lm_sticky_color_box">
-                                    <input
-                                        type="color"
-                                        value={gsNotificationBarTextColor}
-                                        onChange={handleTextColor}
-                                    />
-                                </div>
-                            </div>
-
-                            <div>
-                                <Text
-                                    variant="headingMd"
-                                    as="span"
-                                    fontWeight="medium"
-                                >
-                                    BG Color
-                                </Text>
-                                <div className="lm_sticky_color_box">
-                                    <input
-                                        type="color"
-                                        value={gsNotificationBarBgColor}
-                                        onChange={handleBgColor}
-                                    />
-                                </div>
-                            </div>
-                        </FormLayout.Group>
-                        {/* Fifth row */}
-
-                        <FormLayout.Group condensed>
-                            <div>
-                                <Text
-                                    variant="headingMd"
-                                    as="span"
-                                    fontWeight="medium"
-                                >
-                                    Font-size
-                                </Text>
-                                <div className="font_picker_popup">
-                                    <RangeSlider
-                                        label=""
-                                        value={gsNotificationBarFontSize}
-                                        min={8}
-                                        max={30}
-                                        onChange={handleFontSize}
-                                        output
-                                    />
-                                </div>
-                            </div>
-                        </FormLayout.Group>
-                        <FormLayout.Group condensed>
-                            <div>
-                                <Text
-                                    variant="headingMd"
-                                    as="span"
-                                    fontWeight="medium"
-                                >
-                                    Height
-                                </Text>
-                                <div className="font_picker_popup">
-                                    <RangeSlider
-                                        label=""
-                                        value={gsNotificationBarHeight}
-                                        min={5}
-                                        max={20}
-                                        onChange={handleHeight}
-                                        output
-                                    />
-                                </div>
-                            </div>
-                        </FormLayout.Group>
-                    </FormLayout>
+                                </BlockStack>
+                            )}
+                        </Card>
+                    </div>
                 </BlockStack>
             )}
-
-            <div style={{ margin: "15px 0" }}>
-                <Divider borderColor="border" />
-            </div>
-
-            <Card>
-                <InlineGrid columns={["twoThirds", "oneThird"]}>
-                    <Text
-                        variant="bodyLg"
-                        as="span"
-                        alignment="start"
-                        fontWeight="medium"
-                    >
-                        UpSell Popup
-                        {enableUpSell ? (
-                            <span className="lm_sticky_custom_badge_success">
-                                <Badge tone="success">Enabled</Badge>
-                            </span>
-                        ) : (
-                            <span className="lm_sticky_custom_badge_critical">
-                                <Badge tone="critical">Disabled</Badge>
-                            </span>
-                        )}
-                    </Text>
-                    <Switch
-                        onChange={handleUpSellSwitchChange}
-                        checked={enableUpSell}
-                        uncheckedIcon={null}
-                        checkedIcon={null}
-                    />
-                </InlineGrid>
-
-                {enableUpSell && (
-                    <BlockStack gap="400">
-                        <div style={{ margin: "0" }}>
-                            <Divider borderColor="border" />
-                        </div>
-
-                        {/* Product List Selection */}
-                        <ProductListSelection
-                            productListCallback={handleProductListCallback}
-                            CUPLSelection={UPLSelection}
-                            CUPLManualSelection={UPLManualSelection}
-                            SelectedCollectionID={SelectedCollectionID}
-                            SelectedProductIDs={SelectedProductIDs}
-                        />
-                    </BlockStack>
-                )}
-            </Card>
 
             <div style={{ margin: "15px 0" }}>
                 <Divider borderColor="border" />
