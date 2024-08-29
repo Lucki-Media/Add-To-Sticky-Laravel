@@ -141,6 +141,7 @@ export function BuyNowSettings(props) {
             gsNotificationBarFontSize: props.gsNotificationBarFontSize,
             gsNotificationBarHeight: props.gsNotificationBarHeight,
             containerHeight: props.containerHeight,
+            enableUpSell: props.enableUpSell,
         });
     }, [
         editText,

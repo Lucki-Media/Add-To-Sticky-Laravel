@@ -23,7 +23,8 @@ return [
         "gsNotificationBarTextColor" => "#ffffff",
         "gsNotificationBarBgColor" => '#000000',
         "gsNotificationBarFontSize" => 12,
-        "gsNotificationBarHeight" => 5
+        "gsNotificationBarHeight" => 5,
+        "enableUpSell" => false,
     ],
     'buy_btn_settings' => [
         'editText' => 'ADD TO CART',

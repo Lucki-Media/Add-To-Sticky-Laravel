@@ -312,6 +312,7 @@ function DesignSettings(props) {
             gsNotificationBarBgColor: props.gsNotificationBarBgColor,
             gsNotificationBarFontSize: props.gsNotificationBarFontSize,
             gsNotificationBarHeight: props.gsNotificationBarHeight,
+            enableUpSell: props.enableUpSell,
         },
         design_settings: {
             gsFontFamily: gsFontFamily,

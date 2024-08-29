@@ -6,6 +6,7 @@ import proimage from "../assets/productimage.png";
 import { QuantityPicker } from "react-qty-picker";
 import style from "../css/CartTemplate1.module.css";
 import Notification from "../pages/NotificationBar.jsx";
+import UpSellBottomSheet from "../pages/UpSellBottomSheet.jsx";
 
 function CartTemplate1(props) {
     const [enable, setEnable] = useState(props.enable); // FOR MAIN DISPLAY
@@ -67,6 +68,8 @@ function CartTemplate1(props) {
     const [gsNotificationBarHeight, setGsNotificationBarHeight] = useState(
         props.gsNotificationBarHeight
     );
+
+    const [enableUpSell, setEnableUpSell] = useState(props.enableUpSell);
 
     const [btnFontsize, setBtnFontsize] = useState(props.btnFontsize);
     const [gsFontsize, setGsFontsize] = useState(props.gsFontsize);
@@ -156,7 +159,7 @@ function CartTemplate1(props) {
         setGsNotificationBarBgColor(props.gsNotificationBarBgColor);
         setGsNotificationBarFontSize(props.gsNotificationBarFontSize);
         setGsNotificationBarHeight(props.gsNotificationBarHeight);
-
+        setEnableUpSell(props.enableUpSell);
         // const interval = setInterval(() => {
         //     setIsVibrating(true);
         //     // setTimeout(() => setIsVibrating(false), 2000); // Duration of the vibrate animation (0.2s)
@@ -528,6 +531,10 @@ function CartTemplate1(props) {
                             gsNotificationBarHeight={gsNotificationBarHeight}
                         />
                     )}
+
+                    {/* <div className="popup_container">
+                        <UpSellBottomSheet enableUpSell={enableUpSell} />
+                    </div> */}
                 </div>
             ) : (
                 ""
