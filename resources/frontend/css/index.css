@@ -12,6 +12,14 @@
     max-width: 420px;
     margin: auto;
 }
+.lm_sticky_pricing_plans {
+    background: rgb(255 255 255);
+    border: 1px solid rgb(227, 227, 227);
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin: 16px auto;
+    width: fit-content;
+}
 .fadeInAnimation {
     animation: fadeIn 0.5s ease-in-out;
 }
