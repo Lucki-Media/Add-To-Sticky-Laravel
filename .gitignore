@@ -27,3 +27,4 @@ build_old/
 *.zip
 
 .history/
+.git/
