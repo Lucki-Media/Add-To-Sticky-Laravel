@@ -7,13 +7,11 @@ const UpSellBottomSheet = (props) => {
     // Use useEffect to update the state when props.enableUpSell changes
     useEffect(() => {
         setOpen(props.enableUpSell);
+        getCartUpsellProducts();
     }, [props.enableUpSell]);
 
     // Toggle the bottom sheet visibility
     const toggleBottomSheet = () => setOpen(!open);
-
-    console.log("props");
-    console.log(props);
 
     const products = [
         {
@@ -28,6 +26,101 @@ const UpSellBottomSheet = (props) => {
         },
         // Add more products as needed
     ];
+
+    const getCartUpsellProducts = async () => {
+        if (props.CUPLSelection === "1") {
+            // Default Recommendation
+            axios
+                .get(
+                    "https://" +
+                        window.location.host +
+                        "/recommendations/products.json?product_id=" +
+                        cartData.items[0].product_id + // get cart's first item's related product
+                        "&limit=3"
+                )
+                .then(async (response) => {
+                    setCUProducts(response.data.products);
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+        } else {
+            // Manually Select
+            if (props.CUPLManualSelection === "1") {
+                // Manual Products
+                if (props.SelectedProductIDs.length > 0) {
+                    // Create an array of promises
+                    const productPromises = props.SelectedProductIDs.map(
+                        (productHandle) => {
+                            return getProductByHandle(productHandle);
+                        }
+                    );
+
+                    // Wait for all promises to resolve
+                    Promise.all(productPromises).then((productArray) => {
+                        // Filter out any null values from failed requests
+                        productArray = productArray.filter(
+                            (product) => product !== null
+                        );
+                        setCUProducts(productArray);
+                    });
+                }
+            } else {
+                // Manual Collection
+                if (props.SelectedCollectionID) {
+                    axios
+                        .get(
+                            "https://" +
+                                window.location.host +
+                                "/collections/" +
+                                props.SelectedCollectionID +
+                                "/products.json?limit=3"
+                        )
+                        .then(async (response) => {
+                            // Create an array of promises
+                            const productPromises = response.data.products.map(
+                                (product) => {
+                                    return getProductByHandle(product.handle);
+                                }
+                            );
+
+                            // Wait for all promises to resolve
+                            Promise.all(productPromises).then(
+                                (productArray) => {
+                                    // Filter out any null values from failed requests
+                                    productArray = productArray.filter(
+                                        (product) => product !== null
+                                    );
+                                    setCUProducts(productArray);
+                                }
+                            );
+                        })
+                        .catch((error) => {
+                            console.error("Error:", error);
+                        });
+                }
+            }
+        }
+    };
+
+    // Helper function
+    const getProductByHandle = (productHandle) => {
+        return axios
+            .get(
+                "https://" +
+                    window.location.host +
+                    "/products/" +
+                    productHandle +
+                    ".js"
+            )
+            .then((response) => {
+                return response.data;
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                return null; // Return null for any failed requests
+            });
+    };
 
     return (
         <div className={`popup_container ${open ? "popup_open" : ""}`}>
@@ -63,7 +156,7 @@ const UpSellBottomSheet = (props) => {
                                 <img
                                     src={product.image}
                                     alt={product.title}
-                                    className="product_image"
+                                    className="usrp_product_image"
                                 />
                                 <div className="product_info">
                                     <h3 className="product_title">
@@ -74,7 +167,7 @@ const UpSellBottomSheet = (props) => {
                                     </p>
                                 </div>
                                 <button className="add_to_cart_button">
-                                    View
+                                    Buy
                                 </button>
                             </div>
                         ))

@@ -300,7 +300,7 @@ export default function CartUpsellSettings(props) {
                                     </div>
                                 )}
                             </BlockStack>
-
+                            
                             {/* Buy Button Text */}
                             <BlockStack gap="200">
                                 <Text
