@@ -1,3 +1,4 @@
+
 import {
     Autocomplete,
     Icon,
@@ -72,7 +73,7 @@ export default function ManualProductSelection(props) {
             // update selected IDs Details Object Array
             let selectedProductArray = [...selectedProduct];
             selectedProductArray = selectedProductArray.filter(
-                (item) => item.id !== productID
+                (item) => item.handle !== productID
             );
             setSelectedProduct(selectedProductArray);
         },
@@ -86,14 +87,14 @@ export default function ManualProductSelection(props) {
                 setSelectedProductIDs(selectedProducts);
                 const updatedSelectedProducts = selectedProducts
                     .map((selected) => {
-                        // Find the object with the matching id
+                        // Find the object with the matching handle
                         const product = props.productResponse.find(
-                            (option) => String(option.id) === String(selected)
+                            (option) => String(option.handle) === String(selected)
                         ); // Transform the found product into the desired structure
 
                         return product
                             ? {
-                                  id: String(product.id),
+                                  handle: String(product.handle),
                                   title: product.title,
                                   image:
                                       product.image && product.image.src
@@ -155,12 +156,6 @@ export default function ManualProductSelection(props) {
                       background="bg-surface-secondary-hover"
                       borderRadius="100"
                   >
-                      {/* <Tag
-                          key={`option${option.id}`}
-                          onRemove={removeTag(option.id)}
-                      >
-                          {option.title}
-                      </Tag> */}
                       <InlineStack align="space-between" blockAlign="center">
                           <InlineStack align="start" gap={200}>
                               <Thumbnail
@@ -179,7 +174,7 @@ export default function ManualProductSelection(props) {
                               icon={XIcon}
                               variant="plain"
                               tone="base"
-                              onClick={removeTag(option.id)}
+                              onClick={removeTag(option.handle)}
                           />
                       </InlineStack>
                   </Box>
@@ -204,7 +199,7 @@ export default function ManualProductSelection(props) {
                     size="small"
                 />
             ),
-            value: String(product.id),
+            value: String(product.handle),
             label: product.title,
         }));
         setDefaultProducts(productArray);
@@ -217,14 +212,14 @@ export default function ManualProductSelection(props) {
         // callback end
 
         const updatedSelectedProducts = SelectedProductIDs.map((selected) => {
-            // Find the object with the matching id
+            // Find the object with the matching handle
             const product = props.productResponse.find(
-                (option) => String(option.id) === String(selected)
+                (option) => String(option.handle) === String(selected)
             ); // Transform the found product into the desired structure
 
             return product
                 ? {
-                      id: String(product.id),
+                      handle: String(product.handle),
                       title: product.title,
                       image:
                           product.image && product.image.src

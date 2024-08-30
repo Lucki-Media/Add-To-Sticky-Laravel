@@ -3,8 +3,12 @@ import style from "../../css/Drawer.module.css";
 import proimage from "../../assets/productimage.png";
 import { QuantityPicker } from "react-qty-picker";
 import recommendedProducts from "../../assets/recommendedProducts.js";
+import BottomSlider from "./BottomSlider.jsx";
 
 export default function Drawer({ isOpen, customizationData }) {
+    const [showBottomSlider, setShowBottomSlider] = useState(false);
+    const [sliderProduct, setSliderProduct] = useState({});
+
     const [checkoutBtnHover, setCheckoutBtnHover] = useState(false);
     const [hoverState, setHoverState] = useState({});
 
@@ -34,30 +38,30 @@ export default function Drawer({ isOpen, customizationData }) {
         <>
             <style>
                 {`
-                    .lm_quantity_picker .quantity-picker .quantity-display {
-                        width: 1.5rem !important;
-                        padding: 0.25rem;
+                    .lm_quantity_picker .quantity-picker .quantity-display{
+                        padding: 0;
+                        background-color: #fff;
+                        width: 28px !important;
                         font-size: ${customizationData.productList.PLFontSize}px;
-                        border: 0;
-                        border-top: 0 solid #dbdbdb;
-                        border-bottom: 0 solid #dbdbdb;
-                        text-align: center;
-                        color: ${customizationData.productList.PLTextColor};
+                        box-shadow: none;
                     }
-                    .lm_quantity_picker .quantity-modifier {
-                        height: 100%;
-                        width: 1.5rem;
+                    .lm_quantity_picker .quantity-modifier{
+                        height: 25px;
+                        width: 30px;
+                        border: none;
                         font-size: ${customizationData.productList.PLFontSize}px;
-                        background: #f3f3f3;
-                        color: ${customizationData.productList.PLTextColor};
-                        opacity: .5;
-                        border: 0 solid #dbdbdb;
-                        text-align: center;
-                        cursor: pointer;
+                        color: black;
+                        background-color: #fff;
+                        border-radius: 0;
                     }
-                    .lm_quantity_picker .quantity-picker {
-                        border: 1px solid #dddddd8c;
-                    }`}
+                    .lm_quantity_picker .quantity-picker{
+                        background-color: #fff;
+                        border: 1px solid #ddd;
+                        border-radius:0;
+                        display: flex;
+                        align-items: center;
+                    }
+                `}
             </style>
             <div
                 className={`${style.lm_drawer_wrapper} ${
@@ -65,9 +69,9 @@ export default function Drawer({ isOpen, customizationData }) {
                 }`}
             >
                 <div
-                    className={`${style.lm_drawer} ${
-                        isOpen && style.lm_drawer_open
-                    } ${style.lm_drawer_right}`}
+                    className={`${showBottomSlider && style.lm_bottom_overlay} 
+                    ${style.lm_drawer} 
+                    ${isOpen && style.lm_drawer_open}`}
                     style={{
                         background: customizationData.cartHeader.DCBGColor,
                     }}
@@ -250,22 +254,6 @@ export default function Drawer({ isOpen, customizationData }) {
                                                     >
                                                         $40.00
                                                     </div>
-                                                    <div
-                                                        className={
-                                                            style.lm_cart_item_compare_price
-                                                        }
-                                                        style={{
-                                                            fontSize:
-                                                                customizationData
-                                                                    .productList
-                                                                    .PLFontSize,
-                                                            color: customizationData
-                                                                .productList
-                                                                .PLTextColor,
-                                                        }}
-                                                    >
-                                                        $50.00
-                                                    </div>
                                                 </div>
                                                 <div
                                                     className={
@@ -303,6 +291,7 @@ export default function Drawer({ isOpen, customizationData }) {
                                                             className={
                                                                 style.quantity12
                                                             }
+                                                            value={1}
                                                             min={1}
                                                             max={10}
                                                         />
@@ -486,6 +475,14 @@ export default function Drawer({ isOpen, customizationData }) {
                                                             product.id
                                                         )
                                                     }
+                                                    onClick={() => {
+                                                        setSliderProduct(
+                                                            product
+                                                        );
+                                                        setShowBottomSlider(
+                                                            true
+                                                        );
+                                                    }}
                                                 >
                                                     {
                                                         customizationData
@@ -604,6 +601,16 @@ export default function Drawer({ isOpen, customizationData }) {
                             </a>
                         )}
                     </div>
+
+                    {/* Bottom Slider */}
+                    <BottomSlider
+                        showBottomSlider={showBottomSlider}
+                        sliderProduct={sliderProduct}
+                        customizationData={customizationData}
+                        handleBottomSlider={() => {
+                            setShowBottomSlider(false);
+                        }}
+                    />
                 </div>
             </div>
         </>

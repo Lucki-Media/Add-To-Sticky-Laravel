@@ -5,6 +5,16 @@ const recommendedProducts = [
         title: "Orange juice bottle mockup",
         actual_price: "$45.99",
         compare_price: "$39.99",
+        options: [
+            {
+                name: "Color",
+                values: ["Red", "Green", "Yellow"],
+            },
+            {
+                name: "Size",
+                values: ["SM", "MD", "LG", "XL"],
+            },
+        ],
     },
     {
         id: 2,
@@ -12,6 +22,7 @@ const recommendedProducts = [
         title: "Fruit juice combo",
         actual_price: "$129.99",
         compare_price: "",
+        options: [],
     },
     {
         id: 3,
@@ -19,6 +30,12 @@ const recommendedProducts = [
         title: "Orange bottle mockup",
         actual_price: "$25.99",
         compare_price: "$24.99",
+        options: [
+            {
+                name: "Size",
+                values: ["SM", "MD", "LG", "XL"],
+            },
+        ],
     },
 ];
 
