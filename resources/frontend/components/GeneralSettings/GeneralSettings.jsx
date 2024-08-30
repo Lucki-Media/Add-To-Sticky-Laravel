@@ -64,10 +64,10 @@ function GeneralSettings(props) {
     const [enableUpSell, setEnableUpSell] = useState(props.enableUpSell);
 
     // PRODUCT LIST SELECTION STATES
-    const [UPLSelection, setUPLSelection] = useState(
+    const [CUPLSelection, setCUPLSelection] = useState(
         drawerCartData.cartUpsell.CUPLSelection
     );
-    const [UPLManualSelection, setUPLManualSelection] = useState(
+    const [CUPLManualSelection, setCUPLManualSelection] = useState(
         drawerCartData.cartUpsell.CUPLManualSelection
     );
     const [SelectedCollectionID, setSelectedCollectionID] = useState(
@@ -172,8 +172,8 @@ function GeneralSettings(props) {
 
     // HANDLE PRODUCT LIST CALLBACK
     const handleProductListCallback = (callbackData) => {
-        setUPLSelection(callbackData.UPLSelection);
-        setUPLManualSelection(callbackData.UPLManualSelection);
+        setCUPLSelection(callbackData.CUPLSelection);
+        setCUPLManualSelection(callbackData.CUPLManualSelection);
         setSelectedCollectionID(callbackData.SelectedCollectionID);
         setSelectedProductIDs(callbackData.SelectedProductIDs);
     };
@@ -200,6 +200,10 @@ function GeneralSettings(props) {
         setGsNotificationBarFontSize(props.gsNotificationBarFontSize);
         setGsNotificationBarHeight(props.gsNotificationBarHeight);
         setEnableUpSell(props.enableUpSell);
+        setCUPLSelection(props.CUPLSelection);
+        setCUPLManualSelection(props.CUPLManualSelection);
+        setSelectedCollectionID(props.SelectedCollectionID);
+        setSelectedProductIDs(props.SelectedProductIDs);
     }, [props]);
 
     useEffect(() => {
@@ -218,7 +222,11 @@ function GeneralSettings(props) {
         gsNotificationBarBgColor,
         gsNotificationBarFontSize,
         gsNotificationBarHeight,
-        enableUpSell
+        enableUpSell,
+        CUPLSelection,
+        CUPLManualSelection,
+        SelectedCollectionID,
+        SelectedProductIDs,
     ]);
 
     var transfer_data = {
@@ -236,6 +244,10 @@ function GeneralSettings(props) {
             gsNotificationBarFontSize: gsNotificationBarFontSize,
             gsNotificationBarHeight: gsNotificationBarHeight,
             enableUpSell: enableUpSell,
+            CUPLSelection: CUPLSelection,
+            CUPLManualSelection: CUPLManualSelection,
+            SelectedCollectionID: SelectedCollectionID,
+            SelectedProductIDs: SelectedProductIDs,
         },
         design_settings: {
             gsFontFamily: props.gsFontFamily,
@@ -524,8 +536,10 @@ function GeneralSettings(props) {
                                         productListCallback={
                                             handleProductListCallback
                                         }
-                                        CUPLSelection={UPLSelection}
-                                        CUPLManualSelection={UPLManualSelection}
+                                        CUPLSelection={CUPLSelection}
+                                        CUPLManualSelection={
+                                            CUPLManualSelection
+                                        }
                                         SelectedCollectionID={
                                             SelectedCollectionID
                                         }

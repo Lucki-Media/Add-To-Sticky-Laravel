@@ -25,6 +25,10 @@ return [
         "gsNotificationBarFontSize" => 12,
         "gsNotificationBarHeight" => 5,
         "enableUpSell" => false,
+        "CUPLSelection" => "1",
+        "CUPLManualSelection" => "1",
+        "SelectedCollectionID" => "",
+        "SelectedProductIDs"=> [],
     ],
     'buy_btn_settings' => [
         'editText' => 'ADD TO CART',

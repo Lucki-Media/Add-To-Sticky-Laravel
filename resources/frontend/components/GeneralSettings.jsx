@@ -72,6 +72,18 @@ export function GeneralSettings(props) {
 
     const [enableUpSell, setEnableUpSell] = useState(props.enableUpSell);
 
+    // PRODUCT LIST SELECTION STATES
+    const [CUPLSelection, setCUPLSelection] = useState(props.CUPLSelection);
+    const [CUPLManualSelection, setCUPLManualSelection] = useState(
+        props.CUPLManualSelection
+    );
+    const [SelectedCollectionID, setSelectedCollectionID] = useState(
+        props.SelectedCollectionID
+    );
+    const [SelectedProductIDs, setSelectedProductIDs] = useState(
+        props.SelectedProductIDs
+    );
+
     const [containerHeight, setContainerHeight] = useState(
         props.containerHeight
     );
@@ -102,6 +114,10 @@ export function GeneralSettings(props) {
         setGsNotificationBarHeight(props.gsNotificationBarHeight);
         setEnableUpSell(props.enableUpSell);
         setContainerHeight(props.containerHeight);
+        setCUPLSelection(props.CUPLSelection);
+        setCUPLManualSelection(props.CUPLManualSelection);
+        setSelectedCollectionID(props.SelectedCollectionID);
+        setSelectedProductIDs(props.SelectedProductIDs);
     }, [props]);
 
     // CALLBACK FUNCTION TO SEND PROPS START
@@ -125,6 +141,10 @@ export function GeneralSettings(props) {
         gsNotificationBarFontSize,
         gsNotificationBarHeight,
         enableUpSell,
+        CUPLSelection,
+        CUPLManualSelection,
+        SelectedCollectionID,
+        SelectedProductIDs,
         //GENERAL
         gsFontFamily,
         gsFontsize,

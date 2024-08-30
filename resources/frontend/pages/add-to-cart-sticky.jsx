@@ -79,6 +79,13 @@ export default function AddToCartSticky() {
     const [gsNotificationBarHeight, setGsNotificationBarHeight] = useState(5);
     const [enableUpSell, setEnableUpSell] = useState(false);
     const [containerHeight, setContainerHeight] = useState(70);
+
+    // PRODUCT LIST SELECTION STATES
+    const [CUPLSelection, setCUPLSelection] = useState("1");
+    const [CUPLManualSelection, setCUPLManualSelection] = useState("!");
+    const [SelectedCollectionID, setSelectedCollectionID] = useState("");
+    const [SelectedProductIDs, setSelectedProductIDs] = useState([]);
+
     /*BUY NOW CONSTANTS*/
     const [editText, setEditText] = useState("BUY NOW");
     // const [soldOut, setSoldOut] = useState("Sold out");
@@ -201,6 +208,18 @@ export default function AddToCartSticky() {
                     enableUpSell:
                         data.data.current_template.general_settings
                             .enableUpSell,
+                    CUPLSelection:
+                        data.data.current_template.general_settings
+                            .CUPLSelection,
+                    CUPLManualSelection:
+                        data.data.current_template.general_settings
+                            .CUPLManualSelection,
+                    SelectedCollectionID:
+                        data.data.current_template.general_settings
+                            .SelectedCollectionID,
+                    SelectedProductIDs:
+                        data.data.current_template.general_settings
+                            .SelectedProductIDs,
                 },
                 design_settings: {
                     gsFontFamily:
@@ -322,6 +341,18 @@ export default function AddToCartSticky() {
                     enableUpSell:
                         data.data.current_template.general_settings
                             .enableUpSell,
+                    CUPLSelection:
+                        data.data.current_template.general_settings
+                            .CUPLSelection,
+                    CUPLManualSelection:
+                        data.data.current_template.general_settings
+                            .CUPLManualSelection,
+                    SelectedCollectionID:
+                        data.data.current_template.general_settings
+                            .SelectedCollectionID,
+                    SelectedProductIDs:
+                        data.data.current_template.general_settings
+                            .SelectedProductIDs,
                 },
                 design_settings: {
                     gsFontFamily:
@@ -483,7 +514,18 @@ export default function AddToCartSticky() {
             setEnableUpSell(
                 data.data.current_template.general_settings.enableUpSell
             );
-
+            setCUPLSelection(
+                data.data.current_template.general_settings.CUPLSelection
+            );
+            setCUPLManualSelection(
+                data.data.current_template.general_settings.CUPLManualSelection
+            );
+            setSelectedCollectionID(
+                data.data.current_template.general_settings.SelectedCollectionID
+            );
+            setSelectedCollectionID(
+                data.data.current_template.general_settings.SelectedCollectionID
+            );
             setGsAction(data.data.current_template.general_settings.gsAction);
             setEditText(data.data.current_template.buy_btn_settings.editText);
             // setSoldOut(data.data.current_template.buy_btn_settings.soldOut);
@@ -569,6 +611,10 @@ export default function AddToCartSticky() {
                 gsNotificationBarFontSize: gsNotificationBarFontSize,
                 gsNotificationBarHeight: gsNotificationBarHeight,
                 enableUpSell: enableUpSell,
+                CUPLSelection: CUPLSelection,
+                CUPLManualSelection: CUPLManualSelection,
+                SelectedCollectionID: SelectedCollectionID,
+                SelectedProductIDs: SelectedProductIDs,
                 /*GENERAL SETTINGS END*/
 
                 /*BUY NOW START*/
@@ -702,7 +748,14 @@ export default function AddToCartSticky() {
             currentData.general_settings.gsNotificationBarHeight
         );
         setEnableUpSell(currentData.general_settings.enableUpSell);
-
+        setCUPLSelection(currentData.general_settings.CUPLSelection);
+        setCUPLManualSelection(
+            currentData.general_settings.CUPLManualSelection
+        );
+        setSelectedCollectionID(
+            currentData.general_settings.SelectedCollectionID
+        );
+        setSelectedProductIDs(currentData.general_settings.SelectedProductIDs);
         setGsAction(currentData.general_settings.gsAction);
         /*BUY NOW BUTTON VALUES*/
         setEditText(currentData.buy_btn_settings.editText);
@@ -750,6 +803,11 @@ export default function AddToCartSticky() {
                 gsNotificationBarHeight:
                     data.general_settings.gsNotificationBarHeight,
                 enableUpSell: data.general_settings.enableUpSell,
+                CUPLSelection: data.general_settings.CUPLSelection,
+                CUPLManualSelection: data.general_settings.CUPLManualSelection,
+                SelectedCollectionID:
+                    data.general_settings.SelectedCollectionID,
+                SelectedProductIDs: data.general_settings.SelectedProductIDs,
             },
             design_settings: {
                 gsFontFamily: data.design_settings.gsFontFamily,
@@ -808,6 +866,10 @@ export default function AddToCartSticky() {
             data.general_settings.gsNotificationBarHeight
         );
         setEnableUpSell(data.general_settings.enableUpSell);
+        setCUPLSelection(data.general_settings.CUPLSelection);
+        setCUPLManualSelection(data.general_settings.CUPLManualSelection);
+        setSelectedCollectionID(data.general_settings.SelectedCollectionID);
+        setSelectedProductIDs(data.general_settings.SelectedProductIDs);
         setHomePageProduct(data.general_settings.homePageProduct);
         //DESIGN SETTINGS
         setPosition(data.design_settings.position);
@@ -1038,6 +1100,16 @@ export default function AddToCartSticky() {
                                                     gsNotificationBarHeight
                                                 }
                                                 enableUpSell={enableUpSell}
+                                                CUPLSelection={CUPLSelection}
+                                                CUPLManualSelection={
+                                                    CUPLManualSelection
+                                                }
+                                                SelectedCollectionID={
+                                                    SelectedCollectionID
+                                                }
+                                                SelectedProductIDs={
+                                                    SelectedProductIDs
+                                                }
                                                 containerHeight={
                                                     containerHeight
                                                 }
@@ -1188,6 +1260,18 @@ export default function AddToCartSticky() {
                                                                         enableUpSell={
                                                                             enableUpSell
                                                                         }
+                                                                        CUPLSelection={
+                                                                            CUPLSelection
+                                                                        }
+                                                                        CUPLManualSelection={
+                                                                            CUPLManualSelection
+                                                                        }
+                                                                        SelectedCollectionID={
+                                                                            SelectedCollectionID
+                                                                        }
+                                                                        SelectedProductIDs={
+                                                                            SelectedProductIDs
+                                                                        }
                                                                         conta
                                                                         editText={
                                                                             editText
@@ -1328,6 +1412,18 @@ export default function AddToCartSticky() {
                                                                         }
                                                                         enableUpSell={
                                                                             enableUpSell
+                                                                        }
+                                                                        CUPLSelection={
+                                                                            CUPLSelection
+                                                                        }
+                                                                        CUPLManualSelection={
+                                                                            CUPLManualSelection
+                                                                        }
+                                                                        SelectedCollectionID={
+                                                                            SelectedCollectionID
+                                                                        }
+                                                                        SelectedProductIDs={
+                                                                            SelectedProductIDs
                                                                         }
                                                                         conta
                                                                         editText={
@@ -1470,6 +1566,18 @@ export default function AddToCartSticky() {
                                                                         enableUpSell={
                                                                             enableUpSell
                                                                         }
+                                                                        CUPLSelection={
+                                                                            CUPLSelection
+                                                                        }
+                                                                        CUPLManualSelection={
+                                                                            CUPLManualSelection
+                                                                        }
+                                                                        SelectedCollectionID={
+                                                                            SelectedCollectionID
+                                                                        }
+                                                                        SelectedProductIDs={
+                                                                            SelectedProductIDs
+                                                                        }
                                                                         conta
                                                                         editText={
                                                                             editText
@@ -1610,6 +1718,18 @@ export default function AddToCartSticky() {
                                                                         }
                                                                         enableUpSell={
                                                                             enableUpSell
+                                                                        }
+                                                                        CUPLSelection={
+                                                                            CUPLSelection
+                                                                        }
+                                                                        CUPLManualSelection={
+                                                                            CUPLManualSelection
+                                                                        }
+                                                                        SelectedCollectionID={
+                                                                            SelectedCollectionID
+                                                                        }
+                                                                        SelectedProductIDs={
+                                                                            SelectedProductIDs
                                                                         }
                                                                         conta
                                                                         editText={
@@ -1752,6 +1872,18 @@ export default function AddToCartSticky() {
                                                                         enableUpSell={
                                                                             enableUpSell
                                                                         }
+                                                                        CUPLSelection={
+                                                                            CUPLSelection
+                                                                        }
+                                                                        CUPLManualSelection={
+                                                                            CUPLManualSelection
+                                                                        }
+                                                                        SelectedCollectionID={
+                                                                            SelectedCollectionID
+                                                                        }
+                                                                        SelectedProductIDs={
+                                                                            SelectedProductIDs
+                                                                        }
                                                                         conta
                                                                         editText={
                                                                             editText
@@ -1892,6 +2024,18 @@ export default function AddToCartSticky() {
                                                                         }
                                                                         enableUpSell={
                                                                             enableUpSell
+                                                                        }
+                                                                        CUPLSelection={
+                                                                            CUPLSelection
+                                                                        }
+                                                                        CUPLManualSelection={
+                                                                            CUPLManualSelection
+                                                                        }
+                                                                        SelectedCollectionID={
+                                                                            SelectedCollectionID
+                                                                        }
+                                                                        SelectedProductIDs={
+                                                                            SelectedProductIDs
                                                                         }
                                                                         conta
                                                                         editText={
@@ -2034,6 +2178,18 @@ export default function AddToCartSticky() {
                                                                         enableUpSell={
                                                                             enableUpSell
                                                                         }
+                                                                        CUPLSelection={
+                                                                            CUPLSelection
+                                                                        }
+                                                                        CUPLManualSelection={
+                                                                            CUPLManualSelection
+                                                                        }
+                                                                        SelectedCollectionID={
+                                                                            SelectedCollectionID
+                                                                        }
+                                                                        SelectedProductIDs={
+                                                                            SelectedProductIDs
+                                                                        }
                                                                         conta
                                                                         editText={
                                                                             editText
@@ -2175,6 +2331,18 @@ export default function AddToCartSticky() {
                                                                         enableUpSell={
                                                                             enableUpSell
                                                                         }
+                                                                        CUPLSelection={
+                                                                            CUPLSelection
+                                                                        }
+                                                                        CUPLManualSelection={
+                                                                            CUPLManualSelection
+                                                                        }
+                                                                        SelectedCollectionID={
+                                                                            SelectedCollectionID
+                                                                        }
+                                                                        SelectedProductIDs={
+                                                                            SelectedProductIDs
+                                                                        }
                                                                         conta
                                                                         editText={
                                                                             editText
@@ -2263,7 +2431,6 @@ export default function AddToCartSticky() {
                                                                             to
                                                                             cart
                                                                         </a>
-
                                                                         <div className="product_content">
                                                                             The
                                                                             Juice
@@ -2308,15 +2475,28 @@ export default function AddToCartSticky() {
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <UpSellBottomSheet
+                                                                    enableUpSell={
+                                                                        enableUpSell
+                                                                    }
+                                                                    CUPLSelection={
+                                                                        CUPLSelection
+                                                                    }
+                                                                    CUPLManualSelection={
+                                                                        CUPLManualSelection
+                                                                    }
+                                                                    SelectedCollectionID={
+                                                                        SelectedCollectionID
+                                                                    }
+                                                                    SelectedProductIDs={
+                                                                        SelectedProductIDs
+                                                                    }
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </Card>
-
-                                            <UpSellBottomSheet
-                                                enableUpSell={enableUpSell}
-                                            />
                                         </div>
                                     </Layout.Section>
                                 </Layout>

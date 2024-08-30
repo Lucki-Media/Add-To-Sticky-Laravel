@@ -40,6 +40,10 @@ export function SideBar(props) {
                     gsNotificationBarFontSize={props.gsNotificationBarFontSize}
                     gsNotificationBarHeight={props.gsNotificationBarHeight}
                     enableUpSell={props.enableUpSell}
+                    CUPLSelection={props.CUPLSelection}
+                    CUPLManualSelection={props.CUPLManualSelection}
+                    SelectedCollectionID={props.SelectedCollectionID}
+                    SelectedProductIDs={props.SelectedProductIDs}
                     containerHeight={props.containerHeight}
                     animationEnable={props.animationEnable}
                     editText={props.editText}
@@ -90,6 +94,10 @@ export function SideBar(props) {
                     gsNotificationBarFontSize={props.gsNotificationBarFontSize}
                     gsNotificationBarHeight={props.gsNotificationBarHeight}
                     enableUpSell={props.enableUpSell}
+                    CUPLSelection={props.CUPLSelection}
+                    CUPLManualSelection={props.CUPLManualSelection}
+                    SelectedCollectionID={props.SelectedCollectionID}
+                    SelectedProductIDs={props.SelectedProductIDs}
                     containerHeight={props.containerHeight}
                     animationEnable={props.animationEnable}
                     editText={props.editText}
