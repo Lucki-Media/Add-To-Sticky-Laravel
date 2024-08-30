@@ -122,76 +122,58 @@ export default function BottomSlider({
                 </div>
 
                 <div className={style.lm_variation_dropdown}>
-                    <div className={style.lm_variation_dropdown__variants}>
-                        <label
-                            className={style.lm_select__inline}
-                            for="lm_variation_dropdown_COLOR"
+                    {sliderProduct.options?.map((variantOption) => (
+                        <div
+                            className={style.lm_variation_dropdown__variants}
+                            key={variantOption.name}
                         >
-                            <span
-                                className={style.lm_variation_select_label}
-                                style={{
-                                    fontSize:
-                                        customizationData.cartUpsell
-                                            .CUBodyFontSize,
-                                    color: customizationData.cartUpsell
-                                        .CUBodyColor,
-                                }}
+                            <label
+                                className={style.lm_select__inline}
+                                htmlFor={
+                                    "lm_variation_dropdown_" +
+                                    variantOption.name
+                                }
                             >
-                                COLOR:
-                            </span>
-                            <select
-                                className={style.lm_variation_select__select}
-                                style={{
-                                    fontSize:
-                                        customizationData.cartUpsell
-                                            .CUBodyFontSize,
-                                    color: customizationData.cartUpsell
-                                        .CUBodyColor,
-                                    background:
-                                        customizationData.cartHeader.DCBGColor,
-                                }}
-                                id="lm_variation_dropdown_COLOR"
-                            >
-                                <option value="White">White</option>
-                                <option value="Black">Black</option>
-                            </select>
-                        </label>
-                    </div>
-                    <div className={style.lm_variation_dropdown__variants}>
-                        <label
-                            className={style.lm_select__inline}
-                            for="lm_variation_dropdown_COLOR"
-                        >
-                            <span
-                                className={style.lm_variation_select_label}
-                                style={{
-                                    fontSize:
-                                        customizationData.cartUpsell
-                                            .CUBodyFontSize,
-                                    color: customizationData.cartUpsell
-                                        .CUBodyColor,
-                                }}
-                            >
-                                Size:
-                            </span>
-                            <select
-                                className={style.lm_variation_select__select}
-                                style={{
-                                    fontSize:
-                                        customizationData.cartUpsell
-                                            .CUBodyFontSize,
-                                    color: customizationData.cartUpsell
-                                        .CUBodyColor,
-                                    background:
-                                        customizationData.cartHeader.DCBGColor,
-                                }}
-                                id="lm_variation_dropdown_COLOR"
-                            >
-                                <option value="White">1</option>
-                                <option value="Black">2</option>
-                            </select>
-                        </label>
-                    </div>
+                                <span
+                                    className={style.lm_variation_select_label}
+                                    style={{
+                                        fontSize:
+                                            customizationData.cartUpsell
+                                                .CUBodyFontSize,
+                                        color: customizationData.cartUpsell
+                                            .CUBodyColor,
+                                    }}
+                                >
+                                    {variantOption.name} :
+                                </span>
+                                <select
+                                    className={
+                                        style.lm_variation_select__select
+                                    }
+                                    style={{
+                                        fontSize:
+                                            customizationData.cartUpsell
+                                                .CUBodyFontSize,
+                                        color: customizationData.cartUpsell
+                                            .CUBodyColor,
+                                        background:
+                                            customizationData.cartHeader
+                                                .DCBGColor,
+                                    }}
+                                    id={`lm_variation_dropdown_${variantOption.name}`}
+                                >
+                                    {variantOption.values.map((optionValue) => (
+                                        <option
+                                            value={optionValue}
+                                            key={optionValue}
+                                        >
+                                            {optionValue}
+                                        </option>
+                                    ))}
+                                </select>
+                            </label>
+                        </div>
+                    ))}
                 </div>
                 <div className={style.lm_Add_to_cart}>
                     <button

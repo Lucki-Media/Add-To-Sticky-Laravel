@@ -14,7 +14,7 @@
 
 .lm_drawer {
     height: 100%;
-    width: 400px;
+    width: 350px;
     overflow: hidden;
     /* padding: 12px; */
     margin: 0;
@@ -132,6 +132,7 @@ span.lm_shipping_bar_sub_title {
     padding-right: 8px;
 }
 .lm_quantity_selector {
+    display: flex;
     margin-right: 15px;
     padding-top: 5px;
 }

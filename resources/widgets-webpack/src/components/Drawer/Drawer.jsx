@@ -459,6 +459,11 @@ export default function Drawer({
                                                                     className={`lm_quantity_picker ${style.lm_quantity_selector}`}
                                                                 >
                                                                     <QuantityPicker
+                                                                        key={
+                                                                            item.variant_id +
+                                                                            "-" +
+                                                                            item.quantity
+                                                                        }
                                                                         id={
                                                                             item.variant_id
                                                                         }

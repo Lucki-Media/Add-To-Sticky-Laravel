@@ -20,6 +20,9 @@ export default function BottomSlider({
     const [selectedOptions, setSelectedOptions] = useState(
         () => sliderProduct?.options?.map((option) => option.values[0]) || []
     );
+    const [quantity, setQuantity] = useState(
+        selectedVariant?.quantity_rule?.min ?? 1
+    );
 
     // Update selectedOptions whenever sliderProduct changes
     useEffect(() => {
@@ -35,6 +38,12 @@ export default function BottomSlider({
             );
         }
     }, [sliderProduct]);
+
+    // Update quantity when selectedVariant changes
+    useEffect(() => {
+        // Reset to default value (e.g., min) when selectedVariant changes
+        setQuantity(selectedVariant?.quantity_rule?.min ?? 1);
+    }, [selectedVariant]);
 
     // Handler to update selected options
     const handleOptionChange = (index, value) => {
@@ -168,10 +177,15 @@ export default function BottomSlider({
                             className={`lm_quantity_picker ${style.lm_quantity_selector}`}
                         >
                             <QuantityPicker
+                                key={selectedVariant?.id + "-" + quantity}
+                                id={selectedVariant?.id}
                                 className={style.quantity12}
-                                value={1}
-                                min={1}
-                                max={10}
+                                value={quantity}
+                                min={selectedVariant?.quantity_rule?.min ?? 1}
+                                max={selectedVariant?.quantity_rule?.max ?? 10}
+                                onChange={(newQuantity) =>
+                                    setQuantity(newQuantity)
+                                }
                             />
                         </div>
                     </div>
@@ -265,6 +279,9 @@ export default function BottomSlider({
                                 ? customizationData.bottomSection
                                       .BSBtnBGHoverColor
                                 : customizationData.bottomSection.BSBtnBGColor,
+                            cursor: selectedVariant?.available
+                                ? "pointer"
+                                : "not-allowed",
                         }}
                         onMouseEnter={() => {
                             setCheckoutBtnHover(true);
@@ -273,14 +290,12 @@ export default function BottomSlider({
                             setCheckoutBtnHover(false);
                         }}
                         onClick={() => {
-                            handleCartAdd(
-                                selectedVariant.id,
-                                document
-                                    .getElementById(
-                                        "lm_bottom_slider_qty_picker"
-                                    )
-                                    .getElementsByTagName("input")[0].value
-                            );
+                            if (selectedVariant?.available) {
+                                handleCartAdd(
+                                    selectedVariant.id,
+                                    quantity
+                                );
+                            }
                         }}
                     >
                         {customizationData.cartUpsell.CUBuyBtnText}
