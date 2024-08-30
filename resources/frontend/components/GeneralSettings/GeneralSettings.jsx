@@ -64,17 +64,16 @@ function GeneralSettings(props) {
     const [enableUpSell, setEnableUpSell] = useState(props.enableUpSell);
 
     // PRODUCT LIST SELECTION STATES
-    const [CUPLSelection, setCUPLSelection] = useState(
-        drawerCartData.cartUpsell.CUPLSelection
-    );
+    const [CUPLSelection, setCUPLSelection] = useState(props.CUPLSelection);
+
     const [CUPLManualSelection, setCUPLManualSelection] = useState(
-        drawerCartData.cartUpsell.CUPLManualSelection
+        props.CUPLManualSelection
     );
     const [SelectedCollectionID, setSelectedCollectionID] = useState(
-        drawerCartData.cartUpsell.SelectedCollectionID
+        props.SelectedCollectionID
     );
     const [SelectedProductIDs, setSelectedProductIDs] = useState(
-        drawerCartData.cartUpsell.SelectedProductIDs
+        props.SelectedProductIDs
     );
 
     // HOME PAGE PRODUCT SWITCH LOGIC

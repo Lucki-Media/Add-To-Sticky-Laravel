@@ -79,7 +79,7 @@
     transform: scale(1.02);
 }
 
-.product_image {
+.usrp_product_image {
     width: 80px;
     height: 80px;
     object-fit: cover;

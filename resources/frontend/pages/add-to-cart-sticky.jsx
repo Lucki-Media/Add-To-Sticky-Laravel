@@ -82,7 +82,7 @@ export default function AddToCartSticky() {
 
     // PRODUCT LIST SELECTION STATES
     const [CUPLSelection, setCUPLSelection] = useState("1");
-    const [CUPLManualSelection, setCUPLManualSelection] = useState("!");
+    const [CUPLManualSelection, setCUPLManualSelection] = useState("1");
     const [SelectedCollectionID, setSelectedCollectionID] = useState("");
     const [SelectedProductIDs, setSelectedProductIDs] = useState([]);
 
@@ -523,8 +523,8 @@ export default function AddToCartSticky() {
             setSelectedCollectionID(
                 data.data.current_template.general_settings.SelectedCollectionID
             );
-            setSelectedCollectionID(
-                data.data.current_template.general_settings.SelectedCollectionID
+            setSelectedProductIDs(
+                data.data.current_template.general_settings.SelectedProductIDs
             );
             setGsAction(data.data.current_template.general_settings.gsAction);
             setEditText(data.data.current_template.buy_btn_settings.editText);
