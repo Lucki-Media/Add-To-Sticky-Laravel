@@ -313,6 +313,10 @@ function DesignSettings(props) {
             gsNotificationBarFontSize: props.gsNotificationBarFontSize,
             gsNotificationBarHeight: props.gsNotificationBarHeight,
             enableUpSell: props.enableUpSell,
+            CUPLSelection: props.CUPLSelection,
+            CUPLManualSelection: props.CUPLManualSelection,
+            SelectedCollectionID: props.SelectedCollectionID,
+            SelectedProductIDs: props.SelectedProductIDs,
         },
         design_settings: {
             gsFontFamily: gsFontFamily,

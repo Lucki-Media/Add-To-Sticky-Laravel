@@ -40,6 +40,10 @@ class AddToCartStickyController extends Controller
                 'gsNotificationBarFontSize' => $requestData['gsNotificationBarFontSize'],
                 'gsNotificationBarHeight' => $requestData['gsNotificationBarHeight'],
                 'enableUpSell' => $requestData['enableUpSell'],
+                'CUPLSelection' => $requestData['CUPLSelection'],
+                'CUPLManualSelection' => $requestData['CUPLManualSelection'],
+                'SelectedCollectionID' => $requestData['SelectedCollectionID'],
+                'SelectedProductIDs' => $requestData['SelectedProductIDs'],
             ],
             'buy_btn_settings' => [
                 'editText' => $requestData['editText'],
