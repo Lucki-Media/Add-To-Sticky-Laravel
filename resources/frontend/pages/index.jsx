@@ -21,7 +21,6 @@ import { QuestionCircleIcon } from "@shopify/polaris-icons";
 import "../css/index.css";
 import { CChart } from "@coreui/react-chartjs";
 import { useEffect, useState } from "react";
-import { TitleBar } from "@shopify/app-bridge-react";
 
 export default function HomePage() {
     const currentDate = new Date();

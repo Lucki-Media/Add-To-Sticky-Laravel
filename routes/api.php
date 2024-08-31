@@ -40,6 +40,10 @@ Route::
             Route::get('getDashboardCount/{shop_domain}', 'DashboardController@getDashboardCount');
             /*POST BUTTON CLICKS API END*/
 
+            // PRICING PLAN API
+            Route::get('updatePricingPlan/{shop_domain}/{option}', 'PricingController@updatePricingPlan');
+            Route::get('getPlanData/{shop_domain}', 'PricingController@getPlanData');
+
             //WEBHOOK API
             Route::post('/requestEndpoint', 'CustomerEndpointController@requestEndpoint');
             Route::post('/erasureEndpoint', 'CustomerEndpointController@erasureEndpoint');
