@@ -31,12 +31,12 @@ export default function App() {
                                     destination: "/sticky-cart",
                                 },
                                 {
-                                    label: "FAQs",
-                                    destination: "/sticky-faq",
+                                    label: "Pricing Plans",
+                                    destination: "/pricing-plans",
                                 },
                                 {
-                                    label: "Demo",
-                                    destination: "/demo",
+                                    label: "FAQs",
+                                    destination: "/sticky-faq",
                                 },
                             ]}
                         />

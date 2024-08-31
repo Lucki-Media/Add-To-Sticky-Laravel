@@ -2,6 +2,7 @@ import {
     BlockStack,
     Box,
     Button,
+    ButtonGroup,
     Card,
     Divider,
     Frame,
@@ -9,15 +10,21 @@ import {
     Icon,
     InlineStack,
     Layout,
+    Modal,
     Page,
     Text,
 } from "@shopify/polaris";
 import { CheckIcon } from "@shopify/polaris-icons";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "../css/index.css";
 
 export default function StickyCart() {
-    const [planOption, setPlanOption] = useState(1);
+    const shop_url = document.getElementById("shopOrigin").value;
+
+    const [activePlan, setActivePlan] = useState(1); // 1=Free Plan , 2=monthly plan , 3=annual plan
+    const [planOption, setPlanOption] = useState(1); //1=pay monthly, 2=pay annually
+    const [showWarning, setShowWarning] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handlePlanOption = useCallback(
         (index) => {
@@ -27,9 +34,70 @@ export default function StickyCart() {
         [planOption]
     );
 
-    const freePlanFeatures = [1, 2, 3, 4, 5];
+    const freePlanFeatures = [
+        "All Customization Features",
+        "Sticky Add To Cart Bar",
+        "Notification Bar",
+        "Sticky Cart & Cart Drawer",
+        "Free Shipping Bar",
+    ];
 
-    const premiumPlanFeatures = [5, 6, 7, 8, 9];
+    const premiumPlanFeatures = [
+        <b>All Free Plan Features</b>,
+        "UpSell Popup",
+        "Cart Upsell",
+        "Fully Customizable Product Selection",
+        "Product Add To Cart From Cart Drawer",
+    ];
+
+    // handle function for plan change
+    const handlePlanChange = async (option) => {
+        // Show Banner first if merchant downgrades the Plan
+        if (option === 1) {
+            setShowWarning(true);
+        } else {
+            // call plan Upgrade API
+            planUpgrade(option);
+        }
+    };
+
+    // API CALL TO GET UPDATE DATA
+    const planUpgrade = async (option) => {
+        setLoading(true);
+        try {
+            const response = await fetch(
+                "api/updatePricingPlan/" + shop_url + "/" + option
+            );
+            const data = await response.json();
+            console.log("data");
+            console.log(data);
+            if (data.data !== "") {
+                window.top.location.href = data.data;
+                setActivePlan(data.data.plan_id);
+            }
+            getPlanData();
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    // API CALL TO GET PLAN DATA
+    const getPlanData = async () => {
+        setLoading(true);
+        const response = await fetch("api/getPlanData/" + shop_url);
+        if (response.ok) {
+            const responseData = await response.json();
+            // console.log("getPlanData");
+            // console.log(responseData.data);
+            setActivePlan(responseData.data);
+            setPlanOption(responseData.data === 3 ? 2 : 1);
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        getPlanData();
+    }, []);
 
     return (
         <>
@@ -57,6 +125,16 @@ export default function StickyCart() {
                                         Pricing Plans
                                     </p>
                                 </div>
+                                <ButtonGroup>
+                                    <Button
+                                        size="large"
+                                        variant="primary"
+                                        url="https://forms.gle/CTSsW3kpKgVturgX7"
+                                        external
+                                    >
+                                        Get Support
+                                    </Button>
+                                </ButtonGroup>
                             </div>
                         </FullscreenBar>
                     </div>
@@ -84,7 +162,7 @@ export default function StickyCart() {
                                 onClick={() => handlePlanOption(2)}
                             >
                                 <span style={{ padding: "0 16px" }}>
-                                    Pay Anually
+                                    Pay Annually
                                 </span>
                             </Button>
                         </div>
@@ -119,9 +197,28 @@ export default function StickyCart() {
                                         >
                                             Free
                                         </Text>
-                                        <Button fullWidth size="large">
-                                            <Text as="span" variant="headingLg">
-                                                Active
+                                        <Button
+                                            fullWidth
+                                            size="large"
+                                            disabled={activePlan === 1}
+                                            loading={loading}
+                                            variant={
+                                                activePlan === 1
+                                                    ? ""
+                                                    : "primary"
+                                            }
+                                            onClick={() => {
+                                                handlePlanChange(1);
+                                            }}
+                                        >
+                                            <Text
+                                                as="span"
+                                                variant="headingLg"
+                                                fontWeight="medium"
+                                            >
+                                                {activePlan === 1
+                                                    ? "Active"
+                                                    : "Activate Plan"}
                                             </Text>
                                         </Button>
                                         <Divider borderColor="border" />
@@ -184,26 +281,75 @@ export default function StickyCart() {
                                                 as="span"
                                                 alignment="start"
                                             >
-                                                $9.99/month
+                                                $
+                                                {planOption === 2 ? 7.99 : 9.99}
+                                                /month
                                             </Text>
-                                            <Text
-                                                variant="bodyLg"
-                                                as="span"
-                                                alignment="start"
-                                                tone="subdued"
-                                            >
-                                                (save approx. 20%)
-                                            </Text>
+                                            {planOption === 2 && (
+                                                <Text
+                                                    variant="bodyLg"
+                                                    as="span"
+                                                    alignment="start"
+                                                    tone="subdued"
+                                                >
+                                                    (save approx. 20%)
+                                                </Text>
+                                            )}
                                         </InlineStack>
-                                        <Button
-                                            fullWidth
-                                            variant="primary"
-                                            size="large"
-                                        >
-                                            <Text as="span" variant="headingLg">
-                                                Upgrade
-                                            </Text>
-                                        </Button>
+                                        {planOption === 2 && (
+                                            // pay annual selected
+                                            <Button
+                                                fullWidth
+                                                size="large"
+                                                disabled={activePlan === 3}
+                                                loading={loading}
+                                                variant={
+                                                    activePlan === 3
+                                                        ? ""
+                                                        : "primary"
+                                                }
+                                                onClick={() => {
+                                                    handlePlanChange(3);
+                                                }}
+                                            >
+                                                <Text
+                                                    as="span"
+                                                    variant="headingLg"
+                                                    fontWeight="medium"
+                                                >
+                                                    {activePlan === 3
+                                                        ? "Active"
+                                                        : "Activate Plan"}
+                                                </Text>
+                                            </Button>
+                                        )}
+                                        {planOption === 1 && (
+                                            // pay monthly selected
+                                            <Button
+                                                fullWidth
+                                                size="large"
+                                                disabled={activePlan === 2}
+                                                loading={loading}
+                                                variant={
+                                                    activePlan === 2
+                                                        ? ""
+                                                        : "primary"
+                                                }
+                                                onClick={() => {
+                                                    handlePlanChange(2);
+                                                }}
+                                            >
+                                                <Text
+                                                    as="span"
+                                                    variant="headingLg"
+                                                    fontWeight="medium"
+                                                >
+                                                    {activePlan === 2
+                                                        ? "Active"
+                                                        : "Activate Plan"}
+                                                </Text>
+                                            </Button>
+                                        )}
                                         <Divider borderColor="border" />
                                         <Box padding="200">
                                             <BlockStack gap="400">
@@ -238,6 +384,58 @@ export default function StickyCart() {
                         </Layout>
                     </Page>
                 </div>
+
+                {/* WARNING BANNER */}
+                {showWarning && (
+                    <Modal
+                        open={showWarning}
+                        onClose={() => {
+                            setShowWarning(false);
+                        }}
+                        title={
+                            <Text
+                                as="span"
+                                variant="headingLg"
+                                fontWeight="medium"
+                            >
+                                Are you sure you want to activate the Free Plan?
+                            </Text>
+                        }
+                        primaryAction={{
+                            content: "Activate",
+                            onAction: () => {
+                                setShowWarning(false);
+                                planUpgrade(1);
+                            },
+                        }}
+                        secondaryActions={[
+                            {
+                                content: "Cancel",
+                                onAction: () => {
+                                    setShowWarning(false);
+                                },
+                            },
+                        ]}
+                    >
+                        <Modal.Section>
+                            <Box padding="300">
+                                <Text
+                                    variant="bodyLg"
+                                    as="p"
+                                    alignment="justify"
+                                >
+                                    By downgrading, you will lose access to all
+                                    premium features.We value your experience
+                                    with us. If there's anything specific that
+                                    prompted this decision, please let us know.
+                                    We're here to help and make your experience
+                                    better! Feel free to reach out if you have
+                                    any questions or need assistance.
+                                </Text>
+                            </Box>
+                        </Modal.Section>
+                    </Modal>
+                )}
             </Frame>
         </>
     );
