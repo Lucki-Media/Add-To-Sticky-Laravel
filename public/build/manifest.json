@@ -1,4 +1,8 @@
 {
+  "public/images/new.gif": {
+    "file": "assets/new-e4c835b7.gif",
+    "src": "public/images/new.gif"
+  },
   "resources/css/app.css": {
     "file": "assets/app-e3b0c442.css",
     "isEntry": true,
@@ -21,19 +25,20 @@
     "src": "resources/frontend/assets/productimage.png"
   },
   "resources/js/app.css": {
-    "file": "assets/app-191202f4.css",
+    "file": "assets/app-5072816c.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
     "assets": [
       "assets/empty-state-aece716c.svg",
       "assets/productimage-a213fa31.png",
-      "assets/no_image-03f60945.jpg"
+      "assets/no_image-03f60945.jpg",
+      "assets/new-e4c835b7.gif"
     ],
     "css": [
-      "assets/app-191202f4.css"
+      "assets/app-5072816c.css"
     ],
-    "file": "assets/app-5ab6787e.js",
+    "file": "assets/app-20f541e5.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }

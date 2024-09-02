@@ -15,6 +15,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import Switch from "react-switch";
 import "../../css/index.css";
 import ProductListSelection from "./CartUpsellSettings/ProductListSelection";
+import { MagicIcon } from "@shopify/polaris-icons";
 
 export default function CartUpsellSettings(props) {
     const [CUEnable, setCUEnable] = useState(
@@ -209,7 +210,12 @@ export default function CartUpsellSettings(props) {
     return (
         <Card sectioned>
             <Text variant="headingLg" fontWeight="medium">
-                Cart Upsell Settings
+                Cart Upsell Settings{" "}
+                <span style={{ verticalAlign: "middle", paddingLeft: 5 }}>
+                    <Badge tone="info-strong" icon={MagicIcon}>
+                        Premium
+                    </Badge>
+                </span>
             </Text>
 
             <div style={{ margin: "15px 0" }}>

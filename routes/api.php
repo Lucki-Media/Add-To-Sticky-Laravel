@@ -38,6 +38,7 @@ Route::
             Route::post('addBuyButtonClicks', 'DashboardController@addBuyButtonClicks');
             Route::post('addStickyButtonClicks', 'DashboardController@addStickyButtonClicks');
             Route::get('getDashboardCount/{shop_domain}', 'DashboardController@getDashboardCount');
+            Route::get('updateReviewBannerStatus/{shop_domain}/{selected}', 'DashboardController@updateReviewBannerStatus');
             /*POST BUTTON CLICKS API END*/
 
             // PRICING PLAN API

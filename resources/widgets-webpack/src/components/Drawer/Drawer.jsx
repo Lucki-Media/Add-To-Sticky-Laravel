@@ -6,6 +6,7 @@ import BottomSlider from "./BottomSlider";
 import axios from "axios";
 
 export default function Drawer({
+    activePlan,
     isOpen,
     customizationData,
     showCartUpsell,
@@ -542,95 +543,83 @@ export default function Drawer({
                                 </div>
 
                                 {/* Recommended Products */}
-                                {showCartUpsell && CUProducts.length > 0 && (
-                                    <div
-                                        className={
-                                            style.lm_recommended_products_wrapper
-                                        }
-                                    >
+                                {activePlan > 1 &&
+                                    showCartUpsell &&
+                                    CUProducts.length > 0 && (
                                         <div
                                             className={
-                                                style.lm_recommendation_header
+                                                style.lm_recommended_products_wrapper
                                             }
-                                            style={{
-                                                fontSize:
+                                        >
+                                            <div
+                                                className={
+                                                    style.lm_recommendation_header
+                                                }
+                                                style={{
+                                                    fontSize:
+                                                        customizationData
+                                                            .cartUpsell
+                                                            .CUHeadingFontSize,
+                                                    color: customizationData
+                                                        .cartUpsell
+                                                        .CUHeadingColor,
+                                                }}
+                                            >
+                                                {
                                                     customizationData.cartUpsell
-                                                        .CUHeadingFontSize,
-                                                color: customizationData
-                                                    .cartUpsell.CUHeadingColor,
-                                            }}
-                                        >
-                                            {
-                                                customizationData.cartUpsell
-                                                    .CUHeadingText
-                                            }
-                                        </div>
-                                        <div
-                                            className={
-                                                style.lm_recommendation_list
-                                            }
-                                        >
-                                            {CUProducts.map((product) => (
-                                                <div
-                                                    className={
-                                                        style.lm_recommended_product
-                                                    }
-                                                    key={product.id}
-                                                >
+                                                        .CUHeadingText
+                                                }
+                                            </div>
+                                            <div
+                                                className={
+                                                    style.lm_recommendation_list
+                                                }
+                                            >
+                                                {CUProducts.map((product) => (
                                                     <div
                                                         className={
-                                                            style.lm_rec_product_image
+                                                            style.lm_recommended_product
                                                         }
+                                                        key={product.id}
                                                     >
-                                                        <a
-                                                            href={
-                                                                window.location
-                                                                    .origin +
-                                                                "/products/" +
-                                                                product.handle
-                                                            }
-                                                        >
-                                                            <img
-                                                                src={
-                                                                    product.featured_image
-                                                                }
-                                                                alt=""
-                                                            />
-                                                        </a>
-                                                    </div>
-                                                    <div
-                                                        className={
-                                                            style.lm_rec_product_content
-                                                        }
-                                                    >
-                                                        <a
-                                                            href={
-                                                                window.location
-                                                                    .origin +
-                                                                "/products/" +
-                                                                product.handle
-                                                            }
-                                                            className={
-                                                                style.lm_rec_product_title
-                                                            }
-                                                            style={{
-                                                                fontSize:
-                                                                    customizationData
-                                                                        .cartUpsell
-                                                                        .CUBodyFontSize,
-                                                                color: customizationData
-                                                                    .cartUpsell
-                                                                    .CUBodyColor,
-                                                            }}
-                                                        >
-                                                            {product.title}
-                                                        </a>
                                                         <div
                                                             className={
-                                                                style.lm_rec_product_price
+                                                                style.lm_rec_product_image
                                                             }
                                                         >
-                                                            <span
+                                                            <a
+                                                                href={
+                                                                    window
+                                                                        .location
+                                                                        .origin +
+                                                                    "/products/" +
+                                                                    product.handle
+                                                                }
+                                                            >
+                                                                <img
+                                                                    src={
+                                                                        product.featured_image
+                                                                    }
+                                                                    alt=""
+                                                                />
+                                                            </a>
+                                                        </div>
+                                                        <div
+                                                            className={
+                                                                style.lm_rec_product_content
+                                                            }
+                                                        >
+                                                            <a
+                                                                href={
+                                                                    window
+                                                                        .location
+                                                                        .origin +
+                                                                    "/products/" +
+                                                                    product.handle
+                                                                }
+                                                                className={
+                                                                    style.lm_rec_product_title
+                                                                }
                                                                 style={{
                                                                     fontSize:
                                                                         customizationData
@@ -641,113 +630,133 @@ export default function Drawer({
                                                                         .CUBodyColor,
                                                                 }}
                                                             >
-                                                                {getSymbolFromCurrency(
-                                                                    cartDetail.currency
-                                                                ) +
-                                                                    (
-                                                                        Number(
-                                                                            product.price
-                                                                        ) / 100
-                                                                    ).toFixed(
-                                                                        2
-                                                                    )}
-                                                            </span>
-                                                            {product.compare_at_price &&
-                                                                product.compare_at_price >
-                                                                    0 && (
-                                                                    <span
-                                                                        style={{
-                                                                            fontSize:
-                                                                                customizationData
-                                                                                    .cartUpsell
-                                                                                    .CUBodyFontSize,
-                                                                            color: customizationData
+                                                                {product.title}
+                                                            </a>
+                                                            <div
+                                                                className={
+                                                                    style.lm_rec_product_price
+                                                                }
+                                                            >
+                                                                <span
+                                                                    style={{
+                                                                        fontSize:
+                                                                            customizationData
                                                                                 .cartUpsell
-                                                                                .CUBodyColor,
-                                                                        }}
-                                                                    >
-                                                                        <strike>
-                                                                            {getSymbolFromCurrency(
-                                                                                cartDetail.currency
-                                                                            ) +
-                                                                                (
-                                                                                    Number(
-                                                                                        product.compare_at_price
-                                                                                    ) /
-                                                                                    100
-                                                                                ).toFixed(
-                                                                                    2
-                                                                                )}
-                                                                        </strike>
-                                                                    </span>
-                                                                )}
+                                                                                .CUBodyFontSize,
+                                                                        color: customizationData
+                                                                            .cartUpsell
+                                                                            .CUBodyColor,
+                                                                    }}
+                                                                >
+                                                                    {getSymbolFromCurrency(
+                                                                        cartDetail.currency
+                                                                    ) +
+                                                                        (
+                                                                            Number(
+                                                                                product.price
+                                                                            ) /
+                                                                            100
+                                                                        ).toFixed(
+                                                                            2
+                                                                        )}
+                                                                </span>
+                                                                {product.compare_at_price &&
+                                                                    product.compare_at_price >
+                                                                        0 && (
+                                                                        <span
+                                                                            style={{
+                                                                                fontSize:
+                                                                                    customizationData
+                                                                                        .cartUpsell
+                                                                                        .CUBodyFontSize,
+                                                                                color: customizationData
+                                                                                    .cartUpsell
+                                                                                    .CUBodyColor,
+                                                                            }}
+                                                                        >
+                                                                            <strike>
+                                                                                {getSymbolFromCurrency(
+                                                                                    cartDetail.currency
+                                                                                ) +
+                                                                                    (
+                                                                                        Number(
+                                                                                            product.compare_at_price
+                                                                                        ) /
+                                                                                        100
+                                                                                    ).toFixed(
+                                                                                        2
+                                                                                    )}
+                                                                            </strike>
+                                                                        </span>
+                                                                    )}
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div
-                                                        className={
-                                                            style.lm_rec_product_action
-                                                        }
-                                                    >
-                                                        <button
-                                                            className="lm_rec_product_action_btn"
-                                                            type="button"
-                                                            style={{
-                                                                fontSize:
-                                                                    customizationData
-                                                                        .cartUpsell
-                                                                        .CUBuyBtnFontSize,
-                                                                color: hoverState[
-                                                                    product.id
-                                                                ]
-                                                                    ? customizationData
-                                                                          .cartUpsell
-                                                                          .CUBtnTextHoverColor
-                                                                    : customizationData
-                                                                          .cartUpsell
-                                                                          .CUBtnTextColor,
-                                                                background:
-                                                                    hoverState[
+                                                        <div
+                                                            className={
+                                                                style.lm_rec_product_action
+                                                            }
+                                                        >
+                                                            <button
+                                                                className="lm_rec_product_action_btn"
+                                                                type="button"
+                                                                style={{
+                                                                    fontSize:
+                                                                        customizationData
+                                                                            .cartUpsell
+                                                                            .CUBuyBtnFontSize,
+                                                                    color: hoverState[
                                                                         product
                                                                             .id
                                                                     ]
                                                                         ? customizationData
                                                                               .cartUpsell
-                                                                              .CUBtnBGHoverColor
+                                                                              .CUBtnTextHoverColor
                                                                         : customizationData
                                                                               .cartUpsell
-                                                                              .CUBtnBGColor,
-                                                            }}
-                                                            onMouseEnter={() =>
-                                                                handleMouseEnter(
-                                                                    product.id
-                                                                )
-                                                            }
-                                                            onMouseLeave={() =>
-                                                                handleMouseLeave(
-                                                                    product.id
-                                                                )
-                                                            }
-                                                            onClick={() => {
-                                                                setSliderProduct(
-                                                                    product
-                                                                );
-                                                                setShowBottomSlider(
-                                                                    true
-                                                                );
-                                                            }}
-                                                        >
-                                                            {
-                                                                customizationData
-                                                                    .cartUpsell
-                                                                    .CUBuyBtnText
-                                                            }
-                                                        </button>
+                                                                              .CUBtnTextColor,
+                                                                    background:
+                                                                        hoverState[
+                                                                            product
+                                                                                .id
+                                                                        ]
+                                                                            ? customizationData
+                                                                                  .cartUpsell
+                                                                                  .CUBtnBGHoverColor
+                                                                            : customizationData
+                                                                                  .cartUpsell
+                                                                                  .CUBtnBGColor,
+                                                                }}
+                                                                onMouseEnter={() =>
+                                                                    handleMouseEnter(
+                                                                        product.id
+                                                                    )
+                                                                }
+                                                                onMouseLeave={() =>
+                                                                    handleMouseLeave(
+                                                                        product.id
+                                                                    )
+                                                                }
+                                                                onClick={() => {
+                                                                    setSliderProduct(
+                                                                        product
+                                                                    );
+                                                                    setShowBottomSlider(
+                                                                        true
+                                                                    );
+                                                                }}
+                                                            >
+                                                                {
+                                                                    customizationData
+                                                                        .cartUpsell
+                                                                        .CUBuyBtnText
+                                                                }
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            ))}
+                                                ))}
+                                            </div>
                                         </div>
-                                    </div>
-                                )}
+                                    )}
                             </div>
                             {/* Drawer Footer */}
                             <div
@@ -950,7 +959,6 @@ export default function Drawer({
                     )}
                 </div>
             </div>
-            ;
         </>
     );
 }

@@ -69,13 +69,15 @@ export default function StickyCart() {
                 "api/updatePricingPlan/" + shop_url + "/" + option
             );
             const data = await response.json();
-            console.log("data");
-            console.log(data);
+            // console.log("data");
+            // console.log(data);
+            setLoading(false); // remain it false
             if (data.data !== "") {
                 window.top.location.href = data.data;
                 setActivePlan(data.data.plan_id);
+            } else {
+                getPlanData();
             }
-            getPlanData();
         } catch (err) {
             console.log(err);
         }
