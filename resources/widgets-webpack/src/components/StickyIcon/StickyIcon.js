@@ -12,6 +12,7 @@ import Drawer from "../Drawer/Drawer";
 require("./index.css");
 
 const StickyIcon = () => {
+    const [activePlan, setActivePlan] = useState(1);
     const [stickyData, setStickyData] = useState([]);
     const [iconHover, setIconHover] = useState(false);
     const [countHover, setCountHover] = useState(false);
@@ -269,6 +270,27 @@ const StickyIcon = () => {
         drawerData && numberCount > 0 && getCartUpsellProducts();
     }, [drawerData]);
 
+    useEffect(() => {
+        getPlanData();
+    }, []);
+
+    // API CALL TO GET PLAN DATA
+    const getPlanData = async () => {
+        try {
+            const response = await fetch(
+                `${process.env.REACT_APP_API_URL}` +
+                    "getPlanData/" +
+                    window.Shopify.shop
+            );
+            const data = await response.json();
+            // console.log("data");
+            // console.log(data);
+            setActivePlan(data.data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     if (stickyData.length <= 0) {
         return <div>Loading</div>;
     } else {
@@ -369,6 +391,7 @@ const StickyIcon = () => {
                 {isDrawerOpen === true && (
                     <>
                         <Drawer
+                            activePlan={activePlan}
                             isOpen={isDrawerOpen}
                             customizationData={drawerData}
                             showCartUpsell={

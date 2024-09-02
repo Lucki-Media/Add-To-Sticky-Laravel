@@ -14,6 +14,7 @@ import {
 import { DesktopIcon, MobileIcon } from "@shopify/polaris-icons";
 import MobilePreview from "./StickyCart/MobilePreview";
 import DesktopPreview from "./StickyCart/DesktopPreview";
+import newGif from "../../../../public/images/new.gif";
 
 export default function StickyCartPreview(props) {
     // Device selection states
@@ -103,7 +104,14 @@ export default function StickyCartPreview(props) {
                                     }
                                     onClick={() => handleActivePreview(2)}
                                 >
-                                    Drawer Cart
+                                    Drawer Cart{" "}
+                                    <img
+                                        src={newGif}
+                                        style={{
+                                            width: 30,
+                                            verticalAlign: "middle",
+                                        }}
+                                    />
                                 </Button>
                             </ButtonGroup>
                         </div>

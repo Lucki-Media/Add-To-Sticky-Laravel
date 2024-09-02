@@ -1,6 +1,7 @@
 import { Badge, Card, Text } from "@shopify/polaris";
 import Switch from "react-switch";
 import React, { useCallback, useEffect, useState } from "react";
+import newGif from "../../../../public/images/new.gif";
 
 export default function EnableSettings(props) {
     const [enableDrawer, setEnableDrawer] = useState(
@@ -50,7 +51,11 @@ export default function EnableSettings(props) {
                         <span className="lm_sticky_custom_badge_critical">
                             <Badge tone="critical">Disabled</Badge>
                         </span>
-                    )}
+                    )}{" "}
+                    <img
+                        src={newGif}
+                        style={{ width: 50, verticalAlign: "middle" }}
+                    />
                 </Text>
                 <Switch
                     onChange={() => {
