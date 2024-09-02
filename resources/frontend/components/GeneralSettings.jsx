@@ -84,6 +84,33 @@ export function GeneralSettings(props) {
         props.SelectedProductIDs
     );
 
+    const [CUHeadingText, setCUHeadingText] = useState(props.CUHeadingText);
+    const [CUBuyBtnText, setCUBuyBtnText] = useState(props.CUBuyBtnText);
+    const [CUHeadingFontSize, setCUHeadingFontSize] = useState(
+        props.CUHeadingFontSize
+    );
+    const [CUBodyFontSize, setCUBodyFontSize] = useState(props.CUBodyFontSize);
+    const [CUBuyBtnFontSize, setCUBuyBtnFontSize] = useState(
+        props.CUBuyBtnFontSize
+    );
+    const [CUBackgroundColor, setCUBackgroundColor] = useState(
+        props.CUBackgroundColor
+    );
+    const [CUHeadingBGColor, setCUHeadingBGColor] = useState(
+        props.CUHeadingBGColor
+    );
+    const [CUHeadingColor, setCUHeadingColor] = useState(props.CUHeadingColor);
+    const [CUBodyColor, setCUBodyColor] = useState(props.CUBodyColor);
+    const [CUBtnTextColor, setCUBtnTextColor] = useState(props.CUBtnTextColor);
+    const [CUBtnBGColor, setCUBtnBGColor] = useState(props.CUBtnBGColor);
+    const [CUBtnTextHoverColor, setCUBtnTextHoverColor] = useState(
+        props.CUBtnTextHoverColor
+    );
+    const [CUBtnBGHoverColor, setCUBtnBGHoverColor] = useState(
+        props.CUBtnBGHoverColor
+    );
+    const [CUBorderRadius, setCUBorderRadius] = useState(props.CUBorderRadius);
+
     const [containerHeight, setContainerHeight] = useState(
         props.containerHeight
     );
@@ -118,6 +145,21 @@ export function GeneralSettings(props) {
         setCUPLManualSelection(props.CUPLManualSelection);
         setSelectedCollectionID(props.SelectedCollectionID);
         setSelectedProductIDs(props.SelectedProductIDs);
+        setCUHeadingText(props.CUHeadingText);
+        setCUBuyBtnText(props.CUBuyBtnText);
+        setCUHeadingFontSize(props.CUHeadingFontSize);
+        setCUBodyFontSize(props.CUBodyFontSize);
+        setCUBuyBtnFontSize(props.CUBuyBtnFontSize);
+        setCUBackgroundColor(props.CUBackgroundColor);
+        setCUHeadingBGColor(props.CUHeadingBGColor);
+        setCUBodyColor(props.CUBodyColor);
+        setCUHeadingColor(props.CUHeadingColor);
+        setCUBodyColor(props.CUBodyColor);
+        setCUBtnTextColor(props.CUBtnTextColor);
+        setCUBtnBGColor(props.CUBtnBGColor);
+        setCUBtnTextHoverColor(props.CUBtnTextHoverColor);
+        setCUBtnBGHoverColor(props.CUBtnBGHoverColor);
+        setCUBorderRadius(props.CUBorderRadius);
     }, [props]);
 
     // CALLBACK FUNCTION TO SEND PROPS START
@@ -145,6 +187,20 @@ export function GeneralSettings(props) {
         CUPLManualSelection,
         SelectedCollectionID,
         SelectedProductIDs,
+        CUHeadingText,
+        CUBuyBtnText,
+        CUHeadingFontSize,
+        CUBodyFontSize,
+        CUBuyBtnFontSize,
+        CUHeadingBGColor,
+        CUBodyColor,       
+        CUHeadingColor,
+        CUBtnTextColor,
+        CUBtnBGColor,
+        CUBtnTextHoverColor,
+        CUBtnBGHoverColor,
+        CUBorderRadius,
+
         //GENERAL
         gsFontFamily,
         gsFontsize,

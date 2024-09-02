@@ -10,6 +10,9 @@ import {
     TextField,
     Card,
     InlineGrid,
+    InlineError,
+    InlineStack,
+    RadioButton,
 } from "@shopify/polaris";
 import React, { useCallback, useEffect, useState } from "react";
 import "../../css/index.css";
@@ -75,6 +78,35 @@ function GeneralSettings(props) {
     const [SelectedProductIDs, setSelectedProductIDs] = useState(
         props.SelectedProductIDs
     );
+
+    const [CUHeadingText, setCUHeadingText] = useState(props.CUHeadingText);
+    const [CUBuyBtnText, setCUBuyBtnText] = useState(props.CUBuyBtnText);
+    const [CUHeadingFontSize, setCUHeadingFontSize] = useState(
+        props.CUHeadingFontSize
+    );
+    const [CUBodyFontSize, setCUBodyFontSize] = useState(props.CUBodyFontSize);
+
+    const [CUBuyBtnFontSize, setCUBuyBtnFontSize] = useState(
+        props.CUBuyBtnFontSize
+    );
+    const [CUBackgroundColor, setCUBackgroundColor] = useState(
+        props.CUBackgroundColor
+    );
+    const [CUHeadingBGColor, setCUHeadingBGColor] = useState(
+        props.CUHeadingBGColor
+    );
+    const [CUHeadingColor, setCUHeadingColor] = useState(props.CUHeadingColor);
+
+    const [CUBodyColor, setCUBodyColor] = useState(props.CUBodyColor);
+    const [CUBtnTextColor, setCUBtnTextColor] = useState(props.CUBtnTextColor);
+    const [CUBtnBGColor, setCUBtnBGColor] = useState(props.CUBtnBGColor);
+    const [CUBtnTextHoverColor, setCUBtnTextHoverColor] = useState(
+        props.CUBtnTextHoverColor
+    );
+    const [CUBtnBGHoverColor, setCUBtnBGHoverColor] = useState(
+        props.CUBtnBGHoverColor
+    );
+    const [CUBorderRadius, setCUBorderRadius] = useState(props.CUBorderRadius);
 
     // HOME PAGE PRODUCT SWITCH LOGIC
     const handleSwitchChange = (checked) => {
@@ -147,13 +179,6 @@ function GeneralSettings(props) {
         setGsNotificationBarBgColor(event.target.value);
     };
 
-    // Notification Bar Font Size Handle Event
-    // const handleFontSize = (event) => {
-    //     console.log("event.target.value");
-    //     console.log(event);
-    //     setGsNotificationBarFontSize(event.target.value);
-    // };
-
     const handleFontSize = useCallback(
         (newChecked) => setGsNotificationBarFontSize(newChecked),
         []
@@ -177,12 +202,83 @@ function GeneralSettings(props) {
         setSelectedProductIDs(callbackData.SelectedProductIDs);
     };
 
-    // Notification Bar Height Handle Event
-    // const handleHeight = (event) => {
-    //     console.log("event.target.value");
-    //     console.log(event);
-    //     setGsNotificationBarHeight(event);
-    // };
+    // UPSELL POPUP HEADING TEXT
+    const handleCUHeadingTextField = (val) => {
+        console.log("CUHeadingText");
+        console.log(CUHeadingText);
+        setCUHeadingText(val);
+    };
+
+    // UPSELL POPUP BUY BUTTON TEXT
+    const handleCUBuyBtnTextField = (val) => {
+        setCUBuyBtnText(val);
+    };
+
+    // UPSELL POPUP HEADING FONT SIZE
+    const handleCUHeadingFontSize = useCallback(
+        (value) => setCUHeadingFontSize(value),
+        []
+    );
+
+    // UPSELL POPUP BODY FONT SIZE
+    const handleCUBodyFontSize = useCallback(
+        (value) => setCUBodyFontSize(value),
+        []
+    );
+
+    console.log("CUBodyFontSize");
+    console.log(CUBodyFontSize);
+
+    // UPSELL POPUP BUY BUTTON TEXT FONT SIZE
+    const handleCUBuyBtnFontSize = useCallback(
+        (value) => setCUBuyBtnFontSize(value),
+        []
+    );
+
+    // UPSELL POPUP HEADING Background COLOR
+    const handleCUHeadingBGColor = (val) => {
+        setCUHeadingBGColor(val);
+    };
+
+    // UPSELL POPUP Body Background COLOR
+    const handleCUBackgroundColor = (val) => {
+        setCUBackgroundColor(val);
+    };
+
+    // UPSELL POPUP HEADING COLOR
+    const handleCUHeadingColor = (event) => {
+        setCUHeadingColor(event.target.value);
+    };
+
+    // UPSELL POPUP BODY COLOR
+    const handleCUBodyColor = (event) => {
+        setCUBodyColor(event.target.value);
+    };
+
+    // UPSELL POPUP BUTTON TEXT COLOR
+    const handleCUBtnTextColor = (event) => {
+        setCUBtnTextColor(event.target.value);
+    };
+
+    // UPSELL POPUP BUTTON BG COLOR
+    const handleCUBtnBGColor = (event) => {
+        setCUBtnBGColor(event.target.value);
+    };
+
+    // UPSELL POPUP BUTTON TEXT HOVER COLOR
+    const handleCUBtnTextHoverColor = (event) => {
+        setCUBtnTextHoverColor(event.target.value);
+    };
+
+    // UPSELL POPUP BUTTON BG HOVER COLOR
+    const handleCUBtnBGHoverColor = (event) => {
+        setCUBtnBGHoverColor(event.target.value);
+    };
+
+    // UPSELL POPUP Border Radius
+    const handleCUBorderRadius = (event) => {
+        setCUBorderRadius(event.target.value);
+    };
 
     /*DISPLAY SETTING START GENERAL SETTINGS*/
 
@@ -202,7 +298,21 @@ function GeneralSettings(props) {
         setCUPLSelection(props.CUPLSelection);
         setCUPLManualSelection(props.CUPLManualSelection);
         setSelectedCollectionID(props.SelectedCollectionID);
-        setSelectedProductIDs(props.SelectedProductIDs);
+        setCUHeadingText(props.CUHeadingText);
+        setCUBuyBtnText(props.CUBuyBtnText);
+        setCUHeadingFontSize(props.CUHeadingFontSize);
+        setCUBodyFontSize(props.CUBodyFontSize);
+        setCUBuyBtnFontSize(props.CUBuyBtnFontSize);
+        setCUBackgroundColor(props.CUBackgroundColor);
+        setCUHeadingBGColor(props.CUHeadingBGColor);
+        setCUBodyColor(props.CUBodyColor);
+        setCUHeadingColor(props.CUHeadingColor);
+        setCUBodyColor(props.CUBodyColor);
+        setCUBtnTextColor(props.CUBtnTextColor);
+        setCUBtnBGColor(props.CUBtnBGColor);
+        setCUBtnTextHoverColor(props.CUBtnTextHoverColor);
+        setCUBtnBGHoverColor(props.CUBtnBGHoverColor);
+        setCUBorderRadius(props.CUBorderRadius);
     }, [props]);
 
     useEffect(() => {
@@ -226,6 +336,20 @@ function GeneralSettings(props) {
         CUPLManualSelection,
         SelectedCollectionID,
         SelectedProductIDs,
+        CUHeadingText,
+        CUBuyBtnText,
+        CUHeadingFontSize,
+        CUBodyFontSize,
+        CUBuyBtnFontSize,
+        CUBackgroundColor,
+        CUHeadingBGColor,
+        CUHeadingColor,
+        CUBodyColor,
+        CUBtnTextColor,
+        CUBtnBGColor,
+        CUBtnTextHoverColor,
+        CUBtnBGHoverColor,
+        CUBorderRadius,
     ]);
 
     var transfer_data = {
@@ -246,7 +370,21 @@ function GeneralSettings(props) {
             CUPLSelection: CUPLSelection,
             CUPLManualSelection: CUPLManualSelection,
             SelectedCollectionID: SelectedCollectionID,
-            SelectedProductIDs: SelectedProductIDs,
+
+            CUHeadingText: CUHeadingText,
+            CUBuyBtnText: CUBuyBtnText,
+            CUHeadingFontSize: CUHeadingFontSize,
+            CUBodyFontSize: CUBodyFontSize,
+            CUBuyBtnFontSize: CUBuyBtnFontSize,
+            CUBackgroundColor: CUBackgroundColor,
+            CUHeadingBGColor: CUHeadingBGColor,
+            CUHeadingColor: CUHeadingColor,
+            CUBodyColor: CUBodyColor,
+            CUBtnTextColor: CUBtnTextColor,
+            CUBtnBGColor: CUBtnBGColor,
+            CUBtnTextHoverColor: CUBtnTextHoverColor,
+            CUBtnBGHoverColor: CUBtnBGHoverColor,
+            CUBorderRadius: CUBorderRadius,
         },
         design_settings: {
             gsFontFamily: props.gsFontFamily,
@@ -366,11 +504,9 @@ function GeneralSettings(props) {
                                         >
                                             Notification Bar Settings
                                         </Text>
-
                                         <div style={{ margin: "5px 0" }}>
                                             <Divider borderColor="transparent" />
                                         </div>
-
                                         <FormLayout>
                                             <TextField
                                                 value={gsNotificationBarText}
@@ -381,11 +517,9 @@ function GeneralSettings(props) {
                                                 autoComplete="off"
                                             />
                                         </FormLayout>
-
                                         <div style={{ margin: "5px 0" }}>
                                             <Divider borderColor="transparent" />
                                         </div>
-
                                         <div className="lm_sticky_format_style">
                                             <Checkbox
                                                 label="Bold"
@@ -443,7 +577,6 @@ function GeneralSettings(props) {
                                     </div>
                                 </FormLayout.Group>
                                 {/* Fifth row */}
-
                                 <FormLayout.Group condensed>
                                     <div>
                                         <Text
@@ -489,11 +622,10 @@ function GeneralSettings(props) {
                                     </div>
                                 </FormLayout.Group>
                             </FormLayout>
-
                             <div style={{ margin: "15px 0" }}>
                                 <Divider borderColor="border" />
                             </div>
-
+                            {/* UpSell Popup */}
                             <InlineGrid columns={["twoThirds", "oneThird"]}>
                                 <Text
                                     variant="bodyLg"
@@ -523,13 +655,11 @@ function GeneralSettings(props) {
                                     checkedIcon={null}
                                 />
                             </InlineGrid>
-
                             {enableUpSell && (
                                 <BlockStack>
                                     <div style={{ margin: "15px 0" }}>
                                         <Divider borderColor="border" />
                                     </div>
-
                                     {/* Product List Selection */}
                                     <ProductListSelection
                                         productListCallback={
@@ -544,6 +674,354 @@ function GeneralSettings(props) {
                                         }
                                         SelectedProductIDs={SelectedProductIDs}
                                     />
+                                    <div style={{ margin: "15px 0" }}>
+                                        <Divider borderColor="border" />
+                                    </div>
+
+                                    <Text
+                                        variant="headingMd"
+                                        as="span"
+                                        fontWeight="medium"
+                                    >
+                                        UpSell Popup Settings
+                                    </Text>
+
+                                    <div style={{ margin: "15px 0" }}>
+                                        <Divider borderColor="border" />
+                                    </div>
+                                    {/* Text fields */}
+                                    <FormLayout.Group condensed>
+                                        {/* Heading Text */}
+                                        <BlockStack gap="200">
+                                            <Text
+                                                variant="headingMd"
+                                                as="span"
+                                                fontWeight="medium"
+                                            >
+                                                Heading Text
+                                            </Text>
+                                            <TextField
+                                                error={
+                                                    CUHeadingText == "" ||
+                                                    CUHeadingText == null
+                                                }
+                                                value={CUHeadingText ?? ""}
+                                                onChange={
+                                                    handleCUHeadingTextField
+                                                }
+                                                autoComplete="off"
+                                                maxLength={30}
+                                                id="CUHeadingText"
+                                                placeholder="Example: Recommended Products"
+                                                showCharacterCount
+                                            />
+                                            {(CUHeadingText == "" ||
+                                                CUHeadingText == null) && (
+                                                <div
+                                                    style={{ marginTop: "4px" }}
+                                                >
+                                                    <InlineError
+                                                        message={
+                                                            "This field is required"
+                                                        }
+                                                        fieldID={
+                                                            "CUHeadingText"
+                                                        }
+                                                    />
+                                                </div>
+                                            )}
+                                        </BlockStack>
+
+                                        {/* Buy Button Text */}
+                                        <BlockStack gap="200">
+                                            <Text
+                                                variant="headingMd"
+                                                as="span"
+                                                fontWeight="medium"
+                                            >
+                                                Buy Button Text
+                                            </Text>
+                                            <TextField
+                                                error={
+                                                    CUBuyBtnText == "" ||
+                                                    CUBuyBtnText == null
+                                                }
+                                                value={CUBuyBtnText ?? ""}
+                                                onChange={
+                                                    handleCUBuyBtnTextField
+                                                }
+                                                autoComplete="off"
+                                                maxLength={10}
+                                                id="CUBuyBtnText"
+                                                placeholder="Example: Buy"
+                                                showCharacterCount
+                                            />
+                                            {(CUBuyBtnText == "" ||
+                                                CUBuyBtnText == null) && (
+                                                <div
+                                                    style={{ marginTop: "4px" }}
+                                                >
+                                                    <InlineError
+                                                        message={
+                                                            "This field is required"
+                                                        }
+                                                        fieldID={"CUBuyBtnText"}
+                                                    />
+                                                </div>
+                                            )}
+                                        </BlockStack>
+                                    </FormLayout.Group>
+
+                                    {/* Font-Size and radio buttons start*/}
+                                    <FormLayout.Group condensed>
+                                        {/* Heading Font Size */}
+                                        <BlockStack gap="0">
+                                            <Text
+                                                variant="headingMd"
+                                                as="span"
+                                                fontWeight="medium"
+                                            >
+                                                Heading Font
+                                            </Text>
+                                            <RangeSlider
+                                                label={`${CUHeadingFontSize} px`}
+                                                value={CUHeadingFontSize}
+                                                min={14}
+                                                max={24}
+                                                onChange={
+                                                    handleCUHeadingFontSize
+                                                }
+                                                output
+                                            />
+                                        </BlockStack>
+
+                                        {/* Body Font Size */}
+                                        <BlockStack gap="0">
+                                            <Text
+                                                variant="headingMd"
+                                                as="span"
+                                                fontWeight="medium"
+                                            >
+                                                Body Font
+                                            </Text>
+                                            <RangeSlider
+                                                label={`${CUBodyFontSize} px`}
+                                                value={CUBodyFontSize}
+                                                min={10}
+                                                max={16}
+                                                onChange={handleCUBodyFontSize}
+                                                output
+                                            />
+                                        </BlockStack>
+                                    </FormLayout.Group>
+
+                                    <FormLayout.Group condensed>
+                                        {/* Buy Button Font Size */}
+                                        <BlockStack gap="0">
+                                            <Text
+                                                variant="headingMd"
+                                                as="span"
+                                                fontWeight="medium"
+                                            >
+                                                Button Font
+                                            </Text>
+                                            <RangeSlider
+                                                label={`${CUBuyBtnFontSize} px`}
+                                                value={CUBuyBtnFontSize}
+                                                min={10}
+                                                max={16}
+                                                onChange={
+                                                    handleCUBuyBtnFontSize
+                                                }
+                                                output
+                                            />
+                                        </BlockStack>
+
+                                        <BlockStack gap="0">
+                                            <Text
+                                                variant="headingMd"
+                                                as="span"
+                                                fontWeight="medium"
+                                            >
+                                                Border Radius
+                                            </Text>
+                                            <RangeSlider
+                                                label={`${CUBorderRadius} px`}
+                                                value={CUBorderRadius}
+                                                min={5}
+                                                max={20}
+                                                onChange={handleCUBorderRadius}
+                                                output
+                                            />
+                                        </BlockStack>
+                                    </FormLayout.Group>
+                                    {/* Font-Size and radio buttons end*/}
+
+                                    {/* Colors start */}
+                                    <FormLayout.Group condensed>
+                                        {/* Popup BG Color */}
+                                        <BlockStack gap="0">
+                                            <Text
+                                                variant="headingMd"
+                                                as="span"
+                                                fontWeight="medium"
+                                            >
+                                                Popup BG Color
+                                            </Text>
+                                            <div className="lm_sticky_color_box">
+                                                <input
+                                                    type="color"
+                                                    value={CUBackgroundColor}
+                                                    onChange={
+                                                        handleCUBackgroundColor
+                                                    }
+                                                />
+                                            </div>
+                                        </BlockStack>
+
+                                        {/* Heading BG Color */}
+                                        <BlockStack gap="0">
+                                            <Text
+                                                variant="headingMd"
+                                                as="span"
+                                                fontWeight="medium"
+                                            >
+                                                Heading BG Color
+                                            </Text>
+                                            <div className="lm_sticky_color_box">
+                                                <input
+                                                    type="color"
+                                                    value={CUHeadingBGColor}
+                                                    onChange={
+                                                        handleCUHeadingBGColor
+                                                    }
+                                                />
+                                            </div>
+                                        </BlockStack>
+
+                                        {/* Heading Color */}
+                                        <BlockStack gap="0">
+                                            <Text
+                                                variant="headingMd"
+                                                as="span"
+                                                fontWeight="medium"
+                                            >
+                                                Heading Color
+                                            </Text>
+                                            <div className="lm_sticky_color_box">
+                                                <input
+                                                    type="color"
+                                                    value={CUHeadingColor}
+                                                    onChange={
+                                                        handleCUHeadingColor
+                                                    }
+                                                />
+                                            </div>
+                                        </BlockStack>
+
+                                        {/* Body Color */}
+                                        <BlockStack gap="0">
+                                            <Text
+                                                variant="headingMd"
+                                                as="span"
+                                                fontWeight="medium"
+                                            >
+                                                Body Color
+                                            </Text>
+                                            <div className="lm_sticky_color_box">
+                                                <input
+                                                    type="color"
+                                                    value={CUBodyColor}
+                                                    onChange={handleCUBodyColor}
+                                                />
+                                            </div>
+                                        </BlockStack>
+                                    </FormLayout.Group>
+
+                                    <FormLayout.Group condensed>
+                                        {/* Button Text Color */}
+                                        <BlockStack gap="0">
+                                            <Text
+                                                variant="headingMd"
+                                                as="span"
+                                                fontWeight="medium"
+                                            >
+                                                Button Text Color
+                                            </Text>
+                                            <div className="lm_sticky_color_box">
+                                                <input
+                                                    type="color"
+                                                    value={CUBtnTextColor}
+                                                    onChange={
+                                                        handleCUBtnTextColor
+                                                    }
+                                                />
+                                            </div>
+                                        </BlockStack>
+
+                                        {/* Button BG Color */}
+                                        <BlockStack gap="0">
+                                            <Text
+                                                variant="headingMd"
+                                                as="span"
+                                                fontWeight="medium"
+                                            >
+                                                Button BG Color
+                                            </Text>
+                                            <div className="lm_sticky_color_box">
+                                                <input
+                                                    type="color"
+                                                    value={CUBtnBGColor}
+                                                    onChange={
+                                                        handleCUBtnBGColor
+                                                    }
+                                                />
+                                            </div>
+                                        </BlockStack>
+                                    </FormLayout.Group>
+
+                                    <FormLayout.Group condensed>
+                                        {/* Button Text Hover Color */}
+                                        <BlockStack gap="0">
+                                            <Text
+                                                variant="headingMd"
+                                                as="span"
+                                                fontWeight="medium"
+                                            >
+                                                Button Text Hover Color
+                                            </Text>
+                                            <div className="lm_sticky_color_box">
+                                                <input
+                                                    type="color"
+                                                    value={CUBtnTextHoverColor}
+                                                    onChange={
+                                                        handleCUBtnTextHoverColor
+                                                    }
+                                                />
+                                            </div>
+                                        </BlockStack>
+
+                                        {/* Button BG Hover Color */}
+                                        <BlockStack gap="0">
+                                            <Text
+                                                variant="headingMd"
+                                                as="span"
+                                                fontWeight="medium"
+                                            >
+                                                Button BG Hover Color
+                                            </Text>
+                                            <div className="lm_sticky_color_box">
+                                                <input
+                                                    type="color"
+                                                    value={CUBtnBGHoverColor}
+                                                    onChange={
+                                                        handleCUBtnBGHoverColor
+                                                    }
+                                                />
+                                            </div>
+                                        </BlockStack>
+                                    </FormLayout.Group>
+                                    {/* Colors end */}
                                 </BlockStack>
                             )}
                         </Card>
