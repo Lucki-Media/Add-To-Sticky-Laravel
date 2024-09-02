@@ -13,7 +13,7 @@
 }
 
 #bottomSheet {
-    padding: 16px;
+    padding: 10px;
     background: #ffffff;
     box-shadow: 0 -2px 16px 0 rgba(0,0,0,0.16);
     border-radius:8px 8px 0px 0px;
@@ -41,10 +41,10 @@
 
 .bottomSheet__header {
     font-family: HelveticaNeue-Bold, sans-serif;
-    font-size: 18px;
+    font-size: 14px;
     margin: 0;
     color: #fff;
-    padding: 12px;
+    padding: 3px 12px;
     font-weight: 600;
     letter-spacing: 1px;
 }
@@ -55,7 +55,7 @@
     font-size: 24px;
     color: #fff6f6;
     cursor: pointer;
-    padding: 8px 10px;
+    padding: 3px 10px;
 }
 
 .product_list {
@@ -68,11 +68,11 @@
 .product_item {
     display: flex;
     gap: 16px;
-    padding: 16px;
+    padding: 12px;
     background: #f9f9f9;
     border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease;
+    box-shadow: 0 2px 12px #0000001a;
+    transition: transform .2s ease;
 }
 
 .product_item:hover {
@@ -80,11 +80,11 @@
 }
 
 .usrp_product_image {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     object-fit: cover;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 8px #00000026;
 }
 
 .product_info {
@@ -95,15 +95,21 @@
 }
 
 .product_title {
-    font-size: 18px;
-    color: #222222;
+    font-size: 14px;
+    color: #222;
     margin: 0;
 }
 
-.product_variation {
-    font-size: 14px;
-    color: #666666;
+.product_price {
+    font-size: 12px;
+    color: #666;
     margin: 4px 0;
+}
+
+.product_price strike {
+    font-size: 12px;
+    color: #000;
+    margin-left: 5px;
 }
 
 .product_description {
@@ -114,12 +120,13 @@
 .add_to_cart_button {
     align-self: center;
     background-color: #1a6461;
-    color: #ffffff;
+    color: #fff;
     border: none;
-    padding: 8px 16px;
+    padding: 5px 16px;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color .3s ease;
+    font-size: 12px;
 }
 
 .add_to_cart_button:hover {
