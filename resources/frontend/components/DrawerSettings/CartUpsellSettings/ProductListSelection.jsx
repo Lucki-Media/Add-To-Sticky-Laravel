@@ -30,6 +30,7 @@ export default function ProductListSelection(props) {
     const [SelectedProductIDs, setSelectedProductIDs] = useState(
         props.SelectedProductIDs
     );
+
     const [productResponse, setProductResponse] = useState([]);
 
     // PRODUCT LIST LOGIC
@@ -103,7 +104,7 @@ export default function ProductListSelection(props) {
         SelectedCollectionID,
         SelectedProductIDs,
     ]);
-    
+
     return (
         <BlockStack gap="300">
             <FormLayout.Group condensed>

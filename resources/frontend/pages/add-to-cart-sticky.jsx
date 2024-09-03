@@ -28,6 +28,7 @@ import CartTemplate5 from "../Templates/CartTemplate5.jsx";
 import CartTemplate6 from "../Templates/CartTemplate6.jsx";
 import CartTemplate7 from "../Templates/CartTemplate7.jsx";
 import CartTemplate8 from "../Templates/CartTemplate8.jsx";
+import UpSellBottomSheet from "../pages/UpSellBottomSheet.jsx";
 import proimage from "../assets/productimage.png";
 import axios from "axios";
 import Switch from "react-switch";
@@ -63,7 +64,43 @@ export default function AddToCartSticky() {
     const [gsOffsetValue, setGsOffsetValue] = useState(0);
     const [gsAction, setGsAction] = useState("1");
     const [gsDisplayCondition, setGsDisplayCondition] = useState("1");
+    const [gsNotificationBarText, setGsNotificationBarText] = useState(
+        "Great news! Here's something special for you"
+    );
+    const [gsNotificationBarItalic, setGsNotificationBarItalic] =
+        useState(false);
+    const [gsNotificationBarBold, setGsNotificationBarBold] = useState(false);
+    const [gsNotificationBarTextColor, setGsNotificationBarTextColor] =
+        useState("#ffffff");
+    const [gsNotificationBarBgColor, setGsNotificationBarBgColor] =
+        useState("#000000");
+    const [gsNotificationBarFontSize, setGsNotificationBarFontSize] =
+        useState(12);
+    const [gsNotificationBarHeight, setGsNotificationBarHeight] = useState(5);
+    const [enableUpSell, setEnableUpSell] = useState(false);
     const [containerHeight, setContainerHeight] = useState(70);
+
+    // PRODUCT LIST SELECTION STATES
+    const [CUPLSelection, setCUPLSelection] = useState("1");
+    const [CUPLManualSelection, setCUPLManualSelection] = useState("1");
+    const [SelectedCollectionID, setSelectedCollectionID] = useState("");
+    const [SelectedProductIDs, setSelectedProductIDs] = useState([]);
+
+    const [CUHeadingText, setCUHeadingText] = useState("Recommended Products");
+    const [CUBuyBtnText, setCUBuyBtnText] = useState("Buy");
+    const [CUHeadingFontSize, setCUHeadingFontSize] = useState(14);
+    const [CUBodyFontSize, setCUBodyFontSize] = useState(14);
+    const [CUBuyBtnFontSize, setCUBuyBtnFontSize] = useState(12);
+    const [CUBackgroundColor, setCUBackgroundColor] = useState("#ffffff");
+    const [CUHeadingBGColor, setCUHeadingBGColor] = useState("#1a6461");
+    const [CUHeadingColor, setCUHeadingColor] = useState("#ffffff");
+    const [CUBodyColor, setCUBodyColor] = useState("#ffffff");
+    const [CUBtnTextColor, setCUBtnTextColor] = useState("#ffffff");
+    const [CUBtnBGColor, setCUBtnBGColor] = useState("#1a6461");
+    const [CUBtnTextHoverColor, setCUBtnTextHoverColor] = useState("#144d4a");
+    const [CUBtnBGHoverColor, setCUBtnBGHoverColor] = useState("#144d4a");
+    const [CUBorderRadius, setCUBorderRadius] = useState(8);
+
     /*BUY NOW CONSTANTS*/
     const [editText, setEditText] = useState("BUY NOW");
     // const [soldOut, setSoldOut] = useState("Sold out");
@@ -162,6 +199,92 @@ export default function AddToCartSticky() {
                     gsDisplayCondition:
                         data.data.current_template.general_settings
                             .gsDisplayCondition,
+                    gsNotificationBarText:
+                        data.data.current_template.general_settings
+                            .gsNotificationBarText,
+                    gsNotificationBarItalic:
+                        data.data.current_template.general_settings
+                            .gsNotificationBarItalic,
+                    gsNotificationBarBold:
+                        data.data.current_template.general_settings
+                            .gsNotificationBarBold,
+                    gsNotificationBarTextColor:
+                        data.data.current_template.general_settings
+                            .gsNotificationBarTextColor,
+                    gsNotificationBarBgColor:
+                        data.data.current_template.general_settings
+                            .gsNotificationBarBgColor,
+                    gsNotificationBarFontSize:
+                        data.data.current_template.general_settings
+                            .gsNotificationBarFontSize,
+                    gsNotificationBarHeight:
+                        data.data.current_template.general_settings
+                            .gsNotificationBarHeight,
+                    enableUpSell:
+                        data.data.current_template.general_settings
+                            .enableUpSell,
+                    CUPLSelection:
+                        data.data.current_template.general_settings
+                            .CUPLSelection,
+                    CUPLManualSelection:
+                        data.data.current_template.general_settings
+                            .CUPLManualSelection,
+                    SelectedCollectionID:
+                        data.data.current_template.general_settings
+                            .SelectedCollectionID,
+                    SelectedProductIDs:
+                        data.data.current_template.general_settings
+                            .SelectedProductIDs,
+
+                    CUHeadingText:
+                        data.data.current_template.general_settings
+                            .CUHeadingText,
+
+                    CUBuyBtnText:
+                        data.data.current_template.general_settings
+                            .CUBuyBtnText,
+
+                    CUHeadingFontSize:
+                        data.data.current_template.general_settings
+                            .CUHeadingFontSize,
+                    CUBuyBtnFontSize:
+                        data.data.current_template.general_settings
+                            .CUBuyBtnFontSize,
+
+                    CUBackgroundColor:
+                        data.data.current_template.general_settings
+                            .CUBackgroundColor,
+
+                    CUHeadingBGColor:
+                        data.data.current_template.general_settings
+                            .CUHeadingBGColor,
+
+                    CUHeadingColor:
+                        data.data.current_template.general_settings
+                            .CUHeadingColor,
+
+                    CUBodyColor:
+                        data.data.current_template.general_settings.CUBodyColor,
+
+                    CUBtnTextColor:
+                        data.data.current_template.general_settings
+                            .CUBtnTextColor,
+
+                    CUBtnBGColor:
+                        data.data.current_template.general_settings
+                            .CUBtnBGColor,
+
+                    CUBtnTextHoverColor:
+                        data.data.current_template.general_settings
+                            .CUBtnTextHoverColor,
+
+                    CUBtnBGHoverColor:
+                        data.data.current_template.general_settings
+                            .CUBtnBGHoverColor,
+
+                    CUBorderRadius:
+                        data.data.current_template.general_settings
+                            .CUBorderRadius,
                 },
                 design_settings: {
                     gsFontFamily:
@@ -259,6 +382,92 @@ export default function AddToCartSticky() {
                     gsDisplayCondition:
                         data.data.current_template.general_settings
                             .gsDisplayCondition,
+                    gsNotificationBarText:
+                        data.data.current_template.general_settings
+                            .gsNotificationBarText,
+                    gsNotificationBarItalic:
+                        data.data.current_template.general_settings
+                            .gsNotificationBarItalic,
+                    gsNotificationBarBold:
+                        data.data.current_template.general_settings
+                            .gsNotificationBarBold,
+                    gsNotificationBarTextColor:
+                        data.data.current_template.general_settings
+                            .gsNotificationBarTextColor,
+                    gsNotificationBarBgColor:
+                        data.data.current_template.general_settings
+                            .gsNotificationBarBgColor,
+                    gsNotificationBarFontSize:
+                        data.data.current_template.general_settings
+                            .gsNotificationBarFontSize,
+                    gsNotificationBarHeight:
+                        data.data.current_template.general_settings
+                            .gsNotificationBarHeight,
+                    enableUpSell:
+                        data.data.current_template.general_settings
+                            .enableUpSell,
+                    CUPLSelection:
+                        data.data.current_template.general_settings
+                            .CUPLSelection,
+                    CUPLManualSelection:
+                        data.data.current_template.general_settings
+                            .CUPLManualSelection,
+                    SelectedCollectionID:
+                        data.data.current_template.general_settings
+                            .SelectedCollectionID,
+                    SelectedProductIDs:
+                        data.data.current_template.general_settings
+                            .SelectedProductIDs,
+
+                    CUHeadingText:
+                        data.data.current_template.general_settings
+                            .CUHeadingText,
+
+                    CUBuyBtnText:
+                        data.data.current_template.general_settings
+                            .CUBuyBtnText,
+
+                    CUHeadingFontSize:
+                        data.data.current_template.general_settings
+                            .CUHeadingFontSize,
+                    CUBuyBtnFontSize:
+                        data.data.current_template.general_settings
+                            .CUBuyBtnFontSize,
+
+                    CUBackgroundColor:
+                        data.data.current_template.general_settings
+                            .CUBackgroundColor,
+
+                    CUHeadingBGColor:
+                        data.data.current_template.general_settings
+                            .CUHeadingBGColor,
+
+                    CUHeadingColor:
+                        data.data.current_template.general_settings
+                            .CUHeadingColor,
+
+                    CUBodyColor:
+                        data.data.current_template.general_settings.CUBodyColor,
+
+                    CUBtnTextColor:
+                        data.data.current_template.general_settings
+                            .CUBtnTextColor,
+
+                    CUBtnBGColor:
+                        data.data.current_template.general_settings
+                            .CUBtnBGColor,
+
+                    CUBtnTextHoverColor:
+                        data.data.current_template.general_settings
+                            .CUBtnTextHoverColor,
+
+                    CUBtnBGHoverColor:
+                        data.data.current_template.general_settings
+                            .CUBtnBGHoverColor,
+
+                    CUBorderRadius:
+                        data.data.current_template.general_settings
+                            .CUBorderRadius,
                 },
                 design_settings: {
                     gsFontFamily:
@@ -389,6 +598,91 @@ export default function AddToCartSticky() {
             setGsDisplayCondition(
                 data.data.current_template.general_settings.gsDisplayCondition
             );
+            setGsNotificationBarText(
+                data.data.current_template.general_settings
+                    .gsNotificationBarText
+            );
+            setGsNotificationBarItalic(
+                data.data.current_template.general_settings
+                    .gsNotificationBarItalic
+            );
+            setGsNotificationBarBold(
+                data.data.current_template.general_settings
+                    .gsNotificationBarBold
+            );
+            setGsNotificationBarTextColor(
+                data.data.current_template.general_settings
+                    .gsNotificationBarTextColor
+            );
+            setGsNotificationBarBgColor(
+                data.data.current_template.general_settings
+                    .gsNotificationBarBgColor
+            );
+            setGsNotificationBarFontSize(
+                data.data.current_template.general_settings
+                    .gsNotificationBarFontSize
+            );
+            setGsNotificationBarHeight(
+                data.data.current_template.general_settings
+                    .gsNotificationBarHeight
+            );
+            setEnableUpSell(
+                data.data.current_template.general_settings.enableUpSell
+            );
+            setCUPLSelection(
+                data.data.current_template.general_settings.CUPLSelection
+            );
+            setCUPLManualSelection(
+                data.data.current_template.general_settings.CUPLManualSelection
+            );
+            setSelectedCollectionID(
+                data.data.current_template.general_settings.SelectedCollectionID
+            );
+            setSelectedProductIDs(
+                data.data.current_template.general_settings.SelectedProductIDs
+            );
+            setCUHeadingText(
+                data.data.current_template.general_settings.CUHeadingText
+            );
+            setCUBuyBtnText(
+                data.data.current_template.general_settings.CUBuyBtnText
+            );
+            setCUBodyFontSize(
+                data.data.current_template.general_settings.CUBodyFontSize
+            );
+            setCUHeadingFontSize(
+                data.data.current_template.general_settings.CUHeadingFontSize
+            );
+            setCUBuyBtnFontSize(
+                data.data.current_template.general_settings.CUBuyBtnFontSize
+            );
+            setCUBackgroundColor(
+                data.data.current_template.general_settings.CUBackgroundColor
+            );
+            setCUHeadingBGColor(
+                data.data.current_template.general_settings.CUHeadingBGColor
+            );
+            setCUHeadingColor(
+                data.data.current_template.general_settings.CUHeadingColor
+            );
+            setCUBodyColor(
+                data.data.current_template.general_settings.CUBodyColor
+            );
+            setCUBtnTextColor(
+                data.data.current_template.general_settings.CUBtnTextColor
+            );
+            setCUBtnBGColor(
+                data.data.current_template.general_settings.CUBtnBGColor
+            );
+            setCUBtnTextHoverColor(
+                data.data.current_template.general_settings.CUBtnTextHoverColor
+            );
+            setCUBtnBGHoverColor(
+                data.data.current_template.general_settings.CUBtnBGHoverColor
+            );
+            setCUBorderRadius(
+                data.data.current_template.general_settings.CUBorderRadius
+            );
             setGsAction(data.data.current_template.general_settings.gsAction);
             setEditText(data.data.current_template.buy_btn_settings.editText);
             // setSoldOut(data.data.current_template.buy_btn_settings.soldOut);
@@ -466,7 +760,34 @@ export default function AddToCartSticky() {
                 gsOffsetValue: gsOffsetValue,
                 gsAction: gsAction,
                 gsDisplayCondition: gsDisplayCondition,
+                gsNotificationBarText: gsNotificationBarText,
+                gsNotificationBarItalic: gsNotificationBarItalic,
+                gsNotificationBarBold: gsNotificationBarBold,
+                gsNotificationBarTextColor: gsNotificationBarTextColor,
+                gsNotificationBarBgColor: gsNotificationBarBgColor,
+                gsNotificationBarFontSize: gsNotificationBarFontSize,
+                gsNotificationBarHeight: gsNotificationBarHeight,
+                enableUpSell: enableUpSell,
+                CUPLSelection: CUPLSelection,
+                CUPLManualSelection: CUPLManualSelection,
+                SelectedCollectionID: SelectedCollectionID,
+                SelectedProductIDs: SelectedProductIDs,
+                CUHeadingText: CUHeadingText,
+                CUBuyBtnText: CUBuyBtnText,
+                CUHeadingFontSize: CUHeadingFontSize,
+                CUBodyFontSize: CUBodyFontSize,
+                CUBuyBtnFontSize: CUBuyBtnFontSize,
+                CUBackgroundColor: CUBackgroundColor,
+                CUHeadingBGColor: CUHeadingBGColor,
+                CUHeadingColor: CUHeadingColor,
+                CUBodyColor: CUBodyColor,
+                CUBtnTextColor: CUBtnTextColor,
+                CUBtnBGColor: CUBtnBGColor,
+                CUBtnTextHoverColor: CUBtnTextHoverColor,
+                CUBtnBGHoverColor: CUBtnBGHoverColor,
+                CUBorderRadius: CUBorderRadius,
                 /*GENERAL SETTINGS END*/
+
                 /*BUY NOW START*/
                 editText: editText,
                 // soldOut: soldOut,
@@ -488,6 +809,7 @@ export default function AddToCartSticky() {
                 btnBorderHoverColor: btnBorderHoverColor,
                 /*BUY NOW END*/
             };
+
             setSaveLoader(false);
             let response = await axios.post("/api/saveAddToStickyCartData", {
                 data: payLoad,
@@ -575,6 +897,52 @@ export default function AddToCartSticky() {
         setGsBgColor(currentData.general_settings.gsBgColor);
         setGsOffsetValue(currentData.general_settings.gsOffsetValue);
         setGsDisplayCondition(currentData.general_settings.gsDisplayCondition);
+        setGsNotificationBarText(
+            currentData.general_settings.gsNotificationBarText
+        );
+        setGsNotificationBarItalic(
+            currentData.general_settings.gsNotificationBarItalic
+        );
+        setGsNotificationBarBold(
+            currentData.general_settings.gsNotificationBarBold
+        );
+        setGsNotificationBarTextColor(
+            currentData.general_settings.gsNotificationBarTextColor
+        );
+        setGsNotificationBarBgColor(
+            currentData.general_settings.gsNotificationBarBgColor
+        );
+        setGsNotificationBarFontSize(
+            currentData.general_settings.gsNotificationBarFontSize
+        );
+        setGsNotificationBarHeight(
+            currentData.general_settings.gsNotificationBarHeight
+        );
+        setEnableUpSell(currentData.general_settings.enableUpSell);
+        setCUPLSelection(currentData.general_settings.CUPLSelection);
+        setCUPLManualSelection(
+            currentData.general_settings.CUPLManualSelection
+        );
+        setSelectedCollectionID(
+            currentData.general_settings.SelectedCollectionID
+        );
+        setSelectedProductIDs(currentData.general_settings.SelectedProductIDs);
+        // setCUHeadingText(currentData.general_settings.CUHeadingText);
+        setCUBuyBtnText(currentData.general_settings.CUBuyBtnText);
+        setCUHeadingFontSize(currentData.general_settings.CUHeadingFontSize);
+        setCUBodyFontSize(currentData.general_settings.CUBodyFontSize);
+        setCUBuyBtnFontSize(currentData.general_settings.CUBuyBtnFontSize);
+        setCUBackgroundColor(currentData.general_settings.CUBackgroundColor);
+        setCUHeadingBGColor(currentData.general_settings.CUHeadingBGColor);
+        setCUHeadingColor(currentData.general_settings.CUHeadingColor);
+        setCUBodyColor(currentData.general_settings.CUBodyColor);
+        setCUBtnTextColor(currentData.general_settings.CUBtnTextColor);
+        setCUBtnBGColor(currentData.general_settings.CUBtnBGColor);
+        setCUBtnTextHoverColor(
+            currentData.general_settings.CUBtnTextHoverColor
+        );
+        setCUBtnBGHoverColor(currentData.general_settings.CUBtnBGHoverColor);
+        setCUBorderRadius(currentData.general_settings.CUBorderRadius);
         setGsAction(currentData.general_settings.gsAction);
         /*BUY NOW BUTTON VALUES*/
         setEditText(currentData.buy_btn_settings.editText);
@@ -601,14 +969,46 @@ export default function AddToCartSticky() {
 
     const handleTransferData = (data) => {
         setSaveLoader(false);
-        // console.log("data");
-        // console.log(data);
         SetTransferData({
             general_settings: {
                 checkDesktop: data.general_settings.checkDesktop,
                 checkMobile: data.general_settings.checkMobile,
                 gsAction: data.general_settings.gsAction,
                 gsDisplayCondition: data.general_settings.gsDisplayCondition,
+                gsNotificationBarText:
+                    data.general_settings.gsNotificationBarText,
+                gsNotificationBarItalic:
+                    data.general_settings.gsNotificationBarItalic,
+                gsNotificationBarBold:
+                    data.general_settings.gsNotificationBarBold,
+                gsNotificationBarTextColor:
+                    data.general_settings.gsNotificationBarTextColor,
+                gsNotificationBarBgColor:
+                    data.general_settings.gsNotificationBarBgColor,
+                gsNotificationBarFontSize:
+                    data.general_settings.gsNotificationBarFontSize,
+                gsNotificationBarHeight:
+                    data.general_settings.gsNotificationBarHeight,
+                enableUpSell: data.general_settings.enableUpSell,
+                CUPLSelection: data.general_settings.CUPLSelection,
+                CUPLManualSelection: data.general_settings.CUPLManualSelection,
+                SelectedCollectionID:
+                    data.general_settings.SelectedCollectionID,
+                SelectedProductIDs: data.general_settings.SelectedProductIDs,
+                CUHeadingText: data.general_settings.CUHeadingText,
+                CUBuyBtnText: data.general_settings.CUBuyBtnText,
+                CUHeadingFontSize: data.general_settings.CUHeadingFontSize,
+                CUBodyFontSize: data.general_settings.CUBodyFontSize,
+                CUBuyBtnFontSize: data.general_settings.CUBuyBtnFontSize,
+                CUBackgroundColor: data.general_settings.CUBackgroundColor,
+                CUHeadingBGColor: data.general_settings.CUHeadingBGColor,
+                CUHeadingColor: data.general_settings.CUHeadingColor,
+                CUBodyColor: data.general_settings.CUBodyColor,
+                CUBtnTextColor: data.general_settings.CUBtnTextColor,
+                CUBtnBGColor: data.general_settings.CUBtnBGColor,
+                CUBtnTextHoverColor: data.general_settings.CUBtnTextHoverColor,
+                CUBtnBGHoverColor: data.general_settings.CUBtnBGHoverColor,
+                CUBorderRadius: data.general_settings.CUBorderRadius,
             },
             design_settings: {
                 gsFontFamily: data.design_settings.gsFontFamily,
@@ -649,6 +1049,42 @@ export default function AddToCartSticky() {
         setCheckMobile(data.general_settings.checkMobile);
         setGsAction(data.general_settings.gsAction);
         setGsDisplayCondition(data.general_settings.gsDisplayCondition);
+        setGsNotificationBarText(data.general_settings.gsNotificationBarText);
+        setGsNotificationBarItalic(
+            data.general_settings.gsNotificationBarItalic
+        );
+        setGsNotificationBarBold(data.general_settings.gsNotificationBarBold);
+        setGsNotificationBarTextColor(
+            data.general_settings.gsNotificationBarTextColor
+        );
+        setGsNotificationBarBgColor(
+            data.general_settings.gsNotificationBarBgColor
+        );
+        setGsNotificationBarFontSize(
+            data.general_settings.gsNotificationBarFontSize
+        );
+        setGsNotificationBarHeight(
+            data.general_settings.gsNotificationBarHeight
+        );
+        setEnableUpSell(data.general_settings.enableUpSell);
+        setCUPLSelection(data.general_settings.CUPLSelection);
+        setCUPLManualSelection(data.general_settings.CUPLManualSelection);
+        setSelectedCollectionID(data.general_settings.SelectedCollectionID);
+        setSelectedProductIDs(data.general_settings.SelectedProductIDs);
+        // setCUHeadingText(data.general_settings.CUHeadingText);
+        setCUBuyBtnText(data.general_settings.CUBuyBtnText);
+        setCUHeadingFontSize(data.general_settings.CUHeadingFontSize);
+        setCUBodyFontSize(data.general_settings.CUBodyFontSize);
+        setCUBuyBtnFontSize(data.general_settings.CUBuyBtnFontSize);
+        setCUBackgroundColor(data.general_settings.CUBackgroundColor);
+        setCUHeadingBGColor(data.general_settings.CUHeadingBGColor);
+        setCUHeadingColor(data.general_settings.CUHeadingColor);
+        setCUBodyColor(data.general_settings.CUBodyColor);
+        setCUBtnTextColor(data.general_settings.CUBtnTextColor);
+        setCUBtnBGColor(data.general_settings.CUBtnBGColor);
+        setCUBtnTextHoverColor(data.general_settings.CUBtnTextHoverColor);
+        setCUBtnBGHoverColor(data.general_settings.CUBtnBGHoverColor);
+        setCUBorderRadius(data.general_settings.CUBorderRadius);
         setHomePageProduct(data.general_settings.homePageProduct);
         //DESIGN SETTINGS
         setPosition(data.design_settings.position);
@@ -857,6 +1293,64 @@ export default function AddToCartSticky() {
                                                 gsDisplayCondition={
                                                     gsDisplayCondition
                                                 }
+                                                gsNotificationBarText={
+                                                    gsNotificationBarText
+                                                }
+                                                gsNotificationBarItalic={
+                                                    gsNotificationBarItalic
+                                                }
+                                                gsNotificationBarBold={
+                                                    gsNotificationBarBold
+                                                }
+                                                gsNotificationBarTextColor={
+                                                    gsNotificationBarTextColor
+                                                }
+                                                gsNotificationBarBgColor={
+                                                    gsNotificationBarBgColor
+                                                }
+                                                gsNotificationBarFontSize={
+                                                    gsNotificationBarFontSize
+                                                }
+                                                gsNotificationBarHeight={
+                                                    gsNotificationBarHeight
+                                                }
+                                                enableUpSell={enableUpSell}
+                                                CUPLSelection={CUPLSelection}
+                                                CUPLManualSelection={
+                                                    CUPLManualSelection
+                                                }
+                                                SelectedCollectionID={
+                                                    SelectedCollectionID
+                                                }
+                                                SelectedProductIDs={
+                                                    SelectedProductIDs
+                                                }
+                                                CUHeadingText={CUHeadingText}
+                                                CUBuyBtnText={CUBuyBtnText}
+                                                CUHeadingFontSize={
+                                                    CUHeadingFontSize
+                                                }
+                                                CUBodyFontSize={CUBodyFontSize}
+                                                CUBuyBtnFontSize={
+                                                    CUBuyBtnFontSize
+                                                }
+                                                CUBackgroundColor={
+                                                    CUBackgroundColor
+                                                }
+                                                CUHeadingBGColor={
+                                                    CUHeadingBGColor
+                                                }
+                                                CUHeadingColor={CUHeadingColor}
+                                                CUBodyColor={CUBodyColor}
+                                                CUBtnTextColor={CUBtnTextColor}
+                                                CUBtnBGColor={CUBtnBGColor}
+                                                CUBtnTextHoverColor={
+                                                    CUBtnTextHoverColor
+                                                }
+                                                CUBtnBGHoverColor={
+                                                    CUBtnBGHoverColor
+                                                }
+                                                CUBorderRadius={CUBorderRadius}
                                                 containerHeight={
                                                     containerHeight
                                                 }
@@ -983,6 +1477,43 @@ export default function AddToCartSticky() {
                                                                         gsDisplayCondition={
                                                                             gsDisplayCondition
                                                                         }
+                                                                        gsNotificationBarText={
+                                                                            gsNotificationBarText
+                                                                        }
+                                                                        gsNotificationBarItalic={
+                                                                            gsNotificationBarItalic
+                                                                        }
+                                                                        gsNotificationBarBold={
+                                                                            gsNotificationBarBold
+                                                                        }
+                                                                        gsNotificationBarTextColor={
+                                                                            gsNotificationBarTextColor
+                                                                        }
+                                                                        gsNotificationBarBgColor={
+                                                                            gsNotificationBarBgColor
+                                                                        }
+                                                                        gsNotificationBarFontSize={
+                                                                            gsNotificationBarFontSize
+                                                                        }
+                                                                        gsNotificationBarHeight={
+                                                                            gsNotificationBarHeight
+                                                                        }
+                                                                        enableUpSell={
+                                                                            enableUpSell
+                                                                        }
+                                                                        CUPLSelection={
+                                                                            CUPLSelection
+                                                                        }
+                                                                        CUPLManualSelection={
+                                                                            CUPLManualSelection
+                                                                        }
+                                                                        SelectedCollectionID={
+                                                                            SelectedCollectionID
+                                                                        }
+                                                                        SelectedProductIDs={
+                                                                            SelectedProductIDs
+                                                                        }
+                                                                        conta
                                                                         editText={
                                                                             editText
                                                                         }
@@ -1099,6 +1630,43 @@ export default function AddToCartSticky() {
                                                                         gsDisplayCondition={
                                                                             gsDisplayCondition
                                                                         }
+                                                                        gsNotificationBarText={
+                                                                            gsNotificationBarText
+                                                                        }
+                                                                        gsNotificationBarItalic={
+                                                                            gsNotificationBarItalic
+                                                                        }
+                                                                        gsNotificationBarBold={
+                                                                            gsNotificationBarBold
+                                                                        }
+                                                                        gsNotificationBarTextColor={
+                                                                            gsNotificationBarTextColor
+                                                                        }
+                                                                        gsNotificationBarBgColor={
+                                                                            gsNotificationBarBgColor
+                                                                        }
+                                                                        gsNotificationBarFontSize={
+                                                                            gsNotificationBarFontSize
+                                                                        }
+                                                                        gsNotificationBarHeight={
+                                                                            gsNotificationBarHeight
+                                                                        }
+                                                                        enableUpSell={
+                                                                            enableUpSell
+                                                                        }
+                                                                        CUPLSelection={
+                                                                            CUPLSelection
+                                                                        }
+                                                                        CUPLManualSelection={
+                                                                            CUPLManualSelection
+                                                                        }
+                                                                        SelectedCollectionID={
+                                                                            SelectedCollectionID
+                                                                        }
+                                                                        SelectedProductIDs={
+                                                                            SelectedProductIDs
+                                                                        }
+                                                                        conta
                                                                         editText={
                                                                             editText
                                                                         }
@@ -1215,6 +1783,43 @@ export default function AddToCartSticky() {
                                                                         gsDisplayCondition={
                                                                             gsDisplayCondition
                                                                         }
+                                                                        gsNotificationBarText={
+                                                                            gsNotificationBarText
+                                                                        }
+                                                                        gsNotificationBarItalic={
+                                                                            gsNotificationBarItalic
+                                                                        }
+                                                                        gsNotificationBarBold={
+                                                                            gsNotificationBarBold
+                                                                        }
+                                                                        gsNotificationBarTextColor={
+                                                                            gsNotificationBarTextColor
+                                                                        }
+                                                                        gsNotificationBarBgColor={
+                                                                            gsNotificationBarBgColor
+                                                                        }
+                                                                        gsNotificationBarFontSize={
+                                                                            gsNotificationBarFontSize
+                                                                        }
+                                                                        gsNotificationBarHeight={
+                                                                            gsNotificationBarHeight
+                                                                        }
+                                                                        enableUpSell={
+                                                                            enableUpSell
+                                                                        }
+                                                                        CUPLSelection={
+                                                                            CUPLSelection
+                                                                        }
+                                                                        CUPLManualSelection={
+                                                                            CUPLManualSelection
+                                                                        }
+                                                                        SelectedCollectionID={
+                                                                            SelectedCollectionID
+                                                                        }
+                                                                        SelectedProductIDs={
+                                                                            SelectedProductIDs
+                                                                        }
+                                                                        conta
                                                                         editText={
                                                                             editText
                                                                         }
@@ -1331,6 +1936,43 @@ export default function AddToCartSticky() {
                                                                         gsDisplayCondition={
                                                                             gsDisplayCondition
                                                                         }
+                                                                        gsNotificationBarText={
+                                                                            gsNotificationBarText
+                                                                        }
+                                                                        gsNotificationBarItalic={
+                                                                            gsNotificationBarItalic
+                                                                        }
+                                                                        gsNotificationBarBold={
+                                                                            gsNotificationBarBold
+                                                                        }
+                                                                        gsNotificationBarTextColor={
+                                                                            gsNotificationBarTextColor
+                                                                        }
+                                                                        gsNotificationBarBgColor={
+                                                                            gsNotificationBarBgColor
+                                                                        }
+                                                                        gsNotificationBarFontSize={
+                                                                            gsNotificationBarFontSize
+                                                                        }
+                                                                        gsNotificationBarHeight={
+                                                                            gsNotificationBarHeight
+                                                                        }
+                                                                        enableUpSell={
+                                                                            enableUpSell
+                                                                        }
+                                                                        CUPLSelection={
+                                                                            CUPLSelection
+                                                                        }
+                                                                        CUPLManualSelection={
+                                                                            CUPLManualSelection
+                                                                        }
+                                                                        SelectedCollectionID={
+                                                                            SelectedCollectionID
+                                                                        }
+                                                                        SelectedProductIDs={
+                                                                            SelectedProductIDs
+                                                                        }
+                                                                        conta
                                                                         editText={
                                                                             editText
                                                                         }
@@ -1447,6 +2089,43 @@ export default function AddToCartSticky() {
                                                                         gsDisplayCondition={
                                                                             gsDisplayCondition
                                                                         }
+                                                                        gsNotificationBarText={
+                                                                            gsNotificationBarText
+                                                                        }
+                                                                        gsNotificationBarItalic={
+                                                                            gsNotificationBarItalic
+                                                                        }
+                                                                        gsNotificationBarBold={
+                                                                            gsNotificationBarBold
+                                                                        }
+                                                                        gsNotificationBarTextColor={
+                                                                            gsNotificationBarTextColor
+                                                                        }
+                                                                        gsNotificationBarBgColor={
+                                                                            gsNotificationBarBgColor
+                                                                        }
+                                                                        gsNotificationBarFontSize={
+                                                                            gsNotificationBarFontSize
+                                                                        }
+                                                                        gsNotificationBarHeight={
+                                                                            gsNotificationBarHeight
+                                                                        }
+                                                                        enableUpSell={
+                                                                            enableUpSell
+                                                                        }
+                                                                        CUPLSelection={
+                                                                            CUPLSelection
+                                                                        }
+                                                                        CUPLManualSelection={
+                                                                            CUPLManualSelection
+                                                                        }
+                                                                        SelectedCollectionID={
+                                                                            SelectedCollectionID
+                                                                        }
+                                                                        SelectedProductIDs={
+                                                                            SelectedProductIDs
+                                                                        }
+                                                                        conta
                                                                         editText={
                                                                             editText
                                                                         }
@@ -1563,6 +2242,43 @@ export default function AddToCartSticky() {
                                                                         gsDisplayCondition={
                                                                             gsDisplayCondition
                                                                         }
+                                                                        gsNotificationBarText={
+                                                                            gsNotificationBarText
+                                                                        }
+                                                                        gsNotificationBarItalic={
+                                                                            gsNotificationBarItalic
+                                                                        }
+                                                                        gsNotificationBarBold={
+                                                                            gsNotificationBarBold
+                                                                        }
+                                                                        gsNotificationBarTextColor={
+                                                                            gsNotificationBarTextColor
+                                                                        }
+                                                                        gsNotificationBarBgColor={
+                                                                            gsNotificationBarBgColor
+                                                                        }
+                                                                        gsNotificationBarFontSize={
+                                                                            gsNotificationBarFontSize
+                                                                        }
+                                                                        gsNotificationBarHeight={
+                                                                            gsNotificationBarHeight
+                                                                        }
+                                                                        enableUpSell={
+                                                                            enableUpSell
+                                                                        }
+                                                                        CUPLSelection={
+                                                                            CUPLSelection
+                                                                        }
+                                                                        CUPLManualSelection={
+                                                                            CUPLManualSelection
+                                                                        }
+                                                                        SelectedCollectionID={
+                                                                            SelectedCollectionID
+                                                                        }
+                                                                        SelectedProductIDs={
+                                                                            SelectedProductIDs
+                                                                        }
+                                                                        conta
                                                                         editText={
                                                                             editText
                                                                         }
@@ -1679,6 +2395,43 @@ export default function AddToCartSticky() {
                                                                         gsDisplayCondition={
                                                                             gsDisplayCondition
                                                                         }
+                                                                        gsNotificationBarText={
+                                                                            gsNotificationBarText
+                                                                        }
+                                                                        gsNotificationBarItalic={
+                                                                            gsNotificationBarItalic
+                                                                        }
+                                                                        gsNotificationBarBold={
+                                                                            gsNotificationBarBold
+                                                                        }
+                                                                        gsNotificationBarTextColor={
+                                                                            gsNotificationBarTextColor
+                                                                        }
+                                                                        gsNotificationBarBgColor={
+                                                                            gsNotificationBarBgColor
+                                                                        }
+                                                                        gsNotificationBarFontSize={
+                                                                            gsNotificationBarFontSize
+                                                                        }
+                                                                        gsNotificationBarHeight={
+                                                                            gsNotificationBarHeight
+                                                                        }
+                                                                        enableUpSell={
+                                                                            enableUpSell
+                                                                        }
+                                                                        CUPLSelection={
+                                                                            CUPLSelection
+                                                                        }
+                                                                        CUPLManualSelection={
+                                                                            CUPLManualSelection
+                                                                        }
+                                                                        SelectedCollectionID={
+                                                                            SelectedCollectionID
+                                                                        }
+                                                                        SelectedProductIDs={
+                                                                            SelectedProductIDs
+                                                                        }
+                                                                        conta
                                                                         editText={
                                                                             editText
                                                                         }
@@ -1795,6 +2548,43 @@ export default function AddToCartSticky() {
                                                                         gsDisplayCondition={
                                                                             gsDisplayCondition
                                                                         }
+                                                                        gsNotificationBarText={
+                                                                            gsNotificationBarText
+                                                                        }
+                                                                        gsNotificationBarItalic={
+                                                                            gsNotificationBarItalic
+                                                                        }
+                                                                        gsNotificationBarBold={
+                                                                            gsNotificationBarBold
+                                                                        }
+                                                                        gsNotificationBarTextColor={
+                                                                            gsNotificationBarTextColor
+                                                                        }
+                                                                        gsNotificationBarBgColor={
+                                                                            gsNotificationBarBgColor
+                                                                        }
+                                                                        gsNotificationBarFontSize={
+                                                                            gsNotificationBarFontSize
+                                                                        }
+                                                                        gsNotificationBarHeight={
+                                                                            gsNotificationBarHeight
+                                                                        }
+                                                                        enableUpSell={
+                                                                            enableUpSell
+                                                                        }
+                                                                        CUPLSelection={
+                                                                            CUPLSelection
+                                                                        }
+                                                                        CUPLManualSelection={
+                                                                            CUPLManualSelection
+                                                                        }
+                                                                        SelectedCollectionID={
+                                                                            SelectedCollectionID
+                                                                        }
+                                                                        SelectedProductIDs={
+                                                                            SelectedProductIDs
+                                                                        }
+                                                                        conta
                                                                         editText={
                                                                             editText
                                                                         }
@@ -1864,7 +2654,6 @@ export default function AddToCartSticky() {
                                                                             />
                                                                         </div>
                                                                     </div>
-
                                                                     <div className="p_details">
                                                                         <h2>
                                                                             Juice
@@ -1927,6 +2716,65 @@ export default function AddToCartSticky() {
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <UpSellBottomSheet
+                                                                    enableUpSell={
+                                                                        enableUpSell
+                                                                    }
+                                                                    CUPLSelection={
+                                                                        CUPLSelection
+                                                                    }
+                                                                    CUPLManualSelection={
+                                                                        CUPLManualSelection
+                                                                    }
+                                                                    SelectedCollectionID={
+                                                                        SelectedCollectionID
+                                                                    }
+                                                                    SelectedProductIDs={
+                                                                        SelectedProductIDs
+                                                                    }
+                                                                    CUHeadingText={
+                                                                        CUHeadingText
+                                                                    }
+                                                                    CUBuyBtnText={
+                                                                        CUBuyBtnText
+                                                                    }
+                                                                    CUHeadingFontSize={
+                                                                        CUHeadingFontSize
+                                                                    }
+                                                                    CUBodyFontSize={
+                                                                        CUBodyFontSize
+                                                                    }
+                                                                    CUBuyBtnFontSize={
+                                                                        CUBuyBtnFontSize
+                                                                    }
+                                                                    CUBackgroundColor={
+                                                                        CUBackgroundColor
+                                                                    }
+                                                                    CUHeadingBGColor={
+                                                                        CUHeadingBGColor
+                                                                    }
+                                                                    CUHeadingColor={
+                                                                        CUHeadingColor
+                                                                    }
+                                                                    CUBodyColor={
+                                                                        CUBodyColor
+                                                                    }
+                                                                    CUBtnTextColor={
+                                                                        CUBtnTextColor
+                                                                    }
+                                                                    CUBtnBGColor={
+                                                                        CUBtnBGColor
+                                                                    }
+                                                                    CUBtnTextHoverColor={
+                                                                        CUBtnTextHoverColor
+                                                                    }
+                                                                    CUBtnBGHoverColor={
+                                                                        CUBtnBGHoverColor
+                                                                    }
+                                                                    CUBorderRadius={
+                                                                        CUBorderRadius
+                                                                    }
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>
