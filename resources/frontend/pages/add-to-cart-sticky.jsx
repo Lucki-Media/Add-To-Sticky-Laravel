@@ -95,11 +95,13 @@ export default function AddToCartSticky() {
     const [CUHeadingBGColor, setCUHeadingBGColor] = useState("#1a6461");
     const [CUHeadingColor, setCUHeadingColor] = useState("#ffffff");
     const [CUBodyColor, setCUBodyColor] = useState("#ffffff");
+    const [CUBodyTextColor, setCUBodyTextColor] = useState("#ffffff");
     const [CUBtnTextColor, setCUBtnTextColor] = useState("#ffffff");
     const [CUBtnBGColor, setCUBtnBGColor] = useState("#1a6461");
     const [CUBtnTextHoverColor, setCUBtnTextHoverColor] = useState("#144d4a");
     const [CUBtnBGHoverColor, setCUBtnBGHoverColor] = useState("#144d4a");
     const [CUBorderRadius, setCUBorderRadius] = useState(8);
+    const [USPosition, setUSPosition] = useState("left");
 
     /*BUY NOW CONSTANTS*/
     const [editText, setEditText] = useState("BUY NOW");
@@ -235,18 +237,18 @@ export default function AddToCartSticky() {
                     SelectedProductIDs:
                         data.data.current_template.general_settings
                             .SelectedProductIDs,
-
                     CUHeadingText:
                         data.data.current_template.general_settings
                             .CUHeadingText,
-
                     CUBuyBtnText:
                         data.data.current_template.general_settings
                             .CUBuyBtnText,
-
                     CUHeadingFontSize:
                         data.data.current_template.general_settings
                             .CUHeadingFontSize,
+                    CUBodyFontSize:
+                        data.data.current_template.general_settings
+                            .CUBodyFontSize,
                     CUBuyBtnFontSize:
                         data.data.current_template.general_settings
                             .CUBuyBtnFontSize,
@@ -265,7 +267,9 @@ export default function AddToCartSticky() {
 
                     CUBodyColor:
                         data.data.current_template.general_settings.CUBodyColor,
-
+                    CUBodyTextColor:
+                        data.data.current_template.general_settings
+                            .CUBodyTextColor,
                     CUBtnTextColor:
                         data.data.current_template.general_settings
                             .CUBtnTextColor,
@@ -285,6 +289,9 @@ export default function AddToCartSticky() {
                     CUBorderRadius:
                         data.data.current_template.general_settings
                             .CUBorderRadius,
+
+                    USPosition:
+                        data.data.current_template.general_settings.USPosition,
                 },
                 design_settings: {
                     gsFontFamily:
@@ -418,18 +425,18 @@ export default function AddToCartSticky() {
                     SelectedProductIDs:
                         data.data.current_template.general_settings
                             .SelectedProductIDs,
-
                     CUHeadingText:
                         data.data.current_template.general_settings
                             .CUHeadingText,
-
                     CUBuyBtnText:
                         data.data.current_template.general_settings
                             .CUBuyBtnText,
-
                     CUHeadingFontSize:
                         data.data.current_template.general_settings
                             .CUHeadingFontSize,
+                    CUBodyFontSize:
+                        data.data.current_template.general_settings
+                            .CUBodyFontSize,
                     CUBuyBtnFontSize:
                         data.data.current_template.general_settings
                             .CUBuyBtnFontSize,
@@ -448,6 +455,9 @@ export default function AddToCartSticky() {
 
                     CUBodyColor:
                         data.data.current_template.general_settings.CUBodyColor,
+                    CUBodyTextColor:
+                        data.data.current_template.general_settings
+                            .CUBodyTextColor,
 
                     CUBtnTextColor:
                         data.data.current_template.general_settings
@@ -468,6 +478,8 @@ export default function AddToCartSticky() {
                     CUBorderRadius:
                         data.data.current_template.general_settings
                             .CUBorderRadius,
+                    USPosition:
+                        data.data.current_template.general_settings.USPosition,
                 },
                 design_settings: {
                     gsFontFamily:
@@ -668,6 +680,10 @@ export default function AddToCartSticky() {
             setCUBodyColor(
                 data.data.current_template.general_settings.CUBodyColor
             );
+            setCUBodyTextColor(
+                data.data.current_template.general_settings.CUBodyTextColor
+            );
+
             setCUBtnTextColor(
                 data.data.current_template.general_settings.CUBtnTextColor
             );
@@ -683,6 +699,10 @@ export default function AddToCartSticky() {
             setCUBorderRadius(
                 data.data.current_template.general_settings.CUBorderRadius
             );
+            setUSPosition(
+                data.data.current_template.general_settings.USPosition
+            );
+
             setGsAction(data.data.current_template.general_settings.gsAction);
             setEditText(data.data.current_template.buy_btn_settings.editText);
             // setSoldOut(data.data.current_template.buy_btn_settings.soldOut);
@@ -781,11 +801,14 @@ export default function AddToCartSticky() {
                 CUHeadingBGColor: CUHeadingBGColor,
                 CUHeadingColor: CUHeadingColor,
                 CUBodyColor: CUBodyColor,
+                CUBodyTextColor: CUBodyTextColor,
                 CUBtnTextColor: CUBtnTextColor,
                 CUBtnBGColor: CUBtnBGColor,
                 CUBtnTextHoverColor: CUBtnTextHoverColor,
                 CUBtnBGHoverColor: CUBtnBGHoverColor,
                 CUBorderRadius: CUBorderRadius,
+                USPosition: USPosition,
+
                 /*GENERAL SETTINGS END*/
 
                 /*BUY NOW START*/
@@ -927,7 +950,7 @@ export default function AddToCartSticky() {
             currentData.general_settings.SelectedCollectionID
         );
         setSelectedProductIDs(currentData.general_settings.SelectedProductIDs);
-        // setCUHeadingText(currentData.general_settings.CUHeadingText);
+        setCUHeadingText(currentData.general_settings.CUHeadingText);
         setCUBuyBtnText(currentData.general_settings.CUBuyBtnText);
         setCUHeadingFontSize(currentData.general_settings.CUHeadingFontSize);
         setCUBodyFontSize(currentData.general_settings.CUBodyFontSize);
@@ -936,6 +959,7 @@ export default function AddToCartSticky() {
         setCUHeadingBGColor(currentData.general_settings.CUHeadingBGColor);
         setCUHeadingColor(currentData.general_settings.CUHeadingColor);
         setCUBodyColor(currentData.general_settings.CUBodyColor);
+        setCUBodyTextColor(currentData.general_settings.CUBodyTextColor);
         setCUBtnTextColor(currentData.general_settings.CUBtnTextColor);
         setCUBtnBGColor(currentData.general_settings.CUBtnBGColor);
         setCUBtnTextHoverColor(
@@ -943,6 +967,7 @@ export default function AddToCartSticky() {
         );
         setCUBtnBGHoverColor(currentData.general_settings.CUBtnBGHoverColor);
         setCUBorderRadius(currentData.general_settings.CUBorderRadius);
+        setUSPosition(currentData.general_settings.USPosition);
         setGsAction(currentData.general_settings.gsAction);
         /*BUY NOW BUTTON VALUES*/
         setEditText(currentData.buy_btn_settings.editText);
@@ -1004,11 +1029,13 @@ export default function AddToCartSticky() {
                 CUHeadingBGColor: data.general_settings.CUHeadingBGColor,
                 CUHeadingColor: data.general_settings.CUHeadingColor,
                 CUBodyColor: data.general_settings.CUBodyColor,
+                CUBodyTextColor: data.general_settings.CUBodyTextColor,
                 CUBtnTextColor: data.general_settings.CUBtnTextColor,
                 CUBtnBGColor: data.general_settings.CUBtnBGColor,
                 CUBtnTextHoverColor: data.general_settings.CUBtnTextHoverColor,
                 CUBtnBGHoverColor: data.general_settings.CUBtnBGHoverColor,
                 CUBorderRadius: data.general_settings.CUBorderRadius,
+                USPosition: data.general_settings.USPosition,
             },
             design_settings: {
                 gsFontFamily: data.design_settings.gsFontFamily,
@@ -1071,7 +1098,7 @@ export default function AddToCartSticky() {
         setCUPLManualSelection(data.general_settings.CUPLManualSelection);
         setSelectedCollectionID(data.general_settings.SelectedCollectionID);
         setSelectedProductIDs(data.general_settings.SelectedProductIDs);
-        // setCUHeadingText(data.general_settings.CUHeadingText);
+        setCUHeadingText(data.general_settings.CUHeadingText);
         setCUBuyBtnText(data.general_settings.CUBuyBtnText);
         setCUHeadingFontSize(data.general_settings.CUHeadingFontSize);
         setCUBodyFontSize(data.general_settings.CUBodyFontSize);
@@ -1080,11 +1107,13 @@ export default function AddToCartSticky() {
         setCUHeadingBGColor(data.general_settings.CUHeadingBGColor);
         setCUHeadingColor(data.general_settings.CUHeadingColor);
         setCUBodyColor(data.general_settings.CUBodyColor);
+        setCUBodyTextColor(data.general_settings.CUBodyTextColor);
         setCUBtnTextColor(data.general_settings.CUBtnTextColor);
         setCUBtnBGColor(data.general_settings.CUBtnBGColor);
         setCUBtnTextHoverColor(data.general_settings.CUBtnTextHoverColor);
         setCUBtnBGHoverColor(data.general_settings.CUBtnBGHoverColor);
         setCUBorderRadius(data.general_settings.CUBorderRadius);
+        setUSPosition(data.general_settings.USPosition);
         setHomePageProduct(data.general_settings.homePageProduct);
         //DESIGN SETTINGS
         setPosition(data.design_settings.position);
@@ -1342,6 +1371,9 @@ export default function AddToCartSticky() {
                                                 }
                                                 CUHeadingColor={CUHeadingColor}
                                                 CUBodyColor={CUBodyColor}
+                                                CUBodyTextColor={
+                                                    CUBodyTextColor
+                                                }
                                                 CUBtnTextColor={CUBtnTextColor}
                                                 CUBtnBGColor={CUBtnBGColor}
                                                 CUBtnTextHoverColor={
@@ -1351,6 +1383,7 @@ export default function AddToCartSticky() {
                                                     CUBtnBGHoverColor
                                                 }
                                                 CUBorderRadius={CUBorderRadius}
+                                                USPosition={USPosition}
                                                 containerHeight={
                                                     containerHeight
                                                 }
@@ -2759,6 +2792,9 @@ export default function AddToCartSticky() {
                                                                     CUBodyColor={
                                                                         CUBodyColor
                                                                     }
+                                                                    CUBodyTextColor={
+                                                                        CUBodyTextColor
+                                                                    }
                                                                     CUBtnTextColor={
                                                                         CUBtnTextColor
                                                                     }
@@ -2773,6 +2809,9 @@ export default function AddToCartSticky() {
                                                                     }
                                                                     CUBorderRadius={
                                                                         CUBorderRadius
+                                                                    }
+                                                                    USPosition={
+                                                                        USPosition
                                                                     }
                                                                 />
                                                             </div>
