@@ -98,6 +98,9 @@ function GeneralSettings(props) {
     const [CUHeadingColor, setCUHeadingColor] = useState(props.CUHeadingColor);
 
     const [CUBodyColor, setCUBodyColor] = useState(props.CUBodyColor);
+    const [CUBodyTextColor, setCUBodyTextColor] = useState(
+        props.CUBodyTextColor
+    );
     const [CUBtnTextColor, setCUBtnTextColor] = useState(props.CUBtnTextColor);
     const [CUBtnBGColor, setCUBtnBGColor] = useState(props.CUBtnBGColor);
     const [CUBtnTextHoverColor, setCUBtnTextHoverColor] = useState(
@@ -107,6 +110,7 @@ function GeneralSettings(props) {
         props.CUBtnBGHoverColor
     );
     const [CUBorderRadius, setCUBorderRadius] = useState(props.CUBorderRadius);
+    const [USPosition, setUSPosition] = useState(props.USPosition);
 
     // HOME PAGE PRODUCT SWITCH LOGIC
     const handleSwitchChange = (checked) => {
@@ -204,8 +208,6 @@ function GeneralSettings(props) {
 
     // UPSELL POPUP HEADING TEXT
     const handleCUHeadingTextField = (val) => {
-        console.log("CUHeadingText");
-        console.log(CUHeadingText);
         setCUHeadingText(val);
     };
 
@@ -226,9 +228,6 @@ function GeneralSettings(props) {
         []
     );
 
-    console.log("CUBodyFontSize");
-    console.log(CUBodyFontSize);
-
     // UPSELL POPUP BUY BUTTON TEXT FONT SIZE
     const handleCUBuyBtnFontSize = useCallback(
         (value) => setCUBuyBtnFontSize(value),
@@ -236,13 +235,13 @@ function GeneralSettings(props) {
     );
 
     // UPSELL POPUP HEADING Background COLOR
-    const handleCUHeadingBGColor = (val) => {
-        setCUHeadingBGColor(val);
+    const handleCUHeadingBGColor = (event) => {
+        setCUHeadingBGColor(event.target.value);
     };
 
     // UPSELL POPUP Body Background COLOR
-    const handleCUBackgroundColor = (val) => {
-        setCUBackgroundColor(val);
+    const handleCUBackgroundColor = (event) => {
+        setCUBackgroundColor(event.target.value);
     };
 
     // UPSELL POPUP HEADING COLOR
@@ -253,6 +252,11 @@ function GeneralSettings(props) {
     // UPSELL POPUP BODY COLOR
     const handleCUBodyColor = (event) => {
         setCUBodyColor(event.target.value);
+    };
+
+    // UPSELL POPUP BODY COLOR
+    const handleCUBodyTextColor = (event) => {
+        setCUBodyTextColor(event.target.value);
     };
 
     // UPSELL POPUP BUTTON TEXT COLOR
@@ -276,12 +280,15 @@ function GeneralSettings(props) {
     };
 
     // UPSELL POPUP Border Radius
-    const handleCUBorderRadius = (event) => {
-        setCUBorderRadius(event.target.value);
+    const handleCUBorderRadius = (value) => {
+        setCUBorderRadius(value);
+    };
+
+    const handleUSPositionChange = (key) => {
+        setUSPosition(key);
     };
 
     /*DISPLAY SETTING START GENERAL SETTINGS*/
-
     useEffect(() => {
         setCheckMobile(props.checkMobile);
         setCheckDesktop(props.checkDesktop);
@@ -306,13 +313,14 @@ function GeneralSettings(props) {
         setCUBackgroundColor(props.CUBackgroundColor);
         setCUHeadingBGColor(props.CUHeadingBGColor);
         setCUBodyColor(props.CUBodyColor);
+        setCUBodyTextColor(props.CUBodyTextColor);
         setCUHeadingColor(props.CUHeadingColor);
-        setCUBodyColor(props.CUBodyColor);
         setCUBtnTextColor(props.CUBtnTextColor);
         setCUBtnBGColor(props.CUBtnBGColor);
         setCUBtnTextHoverColor(props.CUBtnTextHoverColor);
         setCUBtnBGHoverColor(props.CUBtnBGHoverColor);
         setCUBorderRadius(props.CUBorderRadius);
+        setUSPosition(props.USPosition);
     }, [props]);
 
     useEffect(() => {
@@ -345,11 +353,13 @@ function GeneralSettings(props) {
         CUHeadingBGColor,
         CUHeadingColor,
         CUBodyColor,
+        CUBodyTextColor,
         CUBtnTextColor,
         CUBtnBGColor,
         CUBtnTextHoverColor,
         CUBtnBGHoverColor,
         CUBorderRadius,
+        USPosition,
     ]);
 
     var transfer_data = {
@@ -380,11 +390,13 @@ function GeneralSettings(props) {
             CUHeadingBGColor: CUHeadingBGColor,
             CUHeadingColor: CUHeadingColor,
             CUBodyColor: CUBodyColor,
+            CUBodyTextColor: CUBodyTextColor,
             CUBtnTextColor: CUBtnTextColor,
             CUBtnBGColor: CUBtnBGColor,
             CUBtnTextHoverColor: CUBtnTextHoverColor,
             CUBtnBGHoverColor: CUBtnBGHoverColor,
             CUBorderRadius: CUBorderRadius,
+            USPosition: USPosition,
         },
         design_settings: {
             gsFontFamily: props.gsFontFamily,
@@ -936,7 +948,73 @@ function GeneralSettings(props) {
                                                 />
                                             </div>
                                         </BlockStack>
+                                        <BlockStack gap="0">
+                                            <Text
+                                                variant="headingMd"
+                                                as="span"
+                                                fontWeight="medium"
+                                            >
+                                                Body Text Color
+                                            </Text>
+                                            <div className="lm_sticky_color_box">
+                                                <input
+                                                    type="color"
+                                                    value={CUBodyTextColor}
+                                                    onChange={
+                                                        handleCUBodyTextColor
+                                                    }
+                                                />
+                                            </div>
+                                        </BlockStack>
+                                        <Text
+                                            variant="headingMd"
+                                            as="span"
+                                            fontWeight="medium"
+                                        >
+                                            Position
+                                        </Text>
+                                        <div className="lm_sticky_position">
+                                            <RadioButton
+                                                label={"Top"}
+                                                id={"Top"}
+                                                checked={position === "Top"}
+                                                name="position"
+                                                onChange={() => {
+                                                    handleUSPositionChange(
+                                                        "Top"
+                                                    );
+                                                }}
+                                            />
+                                            <br />
+                                            <RadioButton
+                                                label={"Bottom"}
+                                                id={"Bottom"}
+                                                checked={position === "Bottom"}
+                                                name="position"
+                                                onChange={() => {
+                                                    handleUSPositionChange(
+                                                        "Bottom"
+                                                    );
+                                                }}
+                                            />
+                                        </div>
                                     </FormLayout.Group>
+
+                                    <div style={{ margin: "15px 0" }}>
+                                        <Divider borderColor="border" />
+                                    </div>
+
+                                    <Text
+                                        variant="headingMd"
+                                        as="span"
+                                        fontWeight="medium"
+                                    >
+                                        Button Settings
+                                    </Text>
+
+                                    <div style={{ margin: "15px 0" }}>
+                                        <Divider borderColor="border" />
+                                    </div>
 
                                     <FormLayout.Group condensed>
                                         {/* Button Text Color */}
