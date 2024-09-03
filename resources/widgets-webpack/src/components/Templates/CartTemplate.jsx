@@ -5,6 +5,8 @@ import "select2/dist/js/select2.min";
 import { QuantityPicker } from "react-qty-picker";
 import style from "./CartTemplate1.module.css";
 import getSymbolFromCurrency from "currency-symbol-map";
+import NotificationBar from "./NotificationBar";
+import axios from "axios";
 
 export default function CartTemplate1(props) {
     const template_data = props.templateData.current_template;
@@ -23,6 +25,20 @@ export default function CartTemplate1(props) {
         gsBgColor = template_data.general_settings.gsBgColor,
         gsAction = template_data.general_settings.gsAction,
         gsDisplayCondition = template_data.general_settings.gsDisplayCondition,
+        gsNotificationBarText =
+            template_data.general_settings.gsNotificationBarText,
+        gsNotificationBarItalic =
+            template_data.general_settings.gsNotificationBarItalic,
+        gsNotificationBarBold =
+            template_data.general_settings.gsNotificationBarBold,
+        gsNotificationBarTextColor =
+            template_data.general_settings.gsNotificationBarTextColor,
+        gsNotificationBarBgColor =
+            template_data.general_settings.gsNotificationBarBgColor,
+        gsNotificationBarFontSize =
+            template_data.general_settings.gsNotificationBarFontSize,
+        gsNotificationBarHeight =
+            template_data.general_settings.gsNotificationBarHeight,
         gsOffsetValue = template_data.general_settings.gsOffsetValue,
         btnBold = template_data.buy_btn_settings.btnBold,
         btnItalic = template_data.buy_btn_settings.btnItalic,
@@ -43,7 +59,9 @@ export default function CartTemplate1(props) {
         unavailable = template_data.buy_btn_settings.unavailable;
 
     const [showContainer, setShowContainer] = useState(false);
+    const [showNotificationBar, setShowNotificationBar] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [numberCount, setNumberCount] = useState(0);
     // console.log(props.templateData);
     const [selectedVariant, setSelectedVariant] = useState(
         props.product.variants?.length && props.product.variants[0]
@@ -94,6 +112,22 @@ export default function CartTemplate1(props) {
     const currentYear = currentDate.getFullYear();
     const monthOptions = { month: "short" };
     const currentMonth = currentDate.toLocaleString("en-US", monthOptions);
+
+    /* CART COUNT API CALL START*/
+    const getCartCount = async () => {
+        axios
+            .get("https://" + window.location.host + "/cart.json")
+            .then((response) => {
+                updateCartDrawer(response.data.item_count);
+            });
+    };
+
+    function updateCartDrawer(cartCount) {
+        // Update the cart item count (example)
+        document.querySelector(".cart-count-bubble").textContent = cartCount;
+        document.querySelector(".sticky_Count").textContent = cartCount;
+    }
+
     let handleAddProduct = async () => {
         setLoading(true);
         const requestOptions = {
@@ -115,6 +149,7 @@ export default function CartTemplate1(props) {
                 year: currentYear,
             }),
         };
+
         if (selectedVariant) {
             try {
                 await fetch(
@@ -128,14 +163,21 @@ export default function CartTemplate1(props) {
                 setLoading(false);
                 if (template_data.general_settings.gsAction === "1") {
                     window.location.href = "/cart";
+                } else if (template_data.general_settings.gsAction === "3") {
+                    setShowNotificationBar(true);
                 } else {
                     window.location.href = "/checkout";
                 }
+
+                setTimeout(function () {
+                    getCartCount();
+                }, 1000);
             } catch (error) {
                 console.log();
             }
         }
     };
+
     useEffect(() => {
         const option0 = selectedOptions?.option0;
         const option1 = selectedOptions?.option1;
@@ -371,6 +413,33 @@ export default function CartTemplate1(props) {
                         }
                         `}
                     </style>
+
+                    {gsAction === "3" &&
+                        showNotificationBar === true &&
+                        position === "Bottom" && (
+                            <NotificationBar
+                                gsNotificationBarText={gsNotificationBarText}
+                                gsNotificationBarItalic={
+                                    gsNotificationBarItalic
+                                }
+                                gsNotificationBarBold={gsNotificationBarBold}
+                                gsNotificationBarTextColor={
+                                    gsNotificationBarTextColor
+                                }
+                                gsNotificationBarBgColor={
+                                    gsNotificationBarBgColor
+                                }
+                                gsNotificationBarFontSize={
+                                    gsNotificationBarFontSize
+                                }
+                                gsNotificationBarHeight={
+                                    gsNotificationBarHeight
+                                }
+                                position={position}
+                                containerHeight={containerHeight}
+                                showNotificationBar={showNotificationBar}
+                            />
+                        )}
                     {props.templateData.enable === true ? (
                         <div
                             className={`lm-sticky-${position} ${
@@ -621,6 +690,38 @@ export default function CartTemplate1(props) {
                                     </div>
                                 </div>
                             </div>
+                            {gsAction === "3" &&
+                                showNotificationBar === true &&
+                                position === "Top" && (
+                                    <NotificationBar
+                                        gsNotificationBarText={
+                                            gsNotificationBarText
+                                        }
+                                        gsNotificationBarItalic={
+                                            gsNotificationBarItalic
+                                        }
+                                        gsNotificationBarBold={
+                                            gsNotificationBarBold
+                                        }
+                                        gsNotificationBarTextColor={
+                                            gsNotificationBarTextColor
+                                        }
+                                        gsNotificationBarBgColor={
+                                            gsNotificationBarBgColor
+                                        }
+                                        gsNotificationBarFontSize={
+                                            gsNotificationBarFontSize
+                                        }
+                                        gsNotificationBarHeight={
+                                            gsNotificationBarHeight
+                                        }
+                                        position={position}
+                                        containerHeight={containerHeight}
+                                        showNotificationBar={
+                                            showNotificationBar
+                                        }
+                                    />
+                                )}
                         </div>
                     ) : (
                         ""

@@ -345,11 +345,11 @@ return [
     'webhooks' => [
         [
             'topic' => env('SHOPIFY_WEBHOOK_1_TOPIC', 'app/uninstalled'),
-            'address' => env('SHOPIFY_WEBHOOK_1_ADDRESS', 'https://lmaddtocartsticky.luckistore.in/webhook/app-uninstalled'),
+            'address' => env('SHOPIFY_WEBHOOK_1_ADDRESS', 'https://amazonutility.luckistore.in/webhook/app-uninstalled'),
         ],
         // [
         //     'topic' => env('SHOPIFY_WEBHOOK_2_TOPIC', 'shop/update'),
-        //     'address' => env('SHOPIFY_WEBHOOK_2_ADDRESS', 'https://lmaddtocartsticky.luckistore.in/webhook/shop-update')
+        //     'address' => env('SHOPIFY_WEBHOOK_2_ADDRESS', 'https://amazonutility.luckistore.in/webhook/shop-update')
         // ],
     ],
 

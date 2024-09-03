@@ -7,7 +7,11 @@ import "../css/index.css";
 export function SideBar(props) {
     const handleCallback = (e) => {
         props.dataCallback(e);
+
+        console.log("props");
+        console.log(props);
     };
+
     return (
         <BlockStack gap="400">
             <Card sectioned>
@@ -29,6 +33,34 @@ export function SideBar(props) {
                     gsOffsetValue={props.gsOffsetValue}
                     gsAction={props.gsAction}
                     gsDisplayCondition={props.gsDisplayCondition}
+                    gsNotificationBarText={props.gsNotificationBarText}
+                    gsNotificationBarItalic={props.gsNotificationBarItalic}
+                    gsNotificationBarBold={props.gsNotificationBarBold}
+                    gsNotificationBarTextColor={
+                        props.gsNotificationBarTextColor
+                    }
+                    gsNotificationBarBgColor={props.gsNotificationBarBgColor}
+                    gsNotificationBarFontSize={props.gsNotificationBarFontSize}
+                    gsNotificationBarHeight={props.gsNotificationBarHeight}
+                    enableUpSell={props.enableUpSell}
+                    CUPLSelection={props.CUPLSelection}
+                    CUPLManualSelection={props.CUPLManualSelection}
+                    SelectedCollectionID={props.SelectedCollectionID}
+                    SelectedProductIDs={props.SelectedProductIDs}
+                    CUHeadingText={props.CUHeadingText}
+                    CUBuyBtnText={props.CUBuyBtnText}
+                    CUHeadingFontSize={props.CUHeadingFontSize}
+                    CUBodyFontSize={props.CUBodyFontSize}
+                    CUBuyBtnFontSize={props.CUBuyBtnFontSize}
+                    CUBackgroundColor={props.CUBackgroundColor}
+                    CUHeadingBGColor={props.CUHeadingBGColor}
+                    CUHeadingColor={props.CUHeadingColor}
+                    CUBodyColor={props.CUBodyColor}
+                    CUBtnTextColor={props.CUBtnTextColor}
+                    CUBtnBGColor={props.CUBtnBGColor}
+                    CUBtnTextHoverColor={props.CUBtnTextHoverColor}
+                    CUBtnBGHoverColor={props.CUBtnBGHoverColor}
+                    CUBorderRadius={props.CUBorderRadius}
                     containerHeight={props.containerHeight}
                     animationEnable={props.animationEnable}
                     editText={props.editText}
@@ -69,6 +101,34 @@ export function SideBar(props) {
                     gsOffsetValue={props.gsOffsetValue}
                     gsAction={props.gsAction}
                     gsDisplayCondition={props.gsDisplayCondition}
+                    gsNotificationBarText={props.gsNotificationBarText}
+                    gsNotificationBarItalic={props.gsNotificationBarItalic}
+                    gsNotificationBarBold={props.gsNotificationBarBold}
+                    gsNotificationBarTextColor={
+                        props.gsNotificationBarTextColor
+                    }
+                    gsNotificationBarBgColor={props.gsNotificationBarBgColor}
+                    gsNotificationBarFontSize={props.gsNotificationBarFontSize}
+                    gsNotificationBarHeight={props.gsNotificationBarHeight}
+                    enableUpSell={props.enableUpSell}
+                    CUPLSelection={props.CUPLSelection}
+                    CUPLManualSelection={props.CUPLManualSelection}
+                    SelectedCollectionID={props.SelectedCollectionID}
+                    SelectedProductIDs={props.SelectedProductIDs}
+                    CUHeadingText={props.CUHeadingText}
+                    CUBuyBtnText={props.CUBuyBtnText}
+                    CUHeadingFontSize={props.CUHeadingFontSize}
+                    CUBodyFontSize={props.CUBodyFontSize}
+                    CUBuyBtnFontSize={props.CUBuyBtnFontSize}
+                    CUBackgroundColor={props.CUBackgroundColor}
+                    CUHeadingBGColor={props.CUHeadingBGColor}
+                    CUHeadingColor={props.CUHeadingColor}
+                    CUBodyColor={props.CUBodyColor}
+                    CUBtnTextColor={props.CUBtnTextColor}
+                    CUBtnBGColor={props.CUBtnBGColor}
+                    CUBtnTextHoverColor={props.CUBtnTextHoverColor}
+                    CUBtnBGHoverColor={props.CUBtnBGHoverColor}
+                    CUBorderRadius={props.CUBorderRadius}
                     containerHeight={props.containerHeight}
                     animationEnable={props.animationEnable}
                     editText={props.editText}

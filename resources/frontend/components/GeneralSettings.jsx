@@ -43,6 +43,74 @@ export function GeneralSettings(props) {
     const [gsDisplayCondition, setGsDisplayCondition] = useState(
         props.gsDisplayCondition
     );
+    const [gsNotificationBarText, setGsNotificationBarText] = useState(
+        props.gsNotificationBarText
+    );
+
+    const [gsNotificationBarItalic, setGsNotificationBarItalic] = useState(
+        props.gsNotificationBarItalic
+    );
+
+    const [gsNotificationBarBold, setGsNotificationBarBold] = useState(
+        props.gsNotificationBarBold
+    );
+
+    const [gsNotificationBarTextColor, setGsNotificationBarTextColor] =
+        useState(props.gsNotificationBarTextColor);
+
+    const [gsNotificationBarBgColor, setGsNotificationBarBgColor] = useState(
+        props.gsNotificationBarBgColor
+    );
+
+    const [gsNotificationBarFontSize, setGsNotificationBarFontSize] = useState(
+        props.gsNotificationBarFontSize
+    );
+
+    const [gsNotificationBarHeight, setGsNotificationBarHeight] = useState(
+        props.gsNotificationBarHeight
+    );
+
+    const [enableUpSell, setEnableUpSell] = useState(props.enableUpSell);
+
+    // PRODUCT LIST SELECTION STATES
+    const [CUPLSelection, setCUPLSelection] = useState(props.CUPLSelection);
+    const [CUPLManualSelection, setCUPLManualSelection] = useState(
+        props.CUPLManualSelection
+    );
+    const [SelectedCollectionID, setSelectedCollectionID] = useState(
+        props.SelectedCollectionID
+    );
+    const [SelectedProductIDs, setSelectedProductIDs] = useState(
+        props.SelectedProductIDs
+    );
+
+    const [CUHeadingText, setCUHeadingText] = useState(props.CUHeadingText);
+    const [CUBuyBtnText, setCUBuyBtnText] = useState(props.CUBuyBtnText);
+    const [CUHeadingFontSize, setCUHeadingFontSize] = useState(
+        props.CUHeadingFontSize
+    );
+    const [CUBodyFontSize, setCUBodyFontSize] = useState(props.CUBodyFontSize);
+    const [CUBuyBtnFontSize, setCUBuyBtnFontSize] = useState(
+        props.CUBuyBtnFontSize
+    );
+    const [CUBackgroundColor, setCUBackgroundColor] = useState(
+        props.CUBackgroundColor
+    );
+    const [CUHeadingBGColor, setCUHeadingBGColor] = useState(
+        props.CUHeadingBGColor
+    );
+    const [CUHeadingColor, setCUHeadingColor] = useState(props.CUHeadingColor);
+    const [CUBodyColor, setCUBodyColor] = useState(props.CUBodyColor);
+    const [CUBtnTextColor, setCUBtnTextColor] = useState(props.CUBtnTextColor);
+    const [CUBtnBGColor, setCUBtnBGColor] = useState(props.CUBtnBGColor);
+    const [CUBtnTextHoverColor, setCUBtnTextHoverColor] = useState(
+        props.CUBtnTextHoverColor
+    );
+    const [CUBtnBGHoverColor, setCUBtnBGHoverColor] = useState(
+        props.CUBtnBGHoverColor
+    );
+    const [CUBorderRadius, setCUBorderRadius] = useState(props.CUBorderRadius);
+
     const [containerHeight, setContainerHeight] = useState(
         props.containerHeight
     );
@@ -64,7 +132,34 @@ export function GeneralSettings(props) {
         setGsOffsetValue(props.gsOffsetValue);
         setGsAction(props.gsAction);
         setGsDisplayCondition(props.gsDisplayCondition);
+        setGsNotificationBarText(props.gsNotificationBarText);
+        setGsNotificationBarItalic(props.gsNotificationBarItalic);
+        setGsNotificationBarBold(props.gsNotificationBarBold);
+        setGsNotificationBarTextColor(props.gsNotificationBarTextColor);
+        setGsNotificationBarBgColor(props.gsNotificationBarBgColor);
+        setGsNotificationBarFontSize(props.gsNotificationBarFontSize);
+        setGsNotificationBarHeight(props.gsNotificationBarHeight);
+        setEnableUpSell(props.enableUpSell);
         setContainerHeight(props.containerHeight);
+        setCUPLSelection(props.CUPLSelection);
+        setCUPLManualSelection(props.CUPLManualSelection);
+        setSelectedCollectionID(props.SelectedCollectionID);
+        setSelectedProductIDs(props.SelectedProductIDs);
+        setCUHeadingText(props.CUHeadingText);
+        setCUBuyBtnText(props.CUBuyBtnText);
+        setCUHeadingFontSize(props.CUHeadingFontSize);
+        setCUBodyFontSize(props.CUBodyFontSize);
+        setCUBuyBtnFontSize(props.CUBuyBtnFontSize);
+        setCUBackgroundColor(props.CUBackgroundColor);
+        setCUHeadingBGColor(props.CUHeadingBGColor);
+        setCUBodyColor(props.CUBodyColor);
+        setCUHeadingColor(props.CUHeadingColor);
+        setCUBodyColor(props.CUBodyColor);
+        setCUBtnTextColor(props.CUBtnTextColor);
+        setCUBtnBGColor(props.CUBtnBGColor);
+        setCUBtnTextHoverColor(props.CUBtnTextHoverColor);
+        setCUBtnBGHoverColor(props.CUBtnBGHoverColor);
+        setCUBorderRadius(props.CUBorderRadius);
     }, [props]);
 
     // CALLBACK FUNCTION TO SEND PROPS START
@@ -80,6 +175,33 @@ export function GeneralSettings(props) {
         gsBgColor,
         gsBold,
         gsDisplayCondition,
+        gsNotificationBarText,
+        gsNotificationBarItalic,
+        gsNotificationBarBold,
+        gsNotificationBarTextColor,
+        gsNotificationBarBgColor,
+        gsNotificationBarFontSize,
+        gsNotificationBarHeight,
+        enableUpSell,
+        CUPLSelection,
+        CUPLManualSelection,
+        SelectedCollectionID,
+        SelectedProductIDs,
+        CUHeadingText,
+        CUBuyBtnText,
+        CUHeadingFontSize,
+        CUBodyFontSize,
+        CUBuyBtnFontSize,
+        CUHeadingBGColor,
+        CUBodyColor,       
+        CUHeadingColor,
+        CUBtnTextColor,
+        CUBtnBGColor,
+        CUBtnTextHoverColor,
+        CUBtnBGHoverColor,
+        CUBorderRadius,
+
+        //GENERAL
         gsFontFamily,
         gsFontsize,
         gsItalic,
@@ -103,6 +225,11 @@ export function GeneralSettings(props) {
             gsBgColor: gsBgColor,
             gsBold: gsBold,
             gsDisplayCondition: gsDisplayCondition,
+            gsNotificationBarText: gsNotificationBarText,
+            gsNotificationBarItalic: gsNotificationBarItalic,
+            gsNotificationBarBold: gsNotificationBarBold,
+            gsNotificationBarTextColor: gsNotificationBarTextColor,
+            gsNotificationBarBgColor: gsNotificationBarBgColor,
             gsFontFamily: gsFontFamily,
             gsFontsize: gsFontsize,
             gsItalic: gsItalic,
@@ -138,6 +265,11 @@ export function GeneralSettings(props) {
         gsBgColor,
         gsBold,
         gsDisplayCondition,
+        gsNotificationBarText,
+        gsNotificationBarItalic,
+        gsNotificationBarBold,
+        gsNotificationBarTextColor,
+        gsNotificationBarBgColor,
         gsFontFamily,
         gsFontsize,
         gsItalic,
@@ -496,9 +628,7 @@ export function GeneralSettings(props) {
 
             {/* Background Color */}
             <div className="style__wrapper_div">
-                <span className="display_setting_subtitle">
-                BG Color
-                </span>
+                <span className="display_setting_subtitle">BG Color</span>
                 <div>
                     <ColorPlate
                         defaultColor={gsBgColor}

@@ -5,6 +5,7 @@ import "select2/dist/js/select2.min";
 import { QuantityPicker } from "react-qty-picker";
 import style from "./CartTemplate2.module.css";
 import getSymbolFromCurrency from "currency-symbol-map";
+import NotificationBar from "./NotificationBar";
 
 export default function CartTemplate2(props) {
     const template_data = props.templateData.current_template;
@@ -23,6 +24,20 @@ export default function CartTemplate2(props) {
         gsBgColor = template_data.general_settings.gsBgColor,
         gsAction = template_data.general_settings.gsAction,
         gsDisplayCondition = template_data.general_settings.gsDisplayCondition,
+        gsNotificationBarText =
+            template_data.general_settings.gsNotificationBarText,
+        gsNotificationBarItalic =
+            template_data.general_settings.gsNotificationBarItalic,
+        gsNotificationBarBold =
+            template_data.general_settings.gsNotificationBarBold,
+        gsNotificationBarTextColor =
+            template_data.general_settings.gsNotificationBarTextColor,
+        gsNotificationBarBgColor =
+            template_data.general_settings.gsNotificationBarBgColor,
+        gsNotificationBarFontSize =
+            template_data.general_settings.gsNotificationBarFontSize,
+        gsNotificationBarHeight =
+            template_data.general_settings.gsNotificationBarHeight,
         gsOffsetValue = template_data.general_settings.gsOffsetValue,
         btnBold = template_data.buy_btn_settings.btnBold,
         btnItalic = template_data.buy_btn_settings.btnItalic,
@@ -43,6 +58,7 @@ export default function CartTemplate2(props) {
         unavailable = template_data.buy_btn_settings.unavailable;
 
     const [showContainer, setShowContainer] = useState(false);
+    const [showNotificationBar, setShowNotificationBar] = useState(false);
     const [loading, setLoading] = useState(false);
     // console.log(props.templateData);
     const [selectedVariant, setSelectedVariant] = useState(
@@ -95,6 +111,21 @@ export default function CartTemplate2(props) {
     const monthOptions = { month: "short" };
     const currentMonth = currentDate.toLocaleString("en-US", monthOptions);
 
+    /* CART COUNT API CALL START*/
+    const getCartCount = async () => {
+        axios
+            .get("https://" + window.location.host + "/cart.json")
+            .then((response) => {
+                updateCartDrawer(response.data.item_count);
+            });
+    };
+
+    function updateCartDrawer(cartCount) {
+        // Update the cart item count (example)
+        document.querySelector(".cart-count-bubble").textContent = cartCount;
+        document.querySelector(".sticky_Count").textContent = cartCount;
+    }
+
     let handleAddProduct = async () => {
         setLoading(true);
         const requestOptions = {
@@ -130,9 +161,15 @@ export default function CartTemplate2(props) {
                 setLoading(false);
                 if (template_data.general_settings.gsAction === "1") {
                     window.location.href = "/cart";
+                } else if (template_data.general_settings.gsAction === "3") {
+                    setShowNotificationBar(true);
                 } else {
                     window.location.href = "/checkout";
                 }
+
+                setTimeout(function () {
+                    getCartCount();
+                }, 1000);
             } catch (error) {
                 console.log();
             }
@@ -396,6 +433,35 @@ export default function CartTemplate2(props) {
                                     : "lm_sticky_hide_mobile_abc12"
                             }  `}
                         >
+                            {gsAction === "3" &&
+                                showNotificationBar === true &&
+                                position === "Bottom" && (
+                                    <NotificationBar
+                                        gsNotificationBarText={
+                                            gsNotificationBarText
+                                        }
+                                        gsNotificationBarItalic={
+                                            gsNotificationBarItalic
+                                        }
+                                        gsNotificationBarBold={
+                                            gsNotificationBarBold
+                                        }
+                                        gsNotificationBarTextColor={
+                                            gsNotificationBarTextColor
+                                        }
+                                        gsNotificationBarBgColor={
+                                            gsNotificationBarBgColor
+                                        }
+                                        gsNotificationBarFontSize={
+                                            gsNotificationBarFontSize
+                                        }
+                                        gsNotificationBarHeight={
+                                            gsNotificationBarHeight
+                                        }
+                                        position={position}
+                                        containerHeight={containerHeight}
+                                    />
+                                )}
                             <div className={style.lm_container}>
                                 <div className={style.lm_cart_module}>
                                     <div className={style.lm_pro_image}>
@@ -628,6 +694,35 @@ export default function CartTemplate2(props) {
                                     </div>
                                 </div>
                             </div>
+                            {gsAction === "3" &&
+                                showNotificationBar === true &&
+                                position === "Top" && (
+                                    <NotificationBar
+                                        gsNotificationBarText={
+                                            gsNotificationBarText
+                                        }
+                                        gsNotificationBarItalic={
+                                            gsNotificationBarItalic
+                                        }
+                                        gsNotificationBarBold={
+                                            gsNotificationBarBold
+                                        }
+                                        gsNotificationBarTextColor={
+                                            gsNotificationBarTextColor
+                                        }
+                                        gsNotificationBarBgColor={
+                                            gsNotificationBarBgColor
+                                        }
+                                        gsNotificationBarFontSize={
+                                            gsNotificationBarFontSize
+                                        }
+                                        gsNotificationBarHeight={
+                                            gsNotificationBarHeight
+                                        }
+                                        position={position}
+                                        containerHeight={containerHeight}
+                                    />
+                                )}
                         </div>
                     ) : (
                         ""

@@ -5,6 +5,8 @@ import "select2/dist/js/select2.min";
 import proimage from "../assets/productimage.png";
 import { QuantityPicker } from "react-qty-picker";
 import style from "../css/CartTemplate1.module.css";
+import Notification from "../pages/NotificationBar.jsx";
+import UpSellBottomSheet from "../pages/UpSellBottomSheet.jsx";
 
 function CartTemplate1(props) {
     const [enable, setEnable] = useState(props.enable); // FOR MAIN DISPLAY
@@ -36,6 +38,39 @@ function CartTemplate1(props) {
     const [btnBorderHoverColor, setBtnBorderHoverColor] = useState(
         props.btnBorderHoverColor
     );
+    const [gsAction, setGsAction] = useState(props.gsAction);
+
+    const defaultNotificationMessage =
+        "Great news! Here's something special for you!";
+
+    const [gsNotificationBarText, setGsNotificationBarText] = useState(
+        props.gsNotificationBarText
+    );
+    const [gsNotificationBarItalic, setGsNotificationBarItalic] = useState(
+        props.gsNotificationBarItalic
+    );
+
+    const [gsNotificationBarBold, setGsNotificationBarBold] = useState(
+        props.gsNotificationBarBold
+    );
+
+    const [gsNotificationBarTextColor, setGsNotificationBarTextColor] =
+        useState(props.gsNotificationBarTextColor);
+
+    const [gsNotificationBarBgColor, setGsNotificationBarBgColor] = useState(
+        props.gsNotificationBarBgColor
+    );
+
+    const [gsNotificationBarFontSize, setGsNotificationBarFontSize] = useState(
+        props.gsNotificationBarFontSize
+    );
+
+    const [gsNotificationBarHeight, setGsNotificationBarHeight] = useState(
+        props.gsNotificationBarHeight
+    );
+
+    const [enableUpSell, setEnableUpSell] = useState(props.enableUpSell);
+
     const [btnFontsize, setBtnFontsize] = useState(props.btnFontsize);
     const [gsFontsize, setGsFontsize] = useState(props.gsFontsize);
     const [gsPriceFontsize, setGsPriceFontsize] = useState(
@@ -116,7 +151,15 @@ function CartTemplate1(props) {
         setBtnBorderRadius(props.btnBorderRadius);
         setBtnBorderColor(props.btnBorderColor);
         setBtnBorderHoverColor(props.btnBorderHoverColor);
-
+        setGsAction(props.gsAction);
+        setGsNotificationBarText(props.gsNotificationBarText);
+        setGsNotificationBarItalic(props.gsNotificationBarItalic);
+        setGsNotificationBarBold(props.gsNotificationBarBold);
+        setGsNotificationBarTextColor(props.gsNotificationBarTextColor);
+        setGsNotificationBarBgColor(props.gsNotificationBarBgColor);
+        setGsNotificationBarFontSize(props.gsNotificationBarFontSize);
+        setGsNotificationBarHeight(props.gsNotificationBarHeight);
+        setEnableUpSell(props.enableUpSell);
         // const interval = setInterval(() => {
         //     setIsVibrating(true);
         //     // setTimeout(() => setIsVibrating(false), 2000); // Duration of the vibrate animation (0.2s)
@@ -270,6 +313,25 @@ function CartTemplate1(props) {
                     }  `}
                     style={{ position: "absolute" }}
                 >
+                    {gsAction === "3" && position === "Bottom" && (
+                        <Notification
+                            gsNotificationBarText={
+                                gsNotificationBarText ||
+                                defaultNotificationMessage
+                            }
+                            gsNotificationBarItalic={gsNotificationBarItalic}
+                            gsNotificationBarBold={gsNotificationBarBold}
+                            gsNotificationBarTextColor={
+                                gsNotificationBarTextColor
+                            }
+                            gsNotificationBarBgColor={gsNotificationBarBgColor}
+                            gsNotificationBarFontSize={
+                                gsNotificationBarFontSize
+                            }
+                            gsNotificationBarHeight={gsNotificationBarHeight}
+                        />
+                    )}
+
                     <div className={style.lm_container}>
                         <div className={style.lm_cart_module}>
                             <div className={style.lm_pro_image}>
@@ -451,6 +513,28 @@ function CartTemplate1(props) {
                             </div>
                         </div>
                     </div>
+                    {gsAction === "3" && position === "Top" && (
+                        <Notification
+                            gsNotificationBarText={
+                                gsNotificationBarText ||
+                                defaultNotificationMessage
+                            }
+                            gsNotificationBarItalic={gsNotificationBarItalic}
+                            gsNotificationBarBold={gsNotificationBarBold}
+                            gsNotificationBarTextColor={
+                                gsNotificationBarTextColor
+                            }
+                            gsNotificationBarBgColor={gsNotificationBarBgColor}
+                            gsNotificationBarFontSize={
+                                gsNotificationBarFontSize
+                            }
+                            gsNotificationBarHeight={gsNotificationBarHeight}
+                        />
+                    )}
+
+                    {/* <div className="popup_container">
+                        <UpSellBottomSheet enableUpSell={enableUpSell} />
+                    </div> */}
                 </div>
             ) : (
                 ""

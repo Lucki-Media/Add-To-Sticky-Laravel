@@ -3,6 +3,7 @@ import Select from "react-select";
 import proimage from "../assets/productimage.png";
 import { QuantityPicker } from "react-qty-picker";
 import style from "../css/CartTemplate7.module.css";
+import Notification from "../pages/NotificationBar.jsx";
 
 export default function CartTemplate7(props) {
     const [enable, setEnable] = useState(props.enable); // FOR MAIN DISPLAY
@@ -54,6 +55,36 @@ export default function CartTemplate7(props) {
     const [editText, setEditText] = useState(props.editText);
     // const [soldOut, setSoldOut] = useState(props.soldOut);
     const [unavailable, setUnavailable] = useState(props.unavailable);
+    const [gsAction, setGsAction] = useState(props.gsAction);
+
+    const defaultNotificationMessage =
+        "Great news! Here's something special for you!";
+
+    const [gsNotificationBarText, setGsNotificationBarText] = useState(
+        props.gsNotificationBarText
+    );
+    const [gsNotificationBarItalic, setGsNotificationBarItalic] = useState(
+        props.gsNotificationBarItalic
+    );
+
+    const [gsNotificationBarBold, setGsNotificationBarBold] = useState(
+        props.gsNotificationBarBold
+    );
+
+    const [gsNotificationBarTextColor, setGsNotificationBarTextColor] =
+        useState(props.gsNotificationBarTextColor);
+
+    const [gsNotificationBarBgColor, setGsNotificationBarBgColor] = useState(
+        props.gsNotificationBarBgColor
+    );
+
+    const [gsNotificationBarFontSize, setGsNotificationBarFontSize] = useState(
+        props.gsNotificationBarFontSize
+    );
+
+    const [gsNotificationBarHeight, setGsNotificationBarHeight] = useState(
+        props.gsNotificationBarHeight
+    );
 
     const options = [
         { value: "L", label: "L" },
@@ -114,6 +145,14 @@ export default function CartTemplate7(props) {
         setBtnBorderRadius(props.btnBorderRadius);
         setBtnBorderColor(props.btnBorderColor);
         setBtnBorderHoverColor(props.btnBorderHoverColor);
+        setGsAction(props.gsAction);
+        setGsNotificationBarText(props.gsNotificationBarText);
+        setGsNotificationBarItalic(props.gsNotificationBarItalic);
+        setGsNotificationBarBold(props.gsNotificationBarBold);
+        setGsNotificationBarTextColor(props.gsNotificationBarTextColor);
+        setGsNotificationBarBgColor(props.gsNotificationBarBgColor);
+        setGsNotificationBarFontSize(props.gsNotificationBarFontSize);
+        setGsNotificationBarHeight(props.gsNotificationBarHeight);
 
         // const interval = setInterval(() => {
         //     setIsVibrating(true);
@@ -289,6 +328,25 @@ align-items: center;
                     }   `}
                     style={{ position: "absolute" }}
                 >
+                    {gsAction === "3" && position === "Bottom" && (
+                        <Notification
+                            gsNotificationBarText={
+                                gsNotificationBarText ||
+                                defaultNotificationMessage
+                            }
+                            gsNotificationBarItalic={gsNotificationBarItalic}
+                            gsNotificationBarBold={gsNotificationBarBold}
+                            gsNotificationBarTextColor={
+                                gsNotificationBarTextColor
+                            }
+                            gsNotificationBarBgColor={gsNotificationBarBgColor}
+                            gsNotificationBarFontSize={
+                                gsNotificationBarFontSize
+                            }
+                            gsNotificationBarHeight={gsNotificationBarHeight}
+                        />
+                    )}
+
                     <div className={style.lm_container}>
                         <div className={style.lm_cart_module}>
                             <div className={style.lm_pro_image}>
@@ -464,6 +522,24 @@ align-items: center;
                             </div>
                         </div>
                     </div>
+                    {gsAction === "3" && position === "Top" && (
+                        <Notification
+                            gsNotificationBarText={
+                                gsNotificationBarText ||
+                                defaultNotificationMessage
+                            }
+                            gsNotificationBarItalic={gsNotificationBarItalic}
+                            gsNotificationBarBold={gsNotificationBarBold}
+                            gsNotificationBarTextColor={
+                                gsNotificationBarTextColor
+                            }
+                            gsNotificationBarBgColor={gsNotificationBarBgColor}
+                            gsNotificationBarFontSize={
+                                gsNotificationBarFontSize
+                            }
+                            gsNotificationBarHeight={gsNotificationBarHeight}
+                        />
+                    )}
                 </div>
             ) : (
                 ""
