@@ -610,7 +610,7 @@ function DesignSettings(props) {
                                 tone="subdued"
                             >
                                 (<strong>Note:</strong> Enabling Button
-                                Animation globally activates them <br></br>
+                                Animation globally activates them 
                                 across all templates.)
                             </Text>
                         </BlockStack>
