@@ -6,6 +6,7 @@ import { QuantityPicker } from "react-qty-picker";
 import style from "./CartTemplate3.module.css";
 import getSymbolFromCurrency from "currency-symbol-map";
 import NotificationBar from "./NotificationBar";
+import axios from "axios";
 
 export default function CartTemplate3(props) {
     const template_data = props.templateData.current_template;
