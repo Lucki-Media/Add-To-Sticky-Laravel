@@ -110,7 +110,7 @@ function GeneralSettings(props) {
         props.CUBtnBGHoverColor
     );
     const [CUBorderRadius, setCUBorderRadius] = useState(props.CUBorderRadius);
-    const [USPosition, setUSPosition] = useState(props.USPosition);
+    const [USPosition, setUSPosition] = useState("");
 
     // HOME PAGE PRODUCT SWITCH LOGIC
     const handleSwitchChange = (checked) => {
@@ -784,6 +784,10 @@ function GeneralSettings(props) {
                                         </BlockStack>
                                     </FormLayout.Group>
 
+                                    <div style={{ margin: "15px 0" }}>
+                                        <Divider borderColor="transparent" />
+                                    </div>
+
                                     {/* Font-Size and radio buttons start*/}
                                     <FormLayout.Group condensed>
                                         {/* Heading Font Size */}
@@ -827,6 +831,10 @@ function GeneralSettings(props) {
                                         </BlockStack>
                                     </FormLayout.Group>
 
+                                    <div style={{ margin: "15px 0" }}>
+                                        <Divider borderColor="transparent" />
+                                    </div>
+
                                     <FormLayout.Group condensed>
                                         {/* Buy Button Font Size */}
                                         <BlockStack gap="0">
@@ -868,6 +876,10 @@ function GeneralSettings(props) {
                                         </BlockStack>
                                     </FormLayout.Group>
                                     {/* Font-Size and radio buttons end*/}
+
+                                    <div style={{ margin: "15px 0" }}>
+                                        <Divider borderColor="transparent" />
+                                    </div>
 
                                     {/* Colors start */}
                                     <FormLayout.Group condensed>
@@ -973,12 +985,12 @@ function GeneralSettings(props) {
                                         >
                                             Position
                                         </Text>
-                                        <div className="lm_sticky_position">
+                                        {/* <div className="lm_sticky_position">
                                             <RadioButton
                                                 label={"Top"}
                                                 id={"Top"}
                                                 checked={position === "Top"}
-                                                name="position"
+                                                name="USposition"
                                                 onChange={() => {
                                                     handleUSPositionChange(
                                                         "Top"
@@ -989,15 +1001,17 @@ function GeneralSettings(props) {
                                             <RadioButton
                                                 label={"Bottom"}
                                                 id={"Bottom"}
-                                                checked={position === "Bottom"}
-                                                name="position"
+                                                checked={
+                                                    USposition === "Bottom"
+                                                }
+                                                name="USposition"
                                                 onChange={() => {
                                                     handleUSPositionChange(
                                                         "Bottom"
                                                     );
                                                 }}
                                             />
-                                        </div>
+                                        </div> */}
                                     </FormLayout.Group>
 
                                     <div style={{ margin: "15px 0" }}>
@@ -1018,7 +1032,7 @@ function GeneralSettings(props) {
 
                                     <FormLayout.Group condensed>
                                         {/* Button Text Color */}
-                                        <BlockStack gap="0">
+                                        <BlockStack gap="200">
                                             <Text
                                                 variant="headingMd"
                                                 as="span"
@@ -1038,7 +1052,7 @@ function GeneralSettings(props) {
                                         </BlockStack>
 
                                         {/* Button BG Color */}
-                                        <BlockStack gap="0">
+                                        <BlockStack gap="200">
                                             <Text
                                                 variant="headingMd"
                                                 as="span"
@@ -1058,9 +1072,13 @@ function GeneralSettings(props) {
                                         </BlockStack>
                                     </FormLayout.Group>
 
+                                    <div style={{ margin: "15px 0" }}>
+                                        <Divider borderColor="transparent" />
+                                    </div>
+
                                     <FormLayout.Group condensed>
                                         {/* Button Text Hover Color */}
-                                        <BlockStack gap="0">
+                                        <BlockStack gap="200">
                                             <Text
                                                 variant="headingMd"
                                                 as="span"
@@ -1080,7 +1098,7 @@ function GeneralSettings(props) {
                                         </BlockStack>
 
                                         {/* Button BG Hover Color */}
-                                        <BlockStack gap="0">
+                                        <BlockStack gap="200">
                                             <Text
                                                 variant="headingMd"
                                                 as="span"

@@ -4,14 +4,21 @@ import recommendedProducts from "../assets/recommendedProducts.js";
 
 const UpSellBottomSheet = (props) => {
     const [open, setOpen] = useState(false);
+    const [popupOpen, setPopupOpen] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState(null);
 
-    // Use useEffect to update the state when props.enableUpSell changes
     useEffect(() => {
         setOpen(props.enableUpSell);
     }, [props.enableUpSell]);
 
-    // Toggle the bottom sheet visibility
     const toggleBottomSheet = () => setOpen(!open);
+
+    const handleBuyButtonClick = (product) => {
+        setSelectedProduct(product);
+        setPopupOpen(true);
+    };
+
+    const closePopup = () => setPopupOpen(false);
 
     return (
         <>
@@ -152,6 +159,50 @@ const UpSellBottomSheet = (props) => {
                     background-color:${props.CUBtnBGHoverColor};
                     color: ${props.CUBtnTextHoverColor};
                 }
+
+                .popup_modal {
+                    position: fixed;
+                    top: 50%;
+                    left: calc(50% + 210px); /* Position beside the first modal */
+                    transform: translateY(-50%);
+                    background: white;
+                    padding: 20px;
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                    border-radius: ${props.CUBorderRadius}px;
+                    z-index: 10000;
+                    max-width: 300px;
+                    width: 100%;
+                    transition: transform 0.4s ease, opacity 0.4s ease;
+                    opacity: ${popupOpen ? 1 : 0};
+                    transform: translateX(${popupOpen ? "0" : "50%"});
+                }
+
+                .popup_modal img {
+                    width: 100%;
+                    border-radius: ${props.CUBorderRadius}px;
+                }
+
+                .popup_modal h3 {
+                    margin: 16px 0 8px;
+                }
+
+                .popup_modal .variation,
+                .popup_modal .quantity {
+                    margin: 8px 0;
+                }
+
+                .popup_modal .close_popup_button {
+                    background-color:${props.CUBtnBGColor};
+                    color: ${props.CUBtnTextColor};
+                    border: none;
+                    padding: 5px 16px;
+                    border-radius: ${props.CUBorderRadius}px;
+                    cursor: pointer;
+                    transition: background-color .3s ease;
+                    margin-top: 16px;
+                    display: block;
+                    width: 100%;
+                }
             `}
             </style>
             <div className={`popup_container ${open ? "popup_open" : ""}`}>
@@ -203,7 +254,12 @@ const UpSellBottomSheet = (props) => {
                                             </strike>
                                         </p>
                                     </div>
-                                    <button className="add_to_cart_button">
+                                    <button
+                                        className="add_to_cart_button"
+                                        onClick={() =>
+                                            handleBuyButtonClick(product)
+                                        }
+                                    >
                                         {props.CUBuyBtnText}
                                     </button>
                                 </div>
@@ -214,6 +270,26 @@ const UpSellBottomSheet = (props) => {
                     </div>
                 </section>
             </div>
+
+            {/* Popup Modal */}
+            {popupOpen && selectedProduct && (
+                <div className="popup_modal">
+                    <img
+                        src={selectedProduct.image}
+                        alt={selectedProduct.title}
+                    />
+                    <h3>{selectedProduct.title}</h3>
+                    {selectedProduct.options.map((variation, index) => (
+                        <p className="variation">
+                            {variation.name} : {variation.values}
+                        </p>
+                    ))}
+                    <p className="quantity">Quantity: 1</p>
+                    <button className="close_popup_button" onClick={closePopup}>
+                        Close
+                    </button>
+                </div>
+            )}
         </>
     );
 };
