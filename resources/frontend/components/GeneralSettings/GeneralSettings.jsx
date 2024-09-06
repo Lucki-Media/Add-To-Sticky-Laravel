@@ -110,7 +110,7 @@ function GeneralSettings(props) {
         props.CUBtnBGHoverColor
     );
     const [CUBorderRadius, setCUBorderRadius] = useState(props.CUBorderRadius);
-    const [USPosition, setUSPosition] = useState("");
+    const [USPosition, setUSPosition] = useState(props.USPosition);
 
     // HOME PAGE PRODUCT SWITCH LOGIC
     const handleSwitchChange = (checked) => {
@@ -380,7 +380,7 @@ function GeneralSettings(props) {
             CUPLSelection: CUPLSelection,
             CUPLManualSelection: CUPLManualSelection,
             SelectedCollectionID: SelectedCollectionID,
-
+            SelectedProductIDs: SelectedProductIDs,
             CUHeadingText: CUHeadingText,
             CUBuyBtnText: CUBuyBtnText,
             CUHeadingFontSize: CUHeadingFontSize,
@@ -978,40 +978,44 @@ function GeneralSettings(props) {
                                                 />
                                             </div>
                                         </BlockStack>
-                                        <Text
-                                            variant="headingMd"
-                                            as="span"
-                                            fontWeight="medium"
-                                        >
-                                            Position
-                                        </Text>
-                                        {/* <div className="lm_sticky_position">
-                                            <RadioButton
-                                                label={"Top"}
-                                                id={"Top"}
-                                                checked={position === "Top"}
-                                                name="USposition"
-                                                onChange={() => {
-                                                    handleUSPositionChange(
-                                                        "Top"
-                                                    );
-                                                }}
-                                            />
-                                            <br />
-                                            <RadioButton
-                                                label={"Bottom"}
-                                                id={"Bottom"}
-                                                checked={
-                                                    USposition === "Bottom"
-                                                }
-                                                name="USposition"
-                                                onChange={() => {
-                                                    handleUSPositionChange(
-                                                        "Bottom"
-                                                    );
-                                                }}
-                                            />
-                                        </div> */}
+                                        <BlockStack gap="0">
+                                            <Text
+                                                variant="headingMd"
+                                                as="span"
+                                                fontWeight="medium"
+                                            >
+                                                Position
+                                            </Text>
+                                            <div className="lm_sticky_position">
+                                                <RadioButton
+                                                    label={"Left"}
+                                                    id={"left"}
+                                                    checked={
+                                                        USPosition === "left"
+                                                    }
+                                                    name="USPosition"
+                                                    onChange={() => {
+                                                        handleUSPositionChange(
+                                                            "left"
+                                                        );
+                                                    }}
+                                                />
+                                                <br />
+                                                <RadioButton
+                                                    label={"Right"}
+                                                    id={"right"}
+                                                    checked={
+                                                        USPosition === "right"
+                                                    }
+                                                    name="USPosition"
+                                                    onChange={() => {
+                                                        handleUSPositionChange(
+                                                            "right"
+                                                        );
+                                                    }}
+                                                />
+                                            </div>
+                                        </BlockStack>
                                     </FormLayout.Group>
 
                                     <div style={{ margin: "15px 0" }}>
