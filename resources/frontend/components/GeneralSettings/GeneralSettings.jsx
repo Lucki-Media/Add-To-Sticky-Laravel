@@ -868,7 +868,7 @@ function GeneralSettings(props) {
                                             <RangeSlider
                                                 label={`${CUBorderRadius} px`}
                                                 value={CUBorderRadius}
-                                                min={5}
+                                                min={0}
                                                 max={20}
                                                 onChange={handleCUBorderRadius}
                                                 output
