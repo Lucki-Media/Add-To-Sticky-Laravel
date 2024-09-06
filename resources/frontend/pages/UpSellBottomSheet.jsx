@@ -27,12 +27,18 @@ const UpSellBottomSheet = (props) => {
                 {`
                 .lmsc_popup_container {
                     position: absolute;
-                    bottom: 0;
-                    left: 0;
-                    right: 0;
+                    bottom: 0;                 
                     transition: transform 0.4s ease-in-out;
                     transform: translateY(100%);
                     z-index: 9999;
+                }
+
+                .lmsc_popup_container.left {              
+                    left: 0;                  
+                }
+                
+                .lmsc_popup_container.right {              
+                    right: 0;                  
                 }
 
                 .lmsc_popup_open {
@@ -272,7 +278,7 @@ const UpSellBottomSheet = (props) => {
             <div
                 className={`lmsc_popup_container ${
                     open ? "lmsc_popup_open" : ""
-                }`}
+                } ${props.USPosition === "left" ? "left" : "right"}`}
             >
                 <div
                     className="lmsc_bottomSheet_backdrop"
