@@ -7,6 +7,7 @@ import style from "./CartTemplate1.module.css";
 import getSymbolFromCurrency from "currency-symbol-map";
 import NotificationBar from "./NotificationBar";
 import axios from "axios";
+import UpSellBottomSheet from "./UpSellBottomSheet";
 
 export default function CartTemplate1(props) {
     const template_data = props.templateData.current_template;
@@ -39,6 +40,30 @@ export default function CartTemplate1(props) {
             template_data.general_settings.gsNotificationBarFontSize,
         gsNotificationBarHeight =
             template_data.general_settings.gsNotificationBarHeight,
+        enableUpSell = template_data.general_settings.enableUpSell,
+        CUPLSelection = template_data.general_settings.CUPLSelection,
+        CUPLManualSelection =
+            template_data.general_settings.CUPLManualSelection,
+        SelectedCollectionID =
+            template_data.general_settings.SelectedCollectionID,
+        SelectedProductIDs = template_data.general_settings.SelectedProductIDs,
+        CUHeadingText = template_data.general_settings.CUHeadingText,
+        CUBuyBtnText = template_data.general_settings.CUBuyBtnText,
+        CUHeadingFontSize = template_data.general_settings.CUHeadingFontSize,
+        CUBodyFontSize = template_data.general_settings.CUBodyFontSize,
+        CUBuyBtnFontSize = template_data.general_settings.CUBuyBtnFontSize,
+        CUBackgroundColor = template_data.general_settings.CUBackgroundColor,
+        CUHeadingBGColor = template_data.general_settings.CUHeadingBGColor,
+        CUHeadingColor = template_data.general_settings.CUHeadingColor,
+        CUBodyColor = template_data.general_settings.CUBodyColor,
+        CUBodyTextColor = template_data.general_settings.CUBodyTextColor,
+        CUBtnTextColor = template_data.general_settings.CUBtnTextColor,
+        CUBtnBGColor = template_data.general_settings.CUBtnBGColor,
+        CUBtnTextHoverColor =
+            template_data.general_settings.CUBtnTextHoverColor,
+        CUBtnBGHoverColor = template_data.general_settings.CUBtnBGHoverColor,
+        CUBorderRadius = template_data.general_settings.CUBorderRadius,
+        USPosition = template_data.general_settings.USPosition,
         gsOffsetValue = template_data.general_settings.gsOffsetValue,
         btnBold = template_data.buy_btn_settings.btnBold,
         btnItalic = template_data.buy_btn_settings.btnItalic,
@@ -60,6 +85,8 @@ export default function CartTemplate1(props) {
 
     const [showContainer, setShowContainer] = useState(false);
     const [showNotificationBar, setShowNotificationBar] = useState(false);
+    const [showUpsellPopup, setShowUpSellPopup] = useState(false);
+
     const [loading, setLoading] = useState(false);
     const [numberCount, setNumberCount] = useState(0);
     // console.log(props.templateData);
@@ -165,6 +192,7 @@ export default function CartTemplate1(props) {
                     window.location.href = "/cart";
                 } else if (template_data.general_settings.gsAction === "3") {
                     setShowNotificationBar(true);
+                    setShowUpSellPopup(true);
                 } else {
                     window.location.href = "/checkout";
                 }
@@ -725,6 +753,32 @@ export default function CartTemplate1(props) {
                         </div>
                     ) : (
                         ""
+                    )}
+
+                    {showUpsellPopup === true && (
+                        <UpSellBottomSheet
+                            enableUpSell={enableUpSell}
+                            CUPLSelection={CUPLSelection}
+                            CUPLManualSelection={CUPLManualSelection}
+                            SelectedCollectionID={SelectedCollectionID}
+                            SelectedProductIDs={SelectedProductIDs}
+                            CUHeadingText={CUHeadingText}
+                            CUBuyBtnText={CUBuyBtnText}
+                            CUHeadingFontSize={CUHeadingFontSize}
+                            CUBodyFontSize={CUBodyFontSize}
+                            CUBuyBtnFontSize={CUBuyBtnFontSize}
+                            CUBackgroundColor={CUBackgroundColor}
+                            CUHeadingBGColor={CUHeadingBGColor}
+                            CUHeadingColor={CUHeadingColor}
+                            CUBodyColor={CUBodyColor}
+                            CUBodyTextColor={CUBodyTextColor}
+                            CUBtnTextColor={CUBtnTextColor}
+                            CUBtnBGColor={CUBtnBGColor}
+                            CUBtnTextHoverColor={CUBtnTextHoverColor}
+                            CUBtnBGHoverColor={CUBtnBGHoverColor}
+                            CUBorderRadius={CUBorderRadius}
+                            USPosition={USPosition}
+                        />
                     )}
                 </div>
             );
