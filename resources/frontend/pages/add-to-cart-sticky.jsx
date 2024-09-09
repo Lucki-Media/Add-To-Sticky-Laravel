@@ -2744,6 +2744,9 @@ export default function AddToCartSticky() {
                                                                     enableUpSell={
                                                                         enableUpSell
                                                                     }
+                                                                    gsAction={
+                                                                        gsAction
+                                                                    }
                                                                     CUPLSelection={
                                                                         CUPLSelection
                                                                     }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../css/UpSellBottomSheet.css"; // Import your custom CSS
-import recommendedProducts from "../assets/recommendedProducts.js";
+import recommendedProducts from "../Templates/recommendedProducts.js";
 import { QuantityPicker } from "react-qty-picker";
 
 const UpSellBottomSheet = (props) => {
@@ -9,6 +8,9 @@ const UpSellBottomSheet = (props) => {
     const [selectedProduct, setSelectedProduct] = useState(null);
 
     useEffect(() => {
+        console.log("props");
+        console.log(props);
+
         setOpen(props.enableUpSell);
     }, [props.enableUpSell]);
 
@@ -274,123 +276,115 @@ const UpSellBottomSheet = (props) => {
             `}
             </style>
 
-            {props.gsAction === "3" && (
-                <div>
+            <div>
+                <div
+                    className={`lmsc_popup_container ${
+                        open ? "lmsc_popup_open" : ""
+                    } ${props.USPosition === "left" ? "left" : "right"}`}
+                >
                     <div
-                        className={`lmsc_popup_container ${
-                            open ? "lmsc_popup_open" : ""
-                        } ${props.USPosition === "left" ? "left" : "right"}`}
+                        className="lmsc_bottomSheet_backdrop"
+                        onClick={toggleBottomSheet}
+                    ></div>
+                    <section
+                        id="lmsc_bottomSheet"
+                        className={
+                            open
+                                ? "lmsc_bottomSheet--onScreen"
+                                : "lmsc_bottomSheet--offScreen"
+                        }
                     >
-                        <div
-                            className="lmsc_bottomSheet_backdrop"
-                            onClick={toggleBottomSheet}
-                        ></div>
-                        <section
-                            id="lmsc_bottomSheet"
-                            className={
-                                open
-                                    ? "lmsc_bottomSheet--onScreen"
-                                    : "lmsc_bottomSheet--offScreen"
-                            }
-                        >
-                            <div className="lmsc_bottomSheet__headerContainer">
-                                <h2
-                                    id="lmsc_bottomSheet__headerID"
-                                    className="lmsc_bottomSheet__header"
-                                >
-                                    {props.CUHeadingText}
-                                </h2>
-                                <button
-                                    id="lmsc_closeButton"
-                                    className="lmsc_close_button"
-                                    onClick={toggleBottomSheet}
-                                >
-                                    &times;
-                                </button>
-                            </div>
-                            <div className="lmsc_product_list">
-                                {recommendedProducts &&
-                                recommendedProducts.length > 0 ? (
-                                    recommendedProducts.map(
-                                        (product, index) => (
-                                            <div
-                                                key={index}
-                                                className="lmsc_product_item"
-                                            >
-                                                <img
-                                                    src={product.image}
-                                                    alt={product.title}
-                                                    className="lmsc_usrp_product_image"
-                                                />
-                                                <div className="lmsc_product_info">
-                                                    <h3 className="lmsc_product_title">
-                                                        {product.title}
-                                                    </h3>
-                                                    <p className="lmsc_product_price">
-                                                        {product.actual_price}
-                                                        <strike>
-                                                            {
-                                                                product.compare_price
-                                                            }
-                                                        </strike>
-                                                    </p>
-                                                </div>
-                                                <button
-                                                    className="lmsc_add_to_cart_button"
-                                                    onClick={() =>
-                                                        handleBuyButtonClick(
-                                                            product
-                                                        )
-                                                    }
-                                                >
-                                                    {props.CUBuyBtnText}
-                                                </button>
-                                            </div>
-                                        )
-                                    )
-                                ) : (
-                                    <p>No products available.</p>
-                                )}
-                            </div>
-                        </section>
-                    </div>
-
-                    {/* Popup Modal */}
-
-                    {open === true && popupOpen && selectedProduct && (
-                        <div className="lmsc_popup_modal">
-                            <img
-                                src={selectedProduct.image}
-                                alt={selectedProduct.title}
-                            />
-                            <h3 className="lmsc_sproduct_title">
-                                {selectedProduct.title}
-                            </h3>
-
-                            <QuantityPicker value={1} min={1} max={10} />
-
-                            {selectedProduct.options.map((variation, index) => (
-                                <div key={index} className="lmsc_variation">
-                                    <label htmlFor={`variation_${index}`}>
-                                        {variation.name}:
-                                    </label>
-                                    <select id={`variation_${index}`}>
-                                        {variation.values.map((value, idx) => (
-                                            <option key={idx} value={value}>
-                                                {value}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
-                            ))}
-
-                            <button className="lmsc_close_popup_button">
-                                {props.CUBuyBtnText}
+                        <div className="lmsc_bottomSheet__headerContainer">
+                            <h2
+                                id="lmsc_bottomSheet__headerID"
+                                className="lmsc_bottomSheet__header"
+                            >
+                                {props.CUHeadingText}
+                            </h2>
+                            <button
+                                id="lmsc_closeButton"
+                                className="lmsc_close_button"
+                                onClick={toggleBottomSheet}
+                            >
+                                &times;
                             </button>
                         </div>
-                    )}
+                        <div className="lmsc_product_list">
+                            {recommendedProducts &&
+                            recommendedProducts.length > 0 ? (
+                                recommendedProducts.map((product, index) => (
+                                    <div
+                                        key={index}
+                                        className="lmsc_product_item"
+                                    >
+                                        <img
+                                            src={product.image}
+                                            alt={product.title}
+                                            className="lmsc_usrp_product_image"
+                                        />
+                                        <div className="lmsc_product_info">
+                                            <h3 className="lmsc_product_title">
+                                                {product.title}
+                                            </h3>
+                                            <p className="lmsc_product_price">
+                                                {product.actual_price}
+                                                <strike>
+                                                    {product.compare_price}
+                                                </strike>
+                                            </p>
+                                        </div>
+                                        <button
+                                            className="lmsc_add_to_cart_button"
+                                            onClick={() =>
+                                                handleBuyButtonClick(product)
+                                            }
+                                        >
+                                            {props.CUBuyBtnText}
+                                        </button>
+                                    </div>
+                                ))
+                            ) : (
+                                <p>No products available.</p>
+                            )}
+                        </div>
+                    </section>
                 </div>
-            )}
+
+                {/* Popup Modal */}
+
+                {open === true && popupOpen && selectedProduct && (
+                    <div className="lmsc_popup_modal">
+                        <img
+                            src={selectedProduct.image}
+                            alt={selectedProduct.title}
+                        />
+                        <h3 className="lmsc_sproduct_title">
+                            {selectedProduct.title}
+                        </h3>
+
+                        <QuantityPicker value={1} min={1} max={10} />
+
+                        {selectedProduct.options.map((variation, index) => (
+                            <div key={index} className="lmsc_variation">
+                                <label htmlFor={`variation_${index}`}>
+                                    {variation.name}:
+                                </label>
+                                <select id={`variation_${index}`}>
+                                    {variation.values.map((value, idx) => (
+                                        <option key={idx} value={value}>
+                                            {value}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        ))}
+
+                        <button className="lmsc_close_popup_button">
+                            {props.CUBuyBtnText}
+                        </button>
+                    </div>
+                )}
+            </div>
         </>
     );
 };
