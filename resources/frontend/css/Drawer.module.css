@@ -133,7 +133,7 @@ span.lm_shipping_bar_sub_title {
 .lm_drawer_cart_item_wrapper {
     display: flex;
     padding: 0 16px;
-    min-height: 301px;
+    min-height: 150px;
     height: auto;
     overflow: hidden;
     /* border-bottom: 1px solid rgba(0, 0, 0, 0.08); */

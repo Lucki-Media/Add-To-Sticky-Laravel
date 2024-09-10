@@ -401,13 +401,13 @@ const StickyIcon = () => {
                     <>
                         <Drawer
                             activePlan={activePlan}
-                            isOpen={isDrawerOpen}
+                            isDrawerOpen={isDrawerOpen}
                             customizationData={drawerData}
                             showCartUpsell={
                                 drawerData.cartUpsell.CUEnable ?? false
                             }
                             CUProducts={CUProducts}
-                            handleClose={() => {
+                            handleDrawerClose={() => {
                                 setIsDrawerOpen(false);
                             }}
                             cartData={cartData}
