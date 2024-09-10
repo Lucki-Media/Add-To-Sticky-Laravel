@@ -7,14 +7,15 @@ import axios from "axios";
 
 export default function Drawer({
     activePlan,
-    isOpen,
+    isDrawerOpen,
     customizationData,
     showCartUpsell,
     CUProducts,
-    handleClose,
+    handleDrawerClose,
     cartData,
     cartUpdated,
 }) {
+    const [isOpen, setOpen] = useState(isDrawerOpen);
     const [checkoutBtnHover, setCheckoutBtnHover] = useState(false);
     const [hoverState, setHoverState] = useState({});
 
@@ -59,11 +60,11 @@ export default function Drawer({
         );
         setFSBwidth(
             (cart_total_price * 100) /
-                Number(customizationData.shippingBar.FSBShippingTarget)
+            Number(customizationData.shippingBar.FSBShippingTarget)
         );
         setFSBprice(
             Number(customizationData.shippingBar.FSBShippingTarget) -
-                Number(cart_total_price)
+            Number(cart_total_price)
         );
         setCartCount(cartDetail.item_count);
         setCartItems(cartDetail.items);
@@ -117,6 +118,14 @@ export default function Drawer({
         }
     };
 
+    // Drawer close function
+    const handleClose = () => {
+        setOpen(false);
+        setTimeout(() => {
+            handleDrawerClose();
+        }, 1000);
+    };
+
     return (
         <>
             <style>
@@ -151,21 +160,18 @@ export default function Drawer({
                 `}
             </style>
             <div
-                className={`${style.lm_drawer_wrapper} ${
-                    isOpen && style.lm_drawer_open
-                }`}
+                className={`${style.lm_drawer_wrapper} ${isOpen ? style.lm_drawer_open : style.lm_drawer_close
+                    }`}
                 onClick={handleClose}
             >
                 <div className={style.lm_main_drawer_div}>
                     <div
-                        className={`${
-                            showBottomSlider && style.lm_bottom_overlay
-                        } 
-                        ${style.lm_drawer}  ${
-                            isOpen
+                        className={`${showBottomSlider && style.lm_bottom_overlay
+                            } 
+                        ${style.lm_drawer}  ${isOpen
                                 ? style.lm_drawer_open
                                 : style.lm_drawer_close
-                        } lm_drawer`}
+                            } lm_drawer`}
                         style={{
                             background: customizationData.cartHeader.DCBGColor,
                         }}
@@ -206,83 +212,83 @@ export default function Drawer({
                                     {/* Free Shipping Bar */}
                                     {customizationData.shippingBar
                                         .FSBenable && (
-                                        <div
-                                            className={
-                                                style.lm_drawer_free_shipping_bar
-                                            }
-                                        >
                                             <div
                                                 className={
-                                                    style.lm_free_shipping_heading
+                                                    style.lm_drawer_free_shipping_bar
                                                 }
-                                                style={{
-                                                    fontSize:
-                                                        customizationData
-                                                            .shippingBar
-                                                            .FSBPrimaryFontSize,
-                                                    color: customizationData
-                                                        .shippingBar.FSBColor,
-                                                }}
-                                            >
-                                                {FSBprice > 0
-                                                    ? customizationData.shippingBar.FSBReminderText.replace(
-                                                          "{'price'}",
-                                                          FSBprice.toFixed(2)
-                                                      )
-                                                    : customizationData
-                                                          .shippingBar
-                                                          .FSBWinningText}
-                                            </div>
-                                            <div
-                                                className={
-                                                    style.lm_shipping_bar__outer_div
-                                                }
-                                                style={{
-                                                    background: `rgba(${hexToRgb(
-                                                        customizationData
-                                                            .shippingBar
-                                                            .FSBColor
-                                                    )}, 0.08)`,
-                                                }}
                                             >
                                                 <div
                                                     className={
-                                                        style.lm_shipping_bar_inner_div
+                                                        style.lm_free_shipping_heading
                                                     }
                                                     style={{
-                                                        background:
+                                                        fontSize:
                                                             customizationData
                                                                 .shippingBar
-                                                                .FSBColor,
-                                                        width:
-                                                            FSBwidth > 100
-                                                                ? "100%"
-                                                                : FSBwidth +
-                                                                  "%",
+                                                                .FSBPrimaryFontSize,
+                                                        color: customizationData
+                                                            .shippingBar.FSBColor,
                                                     }}
-                                                ></div>
-                                            </div>
-                                            <span
-                                                className={
-                                                    style.lm_shipping_bar_sub_title
-                                                }
-                                                style={{
-                                                    fontSize:
+                                                >
+                                                    {FSBprice > 0
+                                                        ? customizationData.shippingBar.FSBReminderText.replace(
+                                                            "{'price'}",
+                                                            FSBprice.toFixed(2)
+                                                        )
+                                                        : customizationData
+                                                            .shippingBar
+                                                            .FSBWinningText}
+                                                </div>
+                                                <div
+                                                    className={
+                                                        style.lm_shipping_bar__outer_div
+                                                    }
+                                                    style={{
+                                                        background: `rgba(${hexToRgb(
+                                                            customizationData
+                                                                .shippingBar
+                                                                .FSBColor
+                                                        )}, 0.08)`,
+                                                    }}
+                                                >
+                                                    <div
+                                                        className={
+                                                            style.lm_shipping_bar_inner_div
+                                                        }
+                                                        style={{
+                                                            background:
+                                                                customizationData
+                                                                    .shippingBar
+                                                                    .FSBColor,
+                                                            width:
+                                                                FSBwidth > 100
+                                                                    ? "100%"
+                                                                    : FSBwidth +
+                                                                    "%",
+                                                        }}
+                                                    ></div>
+                                                </div>
+                                                <span
+                                                    className={
+                                                        style.lm_shipping_bar_sub_title
+                                                    }
+                                                    style={{
+                                                        fontSize:
+                                                            customizationData
+                                                                .shippingBar
+                                                                .FSBSecondaryFontSize,
+                                                        color: customizationData
+                                                            .shippingBar.FSBColor,
+                                                    }}
+                                                >
+                                                    {
                                                         customizationData
                                                             .shippingBar
-                                                            .FSBSecondaryFontSize,
-                                                    color: customizationData
-                                                        .shippingBar.FSBColor,
-                                                }}
-                                            >
-                                                {
-                                                    customizationData
-                                                        .shippingBar
-                                                        .FSBSecondaryText
-                                                }
-                                            </span>
-                                        </div>
-                                    )}
+                                                            .FSBSecondaryText
+                                                    }
+                                                </span>
+                                            </div>
+                                        )}
                                     <div
                                         className={
                                             style.lm_cart_with_recommendedProduct
@@ -692,7 +698,7 @@ export default function Drawer({
                                                                             </span>
                                                                             {product.compare_at_price &&
                                                                                 product.compare_at_price >
-                                                                                    0 && (
+                                                                                0 && (
                                                                                     <span
                                                                                         style={{
                                                                                             fontSize:
@@ -738,22 +744,22 @@ export default function Drawer({
                                                                                             .id
                                                                                     ]
                                                                                         ? customizationData
-                                                                                              .cartUpsell
-                                                                                              .CUBtnTextHoverColor
+                                                                                            .cartUpsell
+                                                                                            .CUBtnTextHoverColor
                                                                                         : customizationData
-                                                                                              .cartUpsell
-                                                                                              .CUBtnTextColor,
+                                                                                            .cartUpsell
+                                                                                            .CUBtnTextColor,
                                                                                     background:
                                                                                         hoverState[
                                                                                             product
                                                                                                 .id
                                                                                         ]
                                                                                             ? customizationData
-                                                                                                  .cartUpsell
-                                                                                                  .CUBtnBGHoverColor
+                                                                                                .cartUpsell
+                                                                                                .CUBtnBGHoverColor
                                                                                             : customizationData
-                                                                                                  .cartUpsell
-                                                                                                  .CUBtnBGColor,
+                                                                                                .cartUpsell
+                                                                                                .CUBtnBGColor,
                                                                                 }}
                                                                                 onMouseEnter={() =>
                                                                                     handleMouseEnter(
@@ -835,25 +841,25 @@ export default function Drawer({
                                     </div>
                                     {customizationData.bottomSection
                                         .BSCheckoutTextEnable && (
-                                        <div
-                                            className={
-                                                style.lm_cart_footer_message
-                                            }
-                                            style={{
-                                                fontSize:
-                                                    customizationData
-                                                        .bottomSection
-                                                        .BSSecondaryFontSize,
-                                                color: customizationData
-                                                    .bottomSection.BSColor,
-                                            }}
-                                        >
-                                            {
-                                                customizationData.bottomSection
-                                                    .BSCheckoutMsgText
-                                            }
-                                        </div>
-                                    )}
+                                            <div
+                                                className={
+                                                    style.lm_cart_footer_message
+                                                }
+                                                style={{
+                                                    fontSize:
+                                                        customizationData
+                                                            .bottomSection
+                                                            .BSSecondaryFontSize,
+                                                    color: customizationData
+                                                        .bottomSection.BSColor,
+                                                }}
+                                            >
+                                                {
+                                                    customizationData.bottomSection
+                                                        .BSCheckoutMsgText
+                                                }
+                                            </div>
+                                        )}
                                     <div
                                         className={
                                             style.lm_cart_footer_button_wrapper
@@ -867,18 +873,18 @@ export default function Drawer({
                                                         .BSCheckoutBtnFontSize,
                                                 color: checkoutBtnHover
                                                     ? customizationData
-                                                          .bottomSection
-                                                          .BSBtnTextHoverColor
+                                                        .bottomSection
+                                                        .BSBtnTextHoverColor
                                                     : customizationData
-                                                          .bottomSection
-                                                          .BSBtnTextColor,
+                                                        .bottomSection
+                                                        .BSBtnTextColor,
                                                 background: checkoutBtnHover
                                                     ? customizationData
-                                                          .bottomSection
-                                                          .BSBtnBGHoverColor
+                                                        .bottomSection
+                                                        .BSBtnBGHoverColor
                                                     : customizationData
-                                                          .bottomSection
-                                                          .BSBtnBGColor,
+                                                        .bottomSection
+                                                        .BSBtnBGColor,
                                             }}
                                             onMouseEnter={() => {
                                                 setCheckoutBtnHover(true);
@@ -899,50 +905,50 @@ export default function Drawer({
                                     </div>
                                     {customizationData.bottomSection
                                         .BSContinueEnable && (
-                                        <a
-                                            href="javascript:void(0)"
-                                            className={
-                                                style.lm_cart_footer_link
-                                            }
-                                            style={{
-                                                fontSize:
-                                                    customizationData
-                                                        .bottomSection
-                                                        .BSSecondaryFontSize,
-                                                color: customizationData
-                                                    .bottomSection.BSColor,
-                                            }}
-                                            onClick={handleClose}
-                                        >
-                                            {
-                                                customizationData.bottomSection
-                                                    .BSContinueText
-                                            }
-                                        </a>
-                                    )}
+                                            <a
+                                                href="javascript:void(0)"
+                                                className={
+                                                    style.lm_cart_footer_link
+                                                }
+                                                style={{
+                                                    fontSize:
+                                                        customizationData
+                                                            .bottomSection
+                                                            .BSSecondaryFontSize,
+                                                    color: customizationData
+                                                        .bottomSection.BSColor,
+                                                }}
+                                                onClick={handleClose}
+                                            >
+                                                {
+                                                    customizationData.bottomSection
+                                                        .BSContinueText
+                                                }
+                                            </a>
+                                        )}
                                     {customizationData.bottomSection
                                         .BSViewCartEnable && (
-                                        <a
-                                            href="javascript:void(0)"
-                                            className={
-                                                style.lm_cart_footer_link
-                                            }
-                                            style={{
-                                                fontSize:
-                                                    customizationData
-                                                        .bottomSection
-                                                        .BSSecondaryFontSize,
-                                                color: customizationData
-                                                    .bottomSection.BSColor,
-                                            }}
-                                            onClick={handleClose}
-                                        >
-                                            {
-                                                customizationData.bottomSection
-                                                    .BSViewCartText
-                                            }
-                                        </a>
-                                    )}
+                                            <a
+                                                href="javascript:void(0)"
+                                                className={
+                                                    style.lm_cart_footer_link
+                                                }
+                                                style={{
+                                                    fontSize:
+                                                        customizationData
+                                                            .bottomSection
+                                                            .BSSecondaryFontSize,
+                                                    color: customizationData
+                                                        .bottomSection.BSColor,
+                                                }}
+                                                onClick={handleClose}
+                                            >
+                                                {
+                                                    customizationData.bottomSection
+                                                        .BSViewCartText
+                                                }
+                                            </a>
+                                        )}
                                 </div>
 
                                 {/* Bottom Slider */}
@@ -986,18 +992,18 @@ export default function Drawer({
                                                     .BSCheckoutBtnFontSize,
                                             color: checkoutBtnHover
                                                 ? customizationData
-                                                      .bottomSection
-                                                      .BSBtnTextHoverColor
+                                                    .bottomSection
+                                                    .BSBtnTextHoverColor
                                                 : customizationData
-                                                      .bottomSection
-                                                      .BSBtnTextColor,
+                                                    .bottomSection
+                                                    .BSBtnTextColor,
                                             background: checkoutBtnHover
                                                 ? customizationData
-                                                      .bottomSection
-                                                      .BSBtnBGHoverColor
+                                                    .bottomSection
+                                                    .BSBtnBGHoverColor
                                                 : customizationData
-                                                      .bottomSection
-                                                      .BSBtnBGColor,
+                                                    .bottomSection
+                                                    .BSBtnBGColor,
                                         }}
                                         onMouseEnter={() => {
                                             setCheckoutBtnHover(true);
