@@ -270,6 +270,15 @@ const StickyIcon = () => {
         drawerData && numberCount > 0 && getCartUpsellProducts();
     }, [drawerData]);
 
+    // add overflow hidden class to body tag whenever drawer is open
+    useEffect(() => {
+        if (isDrawerOpen) {
+            document.body.classList.add("lm_body_overflow_hide");
+        } else {
+            document.body.classList.remove("lm_body_overflow_hide");
+        }
+    }, [isDrawerOpen]);
+
     useEffect(() => {
         getPlanData();
     }, []);

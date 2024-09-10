@@ -64,9 +64,8 @@ export default function Drawer({ isOpen, customizationData }) {
                 `}
             </style>
             <div
-                className={`${style.lm_drawer_wrapper} ${
-                    isOpen && style.lm_drawer_open
-                }`}
+                className={`${style.lm_drawer_wrapper} ${isOpen && style.lm_drawer_open
+                    }`}
             >
                 <div
                     className={`${showBottomSlider && style.lm_bottom_overlay} 
@@ -432,65 +431,66 @@ export default function Drawer({ isOpen, customizationData }) {
                                                         </strike>
                                                     </span>
                                                 </div>
-                                            </div>
-                                            <div
-                                                className={
-                                                    style.lm_rec_product_action
-                                                }
-                                            >
-                                                <button
-                                                    className="lm_rec_product_action_btn"
-                                                    type="button"
-                                                    style={{
-                                                        fontSize:
+                                                <div
+                                                    className={
+                                                        style.lm_rec_product_action
+                                                    }
+                                                >
+                                                    <button
+                                                        className="lm_rec_product_action_btn"
+                                                        type="button"
+                                                        style={{
+                                                            fontSize:
+                                                                customizationData
+                                                                    .cartUpsell
+                                                                    .CUBuyBtnFontSize,
+                                                            color: hoverState[
+                                                                product.id
+                                                            ]
+                                                                ? customizationData
+                                                                    .cartUpsell
+                                                                    .CUBtnTextHoverColor
+                                                                : customizationData
+                                                                    .cartUpsell
+                                                                    .CUBtnTextColor,
+                                                            background: hoverState[
+                                                                product.id
+                                                            ]
+                                                                ? customizationData
+                                                                    .cartUpsell
+                                                                    .CUBtnBGHoverColor
+                                                                : customizationData
+                                                                    .cartUpsell
+                                                                    .CUBtnBGColor,
+                                                        }}
+                                                        onMouseEnter={() =>
+                                                            handleMouseEnter(
+                                                                product.id
+                                                            )
+                                                        }
+                                                        onMouseLeave={() =>
+                                                            handleMouseLeave(
+                                                                product.id
+                                                            )
+                                                        }
+                                                        onClick={() => {
+                                                            setSliderProduct(
+                                                                product
+                                                            );
+                                                            setShowBottomSlider(
+                                                                true
+                                                            );
+                                                        }}
+                                                    >
+                                                        {
                                                             customizationData
                                                                 .cartUpsell
-                                                                .CUBuyBtnFontSize,
-                                                        color: hoverState[
-                                                            product.id
-                                                        ]
-                                                            ? customizationData
-                                                                  .cartUpsell
-                                                                  .CUBtnTextHoverColor
-                                                            : customizationData
-                                                                  .cartUpsell
-                                                                  .CUBtnTextColor,
-                                                        background: hoverState[
-                                                            product.id
-                                                        ]
-                                                            ? customizationData
-                                                                  .cartUpsell
-                                                                  .CUBtnBGHoverColor
-                                                            : customizationData
-                                                                  .cartUpsell
-                                                                  .CUBtnBGColor,
-                                                    }}
-                                                    onMouseEnter={() =>
-                                                        handleMouseEnter(
-                                                            product.id
-                                                        )
-                                                    }
-                                                    onMouseLeave={() =>
-                                                        handleMouseLeave(
-                                                            product.id
-                                                        )
-                                                    }
-                                                    onClick={() => {
-                                                        setSliderProduct(
-                                                            product
-                                                        );
-                                                        setShowBottomSlider(
-                                                            true
-                                                        );
-                                                    }}
-                                                >
-                                                    {
-                                                        customizationData
-                                                            .cartUpsell
-                                                            .CUBuyBtnText
-                                                    }
-                                                </button>
+                                                                .CUBuyBtnText
+                                                        }
+                                                    </button>
+                                                </div>
                                             </div>
+
                                         </div>
                                     ))}
                                 </div>
@@ -524,22 +524,22 @@ export default function Drawer({ isOpen, customizationData }) {
                         </div>
                         {customizationData.bottomSection
                             .BSCheckoutTextEnable && (
-                            <div
-                                className={style.lm_cart_footer_message}
-                                style={{
-                                    fontSize:
+                                <div
+                                    className={style.lm_cart_footer_message}
+                                    style={{
+                                        fontSize:
+                                            customizationData.bottomSection
+                                                .BSSecondaryFontSize,
+                                        color: customizationData.bottomSection
+                                            .BSColor,
+                                    }}
+                                >
+                                    {
                                         customizationData.bottomSection
-                                            .BSSecondaryFontSize,
-                                    color: customizationData.bottomSection
-                                        .BSColor,
-                                }}
-                            >
-                                {
-                                    customizationData.bottomSection
-                                        .BSCheckoutMsgText
-                                }
-                            </div>
-                        )}
+                                            .BSCheckoutMsgText
+                                    }
+                                </div>
+                            )}
                         <div className={style.lm_cart_footer_button_wrapper}>
                             <button
                                 style={{
@@ -548,14 +548,14 @@ export default function Drawer({ isOpen, customizationData }) {
                                             .BSCheckoutBtnFontSize,
                                     color: checkoutBtnHover
                                         ? customizationData.bottomSection
-                                              .BSBtnTextHoverColor
+                                            .BSBtnTextHoverColor
                                         : customizationData.bottomSection
-                                              .BSBtnTextColor,
+                                            .BSBtnTextColor,
                                     background: checkoutBtnHover
                                         ? customizationData.bottomSection
-                                              .BSBtnBGHoverColor
+                                            .BSBtnBGHoverColor
                                         : customizationData.bottomSection
-                                              .BSBtnBGColor,
+                                            .BSBtnBGColor,
                                 }}
                                 onMouseEnter={() => {
                                     setCheckoutBtnHover(true);
