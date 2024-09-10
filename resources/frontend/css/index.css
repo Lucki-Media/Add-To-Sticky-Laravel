@@ -531,6 +531,7 @@ div[id^="font-picker"] .dropdown-button:focus {
 }
 .product_details_mobile {
     margin: 10px !important;
+    height: 560px !important;
 }
 .product_details {
     background-color: #fff;
