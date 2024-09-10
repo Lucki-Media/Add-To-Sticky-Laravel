@@ -520,14 +520,46 @@ function GeneralSettings(props) {
                                             <Divider borderColor="transparent" />
                                         </div>
                                         <FormLayout>
-                                            <TextField
-                                                value={gsNotificationBarText}
-                                                onChange={
-                                                    handleNbTextFieldChange
-                                                }
-                                                placeholder="Add Notification Content"
-                                                autoComplete="off"
-                                            />
+                                            <BlockStack gap={200}>
+                                                <TextField
+                                                    error={
+                                                        gsNotificationBarText ==
+                                                            "" ||
+                                                        gsNotificationBarText ==
+                                                            null
+                                                    }
+                                                    value={
+                                                        gsNotificationBarText ??
+                                                        ""
+                                                    }
+                                                    onChange={
+                                                        handleNbTextFieldChange
+                                                    }
+                                                    autoComplete="off"
+                                                    maxLength={60}
+                                                    id="gsNotificationBarText"
+                                                    placeholder="Example: Yayy! Product Added to Cart!"
+                                                    showCharacterCount
+                                                />
+                                                {(gsNotificationBarText == "" ||
+                                                    gsNotificationBarText ==
+                                                        null) && (
+                                                    <div
+                                                        style={{
+                                                            marginTop: "4px",
+                                                        }}
+                                                    >
+                                                        <InlineError
+                                                            message={
+                                                                "This field is required"
+                                                            }
+                                                            fieldID={
+                                                                "gsNotificationBarText"
+                                                            }
+                                                        />
+                                                    </div>
+                                                )}
+                                            </BlockStack>
                                         </FormLayout>
                                         <div style={{ margin: "5px 0" }}>
                                             <Divider borderColor="transparent" />
@@ -590,7 +622,8 @@ function GeneralSettings(props) {
                                 </FormLayout.Group>
                                 {/* Fifth row */}
                                 <FormLayout.Group condensed>
-                                    <div>
+                                    {/* Heading Font Size */}
+                                    <BlockStack gap="0">
                                         <Text
                                             variant="headingMd"
                                             as="span"
@@ -598,22 +631,18 @@ function GeneralSettings(props) {
                                         >
                                             Font-size
                                         </Text>
-                                        <div className="font_picker_popup">
-                                            <RangeSlider
-                                                label=""
-                                                value={
-                                                    gsNotificationBarFontSize
-                                                }
-                                                min={8}
-                                                max={30}
-                                                onChange={handleFontSize}
-                                                output
-                                            />
-                                        </div>
-                                    </div>
-                                </FormLayout.Group>
-                                <FormLayout.Group condensed>
-                                    <div>
+                                        <RangeSlider
+                                            label={`${gsNotificationBarFontSize} px`}
+                                            value={gsNotificationBarFontSize}
+                                            min={8}
+                                            max={30}
+                                            onChange={handleFontSize}
+                                            output
+                                        />
+                                    </BlockStack>
+
+                                    {/* Body Font Size */}
+                                    <BlockStack gap="0">
                                         <Text
                                             variant="headingMd"
                                             as="span"
@@ -621,31 +650,29 @@ function GeneralSettings(props) {
                                         >
                                             Height
                                         </Text>
-                                        <div className="font_picker_popup">
-                                            <RangeSlider
-                                                label=""
-                                                value={gsNotificationBarHeight}
-                                                min={5}
-                                                max={20}
-                                                onChange={handleHeight}
-                                                output
-                                            />
-                                        </div>
-                                    </div>
+                                        <RangeSlider
+                                            label={`${gsNotificationBarHeight} px`}
+                                            value={gsNotificationBarHeight}
+                                            min={5}
+                                            max={20}
+                                            onChange={handleHeight}
+                                            output
+                                        />
+                                    </BlockStack>
                                 </FormLayout.Group>
                             </FormLayout>
                             <div style={{ margin: "15px 0" }}>
                                 <Divider borderColor="border" />
                             </div>
                             {/* UpSell Popup */}
-                            <InlineGrid columns={["twoThirds", "oneThird"]}>
+                            <div className="setting_title">
                                 <Text
                                     variant="bodyLg"
                                     as="span"
                                     alignment="start"
                                     fontWeight="medium"
                                 >
-                                    UpSell Popup
+                                    UpSell Popup is{" "}
                                     {enableUpSell ? (
                                         <span className="lm_sticky_custom_badge_success">
                                             <Badge tone="success">
@@ -666,7 +693,7 @@ function GeneralSettings(props) {
                                     uncheckedIcon={null}
                                     checkedIcon={null}
                                 />
-                            </InlineGrid>
+                            </div>
                             {enableUpSell && (
                                 <BlockStack>
                                     <div style={{ margin: "15px 0" }}>
@@ -743,7 +770,13 @@ function GeneralSettings(props) {
                                                 </div>
                                             )}
                                         </BlockStack>
+                                    </FormLayout.Group>
 
+                                    <div style={{ margin: "8px 0" }}>
+                                        <Divider borderColor="transparent" />
+                                    </div>
+
+                                    <FormLayout.Group condensed>
                                         {/* Buy Button Text */}
                                         <BlockStack gap="200">
                                             <Text
