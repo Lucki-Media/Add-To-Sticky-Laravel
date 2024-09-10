@@ -86,6 +86,8 @@ export default function CartTemplate5(props) {
     const [showContainer, setShowContainer] = useState(false);
     const [showNotificationBar, setShowNotificationBar] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [showUpsellPopup, setShowUpSellPopup] = useState(false);
+
     // console.log(props.templateData);
     const [selectedVariant, setSelectedVariant] = useState(
         props.product.variants?.length && props.product.variants[0]
@@ -189,6 +191,7 @@ export default function CartTemplate5(props) {
                     window.location.href = "/cart";
                 } else if (template_data.general_settings.gsAction === "3") {
                     setShowNotificationBar(true);
+                    setShowUpSellPopup(true);
                 } else {
                     window.location.href = "/checkout";
                 }
@@ -788,7 +791,13 @@ export default function CartTemplate5(props) {
                                         containerHeight={containerHeight}
                                     />
                                 )}
-
+                        </div>
+                    ) : (
+                        ""
+                    )}
+                    {gsAction === "3" &&
+                        enableUpSell === true &&
+                        showUpsellPopup === true && (
                             <UpSellBottomSheet
                                 enableUpSell={enableUpSell}
                                 CUPLSelection={CUPLSelection}
@@ -812,10 +821,7 @@ export default function CartTemplate5(props) {
                                 CUBorderRadius={CUBorderRadius}
                                 USPosition={USPosition}
                             />
-                        </div>
-                    ) : (
-                        ""
-                    )}
+                        )}
                 </div>
             );
         } else {
