@@ -7,9 +7,6 @@ import "../css/index.css";
 export function SideBar(props) {
     const handleCallback = (e) => {
         props.dataCallback(e);
-
-        console.log("props");
-        console.log(props);
     };
 
     return (
@@ -56,11 +53,13 @@ export function SideBar(props) {
                     CUHeadingBGColor={props.CUHeadingBGColor}
                     CUHeadingColor={props.CUHeadingColor}
                     CUBodyColor={props.CUBodyColor}
+                    CUBodyTextColor={props.CUBodyTextColor}
                     CUBtnTextColor={props.CUBtnTextColor}
                     CUBtnBGColor={props.CUBtnBGColor}
                     CUBtnTextHoverColor={props.CUBtnTextHoverColor}
                     CUBtnBGHoverColor={props.CUBtnBGHoverColor}
                     CUBorderRadius={props.CUBorderRadius}
+                    USPosition={props.USPosition}
                     containerHeight={props.containerHeight}
                     animationEnable={props.animationEnable}
                     editText={props.editText}
@@ -124,11 +123,13 @@ export function SideBar(props) {
                     CUHeadingBGColor={props.CUHeadingBGColor}
                     CUHeadingColor={props.CUHeadingColor}
                     CUBodyColor={props.CUBodyColor}
+                    CUBodyTextColor={props.CUBodyTextColor}
                     CUBtnTextColor={props.CUBtnTextColor}
                     CUBtnBGColor={props.CUBtnBGColor}
                     CUBtnTextHoverColor={props.CUBtnTextHoverColor}
                     CUBtnBGHoverColor={props.CUBtnBGHoverColor}
                     CUBorderRadius={props.CUBorderRadius}
+                    USPosition={props.USPosition}
                     containerHeight={props.containerHeight}
                     animationEnable={props.animationEnable}
                     editText={props.editText}

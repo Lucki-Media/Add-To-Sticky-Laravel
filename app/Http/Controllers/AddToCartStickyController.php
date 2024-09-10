@@ -57,6 +57,9 @@ class AddToCartStickyController extends Controller
                 'CUBtnTextHoverColor' => $requestData['CUBtnTextHoverColor'] ?? "",
                 'CUBtnBGHoverColor' => $requestData['CUBtnBGHoverColor'] ?? "",
                 'CUBorderRadius' => $requestData['CUBorderRadius'] ?? "",
+                'CUBackgroundColor' => $requestData['CUBackgroundColor'] ?? "",
+                'CUBodyTextColor' => $requestData['CUBodyTextColor'] ?? "",
+                'USPosition' => $requestData['USPosition'] ?? "",
             ],
             'buy_btn_settings' => [
                 'editText' => $requestData['editText'],
