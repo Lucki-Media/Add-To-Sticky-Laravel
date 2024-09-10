@@ -85,6 +85,7 @@ export default function CartTemplate6(props) {
 
     const [showContainer, setShowContainer] = useState(false);
     const [showNotificationBar, setShowNotificationBar] = useState(false);
+    const [showUpsellPopup, setShowUpSellPopup] = useState(false);
     const [loading, setLoading] = useState(false);
     // console.log(props.templateData);
     const [selectedVariant, setSelectedVariant] = useState(
@@ -185,11 +186,12 @@ export default function CartTemplate6(props) {
                 );
                 await res.json();
                 setLoading(false);
-                setShowNotificationBar(true);
+
                 if (template_data.general_settings.gsAction === "1") {
                     window.location.href = "/cart";
                 } else if (template_data.general_settings.gsAction === "3") {
                     setShowNotificationBar(true);
+                    setShowUpSellPopup(true);
                 } else {
                     window.location.href = "/checkout";
                 }
@@ -777,7 +779,13 @@ export default function CartTemplate6(props) {
                                         }
                                     />
                                 )}
-
+                        </div>
+                    ) : (
+                        ""
+                    )}
+                    {gsAction === "3" &&
+                        enableUpSell === true &&
+                        showUpsellPopup === true && (
                             <UpSellBottomSheet
                                 enableUpSell={enableUpSell}
                                 CUPLSelection={CUPLSelection}
@@ -801,10 +809,7 @@ export default function CartTemplate6(props) {
                                 CUBorderRadius={CUBorderRadius}
                                 USPosition={USPosition}
                             />
-                        </div>
-                    ) : (
-                        ""
-                    )}
+                        )}
                 </div>
             );
         } else {

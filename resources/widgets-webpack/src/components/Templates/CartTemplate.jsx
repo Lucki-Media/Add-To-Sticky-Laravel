@@ -88,8 +88,6 @@ export default function CartTemplate1(props) {
     const [showUpsellPopup, setShowUpSellPopup] = useState(false);
 
     const [loading, setLoading] = useState(false);
-    const [numberCount, setNumberCount] = useState(0);
-    // console.log(props.templateData);
     const [selectedVariant, setSelectedVariant] = useState(
         props.product.variants?.length && props.product.variants[0]
     );
@@ -755,31 +753,33 @@ export default function CartTemplate1(props) {
                         ""
                     )}
 
-                    {showUpsellPopup === true && (
-                        <UpSellBottomSheet
-                            enableUpSell={enableUpSell}
-                            CUPLSelection={CUPLSelection}
-                            CUPLManualSelection={CUPLManualSelection}
-                            SelectedCollectionID={SelectedCollectionID}
-                            SelectedProductIDs={SelectedProductIDs}
-                            CUHeadingText={CUHeadingText}
-                            CUBuyBtnText={CUBuyBtnText}
-                            CUHeadingFontSize={CUHeadingFontSize}
-                            CUBodyFontSize={CUBodyFontSize}
-                            CUBuyBtnFontSize={CUBuyBtnFontSize}
-                            CUBackgroundColor={CUBackgroundColor}
-                            CUHeadingBGColor={CUHeadingBGColor}
-                            CUHeadingColor={CUHeadingColor}
-                            CUBodyColor={CUBodyColor}
-                            CUBodyTextColor={CUBodyTextColor}
-                            CUBtnTextColor={CUBtnTextColor}
-                            CUBtnBGColor={CUBtnBGColor}
-                            CUBtnTextHoverColor={CUBtnTextHoverColor}
-                            CUBtnBGHoverColor={CUBtnBGHoverColor}
-                            CUBorderRadius={CUBorderRadius}
-                            USPosition={USPosition}
-                        />
-                    )}
+                    {gsAction === "3" &&
+                        enableUpSell === true &&
+                        showUpsellPopup === true && (
+                            <UpSellBottomSheet
+                                enableUpSell={enableUpSell}
+                                CUPLSelection={CUPLSelection}
+                                CUPLManualSelection={CUPLManualSelection}
+                                SelectedCollectionID={SelectedCollectionID}
+                                SelectedProductIDs={SelectedProductIDs}
+                                CUHeadingText={CUHeadingText}
+                                CUBuyBtnText={CUBuyBtnText}
+                                CUHeadingFontSize={CUHeadingFontSize}
+                                CUBodyFontSize={CUBodyFontSize}
+                                CUBuyBtnFontSize={CUBuyBtnFontSize}
+                                CUBackgroundColor={CUBackgroundColor}
+                                CUHeadingBGColor={CUHeadingBGColor}
+                                CUHeadingColor={CUHeadingColor}
+                                CUBodyColor={CUBodyColor}
+                                CUBodyTextColor={CUBodyTextColor}
+                                CUBtnTextColor={CUBtnTextColor}
+                                CUBtnBGColor={CUBtnBGColor}
+                                CUBtnTextHoverColor={CUBtnTextHoverColor}
+                                CUBtnBGHoverColor={CUBtnBGHoverColor}
+                                CUBorderRadius={CUBorderRadius}
+                                USPosition={USPosition}
+                            />
+                        )}
                 </div>
             );
         } else {
