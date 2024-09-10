@@ -64,8 +64,9 @@ export default function Drawer({ isOpen, customizationData }) {
                 `}
             </style>
             <div
-                className={`${style.lm_drawer_wrapper} ${isOpen && style.lm_drawer_open
-                    }`}
+                className={`${style.lm_drawer_wrapper} ${
+                    isOpen && style.lm_drawer_open
+                }`}
             >
                 <div
                     className={`${showBottomSlider && style.lm_bottom_overlay} 
@@ -348,7 +349,10 @@ export default function Drawer({ isOpen, customizationData }) {
                                             customizationData.cartUpsell
                                                 .CUHeadingFontSize,
                                         color: customizationData.cartUpsell
-                                            .CUHeadingColor,
+                                            .CUHeadingTextColor,
+                                        background:
+                                            customizationData.cartUpsell
+                                                .CUHeadingBGColor,
                                     }}
                                 >
                                     {customizationData.cartUpsell.CUHeadingText}
@@ -448,20 +452,21 @@ export default function Drawer({ isOpen, customizationData }) {
                                                                 product.id
                                                             ]
                                                                 ? customizationData
-                                                                    .cartUpsell
-                                                                    .CUBtnTextHoverColor
+                                                                      .cartUpsell
+                                                                      .CUBtnTextHoverColor
                                                                 : customizationData
-                                                                    .cartUpsell
-                                                                    .CUBtnTextColor,
-                                                            background: hoverState[
-                                                                product.id
-                                                            ]
-                                                                ? customizationData
-                                                                    .cartUpsell
-                                                                    .CUBtnBGHoverColor
-                                                                : customizationData
-                                                                    .cartUpsell
-                                                                    .CUBtnBGColor,
+                                                                      .cartUpsell
+                                                                      .CUBtnTextColor,
+                                                            background:
+                                                                hoverState[
+                                                                    product.id
+                                                                ]
+                                                                    ? customizationData
+                                                                          .cartUpsell
+                                                                          .CUBtnBGHoverColor
+                                                                    : customizationData
+                                                                          .cartUpsell
+                                                                          .CUBtnBGColor,
                                                         }}
                                                         onMouseEnter={() =>
                                                             handleMouseEnter(
@@ -490,7 +495,6 @@ export default function Drawer({ isOpen, customizationData }) {
                                                     </button>
                                                 </div>
                                             </div>
-
                                         </div>
                                     ))}
                                 </div>
@@ -524,22 +528,22 @@ export default function Drawer({ isOpen, customizationData }) {
                         </div>
                         {customizationData.bottomSection
                             .BSCheckoutTextEnable && (
-                                <div
-                                    className={style.lm_cart_footer_message}
-                                    style={{
-                                        fontSize:
-                                            customizationData.bottomSection
-                                                .BSSecondaryFontSize,
-                                        color: customizationData.bottomSection
-                                            .BSColor,
-                                    }}
-                                >
-                                    {
+                            <div
+                                className={style.lm_cart_footer_message}
+                                style={{
+                                    fontSize:
                                         customizationData.bottomSection
-                                            .BSCheckoutMsgText
-                                    }
-                                </div>
-                            )}
+                                            .BSSecondaryFontSize,
+                                    color: customizationData.bottomSection
+                                        .BSColor,
+                                }}
+                            >
+                                {
+                                    customizationData.bottomSection
+                                        .BSCheckoutMsgText
+                                }
+                            </div>
+                        )}
                         <div className={style.lm_cart_footer_button_wrapper}>
                             <button
                                 style={{
@@ -548,14 +552,14 @@ export default function Drawer({ isOpen, customizationData }) {
                                             .BSCheckoutBtnFontSize,
                                     color: checkoutBtnHover
                                         ? customizationData.bottomSection
-                                            .BSBtnTextHoverColor
+                                              .BSBtnTextHoverColor
                                         : customizationData.bottomSection
-                                            .BSBtnTextColor,
+                                              .BSBtnTextColor,
                                     background: checkoutBtnHover
                                         ? customizationData.bottomSection
-                                            .BSBtnBGHoverColor
+                                              .BSBtnBGHoverColor
                                         : customizationData.bottomSection
-                                            .BSBtnBGColor,
+                                              .BSBtnBGColor,
                                 }}
                                 onMouseEnter={() => {
                                     setCheckoutBtnHover(true);

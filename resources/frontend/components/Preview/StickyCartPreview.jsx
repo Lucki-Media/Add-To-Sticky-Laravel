@@ -17,21 +17,17 @@ import DesktopPreview from "./StickyCart/DesktopPreview";
 import newGif from "../../../../public/images/new.gif";
 
 export default function StickyCartPreview(props) {
-    // Device selection states
-    const [activePreview, setActivePreview] = useState(1);
-    const [selectedDevice, setSelectedDevice] = useState(0);
-
     const handleActivePreview = useCallback(
         (index) => {
-            if (activePreview === index) return;
-            setActivePreview(index);
+            if (props.activePreview === index) return;
+            props.activePreviewCallback(index);
         },
-        [activePreview]
+        [props.activePreview]
     );
 
     // Device Selection Logic Start
     const handleDeviceTabChange = useCallback(
-        (selectedTabIndex) => setSelectedDevice(selectedTabIndex),
+        (selectedTabIndex) => props.selectedDeviceCallback(selectedTabIndex),
         []
     );
 
@@ -51,8 +47,8 @@ export default function StickyCartPreview(props) {
     // Device Selection Logic End
 
     useEffect(() => {
-        props.onPreviewChange(activePreview);
-    }, [activePreview]);
+        props.onPreviewChange(props.activePreview);
+    }, [props.activePreview]);
 
     return (
         <div classname="preview_section">
@@ -72,7 +68,7 @@ export default function StickyCartPreview(props) {
                         >
                             <Tabs
                                 tabs={deviceTabs}
-                                selected={selectedDevice}
+                                selected={props.selectedDevice}
                                 onSelect={handleDeviceTabChange}
                                 fitted
                             ></Tabs>
@@ -88,9 +84,8 @@ export default function StickyCartPreview(props) {
                             <ButtonGroup variant="segmented">
                                 <Button
                                     size="large"
-                                    // pressed=
                                     variant={
-                                        activePreview === 1 ? "primary" : ""
+                                        props.activePreview === 1 ? "primary" : ""
                                     }
                                     onClick={() => handleActivePreview(1)}
                                 >
@@ -98,9 +93,8 @@ export default function StickyCartPreview(props) {
                                 </Button>
                                 <Button
                                     size="large"
-                                    // pressed=
                                     variant={
-                                        activePreview === 2 ? "primary" : ""
+                                        props.activePreview === 2 ? "primary" : ""
                                     }
                                     onClick={() => handleActivePreview(2)}
                                 >
@@ -120,9 +114,9 @@ export default function StickyCartPreview(props) {
                     {/* Preview Section  */}
                     <Box>
                         {/* If desktop preview is selected */}
-                        {selectedDevice === 0 && (
+                        {props.selectedDevice === 0 && (
                             <DesktopPreview
-                                activePreview={activePreview}
+                                activePreview={props.activePreview}
                                 stickyData={props.stickyData}
                                 enableSticky={props.enableSticky}
                                 defaultTemplate={props.defaultTemplate}
@@ -132,9 +126,9 @@ export default function StickyCartPreview(props) {
                         )}
 
                         {/* If mobile preview is selected */}
-                        {selectedDevice === 1 && (
+                        {props.selectedDevice === 1 && (
                             <MobilePreview
-                                activePreview={activePreview}
+                                activePreview={props.activePreview}
                                 stickyData={props.stickyData}
                                 enableSticky={props.enableSticky}
                                 defaultTemplate={props.defaultTemplate}

@@ -292,7 +292,7 @@ span.lm_shipping_bar_sub_title {
     font-size: 20px;
     font-weight: 400;
     text-align: center;
-    color:#fff !important;
+    color:#fff;
     line-height: 1.5;
     /* background: #00000014; */
     background: #000;

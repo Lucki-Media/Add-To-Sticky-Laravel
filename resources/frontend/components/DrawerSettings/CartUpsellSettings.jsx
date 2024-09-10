@@ -42,8 +42,12 @@ export default function CartUpsellSettings(props) {
         props.customizationData.cartUpsell.CUBuyBtnFontSize
     );
 
-    const [CUHeadingColor, setCUHeadingColor] = useState(
-        props.customizationData.cartUpsell.CUHeadingColor
+    const [CUHeadingTextColor, setCUHeadingTextColor] = useState(
+        props.customizationData.cartUpsell.CUHeadingTextColor
+    );
+
+    const [CUHeadingBGColor, setCUHeadingBGColor] = useState(
+        props.customizationData.cartUpsell.CUHeadingBGColor
     );
     const [CUBodyColor, setCUBodyColor] = useState(
         props.customizationData.cartUpsell.CUBodyColor
@@ -113,9 +117,14 @@ export default function CartUpsellSettings(props) {
         []
     );
 
-    // HEADING COLOR
-    const handleCUHeadingColor = (event) => {
-        setCUHeadingColor(event.target.value);
+    // HEADING BG COLOR
+    const handleCUHeadingBGColor = (event) => {
+        setCUHeadingBGColor(event.target.value);
+    };
+
+    // HEADING TEXT COLOR
+    const handleCUHeadingTextColor = (event) => {
+        setCUHeadingTextColor(event.target.value);
     };
 
     // BODY COLOR
@@ -166,7 +175,8 @@ export default function CartUpsellSettings(props) {
             CUHeadingFontSize: CUHeadingFontSize,
             CUBodyFontSize: CUBodyFontSize,
             CUBuyBtnFontSize: CUBuyBtnFontSize,
-            CUHeadingColor: CUHeadingColor,
+            CUHeadingBGColor: CUHeadingBGColor,
+            CUHeadingTextColor: CUHeadingTextColor,
             CUBodyColor: CUBodyColor,
             CUBtnTextColor: CUBtnTextColor,
             CUBtnBGColor: CUBtnBGColor,
@@ -190,7 +200,8 @@ export default function CartUpsellSettings(props) {
         CUHeadingFontSize,
         CUBodyFontSize,
         CUBuyBtnFontSize,
-        CUHeadingColor,
+        CUHeadingBGColor,
+        CUHeadingTextColor,
         CUBodyColor,
         CUBtnTextColor,
         CUBtnBGColor,
@@ -439,24 +450,44 @@ export default function CartUpsellSettings(props) {
 
                         {/* Colors start */}
                         <FormLayout.Group condensed>
-                            {/* Heading Color */}
+                            {/* Heading BG Color */}
                             <BlockStack gap="0">
                                 <Text
                                     variant="headingMd"
                                     as="span"
                                     fontWeight="medium"
                                 >
-                                    Heading Color
+                                    Heading BG Color
                                 </Text>
                                 <div className="lm_sticky_color_box">
                                     <input
                                         type="color"
-                                        value={CUHeadingColor}
-                                        onChange={handleCUHeadingColor}
+                                        value={CUHeadingBGColor}
+                                        onChange={handleCUHeadingBGColor}
                                     />
                                 </div>
                             </BlockStack>
 
+                            {/* Heading Text Color */}
+                            <BlockStack gap="0">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Heading Text Color
+                                </Text>
+                                <div className="lm_sticky_color_box">
+                                    <input
+                                        type="color"
+                                        value={CUHeadingTextColor}
+                                        onChange={handleCUHeadingTextColor}
+                                    />
+                                </div>
+                            </BlockStack>
+                        </FormLayout.Group>
+
+                        <FormLayout.Group condensed>
                             {/* Body Color */}
                             <BlockStack gap="0">
                                 <Text
