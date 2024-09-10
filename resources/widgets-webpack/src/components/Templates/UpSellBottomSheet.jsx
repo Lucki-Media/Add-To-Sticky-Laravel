@@ -1,25 +1,143 @@
 import React, { useState, useEffect } from "react";
-import recommendedProducts from "../Templates/recommendedProducts.js";
 import { QuantityPicker } from "react-qty-picker";
+import axios from "axios";
 
 const UpSellBottomSheet = (props) => {
     const [open, setOpen] = useState(false);
     const [popupOpen, setPopupOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
+    const [CUProducts, setCUProducts] = useState([]);
+    const [cartData, setCartData] = useState();
+    const [numberCount, setNumberCount] = useState(0);
 
-    useEffect(() => {
-        console.log("props");
-        console.log(props);
+    const toggleBottomSheet = () => {
+        setOpen(open);
+    };
 
-        setOpen(props.enableUpSell);
-    }, [props.enableUpSell]);
-
-    const toggleBottomSheet = () => setOpen(open);
+    const closeBottomSheet = () => {
+        setOpen(false);
+        setPopupOpen(false);
+    };
 
     const handleBuyButtonClick = (product) => {
         setSelectedProduct(product);
         setPopupOpen(true);
     };
+
+    /* CART COUNT API CALL START*/
+    const getCartCount = async () => {
+        axios
+            .get("https://" + window.location.host + "/cart.json")
+            .then((response) => {
+                setCartData(response.data);
+                setNumberCount(response.data.item_count);
+            });
+    };
+
+    useEffect(() => {
+        setOpen(props.enableUpSell);
+        getCartCount();
+    }, [props.enableUpSell]);
+
+    // CART UPSELL API CALL
+    const getCartUpsellProducts = async () => {
+        if (props.CUPLSelection === "1") {
+            // Default Recommendation
+            axios
+                .get(
+                    "https://" +
+                        window.location.host +
+                        "/recommendations/products.json?product_id=" +
+                        cartData.items[0].product_id + // get cart's first item's related product
+                        "&limit=3"
+                )
+                .then(async (response) => {
+                    setCUProducts(response.data.products);
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+        } else {
+            // Manually Select
+            if (props.CUPLManualSelection === "1") {
+                // Manual Products
+                if (props.SelectedProductIDs.length > 0) {
+                    // Create an array of promises
+                    const productPromises = props.SelectedProductIDs.map(
+                        (productHandle) => {
+                            return getProductByHandle(productHandle);
+                        }
+                    );
+
+                    // Wait for all promises to resolve
+                    Promise.all(productPromises).then((productArray) => {
+                        // Filter out any null values from failed requests
+                        productArray = productArray.filter(
+                            (product) => product !== null
+                        );
+                        setCUProducts(productArray);
+                    });
+                }
+            } else {
+                // Manual Collection
+                if (props.SelectedCollectionID) {
+                    axios
+                        .get(
+                            "https://" +
+                                window.location.host +
+                                "/collections/" +
+                                props.SelectedCollectionID +
+                                "/products.json?limit=3"
+                        )
+                        .then(async (response) => {
+                            // Create an array of promises
+                            const productPromises = response.data.products.map(
+                                (product) => {
+                                    return getProductByHandle(product.handle);
+                                }
+                            );
+
+                            // Wait for all promises to resolve
+                            Promise.all(productPromises).then(
+                                (productArray) => {
+                                    // Filter out any null values from failed requests
+                                    productArray = productArray.filter(
+                                        (product) => product !== null
+                                    );
+                                    setCUProducts(productArray);
+                                }
+                            );
+                        })
+                        .catch((error) => {
+                            console.error("Error:", error);
+                        });
+                }
+            }
+        }
+    };
+
+    // Helper function
+    const getProductByHandle = (productHandle) => {
+        return axios
+            .get(
+                "https://" +
+                    window.location.host +
+                    "/products/" +
+                    productHandle +
+                    ".js"
+            )
+            .then((response) => {
+                return response.data;
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                return null; // Return null for any failed requests
+            });
+    };
+
+    useEffect(() => {
+        getCartUpsellProducts();
+    }, [numberCount, cartData]);
 
     return (
         <>
@@ -304,21 +422,20 @@ const UpSellBottomSheet = (props) => {
                             <button
                                 id="lmsc_closeButton"
                                 className="lmsc_close_button"
-                                onClick={toggleBottomSheet}
+                                onClick={closeBottomSheet}
                             >
                                 &times;
                             </button>
                         </div>
                         <div className="lmsc_product_list">
-                            {recommendedProducts &&
-                            recommendedProducts.length > 0 ? (
-                                recommendedProducts.map((product, index) => (
+                            {CUProducts && CUProducts.length > 0 ? (
+                                CUProducts.map((product, index) => (
                                     <div
                                         key={index}
                                         className="lmsc_product_item"
                                     >
                                         <img
-                                            src={product.image}
+                                            src={product.featured_image}
                                             alt={product.title}
                                             className="lmsc_usrp_product_image"
                                         />
@@ -327,9 +444,9 @@ const UpSellBottomSheet = (props) => {
                                                 {product.title}
                                             </h3>
                                             <p className="lmsc_product_price">
-                                                {product.actual_price}
+                                                {product.price}
                                                 <strike>
-                                                    {product.compare_price}
+                                                    {product.compare_at_price}
                                                 </strike>
                                             </p>
                                         </div>
@@ -355,7 +472,7 @@ const UpSellBottomSheet = (props) => {
                 {open === true && popupOpen && selectedProduct && (
                     <div className="lmsc_popup_modal">
                         <img
-                            src={selectedProduct.image}
+                            src={selectedProduct.featured_image}
                             alt={selectedProduct.title}
                         />
                         <h3 className="lmsc_sproduct_title">
