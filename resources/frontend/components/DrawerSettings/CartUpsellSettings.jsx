@@ -306,7 +306,9 @@ export default function CartUpsellSettings(props) {
                                     </div>
                                 )}
                             </BlockStack>
-                            
+                        </FormLayout.Group>
+
+                        <FormLayout.Group condensed>
                             {/* Buy Button Text */}
                             <BlockStack gap="200">
                                 <Text
