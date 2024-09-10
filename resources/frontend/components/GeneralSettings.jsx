@@ -101,6 +101,9 @@ export function GeneralSettings(props) {
     );
     const [CUHeadingColor, setCUHeadingColor] = useState(props.CUHeadingColor);
     const [CUBodyColor, setCUBodyColor] = useState(props.CUBodyColor);
+    const [CUBodyTextColor, setCUBodyTextColor] = useState(
+        props.CUBodyTextColor
+    );
     const [CUBtnTextColor, setCUBtnTextColor] = useState(props.CUBtnTextColor);
     const [CUBtnBGColor, setCUBtnBGColor] = useState(props.CUBtnBGColor);
     const [CUBtnTextHoverColor, setCUBtnTextHoverColor] = useState(
@@ -110,7 +113,7 @@ export function GeneralSettings(props) {
         props.CUBtnBGHoverColor
     );
     const [CUBorderRadius, setCUBorderRadius] = useState(props.CUBorderRadius);
-
+    const [USPosition, setUSPosition] = useState(props.USPosition);
     const [containerHeight, setContainerHeight] = useState(
         props.containerHeight
     );
@@ -154,12 +157,13 @@ export function GeneralSettings(props) {
         setCUHeadingBGColor(props.CUHeadingBGColor);
         setCUBodyColor(props.CUBodyColor);
         setCUHeadingColor(props.CUHeadingColor);
-        setCUBodyColor(props.CUBodyColor);
+        setCUBodyTextColor(props.CUBodyTextColor);
         setCUBtnTextColor(props.CUBtnTextColor);
         setCUBtnBGColor(props.CUBtnBGColor);
         setCUBtnTextHoverColor(props.CUBtnTextHoverColor);
         setCUBtnBGHoverColor(props.CUBtnBGHoverColor);
         setCUBorderRadius(props.CUBorderRadius);
+        setUSPosition(props.USPosition);
     }, [props]);
 
     // CALLBACK FUNCTION TO SEND PROPS START
@@ -192,14 +196,17 @@ export function GeneralSettings(props) {
         CUHeadingFontSize,
         CUBodyFontSize,
         CUBuyBtnFontSize,
+        CUBackgroundColor,
         CUHeadingBGColor,
-        CUBodyColor,       
+        CUBodyColor,
+        CUBodyTextColor,
         CUHeadingColor,
         CUBtnTextColor,
         CUBtnBGColor,
         CUBtnTextHoverColor,
         CUBtnBGHoverColor,
         CUBorderRadius,
+        USPosition,
 
         //GENERAL
         gsFontFamily,
@@ -230,6 +237,27 @@ export function GeneralSettings(props) {
             gsNotificationBarBold: gsNotificationBarBold,
             gsNotificationBarTextColor: gsNotificationBarTextColor,
             gsNotificationBarBgColor: gsNotificationBarBgColor,
+            enableUpSell: enableUpSell,
+            CUPLSelection: CUPLSelection,
+            CUPLManualSelection: CUPLManualSelection,
+            SelectedCollectionID: SelectedCollectionID,
+            SelectedProductIDs: SelectedProductIDs,
+            CUHeadingText: CUHeadingText,
+            CUBuyBtnText: CUBuyBtnText,
+            CUHeadingFontSize: CUHeadingFontSize,
+            CUBodyFontSize: CUBodyFontSize,
+            CUBuyBtnFontSize: CUBuyBtnFontSize,
+            CUBackgroundColor: CUBackgroundColor,
+            CUHeadingBGColor: CUHeadingBGColor,
+            CUBodyColor: CUBodyColor,
+            CUBodyTextColor: CUBodyTextColor,
+            CUHeadingColor: CUHeadingColor,
+            CUBtnTextColor: CUBtnTextColor,
+            CUBtnBGColor: CUBtnBGColor,
+            CUBtnTextHoverColor: CUBtnTextHoverColor,
+            CUBtnBGHoverColor: CUBtnBGHoverColor,
+            CUBorderRadius: CUBorderRadius,
+            USPosition: USPosition,
             gsFontFamily: gsFontFamily,
             gsFontsize: gsFontsize,
             gsItalic: gsItalic,
@@ -270,6 +298,27 @@ export function GeneralSettings(props) {
         gsNotificationBarBold,
         gsNotificationBarTextColor,
         gsNotificationBarBgColor,
+        enableUpSell,
+        CUPLSelection,
+        CUPLManualSelection,
+        SelectedCollectionID,
+        SelectedProductIDs,
+        CUHeadingText,
+        CUBuyBtnText,
+        CUHeadingFontSize,
+        CUBodyFontSize,
+        CUBuyBtnFontSize,
+        CUBackgroundColor,
+        CUHeadingBGColor,
+        CUBodyColor,
+        CUBodyTextColor,
+        CUHeadingColor,
+        CUBtnTextColor,
+        CUBtnBGColor,
+        CUBtnTextHoverColor,
+        CUBtnBGHoverColor,
+        CUBorderRadius,
+        USPosition,
         gsFontFamily,
         gsFontsize,
         gsItalic,
