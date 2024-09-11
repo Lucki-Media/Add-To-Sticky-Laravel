@@ -38,6 +38,10 @@ export default function App() {
                                     label: "FAQs",
                                     destination: "/sticky-faq",
                                 },
+                                {
+                                    label: "Demo",
+                                    destination: "/demo",
+                                },
                             ]}
                         />
                         <Routes pages={pages} />
