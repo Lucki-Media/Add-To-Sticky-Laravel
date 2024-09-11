@@ -122,6 +122,15 @@ class DashboardController extends Controller
         // echo '<pre>';print_r($request->all());exit;
     }
 
+    public function updateReviewBannerStatus($shopDomain, $selected)
+    {
+        AddToCartStickyData::where('shop_domain', $shopDomain)->update([
+            'review_banner' => $selected,
+            'updated_at' => Carbon::now(),
+        ]);
+        return self::sendResponse("", 'Success');
+    }
+
     public function getDashboardCount($shopDomain)
     {
         header("Access-Control-Allow-Origin: *");
@@ -147,8 +156,15 @@ class DashboardController extends Controller
         $getAddToCartStickyCount = AddToCartStickyCount::where(['shop_domain' => $shopDomain, 'year' => $currentYear])->first();
 
         // get details to show enable/disable onboarding steps 
-        $sac_enable = AddToCartStickyData::where('shop_domain', $shopDomain)->value('enable');
+        $sac_enable = AddToCartStickyData::where('shop_domain', $shopDomain)->first();
         $sc_enable = StickyCartData::where('shop_domain', $shopDomain)->value('enableSticky');
+
+        // check whether review banner need to show or not 
+        if ($sac_enable && $sac_enable['review_banner'] == '1' && Carbon::parse($sac_enable['updated_at'])->lte(Carbon::now()->subMonth())) {
+            $showReviewBanner = true;
+        } else {
+            $showReviewBanner = false;
+        }
 
         // Final array
         $finalArray = [
@@ -186,8 +202,9 @@ class DashboardController extends Controller
                 $getStickyCartCount['Nov'],
                 $getStickyCartCount['Dec'],
             ],
-            'sac_enable' => $sac_enable ?? '0',
+            'sac_enable' => $sac_enable && $sac_enable['enable'] ? $sac_enable['enable'] : '0',
             'sc_enable' => $sc_enable ?? '0',
+            'review_banner' => $showReviewBanner,
             'theme_ext_enabled' => $this->checkIsExtensionEnabled($shopDomain),
         ];
         return self::sendResponse($finalArray, 'Success');
@@ -232,7 +249,8 @@ class DashboardController extends Controller
         $server_output = curl_exec($ch);
         $asset_data = json_decode($server_output, true);
         $asset_json = json_decode($asset_data['asset']['value'], true);  // get json decoded data of settings_data.json file
-        $block_details =  optional(optional($asset_json)['current'])['blocks'] ?? [];;   // get blocks where extension details are stored
+        $block_details = optional(optional($asset_json)['current'])['blocks'] ?? [];
+        ;   // get blocks where extension details are stored
 
         // get details of block of our app
         $app_block = [

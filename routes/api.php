@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
 Route::namespace('App\\Http\\Controllers')->group(function () {
         /*ADD TO CART STICKY API START*/
         Route::post('saveAddToStickyCartData', 'AddToCartStickyController@saveAddToStickyCartData');
@@ -37,10 +38,15 @@ Route::namespace('App\\Http\\Controllers')->group(function () {
         Route::post('addBuyButtonClicks', 'DashboardController@addBuyButtonClicks');
         Route::post('addStickyButtonClicks', 'DashboardController@addStickyButtonClicks');
         Route::get('getDashboardCount/{shop_domain}', 'DashboardController@getDashboardCount');
+        Route::get('updateReviewBannerStatus/{shop_domain}/{selected}', 'DashboardController@updateReviewBannerStatus');
         /*POST BUTTON CLICKS API END*/
+
+        // PRICING PLAN API
+        Route::get('updatePricingPlan/{shop_domain}/{option}', 'PricingController@updatePricingPlan');
+        Route::get('getPlanData/{shop_domain}', 'PricingController@getPlanData');
 
         //WEBHOOK API
         Route::post('/requestEndpoint', 'CustomerEndpointController@requestEndpoint');
         Route::post('/erasureEndpoint', 'CustomerEndpointController@erasureEndpoint');
         Route::post('/shopErasureEndpoint', 'CustomerEndpointController@shopErasureEndpoint');
-    });
+});

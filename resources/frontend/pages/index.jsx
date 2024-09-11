@@ -16,12 +16,22 @@ import {
     List,
     ButtonGroup,
     CalloutCard,
+    InlineStack,
+    Popover,
+    ActionList,
 } from "@shopify/polaris";
 import { QuestionCircleIcon } from "@shopify/polaris-icons";
 import "../css/index.css";
 import { CChart } from "@coreui/react-chartjs";
-import { useEffect, useState } from "react";
-import { TitleBar } from "@shopify/app-bridge-react";
+import { useEffect, useState, useCallback } from "react";
+import {
+    HeartIcon,
+    SmileyHappyIcon,
+    SmileySadIcon,
+    MenuHorizontalIcon,
+    XIcon,
+    HideIcon,
+} from "@shopify/polaris-icons";
 
 export default function HomePage() {
     const currentDate = new Date();
@@ -32,6 +42,7 @@ export default function HomePage() {
     const [sCartEnabled, setSCartEnabled] = useState("0");
     const [sacEnabled, setSacEnabled] = useState("0");
     const [themeExtEnabled, setThemeExtEnabled] = useState("0");
+    const [showReviewBanner, setShowReviewBanner] = useState(false);
     const [showTable, setShowTable] = useState(false);
     const [sacCount, setSacCount] = useState("0");
     const [extensionId, setExtensionId] = useState();
@@ -57,6 +68,7 @@ export default function HomePage() {
             setSCartEnabled(data.data.sc_enable);
             setSacEnabled(data.data.sac_enable);
             setThemeExtEnabled(data.data.theme_ext_enabled);
+            setShowReviewBanner(data.data.review_banner);
             setShowTable(true);
         } catch (err) {
             console.log(err);
@@ -73,6 +85,34 @@ export default function HomePage() {
     useEffect(() => {
         getDashboardCount();
     }, []);
+
+    // REVIEW BANNER CLOSURE
+    const [popoverActive, setPopoverActive] = useState(false);
+
+    const togglePopoverActive = useCallback(
+        () => setPopoverActive((popoverActive) => !popoverActive),
+        []
+    );
+    const activator = (
+        <Button
+            onClick={togglePopoverActive}
+            icon={MenuHorizontalIcon}
+            variant="tertiary"
+            size="large"
+        />
+    );
+
+    const updateReviewBannerStatus = async (selected) => {
+        try {
+            const response = await fetch(
+                "api/updateReviewBannerStatus/" + shop_url + "/" + selected
+            );
+            const data = await response.json();
+            setShowReviewBanner(false);
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     return (
         <div className="lm_sticky_main_app_page">
@@ -150,6 +190,76 @@ export default function HomePage() {
                         </div>
                     )}
 
+                {/* Feedback banner */}
+                {showReviewBanner && (
+                    <div className="deep_link__class">
+                        <Banner
+                            // onDismiss={() => {}}
+                            icon={HeartIcon}
+                            // title="Your feedback means a lot to us!"
+                        >
+                            <InlineStack
+                                gap="400"
+                                wrap={false}
+                                blockAlign="baseline"
+                                align="space-between"
+                            >
+                                <p style={{ margin: "auto 0" }}>
+                                    How is our app working for you? Share your
+                                    feedback and help us improve!
+                                </p>
+                                <ButtonGroup>
+                                    <Button
+                                        icon={SmileySadIcon}
+                                        variant="plain"
+                                        external
+                                        url="https://forms.gle/CTSsW3kpKgVturgX7"
+                                    >
+                                        Poor
+                                    </Button>
+                                    <Button
+                                        icon={SmileyHappyIcon}
+                                        variant="plain"
+                                        external
+                                        url="https://apps.shopify.com/lm-add-to-cart-sticky/reviews"
+                                    >
+                                        Excellent
+                                    </Button>
+                                </ButtonGroup>
+                                <Popover
+                                    active={popoverActive}
+                                    activator={activator}
+                                    autofocusTarget="first-node"
+                                    onClose={togglePopoverActive}
+                                >
+                                    <ActionList
+                                        actionRole="menuitem"
+                                        items={[
+                                            {
+                                                content: "Never Ask",
+                                                icon: XIcon,
+                                                onAction: () => {
+                                                    updateReviewBannerStatus(
+                                                        "2"
+                                                    );
+                                                },
+                                            },
+                                            {
+                                                content: "Remind Leter",
+                                                icon: HideIcon,
+                                                onAction: () => {
+                                                    updateReviewBannerStatus(
+                                                        "1"
+                                                    );
+                                                },
+                                            },
+                                        ]}
+                                    />
+                                </Popover>
+                            </InlineStack>
+                        </Banner>
+                    </div>
+                )}
                 {/* Onboarding Process Layout */}
                 <Layout>
                     <Layout.Section variant="oneThird">
