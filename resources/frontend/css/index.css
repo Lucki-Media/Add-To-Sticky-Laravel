@@ -12,6 +12,14 @@
     max-width: 420px;
     margin: auto;
 }
+.lm_sticky_pricing_plans {
+    background: rgb(255 255 255);
+    border: 1px solid rgb(227, 227, 227);
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin: 16px auto;
+    width: fit-content;
+}
 .fadeInAnimation {
     animation: fadeIn 0.5s ease-in-out;
 }
@@ -137,7 +145,7 @@
     font-weight: 600;
 }
 .deep_link__class {
-    padding-bottom: 20px;
+    padding-bottom: 15px;
 }
 
 .deep_link__class > div:first-child {
@@ -475,7 +483,7 @@ div[id^="font-picker"] .dropdown-button:focus {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    padding: 125px 15px;
+    padding: 125px 0 85px 35px;
     /* height: calc(100vh - 160px); */
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -523,11 +531,13 @@ div[id^="font-picker"] .dropdown-button:focus {
 }
 .product_details_mobile {
     margin: 10px !important;
+    height: 560px !important;
 }
 .product_details {
     background-color: #fff;
     margin: 0 10px 10px;
     position: relative;
+    height: 553px;
 }
 .lm_product_block {
     display: flex;
@@ -576,7 +586,7 @@ div[id^="font-picker"] .dropdown-button:focus {
 
 @media screen and (max-width: 1600px) {
     .product_details_main {
-        padding: 125px 35px;
+        /* padding: 125px 35px; */
         /* height: 74vh; */
     }
     .product_details_main .product_image,
@@ -591,7 +601,7 @@ div[id^="font-picker"] .dropdown-button:focus {
 
 @media screen and (max-width: 1024px) {
     .product_details_main {
-        padding: 88px 15px;
+        padding: 40px 0 50px 15px;
         /* height: auto; */
         flex-direction: column;
     }
@@ -606,6 +616,6 @@ div[id^="font-picker"] .dropdown-button:focus {
 }
 @media screen and (max-width: 768px) {
     .product_details_main {
-        padding: 80px 15px;
+        /* padding: 80px 15px; */
     }
 }

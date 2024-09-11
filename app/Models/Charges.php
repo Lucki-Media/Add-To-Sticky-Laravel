@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -32,6 +33,8 @@ class Charges extends Model
     ];
 
     protected $hidden = [
-        'created_at', 'updated_at','deleted_at',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 }

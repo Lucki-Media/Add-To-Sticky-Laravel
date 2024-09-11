@@ -626,8 +626,8 @@ function DesignSettings(props) {
                                 tone="subdued"
                             >
                                 (<strong>Note:</strong> Enabling Button
-                                Animation globally activates them <br></br>
-                                across all templates.)
+                                Animation globally activates them across all
+                                templates.)
                             </Text>
                         </BlockStack>
                     </FormLayout.Group>

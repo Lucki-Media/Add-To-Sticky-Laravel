@@ -31,6 +31,10 @@ export default function App() {
                                     destination: "/sticky-cart",
                                 },
                                 {
+                                    label: "Pricing Plans",
+                                    destination: "/pricing-plans",
+                                },
+                                {
                                     label: "FAQs",
                                     destination: "/sticky-faq",
                                 },
