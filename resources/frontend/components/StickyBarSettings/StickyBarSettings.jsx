@@ -2,6 +2,8 @@ import { Badge, BlockStack, Card, Select, Text } from "@shopify/polaris";
 import React, { useCallback, useState } from "react";
 import Switch from "react-switch";
 import "../../css/index.css";
+import GeneralSettings from "./GeneralSettings";
+import NotificationBarSettings from "./NotificationBarSettings";
 
 export default function StickyBarSettings(props) {
     const [enable, setEnable] = useState(true);
@@ -67,7 +69,7 @@ export default function StickyBarSettings(props) {
     return (
         <BlockStack gap="400">
             {/* Sticky Bar Enable */}
-            <Card>
+            {/* <Card>
                 <div className="setting_title">
                     <Text
                         variant="bodyLg"
@@ -95,10 +97,10 @@ export default function StickyBarSettings(props) {
                         checkedIcon={null}
                     />
                 </div>
-            </Card>
+            </Card> */}
 
             {/* Select Template */}
-            <Card>
+            {/* <Card>
                 <BlockStack gap="200">
                     <Text
                         variant="bodyLg"
@@ -119,7 +121,13 @@ export default function StickyBarSettings(props) {
                         labelHidden
                     />
                 </BlockStack>
-            </Card>
+            </Card> */}
+
+            {/* General Settings */}
+            {/* <GeneralSettings /> */}
+
+            {/* Notification Bar Settings */}
+            <NotificationBarSettings />
         </BlockStack>
     );
 }
