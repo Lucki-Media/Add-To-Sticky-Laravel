@@ -11,7 +11,7 @@ const UpSellBottomSheet = (props) => {
     const [numberCount, setNumberCount] = useState(0);
 
     const toggleBottomSheet = () => {
-        setOpen(open);
+        setOpen(!open);
     };
 
     const closeBottomSheet = () => {
@@ -136,7 +136,9 @@ const UpSellBottomSheet = (props) => {
     };
 
     useEffect(() => {
-        getCartUpsellProducts();
+        if (cartData && numberCount !== 0) {
+            getCartUpsellProducts();
+        }
     }, [numberCount, cartData]);
 
     return (
@@ -390,6 +392,10 @@ const UpSellBottomSheet = (props) => {
                 .lmsc_sproduct_title{                   
                     font-size: ${props.CUHeadingFontSize}px;
                 }
+
+                .lmsc_popup_close{
+                    display:none;
+                }
                
             `}
             </style>
@@ -397,7 +403,7 @@ const UpSellBottomSheet = (props) => {
             <div>
                 <div
                     className={`lmsc_popup_container ${
-                        open ? "lmsc_popup_open" : ""
+                        open ? "lmsc_popup_open" : "lmsc_popup_close"
                     } ${props.USPosition === "left" ? "left" : "right"}`}
                 >
                     <div
