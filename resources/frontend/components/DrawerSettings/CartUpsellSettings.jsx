@@ -220,14 +220,25 @@ export default function CartUpsellSettings(props) {
 
     return (
         <Card sectioned>
-            <Text variant="headingLg" fontWeight="medium">
-                Cart Upsell Settings{" "}
-                <span style={{ verticalAlign: "middle", paddingLeft: 5 }}>
-                    <Badge tone="info-strong" icon={MagicIcon}>
-                        Premium
-                    </Badge>
-                </span>
-            </Text>
+            <BlockStack gap={200}>
+                <Text variant="headingLg" fontWeight="medium">
+                    Cart Upsell Settings{" "}
+                    <span style={{ verticalAlign: "middle", paddingLeft: 5 }}>
+                        <Badge tone="info-strong" icon={MagicIcon}>
+                            Premium
+                        </Badge>
+                    </span>
+                </Text>
+                <Text
+                    variant="headingMd"
+                    as="span"
+                    fontWeight="regular"
+                    tone="subdued"
+                >
+                    (<strong>Note:</strong> You can utilize this feature only if
+                    you have activated the premium plan.)
+                </Text>
+            </BlockStack>
 
             <div style={{ margin: "15px 0" }}>
                 <Divider borderColor="border" />
