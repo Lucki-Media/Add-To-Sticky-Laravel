@@ -800,6 +800,7 @@ export default function CartTemplate3(props) {
                                 CUBorderRadius={CUBorderRadius}
                                 USPosition={USPosition}
                                 showUpsellPopup={showUpsellPopup}
+                                selectedVariant={selectedVariant}
                             />
                         )}
                 </div>

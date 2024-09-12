@@ -9,6 +9,10 @@ const UpSellBottomSheet = (props) => {
     const [CUProducts, setCUProducts] = useState([]);
     const [cartData, setCartData] = useState();
     const [numberCount, setNumberCount] = useState(0);
+    const [selectedVariant, setselectedVariant] = useState(
+        props.selectedVariant
+    );
+    const [loading, setLoading] = useState(false);
 
     const toggleBottomSheet = () => {
         setOpen(!open);
@@ -140,6 +144,49 @@ const UpSellBottomSheet = (props) => {
             getCartUpsellProducts();
         }
     }, [numberCount, cartData]);
+
+    let handleAddProduct = async () => {
+        console.log("click here");
+        setLoading(true);
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                id: selectedVariant.id,
+                quantity: document
+                    .getElementById("lm_sticky_container_upsell__qty_picker")
+                    .getElementsByTagName("input")[0].value,
+            }),
+        };
+        // const requestOptions1 = {
+        //     method: "POST",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify({
+        //         shop: window.Shopify.shop,
+        //         month: currentMonth,
+        //         year: currentYear,
+        //     }),
+        // };
+        if (selectedVariant) {
+            try {
+                // await fetch(
+                //     `${process.env.REACT_APP_API_URL}` + "addBuyButtonClicks",
+                //     requestOptions1
+                // );
+                const res = await fetch(
+                    "https://" + window.location.host + "/cart/add.json",
+                    requestOptions
+                );
+                await res.json();
+                setLoading(false);
+                setTimeout(function () {
+                    getCartCount();
+                }, 1000);
+            } catch (error) {
+                console.log();
+            }
+        }
+    };
 
     return (
         <>
@@ -485,7 +532,9 @@ const UpSellBottomSheet = (props) => {
                             {selectedProduct.title}
                         </h3>
 
-                        <QuantityPicker value={1} min={1} max={10} />
+                        <div id="lm_sticky_container_upsell__qty_picker">
+                            <QuantityPicker value={1} min={1} max={10} />
+                        </div>
 
                         {selectedProduct.options.map((variation, index) => (
                             <div key={index} className="lmsc_variation">
@@ -502,7 +551,10 @@ const UpSellBottomSheet = (props) => {
                             </div>
                         ))}
 
-                        <button className="lmsc_close_popup_button">
+                        <button
+                            className="lmsc_close_popup_button"
+                            onClick={() => handleAddProduct()}
+                        >
                             {props.CUBuyBtnText}
                         </button>
                     </div>

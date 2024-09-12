@@ -780,6 +780,8 @@ export default function CartTemplate2(props) {
                                 CUBtnBGHoverColor={CUBtnBGHoverColor}
                                 CUBorderRadius={CUBorderRadius}
                                 USPosition={USPosition}
+                                showUpsellPopup={showUpsellPopup}
+                                selectedVariant={selectedVariant}
                             />
                         )}
                 </div>
