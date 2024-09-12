@@ -60,6 +60,12 @@ export default function AddToCartSticky() {
         <Toast content={toastContent1} error onDismiss={toggleToastActive1} />
     ) : null;
 
+    // HANDLE DATA CALLBACK
+    const handleSBDataCallback = (data) => {
+        setStickyBarData(data);
+    };
+console.log(stickyBarData);
+
     // USE EFFECT
     useEffect(() => {
         getAddToStickyCartData();
@@ -72,7 +78,6 @@ export default function AddToCartSticky() {
                 "api/getAddToStickyCartData/" + shop_url
             );
             const data = await response.json();
-            console.log(data.data);
 
             // Stickybar data
             setStickyBarData(data.data);
@@ -180,6 +185,9 @@ export default function AddToCartSticky() {
                                 <Layout>
                                     <Layout.Section variant="oneThird">
                                         <StickyBarSettings
+                                            sbDataCallback={
+                                                handleSBDataCallback
+                                            }
                                             stickyBarData={stickyBarData}
                                         />
                                     </Layout.Section>

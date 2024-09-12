@@ -17,7 +17,7 @@ import {
 import React, { useCallback, useEffect, useState } from "react";
 import "../../css/index.css";
 import Switch from "react-switch";
-import ProductSelection from "./ProductSelection";
+import ProductSelection from "../ProductSelection/ProductSelection";
 import ProductListSelection from "../DrawerSettings/CartUpsellSettings/ProductListSelection";
 
 function GeneralSettings(props) {
