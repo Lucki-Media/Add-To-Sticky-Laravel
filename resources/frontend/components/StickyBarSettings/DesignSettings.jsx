@@ -11,71 +11,49 @@ import {
     Text,
     TextField,
 } from "@shopify/polaris";
-import FontPicker from "font-picker-react";
 import React, { useCallback, useEffect, useState } from "react";
 import Switch from "react-switch";
 import "../../css/index.css";
 
 function DesignSettings(props) {
-    const [gsFontFamily, setGsFontFamily] = useState(props.gsFontFamily);
-    const [animationEnable, setAnimationEnable] = useState(
-        props.animationEnable
-    );
-    const [gsBgColor, setGsBgColor] = useState(props.gsBgColor);
-    const [containerHeight, setContainerHeight] = useState(
-        props.containerHeight
-    );
-    const [gsOffsetValue, setGsOffsetValue] = useState(props.gsOffsetValue);
-    const [position, setPosition] = useState(props.position);
-    const [gsTitleColor, setGsTitleColor] = useState(props.gsTitleColor);
-    const [gsFontsize, setGsFontsize] = useState(props.gsFontsize);
-    const [gsBold, setGsBold] = useState(props.gsBold);
-    const [gsItalic, setGsItalic] = useState(props.gsItalic);
-    const [gsUnderline, setGsUnderLine] = useState(props.gsUnderline);
-    const [gsPriceFontsize, setGsPriceFontsize] = useState(
-        props.gsPriceFontsize
-    );
-    const [gsPriceColor, setGsPriceColor] = useState(props.gsPriceColor);
-    const [editText, setEditText] = useState(props.editText);
-    const [unavailable, setUnavailable] = useState(props.unavailable);
-    const [btnWidthValue, setBtnWidthValue] = useState(props.btnWidthValue);
-    const [btnheightValue, setBtnHeightValue] = useState(props.btnheightValue);
-    const [btnFontsize, setBtnFontsize] = useState(props.btnFontsize);
-    const [btnBorderThickness, setBtnBorderThickness] = useState(
-        props.btnBorderThickness
-    );
-    const [btnBorderRadius, setBtnBorderRadius] = useState(
-        props.btnBorderRadius
-    );
-    const [btnBold, setBtnBold] = useState(props.btnBold);
-    const [btnItalic, setBtnItalic] = useState(props.btnItalic);
-    const [btnUnderline, setBtnUnderline] = useState(props.btnUnderline);
-    const [btnTextColor, setBtnTextColor] = useState(props.btnTextColor);
-    const [btnBgColor, setBtnBgColor] = useState(props.btnBgColor);
-    const [btnTexthoverColor, setBtnTexthoverColor] = useState(
-        props.btnTexthoverColor
-    );
-    const [btnBgHoverColor, setBtnBgHoverColor] = useState(
-        props.btnBgHoverColor
-    );
-    const [btnBorderColor, setBtnBorderColor] = useState(props.btnBorderColor);
-    const [btnBorderHoverColor, setBtnBorderHoverColor] = useState(
-        props.btnBorderHoverColor
-    );
+    const [animationEnable, setAnimationEnable] = useState();
+    const [gsBgColor, setGsBgColor] = useState();
+    const [containerHeight, setContainerHeight] = useState();
+    const [gsOffsetValue, setGsOffsetValue] = useState();
+    const [position, setPosition] = useState();
+    const [gsTitleColor, setGsTitleColor] = useState();
+    const [gsFontsize, setGsFontsize] = useState();
+    const [gsBold, setGsBold] = useState();
+    const [gsItalic, setGsItalic] = useState();
+    const [gsUnderline, setGsUnderLine] = useState();
+    const [gsPriceFontsize, setGsPriceFontsize] = useState();
+    const [gsPriceColor, setGsPriceColor] = useState();
+    const [editText, setEditText] = useState();
+    const [unavailable, setUnavailable] = useState();
+    const [btnWidthValue, setBtnWidthValue] = useState();
+    const [btnheightValue, setBtnHeightValue] = useState();
+    const [btnFontsize, setBtnFontsize] = useState();
+    const [btnBorderThickness, setBtnBorderThickness] = useState();
+    const [btnBorderRadius, setBtnBorderRadius] = useState();
+    const [btnBold, setBtnBold] = useState();
+    const [btnItalic, setBtnItalic] = useState();
+    const [btnUnderline, setBtnUnderline] = useState();
+    const [btnTextColor, setBtnTextColor] = useState();
+    const [btnBgColor, setBtnBgColor] = useState();
+    const [btnTexthoverColor, setBtnTexthoverColor] = useState();
+    const [btnBgHoverColor, setBtnBgHoverColor] = useState();
+    const [btnBorderColor, setBtnBorderColor] = useState();
+    const [btnBorderHoverColor, setBtnBorderHoverColor] = useState();
+
+    // ANIMATION SWITCH LOGIC
     const handleSwitchChange = (checked) => {
         setAnimationEnable(checked);
-    };
-
-    /*FONT FAMILY GENERAL SETTINGS*/
-    const handleFontChange = (value) => {
-        setGsFontFamily(value.family);
     };
 
     //BAR SETTINGS START
     const handleBGColor = (event) => {
         setGsBgColor(event.target.value);
     };
-    //   = useCallback((value) => setGsBgColor(value), []);
 
     const handleHeightSliderChange = useCallback(
         (value) => setContainerHeight(value),
@@ -94,7 +72,7 @@ function DesignSettings(props) {
     const handleTitleColor = (event) => {
         setGsTitleColor(event.target.value);
     };
-    // = useCallback((value) => setGsTitleColor(value), []);
+
     const handleRangeSliderChange = useCallback(
         (value) => setGsFontsize(value),
         []
@@ -118,7 +96,6 @@ function DesignSettings(props) {
     const handlePriceColor = (event) => {
         setGsPriceColor(event.target.value);
     };
-    // = useCallback((value) => setGsPriceColor(value), []);
     // PRICE SETTINGS END
 
     //BUY NOW BUTTON SETTINGS START
@@ -127,10 +104,6 @@ function DesignSettings(props) {
     const handleEditTextField = (val) => {
         setEditText(val);
     };
-    // SOLD OUT
-    // const handleSoldOutTextField = (val) => {
-    //     setSoldOut(val);
-    // };
     // UNAVAILABLE
     const handleUnavailableTextField = (val) => {
         setUnavailable(val);
@@ -183,57 +156,35 @@ function DesignSettings(props) {
     const handlebtnTextColor = (event) => {
         setBtnTextColor(event.target.value);
     };
-    // = useCallback(
-    //     (value) => setBtnTextColor(value),
-    //     []
-    // );
 
     // TEXT HOVER COLOR
     const handletexthoverColor = (event) => {
         setBtnTexthoverColor(event.target.value);
     };
-    // = useCallback(
-    //     (value) => setBtnTexthoverColor(value),
-    //     []
-    // );
 
     // BG HOVER COLOR
     const handlebgHoverColor = (event) => {
         setBtnBgHoverColor(event.target.value);
     };
-    // = useCallback(
-    //     (value) => setBtnBgHoverColor(value),
-    //     []
-    // );
 
     // BTN BG COLOR
     const handlebtnBGColor = (event) => {
         setBtnBgColor(event.target.value);
     };
-    // = useCallback((value) => setBtnBgColor(value), []);
 
     // BORDER COLOR
     const handleborderColor = (event) => {
         setBtnBorderColor(event.target.value);
     };
-    // = useCallback(
-    //     (value) => setBtnBorderColor(value),
-    //     []
-    // );
 
     // BORDER HOVER COLOR
     const handlebordeHoverColor = (event) => {
         setBtnBorderHoverColor(event.target.value);
     };
-    // = useCallback(
-    //     (value) => setBtnBorderHoverColor(value),
-    //     []
-    // );
     // COLOR CHANGE HANDLES END
     //BUY NOW BUTTON SETTINGS END
 
     useEffect(() => {
-        setGsFontFamily(props.gsFontFamily);
         setAnimationEnable(props.animationEnable);
         setGsBgColor(props.gsBgColor);
         setContainerHeight(props.containerHeight);
@@ -268,7 +219,6 @@ function DesignSettings(props) {
         callbackFunction();
     }, [
         // IT WILL SEND LATEST DATA OF ALL STATES
-        gsFontFamily,
         animationEnable,
         gsBgColor,
         containerHeight,
@@ -298,6 +248,7 @@ function DesignSettings(props) {
         btnBorderColor,
         btnBorderHoverColor,
     ]);
+
     var transfer_data = {
         general_settings: {
             homePageProduct: props.homePageProduct,
@@ -335,7 +286,6 @@ function DesignSettings(props) {
             USPosition: props.USPosition,
         },
         design_settings: {
-            gsFontFamily: gsFontFamily,
             animationEnable: animationEnable,
             gsBgColor: gsBgColor,
             containerHeight: containerHeight,
@@ -366,12 +316,13 @@ function DesignSettings(props) {
             btnBorderHoverColor: btnBorderHoverColor,
         },
     };
+
     const callbackFunction = useCallback(() => {
         props.callback(transfer_data);
     }, [transfer_data]);
 
     return (
-        <div>
+        <Card sectioned>
             <Text variant="headingLg" fontWeight="medium">
                 Design Settings
             </Text>
@@ -498,7 +449,7 @@ function DesignSettings(props) {
                                 label={`${gsFontsize} px`}
                                 value={gsFontsize}
                                 min={8}
-                                max={40}
+                                max={32}
                                 onChange={handleRangeSliderChange}
                                 output
                             />
@@ -570,7 +521,7 @@ function DesignSettings(props) {
                                 label={`${gsPriceFontsize} px`}
                                 value={gsPriceFontsize}
                                 min={8}
-                                max={40}
+                                max={32}
                                 onChange={handlePriceRangeSliderChange}
                                 output
                             />
@@ -840,7 +791,7 @@ function DesignSettings(props) {
                                     <RangeSlider
                                         label={`${btnWidthValue} px`}
                                         value={btnWidthValue}
-                                        min={0}
+                                        min={50}
                                         max={250}
                                         onChange={handleWidthSliderChange}
                                         output
@@ -883,12 +834,13 @@ function DesignSettings(props) {
                                         label={`${btnFontsize} px`}
                                         value={btnFontsize}
                                         min={8}
-                                        max={50}
+                                        max={32}
                                         onChange={handleFontSizeSliderChange}
                                         output
                                     />
                                 </div>
                             </div>
+                            <div></div>
                         </FormLayout.Group>
                     </FormLayout>
                 </BlockStack>
@@ -982,7 +934,7 @@ function DesignSettings(props) {
                     </FormLayout.Group>
                 </FormLayout>
             </BlockStack>
-        </div>
+        </Card>
     );
 }
 

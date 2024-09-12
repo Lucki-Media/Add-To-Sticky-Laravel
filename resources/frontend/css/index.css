@@ -120,6 +120,7 @@
 .lm_sticky_layout {
     max-width: 1200px;
     margin: 0 auto;
+    padding-bottom: 50px;
 }
 .lm_sticky_layout > div:first-child > div:nth-child(2) {
     position: sticky;
@@ -585,10 +586,10 @@ div[id^="font-picker"] .dropdown-button:focus {
 }
 
 @media screen and (max-width: 1600px) {
-    .product_details_main {
-        /* padding: 125px 35px; */
-        /* height: 74vh; */
-    }
+    /* .product_details_main {
+        padding: 125px 35px;
+        height: 74vh;
+    } */
     .product_details_main .product_image,
     .product_details_main .p_details {
         width: 38%;
@@ -615,7 +616,7 @@ div[id^="font-picker"] .dropdown-button:focus {
     }
 }
 @media screen and (max-width: 768px) {
-    .product_details_main {
-        /* padding: 80px 15px; */
-    }
+    /* .product_details_main {
+        padding: 80px 15px;
+    } */
 }

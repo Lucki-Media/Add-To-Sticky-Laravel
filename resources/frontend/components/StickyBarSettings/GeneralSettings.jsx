@@ -9,11 +9,19 @@ import {
 } from "@shopify/polaris";
 import React, { useCallback, useState } from "react";
 
-export default function GeneralSettings(props) {
-    const [checkMobile, setCheckMobile] = useState(true);
-    const [checkDesktop, setCheckDesktop] = useState(false);
-    const [gsAction, setGsAction] = useState("1");
-    const [gsDisplayCondition, setGsDisplayCondition] = useState("1");
+export default function GeneralSettings({ currentTemplate }) {
+    const [checkMobile, setCheckMobile] = useState(
+        currentTemplate.general_settings.checkMobile
+    );
+    const [checkDesktop, setCheckDesktop] = useState(
+        currentTemplate.general_settings.checkDesktop
+    );
+    const [gsAction, setGsAction] = useState(
+        currentTemplate.general_settings.gsAction
+    );
+    const [gsDisplayCondition, setGsDisplayCondition] = useState(
+        currentTemplate.general_settings.gsDisplayCondition
+    );
 
     /*DISPLAY SETTING START GENERAL SETTINGS*/
     const handlecheckboxMobile = useCallback(

@@ -1,13 +1,22 @@
 import { Badge, BlockStack, Card, Select, Text } from "@shopify/polaris";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Switch from "react-switch";
 import "../../css/index.css";
 import GeneralSettings from "./GeneralSettings";
 import NotificationBarSettings from "./NotificationBarSettings";
+import UpSellPopupSettings from "./UpSellPopupSettings";
+import HomePageSettings from "./HomePageSettings";
+import DesignSettings from "./DesignSettings";
 
 export default function StickyBarSettings(props) {
-    const [enable, setEnable] = useState(true);
-    const [defaultTemplate, setDefaultTemplate] = useState("2");
+    const [enable, setEnable] = useState(props.stickyBarData.enable);
+    const [defaultTemplate, setDefaultTemplate] = useState(
+        String(props.stickyBarData.defaultTemplate)
+    );
+    const [currentTemplate, setCurrentTemplate] = useState(
+        props.stickyBarData.current_template
+    );
+    console.log(currentTemplate);
 
     // Template options
     const templateOptions = [
@@ -29,42 +38,60 @@ export default function StickyBarSettings(props) {
     // HANDLE TEMPLATE CHANGE
     const handleChange = useCallback(
         (value) => {
-            var currentData;
             switch (value) {
                 case "1":
-                    currentData = props.stickyBarData.template_1;
+                    setCurrentTemplate(props.stickyBarData.template_1);
                     break;
                 case "2":
-                    currentData = props.stickyBarData.template_2;
+                    setCurrentTemplate(props.stickyBarData.template_2);
                     break;
                 case "3":
-                    currentData = props.stickyBarData.template_3;
+                    setCurrentTemplate(props.stickyBarData.template_3);
                     break;
                 case "4":
-                    currentData = props.stickyBarData.template_4;
+                    setCurrentTemplate(props.stickyBarData.template_4);
                     break;
                 case "5":
-                    currentData = props.stickyBarData.template_5;
+                    setCurrentTemplate(props.stickyBarData.template_5);
                     break;
                 case "6":
-                    currentData = props.stickyBarData.template_6;
+                    setCurrentTemplate(props.stickyBarData.template_6);
                     break;
                 case "7":
-                    currentData = props.stickyBarData.template_7;
+                    setCurrentTemplate(props.stickyBarData.template_7);
                     break;
                 case "8":
-                    currentData = props.stickyBarData.template_8;
+                    setCurrentTemplate(props.stickyBarData.template_8);
                     break;
 
                 default:
-                    currentData = props.stickyBarData.current_template;
+                    setCurrentTemplate(props.stickyBarData.current_template);
                     break;
             }
-            console.log("currentData");
-            console.log(currentData);
         },
         [props.stickyBarData]
     );
+
+    // HANDLE CALLBACK
+    const handleDataCallback = (data) => {
+        setCurrentTemplate(data);
+    };
+
+    // HANDLING STICKY BAR DATA START
+    var jsonData = {
+        ...props.stickyBarData,
+        enable: enable,
+        current_template: currentTemplate,
+        defaultTemplate: defaultTemplate,
+    };
+
+    useEffect(() => {
+        stickyDataCallBack();
+    }, [enable, defaultTemplate, currentTemplate]);
+
+    const stickyDataCallBack = useCallback(() => {
+        props.sbDataCallback(jsonData);
+    }, [jsonData]);
 
     return (
         <BlockStack gap="400">
@@ -100,7 +127,7 @@ export default function StickyBarSettings(props) {
             </Card> */}
 
             {/* Select Template */}
-            {/* <Card>
+            <Card>
                 <BlockStack gap="200">
                     <Text
                         variant="bodyLg"
@@ -121,13 +148,30 @@ export default function StickyBarSettings(props) {
                         labelHidden
                     />
                 </BlockStack>
-            </Card> */}
+            </Card>
 
             {/* General Settings */}
-            {/* <GeneralSettings /> */}
+            {/* <GeneralSettings currentTemplate={currentTemplate} /> */}
 
             {/* Notification Bar Settings */}
-            <NotificationBarSettings />
+            <NotificationBarSettings
+                currentTemplate={currentTemplate}
+                sbSettingDataCallback={handleDataCallback}
+            />
+
+            {/* UpSell Popup Settings */}
+            {/* <UpSellPopupSettings currentTemplate={currentTemplate} /> */}
+
+            {/* Home Page Settings */}
+            {/* <HomePageSettings currentTemplate={currentTemplate} /> */}
+
+            {/* Design Settings */}
+            {/* <DesignSettings
+                callback={() => {
+                    console.log("called ....");
+                }}
+                currentTemplate={currentTemplate}
+            /> */}
         </BlockStack>
     );
 }
