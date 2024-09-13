@@ -15,35 +15,95 @@ import React, { useCallback, useEffect, useState } from "react";
 import Switch from "react-switch";
 import "../../css/index.css";
 
-function DesignSettings(props) {
-    const [animationEnable, setAnimationEnable] = useState();
-    const [gsBgColor, setGsBgColor] = useState();
-    const [containerHeight, setContainerHeight] = useState();
-    const [gsOffsetValue, setGsOffsetValue] = useState();
-    const [position, setPosition] = useState();
-    const [gsTitleColor, setGsTitleColor] = useState();
-    const [gsFontsize, setGsFontsize] = useState();
-    const [gsBold, setGsBold] = useState();
-    const [gsItalic, setGsItalic] = useState();
-    const [gsUnderline, setGsUnderLine] = useState();
-    const [gsPriceFontsize, setGsPriceFontsize] = useState();
-    const [gsPriceColor, setGsPriceColor] = useState();
-    const [editText, setEditText] = useState();
-    const [unavailable, setUnavailable] = useState();
-    const [btnWidthValue, setBtnWidthValue] = useState();
-    const [btnheightValue, setBtnHeightValue] = useState();
-    const [btnFontsize, setBtnFontsize] = useState();
-    const [btnBorderThickness, setBtnBorderThickness] = useState();
-    const [btnBorderRadius, setBtnBorderRadius] = useState();
-    const [btnBold, setBtnBold] = useState();
-    const [btnItalic, setBtnItalic] = useState();
-    const [btnUnderline, setBtnUnderline] = useState();
-    const [btnTextColor, setBtnTextColor] = useState();
-    const [btnBgColor, setBtnBgColor] = useState();
-    const [btnTexthoverColor, setBtnTexthoverColor] = useState();
-    const [btnBgHoverColor, setBtnBgHoverColor] = useState();
-    const [btnBorderColor, setBtnBorderColor] = useState();
-    const [btnBorderHoverColor, setBtnBorderHoverColor] = useState();
+function DesignSettings({
+    animationEnableData,
+    currentTemplate,
+    designSettingsCallback,
+}) {
+    const [animationEnable, setAnimationEnable] = useState(animationEnableData);
+
+    const [gsBgColor, setGsBgColor] = useState(
+        currentTemplate.general_settings.gsBgColor
+    );
+    const [containerHeight, setContainerHeight] = useState(
+        currentTemplate.general_settings.containerHeight
+    );
+    const [gsOffsetValue, setGsOffsetValue] = useState(
+        currentTemplate.general_settings.gsOffsetValue
+    );
+    const [position, setPosition] = useState(
+        currentTemplate.general_settings.position
+    );
+    const [gsTitleColor, setGsTitleColor] = useState(
+        currentTemplate.general_settings.gsTitleColor
+    );
+    const [gsFontsize, setGsFontsize] = useState(
+        currentTemplate.general_settings.gsFontsize
+    );
+    const [gsBold, setGsBold] = useState(
+        currentTemplate.general_settings.gsBold
+    );
+    const [gsItalic, setGsItalic] = useState(
+        currentTemplate.general_settings.gsItalic
+    );
+    const [gsUnderline, setGsUnderLine] = useState(
+        currentTemplate.general_settings.gsUnderline
+    );
+    const [gsPriceFontsize, setGsPriceFontsize] = useState(
+        currentTemplate.general_settings.gsPriceFontsize
+    );
+    const [gsPriceColor, setGsPriceColor] = useState(
+        currentTemplate.general_settings.gsPriceColor
+    );
+
+    const [editText, setEditText] = useState(
+        currentTemplate.buy_btn_settings.editText
+    );
+    const [unavailable, setUnavailable] = useState(
+        currentTemplate.buy_btn_settings.unavailable
+    );
+    const [btnWidthValue, setBtnWidthValue] = useState(
+        currentTemplate.buy_btn_settings.btnWidthValue
+    );
+    const [btnheightValue, setBtnHeightValue] = useState(
+        currentTemplate.buy_btn_settings.btnheightValue
+    );
+    const [btnFontsize, setBtnFontsize] = useState(
+        currentTemplate.buy_btn_settings.btnFontsize
+    );
+    const [btnBorderThickness, setBtnBorderThickness] = useState(
+        currentTemplate.buy_btn_settings.btnBorderThickness
+    );
+    const [btnBorderRadius, setBtnBorderRadius] = useState(
+        currentTemplate.buy_btn_settings.btnBorderRadius
+    );
+    const [btnBold, setBtnBold] = useState(
+        currentTemplate.buy_btn_settings.btnBold
+    );
+    const [btnItalic, setBtnItalic] = useState(
+        currentTemplate.buy_btn_settings.btnItalic
+    );
+    const [btnUnderline, setBtnUnderline] = useState(
+        currentTemplate.buy_btn_settings.btnUnderline
+    );
+    const [btnTextColor, setBtnTextColor] = useState(
+        currentTemplate.buy_btn_settings.btnTextColor
+    );
+    const [btnBgColor, setBtnBgColor] = useState(
+        currentTemplate.buy_btn_settings.btnBgColor
+    );
+    const [btnTexthoverColor, setBtnTexthoverColor] = useState(
+        currentTemplate.buy_btn_settings.btnTexthoverColor
+    );
+    const [btnBgHoverColor, setBtnBgHoverColor] = useState(
+        currentTemplate.buy_btn_settings.btnBgHoverColor
+    );
+    const [btnBorderColor, setBtnBorderColor] = useState(
+        currentTemplate.buy_btn_settings.btnBorderColor
+    );
+    const [btnBorderHoverColor, setBtnBorderHoverColor] = useState(
+        currentTemplate.buy_btn_settings.btnBorderHoverColor
+    );
 
     // ANIMATION SWITCH LOGIC
     const handleSwitchChange = (checked) => {
@@ -184,41 +244,46 @@ function DesignSettings(props) {
     // COLOR CHANGE HANDLES END
     //BUY NOW BUTTON SETTINGS END
 
-    useEffect(() => {
-        setAnimationEnable(props.animationEnable);
-        setGsBgColor(props.gsBgColor);
-        setContainerHeight(props.containerHeight);
-        setGsOffsetValue(props.gsOffsetValue);
-        setPosition(props.position);
-        setGsTitleColor(props.gsTitleColor);
-        setGsFontsize(props.gsFontsize);
-        setGsBold(props.gsBold);
-        setGsItalic(props.gsItalic);
-        setGsUnderLine(props.gsUnderline);
-        setGsPriceFontsize(props.gsPriceFontsize);
-        setGsPriceColor(props.gsPriceColor);
-        setEditText(props.editText);
-        setUnavailable(props.unavailable);
-        setBtnWidthValue(props.btnWidthValue);
-        setBtnHeightValue(props.btnheightValue);
-        setBtnFontsize(props.btnFontsize);
-        setBtnBorderThickness(props.btnBorderThickness);
-        setBtnBorderRadius(props.btnBorderRadius);
-        setBtnBold(props.btnBold);
-        setBtnItalic(props.btnItalic);
-        setBtnUnderline(props.btnUnderline);
-        setBtnTextColor(props.btnTextColor);
-        setBtnBgColor(props.btnBgColor);
-        setBtnTexthoverColor(props.btnTexthoverColor);
-        setBtnBgHoverColor(props.btnBgHoverColor);
-        setBtnBorderColor(props.btnBorderColor);
-        setBtnBorderHoverColor(props.btnBorderHoverColor);
-    }, [props]);
+    // HANDLING MAIN JSON DATA START
+    var jsonData = {
+        general_settings: {
+            ...currentTemplate.general_settings,
+            gsBgColor: gsBgColor,
+            containerHeight: containerHeight,
+            gsOffsetValue: gsOffsetValue,
+            position: position,
+            gsTitleColor: gsTitleColor,
+            gsFontsize: gsFontsize,
+            gsBold: gsBold,
+            gsItalic: gsItalic,
+            gsUnderline: gsUnderline,
+            gsPriceFontsize: gsPriceFontsize,
+            gsPriceColor: gsPriceColor,
+        },
+        buy_btn_settings: {
+            ...currentTemplate.buy_btn_settings,
+            editText: editText,
+            unavailable: unavailable,
+            btnWidthValue: btnWidthValue,
+            btnheightValue: btnheightValue,
+            btnFontsize: btnFontsize,
+            btnBorderThickness: btnBorderThickness,
+            btnBorderRadius: btnBorderRadius,
+            btnBold: btnBold,
+            btnItalic: btnItalic,
+            btnUnderline: btnUnderline,
+            btnTextColor: btnTextColor,
+            btnBgColor: btnBgColor,
+            btnTexthoverColor: btnTexthoverColor,
+            btnBgHoverColor: btnBgHoverColor,
+            btnBorderColor: btnBorderColor,
+            btnBorderHoverColor: btnBorderHoverColor,
+        },
+    };
 
     useEffect(() => {
         callbackFunction();
     }, [
-        // IT WILL SEND LATEST DATA OF ALL STATES
         animationEnable,
         gsBgColor,
         containerHeight,
@@ -249,77 +314,47 @@ function DesignSettings(props) {
         btnBorderHoverColor,
     ]);
 
-    var transfer_data = {
-        general_settings: {
-            homePageProduct: props.homePageProduct,
-            checkMobile: props.checkMobile,
-            checkDesktop: props.checkDesktop,
-            gsAction: props.gsAction,
-            gsDisplayCondition: props.gsDisplayCondition,
-            gsNotificationBarText: props.gsNotificationBarText,
-            gsNotificationBarItalic: props.gsNotificationBarItalic,
-            gsNotificationBarBold: props.gsNotificationBarBold,
-            gsNotificationBarTextColor: props.gsNotificationBarTextColor,
-            gsNotificationBarBgColor: props.gsNotificationBarBgColor,
-            gsNotificationBarFontSize: props.gsNotificationBarFontSize,
-            gsNotificationBarHeight: props.gsNotificationBarHeight,
-            enableUpSell: props.enableUpSell,
-            CUPLSelection: props.CUPLSelection,
-            CUPLManualSelection: props.CUPLManualSelection,
-            SelectedCollectionID: props.SelectedCollectionID,
-            SelectedProductIDs: props.SelectedProductIDs,
-            CUHeadingText: props.CUHeadingText,
-            CUBuyBtnText: props.CUBuyBtnText,
-            CUHeadingFontSize: props.CUHeadingFontSize,
-            CUBodyFontSize: props.CUBodyFontSize,
-            CUBuyBtnFontSize: props.CUBuyBtnFontSize,
-            CUBackgroundColor: props.CUBackgroundColor,
-            CUHeadingBGColor: props.CUHeadingBGColor,
-            CUHeadingColor: props.CUHeadingColor,
-            CUBodyColor: props.CUBodyColor,
-            CUBodyTextColor: props.CUBodyTextColor,
-            CUBtnTextColor: props.CUBtnTextColor,
-            CUBtnBGColor: props.CUBtnBGColor,
-            CUBtnTextHoverColor: props.CUBtnTextHoverColor,
-            CUBtnBGHoverColor: props.CUBtnBGHoverColor,
-            CUBorderRadius: props.CUBorderRadius,
-            USPosition: props.USPosition,
-        },
-        design_settings: {
-            animationEnable: animationEnable,
-            gsBgColor: gsBgColor,
-            containerHeight: containerHeight,
-            gsOffsetValue: gsOffsetValue,
-            position: position,
-            gsTitleColor: gsTitleColor,
-            gsFontsize: gsFontsize,
-            gsBold: gsBold,
-            gsItalic: gsItalic,
-            gsUnderline: gsUnderline,
-            gsPriceFontsize: gsPriceFontsize,
-            gsPriceColor: gsPriceColor,
-            editText: editText,
-            unavailable: unavailable,
-            btnWidthValue: btnWidthValue,
-            btnheightValue: btnheightValue,
-            btnFontsize: btnFontsize,
-            btnBorderThickness: btnBorderThickness,
-            btnBorderRadius: btnBorderRadius,
-            btnBold: btnBold,
-            btnItalic: btnItalic,
-            btnUnderline: btnUnderline,
-            btnTextColor: btnTextColor,
-            btnBgColor: btnBgColor,
-            btnTexthoverColor: btnTexthoverColor,
-            btnBgHoverColor: btnBgHoverColor,
-            btnBorderColor: btnBorderColor,
-            btnBorderHoverColor: btnBorderHoverColor,
-        },
-    };
-
     const callbackFunction = useCallback(() => {
-        props.callback(transfer_data);
-    }, [transfer_data]);
+        designSettingsCallback(jsonData, animationEnable);
+    }, [jsonData, animationEnable]);
+    // HANDLING MAIN JSON DATA END
+
+    useEffect(() => {
+        setGsBgColor(currentTemplate.general_settings.gsBgColor);
+        setContainerHeight(currentTemplate.general_settings.containerHeight);
+        setGsOffsetValue(currentTemplate.general_settings.gsOffsetValue);
+        setPosition(currentTemplate.general_settings.position);
+        setGsTitleColor(currentTemplate.general_settings.gsTitleColor);
+        setGsFontsize(currentTemplate.general_settings.gsFontsize);
+        setGsBold(currentTemplate.general_settings.gsBold);
+        setGsItalic(currentTemplate.general_settings.gsItalic);
+        setGsUnderLine(currentTemplate.general_settings.gsUnderline);
+        setGsPriceFontsize(currentTemplate.general_settings.gsPriceFontsize);
+        setGsPriceColor(currentTemplate.general_settings.gsPriceColor);
+
+        setEditText(currentTemplate.buy_btn_settings.editText);
+        setUnavailable(currentTemplate.buy_btn_settings.unavailable);
+        setBtnWidthValue(currentTemplate.buy_btn_settings.btnWidthValue);
+        setBtnHeightValue(currentTemplate.buy_btn_settings.btnheightValue);
+        setBtnFontsize(currentTemplate.buy_btn_settings.btnFontsize);
+        setBtnBorderThickness(
+            currentTemplate.buy_btn_settings.btnBorderThickness
+        );
+        setBtnBorderRadius(currentTemplate.buy_btn_settings.btnBorderRadius);
+        setBtnBold(currentTemplate.buy_btn_settings.btnBold);
+        setBtnItalic(currentTemplate.buy_btn_settings.btnItalic);
+        setBtnUnderline(currentTemplate.buy_btn_settings.btnUnderline);
+        setBtnTextColor(currentTemplate.buy_btn_settings.btnTextColor);
+        setBtnBgColor(currentTemplate.buy_btn_settings.btnBgColor);
+        setBtnTexthoverColor(
+            currentTemplate.buy_btn_settings.btnTexthoverColor
+        );
+        setBtnBgHoverColor(currentTemplate.buy_btn_settings.btnBgHoverColor);
+        setBtnBorderColor(currentTemplate.buy_btn_settings.btnBorderColor);
+        setBtnBorderHoverColor(
+            currentTemplate.buy_btn_settings.btnBorderHoverColor
+        );
+    }, [currentTemplate]);
 
     return (
         <Card sectioned>

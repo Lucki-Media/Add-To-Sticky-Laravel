@@ -1,20 +1,28 @@
 import {
+    Badge,
     BlockStack,
     Card,
     Checkbox,
     Divider,
     FormLayout,
     InlineError,
+    InlineStack,
     RangeSlider,
     Text,
     TextField,
 } from "@shopify/polaris";
 import React, { useCallback, useEffect, useState } from "react";
+import newGif from "../../../../public/images/new.gif";
 
 export default function NotificationBarSettings({
     currentTemplate,
     sbSettingDataCallback,
 }) {
+    // disable state
+    const [disableState, setDisableState] = useState(
+        String(currentTemplate.general_settings.gsAction) !== "3"
+    );
+
     const [gsNotificationBarText, setGsNotificationBarText] = useState(
         currentTemplate.general_settings.gsNotificationBarText
     );
@@ -108,12 +116,54 @@ export default function NotificationBarSettings({
     }, [jsonData]);
     // HANDLING MAIN JSON DATA END
 
+    useEffect(() => {
+        setDisableState(
+            String(currentTemplate.general_settings.gsAction) !== "3"
+        );
+
+        setGsNotificationBarText(
+            currentTemplate.general_settings.gsNotificationBarText
+        );
+        setGsNotificationBarItalic(
+            currentTemplate.general_settings.gsNotificationBarItalic
+        );
+        setGsNotificationBarBold(
+            currentTemplate.general_settings.gsNotificationBarBold
+        );
+        setGsNotificationBarTextColor(
+            currentTemplate.general_settings.gsNotificationBarTextColor
+        );
+        setGsNotificationBarBgColor(
+            currentTemplate.general_settings.gsNotificationBarBgColor
+        );
+        setGsNotificationBarFontSize(
+            currentTemplate.general_settings.gsNotificationBarFontSize
+        );
+        setGsNotificationBarHeight(
+            currentTemplate.general_settings.gsNotificationBarHeight
+        );
+    }, [currentTemplate]);
+
     return (
         <Card sectioned>
             <BlockStack gap={200}>
-                <Text variant="headingLg" fontWeight="medium">
-                    Notification Bar Settings
-                </Text>
+                <InlineStack blockAlign="center" gap={200}>
+                    <Text variant="headingLg" fontWeight="medium">
+                        Notification Bar Settings
+                    </Text>
+                    <div style={{ margin: "auto 0" }}>
+                        <Badge
+                            tone={disableState ? "critical" : "success"}
+                            size="small"
+                        >
+                            {disableState ? "Disabled" : "Enabled"}
+                        </Badge>
+                    </div>
+                    <img
+                        src={newGif}
+                        style={{ width: 50, verticalAlign: "middle" }}
+                    />
+                </InlineStack>
                 <Text
                     variant="headingMd"
                     as="span"
@@ -149,6 +199,7 @@ export default function NotificationBarSettings({
                             id="gsNotificationBarText"
                             placeholder="Example: Yayy! Product Added to Cart!"
                             showCharacterCount
+                            disabled={disableState}
                         />
                         {(gsNotificationBarText == "" ||
                             gsNotificationBarText == null) && (
@@ -172,11 +223,13 @@ export default function NotificationBarSettings({
                         label="Bold"
                         checked={gsNotificationBarBold}
                         onChange={handleBold}
+                        disabled={disableState}
                     />
                     <Checkbox
                         label="Italic"
                         checked={gsNotificationBarItalic}
                         onChange={handleItalic}
+                        disabled={disableState}
                     />
                 </FormLayout.Group>
 
@@ -191,6 +244,12 @@ export default function NotificationBarSettings({
                                 type="color"
                                 value={gsNotificationBarTextColor}
                                 onChange={handleTextColor}
+                                disabled={disableState}
+                                style={{
+                                    cursor: disableState
+                                        ? "not-allowed"
+                                        : "pointer",
+                                }}
                             />
                         </div>
                     </div>
@@ -204,6 +263,12 @@ export default function NotificationBarSettings({
                                 type="color"
                                 value={gsNotificationBarBgColor}
                                 onChange={handleBgColor}
+                                disabled={disableState}
+                                style={{
+                                    cursor: disableState
+                                        ? "not-allowed"
+                                        : "pointer",
+                                }}
                             />
                         </div>
                     </div>
@@ -223,6 +288,7 @@ export default function NotificationBarSettings({
                             max={30}
                             onChange={handleFontSize}
                             output
+                            disabled={disableState}
                         />
                     </BlockStack>
 
@@ -238,6 +304,7 @@ export default function NotificationBarSettings({
                             max={20}
                             onChange={handleHeight}
                             output
+                            disabled={disableState}
                         />
                     </BlockStack>
                 </FormLayout.Group>

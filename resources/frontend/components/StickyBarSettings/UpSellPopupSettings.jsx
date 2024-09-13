@@ -11,38 +11,84 @@ import {
     Text,
     TextField,
 } from "@shopify/polaris";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "../../css/index.css";
 import Switch from "react-switch";
 import ProductListSelection from "../DrawerSettings/CartUpsellSettings/ProductListSelection";
+import newGif from "../../../../public/images/new.gif";
 
-export default function UpSellPopupSettings() {
-    const [enableUpSell, setEnableUpSell] = useState(true);
+export default function UpSellPopupSettings({
+    currentTemplate,
+    sbSettingDataCallback,
+}) {
+    const [enableUpSell, setEnableUpSell] = useState(
+        currentTemplate.general_settings.enableUpSell
+    );
 
     // PRODUCT LIST SELECTION STATES
-    const [CUPLSelection, setCUPLSelection] = useState();
-    const [CUPLManualSelection, setCUPLManualSelection] = useState();
-    const [SelectedCollectionID, setSelectedCollectionID] = useState();
-    const [SelectedProductIDs, setSelectedProductIDs] = useState();
+    const [CUPLSelection, setCUPLSelection] = useState(
+        currentTemplate.general_settings.CUPLSelection
+    );
+    const [CUPLManualSelection, setCUPLManualSelection] = useState(
+        currentTemplate.general_settings.CUPLManualSelection
+    );
+    const [SelectedCollectionID, setSelectedCollectionID] = useState(
+        currentTemplate.general_settings.SelectedCollectionID
+    );
+    const [SelectedProductIDs, setSelectedProductIDs] = useState(
+        currentTemplate.general_settings.SelectedProductIDs
+    );
 
-    const [CUHeadingText, setCUHeadingText] = useState("Hello");
-    const [CUBuyBtnText, setCUBuyBtnText] = useState("Buy");
-    const [USPosition, setUSPosition] = useState("right");
+    const [CUHeadingText, setCUHeadingText] = useState(
+        currentTemplate.general_settings.CUHeadingText
+    );
+    const [CUBuyBtnText, setCUBuyBtnText] = useState(
+        currentTemplate.general_settings.CUBuyBtnText
+    );
+    const [USPosition, setUSPosition] = useState(
+        currentTemplate.general_settings.USPosition
+    );
 
-    const [CUHeadingFontSize, setCUHeadingFontSize] = useState(20);
-    const [CUBodyFontSize, setCUBodyFontSize] = useState(14);
-    const [CUBuyBtnFontSize, setCUBuyBtnFontSize] = useState(14);
-    const [CUBorderRadius, setCUBorderRadius] = useState(8);
+    const [CUHeadingFontSize, setCUHeadingFontSize] = useState(
+        currentTemplate.general_settings.CUHeadingFontSize
+    );
+    const [CUBodyFontSize, setCUBodyFontSize] = useState(
+        currentTemplate.general_settings.CUBodyFontSize
+    );
+    const [CUBuyBtnFontSize, setCUBuyBtnFontSize] = useState(
+        currentTemplate.general_settings.CUBuyBtnFontSize
+    );
+    const [CUBorderRadius, setCUBorderRadius] = useState(
+        currentTemplate.general_settings.CUBorderRadius
+    );
 
-    const [CUBackgroundColor, setCUBackgroundColor] = useState("#000000");
-    const [CUHeadingBGColor, setCUHeadingBGColor] = useState("#ffffff");
-    const [CUHeadingColor, setCUHeadingColor] = useState("#ffffff");
-    const [CUBodyColor, setCUBodyColor] = useState("#DEDEDE");
-    const [CUBodyTextColor, setCUBodyTextColor] = useState("#000000");
-    const [CUBtnTextColor, setCUBtnTextColor] = useState("#000000");
-    const [CUBtnBGColor, setCUBtnBGColor] = useState("#ffffff");
-    const [CUBtnTextHoverColor, setCUBtnTextHoverColor] = useState("#000000");
-    const [CUBtnBGHoverColor, setCUBtnBGHoverColor] = useState("#ffffff");
+    const [CUBackgroundColor, setCUBackgroundColor] = useState(
+        currentTemplate.general_settings.CUBackgroundColor
+    );
+    const [CUHeadingBGColor, setCUHeadingBGColor] = useState(
+        currentTemplate.general_settings.CUHeadingBGColor
+    );
+    const [CUHeadingColor, setCUHeadingColor] = useState(
+        currentTemplate.general_settings.CUHeadingColor
+    );
+    const [CUBodyColor, setCUBodyColor] = useState(
+        currentTemplate.general_settings.CUBodyColor
+    );
+    const [CUBodyTextColor, setCUBodyTextColor] = useState(
+        currentTemplate.general_settings.CUBodyTextColor
+    );
+    const [CUBtnTextColor, setCUBtnTextColor] = useState(
+        currentTemplate.general_settings.CUBtnTextColor
+    );
+    const [CUBtnBGColor, setCUBtnBGColor] = useState(
+        currentTemplate.general_settings.CUBtnBGColor
+    );
+    const [CUBtnTextHoverColor, setCUBtnTextHoverColor] = useState(
+        currentTemplate.general_settings.CUBtnTextHoverColor
+    );
+    const [CUBtnBGHoverColor, setCUBtnBGHoverColor] = useState(
+        currentTemplate.general_settings.CUBtnBGHoverColor
+    );
 
     // SWITCH LOGIC
     const handleUpSellSwitchChange = (checked) => {
@@ -140,12 +186,119 @@ export default function UpSellPopupSettings() {
         setCUBtnBGHoverColor(event.target.value);
     };
 
+    // HANDLING MAIN JSON DATA START
+    var jsonData = {
+        buy_btn_settings: currentTemplate.buy_btn_settings,
+        general_settings: {
+            ...currentTemplate.general_settings,
+            enableUpSell: enableUpSell,
+            CUPLSelection: CUPLSelection,
+            CUPLManualSelection: CUPLManualSelection,
+            SelectedCollectionID: SelectedCollectionID,
+            SelectedProductIDs: SelectedProductIDs,
+            CUHeadingText: CUHeadingText,
+            CUBuyBtnText: CUBuyBtnText,
+            USPosition: USPosition,
+            CUHeadingFontSize: CUHeadingFontSize,
+            CUBodyFontSize: CUBodyFontSize,
+            CUBuyBtnFontSize: CUBuyBtnFontSize,
+            CUBorderRadius: CUBorderRadius,
+            CUBackgroundColor: CUBackgroundColor,
+            CUHeadingBGColor: CUHeadingBGColor,
+            CUHeadingColor: CUHeadingColor,
+            CUBodyColor: CUBodyColor,
+            CUBodyTextColor: CUBodyTextColor,
+            CUBtnTextColor: CUBtnTextColor,
+            CUBtnBGColor: CUBtnBGColor,
+            CUBtnTextHoverColor: CUBtnTextHoverColor,
+            CUBtnBGHoverColor: CUBtnBGHoverColor,
+        },
+    };
+
+    useEffect(() => {
+        callbackFunction();
+    }, [
+        enableUpSell,
+        CUPLSelection,
+        CUPLManualSelection,
+        SelectedCollectionID,
+        SelectedProductIDs,
+        CUHeadingText,
+        CUBuyBtnText,
+        USPosition,
+        CUHeadingFontSize,
+        CUBodyFontSize,
+        CUBuyBtnFontSize,
+        CUBorderRadius,
+        CUBackgroundColor,
+        CUHeadingBGColor,
+        CUHeadingColor,
+        CUBodyColor,
+        CUBodyTextColor,
+        CUBtnTextColor,
+        CUBtnBGColor,
+        CUBtnTextHoverColor,
+        CUBtnBGHoverColor,
+    ]);
+
+    const callbackFunction = useCallback(() => {
+        sbSettingDataCallback(jsonData);
+    }, [jsonData]);
+    // HANDLING MAIN JSON DATA END
+
+    useEffect(() => {
+        setEnableUpSell(currentTemplate.general_settings.enableUpSell);
+        setCUPLSelection(currentTemplate.general_settings.CUPLSelection);
+        setCUPLManualSelection(
+            currentTemplate.general_settings.CUPLManualSelection
+        );
+        setSelectedCollectionID(
+            currentTemplate.general_settings.SelectedCollectionID
+        );
+        setSelectedProductIDs(
+            currentTemplate.general_settings.SelectedProductIDs
+        );
+
+        setCUHeadingText(currentTemplate.general_settings.CUHeadingText);
+        setCUBuyBtnText(currentTemplate.general_settings.CUBuyBtnText);
+        setUSPosition(currentTemplate.general_settings.USPosition);
+
+        setCUHeadingFontSize(
+            currentTemplate.general_settings.CUHeadingFontSize
+        );
+        setCUBodyFontSize(currentTemplate.general_settings.CUBodyFontSize);
+        setCUBuyBtnFontSize(currentTemplate.general_settings.CUBuyBtnFontSize);
+        setCUBorderRadius(currentTemplate.general_settings.CUBorderRadius);
+
+        setCUBackgroundColor(
+            currentTemplate.general_settings.CUBackgroundColor
+        );
+        setCUHeadingBGColor(currentTemplate.general_settings.CUHeadingBGColor);
+        setCUHeadingColor(currentTemplate.general_settings.CUHeadingColor);
+        setCUBodyColor(currentTemplate.general_settings.CUBodyColor);
+        setCUBodyTextColor(currentTemplate.general_settings.CUBodyTextColor);
+        setCUBtnTextColor(currentTemplate.general_settings.CUBtnTextColor);
+        setCUBtnBGColor(currentTemplate.general_settings.CUBtnBGColor);
+        setCUBtnTextHoverColor(
+            currentTemplate.general_settings.CUBtnTextHoverColor
+        );
+        setCUBtnBGHoverColor(
+            currentTemplate.general_settings.CUBtnBGHoverColor
+        );
+    }, [currentTemplate]);
+
     return (
         <Card sectioned>
             <BlockStack gap={200}>
-                <Text variant="headingLg" fontWeight="medium">
-                    UpSell Popup Settings
-                </Text>
+                <InlineStack blockAlign="center" gap={200}>
+                    <Text variant="headingLg" fontWeight="medium">
+                        UpSell Popup Settings
+                    </Text>
+                    <img
+                        src={newGif}
+                        style={{ width: 50, verticalAlign: "middle" }}
+                    />
+                </InlineStack>
                 <Text
                     variant="headingMd"
                     as="span"
