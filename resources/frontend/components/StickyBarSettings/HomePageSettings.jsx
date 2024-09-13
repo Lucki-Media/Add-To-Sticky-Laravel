@@ -1,12 +1,23 @@
-import { Badge, BlockStack, Card, Divider, Text } from "@shopify/polaris";
-import React, { useState } from "react";
+import {
+    Badge,
+    BlockStack,
+    Card,
+    Divider,
+    InlineStack,
+    Text,
+} from "@shopify/polaris";
+import React, { useCallback, useEffect, useState } from "react";
 import Switch from "react-switch";
 import "../../css/index.css";
 import ProductSelection from "../ProductSelection/ProductSelection";
+import newGif from "../../../../public/images/new.gif";
 
-export default function HomePageSettings() {
+export default function HomePageSettings({
+    homePageProductData,
+    homePageDataCallback,
+}) {
     const [productSwitch, setProductSwitch] = useState(true);
-    const [homePageProduct, setHomePageProduct] = useState();
+    const [homePageProduct, setHomePageProduct] = useState(homePageProductData);
 
     // HOME PAGE PRODUCT SWITCH LOGIC
     const handleSwitchChange = (checked) => {
@@ -14,12 +25,28 @@ export default function HomePageSettings() {
         setHomePageProduct("");
     };
 
+    // HANDLING MAIN JSON DATA START
+    useEffect(() => {
+        callbackFunction();
+    }, [homePageProduct]);
+
+    const callbackFunction = useCallback(() => {
+        homePageDataCallback(homePageProduct);
+    }, [homePageProduct]);
+    // HANDLING MAIN JSON DATA END
+
     return (
         <Card sectioned>
             <BlockStack gap={200}>
-                <Text variant="headingLg" fontWeight="medium">
-                    Home Page Settings
-                </Text>
+                <InlineStack blockAlign="center" gap={200}>
+                    <Text variant="headingLg" fontWeight="medium">
+                        Home Page Settings
+                    </Text>
+                    <img
+                        src={newGif}
+                        style={{ width: 50, verticalAlign: "middle" }}
+                    />
+                </InlineStack>
             </BlockStack>
 
             <div style={{ margin: "15px 0" }}>

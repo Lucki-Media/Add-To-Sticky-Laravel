@@ -13,10 +13,15 @@ export default function StickyBarSettings(props) {
     const [defaultTemplate, setDefaultTemplate] = useState(
         String(props.stickyBarData.defaultTemplate)
     );
+    const [homePageProduct, setHomePageProduct] = useState(
+        props.stickyBarData.homePageProduct
+    );
     const [currentTemplate, setCurrentTemplate] = useState(
         props.stickyBarData.current_template
     );
-    console.log(currentTemplate);
+    const [animationEnable, setAnimationEnable] = useState(
+        props.stickyBarData.animationEnable
+    );
 
     // Template options
     const templateOptions = [
@@ -38,36 +43,37 @@ export default function StickyBarSettings(props) {
     // HANDLE TEMPLATE CHANGE
     const handleChange = useCallback(
         (value) => {
-            switch (value) {
+            let currentData;
+            switch (String(value)) {
                 case "1":
-                    setCurrentTemplate(props.stickyBarData.template_1);
+                    currentData = props.stickyBarData.template_1;
                     break;
                 case "2":
-                    setCurrentTemplate(props.stickyBarData.template_2);
+                    currentData = props.stickyBarData.template_2;
                     break;
                 case "3":
-                    setCurrentTemplate(props.stickyBarData.template_3);
+                    currentData = props.stickyBarData.template_3;
                     break;
                 case "4":
-                    setCurrentTemplate(props.stickyBarData.template_4);
+                    currentData = props.stickyBarData.template_4;
                     break;
                 case "5":
-                    setCurrentTemplate(props.stickyBarData.template_5);
+                    currentData = props.stickyBarData.template_5;
                     break;
                 case "6":
-                    setCurrentTemplate(props.stickyBarData.template_6);
+                    currentData = props.stickyBarData.template_6;
                     break;
                 case "7":
-                    setCurrentTemplate(props.stickyBarData.template_7);
+                    currentData = props.stickyBarData.template_7;
                     break;
                 case "8":
-                    setCurrentTemplate(props.stickyBarData.template_8);
+                    currentData = props.stickyBarData.template_8;
                     break;
-
                 default:
-                    setCurrentTemplate(props.stickyBarData.current_template);
+                    currentData = props.stickyBarData.current_template;
                     break;
             }
+            setCurrentTemplate(currentData);
         },
         [props.stickyBarData]
     );
@@ -77,17 +83,36 @@ export default function StickyBarSettings(props) {
         setCurrentTemplate(data);
     };
 
+    // HANDLE HOME PAGE DATA CALLBACK
+    const handleHomePageDataCallback = (data) => {
+        setHomePageProduct(data);
+    };
+
+    // HANDLE DESIGN DATA CALLBACK
+    const handleDesignSettingsCallback = (data, animationData) => {
+        setAnimationEnable(animationData);
+        setCurrentTemplate(data);
+    };
+
     // HANDLING STICKY BAR DATA START
     var jsonData = {
         ...props.stickyBarData,
         enable: enable,
         current_template: currentTemplate,
         defaultTemplate: defaultTemplate,
+        homePageProduct: homePageProduct,
+        animationEnable: animationEnable,
     };
 
     useEffect(() => {
         stickyDataCallBack();
-    }, [enable, defaultTemplate, currentTemplate]);
+    }, [
+        enable,
+        defaultTemplate,
+        currentTemplate,
+        homePageProduct,
+        animationEnable,
+    ]);
 
     const stickyDataCallBack = useCallback(() => {
         props.sbDataCallback(jsonData);
@@ -96,7 +121,7 @@ export default function StickyBarSettings(props) {
     return (
         <BlockStack gap="400">
             {/* Sticky Bar Enable */}
-            {/* <Card>
+            <Card>
                 <div className="setting_title">
                     <Text
                         variant="bodyLg"
@@ -124,7 +149,7 @@ export default function StickyBarSettings(props) {
                         checkedIcon={null}
                     />
                 </div>
-            </Card> */}
+            </Card>
 
             {/* Select Template */}
             <Card>
@@ -151,7 +176,10 @@ export default function StickyBarSettings(props) {
             </Card>
 
             {/* General Settings */}
-            {/* <GeneralSettings currentTemplate={currentTemplate} /> */}
+            <GeneralSettings
+                currentTemplate={currentTemplate}
+                sbSettingDataCallback={handleDataCallback}
+            />
 
             {/* Notification Bar Settings */}
             <NotificationBarSettings
@@ -160,18 +188,23 @@ export default function StickyBarSettings(props) {
             />
 
             {/* UpSell Popup Settings */}
-            {/* <UpSellPopupSettings currentTemplate={currentTemplate} /> */}
+            <UpSellPopupSettings
+                currentTemplate={currentTemplate}
+                sbSettingDataCallback={handleDataCallback}
+            />
 
             {/* Home Page Settings */}
-            {/* <HomePageSettings currentTemplate={currentTemplate} /> */}
+            <HomePageSettings
+                homePageProductData={homePageProduct}
+                homePageDataCallback={handleHomePageDataCallback}
+            />
 
             {/* Design Settings */}
-            {/* <DesignSettings
-                callback={() => {
-                    console.log("called ....");
-                }}
+            <DesignSettings
+                animationEnableData={animationEnable}
                 currentTemplate={currentTemplate}
-            /> */}
+                designSettingsCallback={handleDesignSettingsCallback}
+            />
         </BlockStack>
     );
 }

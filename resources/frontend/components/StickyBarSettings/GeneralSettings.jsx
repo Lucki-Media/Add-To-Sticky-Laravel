@@ -7,9 +7,12 @@ import {
     Select,
     Text,
 } from "@shopify/polaris";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
-export default function GeneralSettings({ currentTemplate }) {
+export default function GeneralSettings({
+    currentTemplate,
+    sbSettingDataCallback,
+}) {
     const [checkMobile, setCheckMobile] = useState(
         currentTemplate.general_settings.checkMobile
     );
@@ -58,6 +61,36 @@ export default function GeneralSettings({ currentTemplate }) {
             value: "3",
         },
     ];
+
+    // HANDLING MAIN JSON DATA START
+    var jsonData = {
+        buy_btn_settings: currentTemplate.buy_btn_settings,
+        general_settings: {
+            ...currentTemplate.general_settings,
+            checkMobile: checkMobile,
+            checkDesktop: checkDesktop,
+            gsAction: gsAction,
+            gsDisplayCondition: gsDisplayCondition,
+        },
+    };
+
+    useEffect(() => {
+        callbackFunction();
+    }, [checkMobile, checkDesktop, gsAction, gsDisplayCondition]);
+
+    const callbackFunction = useCallback(() => {
+        sbSettingDataCallback(jsonData);
+    }, [jsonData]);
+    // HANDLING MAIN JSON DATA END
+
+    useEffect(() => {
+        setCheckMobile(currentTemplate.general_settings.checkMobile);
+        setCheckDesktop(currentTemplate.general_settings.checkDesktop);
+        setGsAction(currentTemplate.general_settings.gsAction);
+        setGsDisplayCondition(
+            currentTemplate.general_settings.gsDisplayCondition
+        );
+    }, [currentTemplate]);
 
     return (
         <Card sectioned>

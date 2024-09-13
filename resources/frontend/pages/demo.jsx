@@ -18,12 +18,17 @@ import {
 } from "@shopify/polaris";
 import StickyBarSettings from "../components/StickyBarSettings/StickyBarSettings";
 import StickyBarPreview from "../components/Preview/StickyBarPreview";
+import isEqual from "lodash/isEqual";
 
 export default function AddToCartSticky() {
     // Getting Shop Domain
     const shop_url = document.getElementById("shopOrigin").value;
 
     const [unsavedChanges, setUnsavedChanges] = useState(true);
+    const [APIresponse, setAPIresponse] = useState([]);
+
+     // Device selection states
+     const [selectedDevice, setSelectedDevice] = useState(0);
 
     // loading states
     const [showTable, setShowTable] = useState(false);
@@ -64,7 +69,6 @@ export default function AddToCartSticky() {
     const handleSBDataCallback = (data) => {
         setStickyBarData(data);
     };
-console.log(stickyBarData);
 
     // USE EFFECT
     useEffect(() => {
@@ -81,6 +85,7 @@ console.log(stickyBarData);
 
             // Stickybar data
             setStickyBarData(data.data);
+            setAPIresponse(data.data);
 
             setShowTable(true);
             setSaveLoader(true);
@@ -91,8 +96,72 @@ console.log(stickyBarData);
 
     // SAVE API
     let handleSave = async () => {
-        console.log(123);
+        try {
+            setSaveLoader(false);
+
+            // set changed details for particular selected template
+            switch (String(stickyBarData.defaultTemplate)) {
+                case "1":
+                    stickyBarData.template_1 = stickyBarData.current_template;
+                    break;
+                case "2":
+                    stickyBarData.template_2 = stickyBarData.current_template;
+                    break;
+                case "3":
+                    stickyBarData.template_3 = stickyBarData.current_template;
+                    break;
+                case "4":
+                    stickyBarData.template_4 = stickyBarData.current_template;
+                    break;
+                case "5":
+                    stickyBarData.template_5 = stickyBarData.current_template;
+                    break;
+                case "6":
+                    stickyBarData.template_6 = stickyBarData.current_template;
+                    break;
+                case "7":
+                    stickyBarData.template_7 = stickyBarData.current_template;
+                    break;
+                case "8":
+                    stickyBarData.template_8 = stickyBarData.current_template;
+                    break;
+                default:
+                    stickyBarData.current_template =
+                        stickyBarData.current_template;
+                    break;
+            }
+
+            // Call Save API
+            let response = await axios.post(
+                "/api/saveAddToStickyCartData",
+                stickyBarData
+            );
+            if (response.data.status == true) {
+                setStickyBarData(response.data.data);
+                setAPIresponse(response.data.data);
+
+                setSaveLoader(true);
+                getAddToStickyCartData();
+                setToastContent(response.data.message);
+                toggleActive();
+                setUnsavedChanges(true);
+            } else {
+                setToastContent1(response.data.message);
+                toggleActive1();
+            }
+        } catch (err) {
+            console.log(err);
+        }
     };
+
+    const handleShowSettings = (activePreview) => {
+        setShowSettings(activePreview);
+    };
+
+    // SAVE BUTTON LOGIC
+    useEffect(() => {
+        setUnsavedChanges(isEqual(stickyBarData, APIresponse));
+    }, [stickyBarData, APIresponse]);
 
     if (showTable === false) {
         return (
@@ -192,7 +261,14 @@ console.log(stickyBarData);
                                         />
                                     </Layout.Section>
                                     <Layout.Section>
-                                        <StickyBarPreview />
+                                        <StickyBarPreview 
+                                        stickyBarData={stickyBarData}
+                                        selectedDevice={selectedDevice}
+                                        selectedDeviceCallback={(e) => {
+                                            setSelectedDevice(e);
+                                        }}
+
+                                        />
                                     </Layout.Section>
                                 </Layout>
                             </div>
