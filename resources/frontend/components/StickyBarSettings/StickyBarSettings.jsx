@@ -9,18 +9,20 @@ import HomePageSettings from "./HomePageSettings";
 import DesignSettings from "./DesignSettings";
 
 export default function StickyBarSettings(props) {
-    const [enable, setEnable] = useState(props.stickyBarData.enable);
+    console.log(props.stickyBarData);
+
+    const [enable, setEnable] = useState(props.stickyBarData.enable ?? false);
     const [defaultTemplate, setDefaultTemplate] = useState(
-        String(props.stickyBarData.defaultTemplate)
+        String(props.stickyBarData.defaultTemplate) ?? "2"
     );
     const [homePageProduct, setHomePageProduct] = useState(
-        props.stickyBarData.homePageProduct
+        props.stickyBarData.homePageProduct ?? ""
     );
     const [currentTemplate, setCurrentTemplate] = useState(
-        props.stickyBarData.current_template
+        props?.stickyBarData?.current_template
     );
     const [animationEnable, setAnimationEnable] = useState(
-        props.stickyBarData.animationEnable
+        props.stickyBarData.animationEnable ?? false
     );
 
     // Template options
