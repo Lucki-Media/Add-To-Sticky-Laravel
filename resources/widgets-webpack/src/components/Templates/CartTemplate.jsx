@@ -149,8 +149,12 @@ export default function CartTemplate1(props) {
 
     function updateCartDrawer(cartCount) {
         // Update the cart item count (example)
-        document.querySelector(".cart-count-bubble").textContent = cartCount;
-        document.querySelector(".sticky_Count").textContent = cartCount;
+
+        if (cartCount !== 0) {
+            document.querySelector(".cart-count-bubble").textContent =
+                cartCount;
+            document.querySelector(".sticky_Count").textContent = cartCount;
+        }
     }
 
     let handleAddProduct = async () => {
