@@ -34,9 +34,22 @@ const UpSellBottomSheet = (props) => {
             .get("https://" + window.location.host + "/cart.json")
             .then((response) => {
                 setCartData(response.data);
+
                 setNumberCount(response.data.item_count);
+                if (response.data.item_count < 0) {
+                    updateCartDrawer(response.data.item_count);
+                }
             });
     };
+    function updateCartDrawer(cartCount) {
+        // Update the cart item count (example)
+
+        if (cartCount !== 0) {
+            document.querySelector(".cart-count-bubble").textContent =
+                cartCount;
+            document.querySelector(".sticky_Count").textContent = cartCount;
+        }
+    }
 
     useEffect(() => {
         setOpen(props.enableUpSell);
