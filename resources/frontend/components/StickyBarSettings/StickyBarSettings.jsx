@@ -1,11 +1,27 @@
 import { Badge, BlockStack, Card, Select, Text } from "@shopify/polaris";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Switch from "react-switch";
 import "../../css/index.css";
+import GeneralSettings from "./GeneralSettings";
+import NotificationBarSettings from "./NotificationBarSettings";
+import UpSellPopupSettings from "./UpSellPopupSettings";
+import HomePageSettings from "./HomePageSettings";
+import DesignSettings from "./DesignSettings";
 
 export default function StickyBarSettings(props) {
-    const [enable, setEnable] = useState(true);
-    const [defaultTemplate, setDefaultTemplate] = useState("2");
+    const [enable, setEnable] = useState(props.stickyBarData.enable);
+    const [defaultTemplate, setDefaultTemplate] = useState(
+        String(props.stickyBarData.defaultTemplate)
+    );
+    const [homePageProduct, setHomePageProduct] = useState(
+        props.stickyBarData.homePageProduct
+    );
+    const [currentTemplate, setCurrentTemplate] = useState(
+        props.stickyBarData.current_template
+    );
+    const [animationEnable, setAnimationEnable] = useState(
+        props.stickyBarData.animationEnable
+    );
 
     // Template options
     const templateOptions = [
@@ -27,8 +43,8 @@ export default function StickyBarSettings(props) {
     // HANDLE TEMPLATE CHANGE
     const handleChange = useCallback(
         (value) => {
-            var currentData;
-            switch (value) {
+            let currentData;
+            switch (String(value)) {
                 case "1":
                     currentData = props.stickyBarData.template_1;
                     break;
@@ -53,16 +69,54 @@ export default function StickyBarSettings(props) {
                 case "8":
                     currentData = props.stickyBarData.template_8;
                     break;
-
                 default:
                     currentData = props.stickyBarData.current_template;
                     break;
             }
-            console.log("currentData");
-            console.log(currentData);
+            setCurrentTemplate(currentData);
         },
         [props.stickyBarData]
     );
+
+    // HANDLE CALLBACK
+    const handleDataCallback = (data) => {
+        setCurrentTemplate(data);
+    };
+
+    // HANDLE HOME PAGE DATA CALLBACK
+    const handleHomePageDataCallback = (data) => {
+        setHomePageProduct(data);
+    };
+
+    // HANDLE DESIGN DATA CALLBACK
+    const handleDesignSettingsCallback = (data, animationData) => {
+        setAnimationEnable(animationData);
+        setCurrentTemplate(data);
+    };
+
+    // HANDLING STICKY BAR DATA START
+    var jsonData = {
+        ...props.stickyBarData,
+        enable: enable,
+        current_template: currentTemplate,
+        defaultTemplate: defaultTemplate,
+        homePageProduct: homePageProduct,
+        animationEnable: animationEnable,
+    };
+
+    useEffect(() => {
+        stickyDataCallBack();
+    }, [
+        enable,
+        defaultTemplate,
+        currentTemplate,
+        homePageProduct,
+        animationEnable,
+    ]);
+
+    const stickyDataCallBack = useCallback(() => {
+        props.sbDataCallback(jsonData);
+    }, [jsonData]);
 
     return (
         <BlockStack gap="400">
@@ -120,6 +174,37 @@ export default function StickyBarSettings(props) {
                     />
                 </BlockStack>
             </Card>
+
+            {/* General Settings */}
+            <GeneralSettings
+                currentTemplate={currentTemplate}
+                sbSettingDataCallback={handleDataCallback}
+            />
+
+            {/* Notification Bar Settings */}
+            <NotificationBarSettings
+                currentTemplate={currentTemplate}
+                sbSettingDataCallback={handleDataCallback}
+            />
+
+            {/* UpSell Popup Settings */}
+            <UpSellPopupSettings
+                currentTemplate={currentTemplate}
+                sbSettingDataCallback={handleDataCallback}
+            />
+
+            {/* Home Page Settings */}
+            <HomePageSettings
+                homePageProductData={homePageProduct}
+                homePageDataCallback={handleHomePageDataCallback}
+            />
+
+            {/* Design Settings */}
+            <DesignSettings
+                animationEnableData={animationEnable}
+                currentTemplate={currentTemplate}
+                designSettingsCallback={handleDesignSettingsCallback}
+            />
         </BlockStack>
     );
 }

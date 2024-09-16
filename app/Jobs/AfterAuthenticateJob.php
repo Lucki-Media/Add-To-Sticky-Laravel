@@ -103,7 +103,7 @@ class AfterAuthenticateJob implements ShouldQueue
             'enable' => '0',
             'homePageProduct' => '',
             'animationEnable' => '1',
-            'defaultTemplate' => 2,
+            'defaultTemplate' => '2',
             'current_template' => $template_2,
             'template_1' => $template_1,
             'template_2' => $template_2,

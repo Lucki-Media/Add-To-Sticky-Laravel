@@ -35,7 +35,6 @@ export default function StickyCartPreview(props) {
         {
             id: "desktop",
             content: <Icon source={DesktopIcon} tone="primary" />,
-            accessibilityLabel: "All customers",
             panelID: "desktop",
         },
         {

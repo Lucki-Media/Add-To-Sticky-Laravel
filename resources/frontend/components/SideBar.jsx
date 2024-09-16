@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DesignSettings from "./DesignSettings/DesignSettings";
+import DesignSettings from "./StickyBarSettings/DesignSettings";
 import GeneralSettings from "./GeneralSettings/GeneralSettings";
 import { Badge, BlockStack, Button, Card } from "@shopify/polaris";
 import "../css/index.css";
