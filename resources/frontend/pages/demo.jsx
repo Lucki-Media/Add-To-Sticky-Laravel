@@ -27,8 +27,8 @@ export default function AddToCartSticky() {
     const [unsavedChanges, setUnsavedChanges] = useState(true);
     const [APIresponse, setAPIresponse] = useState([]);
 
-     // Device selection states
-     const [selectedDevice, setSelectedDevice] = useState(0);
+    // Device selection states
+    const [selectedDevice, setSelectedDevice] = useState(0);
 
     // loading states
     const [showTable, setShowTable] = useState(false);
@@ -261,13 +261,12 @@ export default function AddToCartSticky() {
                                         />
                                     </Layout.Section>
                                     <Layout.Section>
-                                        <StickyBarPreview 
-                                        stickyBarData={stickyBarData}
-                                        selectedDevice={selectedDevice}
-                                        selectedDeviceCallback={(e) => {
-                                            setSelectedDevice(e);
-                                        }}
-
+                                        <StickyBarPreview
+                                            stickyBarData={stickyBarData}
+                                            selectedDevice={selectedDevice}
+                                            selectedDeviceCallback={(e) => {
+                                                setSelectedDevice(e);
+                                            }}
                                         />
                                     </Layout.Section>
                                 </Layout>

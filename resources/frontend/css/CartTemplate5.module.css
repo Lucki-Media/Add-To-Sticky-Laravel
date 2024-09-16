@@ -152,10 +152,10 @@
 }
 
 @media screen and (max-width: 1400px) {
-    .lm_sticky_cart {
+    /* .lm_sticky_cart {
         height: auto !important;
         padding: 10px 0;
-    }
+    } */
 
     /* .lm_cart_module{
      flex-direction: column;

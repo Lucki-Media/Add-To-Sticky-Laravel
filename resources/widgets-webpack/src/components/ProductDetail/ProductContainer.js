@@ -74,77 +74,61 @@ const ProductContainer = (props) => {
         return (
             <>
                 <div>
-                    {templateData.defaultTemplate === 1 ? (
+                    {String(templateData.defaultTemplate) === "1" && (
                         <CartTemplate1
                             product={productData}
                             productImage={productImage}
                             templateData={templateData}
                         />
-                    ) : (
-                        ""
                     )}
-                    {templateData.defaultTemplate === 2 ? (
+                    {String(templateData.defaultTemplate) === "2" && (
                         <CartTemplate2
                             product={productData}
                             productImage={productImage}
                             templateData={templateData}
                         />
-                    ) : (
-                        ""
                     )}
-                    {templateData.defaultTemplate === 3 ? (
+                    {String(templateData.defaultTemplate) === "3" && (
                         <CartTemplate3
                             product={productData}
                             productImage={productImage}
                             templateData={templateData}
                         />
-                    ) : (
-                        ""
                     )}
-                    {templateData.defaultTemplate === 4 ? (
+                    {String(templateData.defaultTemplate) === "4" && (
                         <CartTemplate4
                             product={productData}
                             productImage={productImage}
                             templateData={templateData}
                         />
-                    ) : (
-                        ""
                     )}
-                    {templateData.defaultTemplate === 5 ? (
+                    {String(templateData.defaultTemplate) === "5" && (
                         <CartTemplate5
                             product={productData}
                             productImage={productImage}
                             templateData={templateData}
                         />
-                    ) : (
-                        ""
                     )}
-                    {templateData.defaultTemplate === 6 ? (
+                    {String(templateData.defaultTemplate) === "6" && (
                         <CartTemplate6
                             product={productData}
                             productImage={productImage}
                             templateData={templateData}
                         />
-                    ) : (
-                        ""
                     )}
-                    {templateData.defaultTemplate === 7 ? (
+                    {String(templateData.defaultTemplate) === "7" && (
                         <CartTemplate7
                             product={productData}
                             productImage={productImage}
                             templateData={templateData}
                         />
-                    ) : (
-                        ""
                     )}
-                    {templateData.defaultTemplate === 8 ? (
+                    {String(templateData.defaultTemplate) === "8" && (
                         <CartTemplate8
                             product={productData}
                             productImage={productImage}
                             templateData={templateData}
                         />
-                    ) : (
-                        ""
                     )}
                 </div>
             </>

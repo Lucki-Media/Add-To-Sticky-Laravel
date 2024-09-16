@@ -16,6 +16,7 @@ import "../../css/index.css";
 import Switch from "react-switch";
 import ProductListSelection from "../DrawerSettings/CartUpsellSettings/ProductListSelection";
 import newGif from "../../../../public/images/new.gif";
+import { MagicIcon } from "@shopify/polaris-icons";
 
 export default function UpSellPopupSettings({
     currentTemplate,
@@ -294,6 +295,9 @@ export default function UpSellPopupSettings({
                     <Text variant="headingLg" fontWeight="medium">
                         UpSell Popup Settings
                     </Text>
+                    <Badge tone="info-strong" icon={MagicIcon}>
+                        Premium
+                    </Badge>
                     <img
                         src={newGif}
                         style={{ width: 50, verticalAlign: "middle" }}
@@ -307,7 +311,7 @@ export default function UpSellPopupSettings({
                 >
                     (<strong>Note:</strong> You can utilize this feature only if
                     you have selected "Stay on Same Page" for Button Action
-                    onclick.)
+                    onclick and activated the premium plan.)
                 </Text>
             </BlockStack>
 

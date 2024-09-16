@@ -9,6 +9,8 @@ import {
 } from "@shopify/polaris";
 import React, { useCallback } from "react";
 import { DesktopIcon, MobileIcon } from "@shopify/polaris-icons";
+import DesktopPreview from "./StickyBar/DesktopPreview";
+import MobilePreview from "./StickyBar/MobilePreview";
 
 export default function StickyBarPreview({
     stickyBarData,
@@ -69,10 +71,12 @@ export default function StickyBarPreview({
                     {/* Preview Section  */}
                     <Box>
                         {/* If desktop preview is selected */}
-                        {selectedDevice === 0 && "DesktopPreview"}
+                        {selectedDevice === 0 && (
+                            <DesktopPreview stickyBarData={stickyBarData} />
+                        )}
 
                         {/* If mobile preview is selected */}
-                        {selectedDevice === 1 && "MobilePreview"}
+                        {selectedDevice === 1 && <MobilePreview />}
                     </Box>
                 </BlockStack>
             </Card>
