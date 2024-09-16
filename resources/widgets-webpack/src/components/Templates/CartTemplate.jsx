@@ -86,6 +86,7 @@ export default function CartTemplate1(props) {
     const [showContainer, setShowContainer] = useState(false);
     const [showNotificationBar, setShowNotificationBar] = useState(false);
     const [showUpsellPopup, setShowUpSellPopup] = useState(false);
+    const [activePlan, setActivePlan] = useState(1);
 
     const [loading, setLoading] = useState(false);
     const [selectedVariant, setSelectedVariant] = useState(
@@ -143,7 +144,10 @@ export default function CartTemplate1(props) {
         axios
             .get("https://" + window.location.host + "/cart.json")
             .then((response) => {
-                updateCartDrawer(response.data.item_count);
+                if (response.data.item_count < 0) {
+                    console.log("Cart greater than 0");
+                    updateCartDrawer(response.data.item_count);
+                }
             });
     };
 
@@ -205,6 +209,27 @@ export default function CartTemplate1(props) {
             } catch (error) {
                 console.log();
             }
+        }
+    };
+
+    useEffect(() => {
+        getPlanData();
+    }, [activePlan]);
+
+    // API CALL TO GET PLAN DATA
+    const getPlanData = async () => {
+        try {
+            const response = await fetch(
+                `${process.env.REACT_APP_API_URL}` +
+                    "getPlanData/" +
+                    window.Shopify.shop
+            );
+            const data = await response.json();
+            // console.log("data");
+            // console.log(data);
+            setActivePlan(data.data);
+        } catch (err) {
+            console.log(err);
         }
     };
 
@@ -758,6 +783,7 @@ export default function CartTemplate1(props) {
                     )}
 
                     {gsAction === "3" &&
+                        activePlan === 2 &&
                         enableUpSell === true &&
                         showUpsellPopup === true && (
                             <UpSellBottomSheet

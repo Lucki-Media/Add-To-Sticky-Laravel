@@ -86,6 +86,8 @@ export default function CartTemplate2(props) {
     const [showContainer, setShowContainer] = useState(false);
     const [showUpsellPopup, setShowUpSellPopup] = useState(false);
     const [showNotificationBar, setShowNotificationBar] = useState(false);
+    const [activePlan, setActivePlan] = useState(1);
+
     const [loading, setLoading] = useState(false);
     // console.log(props.templateData);
     const [selectedVariant, setSelectedVariant] = useState(
@@ -201,6 +203,26 @@ export default function CartTemplate2(props) {
             } catch (error) {
                 console.log();
             }
+        }
+    };
+    useEffect(() => {
+        getPlanData();
+    }, [activePlan]);
+
+    // API CALL TO GET PLAN DATA
+    const getPlanData = async () => {
+        try {
+            const response = await fetch(
+                `${process.env.REACT_APP_API_URL}` +
+                    "getPlanData/" +
+                    window.Shopify.shop
+            );
+            const data = await response.json();
+            // console.log("data");
+            // console.log(data);
+            setActivePlan(data.data);
+        } catch (err) {
+            console.log(err);
         }
     };
     useEffect(() => {
@@ -756,6 +778,7 @@ export default function CartTemplate2(props) {
                         ""
                     )}
                     {gsAction === "3" &&
+                        activePlan === 2 &&
                         enableUpSell === true &&
                         showUpsellPopup === true && (
                             <UpSellBottomSheet

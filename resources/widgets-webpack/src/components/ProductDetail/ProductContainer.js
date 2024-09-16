@@ -50,7 +50,6 @@ const ProductContainer = (props) => {
                     window.Shopify.shop
             );
             const data = await response.json();
-            // console.log(data.data);
             setTemplateData(data.data);
         } catch (err) {
             console.log(err);
@@ -74,7 +73,7 @@ const ProductContainer = (props) => {
         return (
             <>
                 <div>
-                    {templateData.defaultTemplate === 1 ? (
+                    {templateData.defaultTemplate === "1" ? (
                         <CartTemplate1
                             product={productData}
                             productImage={productImage}
@@ -83,7 +82,7 @@ const ProductContainer = (props) => {
                     ) : (
                         ""
                     )}
-                    {templateData.defaultTemplate === 2 ? (
+                    {templateData.defaultTemplate === "2" ? (
                         <CartTemplate2
                             product={productData}
                             productImage={productImage}
@@ -92,7 +91,7 @@ const ProductContainer = (props) => {
                     ) : (
                         ""
                     )}
-                    {templateData.defaultTemplate === 3 ? (
+                    {templateData.defaultTemplate === "3" ? (
                         <CartTemplate3
                             product={productData}
                             productImage={productImage}
@@ -101,7 +100,7 @@ const ProductContainer = (props) => {
                     ) : (
                         ""
                     )}
-                    {templateData.defaultTemplate === 4 ? (
+                    {templateData.defaultTemplate === "4" ? (
                         <CartTemplate4
                             product={productData}
                             productImage={productImage}
@@ -110,7 +109,7 @@ const ProductContainer = (props) => {
                     ) : (
                         ""
                     )}
-                    {templateData.defaultTemplate === 5 ? (
+                    {templateData.defaultTemplate === "5" ? (
                         <CartTemplate5
                             product={productData}
                             productImage={productImage}
@@ -119,7 +118,7 @@ const ProductContainer = (props) => {
                     ) : (
                         ""
                     )}
-                    {templateData.defaultTemplate === 6 ? (
+                    {templateData.defaultTemplate === "6" ? (
                         <CartTemplate6
                             product={productData}
                             productImage={productImage}
@@ -128,7 +127,7 @@ const ProductContainer = (props) => {
                     ) : (
                         ""
                     )}
-                    {templateData.defaultTemplate === 7 ? (
+                    {templateData.defaultTemplate === "7" ? (
                         <CartTemplate7
                             product={productData}
                             productImage={productImage}
@@ -137,7 +136,7 @@ const ProductContainer = (props) => {
                     ) : (
                         ""
                     )}
-                    {templateData.defaultTemplate === 8 ? (
+                    {templateData.defaultTemplate === "8" ? (
                         <CartTemplate8
                             product={productData}
                             productImage={productImage}
