@@ -11,71 +11,109 @@ import {
     Text,
     TextField,
 } from "@shopify/polaris";
-import FontPicker from "font-picker-react";
 import React, { useCallback, useEffect, useState } from "react";
 import Switch from "react-switch";
 import "../../css/index.css";
 
-function DesignSettings(props) {
-    const [gsFontFamily, setGsFontFamily] = useState(props.gsFontFamily);
-    const [animationEnable, setAnimationEnable] = useState(
-        props.animationEnable
+function DesignSettings({
+    animationEnableData,
+    currentTemplate,
+    designSettingsCallback,
+}) {
+    const [animationEnable, setAnimationEnable] = useState(animationEnableData);
+
+    const [gsBgColor, setGsBgColor] = useState(
+        currentTemplate.general_settings.gsBgColor
     );
-    const [gsBgColor, setGsBgColor] = useState(props.gsBgColor);
     const [containerHeight, setContainerHeight] = useState(
-        props.containerHeight
+        currentTemplate.general_settings.containerHeight
     );
-    const [gsOffsetValue, setGsOffsetValue] = useState(props.gsOffsetValue);
-    const [position, setPosition] = useState(props.position);
-    const [gsTitleColor, setGsTitleColor] = useState(props.gsTitleColor);
-    const [gsFontsize, setGsFontsize] = useState(props.gsFontsize);
-    const [gsBold, setGsBold] = useState(props.gsBold);
-    const [gsItalic, setGsItalic] = useState(props.gsItalic);
-    const [gsUnderline, setGsUnderLine] = useState(props.gsUnderline);
+    const [gsOffsetValue, setGsOffsetValue] = useState(
+        currentTemplate.general_settings.gsOffsetValue
+    );
+    const [position, setPosition] = useState(
+        currentTemplate.general_settings.position
+    );
+    const [gsTitleColor, setGsTitleColor] = useState(
+        currentTemplate.general_settings.gsTitleColor
+    );
+    const [gsFontsize, setGsFontsize] = useState(
+        currentTemplate.general_settings.gsFontsize
+    );
+    const [gsBold, setGsBold] = useState(
+        currentTemplate.general_settings.gsBold
+    );
+    const [gsItalic, setGsItalic] = useState(
+        currentTemplate.general_settings.gsItalic
+    );
+    const [gsUnderline, setGsUnderLine] = useState(
+        currentTemplate.general_settings.gsUnderline
+    );
     const [gsPriceFontsize, setGsPriceFontsize] = useState(
-        props.gsPriceFontsize
+        currentTemplate.general_settings.gsPriceFontsize
     );
-    const [gsPriceColor, setGsPriceColor] = useState(props.gsPriceColor);
-    const [editText, setEditText] = useState(props.editText);
-    const [unavailable, setUnavailable] = useState(props.unavailable);
-    const [btnWidthValue, setBtnWidthValue] = useState(props.btnWidthValue);
-    const [btnheightValue, setBtnHeightValue] = useState(props.btnheightValue);
-    const [btnFontsize, setBtnFontsize] = useState(props.btnFontsize);
+    const [gsPriceColor, setGsPriceColor] = useState(
+        currentTemplate.general_settings.gsPriceColor
+    );
+
+    const [editText, setEditText] = useState(
+        currentTemplate.buy_btn_settings.editText
+    );
+    const [unavailable, setUnavailable] = useState(
+        currentTemplate.buy_btn_settings.unavailable
+    );
+    const [btnWidthValue, setBtnWidthValue] = useState(
+        currentTemplate.buy_btn_settings.btnWidthValue
+    );
+    const [btnheightValue, setBtnHeightValue] = useState(
+        currentTemplate.buy_btn_settings.btnheightValue
+    );
+    const [btnFontsize, setBtnFontsize] = useState(
+        currentTemplate.buy_btn_settings.btnFontsize
+    );
     const [btnBorderThickness, setBtnBorderThickness] = useState(
-        props.btnBorderThickness
+        currentTemplate.buy_btn_settings.btnBorderThickness
     );
     const [btnBorderRadius, setBtnBorderRadius] = useState(
-        props.btnBorderRadius
+        currentTemplate.buy_btn_settings.btnBorderRadius
     );
-    const [btnBold, setBtnBold] = useState(props.btnBold);
-    const [btnItalic, setBtnItalic] = useState(props.btnItalic);
-    const [btnUnderline, setBtnUnderline] = useState(props.btnUnderline);
-    const [btnTextColor, setBtnTextColor] = useState(props.btnTextColor);
-    const [btnBgColor, setBtnBgColor] = useState(props.btnBgColor);
+    const [btnBold, setBtnBold] = useState(
+        currentTemplate.buy_btn_settings.btnBold
+    );
+    const [btnItalic, setBtnItalic] = useState(
+        currentTemplate.buy_btn_settings.btnItalic
+    );
+    const [btnUnderline, setBtnUnderline] = useState(
+        currentTemplate.buy_btn_settings.btnUnderline
+    );
+    const [btnTextColor, setBtnTextColor] = useState(
+        currentTemplate.buy_btn_settings.btnTextColor
+    );
+    const [btnBgColor, setBtnBgColor] = useState(
+        currentTemplate.buy_btn_settings.btnBgColor
+    );
     const [btnTexthoverColor, setBtnTexthoverColor] = useState(
-        props.btnTexthoverColor
+        currentTemplate.buy_btn_settings.btnTexthoverColor
     );
     const [btnBgHoverColor, setBtnBgHoverColor] = useState(
-        props.btnBgHoverColor
+        currentTemplate.buy_btn_settings.btnBgHoverColor
     );
-    const [btnBorderColor, setBtnBorderColor] = useState(props.btnBorderColor);
+    const [btnBorderColor, setBtnBorderColor] = useState(
+        currentTemplate.buy_btn_settings.btnBorderColor
+    );
     const [btnBorderHoverColor, setBtnBorderHoverColor] = useState(
-        props.btnBorderHoverColor
+        currentTemplate.buy_btn_settings.btnBorderHoverColor
     );
+
+    // ANIMATION SWITCH LOGIC
     const handleSwitchChange = (checked) => {
         setAnimationEnable(checked);
-    };
-
-    /*FONT FAMILY GENERAL SETTINGS*/
-    const handleFontChange = (value) => {
-        setGsFontFamily(value.family);
     };
 
     //BAR SETTINGS START
     const handleBGColor = (event) => {
         setGsBgColor(event.target.value);
     };
-    //   = useCallback((value) => setGsBgColor(value), []);
 
     const handleHeightSliderChange = useCallback(
         (value) => setContainerHeight(value),
@@ -94,7 +132,7 @@ function DesignSettings(props) {
     const handleTitleColor = (event) => {
         setGsTitleColor(event.target.value);
     };
-    // = useCallback((value) => setGsTitleColor(value), []);
+
     const handleRangeSliderChange = useCallback(
         (value) => setGsFontsize(value),
         []
@@ -118,7 +156,6 @@ function DesignSettings(props) {
     const handlePriceColor = (event) => {
         setGsPriceColor(event.target.value);
     };
-    // = useCallback((value) => setGsPriceColor(value), []);
     // PRICE SETTINGS END
 
     //BUY NOW BUTTON SETTINGS START
@@ -127,10 +164,6 @@ function DesignSettings(props) {
     const handleEditTextField = (val) => {
         setEditText(val);
     };
-    // SOLD OUT
-    // const handleSoldOutTextField = (val) => {
-    //     setSoldOut(val);
-    // };
     // UNAVAILABLE
     const handleUnavailableTextField = (val) => {
         setUnavailable(val);
@@ -183,92 +216,74 @@ function DesignSettings(props) {
     const handlebtnTextColor = (event) => {
         setBtnTextColor(event.target.value);
     };
-    // = useCallback(
-    //     (value) => setBtnTextColor(value),
-    //     []
-    // );
 
     // TEXT HOVER COLOR
     const handletexthoverColor = (event) => {
         setBtnTexthoverColor(event.target.value);
     };
-    // = useCallback(
-    //     (value) => setBtnTexthoverColor(value),
-    //     []
-    // );
 
     // BG HOVER COLOR
     const handlebgHoverColor = (event) => {
         setBtnBgHoverColor(event.target.value);
     };
-    // = useCallback(
-    //     (value) => setBtnBgHoverColor(value),
-    //     []
-    // );
 
     // BTN BG COLOR
     const handlebtnBGColor = (event) => {
         setBtnBgColor(event.target.value);
     };
-    // = useCallback((value) => setBtnBgColor(value), []);
 
     // BORDER COLOR
     const handleborderColor = (event) => {
         setBtnBorderColor(event.target.value);
     };
-    // = useCallback(
-    //     (value) => setBtnBorderColor(value),
-    //     []
-    // );
 
     // BORDER HOVER COLOR
     const handlebordeHoverColor = (event) => {
         setBtnBorderHoverColor(event.target.value);
     };
-    // = useCallback(
-    //     (value) => setBtnBorderHoverColor(value),
-    //     []
-    // );
     // COLOR CHANGE HANDLES END
     //BUY NOW BUTTON SETTINGS END
 
-    useEffect(() => {
-        setGsFontFamily(props.gsFontFamily);
-        setAnimationEnable(props.animationEnable);
-        setGsBgColor(props.gsBgColor);
-        setContainerHeight(props.containerHeight);
-        setGsOffsetValue(props.gsOffsetValue);
-        setPosition(props.position);
-        setGsTitleColor(props.gsTitleColor);
-        setGsFontsize(props.gsFontsize);
-        setGsBold(props.gsBold);
-        setGsItalic(props.gsItalic);
-        setGsUnderLine(props.gsUnderline);
-        setGsPriceFontsize(props.gsPriceFontsize);
-        setGsPriceColor(props.gsPriceColor);
-        setEditText(props.editText);
-        setUnavailable(props.unavailable);
-        setBtnWidthValue(props.btnWidthValue);
-        setBtnHeightValue(props.btnheightValue);
-        setBtnFontsize(props.btnFontsize);
-        setBtnBorderThickness(props.btnBorderThickness);
-        setBtnBorderRadius(props.btnBorderRadius);
-        setBtnBold(props.btnBold);
-        setBtnItalic(props.btnItalic);
-        setBtnUnderline(props.btnUnderline);
-        setBtnTextColor(props.btnTextColor);
-        setBtnBgColor(props.btnBgColor);
-        setBtnTexthoverColor(props.btnTexthoverColor);
-        setBtnBgHoverColor(props.btnBgHoverColor);
-        setBtnBorderColor(props.btnBorderColor);
-        setBtnBorderHoverColor(props.btnBorderHoverColor);
-    }, [props]);
+    // HANDLING MAIN JSON DATA START
+    var jsonData = {
+        general_settings: {
+            ...currentTemplate.general_settings,
+            gsBgColor: gsBgColor,
+            containerHeight: containerHeight,
+            gsOffsetValue: gsOffsetValue,
+            position: position,
+            gsTitleColor: gsTitleColor,
+            gsFontsize: gsFontsize,
+            gsBold: gsBold,
+            gsItalic: gsItalic,
+            gsUnderline: gsUnderline,
+            gsPriceFontsize: gsPriceFontsize,
+            gsPriceColor: gsPriceColor,
+        },
+        buy_btn_settings: {
+            ...currentTemplate.buy_btn_settings,
+            editText: editText,
+            unavailable: unavailable,
+            btnWidthValue: btnWidthValue,
+            btnheightValue: btnheightValue,
+            btnFontsize: btnFontsize,
+            btnBorderThickness: btnBorderThickness,
+            btnBorderRadius: btnBorderRadius,
+            btnBold: btnBold,
+            btnItalic: btnItalic,
+            btnUnderline: btnUnderline,
+            btnTextColor: btnTextColor,
+            btnBgColor: btnBgColor,
+            btnTexthoverColor: btnTexthoverColor,
+            btnBgHoverColor: btnBgHoverColor,
+            btnBorderColor: btnBorderColor,
+            btnBorderHoverColor: btnBorderHoverColor,
+        },
+    };
 
     useEffect(() => {
         callbackFunction();
     }, [
-        // IT WILL SEND LATEST DATA OF ALL STATES
-        gsFontFamily,
         animationEnable,
         gsBgColor,
         containerHeight,
@@ -298,80 +313,51 @@ function DesignSettings(props) {
         btnBorderColor,
         btnBorderHoverColor,
     ]);
-    var transfer_data = {
-        general_settings: {
-            homePageProduct: props.homePageProduct,
-            checkMobile: props.checkMobile,
-            checkDesktop: props.checkDesktop,
-            gsAction: props.gsAction,
-            gsDisplayCondition: props.gsDisplayCondition,
-            gsNotificationBarText: props.gsNotificationBarText,
-            gsNotificationBarItalic: props.gsNotificationBarItalic,
-            gsNotificationBarBold: props.gsNotificationBarBold,
-            gsNotificationBarTextColor: props.gsNotificationBarTextColor,
-            gsNotificationBarBgColor: props.gsNotificationBarBgColor,
-            gsNotificationBarFontSize: props.gsNotificationBarFontSize,
-            gsNotificationBarHeight: props.gsNotificationBarHeight,
-            enableUpSell: props.enableUpSell,
-            CUPLSelection: props.CUPLSelection,
-            CUPLManualSelection: props.CUPLManualSelection,
-            SelectedCollectionID: props.SelectedCollectionID,
-            SelectedProductIDs: props.SelectedProductIDs,
-            CUHeadingText: props.CUHeadingText,
-            CUBuyBtnText: props.CUBuyBtnText,
-            CUHeadingFontSize: props.CUHeadingFontSize,
-            CUBodyFontSize: props.CUBodyFontSize,
-            CUBuyBtnFontSize: props.CUBuyBtnFontSize,
-            CUBackgroundColor: props.CUBackgroundColor,
-            CUHeadingBGColor: props.CUHeadingBGColor,
-            CUHeadingColor: props.CUHeadingColor,
-            CUBodyColor: props.CUBodyColor,
-            CUBodyTextColor: props.CUBodyTextColor,
-            CUBtnTextColor: props.CUBtnTextColor,
-            CUBtnBGColor: props.CUBtnBGColor,
-            CUBtnTextHoverColor: props.CUBtnTextHoverColor,
-            CUBtnBGHoverColor: props.CUBtnBGHoverColor,
-            CUBorderRadius: props.CUBorderRadius,
-            USPosition: props.USPosition,
-        },
-        design_settings: {
-            gsFontFamily: gsFontFamily,
-            animationEnable: animationEnable,
-            gsBgColor: gsBgColor,
-            containerHeight: containerHeight,
-            gsOffsetValue: gsOffsetValue,
-            position: position,
-            gsTitleColor: gsTitleColor,
-            gsFontsize: gsFontsize,
-            gsBold: gsBold,
-            gsItalic: gsItalic,
-            gsUnderline: gsUnderline,
-            gsPriceFontsize: gsPriceFontsize,
-            gsPriceColor: gsPriceColor,
-            editText: editText,
-            unavailable: unavailable,
-            btnWidthValue: btnWidthValue,
-            btnheightValue: btnheightValue,
-            btnFontsize: btnFontsize,
-            btnBorderThickness: btnBorderThickness,
-            btnBorderRadius: btnBorderRadius,
-            btnBold: btnBold,
-            btnItalic: btnItalic,
-            btnUnderline: btnUnderline,
-            btnTextColor: btnTextColor,
-            btnBgColor: btnBgColor,
-            btnTexthoverColor: btnTexthoverColor,
-            btnBgHoverColor: btnBgHoverColor,
-            btnBorderColor: btnBorderColor,
-            btnBorderHoverColor: btnBorderHoverColor,
-        },
-    };
+
     const callbackFunction = useCallback(() => {
-        props.callback(transfer_data);
-    }, [transfer_data]);
+        designSettingsCallback(jsonData, animationEnable);
+    }, [jsonData, animationEnable]);
+    // HANDLING MAIN JSON DATA END
+
+    useEffect(() => {
+        setGsBgColor(currentTemplate.general_settings.gsBgColor);
+        setContainerHeight(currentTemplate.general_settings.containerHeight);
+        setGsOffsetValue(currentTemplate.general_settings.gsOffsetValue);
+        setPosition(currentTemplate.general_settings.position);
+        setGsTitleColor(currentTemplate.general_settings.gsTitleColor);
+        setGsFontsize(currentTemplate.general_settings.gsFontsize);
+        setGsBold(currentTemplate.general_settings.gsBold);
+        setGsItalic(currentTemplate.general_settings.gsItalic);
+        setGsUnderLine(currentTemplate.general_settings.gsUnderline);
+        setGsPriceFontsize(currentTemplate.general_settings.gsPriceFontsize);
+        setGsPriceColor(currentTemplate.general_settings.gsPriceColor);
+
+        setEditText(currentTemplate.buy_btn_settings.editText);
+        setUnavailable(currentTemplate.buy_btn_settings.unavailable);
+        setBtnWidthValue(currentTemplate.buy_btn_settings.btnWidthValue);
+        setBtnHeightValue(currentTemplate.buy_btn_settings.btnheightValue);
+        setBtnFontsize(currentTemplate.buy_btn_settings.btnFontsize);
+        setBtnBorderThickness(
+            currentTemplate.buy_btn_settings.btnBorderThickness
+        );
+        setBtnBorderRadius(currentTemplate.buy_btn_settings.btnBorderRadius);
+        setBtnBold(currentTemplate.buy_btn_settings.btnBold);
+        setBtnItalic(currentTemplate.buy_btn_settings.btnItalic);
+        setBtnUnderline(currentTemplate.buy_btn_settings.btnUnderline);
+        setBtnTextColor(currentTemplate.buy_btn_settings.btnTextColor);
+        setBtnBgColor(currentTemplate.buy_btn_settings.btnBgColor);
+        setBtnTexthoverColor(
+            currentTemplate.buy_btn_settings.btnTexthoverColor
+        );
+        setBtnBgHoverColor(currentTemplate.buy_btn_settings.btnBgHoverColor);
+        setBtnBorderColor(currentTemplate.buy_btn_settings.btnBorderColor);
+        setBtnBorderHoverColor(
+            currentTemplate.buy_btn_settings.btnBorderHoverColor
+        );
+    }, [currentTemplate]);
 
     return (
-        <div>
+        <Card sectioned>
             <Text variant="headingLg" fontWeight="medium">
                 Design Settings
             </Text>
@@ -498,7 +484,7 @@ function DesignSettings(props) {
                                 label={`${gsFontsize} px`}
                                 value={gsFontsize}
                                 min={8}
-                                max={40}
+                                max={32}
                                 onChange={handleRangeSliderChange}
                                 output
                             />
@@ -570,7 +556,7 @@ function DesignSettings(props) {
                                 label={`${gsPriceFontsize} px`}
                                 value={gsPriceFontsize}
                                 min={8}
-                                max={40}
+                                max={32}
                                 onChange={handlePriceRangeSliderChange}
                                 output
                             />
@@ -840,7 +826,7 @@ function DesignSettings(props) {
                                     <RangeSlider
                                         label={`${btnWidthValue} px`}
                                         value={btnWidthValue}
-                                        min={0}
+                                        min={50}
                                         max={250}
                                         onChange={handleWidthSliderChange}
                                         output
@@ -883,12 +869,13 @@ function DesignSettings(props) {
                                         label={`${btnFontsize} px`}
                                         value={btnFontsize}
                                         min={8}
-                                        max={50}
+                                        max={32}
                                         onChange={handleFontSizeSliderChange}
                                         output
                                     />
                                 </div>
                             </div>
+                            <div></div>
                         </FormLayout.Group>
                     </FormLayout>
                 </BlockStack>
@@ -982,7 +969,7 @@ function DesignSettings(props) {
                     </FormLayout.Group>
                 </FormLayout>
             </BlockStack>
-        </div>
+        </Card>
     );
 }
 

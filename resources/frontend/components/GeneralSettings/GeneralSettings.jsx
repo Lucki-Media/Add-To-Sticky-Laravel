@@ -17,9 +17,8 @@ import {
 import React, { useCallback, useEffect, useState } from "react";
 import "../../css/index.css";
 import Switch from "react-switch";
-import ProductSelection from "./ProductSelection";
+import ProductSelection from "../ProductSelection/ProductSelection";
 import ProductListSelection from "../DrawerSettings/CartUpsellSettings/ProductListSelection";
-import drawerCartData from "../../assets/drawerCartData.js";
 
 function GeneralSettings(props) {
     const [productSwitch, setProductSwitch] = useState(
@@ -478,7 +477,7 @@ function GeneralSettings(props) {
             {/* Button Action onclick */}
             <BlockStack gap="200">
                 <Text variant="headingMd" as="span" fontWeight="medium">
-                    Button Action onclick
+                    Button Action Onclick
                 </Text>
                 <Select
                     label="Button Action onclick"
