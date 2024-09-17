@@ -36,18 +36,26 @@ const UpSellBottomSheet = (props) => {
                 setCartData(response.data);
 
                 setNumberCount(response.data.item_count);
-                if (response.data.item_count < 0) {
+
+                if (response.data.item_count > 0) {
                     updateCartDrawer(response.data.item_count);
                 }
             });
     };
     function updateCartDrawer(cartCount) {
-        // Update the cart item count (example)
+        const cartCountBubble = document.querySelector(".cart-count-bubble");
+        const stickyCount = document.querySelector(".sticky_Count");
 
-        if (cartCount !== 0) {
-            document.querySelector(".cart-count-bubble").textContent =
-                cartCount;
-            document.querySelector(".sticky_Count").textContent = cartCount;
+        if (cartCountBubble) {
+            cartCountBubble.textContent = cartCount;
+        } else {
+            console.warn(".cart-count-bubble element not found!");
+        }
+
+        if (stickyCount) {
+            stickyCount.textContent = cartCount;
+        } else {
+            console.warn(".sticky_Count element not found!");
         }
     }
 
@@ -158,34 +166,37 @@ const UpSellBottomSheet = (props) => {
         }
     }, [numberCount, cartData]);
 
-    let handleAddProduct = async () => {
-        console.log("click here");
+    let handleAddProduct = async (selectedProduct) => {
+        console.log("selectedProduct");
+        console.log(selectedProduct.variants[0].title);
+
+        /*--------------------------------------------------------------------------------------------------*/
+        /*GETTING SELECTED VARIANT FROM OPTIONS START*/
+        // const neededVariant = props.product.variants.find(
+        //     (variant) => variant.title === title
+        // );
+
+        // if (neededVariant) {
+        //     setShouldDisable(neededVariant.available === false ? true : false);
+        //     setSelectedVariant(neededVariant);
+        // }
+        /*GETTING SELECTED VARIANT FROM OPTIONS END*/
+        /*--------------------------------------------------------------------------------------------------*/
+
         setLoading(true);
         const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                id: selectedVariant.id,
+                id: selectedProduct.variants[0].id,
                 quantity: document
                     .getElementById("lm_sticky_container_upsell__qty_picker")
                     .getElementsByTagName("input")[0].value,
             }),
         };
-        // const requestOptions1 = {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json" },
-        //     body: JSON.stringify({
-        //         shop: window.Shopify.shop,
-        //         month: currentMonth,
-        //         year: currentYear,
-        //     }),
-        // };
+
         if (selectedVariant) {
             try {
-                // await fetch(
-                //     `${process.env.REACT_APP_API_URL}` + "addBuyButtonClicks",
-                //     requestOptions1
-                // );
                 const res = await fetch(
                     "https://" + window.location.host + "/cart/add.json",
                     requestOptions
@@ -566,7 +577,7 @@ const UpSellBottomSheet = (props) => {
 
                         <button
                             className="lmsc_close_popup_button"
-                            onClick={() => handleAddProduct()}
+                            onClick={() => handleAddProduct(selectedProduct)}
                         >
                             {props.CUBuyBtnText}
                         </button>

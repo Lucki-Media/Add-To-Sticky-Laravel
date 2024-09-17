@@ -144,20 +144,26 @@ export default function CartTemplate1(props) {
         axios
             .get("https://" + window.location.host + "/cart.json")
             .then((response) => {
-                if (response.data.item_count < 0) {
-                    console.log("Cart greater than 0");
+                if (response.data.item_count > 0) {
                     updateCartDrawer(response.data.item_count);
                 }
             });
     };
 
     function updateCartDrawer(cartCount) {
-        // Update the cart item count (example)
+        const cartCountBubble = document.querySelector(".cart-count-bubble");
+        const stickyCount = document.querySelector(".sticky_Count");
 
-        if (cartCount !== 0) {
-            document.querySelector(".cart-count-bubble").textContent =
-                cartCount;
-            document.querySelector(".sticky_Count").textContent = cartCount;
+        if (cartCountBubble) {
+            cartCountBubble.textContent = cartCount;
+        } else {
+            console.warn(".cart-count-bubble element not found!");
+        }
+
+        if (stickyCount) {
+            stickyCount.textContent = cartCount;
+        } else {
+            console.warn(".sticky_Count element not found!");
         }
     }
 

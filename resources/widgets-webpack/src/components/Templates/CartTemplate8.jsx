@@ -150,9 +150,20 @@ export default function CartTemplate8(props) {
     };
 
     function updateCartDrawer(cartCount) {
-        // Update the cart item count (example)
-        document.querySelector(".cart-count-bubble").textContent = cartCount;
-        document.querySelector(".sticky_Count").textContent = cartCount;
+        const cartCountBubble = document.querySelector(".cart-count-bubble");
+        const stickyCount = document.querySelector(".sticky_Count");
+
+        if (cartCountBubble) {
+            cartCountBubble.textContent = cartCount;
+        } else {
+            console.warn(".cart-count-bubble element not found!");
+        }
+
+        if (stickyCount) {
+            stickyCount.textContent = cartCount;
+        } else {
+            console.warn(".sticky_Count element not found!");
+        }
     }
 
     let handleAddProduct = async () => {
