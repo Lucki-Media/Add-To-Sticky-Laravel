@@ -9,8 +9,6 @@ import HomePageSettings from "./HomePageSettings";
 import DesignSettings from "./DesignSettings";
 
 export default function StickyBarSettings(props) {
-    console.log(props.stickyBarData);
-
     const [enable, setEnable] = useState(props.stickyBarData.enable ?? false);
     const [defaultTemplate, setDefaultTemplate] = useState(
         String(props.stickyBarData.defaultTemplate) ?? "2"

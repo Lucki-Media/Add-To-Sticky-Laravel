@@ -20,28 +20,32 @@ export default function NotificationBarSettings({
 }) {
     // disable state
     const [disableState, setDisableState] = useState(
-        String(currentTemplate.general_settings.gsAction) !== "3"
+        String(currentTemplate?.general_settings?.gsAction) !== "3"
     );
 
     const [gsNotificationBarText, setGsNotificationBarText] = useState(
-        currentTemplate.general_settings.gsNotificationBarText
+        currentTemplate?.general_settings?.gsNotificationBarText ??
+            "Great news! Here's something special for you!"
     );
     const [gsNotificationBarItalic, setGsNotificationBarItalic] = useState(
-        currentTemplate.general_settings.gsNotificationBarItalic
+        currentTemplate?.general_settings?.gsNotificationBarItalic ?? false
     );
     const [gsNotificationBarBold, setGsNotificationBarBold] = useState(
-        currentTemplate.general_settings.gsNotificationBarBold
+        currentTemplate?.general_settings?.gsNotificationBarBold ?? false
     );
     const [gsNotificationBarTextColor, setGsNotificationBarTextColor] =
-        useState(currentTemplate.general_settings.gsNotificationBarTextColor);
+        useState(
+            currentTemplate?.general_settings?.gsNotificationBarTextColor ??
+                "#ffffff"
+        );
     const [gsNotificationBarBgColor, setGsNotificationBarBgColor] = useState(
-        currentTemplate.general_settings.gsNotificationBarBgColor
+        currentTemplate?.general_settings?.gsNotificationBarBgColor ?? "#000000"
     );
     const [gsNotificationBarFontSize, setGsNotificationBarFontSize] = useState(
-        currentTemplate.general_settings.gsNotificationBarFontSize
+        currentTemplate?.general_settings?.gsNotificationBarFontSize ?? 12
     );
     const [gsNotificationBarHeight, setGsNotificationBarHeight] = useState(
-        currentTemplate.general_settings.gsNotificationBarHeight
+        currentTemplate?.general_settings?.gsNotificationBarHeight ?? 5
     );
 
     // Notification Bar Text Field Handle Event
@@ -118,31 +122,54 @@ export default function NotificationBarSettings({
 
     useEffect(() => {
         setDisableState(
-            String(currentTemplate.general_settings.gsAction) !== "3"
+            String(currentTemplate?.general_settings?.gsAction) !== "3"
         );
+    }, [currentTemplate?.general_settings?.gsAction]);
 
+    useEffect(() => {
         setGsNotificationBarText(
-            currentTemplate.general_settings.gsNotificationBarText
+            currentTemplate?.general_settings?.gsNotificationBarText ??
+                "Great news! Here's something special for you!"
         );
+    }, [currentTemplate?.general_settings?.gsNotificationBarText]);
+
+    useEffect(() => {
         setGsNotificationBarItalic(
-            currentTemplate.general_settings.gsNotificationBarItalic
+            currentTemplate?.general_settings?.gsNotificationBarItalic ?? false
         );
+    }, [currentTemplate?.general_settings?.gsNotificationBarItalic]);
+
+    useEffect(() => {
         setGsNotificationBarBold(
-            currentTemplate.general_settings.gsNotificationBarBold
+            currentTemplate?.general_settings?.gsNotificationBarBold ?? false
         );
+    }, [currentTemplate?.general_settings?.gsNotificationBarBold]);
+
+    useEffect(() => {
         setGsNotificationBarTextColor(
-            currentTemplate.general_settings.gsNotificationBarTextColor
+            currentTemplate?.general_settings?.gsNotificationBarTextColor ??
+                "#ffffff"
         );
+    }, [currentTemplate?.general_settings?.gsNotificationBarTextColor]);
+
+    useEffect(() => {
         setGsNotificationBarBgColor(
-            currentTemplate.general_settings.gsNotificationBarBgColor
+            currentTemplate?.general_settings?.gsNotificationBarBgColor ??
+                "#000000"
         );
+    }, [currentTemplate?.general_settings?.gsNotificationBarBgColor]);
+
+    useEffect(() => {
         setGsNotificationBarFontSize(
-            currentTemplate.general_settings.gsNotificationBarFontSize
+            currentTemplate?.general_settings?.gsNotificationBarFontSize ?? 12
         );
+    }, [currentTemplate?.general_settings?.gsNotificationBarFontSize]);
+
+    useEffect(() => {
         setGsNotificationBarHeight(
-            currentTemplate.general_settings.gsNotificationBarHeight
+            currentTemplate?.general_settings?.gsNotificationBarHeight ?? 5
         );
-    }, [currentTemplate]);
+    }, [currentTemplate?.general_settings?.gsNotificationBarHeight]);
 
     return (
         <Card sectioned>
