@@ -25,101 +25,117 @@ export default function DesktopPreview({ stickyBarData }) {
                     </div>
                     <div className="lm_product_block">
                         <div className="product_details">
-                            {String(stickyBarData.defaultTemplate) === "1" && (
-                                <CartTemplate1
-                                    enable={stickyBarData.enable}
-                                    animationEnable={
-                                        stickyBarData.animationEnable
-                                    }
-                                    current_template={
-                                        stickyBarData.current_template
-                                    }
-                                />
-                            )}
+                            {String(stickyBarData.defaultTemplate) === "1" &&
+                                stickyBarData.current_template.general_settings
+                                    .checkDesktop === true && (
+                                    <CartTemplate1
+                                        enable={stickyBarData.enable}
+                                        animationEnable={
+                                            stickyBarData.animationEnable
+                                        }
+                                        current_template={
+                                            stickyBarData.current_template
+                                        }
+                                    />
+                                )}
 
-                            {String(stickyBarData.defaultTemplate) === "2" && (
-                                <CartTemplate2
-                                    enable={stickyBarData.enable}
-                                    animationEnable={
-                                        stickyBarData.animationEnable
-                                    }
-                                    current_template={
-                                        stickyBarData.current_template
-                                    }
-                                />
-                            )}
+                            {String(stickyBarData.defaultTemplate) === "2" &&
+                                stickyBarData.current_template.general_settings
+                                    .checkDesktop === true && (
+                                    <CartTemplate2
+                                        enable={stickyBarData.enable}
+                                        animationEnable={
+                                            stickyBarData.animationEnable
+                                        }
+                                        current_template={
+                                            stickyBarData.current_template
+                                        }
+                                    />
+                                )}
 
-                            {String(stickyBarData.defaultTemplate) === "3" && (
-                                <CartTemplate3
-                                    enable={stickyBarData.enable}
-                                    animationEnable={
-                                        stickyBarData.animationEnable
-                                    }
-                                    current_template={
-                                        stickyBarData.current_template
-                                    }
-                                />
-                            )}
+                            {String(stickyBarData.defaultTemplate) === "3" &&
+                                stickyBarData.current_template.general_settings
+                                    .checkDesktop === true && (
+                                    <CartTemplate3
+                                        enable={stickyBarData.enable}
+                                        animationEnable={
+                                            stickyBarData.animationEnable
+                                        }
+                                        current_template={
+                                            stickyBarData.current_template
+                                        }
+                                    />
+                                )}
 
-                            {String(stickyBarData.defaultTemplate) === "4" && (
-                                <CartTemplate4
-                                    enable={stickyBarData.enable}
-                                    animationEnable={
-                                        stickyBarData.animationEnable
-                                    }
-                                    current_template={
-                                        stickyBarData.current_template
-                                    }
-                                />
-                            )}
+                            {String(stickyBarData.defaultTemplate) === "4" &&
+                                stickyBarData.current_template.general_settings
+                                    .checkDesktop === true && (
+                                    <CartTemplate4
+                                        enable={stickyBarData.enable}
+                                        animationEnable={
+                                            stickyBarData.animationEnable
+                                        }
+                                        current_template={
+                                            stickyBarData.current_template
+                                        }
+                                    />
+                                )}
 
-                            {String(stickyBarData.defaultTemplate) === "5" && (
-                                <CartTemplate5
-                                    enable={stickyBarData.enable}
-                                    animationEnable={
-                                        stickyBarData.animationEnable
-                                    }
-                                    current_template={
-                                        stickyBarData.current_template
-                                    }
-                                />
-                            )}
+                            {String(stickyBarData.defaultTemplate) === "5" &&
+                                stickyBarData.current_template.general_settings
+                                    .checkDesktop === true && (
+                                    <CartTemplate5
+                                        enable={stickyBarData.enable}
+                                        animationEnable={
+                                            stickyBarData.animationEnable
+                                        }
+                                        current_template={
+                                            stickyBarData.current_template
+                                        }
+                                    />
+                                )}
 
-                            {String(stickyBarData.defaultTemplate) === "6" && (
-                                <CartTemplate6
-                                    enable={stickyBarData.enable}
-                                    animationEnable={
-                                        stickyBarData.animationEnable
-                                    }
-                                    current_template={
-                                        stickyBarData.current_template
-                                    }
-                                />
-                            )}
+                            {String(stickyBarData.defaultTemplate) === "6" &&
+                                stickyBarData.current_template.general_settings
+                                    .checkDesktop === true && (
+                                    <CartTemplate6
+                                        enable={stickyBarData.enable}
+                                        animationEnable={
+                                            stickyBarData.animationEnable
+                                        }
+                                        current_template={
+                                            stickyBarData.current_template
+                                        }
+                                    />
+                                )}
 
-                            {String(stickyBarData.defaultTemplate) === "7" && (
-                                <CartTemplate7
-                                    enable={stickyBarData.enable}
-                                    animationEnable={
-                                        stickyBarData.animationEnable
-                                    }
-                                    current_template={
-                                        stickyBarData.current_template
-                                    }
-                                />
-                            )}
+                            {String(stickyBarData.defaultTemplate) === "7" &&
+                                stickyBarData.current_template.general_settings
+                                    .checkDesktop === true && (
+                                    <CartTemplate7
+                                        enable={stickyBarData.enable}
+                                        animationEnable={
+                                            stickyBarData.animationEnable
+                                        }
+                                        current_template={
+                                            stickyBarData.current_template
+                                        }
+                                    />
+                                )}
 
-                            {String(stickyBarData.defaultTemplate) === "8" && (
-                                <CartTemplate8
-                                    enable={stickyBarData.enable}
-                                    animationEnable={
-                                        stickyBarData.animationEnable
-                                    }
-                                    current_template={
-                                        stickyBarData.current_template
-                                    }
-                                />
-                            )}
+                            {String(stickyBarData.defaultTemplate) === "8" &&
+                                stickyBarData.current_template.general_settings
+                                    .checkDesktop === true && (
+                                    <CartTemplate8
+                                        enable={stickyBarData.enable}
+                                        animationEnable={
+                                            stickyBarData.animationEnable
+                                        }
+                                        current_template={
+                                            stickyBarData.current_template
+                                        }
+                                    />
+                                )}
 
                             {/* Upsell Popup */}
                             <UpSellBottomSheet

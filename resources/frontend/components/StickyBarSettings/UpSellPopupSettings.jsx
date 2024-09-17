@@ -23,72 +23,73 @@ export default function UpSellPopupSettings({
     sbSettingDataCallback,
 }) {
     const [enableUpSell, setEnableUpSell] = useState(
-        currentTemplate.general_settings.enableUpSell
+        currentTemplate?.general_settings?.enableUpSell ?? false
     );
 
     // PRODUCT LIST SELECTION STATES
     const [CUPLSelection, setCUPLSelection] = useState(
-        currentTemplate.general_settings.CUPLSelection
+        currentTemplate?.general_settings?.CUPLSelection ?? "1"
     );
     const [CUPLManualSelection, setCUPLManualSelection] = useState(
-        currentTemplate.general_settings.CUPLManualSelection
+        currentTemplate?.general_settings?.CUPLManualSelection ?? "1"
     );
     const [SelectedCollectionID, setSelectedCollectionID] = useState(
-        currentTemplate.general_settings.SelectedCollectionID
+        currentTemplate?.general_settings?.SelectedCollectionID ?? ""
     );
     const [SelectedProductIDs, setSelectedProductIDs] = useState(
-        currentTemplate.general_settings.SelectedProductIDs
+        currentTemplate?.general_settings?.SelectedProductIDs ?? []
     );
 
     const [CUHeadingText, setCUHeadingText] = useState(
-        currentTemplate.general_settings.CUHeadingText
+        currentTemplate?.general_settings?.CUHeadingText ??
+            "Recommended Products"
     );
     const [CUBuyBtnText, setCUBuyBtnText] = useState(
-        currentTemplate.general_settings.CUBuyBtnText
+        currentTemplate?.general_settings?.CUBuyBtnText ?? "Buy"
     );
     const [USPosition, setUSPosition] = useState(
-        currentTemplate.general_settings.USPosition
+        currentTemplate?.general_settings?.USPosition ?? "left"
     );
 
     const [CUHeadingFontSize, setCUHeadingFontSize] = useState(
-        currentTemplate.general_settings.CUHeadingFontSize
+        currentTemplate?.general_settings?.CUHeadingFontSize ?? 15
     );
     const [CUBodyFontSize, setCUBodyFontSize] = useState(
-        currentTemplate.general_settings.CUBodyFontSize
+        currentTemplate?.general_settings?.CUBodyFontSize ?? 14
     );
     const [CUBuyBtnFontSize, setCUBuyBtnFontSize] = useState(
-        currentTemplate.general_settings.CUBuyBtnFontSize
+        currentTemplate?.general_settings?.CUBuyBtnFontSize ?? 14
     );
     const [CUBorderRadius, setCUBorderRadius] = useState(
-        currentTemplate.general_settings.CUBorderRadius
+        currentTemplate?.general_settings?.CUBorderRadius ?? 0
     );
 
     const [CUBackgroundColor, setCUBackgroundColor] = useState(
-        currentTemplate.general_settings.CUBackgroundColor
+        currentTemplate?.general_settings?.CUBackgroundColor ?? "#fffafa"
     );
     const [CUHeadingBGColor, setCUHeadingBGColor] = useState(
-        currentTemplate.general_settings.CUHeadingBGColor
+        currentTemplate?.general_settings?.CUHeadingBGColor ?? "#000000"
     );
     const [CUHeadingColor, setCUHeadingColor] = useState(
-        currentTemplate.general_settings.CUHeadingColor
+        currentTemplate?.general_settings?.CUHeadingColor ?? "#ffffff"
     );
     const [CUBodyColor, setCUBodyColor] = useState(
-        currentTemplate.general_settings.CUBodyColor
+        currentTemplate?.general_settings?.CUBodyColor ?? "#eef1f2"
     );
     const [CUBodyTextColor, setCUBodyTextColor] = useState(
-        currentTemplate.general_settings.CUBodyTextColor
+        currentTemplate?.general_settings?.CUBodyTextColor ?? "#050505"
     );
     const [CUBtnTextColor, setCUBtnTextColor] = useState(
-        currentTemplate.general_settings.CUBtnTextColor
+        currentTemplate?.general_settings?.CUBtnTextColor ?? "#ffffff"
     );
     const [CUBtnBGColor, setCUBtnBGColor] = useState(
-        currentTemplate.general_settings.CUBtnBGColor
+        currentTemplate?.general_settings?.CUBtnBGColor ?? "#000000"
     );
     const [CUBtnTextHoverColor, setCUBtnTextHoverColor] = useState(
-        currentTemplate.general_settings.CUBtnTextHoverColor
+        currentTemplate?.general_settings?.CUBtnTextHoverColor ?? "#000000"
     );
     const [CUBtnBGHoverColor, setCUBtnBGHoverColor] = useState(
-        currentTemplate.general_settings.CUBtnBGHoverColor
+        currentTemplate?.general_settings?.CUBtnBGHoverColor ?? "#ffffff"
     );
 
     // SWITCH LOGIC
@@ -248,45 +249,129 @@ export default function UpSellPopupSettings({
     // HANDLING MAIN JSON DATA END
 
     useEffect(() => {
-        setEnableUpSell(currentTemplate.general_settings.enableUpSell);
-        setCUPLSelection(currentTemplate.general_settings.CUPLSelection);
+        setEnableUpSell(
+            currentTemplate?.general_settings?.enableUpSell ?? false
+        );
+    }, [currentTemplate?.general_settings?.enableUpSell]);
+
+    useEffect(() => {
+        setCUPLSelection(
+            currentTemplate?.general_settings?.CUPLSelection ?? "1"
+        );
+    }, [currentTemplate?.general_settings?.CUPLSelection]);
+
+    useEffect(() => {
         setCUPLManualSelection(
-            currentTemplate.general_settings.CUPLManualSelection
+            currentTemplate?.general_settings?.CUPLManualSelection ?? "1"
         );
+    }, [currentTemplate?.general_settings?.CUPLManualSelection]);
+
+    useEffect(() => {
         setSelectedCollectionID(
-            currentTemplate.general_settings.SelectedCollectionID
+            currentTemplate?.general_settings?.SelectedCollectionID ?? ""
         );
+    }, [currentTemplate?.general_settings?.SelectedCollectionID]);
+
+    useEffect(() => {
         setSelectedProductIDs(
-            currentTemplate.general_settings.SelectedProductIDs
+            currentTemplate?.general_settings?.SelectedProductIDs ?? []
         );
+    }, [currentTemplate?.general_settings?.SelectedProductIDs]);
 
-        setCUHeadingText(currentTemplate.general_settings.CUHeadingText);
-        setCUBuyBtnText(currentTemplate.general_settings.CUBuyBtnText);
-        setUSPosition(currentTemplate.general_settings.USPosition);
+    useEffect(() => {
+        setCUHeadingText(
+            currentTemplate?.general_settings?.CUHeadingText ??
+                "Recommended Products"
+        );
+    }, [currentTemplate?.general_settings?.CUHeadingText]);
 
+    useEffect(() => {
+        setCUBuyBtnText(
+            currentTemplate?.general_settings?.CUBuyBtnText ?? "Buy"
+        );
+    }, [currentTemplate?.general_settings?.CUBuyBtnText]);
+
+    useEffect(() => {
+        setUSPosition(currentTemplate?.general_settings?.USPosition ?? "left");
+    }, [currentTemplate?.general_settings?.USPosition]);
+
+    useEffect(() => {
         setCUHeadingFontSize(
-            currentTemplate.general_settings.CUHeadingFontSize
+            currentTemplate?.general_settings?.CUHeadingFontSize ?? 15
         );
-        setCUBodyFontSize(currentTemplate.general_settings.CUBodyFontSize);
-        setCUBuyBtnFontSize(currentTemplate.general_settings.CUBuyBtnFontSize);
-        setCUBorderRadius(currentTemplate.general_settings.CUBorderRadius);
+    }, [currentTemplate?.general_settings?.CUHeadingFontSize]);
 
+    useEffect(() => {
+        setCUBodyFontSize(
+            currentTemplate?.general_settings?.CUBodyFontSize ?? 14
+        );
+    }, [currentTemplate?.general_settings?.CUBodyFontSize]);
+
+    useEffect(() => {
+        setCUBuyBtnFontSize(
+            currentTemplate?.general_settings?.CUBuyBtnFontSize ?? 14
+        );
+    }, [currentTemplate?.general_settings?.CUBuyBtnFontSize]);
+
+    useEffect(() => {
+        setCUBorderRadius(
+            currentTemplate?.general_settings?.CUBorderRadius ?? 0
+        );
+    }, [currentTemplate?.general_settings?.CUBorderRadius]);
+
+    useEffect(() => {
         setCUBackgroundColor(
-            currentTemplate.general_settings.CUBackgroundColor
+            currentTemplate?.general_settings?.CUBackgroundColor ?? "#fffafa"
         );
-        setCUHeadingBGColor(currentTemplate.general_settings.CUHeadingBGColor);
-        setCUHeadingColor(currentTemplate.general_settings.CUHeadingColor);
-        setCUBodyColor(currentTemplate.general_settings.CUBodyColor);
-        setCUBodyTextColor(currentTemplate.general_settings.CUBodyTextColor);
-        setCUBtnTextColor(currentTemplate.general_settings.CUBtnTextColor);
-        setCUBtnBGColor(currentTemplate.general_settings.CUBtnBGColor);
+    }, [currentTemplate?.general_settings?.CUBackgroundColor]);
+
+    useEffect(() => {
+        setCUHeadingBGColor(
+            currentTemplate?.general_settings?.CUHeadingBGColor ?? "#000000"
+        );
+    }, [currentTemplate?.general_settings?.CUHeadingBGColor]);
+
+    useEffect(() => {
+        setCUHeadingColor(
+            currentTemplate?.general_settings?.CUHeadingColor ?? "#ffffff"
+        );
+    }, [currentTemplate?.general_settings?.CUHeadingColor]);
+
+    useEffect(() => {
+        setCUBodyColor(
+            currentTemplate?.general_settings?.CUBodyColor ?? "#eef1f2"
+        );
+    }, [currentTemplate?.general_settings?.CUBodyColor]);
+
+    useEffect(() => {
+        setCUBodyTextColor(
+            currentTemplate?.general_settings?.CUBodyTextColor ?? "#050505"
+        );
+    }, [currentTemplate?.general_settings?.CUBodyTextColor]);
+
+    useEffect(() => {
+        setCUBtnTextColor(
+            currentTemplate?.general_settings?.CUBtnTextColor ?? "#ffffff"
+        );
+    }, [currentTemplate?.general_settings?.CUBtnTextColor]);
+
+    useEffect(() => {
+        setCUBtnBGColor(
+            currentTemplate?.general_settings?.CUBtnBGColor ?? "#000000"
+        );
+    }, [currentTemplate?.general_settings?.CUBtnBGColor]);
+
+    useEffect(() => {
         setCUBtnTextHoverColor(
-            currentTemplate.general_settings.CUBtnTextHoverColor
+            currentTemplate?.general_settings?.CUBtnTextHoverColor ?? "#000000"
         );
+    }, [currentTemplate?.general_settings?.CUBtnTextHoverColor]);
+
+    useEffect(() => {
         setCUBtnBGHoverColor(
-            currentTemplate.general_settings.CUBtnBGHoverColor
+            currentTemplate?.general_settings?.CUBtnBGHoverColor ?? "#ffffff"
         );
-    }, [currentTemplate]);
+    }, [currentTemplate?.general_settings?.CUBtnBGHoverColor]);
 
     return (
         <Card sectioned>

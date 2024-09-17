@@ -14,16 +14,16 @@ export default function GeneralSettings({
     sbSettingDataCallback,
 }) {
     const [checkMobile, setCheckMobile] = useState(
-        currentTemplate.general_settings.checkMobile
+        currentTemplate?.general_settings?.checkMobile ?? true
     );
     const [checkDesktop, setCheckDesktop] = useState(
-        currentTemplate.general_settings.checkDesktop
+        currentTemplate?.general_settings?.checkDesktop ?? true
     );
     const [gsAction, setGsAction] = useState(
-        currentTemplate.general_settings.gsAction
+        currentTemplate?.general_settings?.gsAction ?? "3"
     );
     const [gsDisplayCondition, setGsDisplayCondition] = useState(
-        currentTemplate.general_settings.gsDisplayCondition
+        currentTemplate?.general_settings?.gsDisplayCondition ?? "1"
     );
 
     /*DISPLAY SETTING START GENERAL SETTINGS*/
@@ -84,13 +84,24 @@ export default function GeneralSettings({
     // HANDLING MAIN JSON DATA END
 
     useEffect(() => {
-        setCheckMobile(currentTemplate.general_settings.checkMobile);
-        setCheckDesktop(currentTemplate.general_settings.checkDesktop);
-        setGsAction(currentTemplate.general_settings.gsAction);
-        setGsDisplayCondition(
-            currentTemplate.general_settings.gsDisplayCondition
+        setCheckMobile(currentTemplate?.general_settings?.checkMobile ?? true);
+    }, [currentTemplate?.general_settings?.checkMobile]);
+
+    useEffect(() => {
+        setCheckDesktop(
+            currentTemplate?.general_settings?.checkDesktop ?? true
         );
-    }, [currentTemplate]);
+    }, [currentTemplate?.general_settings?.checkDesktop]);
+
+    useEffect(() => {
+        setGsAction(currentTemplate?.general_settings?.gsAction ?? "3");
+    }, [currentTemplate?.general_settings?.gsAction]);
+
+    useEffect(() => {
+        setGsDisplayCondition(
+            currentTemplate?.general_settings?.gsDisplayCondition ?? "1"
+        );
+    }, [currentTemplate?.general_settings?.gsDisplayCondition]);
 
     return (
         <Card sectioned>

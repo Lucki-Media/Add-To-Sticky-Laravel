@@ -35,7 +35,7 @@ return [
         "CUBodyFontSize" => 14,
         "CUBuyBtnFontSize" => 14,
         "CUBodyColor" => "#eef1f2",
-        "CUHeadingBGColor"  => "#000000",
+        "CUHeadingBGColor" => "#000000",
         "CUHeadingColor" => "#ffffff",
         "CUBtnTextColor" => "#ffffff",
         "CUBtnBGColor" => "#000000",

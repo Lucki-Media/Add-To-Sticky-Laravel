@@ -109,11 +109,11 @@ export default function CartTemplate2({
                     .lm-sticky-Top{
                         box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
                         background: ${current_template.general_settings.gsBgColor};
-                        height: ${current_template.buy_btn_settings.containerHeight}px;
-                        top:  ${current_template.buy_btn_settings.gsOffsetValue}px;
+                        height: ${current_template.general_settings.containerHeight}px;
+                        top:  ${current_template.general_settings.gsOffsetValue}px;
                     }
                     .img_size {
-                        height: ${current_template.buy_btn_settings.containerHeight}px;
+                        height: ${current_template.general_settings.containerHeight}px;
                         margin-right:15px;
                         display: flex;
                         align-items: center;
@@ -184,8 +184,7 @@ export default function CartTemplate2({
                     }
                 `}
             </style>
-            {enable === true &&
-                current_template.general_settings.checkDesktop === true && (
+            {enable === true && (
                     <div
                         className={`lm-sticky-${
                             current_template.general_settings.position
@@ -287,7 +286,7 @@ export default function CartTemplate2({
                                             <span
                                                 className={style.simple_price}
                                             >
-                                                ${parseFloat(4).toFixed(2)}
+                                                ${parseFloat(40).toFixed(2)}
                                             </span>{" "}
                                             <span
                                                 className={style.lm_out_stock}
