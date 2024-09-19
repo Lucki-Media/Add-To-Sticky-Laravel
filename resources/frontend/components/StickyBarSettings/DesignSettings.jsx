@@ -571,7 +571,7 @@ function DesignSettings({
 
             {/* BUY NOW BUTTON LOGIC */}
             <BlockStack gap="200">
-                <div className="lm_ds_title">Buy Now Button</div>
+                <div className="lm_ds_title">StickyBar Button</div>
                 <FormLayout>
                     <FormLayout.Group condensed>
                         <BlockStack gap="200">
@@ -582,7 +582,7 @@ function DesignSettings({
                                     alignment="start"
                                     fontWeight="medium"
                                 >
-                                    Buy Now Button Animation is
+                                    StickyBar Button Animation is
                                     {animationEnable ? (
                                         <span className="lm_sticky_custom_badge_success">
                                             <Badge tone="success">
