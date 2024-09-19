@@ -9,9 +9,6 @@ const UpSellBottomSheet = (props) => {
     const [CUProducts, setCUProducts] = useState([]);
     const [cartData, setCartData] = useState();
     const [numberCount, setNumberCount] = useState(0);
-    const [selectedVariant, setselectedVariant] = useState(
-        props.selectedVariant
-    );
     const [loading, setLoading] = useState(false);
 
     const toggleBottomSheet = () => {
@@ -167,35 +164,38 @@ const UpSellBottomSheet = (props) => {
     }, [numberCount, cartData]);
 
     let handleAddProduct = async (selectedProduct) => {
-        console.log("selectedProduct");
-        console.log(selectedProduct.variants[0].title);
+        let selectedOptions = {};
 
-        /*--------------------------------------------------------------------------------------------------*/
-        /*GETTING SELECTED VARIANT FROM OPTIONS START*/
-        // const neededVariant = props.product.variants.find(
-        //     (variant) => variant.title === title
-        // );
+        selectedProduct.options.forEach((variation, index) => {
+            const selectElement = document.getElementById(`variation_${index}`);
+            selectedOptions[variation.name] = selectElement.value; // Capture the selected value for each variation
+        });
 
-        // if (neededVariant) {
-        //     setShouldDisable(neededVariant.available === false ? true : false);
-        //     setSelectedVariant(neededVariant);
-        // }
-        /*GETTING SELECTED VARIANT FROM OPTIONS END*/
-        /*--------------------------------------------------------------------------------------------------*/
+        // Find the matching variant based on selected options
+        const neededVariant = selectedProduct.variants.find((variant) => {
+            const variantTitle = variant.title.split(" / ");
+            return variantTitle.every(
+                (titlePart, idx) =>
+                    titlePart ===
+                    selectedOptions[selectedProduct.options[idx].name]
+            );
+        });
 
-        setLoading(true);
-        const requestOptions = {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                id: selectedProduct.variants[0].id,
-                quantity: document
-                    .getElementById("lm_sticky_container_upsell__qty_picker")
-                    .getElementsByTagName("input")[0].value,
-            }),
-        };
+        if (neededVariant) {
+            setLoading(true);
+            const requestOptions = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    id: neededVariant.id, // Use the selected variant ID
+                    quantity: document
+                        .getElementById(
+                            "lm_sticky_container_upsell__qty_picker"
+                        )
+                        .getElementsByTagName("input")[0].value,
+                }),
+            };
 
-        if (selectedVariant) {
             try {
                 const res = await fetch(
                     "https://" + window.location.host + "/cart/add.json",
@@ -207,8 +207,10 @@ const UpSellBottomSheet = (props) => {
                     getCartCount();
                 }, 1000);
             } catch (error) {
-                console.log();
+                console.log("Error adding product to cart", error);
             }
+        } else {
+            console.log("No matching variant found");
         }
     };
 
@@ -561,13 +563,17 @@ const UpSellBottomSheet = (props) => {
                         </div>
 
                         {selectedProduct.options.map((variation, index) => (
-                            <div key={index} className="lmsc_variation">
+                            <div key={index} className="lmsc_variation test">
                                 <label htmlFor={`variation_${index}`}>
                                     {variation.name}:
                                 </label>
                                 <select id={`variation_${index}`}>
                                     {variation.values.map((value, idx) => (
-                                        <option key={idx} value={value}>
+                                        <option
+                                            key={idx}
+                                            selected
+                                            value={value}
+                                        >
                                             {value}
                                         </option>
                                     ))}
