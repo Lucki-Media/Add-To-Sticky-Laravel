@@ -72,12 +72,18 @@ export default function StickyBarPreview({
                     <Box>
                         {/* If desktop preview is selected */}
                         {selectedDevice === 0 && (
-                            <DesktopPreview stickyBarData={stickyBarData} />
+                            <DesktopPreview
+                                stickyBarData={stickyBarData}
+                                selectedDevice={selectedDevice}
+                            />
                         )}
 
                         {/* If mobile preview is selected */}
                         {selectedDevice === 1 && (
-                            <MobilePreview stickyBarData={stickyBarData} />
+                            <MobilePreview
+                                stickyBarData={stickyBarData}
+                                selectedDevice={selectedDevice}
+                            />
                         )}
                     </Box>
                 </BlockStack>
