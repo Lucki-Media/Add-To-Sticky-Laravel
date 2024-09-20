@@ -9,9 +9,10 @@ const UpSellBottomSheet = (props) => {
     const [CUProducts, setCUProducts] = useState([]);
     const [cartData, setCartData] = useState();
     const [numberCount, setNumberCount] = useState(0);
+    const [loading, setLoading] = useState(false);
 
     const toggleBottomSheet = () => {
-        setOpen(open);
+        setOpen(!open);
     };
 
     const closeBottomSheet = () => {
@@ -30,9 +31,30 @@ const UpSellBottomSheet = (props) => {
             .get("https://" + window.location.host + "/cart.json")
             .then((response) => {
                 setCartData(response.data);
+
                 setNumberCount(response.data.item_count);
+
+                if (response.data.item_count > 0) {
+                    updateCartDrawer(response.data.item_count);
+                }
             });
     };
+    function updateCartDrawer(cartCount) {
+        const cartCountBubble = document.querySelector(".cart-count-bubble");
+        const stickyCount = document.querySelector(".sticky_Count");
+
+        if (cartCountBubble) {
+            cartCountBubble.textContent = cartCount;
+        } else {
+            console.warn(".cart-count-bubble element not found!");
+        }
+
+        if (stickyCount) {
+            stickyCount.textContent = cartCount;
+        } else {
+            console.warn(".sticky_Count element not found!");
+        }
+    }
 
     useEffect(() => {
         setOpen(props.enableUpSell);
@@ -136,8 +158,61 @@ const UpSellBottomSheet = (props) => {
     };
 
     useEffect(() => {
-        getCartUpsellProducts();
+        if (cartData && numberCount !== 0) {
+            getCartUpsellProducts();
+        }
     }, [numberCount, cartData]);
+
+    let handleAddProduct = async (selectedProduct) => {
+        let selectedOptions = {};
+
+        selectedProduct.options.forEach((variation, index) => {
+            const selectElement = document.getElementById(`variation_${index}`);
+            selectedOptions[variation.name] = selectElement.value; // Capture the selected value for each variation
+        });
+
+        // Find the matching variant based on selected options
+        const neededVariant = selectedProduct.variants.find((variant) => {
+            const variantTitle = variant.title.split(" / ");
+            return variantTitle.every(
+                (titlePart, idx) =>
+                    titlePart ===
+                    selectedOptions[selectedProduct.options[idx].name]
+            );
+        });
+
+        if (neededVariant) {
+            setLoading(true);
+            const requestOptions = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    id: neededVariant.id, // Use the selected variant ID
+                    quantity: document
+                        .getElementById(
+                            "lm_sticky_container_upsell__qty_picker"
+                        )
+                        .getElementsByTagName("input")[0].value,
+                }),
+            };
+
+            try {
+                const res = await fetch(
+                    "https://" + window.location.host + "/cart/add.json",
+                    requestOptions
+                );
+                await res.json();
+                setLoading(false);
+                setTimeout(function () {
+                    getCartCount();
+                }, 1000);
+            } catch (error) {
+                console.log("Error adding product to cart", error);
+            }
+        } else {
+            console.log("No matching variant found");
+        }
+    };
 
     return (
         <>
@@ -390,6 +465,10 @@ const UpSellBottomSheet = (props) => {
                 .lmsc_sproduct_title{                   
                     font-size: ${props.CUHeadingFontSize}px;
                 }
+
+                .lmsc_popup_close{
+                    display:none;
+                }
                
             `}
             </style>
@@ -397,7 +476,7 @@ const UpSellBottomSheet = (props) => {
             <div>
                 <div
                     className={`lmsc_popup_container ${
-                        open ? "lmsc_popup_open" : ""
+                        open ? "lmsc_popup_open" : "lmsc_popup_close"
                     } ${props.USPosition === "left" ? "left" : "right"}`}
                 >
                     <div
@@ -479,16 +558,22 @@ const UpSellBottomSheet = (props) => {
                             {selectedProduct.title}
                         </h3>
 
-                        <QuantityPicker value={1} min={1} max={10} />
+                        <div id="lm_sticky_container_upsell__qty_picker">
+                            <QuantityPicker value={1} min={1} max={10} />
+                        </div>
 
                         {selectedProduct.options.map((variation, index) => (
-                            <div key={index} className="lmsc_variation">
+                            <div key={index} className="lmsc_variation test">
                                 <label htmlFor={`variation_${index}`}>
                                     {variation.name}:
                                 </label>
                                 <select id={`variation_${index}`}>
                                     {variation.values.map((value, idx) => (
-                                        <option key={idx} value={value}>
+                                        <option
+                                            key={idx}
+                                            selected
+                                            value={value}
+                                        >
                                             {value}
                                         </option>
                                     ))}
@@ -496,7 +581,10 @@ const UpSellBottomSheet = (props) => {
                             </div>
                         ))}
 
-                        <button className="lmsc_close_popup_button">
+                        <button
+                            className="lmsc_close_popup_button"
+                            onClick={() => handleAddProduct(selectedProduct)}
+                        >
                             {props.CUBuyBtnText}
                         </button>
                     </div>

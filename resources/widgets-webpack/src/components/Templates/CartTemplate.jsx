@@ -86,6 +86,7 @@ export default function CartTemplate1(props) {
     const [showContainer, setShowContainer] = useState(false);
     const [showNotificationBar, setShowNotificationBar] = useState(false);
     const [showUpsellPopup, setShowUpSellPopup] = useState(false);
+    const [activePlan, setActivePlan] = useState(1);
 
     const [loading, setLoading] = useState(false);
     const [selectedVariant, setSelectedVariant] = useState(
@@ -143,14 +144,27 @@ export default function CartTemplate1(props) {
         axios
             .get("https://" + window.location.host + "/cart.json")
             .then((response) => {
-                updateCartDrawer(response.data.item_count);
+                if (response.data.item_count > 0) {
+                    updateCartDrawer(response.data.item_count);
+                }
             });
     };
 
     function updateCartDrawer(cartCount) {
-        // Update the cart item count (example)
-        document.querySelector(".cart-count-bubble").textContent = cartCount;
-        document.querySelector(".sticky_Count").textContent = cartCount;
+        const cartCountBubble = document.querySelector(".cart-count-bubble");
+        const stickyCount = document.querySelector(".sticky_Count");
+
+        if (cartCountBubble) {
+            cartCountBubble.textContent = cartCount;
+        } else {
+            console.warn(".cart-count-bubble element not found!");
+        }
+
+        if (stickyCount) {
+            stickyCount.textContent = cartCount;
+        } else {
+            console.warn(".sticky_Count element not found!");
+        }
     }
 
     let handleAddProduct = async () => {
@@ -201,6 +215,27 @@ export default function CartTemplate1(props) {
             } catch (error) {
                 console.log();
             }
+        }
+    };
+
+    useEffect(() => {
+        getPlanData();
+    }, [activePlan]);
+
+    // API CALL TO GET PLAN DATA
+    const getPlanData = async () => {
+        try {
+            const response = await fetch(
+                `${process.env.REACT_APP_API_URL}` +
+                    "getPlanData/" +
+                    window.Shopify.shop
+            );
+            const data = await response.json();
+            // console.log("data");
+            // console.log(data);
+            setActivePlan(data.data);
+        } catch (err) {
+            console.log(err);
         }
     };
 
@@ -754,6 +789,7 @@ export default function CartTemplate1(props) {
                     )}
 
                     {gsAction === "3" &&
+                        activePlan === 2 &&
                         enableUpSell === true &&
                         showUpsellPopup === true && (
                             <UpSellBottomSheet
@@ -778,6 +814,8 @@ export default function CartTemplate1(props) {
                                 CUBtnBGHoverColor={CUBtnBGHoverColor}
                                 CUBorderRadius={CUBorderRadius}
                                 USPosition={USPosition}
+                                showUpsellPopup={showUpsellPopup}
+                                selectedVariant={selectedVariant}
                             />
                         )}
                 </div>
