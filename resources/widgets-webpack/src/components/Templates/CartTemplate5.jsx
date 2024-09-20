@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import "select2/dist/js/select2.min";
-// import proimage from "../assets/productimage.png";
 import { QuantityPicker } from "react-qty-picker";
 import style from "./CartTemplate5.module.css";
 import getSymbolFromCurrency from "currency-symbol-map";
@@ -9,79 +8,63 @@ import NotificationBar from "./NotificationBar";
 import axios from "axios";
 import UpSellBottomSheet from "./UpSellBottomSheet";
 
-export default function CartTemplate5(props) {
-    const template_data = props.templateData.current_template;
-    const position = template_data.general_settings.position,
-        checkMobile = template_data.general_settings.checkMobile,
-        checkDesktop = template_data.general_settings.checkDesktop,
-        gsBold = template_data.general_settings.gsBold,
-        gsItalic = template_data.general_settings.gsItalic,
-        gsUnderline = template_data.general_settings.gsUnderline,
-        gsFontFamily = template_data.general_settings.gsFontFamily,
-        gsTitleColor = template_data.general_settings.gsTitleColor,
-        containerHeight = template_data.general_settings.containerHeight,
-        gsFontsize = template_data.general_settings.gsFontsize,
-        gsPriceFontsize = template_data.general_settings.gsPriceFontsize,
-        gsPriceColor = template_data.general_settings.gsPriceColor,
-        gsBgColor = template_data.general_settings.gsBgColor,
-        gsAction = template_data.general_settings.gsAction,
-        gsDisplayCondition = template_data.general_settings.gsDisplayCondition,
+export default function CartTemplate5({
+    product,
+    productImage,
+    enable,
+    animationEnable,
+    current_template,
+}) {
+    const position = current_template.general_settings.position,
+        checkMobile = current_template.general_settings.checkMobile,
+        checkDesktop = current_template.general_settings.checkDesktop,
+        gsBold = current_template.general_settings.gsBold,
+        gsItalic = current_template.general_settings.gsItalic,
+        gsUnderline = current_template.general_settings.gsUnderline,
+        gsFontFamily = current_template.general_settings.gsFontFamily,
+        gsTitleColor = current_template.general_settings.gsTitleColor,
+        containerHeight = current_template.general_settings.containerHeight,
+        gsFontsize = current_template.general_settings.gsFontsize,
+        gsPriceFontsize = current_template.general_settings.gsPriceFontsize,
+        gsPriceColor = current_template.general_settings.gsPriceColor,
+        gsBgColor = current_template.general_settings.gsBgColor,
+        gsAction = current_template.general_settings.gsAction,
+        gsDisplayCondition =
+            current_template.general_settings.gsDisplayCondition,
         gsNotificationBarText =
-            template_data.general_settings.gsNotificationBarText,
+            current_template.general_settings.gsNotificationBarText,
         gsNotificationBarItalic =
-            template_data.general_settings.gsNotificationBarItalic,
+            current_template.general_settings.gsNotificationBarItalic,
         gsNotificationBarBold =
-            template_data.general_settings.gsNotificationBarBold,
+            current_template.general_settings.gsNotificationBarBold,
         gsNotificationBarTextColor =
-            template_data.general_settings.gsNotificationBarTextColor,
+            current_template.general_settings.gsNotificationBarTextColor,
         gsNotificationBarBgColor =
-            template_data.general_settings.gsNotificationBarBgColor,
+            current_template.general_settings.gsNotificationBarBgColor,
         gsNotificationBarFontSize =
-            template_data.general_settings.gsNotificationBarFontSize,
+            current_template.general_settings.gsNotificationBarFontSize,
         gsNotificationBarHeight =
-            template_data.general_settings.gsNotificationBarHeight,
-        enableUpSell = template_data.general_settings.enableUpSell,
-        CUPLSelection = template_data.general_settings.CUPLSelection,
-        CUPLManualSelection =
-            template_data.general_settings.CUPLManualSelection,
-        SelectedCollectionID =
-            template_data.general_settings.SelectedCollectionID,
-        SelectedProductIDs = template_data.general_settings.SelectedProductIDs,
-        CUHeadingText = template_data.general_settings.CUHeadingText,
-        CUBuyBtnText = template_data.general_settings.CUBuyBtnText,
-        CUHeadingFontSize = template_data.general_settings.CUHeadingFontSize,
-        CUBodyFontSize = template_data.general_settings.CUBodyFontSize,
-        CUBuyBtnFontSize = template_data.general_settings.CUBuyBtnFontSize,
-        CUBackgroundColor = template_data.general_settings.CUBackgroundColor,
-        CUHeadingBGColor = template_data.general_settings.CUHeadingBGColor,
-        CUHeadingColor = template_data.general_settings.CUHeadingColor,
-        CUBodyColor = template_data.general_settings.CUBodyColor,
-        CUBodyTextColor = template_data.general_settings.CUBodyTextColor,
-        CUBtnTextColor = template_data.general_settings.CUBtnTextColor,
-        CUBtnBGColor = template_data.general_settings.CUBtnBGColor,
-        CUBtnTextHoverColor =
-            template_data.general_settings.CUBtnTextHoverColor,
-        CUBtnBGHoverColor = template_data.general_settings.CUBtnBGHoverColor,
-        CUBorderRadius = template_data.general_settings.CUBorderRadius,
-        USPosition = template_data.general_settings.USPosition,
-        gsOffsetValue = template_data.general_settings.gsOffsetValue,
-        btnBold = template_data.buy_btn_settings.btnBold,
-        btnItalic = template_data.buy_btn_settings.btnItalic,
-        btnUnderline = template_data.buy_btn_settings.btnUnderline,
-        btnTextColor = template_data.buy_btn_settings.btnTextColor,
-        btnBgColor = template_data.buy_btn_settings.btnBgColor,
-        btnFontsize = template_data.buy_btn_settings.btnFontsize,
-        btnheightValue = template_data.buy_btn_settings.btnheightValue,
-        btnBorderColor = template_data.buy_btn_settings.btnBorderColor,
-        btnBgHoverColor = template_data.buy_btn_settings.btnBgHoverColor,
+            current_template.general_settings.gsNotificationBarHeight,
+        enableUpSell = current_template.general_settings.enableUpSell,
+        gsOffsetValue = current_template.general_settings.gsOffsetValue,
+        btnBold = current_template.buy_btn_settings.btnBold,
+        btnItalic = current_template.buy_btn_settings.btnItalic,
+        btnUnderline = current_template.buy_btn_settings.btnUnderline,
+        btnTextColor = current_template.buy_btn_settings.btnTextColor,
+        btnBgColor = current_template.buy_btn_settings.btnBgColor,
+        btnFontsize = current_template.buy_btn_settings.btnFontsize,
+        btnheightValue = current_template.buy_btn_settings.btnheightValue,
+        btnBorderColor = current_template.buy_btn_settings.btnBorderColor,
+        btnBgHoverColor = current_template.buy_btn_settings.btnBgHoverColor,
         btnBorderHoverColor =
-            template_data.buy_btn_settings.btnBorderHoverColor,
-        btnTexthoverColor = template_data.buy_btn_settings.btnTexthoverColor,
-        btnWidthValue = template_data.buy_btn_settings.btnWidthValue,
-        btnBorderThickness = template_data.buy_btn_settings.btnBorderThickness,
-        btnBorderRadius = template_data.buy_btn_settings.btnBorderRadius,
-        editText = template_data.buy_btn_settings.editText,
-        unavailable = template_data.buy_btn_settings.unavailable;
+            current_template.buy_btn_settings.btnBorderHoverColor,
+        btnTexthoverColor = current_template.buy_btn_settings.btnTexthoverColor,
+        btnWidthValue = current_template.buy_btn_settings.btnWidthValue,
+        btnBorderThickness =
+            current_template.buy_btn_settings.btnBorderThickness,
+        btnBorderRadius = current_template.buy_btn_settings.btnBorderRadius,
+        editText = current_template.buy_btn_settings.editText,
+        unavailable = current_template.buy_btn_settings.unavailable;
 
     const [showContainer, setShowContainer] = useState(false);
     const [showNotificationBar, setShowNotificationBar] = useState(false);
@@ -90,19 +73,13 @@ export default function CartTemplate5(props) {
     const [loading, setLoading] = useState(false);
     const [showUpsellPopup, setShowUpSellPopup] = useState(false);
 
-    // console.log(props.templateData);
     const [selectedVariant, setSelectedVariant] = useState(
-        props.product.variants?.length && props.product.variants[0]
+        product.variants?.length && product.variants[0]
     );
     const [selectedOptions, setSelectedOptions] = useState({
-        option0:
-            props.product.options?.length && props.product.options[0].values[0],
-        option1:
-            props.product.options?.length > 1 &&
-            props.product.options[1].values[0],
-        option2:
-            props.product.options?.length > 2 &&
-            props.product.options[2].values[0],
+        option0: product.options?.length && product.options[0].values[0],
+        option1: product.options?.length > 1 && product.options[1].values[0],
+        option2: product.options?.length > 2 && product.options[2].values[0],
     });
     /*--------------------------------------------------------------------------------------------------*/
     /*PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS START*/
@@ -200,9 +177,9 @@ export default function CartTemplate5(props) {
                 );
                 await res.json();
                 setLoading(false);
-                if (template_data.general_settings.gsAction === "1") {
+                if (current_template.general_settings.gsAction === "1") {
                     window.location.href = "/cart";
-                } else if (template_data.general_settings.gsAction === "3") {
+                } else if (current_template.general_settings.gsAction === "3") {
                     setShowNotificationBar(true);
                     setShowUpSellPopup(true);
                 } else {
@@ -249,7 +226,7 @@ export default function CartTemplate5(props) {
         }
         /*--------------------------------------------------------------------------------------------------*/
         /*GETTING SELECTED VARIANT FROM OPTIONS START*/
-        const neededVariant = props.product.variants.find(
+        const neededVariant = product.variants.find(
             (variant) => variant.title === title
         );
         // console.log("SelectedVariant");
@@ -333,7 +310,7 @@ export default function CartTemplate5(props) {
         selectedOptions?.option0,
         selectedOptions?.option1,
         selectedOptions?.option2,
-        props.product.variants,
+        product.variants,
     ]);
     const customStyles = {
         indicatorSeparator: (provided) => ({
@@ -342,7 +319,7 @@ export default function CartTemplate5(props) {
         }),
     };
 
-    if (props.templateData) {
+    if (current_template) {
         if (showContainer) {
             return (
                 <div>
@@ -366,154 +343,154 @@ export default function CartTemplate5(props) {
                             .apply-font{
                                 font-family : ${gsFontFamily};
                             }
-        .lm_quantity_picker .quantity-picker .quantity-display{
-        padding: 0;
-        background-color: #fff;
-        width: 28px !important;
-        font-size: 14px;
-        color: #000;
-        box-shadow: none;
-        }
-        .lm_quantity_picker .quantity-modifier{
-        height: 35px;
-        width: 30px;
-        border: none;
-        font-size: 16px;
-        color: #000;
-        background-color: #fff;
-        border-radius: 0;
-        }
-        .lm_quantity_picker .quantity-picker{
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius:0;
-        display: flex;
-        align-items: center;
-        }
+                            .lm_quantity_picker .quantity-picker .quantity-display{
+                                padding: 0;
+                                background-color: #fff;
+                                width: 28px !important;
+                                font-size: 14px;
+                                color: #000;
+                                box-shadow: none;
+                            }
+                            .lm_quantity_picker .quantity-modifier{
+                                height: 35px;
+                                width: 30px;
+                                border: none;
+                                font-size: 16px;
+                                color: #000;
+                                background-color: #fff;
+                                border-radius: 0;
+                            }
+                            .lm_quantity_picker .quantity-picker{
+                                background-color: #fff;
+                                border: 1px solid #ddd;
+                                border-radius:0;
+                                display: flex;
+                                align-items: center;
+                            }
 
-         .lm_options {
-        position: relative;
-      }
-      .lm_options .pro_select_menu{
-        display: inline-block;
-        width: 100px;
-     margin-right: 15px;
-      }
-      .lm_options .pro_select_menu > div{
-        border: 1px solid #ddd;
-        font-size: 12px;
-        min-height: 35px;
-        box-shadow: none !important;
-        border-radius:0;
-      }
-        .lm_bold{
-          font-weight: bolder;
-        }
-        .lm_italic{
-          font-style: italic;
-        }
-        .lm_underline{
-          text-decoration: underline;
-        }
-              .lm-sticky-Bottom{
-                    box-shadow: rgba(149, 157, 165, 0.4) 0 -8px 24px;
-                    background: ${gsBgColor};
-                    height: ${containerHeight}px;
-                    bottom:  ${gsOffsetValue}px;
-                }
-                .lm-sticky-Top{
-                    box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
-                    background: ${gsBgColor};
-                    height: ${containerHeight}px;
-                    top:  ${gsOffsetValue}px;
-                }
-                        .img_size {
-                            height: ${containerHeight}px;
-                            margin-right:15px;
-                            display: flex;
-                             align-items: center;
-                        }
-      .font_option {
-        color: ${gsTitleColor};
-        font-size: ${gsFontsize}px;
-      }
-      .label_color{
-        color: ${gsTitleColor};
-      }
-      .lm_sticky_p_color {
-        color: ${gsPriceColor};
-        display:block;
-        margin-top:5px;
-        font-size: ${gsPriceFontsize}px;
-      }
+                            .lm_options {
+                                position: relative;
+                            }
+                            .lm_options .pro_select_menu{
+                                display: inline-block;
+                                width: 100px;
+                                margin-right: 15px;
+                            }
+                            .lm_options .pro_select_menu > div{
+                                border: 1px solid #ddd;
+                                font-size: 12px;
+                                min-height: 35px;
+                                box-shadow: none !important;
+                                border-radius:0;
+                            }
+                            .lm_bold{
+                                font-weight: bolder;
+                            }
+                            .lm_italic{
+                                font-style: italic;
+                            }
+                            .lm_underline{
+                                text-decoration: underline;
+                            }
+                            .lm-sticky-Bottom{
+                                box-shadow: rgba(149, 157, 165, 0.4) 0 -8px 24px;
+                                background: ${gsBgColor};
+                                height: ${containerHeight}px;
+                                bottom:  ${gsOffsetValue}px;
+                            }
+                            .lm-sticky-Top{
+                                box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
+                                background: ${gsBgColor};
+                                height: ${containerHeight}px;
+                                top:  ${gsOffsetValue}px;
+                            }
+                            .img_size {
+                                height: ${containerHeight}px;
+                                margin-right:15px;
+                                display: flex;
+                                align-items: center;
+                            }
+                            .font_option {
+                                color: ${gsTitleColor};
+                                font-size: ${gsFontsize}px;
+                            }
+                            .label_color{
+                                color: ${gsTitleColor};
+                            }
+                            .lm_sticky_p_color {
+                                color: ${gsPriceColor};
+                                display:block;
+                                margin-top:5px;
+                                font-size: ${gsPriceFontsize}px;
+                            }
+                            .css-1jqq78o-placeholder{
+                                font-size:12px;
+                                color: #000;
+                            }
+                            .css-1nmdiq5-menu{
+                                margin:0 auto !important;
+                            }
+                            .css-14h4o58-menu{
+                                margin:0 auto !important;
+                            }
+                            .css-1xc3v61-indicatorContainer{
+                                padding: 0 8px;
+                            }
+                            .slide_right {
+                                width: ${btnWidthValue}px;
+                                height: ${btnheightValue}px;
+                                font-size: ${btnFontsize}px;
+                                background: ${btnBgColor};
+                                border-Width: ${btnBorderThickness}px;
+                                border-color: ${btnBorderColor};
+                                border-radius: ${btnBorderRadius}px;
+                                color: ${btnTextColor};
+                                padding: 0 20px;
+                                display: inline-block;
+                                cursor: pointer;
+                                box-shadow: inset 0 0 0 0 ${btnBgHoverColor};
+                                -webkit-transition: ease-out 0.4s;
+                                -moz-transition: ease-out 0.4s;
+                                transition: ease-out 0.4s;
+                            }
 
-
-      .css-1jqq78o-placeholder{
-        font-size:12px;
-        color: #000;
-      }
-      .css-1nmdiq5-menu{
-        margin:0 auto !important;
-      }
-      .css-14h4o58-menu{
-        margin:0 auto !important;
-      }
-      .css-1xc3v61-indicatorContainer{
-        padding: 0 8px;
-      }
-      .slide_right {
-        width: ${btnWidthValue}px;
-        height: ${btnheightValue}px;
-        font-size: ${btnFontsize}px;
-        background: ${btnBgColor};
-        border-Width: ${btnBorderThickness}px;
-        border-color: ${btnBorderColor};
-        border-radius: ${btnBorderRadius}px;
-        color: ${btnTextColor};
-        padding: 0 20px;
-        display: inline-block;
-        cursor: pointer;
-        box-shadow: inset 0 0 0 0 ${btnBgHoverColor};
-        -webkit-transition: ease-out 0.4s;
-        -moz-transition: ease-out 0.4s;
-        transition: ease-out 0.4s;
-      }
-
-      .slide_right:hover {
-        box-shadow: inset 400px 0 0 0 ${btnBgHoverColor};
-        border-color: ${btnBorderHoverColor};
-        color: ${btnTexthoverColor};
-      }
-      .pro_select_menu svg{
-        fill: #000;
-      }
-      .css-1u9des2-indicatorSeparator{
-        margin-bottom: 22px;
-    margin-top: 22px;
-      }
-      .image_lm_right-image img{
-          object-fit: cover;
-    margin-right: 0;
-    height: 90%;
-    width: 100%;
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-      }
-      @media screen and (max-width: 991px) {
-        .lm_options .pro_select_menu > div {
-          min-height: 40px;        }
-        .lm_quantity_picker .quantity-modifier ,.slide_right{
-          height: 40px;        }
-      }
-      @media screen and (max-width: 991px) {
-        .img_size{
-          margin-right: 5px;
-        }
-      }
-      `}
+                            .slide_right:hover {
+                                box-shadow: inset 400px 0 0 0 ${btnBgHoverColor};
+                                border-color: ${btnBorderHoverColor};
+                                color: ${btnTexthoverColor};
+                            }
+                            .pro_select_menu svg{
+                                fill: #000;
+                            }
+                            .css-1u9des2-indicatorSeparator{
+                                margin-bottom: 22px;
+                                margin-top: 22px;
+                            }
+                            .image_lm_right-image img{
+                                object-fit: cover;
+                                margin-right: 0;
+                                height: 90%;
+                                width: 100%;
+                                padding: 5px;
+                                border: 1px solid #ddd;
+                                border-radius: 3px;
+                            }
+                            @media screen and (max-width: 991px) {
+                                .lm_options .pro_select_menu > div {
+                                    min-height: 40px;        
+                                }
+                                .lm_quantity_picker .quantity-modifier ,.slide_right{
+                                    height: 40px;        
+                                }
+                            }
+                            @media screen and (max-width: 991px) {
+                                .img_size{
+                                    margin-right: 5px;
+                                }
+                            }
+                        `}
                     </style>
-                    {props.templateData.enable === true ? (
+                    {enable === true && (
                         <div
                             className={`lm-sticky-${position} ${
                                 style.lm_sticky_cart
@@ -556,245 +533,301 @@ export default function CartTemplate5(props) {
                                         containerHeight={containerHeight}
                                     />
                                 )}
-                            <div className={style.lm_container}>
-                                <div className={style.lm_cart_module}>
-                                    <div className={style.lm_pro_image}>
-                                        <div className={style.lm_middlecontent}>
-                                            <h2
-                                                className={`font_option ${
-                                                    style.pro_names
-                                                } ${
-                                                    gsBold === true
-                                                        ? "lm_bold"
-                                                        : ""
-                                                } ${
-                                                    gsItalic === true
-                                                        ? "lm_italic"
-                                                        : ""
-                                                } ${
-                                                    gsUnderline === true
-                                                        ? "lm_underline"
-                                                        : "no-line"
-                                                }`}
-                                            >
-                                                {props.product.title}
-                                            </h2>
-                                            <div className="lm_sticky_p_color">
-                                                {oldPrice > price &&
-                                                oldPrice !== "" ? (
-                                                    <span
-                                                        className={
-                                                            style.compare_lm_price
-                                                        }
-                                                    >
-                                                        {oldPrice}
-                                                    </span>
-                                                ) : null}
-                                                <span
-                                                    className={`
-                                                        ${style.simple_price}${
-                                                        oldPrice === ""
-                                                            ? "::before"
-                                                            : ""
-                                                    }
-                                                    `}
-                                                >
-                                                    {price}
-                                                </span>
-                                                {selectedVariant.available ===
-                                                false ? (
-                                                    <span
-                                                        className={
-                                                            style.lm_out_stock
-                                                        }
-                                                    >
-                                                        {unavailable}
-                                                    </span>
-                                                ) : null}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className={style.lmblock_right}>
-                                        <div
-                                            className={`image_lm_right-image img_size ${style.image_border}`}
-                                        >
-                                            <img
-                                                className="img_sizes"
-                                                src={
-                                                    selectedVariant &&
-                                                    selectedVariant.featured_image &&
-                                                    selectedVariant
-                                                        .featured_image.src
-                                                        ? selectedVariant
-                                                              .featured_image
-                                                              .src
-                                                        : props.productImage !==
-                                                              null &&
-                                                          props.productImage !==
-                                                              undefined
-                                                        ? props.productImage
-                                                        : process.env
-                                                              .REACT_APP_IMAGE_URL +
-                                                          "images/default_product.png"
-                                                }
-                                                alt="product "
-                                            />
-                                        </div>
 
-                                        <div className={style.var_options}>
-                                            {selectedVariant.option1 !==
-                                                "Default Title" &&
-                                                props.product.options?.length &&
-                                                props.product.options[0].values
-                                                    ?.length &&
-                                                props.product.options.map(
-                                                    (opt, i, arr) => {
-                                                        const optionName =
-                                                            "option" + i;
-                                                        const defaultOption = [
-                                                            {
-                                                                value: selectedOptions?.[
-                                                                    optionName
-                                                                ],
-                                                                label: selectedOptions?.[
-                                                                    optionName
-                                                                ],
-                                                            },
-                                                        ];
-                                                        return (
-                                                            <div
-                                                                className={`lm_options ${style.lm_options}`}
-                                                            >
-                                                                <div
-                                                                    className={`productInputs ${style.productInputs}`}
-                                                                >
-                                                                    <div
-                                                                        key={
-                                                                            optionName
-                                                                        }
-                                                                    >
-                                                                        {/* <label className="label_color">
-                                                                            {
-                                                                                opt.name
-                                                                            }
-                                                                        </label> */}
-                                                                        <Select
-                                                                            styles={
-                                                                                customStyles
-                                                                            }
-                                                                            isSearchable={
-                                                                                false
-                                                                            }
-                                                                            placeholder={
-                                                                                opt.name
-                                                                            }
-                                                                            menuPlacement={
-                                                                                position ===
-                                                                                "Bottom"
-                                                                                    ? "top"
-                                                                                    : "bottom"
-                                                                            }
-                                                                            onChange={(
-                                                                                selectedOption
-                                                                            ) =>
-                                                                                handleChangeSelect(
-                                                                                    selectedOption,
-                                                                                    i
-                                                                                )
-                                                                            }
-                                                                            name={
-                                                                                opt.name
-                                                                            }
-                                                                            key={
-                                                                                optionName
-                                                                            }
-                                                                            className={`pro_select_menu font_option ${style.pro_names}`}
-                                                                            defaultValue={
-                                                                                defaultOption[0]
-                                                                            }
-                                                                            style={{
-                                                                                width:
-                                                                                    arr.length >
-                                                                                    2
-                                                                                        ? "30%"
-                                                                                        : "46%",
-                                                                            }}
-                                                                            options={opt.values.map(
-                                                                                (
-                                                                                    val
-                                                                                ) => ({
-                                                                                    value: val,
-                                                                                    label: val,
-                                                                                })
-                                                                            )}
-                                                                        />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        );
-                                                    }
-                                                )}
-                                        </div>
-                                        <div className={style.button_block}>
+                            {window.innerWidth <= 768 &&
+                            current_template?.general_settings
+                                ?.showOnlyBtnOnMobile === true ? (
+                                // show only mobile button
+                                <div className={style.lm_container}>
+                                    <div className={style.lm_buy_btn}>
+                                        <button
+                                            id="lm_sticky_buy_button"
+                                            disabled={shouldDisable}
+                                            onClick={
+                                                (() => checkCondition,
+                                                handleAddProduct)
+                                            }
+                                            className={`lm_btn slide_right font_option ${
+                                                btnBold === true
+                                                    ? "lm_bold"
+                                                    : ""
+                                            } ${
+                                                btnItalic === true
+                                                    ? "lm_italic"
+                                                    : ""
+                                            } ${
+                                                btnUnderline === true
+                                                    ? "lm_underline"
+                                                    : "no-line"
+                                            }${
+                                                animationEnable === true
+                                                    ? " lm_vibrating"
+                                                    : ""
+                                            }`}
+                                            style={{
+                                                cursor:
+                                                    selectedVariant.available ===
+                                                    false
+                                                        ? "not-allowed"
+                                                        : "pointer",
+                                            }}
+                                        >
+                                            {loading === true
+                                                ? "Adding..."
+                                                : `${editText}`}
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className={style.lm_container}>
+                                    <div className={style.lm_cart_module}>
+                                        <div className={style.lm_pro_image}>
                                             <div
-                                                id="lm_sticky_container__qty_picker"
-                                                className={`lm_quantity_picker ${style.lm_quantity_selector}`}
+                                                className={
+                                                    style.lm_middlecontent
+                                                }
                                             >
-                                                <QuantityPicker
-                                                    className={style.quantity12}
-                                                    value={1}
-                                                    min={1}
-                                                    max={1000000000000}
-                                                />
-                                            </div>
-                                            <div className={style.lm_buy_btn}>
-                                                {/* <CustomizedButton onClick={() => alert("Welcome!")}> */}
-                                                <button
-                                                    id="lm_sticky_buy_button"
-                                                    disabled={shouldDisable}
-                                                    onClick={
-                                                        (() => checkCondition,
-                                                        handleAddProduct)
-                                                    }
-                                                    className={`lm_btn slide_right font_option ${
-                                                        btnBold === true
+                                                <h2
+                                                    className={`font_option ${
+                                                        style.pro_names
+                                                    } ${
+                                                        gsBold === true
                                                             ? "lm_bold"
                                                             : ""
                                                     } ${
-                                                        btnItalic === true
+                                                        gsItalic === true
                                                             ? "lm_italic"
                                                             : ""
                                                     } ${
-                                                        btnUnderline === true
+                                                        gsUnderline === true
                                                             ? "lm_underline"
                                                             : "no-line"
-                                                    }${
-                                                        props.templateData
-                                                            .animationEnable ===
-                                                        true
-                                                            ? " lm_vibrating"
-                                                            : ""
                                                     }`}
-                                                    style={{
-                                                        cursor:
-                                                            selectedVariant.available ===
-                                                            false
-                                                                ? "not-allowed"
-                                                                : "pointer",
-                                                    }}
                                                 >
-                                                    {loading === true
-                                                        ? "Adding..."
-                                                        : `${editText}`}
-                                                </button>
+                                                    {product.title}
+                                                </h2>
+                                                <div className="lm_sticky_p_color">
+                                                    {oldPrice > price &&
+                                                    oldPrice !== "" ? (
+                                                        <span
+                                                            className={
+                                                                style.compare_lm_price
+                                                            }
+                                                        >
+                                                            {oldPrice}
+                                                        </span>
+                                                    ) : null}
+                                                    <span
+                                                        className={`
+                                                            ${
+                                                                style.simple_price
+                                                            }${
+                                                            oldPrice === ""
+                                                                ? "::before"
+                                                                : ""
+                                                        }
+                                                        `}
+                                                    >
+                                                        {price}
+                                                    </span>
+                                                    {selectedVariant.available ===
+                                                    false ? (
+                                                        <span
+                                                            className={
+                                                                style.lm_out_stock
+                                                            }
+                                                        >
+                                                            {unavailable}
+                                                        </span>
+                                                    ) : null}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className={style.lmblock_right}>
+                                            <div
+                                                className={`image_lm_right-image img_size ${style.image_border}`}
+                                            >
+                                                <img
+                                                    className="img_sizes"
+                                                    src={
+                                                        selectedVariant &&
+                                                        selectedVariant.featured_image &&
+                                                        selectedVariant
+                                                            .featured_image.src
+                                                            ? selectedVariant
+                                                                  .featured_image
+                                                                  .src
+                                                            : productImage !==
+                                                                  null &&
+                                                              productImage !==
+                                                                  undefined
+                                                            ? productImage
+                                                            : process.env
+                                                                  .REACT_APP_IMAGE_URL +
+                                                              "images/default_product.png"
+                                                    }
+                                                    alt="product "
+                                                />
+                                            </div>
 
-                                                {/* <div class="button_slide slide_right">BUTTON: SLIDE RIGHT </div> */}
-                                                {/* </CustomizedButton> */}
+                                            <div className={style.var_options}>
+                                                {selectedVariant.option1 !==
+                                                    "Default Title" &&
+                                                    product.options?.length &&
+                                                    product.options[0].values
+                                                        ?.length &&
+                                                    product.options.map(
+                                                        (opt, i, arr) => {
+                                                            const optionName =
+                                                                "option" + i;
+                                                            const defaultOption =
+                                                                [
+                                                                    {
+                                                                        value: selectedOptions?.[
+                                                                            optionName
+                                                                        ],
+                                                                        label: selectedOptions?.[
+                                                                            optionName
+                                                                        ],
+                                                                    },
+                                                                ];
+                                                            return (
+                                                                <div
+                                                                    className={`lm_options ${style.lm_options}`}
+                                                                >
+                                                                    <div
+                                                                        className={`productInputs ${style.productInputs}`}
+                                                                    >
+                                                                        <div
+                                                                            key={
+                                                                                optionName
+                                                                            }
+                                                                        >
+                                                                            {/* <label className="label_color">
+                                                                                {
+                                                                                    opt.name
+                                                                                }
+                                                                            </label> */}
+                                                                            <Select
+                                                                                styles={
+                                                                                    customStyles
+                                                                                }
+                                                                                isSearchable={
+                                                                                    false
+                                                                                }
+                                                                                placeholder={
+                                                                                    opt.name
+                                                                                }
+                                                                                menuPlacement={
+                                                                                    position ===
+                                                                                    "Bottom"
+                                                                                        ? "top"
+                                                                                        : "bottom"
+                                                                                }
+                                                                                onChange={(
+                                                                                    selectedOption
+                                                                                ) =>
+                                                                                    handleChangeSelect(
+                                                                                        selectedOption,
+                                                                                        i
+                                                                                    )
+                                                                                }
+                                                                                name={
+                                                                                    opt.name
+                                                                                }
+                                                                                key={
+                                                                                    optionName
+                                                                                }
+                                                                                className={`pro_select_menu font_option ${style.pro_names}`}
+                                                                                defaultValue={
+                                                                                    defaultOption[0]
+                                                                                }
+                                                                                style={{
+                                                                                    width:
+                                                                                        arr.length >
+                                                                                        2
+                                                                                            ? "30%"
+                                                                                            : "46%",
+                                                                                }}
+                                                                                options={opt.values.map(
+                                                                                    (
+                                                                                        val
+                                                                                    ) => ({
+                                                                                        value: val,
+                                                                                        label: val,
+                                                                                    })
+                                                                                )}
+                                                                            />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            );
+                                                        }
+                                                    )}
+                                            </div>
+                                            <div className={style.button_block}>
+                                                <div
+                                                    id="lm_sticky_container__qty_picker"
+                                                    className={`lm_quantity_picker ${style.lm_quantity_selector}`}
+                                                >
+                                                    <QuantityPicker
+                                                        className={
+                                                            style.quantity12
+                                                        }
+                                                        value={1}
+                                                        min={1}
+                                                        max={1000000000000}
+                                                    />
+                                                </div>
+                                                <div
+                                                    className={style.lm_buy_btn}
+                                                >
+                                                    <button
+                                                        id="lm_sticky_buy_button"
+                                                        disabled={shouldDisable}
+                                                        onClick={
+                                                            (() =>
+                                                                checkCondition,
+                                                            handleAddProduct)
+                                                        }
+                                                        className={`lm_btn slide_right font_option ${
+                                                            btnBold === true
+                                                                ? "lm_bold"
+                                                                : ""
+                                                        } ${
+                                                            btnItalic === true
+                                                                ? "lm_italic"
+                                                                : ""
+                                                        } ${
+                                                            btnUnderline ===
+                                                            true
+                                                                ? "lm_underline"
+                                                                : "no-line"
+                                                        }${
+                                                            animationEnable ===
+                                                            true
+                                                                ? " lm_vibrating"
+                                                                : ""
+                                                        }`}
+                                                        style={{
+                                                            cursor:
+                                                                selectedVariant.available ===
+                                                                false
+                                                                    ? "not-allowed"
+                                                                    : "pointer",
+                                                        }}
+                                                    >
+                                                        {loading === true
+                                                            ? "Adding..."
+                                                            : `${editText}`}
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            )}
+
                             {gsAction === "3" &&
                                 showNotificationBar === true &&
                                 position === "Top" && (
@@ -825,37 +858,15 @@ export default function CartTemplate5(props) {
                                     />
                                 )}
                         </div>
-                    ) : (
-                        ""
                     )}
                     {gsAction === "3" &&
                         enableUpSell === true &&
                         activePlan === 2 &&
                         showUpsellPopup === true && (
                             <UpSellBottomSheet
-                                enableUpSell={enableUpSell}
-                                CUPLSelection={CUPLSelection}
-                                CUPLManualSelection={CUPLManualSelection}
-                                SelectedCollectionID={SelectedCollectionID}
-                                SelectedProductIDs={SelectedProductIDs}
-                                CUHeadingText={CUHeadingText}
-                                CUBuyBtnText={CUBuyBtnText}
-                                CUHeadingFontSize={CUHeadingFontSize}
-                                CUBodyFontSize={CUBodyFontSize}
-                                CUBuyBtnFontSize={CUBuyBtnFontSize}
-                                CUBackgroundColor={CUBackgroundColor}
-                                CUHeadingBGColor={CUHeadingBGColor}
-                                CUHeadingColor={CUHeadingColor}
-                                CUBodyColor={CUBodyColor}
-                                CUBodyTextColor={CUBodyTextColor}
-                                CUBtnTextColor={CUBtnTextColor}
-                                CUBtnBGColor={CUBtnBGColor}
-                                CUBtnTextHoverColor={CUBtnTextHoverColor}
-                                CUBtnBGHoverColor={CUBtnBGHoverColor}
-                                CUBorderRadius={CUBorderRadius}
-                                USPosition={USPosition}
-                                showUpsellPopup={showUpsellPopup}
-                                selectedVariant={selectedVariant}
+                                upsellPopupData={
+                                    current_template.general_settings
+                                }
                             />
                         )}
                 </div>

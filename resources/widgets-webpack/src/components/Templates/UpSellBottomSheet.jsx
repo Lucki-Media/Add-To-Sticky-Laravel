@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { QuantityPicker } from "react-qty-picker";
 import axios from "axios";
 
-const UpSellBottomSheet = (props) => {
+const UpSellBottomSheet = ({ upsellPopupData }) => {
     const [open, setOpen] = useState(false);
     const [popupOpen, setPopupOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
@@ -57,13 +57,13 @@ const UpSellBottomSheet = (props) => {
     }
 
     useEffect(() => {
-        setOpen(props.enableUpSell);
+        setOpen(upsellPopupData.enableUpSell);
         getCartCount();
-    }, [props.enableUpSell]);
+    }, [upsellPopupData.enableUpSell]);
 
     // CART UPSELL API CALL
     const getCartUpsellProducts = async () => {
-        if (props.CUPLSelection === "1") {
+        if (upsellPopupData.CUPLSelection === "1") {
             // Default Recommendation
             axios
                 .get(
@@ -81,11 +81,11 @@ const UpSellBottomSheet = (props) => {
                 });
         } else {
             // Manually Select
-            if (props.CUPLManualSelection === "1") {
+            if (upsellPopupData.CUPLManualSelection === "1") {
                 // Manual Products
-                if (props.SelectedProductIDs.length > 0) {
+                if (upsellPopupData.SelectedProductIDs.length > 0) {
                     // Create an array of promises
-                    const productPromises = props.SelectedProductIDs.map(
+                    const productPromises = upsellPopupData.SelectedProductIDs.map(
                         (productHandle) => {
                             return getProductByHandle(productHandle);
                         }
@@ -102,13 +102,13 @@ const UpSellBottomSheet = (props) => {
                 }
             } else {
                 // Manual Collection
-                if (props.SelectedCollectionID) {
+                if (upsellPopupData.SelectedCollectionID) {
                     axios
                         .get(
                             "https://" +
                                 window.location.host +
                                 "/collections/" +
-                                props.SelectedCollectionID +
+                                upsellPopupData.SelectedCollectionID +
                                 "/products.json?limit=3"
                         )
                         .then(async (response) => {
@@ -240,7 +240,7 @@ const UpSellBottomSheet = (props) => {
 
                 #lmsc_bottomSheet {
                     padding: 10px;
-                    background: ${props.CUBackgroundColor};
+                    background: ${upsellPopupData.CUBackgroundColor};
                     box-shadow: 0 -2px 16px 0 rgba(0,0,0,0.16);
                     border-radius:8px 8px 0px 0px;
                     transition:all 0.4s ease;
@@ -261,15 +261,15 @@ const UpSellBottomSheet = (props) => {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    background-color: ${props.CUHeadingBGColor};
-                    border-radius: ${props.CUBorderRadius}px;
+                    background-color: ${upsellPopupData.CUHeadingBGColor};
+                    border-radius: ${upsellPopupData.CUBorderRadius}px;
                 }
 
                 .lmsc_bottomSheet__header {
                     font-family: HelveticaNeue-Bold, sans-serif;
-                    font-size: ${props.CUHeadingFontSize}px;
+                    font-size: ${upsellPopupData.CUHeadingFontSize}px;
                     margin: 0;
-                    color: ${props.CUHeadingColor};
+                    color: ${upsellPopupData.CUHeadingColor};
                     padding: 3px 12px;
                     font-weight: 600;
                     letter-spacing: 1px;
@@ -279,7 +279,7 @@ const UpSellBottomSheet = (props) => {
                     background: transparent;
                     border: none;
                     font-size: 24px;
-                    color: ${props.CUHeadingColor};
+                    color: ${upsellPopupData.CUHeadingColor};
                     cursor: pointer;
                     padding: 3px 10px;
                 }
@@ -295,8 +295,8 @@ const UpSellBottomSheet = (props) => {
                     display: flex;
                     gap: 16px;
                     padding: 12px;
-                    background: ${props.CUBodyColor};
-                    border-radius: ${props.CUBorderRadius}px;
+                    background: ${upsellPopupData.CUBodyColor};
+                    border-radius: ${upsellPopupData.CUBorderRadius}px;
                     box-shadow: 0 2px 12px #0000001a;
                     transition: transform .2s ease;
                 }
@@ -309,7 +309,7 @@ const UpSellBottomSheet = (props) => {
                     width: 60px;
                     height: 60px;
                     object-fit: cover;
-                    border-radius: ${props.CUBorderRadius}px;
+                    border-radius: ${upsellPopupData.CUBorderRadius}px;
                     box-shadow: 0 2px 8px #00000026;
                 }
 
@@ -321,38 +321,38 @@ const UpSellBottomSheet = (props) => {
                 }
 
                 .lmsc_product_title {
-                    font-size: ${props.CUBodyFontSize}px;
-                    color: ${props.CUBodyTextColor};
+                    font-size: ${upsellPopupData.CUBodyFontSize}px;
+                    color: ${upsellPopupData.CUBodyTextColor};
                     margin: 0;
                 }
 
                 .lmsc_product_price {
-                    font-size: ${props.CUBodyFontSize}px;
-                    color: ${props.CUBodyTextColor};
+                    font-size: ${upsellPopupData.CUBodyFontSize}px;
+                    color: ${upsellPopupData.CUBodyTextColor};
                     margin: 4px 0;
                 }
 
                 .lmsc_product_price strike {
-                    font-size: ${props.CUBodyFontSize}px;
-                    color: ${props.CUBodyTextColor};
+                    font-size: ${upsellPopupData.CUBodyFontSize}px;
+                    color: ${upsellPopupData.CUBodyTextColor};
                     margin-left: 5px;
                 }
 
                 .lmsc_add_to_cart_button {
                     align-self: center;
-                    background-color:${props.CUBtnBGColor};
-                    color: ${props.CUBtnTextColor};
+                    background-color:${upsellPopupData.CUBtnBGColor};
+                    color: ${upsellPopupData.CUBtnTextColor};
                     border: none;
                     padding: 5px 16px;
-                    border-radius: ${props.CUBorderRadius}px;
+                    border-radius: ${upsellPopupData.CUBorderRadius}px;
                     cursor: pointer;
                     transition: background-color .3s ease;
-                    font-size: ${props.CUBuyBtnFontSize}px;
+                    font-size: ${upsellPopupData.CUBuyBtnFontSize}px;
                 }
 
                 .lmsc_add_to_cart_button:hover {
-                    background-color:${props.CUBtnBGHoverColor};
-                    color: ${props.CUBtnTextHoverColor};
+                    background-color:${upsellPopupData.CUBtnBGHoverColor};
+                    color: ${upsellPopupData.CUBtnTextHoverColor};
                 }
 
                 .lmsc_popup_modal {
@@ -363,7 +363,7 @@ const UpSellBottomSheet = (props) => {
                     background: white;
                     padding: 20px;
                     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                    border-radius: ${props.CUBorderRadius}px;
+                    border-radius: ${upsellPopupData.CUBorderRadius}px;
                     z-index: 10000;
                     max-width: 300px;
                     width: 100%;
@@ -373,7 +373,7 @@ const UpSellBottomSheet = (props) => {
 
                 .lmsc_popup_modal img {
                     width: 100%;
-                    border-radius: ${props.CUBorderRadius}px;
+                    border-radius: ${upsellPopupData.CUBorderRadius}px;
                 }
 
                 .lmsc_popup_modal h3 {
@@ -388,11 +388,11 @@ const UpSellBottomSheet = (props) => {
                 }
 
                 .lmsc_popup_modal .lmsc_close_popup_button {
-                    background-color:${props.CUBtnBGColor};
-                    color: ${props.CUBtnTextColor};
+                    background-color:${upsellPopupData.CUBtnBGColor};
+                    color: ${upsellPopupData.CUBtnTextColor};
                     border: none;
                     padding: 10px 16px;
-                    border-radius: ${props.CUBorderRadius}px;
+                    border-radius: ${upsellPopupData.CUBorderRadius}px;
                     cursor: pointer;
                     transition: background-color .3s ease;
                     margin-top: 16px;
@@ -401,8 +401,8 @@ const UpSellBottomSheet = (props) => {
                 }
                 
                  .lmsc_popup_modal .lmsc_close_popup_button:hover{
-                    background-color:${props.CUBtnBGHoverColor};
-                    color: ${props.CUBtnTextHoverColor};                
+                    background-color:${upsellPopupData.CUBtnBGHoverColor};
+                    color: ${upsellPopupData.CUBtnTextHoverColor};                
                 }
 
                  .lmsc_popup_modal .quantity-picker {
@@ -463,7 +463,7 @@ const UpSellBottomSheet = (props) => {
                 }
 
                 .lmsc_sproduct_title{                   
-                    font-size: ${props.CUHeadingFontSize}px;
+                    font-size: ${upsellPopupData.CUHeadingFontSize}px;
                 }
 
                 .lmsc_popup_close{
@@ -477,7 +477,7 @@ const UpSellBottomSheet = (props) => {
                 <div
                     className={`lmsc_popup_container ${
                         open ? "lmsc_popup_open" : "lmsc_popup_close"
-                    } ${props.USPosition === "left" ? "left" : "right"}`}
+                    } ${upsellPopupData.USPosition === "left" ? "left" : "right"}`}
                 >
                     <div
                         className="lmsc_bottomSheet_backdrop"
@@ -496,7 +496,7 @@ const UpSellBottomSheet = (props) => {
                                 id="lmsc_bottomSheet__headerID"
                                 className="lmsc_bottomSheet__header"
                             >
-                                {props.CUHeadingText}
+                                {upsellPopupData.CUHeadingText}
                             </h2>
                             <button
                                 id="lmsc_closeButton"
@@ -535,7 +535,7 @@ const UpSellBottomSheet = (props) => {
                                                 handleBuyButtonClick(product)
                                             }
                                         >
-                                            {props.CUBuyBtnText}
+                                            {upsellPopupData.CUBuyBtnText}
                                         </button>
                                     </div>
                                 ))
@@ -547,7 +547,6 @@ const UpSellBottomSheet = (props) => {
                 </div>
 
                 {/* Popup Modal */}
-
                 {open === true && popupOpen && selectedProduct && (
                     <div className="lmsc_popup_modal">
                         <img
@@ -585,7 +584,7 @@ const UpSellBottomSheet = (props) => {
                             className="lmsc_close_popup_button"
                             onClick={() => handleAddProduct(selectedProduct)}
                         >
-                            {props.CUBuyBtnText}
+                            {upsellPopupData.CUBuyBtnText}
                         </button>
                     </div>
                 )}
