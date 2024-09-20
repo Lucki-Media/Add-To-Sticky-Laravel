@@ -19,6 +19,8 @@ import {
     InlineStack,
     Popover,
     ActionList,
+    DescriptionList,
+    BlockStack,
 } from "@shopify/polaris";
 import { QuestionCircleIcon } from "@shopify/polaris-icons";
 import "../css/index.css";
@@ -114,6 +116,97 @@ export default function HomePage() {
         }
     };
 
+    // New Items Array
+    const newItemsArray = [
+        {
+            term: (
+                <Text as="span" variant="bodyLg" fontWeight="semibold">
+                    Cart Drawer
+                </Text>
+            ),
+            description: (
+                <Text as="dd" variant="bodyLg" fontWeight="regular">
+                    The Cart Drawer is fully customizable, featuring advanced
+                    options, a free shipping bar, and seamless cart management
+                    without leaving the page.
+                </Text>
+            ),
+        },
+        {
+            term: (
+                <Text as="span" variant="bodyLg" fontWeight="semibold">
+                    Notification Bar
+                </Text>
+            ),
+            description: (
+                <Text as="dd" variant="bodyLg" fontWeight="regular">
+                    Clicking the "Add to Cart" button on the sticky notification
+                    bar reveals a fully customizable notification bar, enhancing
+                    user engagement and providing instant feedback.
+                </Text>
+            ),
+        },
+        {
+            term: (
+                <Text as="span" variant="bodyLg" fontWeight="semibold">
+                    Free Shipping Bar
+                </Text>
+            ),
+            description: (
+                <Text as="dd" variant="bodyLg" fontWeight="regular">
+                    The Free Shipping Bar is fully customizable, designed to
+                    attract customers by showcasing their progress toward free
+                    shipping and encouraging them to add more items to their
+                    cart.
+                </Text>
+            ),
+        },
+        {
+            term: (
+                <Text as="span" variant="bodyLg" fontWeight="semibold">
+                    UpSell Popup
+                </Text>
+            ),
+            description: (
+                <Text as="dd" variant="bodyLg" fontWeight="regular">
+                    The Upsell Popup, available to premium plan merchants,
+                    appears when the "Add to Cart" button on the sticky bar is
+                    clicked, providing an opportunity to boost sales with
+                    targeted upsell offers.
+                </Text>
+            ),
+        },
+        {
+            term: (
+                <Text as="span" variant="bodyLg" fontWeight="semibold">
+                    Cart Upsell
+                </Text>
+            ),
+            description: (
+                <Text as="dd" variant="bodyLg" fontWeight="regular">
+                    The Cart Upsell feature, available in the premium plan, is
+                    displayed in the drawer cart, offering tailored product
+                    suggestions to enhance sales and improve customer
+                    experience.
+                </Text>
+            ),
+        },
+        {
+            term: (
+                <Text as="span" variant="bodyLg" fontWeight="semibold">
+                    Product showcase on home page
+                </Text>
+            ),
+            description: (
+                <Text as="dd" variant="bodyLg" fontWeight="regular">
+                    The product showcase on the home page highlights specific
+                    items to grab customers' attention, driving engagement and
+                    encouraging purchases.
+                </Text>
+            ),
+        },
+    ];
+
     return (
         <div className="lm_sticky_main_app_page">
             <div className={`lm_sticky_fullscreenbar`}>
@@ -150,128 +243,192 @@ export default function HomePage() {
                 </FullscreenBar>
             </div>
             <Page>
-                <div style={{ padding: "5px 5px 20px" }}>
-                    {showTable === true ? (
-                        <Text
-                            as="h2"
-                            alignment="start"
-                            variant="headingXl"
-                            fontWeight="medium"
-                        >
-                            {"👋 Hello, " + shopName}
-                        </Text>
-                    ) : (
-                        <SkeletonBodyText lines={1} />
-                    )}
-                </div>
+                <BlockStack gap={600}>
+                    <div style={{ padding: "5px" }}>
+                        {showTable === true ? (
+                            <Text
+                                as="h2"
+                                alignment="start"
+                                variant="headingXl"
+                                fontWeight="medium"
+                            >
+                                {"👋 Hello, " + shopName}
+                            </Text>
+                        ) : (
+                            <SkeletonBodyText lines={1} />
+                        )}
+                    </div>
 
-                {/* Warning banner to enable extension */}
-                {(sCartEnabled === "1" || sacEnabled === "1") &&
-                    themeExtEnabled === "0" && (
+                    {/* Warning banner to enable extension */}
+                    {(sCartEnabled === "1" || sacEnabled === "1") &&
+                        themeExtEnabled === "0" && (
+                            <div className="deep_link__class">
+                                <Banner
+                                    title="Theme App Extension is not Activated"
+                                    action={{
+                                        content: "Activate",
+                                        url: url,
+                                        external,
+                                    }}
+                                    tone="warning"
+                                >
+                                    <List>
+                                        <List.Item>
+                                            Take a moment to activate the app
+                                            through Shopify's Theme Editor to
+                                            ensure your store benefits from the
+                                            enhanced visibility of its features
+                                        </List.Item>
+                                    </List>
+                                </Banner>
+                            </div>
+                        )}
+
+                    {/* Feedback banner */}
+                    {showReviewBanner && (
                         <div className="deep_link__class">
                             <Banner
-                                title="Theme App Extension is not Activated"
-                                action={{
-                                    content: "Activate",
-                                    url: url,
-                                    external,
-                                }}
-                                tone="warning"
+                                // onDismiss={() => {}}
+                                icon={HeartIcon}
+                                // title="Your feedback means a lot to us!"
                             >
-                                <List>
-                                    <List.Item>
-                                        Take a moment to activate the app
-                                        through Shopify's Theme Editor to ensure
-                                        your store benefits from the enhanced
-                                        visibility of its features
-                                    </List.Item>
-                                </List>
+                                <InlineStack
+                                    gap="400"
+                                    wrap={false}
+                                    blockAlign="baseline"
+                                    align="space-between"
+                                >
+                                    <p style={{ margin: "auto 0" }}>
+                                        How is our app working for you? Share
+                                        your feedback and help us improve!
+                                    </p>
+                                    <ButtonGroup>
+                                        <Button
+                                            icon={SmileySadIcon}
+                                            variant="plain"
+                                            external
+                                            url="https://forms.gle/CTSsW3kpKgVturgX7"
+                                        >
+                                            Poor
+                                        </Button>
+                                        <Button
+                                            icon={SmileyHappyIcon}
+                                            variant="plain"
+                                            external
+                                            url="https://apps.shopify.com/lm-add-to-cart-sticky/reviews"
+                                        >
+                                            Excellent
+                                        </Button>
+                                    </ButtonGroup>
+                                    <Popover
+                                        active={popoverActive}
+                                        activator={activator}
+                                        autofocusTarget="first-node"
+                                        onClose={togglePopoverActive}
+                                    >
+                                        <ActionList
+                                            actionRole="menuitem"
+                                            items={[
+                                                {
+                                                    content: "Never Ask",
+                                                    icon: XIcon,
+                                                    onAction: () => {
+                                                        updateReviewBannerStatus(
+                                                            "2"
+                                                        );
+                                                    },
+                                                },
+                                                {
+                                                    content: "Remind Leter",
+                                                    icon: HideIcon,
+                                                    onAction: () => {
+                                                        updateReviewBannerStatus(
+                                                            "1"
+                                                        );
+                                                    },
+                                                },
+                                            ]}
+                                        />
+                                    </Popover>
+                                </InlineStack>
                             </Banner>
                         </div>
                     )}
 
-                {/* Feedback banner */}
-                {showReviewBanner && (
-                    <div className="deep_link__class">
-                        <Banner
-                            // onDismiss={() => {}}
-                            icon={HeartIcon}
-                            // title="Your feedback means a lot to us!"
-                        >
-                            <InlineStack
-                                gap="400"
-                                wrap={false}
-                                blockAlign="baseline"
-                                align="space-between"
-                            >
-                                <p style={{ margin: "auto 0" }}>
-                                    How is our app working for you? Share your
-                                    feedback and help us improve!
-                                </p>
-                                <ButtonGroup>
-                                    <Button
-                                        icon={SmileySadIcon}
-                                        variant="plain"
-                                        external
-                                        url="https://forms.gle/CTSsW3kpKgVturgX7"
-                                    >
-                                        Poor
-                                    </Button>
-                                    <Button
-                                        icon={SmileyHappyIcon}
-                                        variant="plain"
-                                        external
-                                        url="https://apps.shopify.com/lm-add-to-cart-sticky/reviews"
-                                    >
-                                        Excellent
-                                    </Button>
-                                </ButtonGroup>
-                                <Popover
-                                    active={popoverActive}
-                                    activator={activator}
-                                    autofocusTarget="first-node"
-                                    onClose={togglePopoverActive}
-                                >
-                                    <ActionList
-                                        actionRole="menuitem"
-                                        items={[
-                                            {
-                                                content: "Never Ask",
-                                                icon: XIcon,
-                                                onAction: () => {
-                                                    updateReviewBannerStatus(
-                                                        "2"
-                                                    );
-                                                },
-                                            },
-                                            {
-                                                content: "Remind Leter",
-                                                icon: HideIcon,
-                                                onAction: () => {
-                                                    updateReviewBannerStatus(
-                                                        "1"
-                                                    );
-                                                },
-                                            },
-                                        ]}
-                                    />
-                                </Popover>
-                            </InlineStack>
-                        </Banner>
-                    </div>
-                )}
-                {/* Onboarding Process Layout */}
-                <Layout>
-                    <Layout.Section variant="oneThird">
-                        <Card>
-                            <div style={{ padding: 20, textAlign: "center" }}>
+                    {/* Onboarding Process Layout */}
+                    <Layout>
+                        <Layout.Section variant="oneThird">
+                            <Card>
                                 <div
-                                    style={{
-                                        fontSize: 16,
-                                        fontWeight: 500,
-                                        lineHeight: 1,
-                                        minHeight: 35,
-                                    }}
+                                    style={{ padding: 20, textAlign: "center" }}
+                                >
+                                    <div
+                                        style={{
+                                            fontSize: 16,
+                                            fontWeight: 500,
+                                            lineHeight: 1,
+                                            minHeight: 35,
+                                        }}
+                                    >
+                                        {/* <Text
+                                    as="h2"
+                                    variant="bodyLg"
+                                    alignment="center"
+                                    fontWeight="semibold"
+                                > */}
+                                        Step 1 : Enable Sticky Add to Cart
+                                    </div>
+                                    {/* </Text> */}
+                                    <img
+                                        src={"/images/step1.png"}
+                                        width="60%"
+                                        style={{
+                                            width: "60%",
+                                            marginTop: 20,
+                                        }}
+                                    />
+                                    <p
+                                        style={{
+                                            paddingTop: 20,
+                                            textAlign: "center",
+                                            color: "#797979",
+                                            minHeight: 120,
+                                        }}
+                                    >
+                                        A sticky 'Add to Cart' bar enhances user
+                                        experience, driving revenue with
+                                        effortless product additions.
+                                    </p>
+                                    <div
+                                        style={{
+                                            border: "1px solid #ABB1BA",
+                                            borderRadius: 8,
+                                        }}
+                                    >
+                                        <Button
+                                            size="large"
+                                            textAlign="center"
+                                            fullWidth
+                                            variant={
+                                                sacEnabled === "0"
+                                                    ? "primary"
+                                                    : ""
+                                            }
+                                            loading={!showTable}
+                                            url="/add-to-cart-sticky"
+                                        >
+                                            {sacEnabled === "0"
+                                                ? "Customize"
+                                                : "✓ Enabled"}
+                                        </Button>
+                                    </div>
+                                </div>
+                            </Card>
+                        </Layout.Section>
+                        <Layout.Section variant="oneThird">
+                            <Card>
+                                <div
+                                    style={{ padding: 20, textAlign: "center" }}
                                 >
                                     {/* <Text
                                     as="h2"
@@ -279,329 +436,299 @@ export default function HomePage() {
                                     alignment="center"
                                     fontWeight="semibold"
                                 > */}
-                                    Step 1 : Enable Sticky Add to Cart
-                                </div>
-                                {/* </Text> */}
-                                <img
-                                    src={"/images/step1.png"}
-                                    width="60%"
-                                    style={{
-                                        width: "60%",
-                                        marginTop: 20,
-                                    }}
-                                />
-                                <p
-                                    style={{
-                                        paddingTop: 20,
-                                        textAlign: "center",
-                                        color: "#797979",
-                                        minHeight: 120,
-                                    }}
-                                >
-                                    A sticky 'Add to Cart' bar enhances user
-                                    experience, driving revenue with effortless
-                                    product additions.
-                                </p>
-                                <div
-                                    style={{
-                                        border: "1px solid #ABB1BA",
-                                        borderRadius: 8,
-                                    }}
-                                >
-                                    <Button
-                                        size="large"
-                                        textAlign="center"
-                                        fullWidth
-                                        variant={
-                                            sacEnabled === "0" ? "primary" : ""
-                                        }
-                                        loading={!showTable}
-                                        url="/add-to-cart-sticky"
+                                    <div
+                                        style={{
+                                            fontSize: 16,
+                                            fontWeight: 500,
+                                            lineHeight: 1,
+                                            minHeight: 35,
+                                        }}
                                     >
-                                        {sacEnabled === "0"
-                                            ? "Customize"
-                                            : "✓ Enabled"}
-                                    </Button>
+                                        Step 2 : Enable Sticky Cart
+                                    </div>
+                                    {/* </Text> */}
+                                    <img
+                                        src={"/images/step2.png"}
+                                        width="60%"
+                                        style={{
+                                            width: "60%",
+                                            marginTop: 20,
+                                        }}
+                                    />
+                                    <p
+                                        style={{
+                                            paddingTop: 20,
+                                            textAlign: "center",
+                                            color: "#797979",
+                                            minHeight: 120,
+                                        }}
+                                    >
+                                        A Fixed Cart feature streamlines bulk
+                                        checkouts, boosting conversions by
+                                        simplifying purchases.
+                                    </p>
+                                    <div
+                                        style={{
+                                            border: "1px solid #ABB1BA",
+                                            borderRadius: 8,
+                                        }}
+                                    >
+                                        <Button
+                                            size="large"
+                                            textAlign="center"
+                                            fullWidth
+                                            variant={
+                                                sCartEnabled === "0"
+                                                    ? "primary"
+                                                    : ""
+                                            }
+                                            loading={!showTable}
+                                            url="/sticky-cart"
+                                        >
+                                            {sCartEnabled === "0"
+                                                ? "Customize"
+                                                : "✓ Enabled"}
+                                        </Button>
+                                    </div>
                                 </div>
-                            </div>
-                        </Card>
-                    </Layout.Section>
-                    <Layout.Section variant="oneThird">
-                        <Card>
-                            <div style={{ padding: 20, textAlign: "center" }}>
-                                {/* <Text
+                            </Card>
+                        </Layout.Section>
+                        <Layout.Section variant="oneThird">
+                            <Card>
+                                <div
+                                    style={{ padding: 20, textAlign: "center" }}
+                                >
+                                    {/* <Text
                                     as="h2"
                                     variant="bodyLg"
                                     alignment="center"
                                     fontWeight="semibold"
                                 > */}
-                                <div
-                                    style={{
-                                        fontSize: 16,
-                                        fontWeight: 500,
-                                        lineHeight: 1,
-                                        minHeight: 35,
-                                    }}
-                                >
-                                    Step 2 : Enable Sticky Cart
-                                </div>
-                                {/* </Text> */}
-                                <img
-                                    src={"/images/step2.png"}
-                                    width="60%"
-                                    style={{
-                                        width: "60%",
-                                        marginTop: 20,
-                                    }}
-                                />
-                                <p
-                                    style={{
-                                        paddingTop: 20,
-                                        textAlign: "center",
-                                        color: "#797979",
-                                        minHeight: 120,
-                                    }}
-                                >
-                                    A Fixed Cart feature streamlines bulk
-                                    checkouts, boosting conversions by
-                                    simplifying purchases.
-                                </p>
-                                <div
-                                    style={{
-                                        border: "1px solid #ABB1BA",
-                                        borderRadius: 8,
-                                    }}
-                                >
-                                    <Button
-                                        size="large"
-                                        textAlign="center"
-                                        fullWidth
-                                        variant={
-                                            sCartEnabled === "0"
-                                                ? "primary"
-                                                : ""
-                                        }
-                                        loading={!showTable}
-                                        url="/sticky-cart"
+                                    <div
+                                        style={{
+                                            fontSize: 16,
+                                            fontWeight: 500,
+                                            lineHeight: 1,
+                                            minHeight: 35,
+                                        }}
                                     >
-                                        {sCartEnabled === "0"
-                                            ? "Customize"
-                                            : "✓ Enabled"}
-                                    </Button>
-                                </div>
-                            </div>
-                        </Card>
-                    </Layout.Section>
-                    <Layout.Section variant="oneThird">
-                        <Card>
-                            <div style={{ padding: 20, textAlign: "center" }}>
-                                {/* <Text
-                                    as="h2"
-                                    variant="bodyLg"
-                                    alignment="center"
-                                    fontWeight="semibold"
-                                > */}
-                                <div
-                                    style={{
-                                        fontSize: 16,
-                                        fontWeight: 500,
-                                        lineHeight: 1,
-                                        minHeight: 35,
-                                    }}
-                                >
-                                    Step 3 : Theme App Extension
-                                </div>
-                                {/* </Text> */}
-                                <img
-                                    src={"/images/step3.png"}
-                                    width="60%"
-                                    style={{
-                                        width: "60%",
-                                        marginTop: 20,
-                                    }}
-                                />
-                                <p
-                                    style={{
-                                        paddingTop: 20,
-                                        textAlign: "center",
-                                        color: "#797979",
-                                        minHeight: 120,
-                                    }}
-                                >
-                                    Activate the app in Shopify's Theme Editor
-                                    to ensure the Sticky Add To Cart feature is
-                                    visible.
-                                </p>
-                                <div
-                                    style={{
-                                        border: "1px solid #ABB1BA",
-                                        borderRadius: 8,
-                                    }}
-                                >
-                                    <Button
-                                        size="large"
-                                        textAlign="center"
-                                        fullWidth
-                                        variant={
-                                            themeExtEnabled === "0"
-                                                ? "primary"
-                                                : ""
-                                        }
-                                        disabled={themeExtEnabled === "1"}
-                                        external
-                                        loading={!showTable}
-                                        url={url}
+                                        Step 3 : Theme App Extension
+                                    </div>
+                                    {/* </Text> */}
+                                    <img
+                                        src={"/images/step3.png"}
+                                        width="60%"
+                                        style={{
+                                            width: "60%",
+                                            marginTop: 20,
+                                        }}
+                                    />
+                                    <p
+                                        style={{
+                                            paddingTop: 20,
+                                            textAlign: "center",
+                                            color: "#797979",
+                                            minHeight: 120,
+                                        }}
                                     >
-                                        {themeExtEnabled === "0"
-                                            ? "Activate"
-                                            : "✓ Activated"}
-                                    </Button>
+                                        Activate the app in Shopify's Theme
+                                        Editor to ensure the Sticky Add To Cart
+                                        feature is visible.
+                                    </p>
+                                    <div
+                                        style={{
+                                            border: "1px solid #ABB1BA",
+                                            borderRadius: 8,
+                                        }}
+                                    >
+                                        <Button
+                                            size="large"
+                                            textAlign="center"
+                                            fullWidth
+                                            variant={
+                                                themeExtEnabled === "0"
+                                                    ? "primary"
+                                                    : ""
+                                            }
+                                            disabled={themeExtEnabled === "1"}
+                                            external
+                                            loading={!showTable}
+                                            url={url}
+                                        >
+                                            {themeExtEnabled === "0"
+                                                ? "Activate"
+                                                : "✓ Activated"}
+                                        </Button>
+                                    </div>
                                 </div>
-                            </div>
-                        </Card>
-                    </Layout.Section>
-                </Layout>
+                            </Card>
+                        </Layout.Section>
+                    </Layout>
 
-                <Layout>
-                    <Layout.Section>
-                        <div className="sidebar_title">
-                            App performance of the month : {currentMonth},{" "}
-                            {currentYear}
-                        </div>
-                        <div className="clickdetails_layout">
-                            <Layout>
-                                <Layout.Section variant="oneHalf">
-                                    <div cl assName="clickdetails_card">
-                                        <Card sectioned>
-                                            <div className="click_countdetail">
-                                                Clicks On Add To Cart Sticky
-                                                <Tooltip
-                                                    content="The count of times customers clicked on Add To Cart Sticky"
-                                                    dismissOnMouseOut
-                                                    preferredPosition="below"
-                                                >
-                                                    <Icon
-                                                        source={
-                                                            QuestionCircleIcon
-                                                        }
-                                                        color="subdued"
-                                                    />
-                                                </Tooltip>
-                                            </div>
-                                            <p className="click_count">
-                                                {showTable === true ? (
-                                                    sacCount
-                                                ) : (
-                                                    <Spinner size="small" />
-                                                )}
-                                            </p>
-                                        </Card>
-                                    </div>
-                                </Layout.Section>
-                                <Layout.Section variant="oneHalf">
-                                    <div className="clickdetails_card">
-                                        <Card sectioned>
-                                            <div className="click_countdetail">
-                                                Clicks On Sticky Cart
-                                                <Tooltip
-                                                    content="The count of times customers clicked on Sticky Cart"
-                                                    dismissOnMouseOut
-                                                    preferredPosition="below"
-                                                >
-                                                    <Icon
-                                                        source={
-                                                            QuestionCircleIcon
-                                                        }
-                                                        color="subdued"
-                                                    />
-                                                </Tooltip>
-                                            </div>
-                                            <p className="click_count">
-                                                {showTable === true ? (
-                                                    sCartCount
-                                                ) : (
-                                                    <Spinner size="small" />
-                                                )}
-                                            </p>
-                                        </Card>
-                                    </div>
-                                </Layout.Section>
-                                {showTable === true ? (
-                                    <Layout.Section>
-                                        <div>
+                    {/* What's New */}
+                    <Layout>
+                        <Layout.Section>
+                            <BlockStack gap={300}>
+                                <Text
+                                    as="div"
+                                    variant="headingLg"
+                                    fontWeight="medium"
+                                >
+                                    Discover Our Latest App Features 🎉
+                                </Text>
+                                <Card>
+                                    <DescriptionList items={newItemsArray} />
+                                </Card>
+                            </BlockStack>
+                        </Layout.Section>
+                    </Layout>
+
+                    {/* Analytics */}
+                    <Layout>
+                        <Layout.Section>
+                            <Text
+                                as="div"
+                                variant="headingLg"
+                                fontWeight="medium"
+                            >
+                                App performance of the month : {currentMonth},{" "}
+                                {currentYear}
+                            </Text>
+                            <div className="clickdetails_layout">
+                                <Layout>
+                                    <Layout.Section variant="oneHalf">
+                                        <div cl assName="clickdetails_card">
                                             <Card sectioned>
-                                                <CChart
-                                                    type="bar"
-                                                    data={{
-                                                        labels: [
-                                                            "Jan",
-                                                            "Feb",
-                                                            "Mar",
-                                                            "Apr",
-                                                            "May",
-                                                            "June",
-                                                            "July",
-                                                            "Aug",
-                                                            "Sep",
-                                                            "Oct",
-                                                            "Nov",
-                                                            "Dec",
-                                                        ],
-                                                        datasets: [
-                                                            {
-                                                                label: "Add To Cart Sticky",
-                                                                backgroundColor:
-                                                                    "#15C39A",
-                                                                data: sacArray,
-                                                            },
-                                                            {
-                                                                label: "Sticky Cart",
-                                                                backgroundColor:
-                                                                    "#f87979",
-                                                                data: sCartArray,
-                                                            },
-                                                        ],
-                                                    }}
-                                                    labels="months"
-                                                />
+                                                <div className="click_countdetail">
+                                                    Clicks On Add To Cart Sticky
+                                                    <Tooltip
+                                                        content="The count of times customers clicked on Add To Cart Sticky"
+                                                        dismissOnMouseOut
+                                                        preferredPosition="below"
+                                                    >
+                                                        <Icon
+                                                            source={
+                                                                QuestionCircleIcon
+                                                            }
+                                                            color="subdued"
+                                                        />
+                                                    </Tooltip>
+                                                </div>
+                                                <p className="click_count">
+                                                    {showTable === true ? (
+                                                        sacCount
+                                                    ) : (
+                                                        <Spinner size="small" />
+                                                    )}
+                                                </p>
                                             </Card>
                                         </div>
                                     </Layout.Section>
-                                ) : (
-                                    <Layout.Section>
-                                        <SkeletonPage primaryAction>
-                                            <LegacyCard sectioned>
-                                                <TextContainer>
-                                                    <SkeletonBodyText />
-                                                </TextContainer>
-                                            </LegacyCard>
-                                        </SkeletonPage>
+                                    <Layout.Section variant="oneHalf">
+                                        <div className="clickdetails_card">
+                                            <Card sectioned>
+                                                <div className="click_countdetail">
+                                                    Clicks On Sticky Cart
+                                                    <Tooltip
+                                                        content="The count of times customers clicked on Sticky Cart"
+                                                        dismissOnMouseOut
+                                                        preferredPosition="below"
+                                                    >
+                                                        <Icon
+                                                            source={
+                                                                QuestionCircleIcon
+                                                            }
+                                                            color="subdued"
+                                                        />
+                                                    </Tooltip>
+                                                </div>
+                                                <p className="click_count">
+                                                    {showTable === true ? (
+                                                        sCartCount
+                                                    ) : (
+                                                        <Spinner size="small" />
+                                                    )}
+                                                </p>
+                                            </Card>
+                                        </div>
                                     </Layout.Section>
-                                )}
-                                <Layout.Section>
-                                    <div style={{ paddingTop: 15 }}>
-                                        <CalloutCard
-                                            title="Need any help?"
-                                            primaryAction={{
-                                                content:
-                                                    "Fill out our Google Form",
-                                                url: "https://forms.gle/CTSsW3kpKgVturgX7",
-                                                target: "_blank",
-                                            }}
-                                        >
-                                            <p>
-                                                If we're not available on live
-                                                chat, please fill out our Google
-                                                Form, and we'll get back to you
-                                                ASAP.
-                                            </p>
-                                        </CalloutCard>
-                                    </div>
-                                </Layout.Section>
-                            </Layout>
-                        </div>
-                    </Layout.Section>
-                </Layout>
+                                    {showTable === true ? (
+                                        <Layout.Section>
+                                            <div>
+                                                <Card sectioned>
+                                                    <CChart
+                                                        type="bar"
+                                                        data={{
+                                                            labels: [
+                                                                "Jan",
+                                                                "Feb",
+                                                                "Mar",
+                                                                "Apr",
+                                                                "May",
+                                                                "June",
+                                                                "July",
+                                                                "Aug",
+                                                                "Sep",
+                                                                "Oct",
+                                                                "Nov",
+                                                                "Dec",
+                                                            ],
+                                                            datasets: [
+                                                                {
+                                                                    label: "Add To Cart Sticky",
+                                                                    backgroundColor:
+                                                                        "#15C39A",
+                                                                    data: sacArray,
+                                                                },
+                                                                {
+                                                                    label: "Sticky Cart",
+                                                                    backgroundColor:
+                                                                        "#f87979",
+                                                                    data: sCartArray,
+                                                                },
+                                                            ],
+                                                        }}
+                                                        labels="months"
+                                                    />
+                                                </Card>
+                                            </div>
+                                        </Layout.Section>
+                                    ) : (
+                                        <Layout.Section>
+                                            <SkeletonPage primaryAction>
+                                                <LegacyCard sectioned>
+                                                    <TextContainer>
+                                                        <SkeletonBodyText />
+                                                    </TextContainer>
+                                                </LegacyCard>
+                                            </SkeletonPage>
+                                        </Layout.Section>
+                                    )}
+                                    <Layout.Section>
+                                        <div style={{ paddingTop: 15 }}>
+                                            <CalloutCard
+                                                title="Need any help?"
+                                                primaryAction={{
+                                                    content:
+                                                        "Fill out our Google Form",
+                                                    url: "https://forms.gle/CTSsW3kpKgVturgX7",
+                                                    target: "_blank",
+                                                }}
+                                            >
+                                                <p>
+                                                    If we're not available on
+                                                    live chat, please fill out
+                                                    our Google Form, and we'll
+                                                    get back to you ASAP.
+                                                </p>
+                                            </CalloutCard>
+                                        </div>
+                                    </Layout.Section>
+                                </Layout>
+                            </div>
+                        </Layout.Section>
+                    </Layout>
+                </BlockStack>
             </Page>
         </div>
     );

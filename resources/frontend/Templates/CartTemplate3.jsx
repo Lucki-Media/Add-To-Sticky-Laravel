@@ -249,7 +249,7 @@ export default function CartTemplate3({
                         )}
 
                     {selectedDevice === 1 &&
-                    current_template.general_settings.showOnlyBtnOnMobile ===
+                    current_template?.general_settings?.showOnlyBtnOnMobile ===
                         true ? (
                         // show only mobile button
                         <div className={style.lm_container}>
