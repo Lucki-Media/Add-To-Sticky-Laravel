@@ -9,6 +9,7 @@ export default function CartTemplate2({
     enable,
     animationEnable,
     current_template,
+    selectedDevice,
 }) {
     const [btnBgHoverColor, setBtnBgHoverColor] = useState(true);
 
@@ -50,6 +51,7 @@ export default function CartTemplate2({
             display: "none", // Hide the separator
         }),
     };
+
     return (
         <>
             <style>
@@ -185,58 +187,92 @@ export default function CartTemplate2({
                 `}
             </style>
             {enable === true && (
-                    <div
-                        className={`lm-sticky-${
-                            current_template.general_settings.position
-                        } ${style.lm_sticky_cart} ${
-                            current_template.general_settings.checkDesktop ===
-                            true
-                                ? "lm_sticky_show_desktop_abc12"
-                                : "lm_sticky_hide_desktop_abc12"
-                        } ${
-                            current_template.general_settings.checkMobile ===
-                            true
-                                ? "lm_sticky_show_mobile_abc12"
-                                : "lm_sticky_hide_mobile_abc12"
-                        }   `}
-                        style={{ position: "absolute" }}
-                    >
-                        {current_template.general_settings.gsAction === "3" &&
-                            current_template.general_settings.position ===
-                                "Bottom" && (
-                                <Notification
-                                    gsNotificationBarText={
-                                        current_template.general_settings
-                                            .gsNotificationBarText ||
-                                        defaultNotificationMessage
-                                    }
-                                    gsNotificationBarItalic={
-                                        current_template.general_settings
-                                            .gsNotificationBarItalic
-                                    }
-                                    gsNotificationBarBold={
-                                        current_template.general_settings
-                                            .gsNotificationBarBold
-                                    }
-                                    gsNotificationBarTextColor={
-                                        current_template.general_settings
-                                            .gsNotificationBarTextColor
-                                    }
-                                    gsNotificationBarBgColor={
-                                        current_template.general_settings
-                                            .gsNotificationBarBgColor
-                                    }
-                                    gsNotificationBarFontSize={
-                                        current_template.general_settings
-                                            .gsNotificationBarFontSize
-                                    }
-                                    gsNotificationBarHeight={
-                                        current_template.general_settings
-                                            .gsNotificationBarHeight
-                                    }
-                                />
-                            )}
+                <div
+                    className={`lm-sticky-${
+                        current_template.general_settings.position
+                    } ${style.lm_sticky_cart} ${
+                        current_template.general_settings.checkDesktop === true
+                            ? "lm_sticky_show_desktop_abc12"
+                            : "lm_sticky_hide_desktop_abc12"
+                    } ${
+                        current_template.general_settings.checkMobile === true
+                            ? "lm_sticky_show_mobile_abc12"
+                            : "lm_sticky_hide_mobile_abc12"
+                    }   `}
+                    style={{ position: "absolute" }}
+                >
+                    {current_template.general_settings.gsAction === "3" &&
+                        current_template.general_settings.position ===
+                            "Bottom" && (
+                            <Notification
+                                gsNotificationBarText={
+                                    current_template.general_settings
+                                        .gsNotificationBarText ||
+                                    defaultNotificationMessage
+                                }
+                                gsNotificationBarItalic={
+                                    current_template.general_settings
+                                        .gsNotificationBarItalic
+                                }
+                                gsNotificationBarBold={
+                                    current_template.general_settings
+                                        .gsNotificationBarBold
+                                }
+                                gsNotificationBarTextColor={
+                                    current_template.general_settings
+                                        .gsNotificationBarTextColor
+                                }
+                                gsNotificationBarBgColor={
+                                    current_template.general_settings
+                                        .gsNotificationBarBgColor
+                                }
+                                gsNotificationBarFontSize={
+                                    current_template.general_settings
+                                        .gsNotificationBarFontSize
+                                }
+                                gsNotificationBarHeight={
+                                    current_template.general_settings
+                                        .gsNotificationBarHeight
+                                }
+                            />
+                        )}
 
+                    {selectedDevice === 1 &&
+                    current_template.general_settings.showOnlyBtnOnMobile ===
+                        true ? (
+                        // show only mobile button
+                        <div className={style.lm_container}>
+                            <div className={style.lm_buy_btn}>
+                                <button
+                                    className={`lm_btn slide_right apply-font ${
+                                        current_template.buy_btn_settings
+                                            .btnBold === true
+                                            ? "lm_bold"
+                                            : ""
+                                    } ${
+                                        current_template.buy_btn_settings
+                                            .btnItalic === true
+                                            ? "lm_italic"
+                                            : ""
+                                    } ${
+                                        current_template.buy_btn_settings
+                                            .btnUnderline === true
+                                            ? "lm_underline"
+                                            : "no-line"
+                                    }${
+                                        animationEnable === true
+                                            ? " lm_vibrating"
+                                            : ""
+                                    }`}
+                                    onMouseEnter={handleCountEnter}
+                                    onMouseLeave={handleCountLeave}
+                                >
+                                    {current_template.buy_btn_settings.editText}
+                                </button>
+                            </div>
+                        </div>
+                    ) : (
+                        // mobile stickybar
                         <div className={style.lm_container}>
                             <div className={style.lm_cart_module}>
                                 <div className={style.lm_pro_image}>
@@ -335,59 +371,59 @@ export default function CartTemplate2({
                                             </div>
                                         </div>
                                         {/* <div
-                                        className={`lm_options ${style.lm_options}`}
-                                    >
-                                        <div className={style.productInputs}>
-                                            <Select
-                                                isSearchable={false}
-                                                menuPlacement={
-                                                    position === "Bottom"
-                                                        ? "top"
-                                                        : "bottom"
-                                                }
-                                                placeholder="Color.."
-                                                className={`pro_select_menu apply-font ${style.pro_names}`}
-                                                styles={customStyles}
-                                                options={options2}
-                                                theme={(theme) => ({
-                                                    ...theme,
-                                                    borderRadius: 0,
-                                                    colors: {
-                                                        ...theme.colors,
-                                                        primary25: "grey",
-                                                        primary: "black",
-                                                    },
-                                                })}
-                                            />
-                                        </div>
+                                    className={`lm_options ${style.lm_options}`}
+                                >
+                                    <div className={style.productInputs}>
+                                        <Select
+                                            isSearchable={false}
+                                            menuPlacement={
+                                                position === "Bottom"
+                                                    ? "top"
+                                                    : "bottom"
+                                            }
+                                            placeholder="Color.."
+                                            className={`pro_select_menu apply-font ${style.pro_names}`}
+                                            styles={customStyles}
+                                            options={options2}
+                                            theme={(theme) => ({
+                                                ...theme,
+                                                borderRadius: 0,
+                                                colors: {
+                                                    ...theme.colors,
+                                                    primary25: "grey",
+                                                    primary: "black",
+                                                },
+                                            })}
+                                        />
                                     </div>
-                                    <div
-                                        className={`lm_options ${style.lm_options}`}
-                                    >
-                                        <div className={style.productInputs}>
-                                            <Select
-                                                isSearchable={false}
-                                                menuPlacement={
-                                                    position === "Bottom"
-                                                        ? "top"
-                                                        : "bottom"
-                                                }
-                                                placeholder="Material.."
-                                                className={`pro_select_menu apply-font ${style.pro_names}`}
-                                                styles={customStyles}
-                                                options={options3}
-                                                theme={(theme) => ({
-                                                    ...theme,
-                                                    borderRadius: 0,
-                                                    colors: {
-                                                        ...theme.colors,
-                                                        primary25: "grey",
-                                                        primary: "black",
-                                                    },
-                                                })}
-                                            />
-                                        </div>
-                                    </div> */}
+                                </div>
+                                <div
+                                    className={`lm_options ${style.lm_options}`}
+                                >
+                                    <div className={style.productInputs}>
+                                        <Select
+                                            isSearchable={false}
+                                            menuPlacement={
+                                                position === "Bottom"
+                                                    ? "top"
+                                                    : "bottom"
+                                            }
+                                            placeholder="Material.."
+                                            className={`pro_select_menu apply-font ${style.pro_names}`}
+                                            styles={customStyles}
+                                            options={options3}
+                                            theme={(theme) => ({
+                                                ...theme,
+                                                borderRadius: 0,
+                                                colors: {
+                                                    ...theme.colors,
+                                                    primary25: "grey",
+                                                    primary: "black",
+                                                },
+                                            })}
+                                        />
+                                    </div>
+                                </div> */}
                                     </div>
                                     <div className={style.button_block}>
                                         <div
@@ -442,43 +478,44 @@ export default function CartTemplate2({
                                 </div>
                             </div>
                         </div>
-                        {current_template.general_settings.gsAction === "3" &&
-                            current_template.general_settings.position ===
-                                "Top" && (
-                                <Notification
-                                    gsNotificationBarText={
-                                        current_template.general_settings
-                                            .gsNotificationBarText ||
-                                        defaultNotificationMessage
-                                    }
-                                    gsNotificationBarItalic={
-                                        current_template.general_settings
-                                            .gsNotificationBarItalic
-                                    }
-                                    gsNotificationBarBold={
-                                        current_template.general_settings
-                                            .gsNotificationBarBold
-                                    }
-                                    gsNotificationBarTextColor={
-                                        current_template.general_settings
-                                            .gsNotificationBarTextColor
-                                    }
-                                    gsNotificationBarBgColor={
-                                        current_template.general_settings
-                                            .gsNotificationBarBgColor
-                                    }
-                                    gsNotificationBarFontSize={
-                                        current_template.general_settings
-                                            .gsNotificationBarFontSize
-                                    }
-                                    gsNotificationBarHeight={
-                                        current_template.general_settings
-                                            .gsNotificationBarHeight
-                                    }
-                                />
-                            )}
-                    </div>
-                )}
+                    )}
+                    {current_template.general_settings.gsAction === "3" &&
+                        current_template.general_settings.position ===
+                            "Top" && (
+                            <Notification
+                                gsNotificationBarText={
+                                    current_template.general_settings
+                                        .gsNotificationBarText ||
+                                    defaultNotificationMessage
+                                }
+                                gsNotificationBarItalic={
+                                    current_template.general_settings
+                                        .gsNotificationBarItalic
+                                }
+                                gsNotificationBarBold={
+                                    current_template.general_settings
+                                        .gsNotificationBarBold
+                                }
+                                gsNotificationBarTextColor={
+                                    current_template.general_settings
+                                        .gsNotificationBarTextColor
+                                }
+                                gsNotificationBarBgColor={
+                                    current_template.general_settings
+                                        .gsNotificationBarBgColor
+                                }
+                                gsNotificationBarFontSize={
+                                    current_template.general_settings
+                                        .gsNotificationBarFontSize
+                                }
+                                gsNotificationBarHeight={
+                                    current_template.general_settings
+                                        .gsNotificationBarHeight
+                                }
+                            />
+                        )}
+                </div>
+            )}
         </>
     );
 }

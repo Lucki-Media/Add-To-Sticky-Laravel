@@ -1,4 +1,5 @@
 import {
+    Badge,
     BlockStack,
     Card,
     Checkbox,
@@ -8,6 +9,7 @@ import {
     Text,
 } from "@shopify/polaris";
 import React, { useCallback, useEffect, useState } from "react";
+import Switch from "react-switch";
 
 export default function GeneralSettings({
     currentTemplate,
@@ -18,6 +20,9 @@ export default function GeneralSettings({
     );
     const [checkDesktop, setCheckDesktop] = useState(
         currentTemplate?.general_settings?.checkDesktop ?? true
+    );
+    const [showOnlyBtnOnMobile, setShowOnlyBtnOnMobile] = useState(
+        currentTemplate?.general_settings?.showOnlyBtnOnMobile ?? false
     );
     const [gsAction, setGsAction] = useState(
         currentTemplate?.general_settings?.gsAction ?? "3"
@@ -69,6 +74,7 @@ export default function GeneralSettings({
             ...currentTemplate.general_settings,
             checkMobile: checkMobile,
             checkDesktop: checkDesktop,
+            showOnlyBtnOnMobile: showOnlyBtnOnMobile,
             gsAction: gsAction,
             gsDisplayCondition: gsDisplayCondition,
         },
@@ -76,7 +82,13 @@ export default function GeneralSettings({
 
     useEffect(() => {
         callbackFunction();
-    }, [checkMobile, checkDesktop, gsAction, gsDisplayCondition]);
+    }, [
+        checkMobile,
+        checkDesktop,
+        showOnlyBtnOnMobile,
+        gsAction,
+        gsDisplayCondition,
+    ]);
 
     const callbackFunction = useCallback(() => {
         sbSettingDataCallback(jsonData);
@@ -92,6 +104,12 @@ export default function GeneralSettings({
             currentTemplate?.general_settings?.checkDesktop ?? true
         );
     }, [currentTemplate?.general_settings?.checkDesktop]);
+
+    useEffect(() => {
+        setShowOnlyBtnOnMobile(
+            currentTemplate?.general_settings?.showOnlyBtnOnMobile ?? false
+        );
+    }, [currentTemplate?.general_settings?.showOnlyBtnOnMobile]);
 
     useEffect(() => {
         setGsAction(currentTemplate?.general_settings?.gsAction ?? "3");
@@ -142,6 +160,39 @@ export default function GeneralSettings({
                             like to show Add To Cart Sticky on your store)
                         </Text>
                     </BlockStack>
+                </FormLayout.Group>
+
+                <Divider borderColor="border" />
+
+                {/* Button Action Onclick */}
+                <FormLayout.Group condensed>
+                    <div className="setting_title">
+                        <Text
+                            variant="bodyLg"
+                            as="span"
+                            alignment="start"
+                            fontWeight="medium"
+                        >
+                            Show only StickyBar Button on Mobile?{" "}
+                            {showOnlyBtnOnMobile ? (
+                                <span className="lm_sticky_custom_badge_success">
+                                    <Badge tone="success">Yes</Badge>
+                                </span>
+                            ) : (
+                                <span className="lm_sticky_custom_badge_critical">
+                                    <Badge tone="critical">No</Badge>
+                                </span>
+                            )}
+                        </Text>
+                        <Switch
+                            onChange={(checked) => {
+                                setShowOnlyBtnOnMobile(checked);
+                            }}
+                            checked={showOnlyBtnOnMobile}
+                            uncheckedIcon={null}
+                            checkedIcon={null}
+                        />
+                    </div>
                 </FormLayout.Group>
 
                 <Divider borderColor="border" />

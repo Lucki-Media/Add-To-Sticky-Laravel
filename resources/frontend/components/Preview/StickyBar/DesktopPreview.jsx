@@ -12,7 +12,7 @@ import CartTemplate7 from "../../../Templates/CartTemplate7";
 import CartTemplate8 from "../../../Templates/CartTemplate8";
 import UpSellBottomSheet from "../../../pages/UpSellBottomSheet";
 
-export default function DesktopPreview({ stickyBarData }) {
+export default function DesktopPreview({ stickyBarData, selectedDevice }) {
     return (
         <div classname="preview_section">
             <Card padding="0">
@@ -36,6 +36,7 @@ export default function DesktopPreview({ stickyBarData }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
+                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
@@ -50,6 +51,7 @@ export default function DesktopPreview({ stickyBarData }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
+                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
@@ -64,6 +66,7 @@ export default function DesktopPreview({ stickyBarData }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
+                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
@@ -78,6 +81,7 @@ export default function DesktopPreview({ stickyBarData }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
+                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
@@ -92,6 +96,7 @@ export default function DesktopPreview({ stickyBarData }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
+                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
@@ -106,6 +111,7 @@ export default function DesktopPreview({ stickyBarData }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
+                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
@@ -120,6 +126,7 @@ export default function DesktopPreview({ stickyBarData }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
+                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
@@ -134,6 +141,7 @@ export default function DesktopPreview({ stickyBarData }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
+                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 

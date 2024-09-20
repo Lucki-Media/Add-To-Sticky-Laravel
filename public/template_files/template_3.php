@@ -3,6 +3,7 @@ return [
     'general_settings' => [
         'checkDesktop' => true,
         'checkMobile' => false,
+        'showOnlyBtnOnMobile' => false,
         'gsFontFamily' => 'PT Sans',
         'gsFontsize' => 16,
         'gsPriceFontsize' => 14,

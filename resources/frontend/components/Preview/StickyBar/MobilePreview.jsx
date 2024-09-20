@@ -12,7 +12,7 @@ import CartTemplate7 from "../../../Templates/CartTemplate7";
 import CartTemplate8 from "../../../Templates/CartTemplate8";
 import UpSellBottomSheet from "../../../pages/UpSellBottomSheet";
 
-export default function MobilePreview({ stickyBarData }) {
+export default function MobilePreview({ stickyBarData, selectedDevice }) {
     return (
         <div
             classname="mobile_preview_section"
@@ -33,6 +33,7 @@ export default function MobilePreview({ stickyBarData }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
+                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
@@ -47,6 +48,7 @@ export default function MobilePreview({ stickyBarData }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
+                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
@@ -61,6 +63,7 @@ export default function MobilePreview({ stickyBarData }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
+                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
@@ -75,6 +78,7 @@ export default function MobilePreview({ stickyBarData }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
+                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
@@ -89,6 +93,7 @@ export default function MobilePreview({ stickyBarData }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
+                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
@@ -103,6 +108,7 @@ export default function MobilePreview({ stickyBarData }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
+                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
@@ -117,6 +123,7 @@ export default function MobilePreview({ stickyBarData }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
+                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
@@ -131,6 +138,7 @@ export default function MobilePreview({ stickyBarData }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
+                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
