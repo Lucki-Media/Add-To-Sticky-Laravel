@@ -50,7 +50,6 @@ const ProductContainer = (props) => {
                     window.Shopify.shop
             );
             const data = await response.json();
-            // console.log(data.data);
             setTemplateData(data.data);
         } catch (err) {
             console.log(err);

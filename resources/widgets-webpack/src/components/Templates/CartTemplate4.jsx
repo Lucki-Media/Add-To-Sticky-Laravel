@@ -85,6 +85,8 @@ export default function CartTemplate4(props) {
 
     const [showContainer, setShowContainer] = useState(false);
     const [showNotificationBar, setShowNotificationBar] = useState(false);
+    const [activePlan, setActivePlan] = useState(1);
+
     const [showUpsellPopup, setShowUpSellPopup] = useState(false);
     const [loading, setLoading] = useState(false);
     // console.log(props.templateData);
@@ -148,9 +150,20 @@ export default function CartTemplate4(props) {
     };
 
     function updateCartDrawer(cartCount) {
-        // Update the cart item count (example)
-        document.querySelector(".cart-count-bubble").textContent = cartCount;
-        document.querySelector(".sticky_Count").textContent = cartCount;
+        const cartCountBubble = document.querySelector(".cart-count-bubble");
+        const stickyCount = document.querySelector(".sticky_Count");
+
+        if (cartCountBubble) {
+            cartCountBubble.textContent = cartCount;
+        } else {
+            console.warn(".cart-count-bubble element not found!");
+        }
+
+        if (stickyCount) {
+            stickyCount.textContent = cartCount;
+        } else {
+            console.warn(".sticky_Count element not found!");
+        }
     }
 
     let handleAddProduct = async () => {
@@ -201,6 +214,26 @@ export default function CartTemplate4(props) {
             } catch (error) {
                 console.log();
             }
+        }
+    };
+    useEffect(() => {
+        getPlanData();
+    }, [activePlan]);
+
+    // API CALL TO GET PLAN DATA
+    const getPlanData = async () => {
+        try {
+            const response = await fetch(
+                `${process.env.REACT_APP_API_URL}` +
+                    "getPlanData/" +
+                    window.Shopify.shop
+            );
+            const data = await response.json();
+            // console.log("data");
+            // console.log(data);
+            setActivePlan(data.data);
+        } catch (err) {
+            console.log(err);
         }
     };
     useEffect(() => {
@@ -783,6 +816,7 @@ export default function CartTemplate4(props) {
                     )}
                     {gsAction === "3" &&
                         enableUpSell === true &&
+                        activePlan === 2 &&
                         showUpsellPopup === true && (
                             <UpSellBottomSheet
                                 enableUpSell={enableUpSell}
@@ -806,6 +840,8 @@ export default function CartTemplate4(props) {
                                 CUBtnBGHoverColor={CUBtnBGHoverColor}
                                 CUBorderRadius={CUBorderRadius}
                                 USPosition={USPosition}
+                                showUpsellPopup={showUpsellPopup}
+                                selectedVariant={selectedVariant}
                             />
                         )}
                 </div>
