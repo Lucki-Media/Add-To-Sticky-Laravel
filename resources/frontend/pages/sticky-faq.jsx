@@ -1,17 +1,11 @@
-import {
-    Card,
-    Layout,
-    Page,
-    Collapsible,
-    Icon,
-} from "@shopify/polaris";
+import { Card, Layout, Page, Collapsible, Icon } from "@shopify/polaris";
 import "../css/index.css";
 import { useState } from "react";
 import { ChevronRightIcon, ChevronDownIcon } from "@shopify/polaris-icons";
 import DataFAQ from "../StaticData/DataFAQ";
 
 export default function StickyFAQ() {
-    const [expanded, setExpanded] = useState(1);
+    const [expanded, setExpanded] = useState(0);
     const handleChange = (index) => {
         setExpanded(index);
     };
@@ -25,7 +19,7 @@ export default function StickyFAQ() {
                             <div className="sidebar_title sticky_faq">
                                 LM Sticky Help Center
                             </div>
-                            {DataFAQ.map((index, item) => (
+                            {DataFAQ.map((item, index) => (
                                 <div
                                     className="sticky_faq_div"
                                     onClick={() => {

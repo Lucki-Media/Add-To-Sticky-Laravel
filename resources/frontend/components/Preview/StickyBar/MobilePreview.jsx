@@ -2,17 +2,17 @@ import { Card } from "@shopify/polaris";
 import React from "react";
 import proimage from "../../../assets/productimage.png";
 import "../../../css/index.css";
-import CartTemplate1 from "../../../Templates/CartTemplate";
-import CartTemplate2 from "../../../Templates/CartTemplate2";
-import CartTemplate3 from "../../../Templates/CartTemplate3";
-import CartTemplate4 from "../../../Templates/CartTemplate4";
-import CartTemplate5 from "../../../Templates/CartTemplate5";
-import CartTemplate6 from "../../../Templates/CartTemplate6";
-import CartTemplate7 from "../../../Templates/CartTemplate7";
-import CartTemplate8 from "../../../Templates/CartTemplate8";
+import MobileCartTemplate1 from "../../../Templates/MobileCartTemplate";
+import MobileCartTemplate2 from "../../../Templates/MobileCartTemplate2";
+import MobileCartTemplate3 from "../../../Templates/MobileCartTemplate3";
+import MobileCartTemplate4 from "../../../Templates/MobileCartTemplate4";
+import MobileCartTemplate5 from "../../../Templates/MobileCartTemplate5";
+import MobileCartTemplate6 from "../../../Templates/MobileCartTemplate6";
+import MobileCartTemplate7 from "../../../Templates/MobileCartTemplate7";
+import MobileCartTemplate8 from "../../../Templates/MobileCartTemplate8";
 import UpSellBottomSheet from "../../../pages/UpSellBottomSheet";
 
-export default function MobilePreview({ stickyBarData, selectedDevice }) {
+export default function MobilePreview({ stickyBarData }) {
     return (
         <div
             classname="mobile_preview_section"
@@ -25,7 +25,7 @@ export default function MobilePreview({ stickyBarData, selectedDevice }) {
                             {String(stickyBarData.defaultTemplate) === "1" &&
                                 stickyBarData.current_template.general_settings
                                     .checkMobile === true && (
-                                    <CartTemplate1
+                                    <MobileCartTemplate1
                                         enable={stickyBarData.enable}
                                         animationEnable={
                                             stickyBarData.animationEnable
@@ -33,14 +33,13 @@ export default function MobilePreview({ stickyBarData, selectedDevice }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
-                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
                             {String(stickyBarData.defaultTemplate) === "2" &&
                                 stickyBarData.current_template.general_settings
                                     .checkMobile === true && (
-                                    <CartTemplate2
+                                    <MobileCartTemplate2
                                         enable={stickyBarData.enable}
                                         animationEnable={
                                             stickyBarData.animationEnable
@@ -48,14 +47,13 @@ export default function MobilePreview({ stickyBarData, selectedDevice }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
-                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
                             {String(stickyBarData.defaultTemplate) === "3" &&
                                 stickyBarData.current_template.general_settings
                                     .checkMobile === true && (
-                                    <CartTemplate3
+                                    <MobileCartTemplate3
                                         enable={stickyBarData.enable}
                                         animationEnable={
                                             stickyBarData.animationEnable
@@ -63,14 +61,13 @@ export default function MobilePreview({ stickyBarData, selectedDevice }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
-                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
                             {String(stickyBarData.defaultTemplate) === "4" &&
                                 stickyBarData.current_template.general_settings
                                     .checkMobile === true && (
-                                    <CartTemplate4
+                                    <MobileCartTemplate4
                                         enable={stickyBarData.enable}
                                         animationEnable={
                                             stickyBarData.animationEnable
@@ -78,14 +75,13 @@ export default function MobilePreview({ stickyBarData, selectedDevice }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
-                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
                             {String(stickyBarData.defaultTemplate) === "5" &&
                                 stickyBarData.current_template.general_settings
                                     .checkMobile === true && (
-                                    <CartTemplate5
+                                    <MobileCartTemplate5
                                         enable={stickyBarData.enable}
                                         animationEnable={
                                             stickyBarData.animationEnable
@@ -93,14 +89,13 @@ export default function MobilePreview({ stickyBarData, selectedDevice }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
-                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
                             {String(stickyBarData.defaultTemplate) === "6" &&
                                 stickyBarData.current_template.general_settings
                                     .checkMobile === true && (
-                                    <CartTemplate6
+                                    <MobileCartTemplate6
                                         enable={stickyBarData.enable}
                                         animationEnable={
                                             stickyBarData.animationEnable
@@ -108,14 +103,13 @@ export default function MobilePreview({ stickyBarData, selectedDevice }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
-                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
                             {String(stickyBarData.defaultTemplate) === "7" &&
                                 stickyBarData.current_template.general_settings
                                     .checkMobile === true && (
-                                    <CartTemplate7
+                                    <MobileCartTemplate7
                                         enable={stickyBarData.enable}
                                         animationEnable={
                                             stickyBarData.animationEnable
@@ -123,14 +117,13 @@ export default function MobilePreview({ stickyBarData, selectedDevice }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
-                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
                             {String(stickyBarData.defaultTemplate) === "8" &&
                                 stickyBarData.current_template.general_settings
                                     .checkMobile === true && (
-                                    <CartTemplate8
+                                    <MobileCartTemplate8
                                         enable={stickyBarData.enable}
                                         animationEnable={
                                             stickyBarData.animationEnable
@@ -138,7 +131,6 @@ export default function MobilePreview({ stickyBarData, selectedDevice }) {
                                         current_template={
                                             stickyBarData.current_template
                                         }
-                                        selectedDevice={selectedDevice}
                                     />
                                 )}
 
