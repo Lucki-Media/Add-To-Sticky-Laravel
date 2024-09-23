@@ -74,6 +74,7 @@ export default function StickyBarPreview({
                         {selectedDevice === 0 && (
                             <DesktopPreview
                                 stickyBarData={stickyBarData}
+                                selectedDevice={selectedDevice}
                             />
                         )}
 
@@ -81,6 +82,7 @@ export default function StickyBarPreview({
                         {selectedDevice === 1 && (
                             <MobilePreview
                                 stickyBarData={stickyBarData}
+                                selectedDevice={selectedDevice}
                             />
                         )}
                     </Box>

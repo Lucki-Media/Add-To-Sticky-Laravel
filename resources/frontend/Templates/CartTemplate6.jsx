@@ -9,7 +9,7 @@ export default function CartTemplate6({
     enable,
     animationEnable,
     current_template,
-    
+    selectedDevice,
 }) {
     const [btnBgHoverColor, setBtnBgHoverColor] = useState(true);
 
@@ -256,7 +256,42 @@ export default function CartTemplate6({
                             />
                         )}
 
-                    <div className={style.lm_container}>
+{selectedDevice === 1 &&
+                    current_template?.general_settings?.showOnlyBtnOnMobile ===
+                        true ? (
+                        // show only mobile button
+                        <div className={style.lm_container}>
+                            <div className={style.lm_buy_btn}>
+                                <button
+                                    className={`lm_btn slide_right apply-font ${
+                                        current_template.buy_btn_settings
+                                            .btnBold === true
+                                            ? "lm_bold"
+                                            : ""
+                                    } ${
+                                        current_template.buy_btn_settings
+                                            .btnItalic === true
+                                            ? "lm_italic"
+                                            : ""
+                                    } ${
+                                        current_template.buy_btn_settings
+                                            .btnUnderline === true
+                                            ? "lm_underline"
+                                            : "no-line"
+                                    }${
+                                        animationEnable === true
+                                            ? " lm_vibrating"
+                                            : ""
+                                    }`}
+                                    onMouseEnter={handleCountEnter}
+                                    onMouseLeave={handleCountLeave}
+                                >
+                                    {current_template.buy_btn_settings.editText}
+                                </button>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className={style.lm_container}>
                         <div className={style.lm_cart_module}>
                             <div className={style.lm_pro_image}>
                                 <div
@@ -444,7 +479,8 @@ export default function CartTemplate6({
                             </div>
                         </div>
                     </div>
-
+                    )}
+                    
                     {current_template.general_settings.gsAction === "3" &&
                         current_template.general_settings.position ===
                             "Top" && (
