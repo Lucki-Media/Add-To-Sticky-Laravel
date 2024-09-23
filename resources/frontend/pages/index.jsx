@@ -27,7 +27,7 @@ import {
     QuestionCircleIcon,
     CartUpIcon,
     NotificationIcon,
-    DeliveryFilledIcon,
+    DeliveryIcon,
     LayoutPopupIcon,
     CartSaleIcon,
     HomeIcon,
@@ -140,7 +140,7 @@ export default function HomePage() {
                 "Clicking the 'Add to Cart' button on the sticky notification bar reveals a fully customizable notification bar, enhancing user engagement and providing instant feedback.",
         },
         {
-            icon: DeliveryFilledIcon,
+            icon: DeliveryIcon,
             term: "Free Shipping Bar",
             description:
                 "The Free Shipping Bar is fully customizable, designed to attract customers by showcasing their progress toward free shipping and encouraging them to add more items to their cart.",
