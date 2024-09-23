@@ -19,10 +19,19 @@ import {
     InlineStack,
     Popover,
     ActionList,
-    DescriptionList,
     BlockStack,
+    Box,
+    Divider,
 } from "@shopify/polaris";
-import { QuestionCircleIcon } from "@shopify/polaris-icons";
+import {
+    QuestionCircleIcon,
+    CartUpIcon,
+    NotificationIcon,
+    DeliveryFilledIcon,
+    LayoutPopupIcon,
+    CartSaleIcon,
+    HomeIcon,
+} from "@shopify/polaris-icons";
 import "../css/index.css";
 import { CChart } from "@coreui/react-chartjs";
 import { useEffect, useState, useCallback } from "react";
@@ -119,91 +128,40 @@ export default function HomePage() {
     // New Items Array
     const newItemsArray = [
         {
-            term: (
-                <Text as="span" variant="bodyLg" fontWeight="semibold">
-                    Cart Drawer
-                </Text>
-            ),
-            description: (
-                <Text as="dd" variant="bodyLg" fontWeight="regular">
-                    The Cart Drawer is fully customizable, featuring advanced
-                    options, a free shipping bar, and seamless cart management
-                    without leaving the page.
-                </Text>
-            ),
+            icon: CartUpIcon,
+            term: "Cart Drawer",
+            description:
+                "The Cart Drawer is fully customizable, featuring advanced options, a free shipping bar, and seamless cart management without leaving the page.",
         },
         {
-            term: (
-                <Text as="span" variant="bodyLg" fontWeight="semibold">
-                    Notification Bar
-                </Text>
-            ),
-            description: (
-                <Text as="dd" variant="bodyLg" fontWeight="regular">
-                    Clicking the "Add to Cart" button on the sticky notification
-                    bar reveals a fully customizable notification bar, enhancing
-                    user engagement and providing instant feedback.
-                </Text>
-            ),
+            icon: NotificationIcon,
+            term: "Notification Bar",
+            description:
+                "Clicking the 'Add to Cart' button on the sticky notification bar reveals a fully customizable notification bar, enhancing user engagement and providing instant feedback.",
         },
         {
-            term: (
-                <Text as="span" variant="bodyLg" fontWeight="semibold">
-                    Free Shipping Bar
-                </Text>
-            ),
-            description: (
-                <Text as="dd" variant="bodyLg" fontWeight="regular">
-                    The Free Shipping Bar is fully customizable, designed to
-                    attract customers by showcasing their progress toward free
-                    shipping and encouraging them to add more items to their
-                    cart.
-                </Text>
-            ),
+            icon: DeliveryFilledIcon,
+            term: "Free Shipping Bar",
+            description:
+                "The Free Shipping Bar is fully customizable, designed to attract customers by showcasing their progress toward free shipping and encouraging them to add more items to their cart.",
         },
         {
-            term: (
-                <Text as="span" variant="bodyLg" fontWeight="semibold">
-                    UpSell Popup
-                </Text>
-            ),
-            description: (
-                <Text as="dd" variant="bodyLg" fontWeight="regular">
-                    The Upsell Popup, available to premium plan merchants,
-                    appears when the "Add to Cart" button on the sticky bar is
-                    clicked, providing an opportunity to boost sales with
-                    targeted upsell offers.
-                </Text>
-            ),
+            icon: LayoutPopupIcon,
+            term: "UpSell Popup",
+            description:
+                'The Upsell Popup, available to premium plan merchants, appears when the "Add to Cart" button on the sticky bar is clicked, providing an opportunity to boost sales with targeted upsell offers.',
         },
         {
-            term: (
-                <Text as="span" variant="bodyLg" fontWeight="semibold">
-                    Cart Upsell
-                </Text>
-            ),
-            description: (
-                <Text as="dd" variant="bodyLg" fontWeight="regular">
-                    The Cart Upsell feature, available in the premium plan, is
-                    displayed in the drawer cart, offering tailored product
-                    suggestions to enhance sales and improve customer
-                    experience.
-                </Text>
-            ),
+            icon: CartSaleIcon,
+            term: "Cart Upsell",
+            description:
+                "The Cart Upsell feature, available in the premium plan, is displayed in the drawer cart, offering tailored product suggestions to enhance sales and improve customer experience.",
         },
         {
-            term: (
-                <Text as="span" variant="bodyLg" fontWeight="semibold">
-                    Product showcase on home page
-                </Text>
-            ),
-            description: (
-                <Text as="dd" variant="bodyLg" fontWeight="regular">
-                    The product showcase on the home page highlights specific
-                    items to grab customers' attention, driving engagement and
-                    encouraging purchases.
-                </Text>
-            ),
+            icon: HomeIcon,
+            term: "Product showcase on home page",
+            description:
+                "The product showcase on the home page highlights specific items to grab customers attention, driving engagement and encouraging purchases.",
         },
     ];
 
@@ -577,7 +535,52 @@ export default function HomePage() {
                                     Discover Our Latest App Features 🎉
                                 </Text>
                                 <Card>
-                                    <DescriptionList items={newItemsArray} />
+                                    <InlineStack gap="400">
+                                        {newItemsArray.map((item, index) => {
+                                            return (
+                                                <Box
+                                                    width="49%"
+                                                    background="bg-surface-secondary"
+                                                    borderColor="border"
+                                                    borderWidth="025"
+                                                    borderRadius="100"
+                                                    padding="400"
+                                                    key={index}
+                                                >
+                                                    <BlockStack gap="200">
+                                                        <InlineStack
+                                                            blockAlign="center"
+                                                            gap={200}
+                                                            align="start"
+                                                        >
+                                                            <span className="vidhee">
+                                                                <Icon
+                                                                    source={
+                                                                        item.icon
+                                                                    }
+                                                                    tone="primary"
+                                                                />
+                                                            </span>
+                                                            <Text
+                                                                as="h3"
+                                                                variant="headingMd"
+                                                                fontWeight="medium"
+                                                            >
+                                                                {item.term}
+                                                            </Text>
+                                                        </InlineStack>
+                                                        <Divider borderColor="border" />
+                                                        <Text
+                                                            variant="bodyLg"
+                                                            as="p"
+                                                        >
+                                                            {item.description}
+                                                        </Text>
+                                                    </BlockStack>
+                                                </Box>
+                                            );
+                                        })}
+                                    </InlineStack>
                                 </Card>
                             </BlockStack>
                         </Layout.Section>

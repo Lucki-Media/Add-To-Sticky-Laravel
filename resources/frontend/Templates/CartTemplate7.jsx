@@ -9,7 +9,7 @@ export default function CartTemplate7({
     enable,
     animationEnable,
     current_template,
-    selectedDevice,
+    
 }) {
     const [btnBgHoverColor, setBtnBgHoverColor] = useState(true);
 
@@ -236,83 +236,45 @@ export default function CartTemplate7({
                             />
                         )}
 
-                    {selectedDevice === 1 &&
-                    current_template?.general_settings?.showOnlyBtnOnMobile ===
-                        true ? (
-                        // show only mobile button
-                        <div className={style.lm_container}>
-                            <div className={style.lm_buy_btn}>
-                                <button
-                                    className={`lm_btn slide_right apply-font ${
-                                        current_template.buy_btn_settings
-                                            .btnBold === true
-                                            ? "lm_bold"
-                                            : ""
-                                    } ${
-                                        current_template.buy_btn_settings
-                                            .btnItalic === true
-                                            ? "lm_italic"
-                                            : ""
-                                    } ${
-                                        current_template.buy_btn_settings
-                                            .btnUnderline === true
-                                            ? "lm_underline"
-                                            : "no-line"
-                                    }${
-                                        animationEnable === true
-                                            ? " lm_vibrating"
-                                            : ""
-                                    }`}
-                                    onMouseEnter={handleCountEnter}
-                                    onMouseLeave={handleCountLeave}
+                    <div className={style.lm_container}>
+                        <div className={style.lm_cart_module}>
+                            <div className={style.lm_pro_image}>
+                                <div
+                                    className={`img_size ${style.image_border}`}
                                 >
-                                    {current_template.buy_btn_settings.editText}
-                                </button>
-                            </div>
-                        </div>
-                    ) : (
-                        <div className={style.lm_container}>
-                            <div className={style.lm_cart_module}>
-                                <div className={style.lm_pro_image}>
-                                    <div
-                                        className={`img_size ${style.image_border}`}
-                                    >
-                                        <img
-                                            className="img_sizes"
-                                            src={proimage}
-                                            alt="product image"
-                                        />
-                                    </div>
-                                    <div className={style.lm_middlecontent}>
-                                        <h2
-                                            className={`font_option ${
-                                                style.pro_names
-                                            } ${
-                                                current_template
-                                                    .general_settings.gsBold ===
-                                                true
-                                                    ? "lm_bold"
-                                                    : ""
-                                            } ${
-                                                current_template
-                                                    .general_settings
-                                                    .gsItalic === true
-                                                    ? "lm_italic"
-                                                    : ""
-                                            } ${
-                                                current_template
-                                                    .general_settings
-                                                    .gsUnderline === true
-                                                    ? "lm_underline"
-                                                    : "no-line"
-                                            }`}
-                                        >
-                                            Juice Bottle Mockup (Red)
-                                        </h2>
-                                    </div>
+                                    <img
+                                        className="img_sizes"
+                                        src={proimage}
+                                        alt="product image"
+                                    />
                                 </div>
-                                <div className={style.lmblock_right}>
-                                    {/* <div className={style.var_options}>
+                                <div className={style.lm_middlecontent}>
+                                    <h2
+                                        className={`font_option ${
+                                            style.pro_names
+                                        } ${
+                                            current_template.general_settings
+                                                .gsBold === true
+                                                ? "lm_bold"
+                                                : ""
+                                        } ${
+                                            current_template.general_settings
+                                                .gsItalic === true
+                                                ? "lm_italic"
+                                                : ""
+                                        } ${
+                                            current_template.general_settings
+                                                .gsUnderline === true
+                                                ? "lm_underline"
+                                                : "no-line"
+                                        }`}
+                                    >
+                                        Juice Bottle Mockup (Red)
+                                    </h2>
+                                </div>
+                            </div>
+                            <div className={style.lmblock_right}>
+                                {/* <div className={style.var_options}>
                                     <div
                                         className={`lm_options ${style.lm_options}`}
                                     >
@@ -397,86 +359,80 @@ export default function CartTemplate7({
                                         </div>
                                     </div> 
                                 </div> */}
-                                    <div className={style.button_block}>
-                                        <div
-                                            className={`lm_quantity_picker ${style.lm_quantity_selector}`}
-                                        >
-                                            <QuantityPicker
-                                                className={style.quantity12}
-                                                min={1}
-                                                max={10}
-                                            />
-                                        </div>
-                                        <div className={style.lm_block_price}>
-                                            <div className="lm_sticky_p_color">
-                                                <span
-                                                    className={
-                                                        style.compare_lm_price
-                                                    }
-                                                >
-                                                    ${parseFloat(50).toFixed(2)}
-                                                </span>
-                                                <span
-                                                    className={
-                                                        style.simple_price
-                                                    }
-                                                >
-                                                    ${parseFloat(40).toFixed(2)}
-                                                </span>
-                                                <span
-                                                    className={
-                                                        style.lm_out_stock
-                                                    }
-                                                >
-                                                    {
-                                                        current_template
-                                                            .buy_btn_settings
-                                                            .unavailable
-                                                    }
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div className={style.lm_buy_btn}>
-                                            {/* <CustomizedButton onClick={() => alert("Welcome!")}> */}
-                                            <button
-                                                className={`lm_btn slide_right apply-font ${
-                                                    current_template
-                                                        .buy_btn_settings
-                                                        .btnBold === true
-                                                        ? "lm_bold"
-                                                        : ""
-                                                } ${
-                                                    current_template
-                                                        .buy_btn_settings
-                                                        .btnItalic === true
-                                                        ? "lm_italic"
-                                                        : ""
-                                                } ${
-                                                    current_template
-                                                        .buy_btn_settings
-                                                        .btnUnderline === true
-                                                        ? "lm_underline"
-                                                        : "no-line"
-                                                }${
-                                                    animationEnable === true
-                                                        ? " lm_vibrating"
-                                                        : ""
-                                                }`}
-                                                onMouseEnter={handleCountEnter}
-                                                onMouseLeave={handleCountLeave}
+                                <div className={style.button_block}>
+                                    <div
+                                        className={`lm_quantity_picker ${style.lm_quantity_selector}`}
+                                    >
+                                        <QuantityPicker
+                                            className={style.quantity12}
+                                            min={1}
+                                            max={10}
+                                        />
+                                    </div>
+                                    <div className={style.lm_block_price}>
+                                        <div className="lm_sticky_p_color">
+                                            <span
+                                                className={
+                                                    style.compare_lm_price
+                                                }
+                                            >
+                                                ${parseFloat(50).toFixed(2)}
+                                            </span>
+                                            <span
+                                                className={style.simple_price}
+                                            >
+                                                ${parseFloat(40).toFixed(2)}
+                                            </span>
+                                            <span
+                                                className={style.lm_out_stock}
                                             >
                                                 {
                                                     current_template
                                                         .buy_btn_settings
-                                                        .editText
+                                                        .unavailable
                                                 }
-                                            </button>
+                                            </span>
                                         </div>
+                                    </div>
+                                    <div className={style.lm_buy_btn}>
+                                        {/* <CustomizedButton onClick={() => alert("Welcome!")}> */}
+                                        <button
+                                            className={`lm_btn slide_right apply-font ${
+                                                current_template
+                                                    .buy_btn_settings
+                                                    .btnBold === true
+                                                    ? "lm_bold"
+                                                    : ""
+                                            } ${
+                                                current_template
+                                                    .buy_btn_settings
+                                                    .btnItalic === true
+                                                    ? "lm_italic"
+                                                    : ""
+                                            } ${
+                                                current_template
+                                                    .buy_btn_settings
+                                                    .btnUnderline === true
+                                                    ? "lm_underline"
+                                                    : "no-line"
+                                            }${
+                                                animationEnable === true
+                                                    ? " lm_vibrating"
+                                                    : ""
+                                            }`}
+                                            onMouseEnter={handleCountEnter}
+                                            onMouseLeave={handleCountLeave}
+                                        >
+                                            {
+                                                current_template
+                                                    .buy_btn_settings.editText
+                                            }
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    )}
+                    </div>
 
                     {current_template.general_settings.gsAction === "3" &&
                         current_template.general_settings.position ===
