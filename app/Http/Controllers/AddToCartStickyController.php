@@ -49,7 +49,7 @@ class AddToCartStickyController extends Controller
                 'gsOffsetValue' => $requestData['gsOffsetValue'],
                 'gsAction' => $requestData['gsAction'],
                 'gsDisplayCondition' => $requestData['gsDisplayCondition'],
-                'gsNotificationBarText' => $requestData['gsNotificationBarText'] ?? "Great news! Here's something special for you!",
+                'gsNotificationBarText' => $requestData['gsNotificationBarText'] ?? "Yayy! Product Added to Cart!",
                 'gsNotificationBarItalic' => $requestData['gsNotificationBarItalic'] ?? false,
                 'gsNotificationBarBold' => $requestData['gsNotificationBarBold'] ?? false,
                 'gsNotificationBarTextColor' => $requestData['gsNotificationBarTextColor'] ?? "#ffffff",

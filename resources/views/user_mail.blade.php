@@ -380,7 +380,7 @@
                                     <td class="res-center"
                                       style="text-align: center; color: white; font-family: arial, 'helvetica neue', helvetica, sans-serif; font-size: 35px; letter-spacing: 3px; word-break: break-word; font-weight: 800; padding-left: 3px;"
                                       data-color="M1 Title 2" data-size="M1 Title 2" data-max="45" data-min="25">
-                                      LM Add To Cart Sticky
+                                      LM Sticky Cart Drawer & Upsell
                                     </td>
                                   </tr>
                                   <!-- title end -->
@@ -448,7 +448,7 @@
                                   style="padding:0;Margin:0;padding-bottom:10px;padding-left:25px;padding-right:25px">
                                   <p
                                     style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:roboto, 'helvetica neue', helvetica, arial, sans-serif;line-height:21px;color:#333333;font-size:14px">
-                                    You have recently uninstalled <b>LM Add To Cart Sticky.</b>.</p>
+                                    You have recently uninstalled <b>LM Sticky Cart Drawer & Upsell.</b>.</p>
                                 </td>
                               </tr>
                               <tr>
@@ -479,11 +479,11 @@
                                     exceptional user experience. We genuinely value your insights, as they help us
                                     enhance our app for both existing and future users.
                                     <br><br>
-                                    If there is anything specific that led to your decision to uninstall LM Add To Cart Sticky, or if you have any suggestions or concerns, please don't
+                                    If there is anything specific that led to your decision to uninstall LM Sticky Cart Drawer & Upsell, or if you have any suggestions or concerns, please don't
                                     hesitate to reach out to us. Your input is highly appreciated, and we are committed
                                     to making necessary adjustments to better meet your expectations.
                                     <br><br>
-                                    Once again, we extend our heartfelt thanks for choosing LM Add To Cart Sticky in the past. Should you ever reconsider using our app in the future, we would
+                                    Once again, we extend our heartfelt thanks for choosing LM Sticky Cart Drawer & Upsell in the past. Should you ever reconsider using our app in the future, we would
                                     be thrilled to welcome you back and provide an even more satisfying experience.
                                     <br><br>
 

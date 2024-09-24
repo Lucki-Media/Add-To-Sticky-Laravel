@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>LM Add To Cart Sticky</title>
+    <title>LM Sticky Cart Drawer & Upsell</title>
     @viteReactRefresh
     @vite('resources/js/app.js')
 </head>

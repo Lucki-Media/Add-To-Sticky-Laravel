@@ -55,7 +55,7 @@ export default function NotificationBar(props) {
                         } `}
                     >
                         {props.gsNotificationBarText ??
-                            "Great news! Here's something special for you!"}
+                            "Yayy! Product Added to Cart!"}
                     </p>
                 </div>
             </div>

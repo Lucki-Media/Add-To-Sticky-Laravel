@@ -13,7 +13,7 @@ function CartTemplate1({
     selectedDevice,
 }) {
     const defaultNotificationMessage =
-        "Great news! Here's something special for you!";
+        "Yayy! Product Added to Cart!";
 
     const options = [
         { value: "L", label: "L" },

@@ -253,7 +253,7 @@ export default function StickyCart() {
                                         <p className="fullscreen_title">
                                             {!unsavedChanges
                                                 ? "Unsaved Changes"
-                                                : "Sticky Cart"}
+                                                : "Drawer Cart"}
                                         </p>
                                     </div>
                                     <ButtonGroup>

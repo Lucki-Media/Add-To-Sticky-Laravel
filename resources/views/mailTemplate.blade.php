@@ -35,7 +35,7 @@
                                 style="max-width:560px;background:#fff; border-radius:8px; text-align:center;-webkit-box-shadow:0 6px 18px 0 rgba(0,0,0,.06);-moz-box-shadow:0 6px 18px 0 rgba(0,0,0,.06);box-shadow:0 6px 18px 0 rgba(0,0,0,.06);">
                                 <tr>
                                     <td style="text-align:center;">
-                                        <h1 style="max-width:560px;font-family: 'Rubik',sans-serif;font-size:30px;font-weight: 400;color: #FFF;background-color:#03696D;margin: 0 auto;padding: 40px 0;border-radius: 8px;">LM Add To Cart Sticky</h1>
+                                        <h1 style="max-width:560px;font-family: 'Rubik',sans-serif;font-size:30px;font-weight: 400;color: #FFF;background-color:#03696D;margin: 0 auto;padding: 40px 0;border-radius: 8px;">LM Sticky Cart Drawer & Upsell</h1>
                                     </td>
                                 </tr>
                             </table>
@@ -76,9 +76,9 @@
                                 style="max-width:560px; text-align:center;">
                                 <tr>
                                     <td style="padding:20px 0px;">
-                                        <h1 style="font-family: 'Rubik',sans-serif;font-size:30px;font-weight: 400;text-align: center;"> LM Add To Cart Sticky</h1>
+                                        <h1 style="font-family: 'Rubik',sans-serif;font-size:30px;font-weight: 400;text-align: center;"> LM Sticky Cart Drawer & Upsell</h1>
                                         <p style="color:#455056; font-size:10px;line-height:20px; margin:0;text-align:center;">
-                                            You received this message because someone has installed your app  LM Add To Cart Sticky on their Shopify Store.
+                                            You received this message because someone has installed your app  LM Sticky Cart Drawer & Upsell on their Shopify Store.
                                         </p>
                                         <p style="color:#455056; font-size:10px;line-height:20px; margin:0;text-align:center;">
                                             © 2023 Sent from Luckimedia with ❤️

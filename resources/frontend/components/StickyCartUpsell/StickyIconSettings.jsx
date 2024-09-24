@@ -291,7 +291,7 @@ export default function StickyIconSettings(props) {
                         alignment="start"
                         fontWeight="medium"
                     >
-                        Sticky Cart is{" "}
+                        Drawer Cart is{" "}
                         {enableSticky ? (
                             <span className="lm_sticky_custom_badge_success">
                                 <Badge tone="success">Enabled</Badge>
