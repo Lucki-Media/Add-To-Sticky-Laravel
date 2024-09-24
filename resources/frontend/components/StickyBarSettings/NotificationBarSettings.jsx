@@ -25,7 +25,7 @@ export default function NotificationBarSettings({
 
     const [gsNotificationBarText, setGsNotificationBarText] = useState(
         currentTemplate?.general_settings?.gsNotificationBarText ??
-            "Great news! Here's something special for you!"
+            "Yayy! Product Added to Cart!"
     );
     const [gsNotificationBarItalic, setGsNotificationBarItalic] = useState(
         currentTemplate?.general_settings?.gsNotificationBarItalic ?? false
@@ -129,7 +129,7 @@ export default function NotificationBarSettings({
     useEffect(() => {
         setGsNotificationBarText(
             currentTemplate?.general_settings?.gsNotificationBarText ??
-                "Great news! Here's something special for you!"
+                "Yayy! Product Added to Cart!"
         );
     }, [currentTemplate?.general_settings?.gsNotificationBarText]);
 

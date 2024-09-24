@@ -145,13 +145,6 @@
 .show_sticky_span {
     font-weight: 600;
 }
-.deep_link__class {
-    padding-bottom: 15px;
-}
-
-.deep_link__class > div:first-child {
-    margin-bottom: 15px;
-}
 .layout__section {
     background-color: rgb(235, 235, 236);
 }

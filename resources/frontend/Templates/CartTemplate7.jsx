@@ -14,7 +14,7 @@ export default function CartTemplate7({
     const [btnBgHoverColor, setBtnBgHoverColor] = useState(true);
 
     const defaultNotificationMessage =
-        "Great news! Here's something special for you!";
+        "Yayy! Product Added to Cart!";
 
     // BUTTON HOVER
     const handleCountEnter = () => {

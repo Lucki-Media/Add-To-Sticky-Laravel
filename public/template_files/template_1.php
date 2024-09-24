@@ -18,7 +18,7 @@ return [
         'gsOffsetValue' => '0',
         'gsAction' => '1',
         'gsDisplayCondition' => '1',
-        "gsNotificationBarText" => "Great news! Here's something special for you!",
+        "gsNotificationBarText" => "Yayy! Product Added to Cart!",
         "gsNotificationBarItalic" => false,
         "gsNotificationBarBold" => false,
         "gsNotificationBarTextColor" => "#ffffff",

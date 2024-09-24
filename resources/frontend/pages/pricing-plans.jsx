@@ -36,7 +36,7 @@ export default function StickyCart() {
 
     const freePlanFeatures = [
         "All Customization Features",
-        "Sticky Add To Cart Bar",
+        "StickyBar",
         "Notification Bar",
         "Sticky Cart & Cart Drawer",
         "Free Shipping Bar",

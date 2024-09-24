@@ -17,7 +17,7 @@ export default function StickyFAQ() {
                     <Layout>
                         <Layout.Section>
                             <div className="sidebar_title sticky_faq">
-                                LM Sticky Help Center
+                                LM Help Center
                             </div>
                             {DataFAQ.map((item, index) => (
                                 <div

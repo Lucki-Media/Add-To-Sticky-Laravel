@@ -137,7 +137,7 @@ export default function HomePage() {
             icon: NotificationIcon,
             term: "Notification Bar",
             description:
-                "Clicking the 'Add to Cart' button on the sticky notification bar reveals a fully customizable notification bar, enhancing user engagement and providing instant feedback.",
+                "Clicking the StickyBar button on the sticky notification bar reveals a fully customizable notification bar, enhancing user engagement and providing instant feedback.",
         },
         {
             icon: DeliveryIcon,
@@ -149,7 +149,7 @@ export default function HomePage() {
             icon: LayoutPopupIcon,
             term: "UpSell Popup",
             description:
-                'The Upsell Popup, available to premium plan merchants, appears when the "Add to Cart" button on the sticky bar is clicked, providing an opportunity to boost sales with targeted upsell offers.',
+                'The Upsell Popup, available to premium plan merchants, appears when the StickyBar button on the sticky bar is clicked, providing an opportunity to boost sales with targeted upsell offers.',
         },
         {
             icon: CartSaleIcon,
@@ -220,7 +220,6 @@ export default function HomePage() {
                     {/* Warning banner to enable extension */}
                     {(sCartEnabled === "1" || sacEnabled === "1") &&
                         themeExtEnabled === "0" && (
-                            <div className="deep_link__class">
                                 <Banner
                                     title="Theme App Extension is not Activated"
                                     action={{
@@ -239,78 +238,75 @@ export default function HomePage() {
                                         </List.Item>
                                     </List>
                                 </Banner>
-                            </div>
                         )}
 
                     {/* Feedback banner */}
                     {showReviewBanner && (
-                        <div className="deep_link__class">
-                            <Banner
-                                // onDismiss={() => {}}
-                                icon={HeartIcon}
-                                // title="Your feedback means a lot to us!"
+                        <Banner
+                            // onDismiss={() => {}}
+                            icon={HeartIcon}
+                            // title="Your feedback means a lot to us!"
+                        >
+                            <InlineStack
+                                gap="400"
+                                wrap={false}
+                                blockAlign="baseline"
+                                align="space-between"
                             >
-                                <InlineStack
-                                    gap="400"
-                                    wrap={false}
-                                    blockAlign="baseline"
-                                    align="space-between"
-                                >
-                                    <p style={{ margin: "auto 0" }}>
-                                        How is our app working for you? Share
-                                        your feedback and help us improve!
-                                    </p>
-                                    <ButtonGroup>
-                                        <Button
-                                            icon={SmileySadIcon}
-                                            variant="plain"
-                                            external
-                                            url="https://forms.gle/CTSsW3kpKgVturgX7"
-                                        >
-                                            Poor
-                                        </Button>
-                                        <Button
-                                            icon={SmileyHappyIcon}
-                                            variant="plain"
-                                            external
-                                            url="https://apps.shopify.com/lm-add-to-cart-sticky/reviews"
-                                        >
-                                            Excellent
-                                        </Button>
-                                    </ButtonGroup>
-                                    <Popover
-                                        active={popoverActive}
-                                        activator={activator}
-                                        autofocusTarget="first-node"
-                                        onClose={togglePopoverActive}
+                                <p style={{ margin: "auto 0" }}>
+                                    How is our app working for you? Share your
+                                    feedback and help us improve!
+                                </p>
+                                <ButtonGroup>
+                                    <Button
+                                        icon={SmileySadIcon}
+                                        variant="plain"
+                                        external
+                                        url="https://forms.gle/CTSsW3kpKgVturgX7"
                                     >
-                                        <ActionList
-                                            actionRole="menuitem"
-                                            items={[
-                                                {
-                                                    content: "Never Ask",
-                                                    icon: XIcon,
-                                                    onAction: () => {
-                                                        updateReviewBannerStatus(
-                                                            "2"
-                                                        );
-                                                    },
+                                        Poor
+                                    </Button>
+                                    <Button
+                                        icon={SmileyHappyIcon}
+                                        variant="plain"
+                                        external
+                                        url="https://apps.shopify.com/lm-add-to-cart-sticky/reviews"
+                                    >
+                                        Excellent
+                                    </Button>
+                                </ButtonGroup>
+                                <Popover
+                                    active={popoverActive}
+                                    activator={activator}
+                                    autofocusTarget="first-node"
+                                    onClose={togglePopoverActive}
+                                >
+                                    <ActionList
+                                        actionRole="menuitem"
+                                        items={[
+                                            {
+                                                content: "Never Ask",
+                                                icon: XIcon,
+                                                onAction: () => {
+                                                    updateReviewBannerStatus(
+                                                        "2"
+                                                    );
                                                 },
-                                                {
-                                                    content: "Remind Leter",
-                                                    icon: HideIcon,
-                                                    onAction: () => {
-                                                        updateReviewBannerStatus(
-                                                            "1"
-                                                        );
-                                                    },
+                                            },
+                                            {
+                                                content: "Remind Leter",
+                                                icon: HideIcon,
+                                                onAction: () => {
+                                                    updateReviewBannerStatus(
+                                                        "1"
+                                                    );
                                                 },
-                                            ]}
-                                        />
-                                    </Popover>
-                                </InlineStack>
-                            </Banner>
-                        </div>
+                                            },
+                                        ]}
+                                    />
+                                </Popover>
+                            </InlineStack>
+                        </Banner>
                     )}
 
                     {/* Onboarding Process Layout */}
@@ -334,7 +330,7 @@ export default function HomePage() {
                                     alignment="center"
                                     fontWeight="semibold"
                                 > */}
-                                        Step 1 : Enable Sticky Add to Cart
+                                        Step 1 : Enable StickyBar
                                     </div>
                                     {/* </Text> */}
                                     <img
@@ -353,7 +349,7 @@ export default function HomePage() {
                                             minHeight: 120,
                                         }}
                                     >
-                                        A sticky 'Add to Cart' bar enhances user
+                                        A StickyBar enhances user
                                         experience, driving revenue with
                                         effortless product additions.
                                     </p>
@@ -402,7 +398,7 @@ export default function HomePage() {
                                             minHeight: 35,
                                         }}
                                     >
-                                        Step 2 : Enable Sticky Cart
+                                        Step 2 : Enable Drawer Cart
                                     </div>
                                     {/* </Text> */}
                                     <img
@@ -490,8 +486,8 @@ export default function HomePage() {
                                         }}
                                     >
                                         Activate the app in Shopify's Theme
-                                        Editor to ensure the Sticky Add To Cart
-                                        feature is visible.
+                                        Editor to ensure all 
+                                        features is visible.
                                     </p>
                                     <div
                                         style={{
@@ -603,9 +599,9 @@ export default function HomePage() {
                                         <div cl assName="clickdetails_card">
                                             <Card sectioned>
                                                 <div className="click_countdetail">
-                                                    Clicks On Add To Cart Sticky
+                                                    Clicks On StickyBar
                                                     <Tooltip
-                                                        content="The count of times customers clicked on Add To Cart Sticky"
+                                                        content="The count of times customers clicked on StickyBar"
                                                         dismissOnMouseOut
                                                         preferredPosition="below"
                                                     >
@@ -631,9 +627,9 @@ export default function HomePage() {
                                         <div className="clickdetails_card">
                                             <Card sectioned>
                                                 <div className="click_countdetail">
-                                                    Clicks On Sticky Cart
+                                                    Clicks On Drawer Cart
                                                     <Tooltip
-                                                        content="The count of times customers clicked on Sticky Cart"
+                                                        content="The count of times customers clicked on Drawer Cart"
                                                         dismissOnMouseOut
                                                         preferredPosition="below"
                                                     >
@@ -678,13 +674,13 @@ export default function HomePage() {
                                                             ],
                                                             datasets: [
                                                                 {
-                                                                    label: "Add To Cart Sticky",
+                                                                    label: "StickyBar",
                                                                     backgroundColor:
                                                                         "#15C39A",
                                                                     data: sacArray,
                                                                 },
                                                                 {
-                                                                    label: "Sticky Cart",
+                                                                    label: "Drawer Cart",
                                                                     backgroundColor:
                                                                         "#f87979",
                                                                     data: sCartArray,

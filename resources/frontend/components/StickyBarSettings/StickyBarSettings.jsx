@@ -129,7 +129,7 @@ export default function StickyBarSettings(props) {
                         alignment="start"
                         fontWeight="medium"
                     >
-                        Sticky Add To Cart is{" "}
+                        StickyBar is{" "}
                         {enable ? (
                             <span className="lm_sticky_custom_badge_success">
                                 <Badge tone="success">Enabled</Badge>

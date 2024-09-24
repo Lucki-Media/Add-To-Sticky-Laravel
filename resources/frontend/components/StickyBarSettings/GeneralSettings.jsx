@@ -157,7 +157,7 @@ export default function GeneralSettings({
                             tone="subdued"
                         >
                             (<strong>Note:</strong> On which device you would
-                            like to show Add To Cart Sticky on your store)
+                            like to show StickyBar on your store)
                         </Text>
                     </BlockStack>
                 </FormLayout.Group>

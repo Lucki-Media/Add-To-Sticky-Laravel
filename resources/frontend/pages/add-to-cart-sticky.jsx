@@ -231,7 +231,7 @@ export default function AddToCartSticky() {
                                         <p className="fullscreen_title">
                                             {!unsavedChanges
                                                 ? "Unsaved Changes"
-                                                : "Sticky Add To Cart"}
+                                                : "StickyBar"}
                                         </p>
                                     </div>
                                     <ButtonGroup>
