@@ -198,11 +198,13 @@ export default function ProductSelection(props) {
                                     align="space-between"
                                     blockAlign="center"
                                 >
-                                    <InlineStack align="start" gap={200}>
+                                    <Box width="15%" padding="0">
                                         <Thumbnail
                                             source={selectedItem.src}
                                             size="small"
                                         />
+                                    </Box>
+                                    <Box width="80%" padding="200">
                                         <Text
                                             variant="bodyMd"
                                             fontWeight="medium"
@@ -210,13 +212,15 @@ export default function ProductSelection(props) {
                                         >
                                             {selectedItem.title}
                                         </Text>
-                                    </InlineStack>
-                                    <Button
-                                        icon={XIcon}
-                                        variant="plain"
-                                        tone="base"
-                                        onClick={removeProduct}
-                                    />
+                                    </Box>
+                                    <Box width="5%" padding="200">
+                                        <Button
+                                            icon={XIcon}
+                                            variant="plain"
+                                            tone="base"
+                                            onClick={removeProduct}
+                                        />
+                                    </Box>
                                 </InlineStack>
                             </Box>
                         )}
