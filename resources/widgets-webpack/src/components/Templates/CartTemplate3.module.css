@@ -235,6 +235,23 @@
     .lm_cart_module {
         display: block;
     }
+        /* Hide Image and Quantity picker */
+        .lm_pro_image{
+            display: none;
+        }
+        .button_block{
+            display: block;
+        }
+        .lm_quantity_picker .quantity-picker{
+            display: none !important;
+        }
+        .lm_btn{
+            width: 100% !important;
+        }
+        .slide_right{
+            width: 100% !important;
+        }
+        /* Hide Image and Quantity picker */
 }
 
 @media screen and (max-width: 767px) {
