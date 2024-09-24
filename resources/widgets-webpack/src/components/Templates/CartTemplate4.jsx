@@ -477,6 +477,19 @@ export default function CartTemplate4({
                             .lm_quantity_picker .quantity-modifier ,.slide_right{
                             height: 40px;        }
                         }
+                            @media screen and (max-width: 767px) {
+                                /* Hide Image and Quantity picker */
+                                .lm_quantity_picker .quantity-picker{
+                                    display: none !important;
+                                }
+                                .lm_btn{
+                                    width: 100% !important;
+                                }
+                                .slide_right{
+                                    width: 100% !important;
+                                }
+                                /* Hide Image and Quantity picker */
+                            }
                         `}
                     </style>
                     {enable === true && (
