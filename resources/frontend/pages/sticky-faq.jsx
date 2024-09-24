@@ -1,4 +1,13 @@
-import { Card, Layout, Page, Collapsible, Icon } from "@shopify/polaris";
+import {
+    Card,
+    Layout,
+    Page,
+    Collapsible,
+    Icon,
+    FullscreenBar,
+    ButtonGroup,
+    Button,
+} from "@shopify/polaris";
 import "../css/index.css";
 import { useState } from "react";
 import { ChevronRightIcon, ChevronDownIcon } from "@shopify/polaris-icons";
@@ -13,12 +22,42 @@ export default function StickyFAQ() {
     return (
         <>
             <div className="lm_sticky_main_app_page">
+                <div className={`lm_sticky_fullscreenbar`}>
+                    <FullscreenBar>
+                        <div
+                            style={{
+                                display: "flex",
+                                flexGrow: 1,
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                paddingLeft: "1rem",
+                                paddingRight: "1rem",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    marginLeft: "1rem",
+                                    flexGrow: 1,
+                                }}
+                            >
+                                <p className="fullscreen_title">LM Help Center </p>
+                            </div>
+                            <ButtonGroup>
+                                <Button
+                                    size="large"
+                                    variant="primary"
+                                    url="https://forms.gle/CTSsW3kpKgVturgX7"
+                                    external
+                                >
+                                    Get Support
+                                </Button>
+                            </ButtonGroup>
+                        </div>
+                    </FullscreenBar>
+                </div>
                 <Page>
                     <Layout>
                         <Layout.Section>
-                            <div className="sidebar_title sticky_faq">
-                                LM Help Center
-                            </div>
                             {DataFAQ.map((item, index) => (
                                 <div
                                     className="sticky_faq_div"

@@ -16,7 +16,11 @@ export default function HomePageSettings({
     homePageProductData,
     homePageDataCallback,
 }) {
-    const [productSwitch, setProductSwitch] = useState(true);
+    const [productSwitch, setProductSwitch] = useState(
+        homePageProductData &&
+            homePageProductData !== "" &&
+            homePageProductData !== undefined
+    );
     const [homePageProduct, setHomePageProduct] = useState(homePageProductData);
 
     // HOME PAGE PRODUCT SWITCH LOGIC
