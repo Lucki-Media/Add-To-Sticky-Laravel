@@ -11,6 +11,23 @@ class AddToCartStickyController extends Controller
 {
     public function saveAddToStickyCartData(Request $request)
     {
+        $requestData = $request->all();
+        $sac_data = AddToCartStickyData::where('shop_domain', $requestData['shop_domain'])->first();
+
+        if ($sac_data) {
+            $updateOrInsert = AddToCartStickyData::where('shop_domain', $requestData['shop_domain'])->update($requestData);
+        } else {
+            $updateOrInsert = AddToCartStickyData::insert($requestData);
+        }
+        if ($updateOrInsert) {
+            return self::sendResponse($requestData, 'Data Updated/Inserted!');
+        } else {
+            return self::sendError([], 'Data Failed To Update/Insert!');
+        }
+    }
+
+    public function saveAddToStickyCartDataOld(Request $request)
+    {
         $requestData = $request['data'];
         $sac_data = AddToCartStickyData::where('shop_domain', $requestData['shop_domain'])->first();
         // echo '<pre>';print_r($requestData);exit;
@@ -32,31 +49,34 @@ class AddToCartStickyController extends Controller
                 'gsOffsetValue' => $requestData['gsOffsetValue'],
                 'gsAction' => $requestData['gsAction'],
                 'gsDisplayCondition' => $requestData['gsDisplayCondition'],
-                'gsNotificationBarText' => $requestData['gsNotificationBarText'] ?? "",
-                'gsNotificationBarItalic' => $requestData['gsNotificationBarItalic'] ?? "",
-                'gsNotificationBarBold' => $requestData['gsNotificationBarBold'] ?? "",
-                'gsNotificationBarTextColor' => $requestData['gsNotificationBarTextColor'] ?? "",
-                'gsNotificationBarBgColor' => $requestData['gsNotificationBarBgColor'] ?? "",
-                'gsNotificationBarFontSize' => $requestData['gsNotificationBarFontSize'] ?? "",
-                'gsNotificationBarHeight' => $requestData['gsNotificationBarHeight'] ?? "",
-                'enableUpSell' => $requestData['enableUpSell'] ?? "",
-                'CUPLSelection' => $requestData['CUPLSelection'] ?? "",
-                'CUPLManualSelection' => $requestData['CUPLManualSelection'] ?? "",
+                'gsNotificationBarText' => $requestData['gsNotificationBarText'] ?? "Yayy! Product Added to Cart!",
+                'gsNotificationBarItalic' => $requestData['gsNotificationBarItalic'] ?? false,
+                'gsNotificationBarBold' => $requestData['gsNotificationBarBold'] ?? false,
+                'gsNotificationBarTextColor' => $requestData['gsNotificationBarTextColor'] ?? "#ffffff",
+                'gsNotificationBarBgColor' => $requestData['gsNotificationBarBgColor'] ?? '#000000',
+                'gsNotificationBarFontSize' => $requestData['gsNotificationBarFontSize'] ?? 12,
+                'gsNotificationBarHeight' => $requestData['gsNotificationBarHeight'] ?? 5,
+                'enableUpSell' => $requestData['enableUpSell'] ?? false,
+                'CUPLSelection' => $requestData['CUPLSelection'] ?? "1",
+                'CUPLManualSelection' => $requestData['CUPLManualSelection'] ?? "1",
                 'SelectedCollectionID' => $requestData['SelectedCollectionID'] ?? "",
-                'SelectedProductIDs' => $requestData['SelectedProductIDs'] ?? "",
-                'CUHeadingText' => $requestData['CUHeadingText'] ?? "",
-                'CUBuyBtnText' => $requestData['CUBuyBtnText'] ?? "",
-                'CUHeadingFontSize' => $requestData['CUHeadingFontSize'] ?? "",
-                'CUBodyFontSize' => $requestData['CUBodyFontSize'] ?? "",
-                'CUBuyBtnFontSize' => $requestData['CUBuyBtnFontSize'] ?? "",
-                'CUBodyColor' => $requestData['CUBodyColor'] ?? "",
-                'CUHeadingBGColor' => $requestData['CUHeadingBGColor'] ?? "",
-                'CUHeadingColor' => $requestData['CUHeadingColor'] ?? "",
-                'CUBtnTextColor' => $requestData['CUBtnTextColor'] ?? "",
-                'CUBtnBGColor' => $requestData['CUBtnBGColor'] ?? "",
-                'CUBtnTextHoverColor' => $requestData['CUBtnTextHoverColor'] ?? "",
-                'CUBtnBGHoverColor' => $requestData['CUBtnBGHoverColor'] ?? "",
-                'CUBorderRadius' => $requestData['CUBorderRadius'] ?? "",
+                'SelectedProductIDs' => $requestData['SelectedProductIDs'] ?? [],
+                'CUHeadingText' => $requestData['CUHeadingText'] ?? "Recommended Products",
+                'CUBuyBtnText' => $requestData['CUBuyBtnText'] ?? "Buy",
+                'CUHeadingFontSize' => $requestData['CUHeadingFontSize'] ?? 15,
+                'CUBodyFontSize' => $requestData['CUBodyFontSize'] ?? 14,
+                'CUBuyBtnFontSize' => $requestData['CUBuyBtnFontSize'] ?? 14,
+                'CUBodyColor' => $requestData['CUBodyColor'] ?? "#eef1f2",
+                'CUHeadingBGColor' => $requestData['CUHeadingBGColor'] ?? "#000000",
+                'CUHeadingColor' => $requestData['CUHeadingColor'] ?? "#ffffff",
+                'CUBtnTextColor' => $requestData['CUBtnTextColor'] ?? "#ffffff",
+                'CUBtnBGColor' => $requestData['CUBtnBGColor'] ?? "#000000",
+                'CUBtnTextHoverColor' => $requestData['CUBtnTextHoverColor'] ?? "#000000",
+                'CUBtnBGHoverColor' => $requestData['CUBtnBGHoverColor'] ?? "#ffffff",
+                'CUBorderRadius' => $requestData['CUBorderRadius'] ?? 0,
+                'CUBackgroundColor' => $requestData['CUBackgroundColor'] ?? "#fffafa",
+                'CUBodyTextColor' => $requestData['CUBodyTextColor'] ?? "#050505",
+                'USPosition' => $requestData['USPosition'] ?? "left",
             ],
             'buy_btn_settings' => [
                 'editText' => $requestData['editText'],
@@ -112,10 +132,10 @@ class AddToCartStickyController extends Controller
         // echo '<pre>';print_r($sac_data);exit;
         $final_data = [
             'shop_domain' => $sac_data['shop_domain'],
-            'enable' => $sac_data['enable'] === '1' ? true : false,
+            'enable' => $sac_data['enable'] === '1' ||  $sac_data['enable'] === true ? true : false,
             'homePageProduct' => $sac_data['homePageProduct'] ?? "",
-            'animationEnable' => (int) $sac_data['animationEnable'] === 1 ? true : false,
-            'defaultTemplate' => (int) $sac_data['defaultTemplate'],
+            'animationEnable' => $sac_data['animationEnable'] === true || (int) $sac_data['animationEnable'] === 1 ? true : false,
+            'defaultTemplate' => (string) $sac_data['defaultTemplate'],
             'current_template' => json_decode($sac_data['current_template']),
             'template_1' => json_decode($sac_data['template_1']),
             'template_2' => json_decode($sac_data['template_2']),
@@ -166,7 +186,7 @@ class AddToCartStickyController extends Controller
                 'enable' => $sac_data['enable'] === '1' ? true : false,
                 'homePageProduct' => $sac_data['homePageProduct'] ?? "",
                 'animationEnable' => (int) $sac_data['animationEnable'] === 1 ? true : false,
-                'defaultTemplate' => (int) $sac_data['defaultTemplate'],
+                'defaultTemplate' => (string) $sac_data['defaultTemplate'],
                 'current_template' => json_decode($sac_data['current_template']),
                 'template_1' => json_decode($sac_data['template_1']),
                 'template_2' => json_decode($sac_data['template_2']),

@@ -7,14 +7,15 @@ import axios from "axios";
 
 export default function Drawer({
     activePlan,
-    isOpen,
+    isDrawerOpen,
     customizationData,
     showCartUpsell,
     CUProducts,
-    handleClose,
+    handleDrawerClose,
     cartData,
     cartUpdated,
 }) {
+    const [isOpen, setOpen] = useState(isDrawerOpen);
     const [checkoutBtnHover, setCheckoutBtnHover] = useState(false);
     const [hoverState, setHoverState] = useState({});
 
@@ -117,6 +118,14 @@ export default function Drawer({
         }
     };
 
+    // Drawer close function
+    const handleClose = () => {
+        setOpen(false);
+        setTimeout(() => {
+            handleDrawerClose();
+        }, 1000);
+    };
+
     return (
         <>
             <style>
@@ -152,204 +161,174 @@ export default function Drawer({
             </style>
             <div
                 className={`${style.lm_drawer_wrapper} ${
-                    isOpen && style.lm_drawer_open
+                    isOpen ? style.lm_drawer_open : style.lm_drawer_close
                 }`}
                 onClick={handleClose}
             >
-                <div
-                    className={`${showBottomSlider && style.lm_bottom_overlay} 
-                    ${style.lm_drawer}  ${
-                        isOpen && style.lm_drawer_open
-                    } lm_drawer`}
-                    style={{
-                        background: customizationData.cartHeader.DCBGColor,
-                    }}
-                    onClick={(e) => e.stopPropagation()}
-                >
-                    {/* Drawer Header */}
-                    <div className={style.lm_drawer_header}>
-                        <div
-                            className={style.lm_drawer_title}
-                            style={{
-                                fontSize:
-                                    customizationData.cartHeader
-                                        .DCTitleFontSize,
-                                color: customizationData.cartHeader
-                                    .DCTitleColor,
-                            }}
-                        >
-                            {customizationData.cartHeader.DCTitleText}
+                <div className={style.lm_main_drawer_div}>
+                    <div
+                        className={`${
+                            showBottomSlider && style.lm_bottom_overlay
+                        } 
+                        ${style.lm_drawer}  ${
+                            isOpen
+                                ? style.lm_drawer_open
+                                : style.lm_drawer_close
+                        } lm_drawer`}
+                        style={{
+                            background: customizationData.cartHeader.DCBGColor,
+                        }}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* Drawer Header */}
+                        <div className={style.lm_drawer_header}>
+                            <div
+                                className={style.lm_drawer_title}
+                                style={{
+                                    fontSize:
+                                        customizationData.cartHeader
+                                            .DCTitleFontSize,
+                                    color: customizationData.cartHeader
+                                        .DCTitleColor,
+                                }}
+                            >
+                                {customizationData.cartHeader.DCTitleText}
+                            </div>
+                            <span
+                                className={style.lm_drawer_close_icon}
+                                style={{
+                                    fontSize:
+                                        customizationData.cartHeader
+                                            .DCTitleFontSize,
+                                    color: customizationData.cartHeader
+                                        .DCTitleColor,
+                                }}
+                                onClick={handleClose}
+                            >
+                                &times;
+                            </span>
                         </div>
-                        <span
-                            className={style.lm_drawer_close_icon}
-                            style={{
-                                fontSize:
-                                    customizationData.cartHeader
-                                        .DCTitleFontSize,
-                                color: customizationData.cartHeader
-                                    .DCTitleColor,
-                            }}
-                            onClick={handleClose}
-                        >
-                            &times;
-                        </span>
-                    </div>
 
-                    {cartCount > 0 ? (
-                        <>
-                            <div className={style.lm_drawer_content}>
-                                {/* Free Shipping Bar */}
-                                {customizationData.shippingBar.FSBenable && (
-                                    <div
-                                        className={
-                                            style.lm_drawer_free_shipping_bar
-                                        }
-                                    >
+                        {cartCount > 0 ? (
+                            <>
+                                <div className={style.lm_drawer_content}>
+                                    {/* Free Shipping Bar */}
+                                    {customizationData.shippingBar
+                                        .FSBenable && (
                                         <div
                                             className={
-                                                style.lm_free_shipping_heading
+                                                style.lm_drawer_free_shipping_bar
                                             }
-                                            style={{
-                                                fontSize:
-                                                    customizationData
-                                                        .shippingBar
-                                                        .FSBPrimaryFontSize,
-                                                color: customizationData
-                                                    .shippingBar.FSBColor,
-                                            }}
-                                        >
-                                            {FSBprice > 0
-                                                ? customizationData.shippingBar.FSBReminderText.replace(
-                                                      "{'price'}",
-                                                      FSBprice.toFixed(2)
-                                                  )
-                                                : customizationData.shippingBar
-                                                      .FSBWinningText}
-                                        </div>
-                                        <div
-                                            className={
-                                                style.lm_shipping_bar__outer_div
-                                            }
-                                            style={{
-                                                background: `rgba(${hexToRgb(
-                                                    customizationData
-                                                        .shippingBar.FSBColor
-                                                )}, 0.08)`,
-                                            }}
                                         >
                                             <div
                                                 className={
-                                                    style.lm_shipping_bar_inner_div
+                                                    style.lm_free_shipping_heading
                                                 }
                                                 style={{
-                                                    background:
+                                                    fontSize:
                                                         customizationData
                                                             .shippingBar
-                                                            .FSBColor,
-                                                    width:
-                                                        FSBwidth > 100
-                                                            ? "100%"
-                                                            : FSBwidth + "%",
+                                                            .FSBPrimaryFontSize,
+                                                    color: customizationData
+                                                        .shippingBar.FSBColor,
                                                 }}
-                                            ></div>
-                                        </div>
-                                        <span
-                                            className={
-                                                style.lm_shipping_bar_sub_title
-                                            }
-                                            style={{
-                                                fontSize:
-                                                    customizationData
-                                                        .shippingBar
-                                                        .FSBSecondaryFontSize,
-                                                color: customizationData
-                                                    .shippingBar.FSBColor,
-                                            }}
-                                        >
-                                            {
-                                                customizationData.shippingBar
-                                                    .FSBSecondaryText
-                                            }
-                                        </span>
-                                    </div>
-                                )}
-
-                                {/* Cart Items */}
-                                <div
-                                    className={
-                                        style.lm_drawer_cart_item_wrapper
-                                    }
-                                >
-                                    <table
-                                        className={style.lm_drawer_cart_items}
-                                    >
-                                        <tbody>
-                                            {cartItems.map((item) => (
-                                                <tr
+                                            >
+                                                {FSBprice > 0
+                                                    ? customizationData.shippingBar.FSBReminderText.replace(
+                                                          "{'price'}",
+                                                          FSBprice.toFixed(2)
+                                                      )
+                                                    : customizationData
+                                                          .shippingBar
+                                                          .FSBWinningText}
+                                            </div>
+                                            <div
+                                                className={
+                                                    style.lm_shipping_bar__outer_div
+                                                }
+                                                style={{
+                                                    background: `rgba(${hexToRgb(
+                                                        customizationData
+                                                            .shippingBar
+                                                            .FSBColor
+                                                    )}, 0.08)`,
+                                                }}
+                                            >
+                                                <div
                                                     className={
-                                                        style.lm_cart_drawer_item_row
+                                                        style.lm_shipping_bar_inner_div
                                                     }
                                                     style={{
-                                                        fontSize:
+                                                        background:
                                                             customizationData
-                                                                .productList
-                                                                .PLFontSize,
-                                                        color: customizationData
-                                                            .productList
-                                                            .PLTextColor,
+                                                                .shippingBar
+                                                                .FSBColor,
+                                                        width:
+                                                            FSBwidth > 100
+                                                                ? "100%"
+                                                                : FSBwidth +
+                                                                  "%",
                                                     }}
-                                                    key={item.id}
-                                                >
-                                                    <td
-                                                        className={
-                                                            style.lm_cart_item_media
-                                                        }
-                                                    >
-                                                        <a
-                                                            href={
-                                                                window.location
-                                                                    .origin +
-                                                                "/products/" +
-                                                                item.handle +
-                                                                "?variant=" +
-                                                                item.variant_id
-                                                            }
+                                                ></div>
+                                            </div>
+                                            <span
+                                                className={
+                                                    style.lm_shipping_bar_sub_title
+                                                }
+                                                style={{
+                                                    fontSize:
+                                                        customizationData
+                                                            .shippingBar
+                                                            .FSBSecondaryFontSize,
+                                                    color: customizationData
+                                                        .shippingBar.FSBColor,
+                                                }}
+                                            >
+                                                {
+                                                    customizationData
+                                                        .shippingBar
+                                                        .FSBSecondaryText
+                                                }
+                                            </span>
+                                        </div>
+                                    )}
+                                    <div
+                                        className={
+                                            style.lm_cart_with_recommendedProduct
+                                        }
+                                    >
+                                        {/* Cart Items */}
+                                        <div
+                                            className={
+                                                style.lm_drawer_cart_item_wrapper
+                                            }
+                                        >
+                                            <table
+                                                className={
+                                                    style.lm_drawer_cart_items
+                                                }
+                                            >
+                                                <tbody>
+                                                    {cartItems.map((item) => (
+                                                        <tr
                                                             className={
-                                                                style.lm_cart_item_link
+                                                                style.lm_cart_drawer_item_row
                                                             }
-                                                        >
-                                                            <img
-                                                                src={item.image}
-                                                                alt=""
-                                                                className={
-                                                                    style.lm_cart_item_img
-                                                                }
-                                                            />
-                                                        </a>
-                                                    </td>
-                                                    <td
-                                                        className={
-                                                            style.lm_cart_item_media
-                                                        }
-                                                    >
-                                                        <div
-                                                            className={
-                                                                style.lm_cart_item_content
-                                                            }
-                                                        >
-                                                            <div
-                                                                className={
-                                                                    style.lm_cart_item_title
-                                                                }
-                                                                style={{
-                                                                    fontSize:
-                                                                        customizationData
-                                                                            .productList
-                                                                            .PLFontSize,
-                                                                    color: customizationData
+                                                            style={{
+                                                                fontSize:
+                                                                    customizationData
                                                                         .productList
-                                                                        .PLTextColor,
-                                                                }}
+                                                                        .PLFontSize,
+                                                                color: customizationData
+                                                                    .productList
+                                                                    .PLTextColor,
+                                                            }}
+                                                            key={item.id}
+                                                        >
+                                                            <td
+                                                                className={
+                                                                    style.lm_cart_item_media
+                                                                }
                                                             >
                                                                 <a
                                                                     href={
@@ -361,309 +340,327 @@ export default function Drawer({
                                                                         "?variant=" +
                                                                         item.variant_id
                                                                     }
-                                                                    style={{
-                                                                        fontSize:
-                                                                            customizationData
-                                                                                .productList
-                                                                                .PLFontSize,
-                                                                        color: customizationData
-                                                                            .productList
-                                                                            .PLTextColor,
-                                                                    }}
-                                                                >
-                                                                    {
-                                                                        item.product_title
+                                                                    className={
+                                                                        style.lm_cart_item_link
                                                                     }
+                                                                >
+                                                                    <img
+                                                                        src={
+                                                                            item.image
+                                                                        }
+                                                                        alt=""
+                                                                        className={
+                                                                            style.lm_cart_item_img
+                                                                        }
+                                                                    />
                                                                 </a>
-                                                            </div>
-                                                            <div
+                                                            </td>
+                                                            <td
                                                                 className={
-                                                                    style.lm_cart_item_price_wrapper
+                                                                    style.lm_cart_item_media
                                                                 }
                                                             >
                                                                 <div
                                                                     className={
-                                                                        style.lm_cart_item_actual_price
+                                                                        style.lm_cart_item_content
                                                                     }
-                                                                    style={{
-                                                                        fontSize:
-                                                                            customizationData
-                                                                                .productList
-                                                                                .PLFontSize,
-                                                                        color: customizationData
-                                                                            .productList
-                                                                            .PLTextColor,
-                                                                    }}
                                                                 >
-                                                                    {getSymbolFromCurrency(
-                                                                        cartDetail.currency
-                                                                    ) +
-                                                                        (
-                                                                            Number(
-                                                                                item.final_price
-                                                                            ) /
-                                                                            100
-                                                                        ).toFixed(
-                                                                            2
-                                                                        )}
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                className={
-                                                                    style.lm_cart_item_varient_wrapper
-                                                                }
-                                                            >
-                                                                {!item.product_has_only_default_variant &&
-                                                                    item.options_with_values.map(
-                                                                        (
-                                                                            variant
-                                                                        ) => (
-                                                                            <div
-                                                                                className={
-                                                                                    style.lm_cart_item_varient
-                                                                                }
-                                                                                style={{
-                                                                                    fontSize:
-                                                                                        customizationData
-                                                                                            .productList
-                                                                                            .PLFontSize,
-                                                                                }}
-                                                                            >
-                                                                                <span>
-                                                                                    <strong>
-                                                                                        {
-                                                                                            variant.name
-                                                                                        }
-
-                                                                                        :{" "}
-                                                                                    </strong>
-                                                                                </span>
-                                                                                <span>
-                                                                                    {
-                                                                                        variant.value
-                                                                                    }
-                                                                                </span>
-                                                                            </div>
-                                                                        )
-                                                                    )}
-                                                            </div>
-                                                            <div
-                                                                className={
-                                                                    style.lm_cart_item_footer
-                                                                }
-                                                            >
-                                                                <div
-                                                                    id={
-                                                                        "lm_sticky_container__qty_picker_" +
-                                                                        item.variant_id
-                                                                    }
-                                                                    className={`lm_quantity_picker ${style.lm_quantity_selector}`}
-                                                                >
-                                                                    <QuantityPicker
-                                                                        key={
-                                                                            item.variant_id +
-                                                                            "-" +
-                                                                            item.quantity
-                                                                        }
-                                                                        id={
-                                                                            item.variant_id
-                                                                        }
+                                                                    <div
                                                                         className={
-                                                                            style.quantity12
+                                                                            style.lm_cart_item_title
                                                                         }
-                                                                        min={1}
-                                                                        max={10}
-                                                                        value={
-                                                                            item.quantity
+                                                                        style={{
+                                                                            fontSize:
+                                                                                customizationData
+                                                                                    .productList
+                                                                                    .PLFontSize,
+                                                                            color: customizationData
+                                                                                .productList
+                                                                                .PLTextColor,
+                                                                        }}
+                                                                    >
+                                                                        <a
+                                                                            href={
+                                                                                window
+                                                                                    .location
+                                                                                    .origin +
+                                                                                "/products/" +
+                                                                                item.handle +
+                                                                                "?variant=" +
+                                                                                item.variant_id
+                                                                            }
+                                                                            style={{
+                                                                                fontSize:
+                                                                                    customizationData
+                                                                                        .productList
+                                                                                        .PLFontSize,
+                                                                                color: customizationData
+                                                                                    .productList
+                                                                                    .PLTextColor,
+                                                                            }}
+                                                                        >
+                                                                            {
+                                                                                item.product_title
+                                                                            }
+                                                                        </a>
+                                                                    </div>
+                                                                    <div
+                                                                        className={
+                                                                            style.lm_cart_item_price_wrapper
                                                                         }
-                                                                        onChange={(
-                                                                            newQuantity
-                                                                        ) => {
+                                                                    >
+                                                                        <div
+                                                                            className={
+                                                                                style.lm_cart_item_actual_price
+                                                                            }
+                                                                            style={{
+                                                                                fontSize:
+                                                                                    customizationData
+                                                                                        .productList
+                                                                                        .PLFontSize,
+                                                                                color: customizationData
+                                                                                    .productList
+                                                                                    .PLTextColor,
+                                                                            }}
+                                                                        >
+                                                                            {getSymbolFromCurrency(
+                                                                                cartDetail.currency
+                                                                            ) +
+                                                                                (
+                                                                                    Number(
+                                                                                        item.final_price
+                                                                                    ) /
+                                                                                    100
+                                                                                ).toFixed(
+                                                                                    2
+                                                                                )}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div
+                                                                        className={
+                                                                            style.lm_cart_item_varient_wrapper
+                                                                        }
+                                                                    >
+                                                                        {!item.product_has_only_default_variant &&
+                                                                            item.options_with_values.map(
+                                                                                (
+                                                                                    variant
+                                                                                ) => (
+                                                                                    <div
+                                                                                        className={
+                                                                                            style.lm_cart_item_varient
+                                                                                        }
+                                                                                        style={{
+                                                                                            fontSize:
+                                                                                                customizationData
+                                                                                                    .productList
+                                                                                                    .PLFontSize,
+                                                                                        }}
+                                                                                    >
+                                                                                        <span>
+                                                                                            <strong>
+                                                                                                {
+                                                                                                    variant.name
+                                                                                                }
+
+                                                                                                :{" "}
+                                                                                            </strong>
+                                                                                        </span>
+                                                                                        <span>
+                                                                                            {
+                                                                                                variant.value
+                                                                                            }
+                                                                                        </span>
+                                                                                    </div>
+                                                                                )
+                                                                            )}
+                                                                    </div>
+                                                                    <div
+                                                                        className={
+                                                                            style.lm_cart_item_footer
+                                                                        }
+                                                                    >
+                                                                        <div
+                                                                            id={
+                                                                                "lm_sticky_container__qty_picker_" +
+                                                                                item.variant_id
+                                                                            }
+                                                                            className={`lm_quantity_picker ${style.lm_quantity_selector}`}
+                                                                        >
+                                                                            <QuantityPicker
+                                                                                key={
+                                                                                    item.variant_id +
+                                                                                    "-" +
+                                                                                    item.quantity
+                                                                                }
+                                                                                id={
+                                                                                    item.variant_id
+                                                                                }
+                                                                                className={
+                                                                                    style.quantity12
+                                                                                }
+                                                                                min={
+                                                                                    1
+                                                                                }
+                                                                                max={
+                                                                                    10
+                                                                                }
+                                                                                value={
+                                                                                    item.quantity
+                                                                                }
+                                                                                onChange={(
+                                                                                    newQuantity
+                                                                                ) => {
+                                                                                    CartUpdate(
+                                                                                        item.variant_id,
+                                                                                        newQuantity
+                                                                                    );
+                                                                                }}
+                                                                            />
+                                                                        </div>
+                                                                        <div
+                                                                            className={
+                                                                                style.lm_cart_item_price
+                                                                            }
+                                                                            style={{
+                                                                                fontSize:
+                                                                                    customizationData
+                                                                                        .productList
+                                                                                        .PLFontSize,
+                                                                            }}
+                                                                        >
+                                                                            {getSymbolFromCurrency(
+                                                                                cartDetail.currency
+                                                                            ) +
+                                                                                (
+                                                                                    Number(
+                                                                                        item.final_line_price
+                                                                                    ) /
+                                                                                    100
+                                                                                ).toFixed(
+                                                                                    2
+                                                                                )}
+                                                                        </div>
+                                                                    </div>
+                                                                    <span
+                                                                        className={
+                                                                            style.lm_cart_item_remove_icon
+                                                                        }
+                                                                        style={{
+                                                                            fontSize:
+                                                                                Number(
+                                                                                    customizationData
+                                                                                        .productList
+                                                                                        .PLFontSize
+                                                                                ) +
+                                                                                10,
+                                                                            color: customizationData
+                                                                                .productList
+                                                                                .PLTextColor,
+                                                                        }}
+                                                                        onClick={() => {
                                                                             CartUpdate(
                                                                                 item.variant_id,
-                                                                                newQuantity
+                                                                                0
                                                                             );
                                                                         }}
-                                                                    />
+                                                                    >
+                                                                        &times;
+                                                                    </span>
                                                                 </div>
-                                                                <div
-                                                                    className={
-                                                                        style.lm_cart_item_price
-                                                                    }
-                                                                    style={{
-                                                                        fontSize:
-                                                                            customizationData
-                                                                                .productList
-                                                                                .PLFontSize,
-                                                                    }}
-                                                                >
-                                                                    {getSymbolFromCurrency(
-                                                                        cartDetail.currency
-                                                                    ) +
-                                                                        (
-                                                                            Number(
-                                                                                item.final_line_price
-                                                                            ) /
-                                                                            100
-                                                                        ).toFixed(
-                                                                            2
-                                                                        )}
-                                                                </div>
-                                                            </div>
-                                                            <span
-                                                                className={
-                                                                    style.lm_cart_item_remove_icon
-                                                                }
-                                                                style={{
-                                                                    fontSize:
-                                                                        Number(
-                                                                            customizationData
-                                                                                .productList
-                                                                                .PLFontSize
-                                                                        ) + 10,
-                                                                    color: customizationData
-                                                                        .productList
-                                                                        .PLTextColor,
-                                                                }}
-                                                                onClick={() => {
-                                                                    CartUpdate(
-                                                                        item.variant_id,
-                                                                        0
-                                                                    );
-                                                                }}
-                                                            >
-                                                                &times;
-                                                            </span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
 
-                                {/* Recommended Products */}
-                                {activePlan > 1 &&
-                                    showCartUpsell &&
-                                    CUProducts.length > 0 && (
-                                        <div
-                                            className={
-                                                style.lm_recommended_products_wrapper
-                                            }
-                                        >
-                                            <div
-                                                className={
-                                                    style.lm_recommendation_header
-                                                }
-                                                style={{
-                                                    fontSize:
-                                                        customizationData
-                                                            .cartUpsell
-                                                            .CUHeadingFontSize,
-                                                    color: customizationData
-                                                        .cartUpsell
-                                                        .CUHeadingColor,
-                                                }}
-                                            >
-                                                {
-                                                    customizationData.cartUpsell
-                                                        .CUHeadingText
-                                                }
-                                            </div>
-                                            <div
-                                                className={
-                                                    style.lm_recommendation_list
-                                                }
-                                            >
-                                                {CUProducts.map((product) => (
+                                        {/* Recommended Products */}
+                                        {activePlan > 1 &&
+                                            showCartUpsell &&
+                                            CUProducts.length > 0 && (
+                                                <div
+                                                    className={
+                                                        style.lm_recommended_products_wrapper
+                                                    }
+                                                >
                                                     <div
                                                         className={
-                                                            style.lm_recommended_product
+                                                            style.lm_recommendation_header
                                                         }
-                                                        key={product.id}
+                                                        style={{
+                                                            fontSize:
+                                                                customizationData
+                                                                    .cartUpsell
+                                                                    .CUHeadingFontSize,
+                                                            color: customizationData
+                                                                .cartUpsell
+                                                                .CUHeadingTextColor,
+                                                            background:
+                                                                customizationData
+                                                                    .cartUpsell
+                                                                    .CUHeadingBGColor,
+                                                        }}
                                                     >
-                                                        <div
-                                                            className={
-                                                                style.lm_rec_product_image
-                                                            }
-                                                        >
-                                                            <a
-                                                                href={
-                                                                    window
-                                                                        .location
-                                                                        .origin +
-                                                                    "/products/" +
-                                                                    product.handle
-                                                                }
-                                                            >
-                                                                <img
-                                                                    src={
-                                                                        product.featured_image
+                                                        {
+                                                            customizationData
+                                                                .cartUpsell
+                                                                .CUHeadingText
+                                                        }
+                                                    </div>
+                                                    <div
+                                                        className={
+                                                            style.lm_recommendation_list
+                                                        }
+                                                    >
+                                                        {CUProducts.map(
+                                                            (product) => (
+                                                                <div
+                                                                    className={
+                                                                        style.lm_recommended_product
                                                                     }
-                                                                    alt=""
-                                                                />
-                                                            </a>
-                                                        </div>
-                                                        <div
-                                                            className={
-                                                                style.lm_rec_product_content
-                                                            }
-                                                        >
-                                                            <a
-                                                                href={
-                                                                    window
-                                                                        .location
-                                                                        .origin +
-                                                                    "/products/" +
-                                                                    product.handle
-                                                                }
-                                                                className={
-                                                                    style.lm_rec_product_title
-                                                                }
-                                                                style={{
-                                                                    fontSize:
-                                                                        customizationData
-                                                                            .cartUpsell
-                                                                            .CUBodyFontSize,
-                                                                    color: customizationData
-                                                                        .cartUpsell
-                                                                        .CUBodyColor,
-                                                                }}
-                                                            >
-                                                                {product.title}
-                                                            </a>
-                                                            <div
-                                                                className={
-                                                                    style.lm_rec_product_price
-                                                                }
-                                                            >
-                                                                <span
-                                                                    style={{
-                                                                        fontSize:
-                                                                            customizationData
-                                                                                .cartUpsell
-                                                                                .CUBodyFontSize,
-                                                                        color: customizationData
-                                                                            .cartUpsell
-                                                                            .CUBodyColor,
-                                                                    }}
+                                                                    key={
+                                                                        product.id
+                                                                    }
                                                                 >
-                                                                    {getSymbolFromCurrency(
-                                                                        cartDetail.currency
-                                                                    ) +
-                                                                        (
-                                                                            Number(
-                                                                                product.price
-                                                                            ) /
-                                                                            100
-                                                                        ).toFixed(
-                                                                            2
-                                                                        )}
-                                                                </span>
-                                                                {product.compare_at_price &&
-                                                                    product.compare_at_price >
-                                                                        0 && (
-                                                                        <span
+                                                                    <div
+                                                                        className={
+                                                                            style.lm_rec_product_image
+                                                                        }
+                                                                    >
+                                                                        <a
+                                                                            href={
+                                                                                window
+                                                                                    .location
+                                                                                    .origin +
+                                                                                "/products/" +
+                                                                                product.handle
+                                                                            }
+                                                                        >
+                                                                            <img
+                                                                                src={
+                                                                                    product.featured_image
+                                                                                }
+                                                                                alt=""
+                                                                            />
+                                                                        </a>
+                                                                    </div>
+                                                                    <div
+                                                                        className={
+                                                                            style.lm_rec_product_content
+                                                                        }
+                                                                    >
+                                                                        <a
+                                                                            href={
+                                                                                window
+                                                                                    .location
+                                                                                    .origin +
+                                                                                "/products/" +
+                                                                                product.handle
+                                                                            }
+                                                                            className={
+                                                                                style.lm_rec_product_title
+                                                                            }
                                                                             style={{
                                                                                 fontSize:
                                                                                     customizationData
@@ -674,150 +671,325 @@ export default function Drawer({
                                                                                     .CUBodyColor,
                                                                             }}
                                                                         >
-                                                                            <strike>
+                                                                            {
+                                                                                product.title
+                                                                            }
+                                                                        </a>
+                                                                        <div
+                                                                            className={
+                                                                                style.lm_rec_product_price
+                                                                            }
+                                                                        >
+                                                                            <span
+                                                                                style={{
+                                                                                    fontSize:
+                                                                                        customizationData
+                                                                                            .cartUpsell
+                                                                                            .CUBodyFontSize,
+                                                                                    color: customizationData
+                                                                                        .cartUpsell
+                                                                                        .CUBodyColor,
+                                                                                }}
+                                                                            >
                                                                                 {getSymbolFromCurrency(
                                                                                     cartDetail.currency
                                                                                 ) +
                                                                                     (
                                                                                         Number(
-                                                                                            product.compare_at_price
+                                                                                            product.price
                                                                                         ) /
                                                                                         100
                                                                                     ).toFixed(
                                                                                         2
                                                                                     )}
-                                                                            </strike>
-                                                                        </span>
-                                                                    )}
-                                                            </div>
-                                                        </div>
-                                                        <div
-                                                            className={
-                                                                style.lm_rec_product_action
-                                                            }
-                                                        >
-                                                            <button
-                                                                className="lm_rec_product_action_btn"
-                                                                type="button"
-                                                                style={{
-                                                                    fontSize:
-                                                                        customizationData
-                                                                            .cartUpsell
-                                                                            .CUBuyBtnFontSize,
-                                                                    color: hoverState[
-                                                                        product
-                                                                            .id
-                                                                    ]
-                                                                        ? customizationData
-                                                                              .cartUpsell
-                                                                              .CUBtnTextHoverColor
-                                                                        : customizationData
-                                                                              .cartUpsell
-                                                                              .CUBtnTextColor,
-                                                                    background:
-                                                                        hoverState[
-                                                                            product
-                                                                                .id
-                                                                        ]
-                                                                            ? customizationData
-                                                                                  .cartUpsell
-                                                                                  .CUBtnBGHoverColor
-                                                                            : customizationData
-                                                                                  .cartUpsell
-                                                                                  .CUBtnBGColor,
-                                                                }}
-                                                                onMouseEnter={() =>
-                                                                    handleMouseEnter(
-                                                                        product.id
-                                                                    )
-                                                                }
-                                                                onMouseLeave={() =>
-                                                                    handleMouseLeave(
-                                                                        product.id
-                                                                    )
-                                                                }
-                                                                onClick={() => {
-                                                                    setSliderProduct(
-                                                                        product
-                                                                    );
-                                                                    setShowBottomSlider(
-                                                                        true
-                                                                    );
-                                                                }}
-                                                            >
-                                                                {
-                                                                    customizationData
-                                                                        .cartUpsell
-                                                                        .CUBuyBtnText
-                                                                }
-                                                            </button>
-                                                        </div>
+                                                                            </span>
+                                                                            {product.compare_at_price &&
+                                                                                product.compare_at_price >
+                                                                                    0 && (
+                                                                                    <span
+                                                                                        style={{
+                                                                                            fontSize:
+                                                                                                customizationData
+                                                                                                    .cartUpsell
+                                                                                                    .CUBodyFontSize,
+                                                                                            color: customizationData
+                                                                                                .cartUpsell
+                                                                                                .CUBodyColor,
+                                                                                        }}
+                                                                                    >
+                                                                                        <strike>
+                                                                                            {getSymbolFromCurrency(
+                                                                                                cartDetail.currency
+                                                                                            ) +
+                                                                                                (
+                                                                                                    Number(
+                                                                                                        product.compare_at_price
+                                                                                                    ) /
+                                                                                                    100
+                                                                                                ).toFixed(
+                                                                                                    2
+                                                                                                )}
+                                                                                        </strike>
+                                                                                    </span>
+                                                                                )}
+                                                                        </div>
+                                                                        <div
+                                                                            className={
+                                                                                style.lm_rec_product_action
+                                                                            }
+                                                                        >
+                                                                            <button
+                                                                                className="lm_rec_product_action_btn"
+                                                                                type="button"
+                                                                                style={{
+                                                                                    fontSize:
+                                                                                        customizationData
+                                                                                            .cartUpsell
+                                                                                            .CUBuyBtnFontSize,
+                                                                                    color: hoverState[
+                                                                                        product
+                                                                                            .id
+                                                                                    ]
+                                                                                        ? customizationData
+                                                                                              .cartUpsell
+                                                                                              .CUBtnTextHoverColor
+                                                                                        : customizationData
+                                                                                              .cartUpsell
+                                                                                              .CUBtnTextColor,
+                                                                                    background:
+                                                                                        hoverState[
+                                                                                            product
+                                                                                                .id
+                                                                                        ]
+                                                                                            ? customizationData
+                                                                                                  .cartUpsell
+                                                                                                  .CUBtnBGHoverColor
+                                                                                            : customizationData
+                                                                                                  .cartUpsell
+                                                                                                  .CUBtnBGColor,
+                                                                                }}
+                                                                                onMouseEnter={() =>
+                                                                                    handleMouseEnter(
+                                                                                        product.id
+                                                                                    )
+                                                                                }
+                                                                                onMouseLeave={() =>
+                                                                                    handleMouseLeave(
+                                                                                        product.id
+                                                                                    )
+                                                                                }
+                                                                                onClick={() => {
+                                                                                    setSliderProduct(
+                                                                                        product
+                                                                                    );
+                                                                                    setShowBottomSlider(
+                                                                                        true
+                                                                                    );
+                                                                                }}
+                                                                            >
+                                                                                {
+                                                                                    customizationData
+                                                                                        .cartUpsell
+                                                                                        .CUBuyBtnText
+                                                                                }
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            )
+                                                        )}
                                                     </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    )}
-                            </div>
-                            {/* Drawer Footer */}
-                            <div
-                                className={style.lm_drawer_cart_footer}
-                                style={{
-                                    background:
-                                        customizationData.cartHeader.DCBGColor,
-                                }}
-                            >
-                                <div
-                                    className={style.lm_cart_footer_sub_total}
-                                    style={{
-                                        fontSize:
-                                            customizationData.bottomSection
-                                                .BSPrimaryFontSize,
-                                        color: customizationData.bottomSection
-                                            .BSColor,
-                                    }}
-                                >
-                                    <div>
-                                        {
-                                            customizationData.bottomSection
-                                                .BSSubtotalText
-                                        }{" "}
-                                        :{" "}
-                                    </div>
-                                    <div
-                                        className={
-                                            style.lm_cart_footer_total_price
-                                        }
-                                    >
-                                        {getSymbolFromCurrency(
-                                            cartDetail.currency
-                                        ) +
-                                            (
-                                                Number(cartDetail.total_price) /
-                                                100
-                                            ).toFixed(2)}
+                                                </div>
+                                            )}
                                     </div>
                                 </div>
-                                {customizationData.bottomSection
-                                    .BSCheckoutTextEnable && (
+                                {/* Drawer Footer */}
+                                <div
+                                    className={style.lm_drawer_cart_footer}
+                                    style={{
+                                        background:
+                                            customizationData.cartHeader
+                                                .DCBGColor,
+                                    }}
+                                >
                                     <div
-                                        className={style.lm_cart_footer_message}
+                                        className={
+                                            style.lm_cart_footer_sub_total
+                                        }
                                         style={{
                                             fontSize:
                                                 customizationData.bottomSection
-                                                    .BSSecondaryFontSize,
+                                                    .BSPrimaryFontSize,
                                             color: customizationData
                                                 .bottomSection.BSColor,
                                         }}
                                     >
-                                        {
-                                            customizationData.bottomSection
-                                                .BSCheckoutMsgText
-                                        }
+                                        <div>
+                                            {
+                                                customizationData.bottomSection
+                                                    .BSSubtotalText
+                                            }{" "}
+                                            :{" "}
+                                        </div>
+                                        <div
+                                            className={
+                                                style.lm_cart_footer_total_price
+                                            }
+                                        >
+                                            {getSymbolFromCurrency(
+                                                cartDetail.currency
+                                            ) +
+                                                (
+                                                    Number(
+                                                        cartDetail.total_price
+                                                    ) / 100
+                                                ).toFixed(2)}
+                                        </div>
                                     </div>
-                                )}
+                                    {customizationData.bottomSection
+                                        .BSCheckoutTextEnable && (
+                                        <div
+                                            className={
+                                                style.lm_cart_footer_message
+                                            }
+                                            style={{
+                                                fontSize:
+                                                    customizationData
+                                                        .bottomSection
+                                                        .BSSecondaryFontSize,
+                                                color: customizationData
+                                                    .bottomSection.BSColor,
+                                            }}
+                                        >
+                                            {
+                                                customizationData.bottomSection
+                                                    .BSCheckoutMsgText
+                                            }
+                                        </div>
+                                    )}
+                                    <div
+                                        className={
+                                            style.lm_cart_footer_button_wrapper
+                                        }
+                                    >
+                                        <button
+                                            style={{
+                                                fontSize:
+                                                    customizationData
+                                                        .bottomSection
+                                                        .BSCheckoutBtnFontSize,
+                                                color: checkoutBtnHover
+                                                    ? customizationData
+                                                          .bottomSection
+                                                          .BSBtnTextHoverColor
+                                                    : customizationData
+                                                          .bottomSection
+                                                          .BSBtnTextColor,
+                                                background: checkoutBtnHover
+                                                    ? customizationData
+                                                          .bottomSection
+                                                          .BSBtnBGHoverColor
+                                                    : customizationData
+                                                          .bottomSection
+                                                          .BSBtnBGColor,
+                                            }}
+                                            onMouseEnter={() => {
+                                                setCheckoutBtnHover(true);
+                                            }}
+                                            onMouseLeave={() => {
+                                                setCheckoutBtnHover(false);
+                                            }}
+                                            onClick={() => {
+                                                window.location.href =
+                                                    "/checkout";
+                                            }}
+                                        >
+                                            {
+                                                customizationData.bottomSection
+                                                    .BSCheckoutBtnText
+                                            }
+                                        </button>
+                                    </div>
+                                    {customizationData.bottomSection
+                                        .BSContinueEnable && (
+                                        <a
+                                            href="javascript:void(0)"
+                                            className={
+                                                style.lm_cart_footer_link
+                                            }
+                                            style={{
+                                                fontSize:
+                                                    customizationData
+                                                        .bottomSection
+                                                        .BSSecondaryFontSize,
+                                                color: customizationData
+                                                    .bottomSection.BSColor,
+                                            }}
+                                            onClick={handleClose}
+                                        >
+                                            {
+                                                customizationData.bottomSection
+                                                    .BSContinueText
+                                            }
+                                        </a>
+                                    )}
+                                    {customizationData.bottomSection
+                                        .BSViewCartEnable && (
+                                        <a
+                                            href="javascript:void(0)"
+                                            className={
+                                                style.lm_cart_footer_link
+                                            }
+                                            style={{
+                                                fontSize:
+                                                    customizationData
+                                                        .bottomSection
+                                                        .BSSecondaryFontSize,
+                                                color: customizationData
+                                                    .bottomSection.BSColor,
+                                            }}
+                                            onClick={handleClose}
+                                        >
+                                            {
+                                                customizationData.bottomSection
+                                                    .BSViewCartText
+                                            }
+                                        </a>
+                                    )}
+                                </div>
+
+                                {/* Bottom Slider */}
+                                <BottomSlider
+                                    showBottomSlider={showBottomSlider}
+                                    sliderProduct={sliderProduct}
+                                    customizationData={customizationData}
+                                    cartCurrency={cartDetail.currency}
+                                    handleBottomSlider={() => {
+                                        setShowBottomSlider(false);
+                                    }}
+                                    handleCartAdd={(variant_id, quantity) => {
+                                        CartAdd(variant_id, quantity);
+                                    }}
+                                />
+                            </>
+                        ) : (
+                            // Empty state details
+                            <div className={style.lm_empty_cart_wrapper}>
+                                <div
+                                    className={style.lm_empty_cart_heading}
+                                    style={{
+                                        fontSize:
+                                            customizationData.shippingBar
+                                                .FSBPrimaryFontSize,
+                                        color: customizationData.shippingBar
+                                            .FSBColor,
+                                    }}
+                                >
+                                    {customizationData.emptyCart.ECContentText}
+                                </div>
                                 <div
                                     className={
-                                        style.lm_cart_footer_button_wrapper
+                                        style.lm_empty_cart_button_wrapper
                                     }
                                 >
                                     <button
@@ -846,117 +1018,17 @@ export default function Drawer({
                                         onMouseLeave={() => {
                                             setCheckoutBtnHover(false);
                                         }}
-                                        onClick={() => {
-                                            window.location.href = "/checkout";
-                                        }}
+                                        onClick={handleClose}
                                     >
                                         {
-                                            customizationData.bottomSection
-                                                .BSCheckoutBtnText
+                                            customizationData.emptyCart
+                                                .ECButtonText
                                         }
                                     </button>
                                 </div>
-                                {customizationData.bottomSection
-                                    .BSContinueEnable && (
-                                    <a
-                                        href="javascript:void(0)"
-                                        className={style.lm_cart_footer_link}
-                                        style={{
-                                            fontSize:
-                                                customizationData.bottomSection
-                                                    .BSSecondaryFontSize,
-                                            color: customizationData
-                                                .bottomSection.BSColor,
-                                        }}
-                                        onClick={handleClose}
-                                    >
-                                        {
-                                            customizationData.bottomSection
-                                                .BSContinueText
-                                        }
-                                    </a>
-                                )}
-                                {customizationData.bottomSection
-                                    .BSViewCartEnable && (
-                                    <a
-                                        href="javascript:void(0)"
-                                        className={style.lm_cart_footer_link}
-                                        style={{
-                                            fontSize:
-                                                customizationData.bottomSection
-                                                    .BSSecondaryFontSize,
-                                            color: customizationData
-                                                .bottomSection.BSColor,
-                                        }}
-                                        onClick={handleClose}
-                                    >
-                                        {
-                                            customizationData.bottomSection
-                                                .BSViewCartText
-                                        }
-                                    </a>
-                                )}
                             </div>
-
-                            {/* Bottom Slider */}
-                            <BottomSlider
-                                showBottomSlider={showBottomSlider}
-                                sliderProduct={sliderProduct}
-                                customizationData={customizationData}
-                                cartCurrency={cartDetail.currency}
-                                handleBottomSlider={() => {
-                                    setShowBottomSlider(false);
-                                }}
-                                handleCartAdd={(variant_id, quantity) => {
-                                    CartAdd(variant_id, quantity);
-                                }}
-                            />
-                        </>
-                    ) : (
-                        // Empty state details
-                        <div className={style.lm_empty_cart_wrapper}>
-                            <div
-                                className={style.lm_empty_cart_heading}
-                                style={{
-                                    fontSize:
-                                        customizationData.shippingBar
-                                            .FSBPrimaryFontSize,
-                                    color: customizationData.shippingBar
-                                        .FSBColor,
-                                }}
-                            >
-                                {customizationData.emptyCart.ECContentText}
-                            </div>
-                            <div className={style.lm_empty_cart_button_wrapper}>
-                                <button
-                                    style={{
-                                        fontSize:
-                                            customizationData.bottomSection
-                                                .BSCheckoutBtnFontSize,
-                                        color: checkoutBtnHover
-                                            ? customizationData.bottomSection
-                                                  .BSBtnTextHoverColor
-                                            : customizationData.bottomSection
-                                                  .BSBtnTextColor,
-                                        background: checkoutBtnHover
-                                            ? customizationData.bottomSection
-                                                  .BSBtnBGHoverColor
-                                            : customizationData.bottomSection
-                                                  .BSBtnBGColor,
-                                    }}
-                                    onMouseEnter={() => {
-                                        setCheckoutBtnHover(true);
-                                    }}
-                                    onMouseLeave={() => {
-                                        setCheckoutBtnHover(false);
-                                    }}
-                                    onClick={handleClose}
-                                >
-                                    {customizationData.emptyCart.ECButtonText}
-                                </button>
-                            </div>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
             </div>
         </>

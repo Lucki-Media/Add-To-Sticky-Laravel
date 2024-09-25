@@ -2,38 +2,70 @@ import {
     Card,
     Layout,
     Page,
-    Button,
     Collapsible,
     Icon,
+    FullscreenBar,
+    ButtonGroup,
+    Button,
 } from "@shopify/polaris";
 import "../css/index.css";
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { ChevronRightIcon, ChevronDownIcon } from "@shopify/polaris-icons";
 import DataFAQ from "../StaticData/DataFAQ";
 
 export default function StickyFAQ() {
-    const [expanded, setExpanded] = useState("panel1");
-    const handleChange = (panel) => {
-        setExpanded(panel);
+    const [expanded, setExpanded] = useState(0);
+    const handleChange = (index) => {
+        setExpanded(index);
     };
 
     return (
         <>
             <div className="lm_sticky_main_app_page">
+                <div className={`lm_sticky_fullscreenbar`}>
+                    <FullscreenBar>
+                        <div
+                            style={{
+                                display: "flex",
+                                flexGrow: 1,
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                                paddingLeft: "1rem",
+                                paddingRight: "1rem",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    marginLeft: "1rem",
+                                    flexGrow: 1,
+                                }}
+                            >
+                                <p className="fullscreen_title">LM Help Center </p>
+                            </div>
+                            <ButtonGroup>
+                                <Button
+                                    size="large"
+                                    variant="primary"
+                                    url="https://forms.gle/CTSsW3kpKgVturgX7"
+                                    external
+                                >
+                                    Get Support
+                                </Button>
+                            </ButtonGroup>
+                        </div>
+                    </FullscreenBar>
+                </div>
                 <Page>
                     <Layout>
                         <Layout.Section>
-                            <div className="sidebar_title sticky_faq">
-                                LM Sticky Help Center
-                            </div>
-                            {DataFAQ.map((item) => (
+                            {DataFAQ.map((item, index) => (
                                 <div
                                     className="sticky_faq_div"
                                     onClick={() => {
-                                        handleChange(item.panel);
+                                        handleChange(index);
                                     }}
-                                    key={item.key}
-                                    id={item.key}
+                                    key={index}
+                                    id={index}
                                 >
                                     <Card sectioned>
                                         <div className="setting_title">
@@ -41,7 +73,7 @@ export default function StickyFAQ() {
                                                 {item.question}
                                             </span>
                                             <span>
-                                                {expanded === item.panel ? (
+                                                {expanded === index ? (
                                                     <Icon
                                                         source={ChevronDownIcon}
                                                     />
@@ -56,7 +88,7 @@ export default function StickyFAQ() {
                                         </div>
                                         <div>
                                             <Collapsible
-                                                open={expanded === item.panel}
+                                                open={expanded === index}
                                                 id="basic-collapsible"
                                                 transition={{
                                                     duration: "500ms",

@@ -349,7 +349,10 @@ export default function Drawer({ isOpen, customizationData }) {
                                             customizationData.cartUpsell
                                                 .CUHeadingFontSize,
                                         color: customizationData.cartUpsell
-                                            .CUHeadingColor,
+                                            .CUHeadingTextColor,
+                                        background:
+                                            customizationData.cartUpsell
+                                                .CUHeadingBGColor,
                                     }}
                                 >
                                     {customizationData.cartUpsell.CUHeadingText}
@@ -432,64 +435,65 @@ export default function Drawer({ isOpen, customizationData }) {
                                                         </strike>
                                                     </span>
                                                 </div>
-                                            </div>
-                                            <div
-                                                className={
-                                                    style.lm_rec_product_action
-                                                }
-                                            >
-                                                <button
-                                                    className="lm_rec_product_action_btn"
-                                                    type="button"
-                                                    style={{
-                                                        fontSize:
+                                                <div
+                                                    className={
+                                                        style.lm_rec_product_action
+                                                    }
+                                                >
+                                                    <button
+                                                        className="lm_rec_product_action_btn"
+                                                        type="button"
+                                                        style={{
+                                                            fontSize:
+                                                                customizationData
+                                                                    .cartUpsell
+                                                                    .CUBuyBtnFontSize,
+                                                            color: hoverState[
+                                                                product.id
+                                                            ]
+                                                                ? customizationData
+                                                                      .cartUpsell
+                                                                      .CUBtnTextHoverColor
+                                                                : customizationData
+                                                                      .cartUpsell
+                                                                      .CUBtnTextColor,
+                                                            background:
+                                                                hoverState[
+                                                                    product.id
+                                                                ]
+                                                                    ? customizationData
+                                                                          .cartUpsell
+                                                                          .CUBtnBGHoverColor
+                                                                    : customizationData
+                                                                          .cartUpsell
+                                                                          .CUBtnBGColor,
+                                                        }}
+                                                        onMouseEnter={() =>
+                                                            handleMouseEnter(
+                                                                product.id
+                                                            )
+                                                        }
+                                                        onMouseLeave={() =>
+                                                            handleMouseLeave(
+                                                                product.id
+                                                            )
+                                                        }
+                                                        onClick={() => {
+                                                            setSliderProduct(
+                                                                product
+                                                            );
+                                                            setShowBottomSlider(
+                                                                true
+                                                            );
+                                                        }}
+                                                    >
+                                                        {
                                                             customizationData
                                                                 .cartUpsell
-                                                                .CUBuyBtnFontSize,
-                                                        color: hoverState[
-                                                            product.id
-                                                        ]
-                                                            ? customizationData
-                                                                  .cartUpsell
-                                                                  .CUBtnTextHoverColor
-                                                            : customizationData
-                                                                  .cartUpsell
-                                                                  .CUBtnTextColor,
-                                                        background: hoverState[
-                                                            product.id
-                                                        ]
-                                                            ? customizationData
-                                                                  .cartUpsell
-                                                                  .CUBtnBGHoverColor
-                                                            : customizationData
-                                                                  .cartUpsell
-                                                                  .CUBtnBGColor,
-                                                    }}
-                                                    onMouseEnter={() =>
-                                                        handleMouseEnter(
-                                                            product.id
-                                                        )
-                                                    }
-                                                    onMouseLeave={() =>
-                                                        handleMouseLeave(
-                                                            product.id
-                                                        )
-                                                    }
-                                                    onClick={() => {
-                                                        setSliderProduct(
-                                                            product
-                                                        );
-                                                        setShowBottomSlider(
-                                                            true
-                                                        );
-                                                    }}
-                                                >
-                                                    {
-                                                        customizationData
-                                                            .cartUpsell
-                                                            .CUBuyBtnText
-                                                    }
-                                                </button>
+                                                                .CUBuyBtnText
+                                                        }
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     ))}

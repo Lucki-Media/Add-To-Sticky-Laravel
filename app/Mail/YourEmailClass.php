@@ -62,19 +62,19 @@ class YourEmailClass extends Mailable
     public function build()
     {
         if ($this->data['mail'] == "app_install"){
-            return $this->from('info.lmrequest@gmail.com', 'LM Add To Cart Sticky')
+            return $this->from('info.lmrequest@gmail.com', 'LM Sticky Cart Drawer & Upsell')
                 ->subject($this->data['subject'])
                 ->view('mailTemplate')
                 ->with('body', $this->data);
         }
         if ($this->data['mail'] == "app_uninstall") {
-            return $this->from('info.lmrequest@gmail.com', 'LM Add To Cart Sticky')
+            return $this->from('info.lmrequest@gmail.com', 'LM Sticky Cart Drawer & Upsell')
                 ->subject($this->data['subject'])
                 ->view('app_uninstall')
                 ->with('body', $this->data);
         }
         if ($this->data['mail'] == "user_mail") {
-            return $this->from('info.lmrequest@gmail.com', 'LM Add To Cart Sticky')
+            return $this->from('info.lmrequest@gmail.com', 'LM Sticky Cart Drawer & Upsell')
                 ->subject($this->data['subject'])
                 ->view('user_mail')
                 ->with('body', $this->data);

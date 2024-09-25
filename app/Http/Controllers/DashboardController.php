@@ -250,7 +250,7 @@ class DashboardController extends Controller
         $asset_data = json_decode($server_output, true);
         $asset_json = json_decode($asset_data['asset']['value'], true);  // get json decoded data of settings_data.json file
         $block_details = optional(optional($asset_json)['current'])['blocks'] ?? [];
-        ;   // get blocks where extension details are stored
+        // get blocks where extension details are stored
 
         // get details of block of our app
         $app_block = [
@@ -263,5 +263,54 @@ class DashboardController extends Controller
             }
         }
         return $app_block['disabled'] === false ? '1' : '0';
+    }
+
+    public function test()
+    {
+        $stickyData = AddToCartStickyData::get()->toArray();
+        $data = [];
+
+        foreach ($stickyData as $value) {
+            // $row = AddToCartStickyData::where('id', $value['id'])->first();
+            $jsonData = json_decode($value['template_8'], true);
+            $data[] = $jsonData;
+
+            // $jsonData['general_settings'] = array_merge($jsonData['general_settings'], [
+            //     "showOnlyBtnOnMobile" => false,
+            //     "gsPriceFontsize" => 14,
+            //     "gsNotificationBarText" => "Yayy! Product Added to Cart!",
+            //     "gsNotificationBarItalic" => false,
+            //     "gsNotificationBarBold" => false,
+            //     "gsNotificationBarTextColor" => "#FFFFFF",
+            //     "gsNotificationBarBgColor" => "#000000",
+            //     "gsNotificationBarFontSize" => 14,
+            //     "gsNotificationBarHeight" => 6,
+            //     "enableUpSell" => false,
+            //     "CUPLSelection" => "1",
+            //     "CUPLManualSelection" => "1",
+            //     "SelectedCollectionID" => "",
+            //     "SelectedProductIDs" => [],
+            //     "CUHeadingText" => "Recommended Products",
+            //     "CUBuyBtnText" => "Buy",
+            //     "CUHeadingFontSize" => 15,
+            //     "CUBodyFontSize" => 14,
+            //     "CUBuyBtnFontSize" => 14,
+            //     "CUBodyColor" => "#eef1f2",
+            //     "CUHeadingBGColor" => "#000000",
+            //     "CUHeadingColor" => "#ffffff",
+            //     "CUBtnTextColor" => "#ffffff",
+            //     "CUBtnBGColor" => "#000000",
+            //     "CUBtnTextHoverColor" => "#E6E6E6",
+            //     "CUBtnBGHoverColor" => "#454545",
+            //     "CUBorderRadius" => 0,
+            //     "CUBackgroundColor" => "#fffafa",
+            //     "CUBodyTextColor" => "#050505",
+            //     "USPosition" => "left"
+            // ]);
+
+            // $row->template_8 = $jsonData;
+            // $row->save();
+        }
+        return $data;
     }
 }

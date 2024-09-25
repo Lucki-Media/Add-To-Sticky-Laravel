@@ -120,6 +120,7 @@
 .lm_sticky_layout {
     max-width: 1200px;
     margin: 0 auto;
+    padding-bottom: 50px;
 }
 .lm_sticky_layout > div:first-child > div:nth-child(2) {
     position: sticky;
@@ -143,13 +144,6 @@
 }
 .show_sticky_span {
     font-weight: 600;
-}
-.deep_link__class {
-    padding-bottom: 15px;
-}
-
-.deep_link__class > div:first-child {
-    margin-bottom: 15px;
 }
 .layout__section {
     background-color: rgb(235, 235, 236);
@@ -199,7 +193,7 @@
 .sidebar_title {
     font-size: 18px;
     font-weight: 600;
-    padding: 25px 5px 0;
+    padding: 0 5px 0;
 }
 
 .clickdetails_layout {
@@ -483,7 +477,7 @@ div[id^="font-picker"] .dropdown-button:focus {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    padding: 125px 15px;
+    padding: 125px 0 85px 35px;
     /* height: calc(100vh - 160px); */
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -531,11 +525,13 @@ div[id^="font-picker"] .dropdown-button:focus {
 }
 .product_details_mobile {
     margin: 10px !important;
+    height: 560px !important;
 }
 .product_details {
     background-color: #fff;
     margin: 0 10px 10px;
     position: relative;
+    height: 553px;
 }
 .lm_product_block {
     display: flex;
@@ -583,10 +579,10 @@ div[id^="font-picker"] .dropdown-button:focus {
 }
 
 @media screen and (max-width: 1600px) {
-    .product_details_main {
+    /* .product_details_main {
         padding: 125px 35px;
-        /* height: 74vh; */
-    }
+        height: 74vh;
+    } */
     .product_details_main .product_image,
     .product_details_main .p_details {
         width: 38%;
@@ -599,7 +595,7 @@ div[id^="font-picker"] .dropdown-button:focus {
 
 @media screen and (max-width: 1024px) {
     .product_details_main {
-        padding: 88px 15px;
+        padding: 40px 0 50px 15px;
         /* height: auto; */
         flex-direction: column;
     }
@@ -613,7 +609,7 @@ div[id^="font-picker"] .dropdown-button:focus {
     }
 }
 @media screen and (max-width: 768px) {
-    .product_details_main {
+    /* .product_details_main {
         padding: 80px 15px;
-    }
+    } */
 }

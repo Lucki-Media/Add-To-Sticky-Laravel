@@ -1,79 +1,109 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import "select2/dist/js/select2.min";
-// import proimage from "../assets/productimage.png";
 import { QuantityPicker } from "react-qty-picker";
 import style from "./CartTemplate8.module.css";
 import getSymbolFromCurrency from "currency-symbol-map";
 import NotificationBar from "./NotificationBar";
 import axios from "axios";
+import UpSellBottomSheet from "./UpSellBottomSheet";
 
-export default function CartTemplate8(props) {
-    const template_data = props.templateData.current_template;
-    const position = template_data.general_settings.position,
-        checkMobile = template_data.general_settings.checkMobile,
-        checkDesktop = template_data.general_settings.checkDesktop,
-        gsBold = template_data.general_settings.gsBold,
-        gsItalic = template_data.general_settings.gsItalic,
-        gsUnderline = template_data.general_settings.gsUnderline,
-        gsFontFamily = template_data.general_settings.gsFontFamily,
-        gsTitleColor = template_data.general_settings.gsTitleColor,
-        containerHeight = template_data.general_settings.containerHeight,
-        gsFontsize = template_data.general_settings.gsFontsize,
-        gsPriceFontsize = template_data.general_settings.gsPriceFontsize,
-        gsPriceColor = template_data.general_settings.gsPriceColor,
-        gsBgColor = template_data.general_settings.gsBgColor,
-        gsAction = template_data.general_settings.gsAction,
-        gsDisplayCondition = template_data.general_settings.gsDisplayCondition,
+export default function CartTemplate8({
+    product,
+    productImage,
+    enable,
+    animationEnable,
+    current_template,
+}) {
+    const position = current_template.general_settings.position,
+        checkMobile = current_template.general_settings.checkMobile,
+        checkDesktop = current_template.general_settings.checkDesktop,
+        gsBold = current_template.general_settings.gsBold,
+        gsItalic = current_template.general_settings.gsItalic,
+        gsUnderline = current_template.general_settings.gsUnderline,
+        gsFontFamily = current_template.general_settings.gsFontFamily,
+        gsTitleColor = current_template.general_settings.gsTitleColor,
+        containerHeight = current_template.general_settings.containerHeight,
+        gsFontsize = current_template.general_settings.gsFontsize,
+        gsPriceFontsize = current_template.general_settings.gsPriceFontsize,
+        gsPriceColor = current_template.general_settings.gsPriceColor,
+        gsBgColor = current_template.general_settings.gsBgColor,
+        gsAction = current_template.general_settings.gsAction,
+        gsDisplayCondition =
+            current_template.general_settings.gsDisplayCondition,
         gsNotificationBarText =
-            template_data.general_settings.gsNotificationBarText,
+            current_template.general_settings.gsNotificationBarText,
         gsNotificationBarItalic =
-            template_data.general_settings.gsNotificationBarItalic,
+            current_template.general_settings.gsNotificationBarItalic,
         gsNotificationBarBold =
-            template_data.general_settings.gsNotificationBarBold,
+            current_template.general_settings.gsNotificationBarBold,
         gsNotificationBarTextColor =
-            template_data.general_settings.gsNotificationBarTextColor,
+            current_template.general_settings.gsNotificationBarTextColor,
         gsNotificationBarBgColor =
-            template_data.general_settings.gsNotificationBarBgColor,
+            current_template.general_settings.gsNotificationBarBgColor,
         gsNotificationBarFontSize =
-            template_data.general_settings.gsNotificationBarFontSize,
+            current_template.general_settings.gsNotificationBarFontSize,
         gsNotificationBarHeight =
-            template_data.general_settings.gsNotificationBarHeight,
-        gsOffsetValue = template_data.general_settings.gsOffsetValue,
-        btnBold = template_data.buy_btn_settings.btnBold,
-        btnItalic = template_data.buy_btn_settings.btnItalic,
-        btnUnderline = template_data.buy_btn_settings.btnUnderline,
-        btnTextColor = template_data.buy_btn_settings.btnTextColor,
-        btnBgColor = template_data.buy_btn_settings.btnBgColor,
-        btnFontsize = template_data.buy_btn_settings.btnFontsize,
-        btnheightValue = template_data.buy_btn_settings.btnheightValue,
-        btnBorderColor = template_data.buy_btn_settings.btnBorderColor,
-        btnBgHoverColor = template_data.buy_btn_settings.btnBgHoverColor,
+            current_template.general_settings.gsNotificationBarHeight,
+        enableUpSell = current_template.general_settings.enableUpSell,
+        CUPLSelection = current_template.general_settings.CUPLSelection,
+        CUPLManualSelection =
+            current_template.general_settings.CUPLManualSelection,
+        SelectedCollectionID =
+            current_template.general_settings.SelectedCollectionID,
+        SelectedProductIDs =
+            current_template.general_settings.SelectedProductIDs,
+        CUHeadingText = current_template.general_settings.CUHeadingText,
+        CUBuyBtnText = current_template.general_settings.CUBuyBtnText,
+        CUHeadingFontSize = current_template.general_settings.CUHeadingFontSize,
+        CUBodyFontSize = current_template.general_settings.CUBodyFontSize,
+        CUBuyBtnFontSize = current_template.general_settings.CUBuyBtnFontSize,
+        CUBackgroundColor = current_template.general_settings.CUBackgroundColor,
+        CUHeadingBGColor = current_template.general_settings.CUHeadingBGColor,
+        CUHeadingColor = current_template.general_settings.CUHeadingColor,
+        CUBodyColor = current_template.general_settings.CUBodyColor,
+        CUBodyTextColor = current_template.general_settings.CUBodyTextColor,
+        CUBtnTextColor = current_template.general_settings.CUBtnTextColor,
+        CUBtnBGColor = current_template.general_settings.CUBtnBGColor,
+        CUBtnTextHoverColor =
+            current_template.general_settings.CUBtnTextHoverColor,
+        CUBtnBGHoverColor = current_template.general_settings.CUBtnBGHoverColor,
+        CUBorderRadius = current_template.general_settings.CUBorderRadius,
+        USPosition = current_template.general_settings.USPosition,
+        gsOffsetValue = current_template.general_settings.gsOffsetValue,
+        btnBold = current_template.buy_btn_settings.btnBold,
+        btnItalic = current_template.buy_btn_settings.btnItalic,
+        btnUnderline = current_template.buy_btn_settings.btnUnderline,
+        btnTextColor = current_template.buy_btn_settings.btnTextColor,
+        btnBgColor = current_template.buy_btn_settings.btnBgColor,
+        btnFontsize = current_template.buy_btn_settings.btnFontsize,
+        btnheightValue = current_template.buy_btn_settings.btnheightValue,
+        btnBorderColor = current_template.buy_btn_settings.btnBorderColor,
+        btnBgHoverColor = current_template.buy_btn_settings.btnBgHoverColor,
         btnBorderHoverColor =
-            template_data.buy_btn_settings.btnBorderHoverColor,
-        btnTexthoverColor = template_data.buy_btn_settings.btnTexthoverColor,
-        btnWidthValue = template_data.buy_btn_settings.btnWidthValue,
-        btnBorderThickness = template_data.buy_btn_settings.btnBorderThickness,
-        btnBorderRadius = template_data.buy_btn_settings.btnBorderRadius,
-        editText = template_data.buy_btn_settings.editText,
-        unavailable = template_data.buy_btn_settings.unavailable;
+            current_template.buy_btn_settings.btnBorderHoverColor,
+        btnTexthoverColor = current_template.buy_btn_settings.btnTexthoverColor,
+        btnWidthValue = current_template.buy_btn_settings.btnWidthValue,
+        btnBorderThickness =
+            current_template.buy_btn_settings.btnBorderThickness,
+        btnBorderRadius = current_template.buy_btn_settings.btnBorderRadius,
+        editText = current_template.buy_btn_settings.editText,
+        unavailable = current_template.buy_btn_settings.unavailable;
 
     const [showContainer, setShowContainer] = useState(false);
     const [showNotificationBar, setShowNotificationBar] = useState(false);
+    const [activePlan, setActivePlan] = useState(1);
+
+    const [showUpsellPopup, setShowUpSellPopup] = useState(false);
     const [loading, setLoading] = useState(false);
-    // console.log(props.templateData);
+
     const [selectedVariant, setSelectedVariant] = useState(
-        props.product.variants?.length && props.product.variants[0]
+        product.variants?.length && product.variants[0]
     );
     const [selectedOptions, setSelectedOptions] = useState({
-        option0:
-            props.product.options?.length && props.product.options[0].values[0],
-        option1:
-            props.product.options?.length > 1 &&
-            props.product.options[1].values[0],
-        option2:
-            props.product.options?.length > 2 &&
-            props.product.options[2].values[0],
+        option0: product.options?.length && product.options[0].values[0],
+        option1: product.options?.length > 1 && product.options[1].values[0],
+        option2: product.options?.length > 2 && product.options[2].values[0],
     });
     /*--------------------------------------------------------------------------------------------------*/
     /*PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS START*/
@@ -122,9 +152,20 @@ export default function CartTemplate8(props) {
     };
 
     function updateCartDrawer(cartCount) {
-        // Update the cart item count (example)
-        document.querySelector(".cart-count-bubble").textContent = cartCount;
-        document.querySelector(".sticky_Count").textContent = cartCount;
+        const cartCountBubble = document.querySelector(".cart-count-bubble");
+        const stickyCount = document.querySelector(".sticky_Count");
+
+        if (cartCountBubble) {
+            cartCountBubble.textContent = cartCount;
+        } else {
+            console.warn(".cart-count-bubble element not found!");
+        }
+
+        if (stickyCount) {
+            stickyCount.textContent = cartCount;
+        } else {
+            console.warn(".sticky_Count element not found!");
+        }
     }
 
     let handleAddProduct = async () => {
@@ -160,10 +201,11 @@ export default function CartTemplate8(props) {
                 );
                 await res.json();
                 setLoading(false);
-                if (template_data.general_settings.gsAction === "1") {
+                if (current_template.general_settings.gsAction === "1") {
                     window.location.href = "/cart";
-                } else if (template_data.general_settings.gsAction === "3") {
+                } else if (current_template.general_settings.gsAction === "3") {
                     setShowNotificationBar(true);
+                    setShowUpSellPopup(true);
                 } else {
                     window.location.href = "/checkout";
                 }
@@ -174,6 +216,26 @@ export default function CartTemplate8(props) {
             } catch (error) {
                 console.log();
             }
+        }
+    };
+    useEffect(() => {
+        getPlanData();
+    }, [activePlan]);
+
+    // API CALL TO GET PLAN DATA
+    const getPlanData = async () => {
+        try {
+            const response = await fetch(
+                `${process.env.REACT_APP_API_URL}` +
+                    "getPlanData/" +
+                    window.Shopify.shop
+            );
+            const data = await response.json();
+            // console.log("data");
+            // console.log(data);
+            setActivePlan(data.data);
+        } catch (err) {
+            console.log(err);
         }
     };
     useEffect(() => {
@@ -188,7 +250,7 @@ export default function CartTemplate8(props) {
         }
         /*--------------------------------------------------------------------------------------------------*/
         /*GETTING SELECTED VARIANT FROM OPTIONS START*/
-        const neededVariant = props.product.variants.find(
+        const neededVariant = product.variants.find(
             (variant) => variant.title === title
         );
         // console.log("SelectedVariant");
@@ -272,7 +334,7 @@ export default function CartTemplate8(props) {
         selectedOptions?.option0,
         selectedOptions?.option1,
         selectedOptions?.option2,
-        props.product.variants,
+        product.variants,
     ]);
     const customStyles = {
         indicatorSeparator: (provided) => ({
@@ -281,7 +343,7 @@ export default function CartTemplate8(props) {
         }),
     };
 
-    if (props.templateData) {
+    if (current_template) {
         if (showContainer) {
             return (
                 <div>
@@ -435,7 +497,7 @@ export default function CartTemplate8(props) {
                 }
             `}
                     </style>
-                    {props.templateData.enable === true ? (
+                    {enable === true && (
                         <div
                             className={`lm-sticky-${position} ${
                                 style.lm_sticky_cart
@@ -478,249 +540,309 @@ export default function CartTemplate8(props) {
                                         containerHeight={containerHeight}
                                     />
                                 )}
-                            <div className={style.lm_container}>
-                                <div className={style.lm_cart_module}>
-                                    <div className={style.lm_pro_image}>
-                                        {/* if there is no variant or if variant has no image then it will take produt image and if product image will null then it will show default product image  */}
-                                        <div
-                                            className={`img_size ${style.image_border}`}
+
+                            {window.innerWidth <= 768 &&
+                            current_template?.general_settings
+                                ?.showOnlyBtnOnMobile === true ? (
+                                // show only mobile button
+                                <div className={style.lm_container}>
+                                    <div className={style.lm_buy_btn}>
+                                        <button
+                                            id="lm_sticky_buy_button"
+                                            disabled={shouldDisable}
+                                            onClick={
+                                                (() => checkCondition,
+                                                handleAddProduct)
+                                            }
+                                            className={`lm_btn slide_right font_option ${
+                                                btnBold === true
+                                                    ? "lm_bold"
+                                                    : ""
+                                            } ${
+                                                btnItalic === true
+                                                    ? "lm_italic"
+                                                    : ""
+                                            } ${
+                                                btnUnderline === true
+                                                    ? "lm_underline"
+                                                    : "no-line"
+                                            }${
+                                                animationEnable === true
+                                                    ? " lm_vibrating"
+                                                    : ""
+                                            }`}
+                                            style={{
+                                                cursor:
+                                                    selectedVariant.available ===
+                                                    false
+                                                        ? "not-allowed"
+                                                        : "pointer",
+                                            }}
                                         >
-                                            <img
-                                                className="img_sizeS"
-                                                src={
-                                                    selectedVariant &&
-                                                    selectedVariant.featured_image &&
-                                                    selectedVariant
-                                                        .featured_image.src
-                                                        ? selectedVariant
-                                                              .featured_image
-                                                              .src
-                                                        : props.productImage !==
-                                                              null &&
-                                                          props.productImage !==
-                                                              undefined
-                                                        ? props.productImage
-                                                        : process.env
-                                                              .REACT_APP_IMAGE_URL +
-                                                          "images/default_product.png"
-                                                }
-                                                alt="product "
-                                            />
-                                        </div>
-                                        <div className={style.lm_middlecontent}>
-                                            <h2
-                                                className={`font_option ${
-                                                    style.pro_names
-                                                } ${
-                                                    gsBold === true
-                                                        ? "lm_bold"
-                                                        : ""
-                                                } ${
-                                                    gsItalic === true
-                                                        ? "lm_italic"
-                                                        : ""
-                                                } ${
-                                                    gsUnderline === true
-                                                        ? "lm_underline"
-                                                        : "no-line"
-                                                }`}
-                                            >
-                                                {props.product.title}
-                                            </h2>
-                                        </div>
+                                            {loading === true
+                                                ? "Adding..."
+                                                : `${editText}`}
+                                        </button>
                                     </div>
-                                    <div className={style.lmblock_right}>
-                                        <div className={style.var_options}>
-                                            {selectedVariant.option1 !==
-                                                "Default Title" &&
-                                                props.product.options?.length &&
-                                                props.product.options[0].values
-                                                    ?.length &&
-                                                props.product.options.map(
-                                                    (opt, i, arr) => {
-                                                        const optionName =
-                                                            "option" + i;
-                                                        const defaultOption = [
-                                                            {
-                                                                value: selectedOptions?.[
-                                                                    optionName
-                                                                ],
-                                                                label: selectedOptions?.[
-                                                                    optionName
-                                                                ],
-                                                            },
-                                                        ];
-                                                        return (
-                                                            <div
-                                                                className={`lm_options ${style.lm_options}`}
-                                                            >
+                                </div>
+                            ) : (
+                                <div className={style.lm_container}>
+                                    <div className={style.lm_cart_module}>
+                                        <div className={style.lm_pro_image}>
+                                            {/* if there is no variant or if variant has no image then it will take produt image and if product image will null then it will show default product image  */}
+                                            <div
+                                                className={`img_size ${style.image_border}`}
+                                            >
+                                                <img
+                                                    className="img_sizeS"
+                                                    src={
+                                                        selectedVariant &&
+                                                        selectedVariant.featured_image &&
+                                                        selectedVariant
+                                                            .featured_image.src
+                                                            ? selectedVariant
+                                                                  .featured_image
+                                                                  .src
+                                                            : productImage !==
+                                                                  null &&
+                                                              productImage !==
+                                                                  undefined
+                                                            ? productImage
+                                                            : process.env
+                                                                  .REACT_APP_IMAGE_URL +
+                                                              "images/default_product.png"
+                                                    }
+                                                    alt="product "
+                                                />
+                                            </div>
+                                            <div
+                                                className={
+                                                    style.lm_middlecontent
+                                                }
+                                            >
+                                                <h2
+                                                    className={`font_option ${
+                                                        style.pro_names
+                                                    } ${
+                                                        gsBold === true
+                                                            ? "lm_bold"
+                                                            : ""
+                                                    } ${
+                                                        gsItalic === true
+                                                            ? "lm_italic"
+                                                            : ""
+                                                    } ${
+                                                        gsUnderline === true
+                                                            ? "lm_underline"
+                                                            : "no-line"
+                                                    }`}
+                                                >
+                                                    {product.title}
+                                                </h2>
+                                            </div>
+                                        </div>
+                                        <div className={style.lmblock_right}>
+                                            <div className={style.var_options}>
+                                                {selectedVariant.option1 !==
+                                                    "Default Title" &&
+                                                    product.options?.length &&
+                                                    product.options[0].values
+                                                        ?.length &&
+                                                    product.options.map(
+                                                        (opt, i, arr) => {
+                                                            const optionName =
+                                                                "option" + i;
+                                                            const defaultOption =
+                                                                [
+                                                                    {
+                                                                        value: selectedOptions?.[
+                                                                            optionName
+                                                                        ],
+                                                                        label: selectedOptions?.[
+                                                                            optionName
+                                                                        ],
+                                                                    },
+                                                                ];
+                                                            return (
                                                                 <div
-                                                                    className={`productInputs ${style.productInputs}`}
+                                                                    className={`lm_options ${style.lm_options}`}
                                                                 >
                                                                     <div
-                                                                        key={
-                                                                            optionName
-                                                                        }
+                                                                        className={`productInputs ${style.productInputs}`}
                                                                     >
-                                                                        {/* <label className="label_color">
+                                                                        <div
+                                                                            key={
+                                                                                optionName
+                                                                            }
+                                                                        >
+                                                                            {/* <label className="label_color">
                                                                             {
                                                                                 opt.name
                                                                             }
                                                                         </label> */}
-                                                                        <Select
-                                                                            styles={
-                                                                                customStyles
-                                                                            }
-                                                                            isSearchable={
-                                                                                false
-                                                                            }
-                                                                            placeholder={
-                                                                                opt.name
-                                                                            }
-                                                                            menuPlacement={
-                                                                                position ===
-                                                                                "Bottom"
-                                                                                    ? "top"
-                                                                                    : "bottom"
-                                                                            }
-                                                                            onChange={(
-                                                                                selectedOption
-                                                                            ) =>
-                                                                                handleChangeSelect(
-                                                                                    selectedOption,
-                                                                                    i
-                                                                                )
-                                                                            }
-                                                                            name={
-                                                                                opt.name
-                                                                            }
-                                                                            key={
-                                                                                optionName
-                                                                            }
-                                                                            className={`pro_select_menu font_option ${style.pro_names}`}
-                                                                            defaultValue={
-                                                                                defaultOption[0]
-                                                                            }
-                                                                            style={{
-                                                                                width:
-                                                                                    arr.length >
-                                                                                    2
-                                                                                        ? "30%"
-                                                                                        : "46%",
-                                                                            }}
-                                                                            options={opt.values.map(
-                                                                                (
-                                                                                    val
-                                                                                ) => ({
-                                                                                    value: val,
-                                                                                    label: val,
-                                                                                })
-                                                                            )}
-                                                                        />
+                                                                            <Select
+                                                                                styles={
+                                                                                    customStyles
+                                                                                }
+                                                                                isSearchable={
+                                                                                    false
+                                                                                }
+                                                                                placeholder={
+                                                                                    opt.name
+                                                                                }
+                                                                                menuPlacement={
+                                                                                    position ===
+                                                                                    "Bottom"
+                                                                                        ? "top"
+                                                                                        : "bottom"
+                                                                                }
+                                                                                onChange={(
+                                                                                    selectedOption
+                                                                                ) =>
+                                                                                    handleChangeSelect(
+                                                                                        selectedOption,
+                                                                                        i
+                                                                                    )
+                                                                                }
+                                                                                name={
+                                                                                    opt.name
+                                                                                }
+                                                                                key={
+                                                                                    optionName
+                                                                                }
+                                                                                className={`pro_select_menu font_option ${style.pro_names}`}
+                                                                                defaultValue={
+                                                                                    defaultOption[0]
+                                                                                }
+                                                                                style={{
+                                                                                    width:
+                                                                                        arr.length >
+                                                                                        2
+                                                                                            ? "30%"
+                                                                                            : "46%",
+                                                                                }}
+                                                                                options={opt.values.map(
+                                                                                    (
+                                                                                        val
+                                                                                    ) => ({
+                                                                                        value: val,
+                                                                                        label: val,
+                                                                                    })
+                                                                                )}
+                                                                            />
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        );
-                                                    }
-                                                )}
-                                        </div>
-                                        <div className={style.button_block}>
-                                            <div
-                                                id="lm_sticky_container__qty_picker"
-                                                className={`lm_quantity_picker ${style.lm_quantity_selector}`}
-                                            >
-                                                <QuantityPicker
-                                                    className={style.quantity12}
-                                                    value={1}
-                                                    min={1}
-                                                    max={1000000000000}
-                                                />
-                                            </div>
-                                            <div
-                                                className={style.lm_block_price}
-                                            >
-                                                <div className="lm_sticky_p_color">
-                                                    {oldPrice > price &&
-                                                    oldPrice !== "" ? (
-                                                        <span
-                                                            className={
-                                                                style.compare_lm_price
-                                                            }
-                                                        >
-                                                            {oldPrice}
-                                                        </span>
-                                                    ) : null}
-                                                    <span
-                                                        className={`
-                                                        ${style.simple_price}${
-                                                            oldPrice === ""
-                                                                ? "::before"
-                                                                : ""
+                                                            );
                                                         }
-                                                    `}
-                                                    >
-                                                        {price}
-                                                    </span>
-                                                    {selectedVariant.available ===
-                                                    false ? (
-                                                        <span
-                                                            className={
-                                                                style.lm_out_stock
-                                                            }
-                                                        >
-                                                            {unavailable}
-                                                        </span>
-                                                    ) : null}
-                                                </div>
+                                                    )}
                                             </div>
-                                            <div className={style.lm_buy_btn}>
-                                                {/* <CustomizedButton onClick={() => alert("Welcome!")}> */}
-                                                <button
-                                                    id="lm_sticky_buy_button"
-                                                    disabled={shouldDisable}
-                                                    onClick={
-                                                        (() => checkCondition,
-                                                        handleAddProduct)
-                                                    }
-                                                    className={`lm_btn slide_right font_option ${
-                                                        btnBold === true
-                                                            ? "lm_bold"
-                                                            : ""
-                                                    } ${
-                                                        btnItalic === true
-                                                            ? "lm_italic"
-                                                            : ""
-                                                    } ${
-                                                        btnUnderline === true
-                                                            ? "lm_underline"
-                                                            : "no-line"
-                                                    }${
-                                                        props.templateData
-                                                            .animationEnable ===
-                                                        true
-                                                            ? " lm_vibrating"
-                                                            : ""
-                                                    }`}
-                                                    style={{
-                                                        cursor:
-                                                            selectedVariant.available ===
-                                                            false
-                                                                ? "not-allowed"
-                                                                : "pointer",
-                                                    }}
+                                            <div className={style.button_block}>
+                                                <div
+                                                    id="lm_sticky_container__qty_picker"
+                                                    className={`lm_quantity_picker ${style.lm_quantity_selector}`}
                                                 >
-                                                    {loading === true
-                                                        ? "Adding..."
-                                                        : `${editText}`}
-                                                </button>
+                                                    <QuantityPicker
+                                                        className={
+                                                            style.quantity12
+                                                        }
+                                                        value={1}
+                                                        min={1}
+                                                        max={1000000000000}
+                                                    />
+                                                </div>
+                                                <div
+                                                    className={
+                                                        style.lm_block_price
+                                                    }
+                                                >
+                                                    <div className="lm_sticky_p_color">
+                                                        {oldPrice > price &&
+                                                        oldPrice !== "" ? (
+                                                            <span
+                                                                className={
+                                                                    style.compare_lm_price
+                                                                }
+                                                            >
+                                                                {oldPrice}
+                                                            </span>
+                                                        ) : null}
+                                                        <span
+                                                            className={`
+                                                        ${style.simple_price}${
+                                                                oldPrice === ""
+                                                                    ? "::before"
+                                                                    : ""
+                                                            }
+                                                    `}
+                                                        >
+                                                            {price}
+                                                        </span>
+                                                        {selectedVariant.available ===
+                                                        false ? (
+                                                            <span
+                                                                className={
+                                                                    style.lm_out_stock
+                                                                }
+                                                            >
+                                                                {unavailable}
+                                                            </span>
+                                                        ) : null}
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    className={style.lm_buy_btn}
+                                                >
+                                                    {/* <CustomizedButton onClick={() => alert("Welcome!")}> */}
+                                                    <button
+                                                        id="lm_sticky_buy_button"
+                                                        disabled={shouldDisable}
+                                                        onClick={
+                                                            (() =>
+                                                                checkCondition,
+                                                            handleAddProduct)
+                                                        }
+                                                        className={`lm_btn slide_right font_option ${
+                                                            btnBold === true
+                                                                ? "lm_bold"
+                                                                : ""
+                                                        } ${
+                                                            btnItalic === true
+                                                                ? "lm_italic"
+                                                                : ""
+                                                        } ${
+                                                            btnUnderline ===
+                                                            true
+                                                                ? "lm_underline"
+                                                                : "no-line"
+                                                        }${
+                                                            animationEnable ===
+                                                            true
+                                                                ? " lm_vibrating"
+                                                                : ""
+                                                        }`}
+                                                        style={{
+                                                            cursor:
+                                                                selectedVariant.available ===
+                                                                false
+                                                                    ? "not-allowed"
+                                                                    : "pointer",
+                                                        }}
+                                                    >
+                                                        {loading === true
+                                                            ? "Adding..."
+                                                            : `${editText}`}
+                                                    </button>
 
-                                                {/* <div class="button_slide slide_right">BUTTON: SLIDE RIGHT </div> */}
-                                                {/* </CustomizedButton> */}
+                                                    {/* <div class="button_slide slide_right">BUTTON: SLIDE RIGHT </div> */}
+                                                    {/* </CustomizedButton> */}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            )}
+
                             {gsAction === "3" &&
                                 showNotificationBar === true &&
                                 position === "top" && (
@@ -751,9 +873,17 @@ export default function CartTemplate8(props) {
                                     />
                                 )}
                         </div>
-                    ) : (
-                        ""
                     )}
+                    {gsAction === "3" &&
+                        enableUpSell === true &&
+                        activePlan > 1 &&
+                        showUpsellPopup === true && (
+                            <UpSellBottomSheet
+                                upsellPopupData={
+                                    current_template.general_settings
+                                }
+                            />
+                        )}
                 </div>
             );
         } else {
