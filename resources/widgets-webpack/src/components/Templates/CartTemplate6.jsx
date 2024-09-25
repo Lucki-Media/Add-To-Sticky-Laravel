@@ -855,7 +855,7 @@ export default function CartTemplate6({
                     )}
                     {gsAction === "3" &&
                         enableUpSell === true &&
-                        activePlan === 2 &&
+                        activePlan > 1 &&
                         showUpsellPopup === true && (
                             <UpSellBottomSheet
                                 upsellPopupData={

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { QuantityPicker } from "react-qty-picker";
+import getSymbolFromCurrency from "currency-symbol-map";
 import axios from "axios";
 
 const UpSellBottomSheet = ({ upsellPopupData }) => {
@@ -9,7 +10,6 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
     const [CUProducts, setCUProducts] = useState([]);
     const [cartData, setCartData] = useState();
     const [numberCount, setNumberCount] = useState(0);
-    const [loading, setLoading] = useState(false);
 
     const toggleBottomSheet = () => {
         setOpen(!open);
@@ -85,11 +85,12 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                 // Manual Products
                 if (upsellPopupData.SelectedProductIDs.length > 0) {
                     // Create an array of promises
-                    const productPromises = upsellPopupData.SelectedProductIDs.map(
-                        (productHandle) => {
-                            return getProductByHandle(productHandle);
-                        }
-                    );
+                    const productPromises =
+                        upsellPopupData.SelectedProductIDs.map(
+                            (productHandle) => {
+                                return getProductByHandle(productHandle);
+                            }
+                        );
 
                     // Wait for all promises to resolve
                     Promise.all(productPromises).then((productArray) => {
@@ -182,7 +183,6 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
         });
 
         if (neededVariant) {
-            setLoading(true);
             const requestOptions = {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -202,7 +202,6 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     requestOptions
                 );
                 await res.json();
-                setLoading(false);
                 setTimeout(function () {
                     getCartCount();
                 }, 1000);
@@ -402,7 +401,9 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                 
                  .lmsc_popup_modal .lmsc_close_popup_button:hover{
                     background-color:${upsellPopupData.CUBtnBGHoverColor};
-                    color: ${upsellPopupData.CUBtnTextHoverColor};                
+                    color: ${
+                        upsellPopupData.CUBtnTextHoverColor
+                    };                
                 }
 
                  .lmsc_popup_modal .quantity-picker {
@@ -477,7 +478,9 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                 <div
                     className={`lmsc_popup_container ${
                         open ? "lmsc_popup_open" : "lmsc_popup_close"
-                    } ${upsellPopupData.USPosition === "left" ? "left" : "right"}`}
+                    } ${
+                        upsellPopupData.USPosition === "left" ? "left" : "right"
+                    }`}
                 >
                     <div
                         className="lmsc_bottomSheet_backdrop"
@@ -523,10 +526,27 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                                                 {product.title}
                                             </h3>
                                             <p className="lmsc_product_price">
-                                                {product.price}
-                                                <strike>
-                                                    {product.compare_at_price}
-                                                </strike>
+                                                {getSymbolFromCurrency(
+                                                    cartData?.currency
+                                                ) +
+                                                    (
+                                                        Number(product.price) /
+                                                        100
+                                                    ).toFixed(2)}
+                                                {product.compare_at_price &&
+                                                    product.compare_at_price >
+                                                        0 && (
+                                                        <strike>
+                                                            {getSymbolFromCurrency(
+                                                                cartData?.currency
+                                                            ) +
+                                                                (
+                                                                    Number(
+                                                                        product.compare_at_price
+                                                                    ) / 100
+                                                                ).toFixed(2)}
+                                                        </strike>
+                                                    )}
                                             </p>
                                         </div>
                                         <button

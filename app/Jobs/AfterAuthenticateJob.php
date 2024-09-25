@@ -209,8 +209,36 @@ class AfterAuthenticateJob implements ShouldQueue
         $output = curl_exec($ch);
         //ADDING WEBHOOK END
 
-        // SENDING MAIL TO AUTHORIZED PERSONS START
+        /*CREATING CONTACT IN BREVO START*/
         $data = [
+            "attributes" => [
+                "FNAME" => $shopifyData['shop']['shop_owner'],
+                "CONTACT" => $shopifyData['shop']['phone'] ?? null
+            ],
+            "email" => $shopifyData['shop']['email'],
+            "email_id" => $shopifyData['shop']['email'],
+            "updateEnabled" => true,
+            "listIds" => [
+                10
+            ]
+        ];
+        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://api.brevo.com/v3/contacts");
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Accept: application/json',
+            'Content-Type: application/json',
+            'api-key: ' . env('BREVO_API_KEY')
+        ]);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $server_output1 = curl_exec($ch);
+        curl_close($ch);
+        /*CREATING CONTACT IN BREVO END*/
+
+        // SENDING MAIL TO AUTHORIZED PERSONS START
+        $data1 = [
             "to" => [
                 // [
                 //     "email" => $shopifyData['shop']['email'],
@@ -225,18 +253,18 @@ class AfterAuthenticateJob implements ShouldQueue
             ],
         ];
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://api.brevo.com/v3/smtp/email");
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        $ch1 = curl_init();
+        curl_setopt($ch1, CURLOPT_URL, "https://api.brevo.com/v3/smtp/email");
+        curl_setopt($ch1, CURLOPT_HTTPHEADER, [
             'Accept: application/json',
             'Content-Type: application/json',
             'api-key: ' . env('BREVO_API_KEY')
         ]);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $server_output = curl_exec($ch);
-        curl_close($ch);
+        curl_setopt($ch1, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($ch1, CURLOPT_POSTFIELDS, json_encode($data1));
+        curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
+        $server_output1 = curl_exec($ch1);
+        curl_close($ch1);
         // SENDING MAIL TO AUTHORIZED PERSONS END
     }
 }
