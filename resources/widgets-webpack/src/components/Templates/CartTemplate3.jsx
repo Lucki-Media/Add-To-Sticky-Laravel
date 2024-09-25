@@ -840,7 +840,7 @@ export default function CartTemplate3({
                         </div>
                     )}
                     {gsAction === "3" &&
-                        activePlan === 2 &&
+                        activePlan > 1 &&
                         enableUpSell === true &&
                         showUpsellPopup === true && (
                             <UpSellBottomSheet
