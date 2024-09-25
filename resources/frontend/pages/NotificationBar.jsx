@@ -8,24 +8,26 @@ export default function NotificationBar(props) {
                 #notification_bar {
                     position: relative;
                     width:100%;
-                    background-color:${props.gsNotificationBarBgColor};
+                    background-color:${
+                        props.gsNotificationBarBgColor ?? "#000000"
+                    };
                     clear: both;
                     z-index: 999;
                 }
                 
                 #notification_bar .nbcontainer {
                     margin: 0 auto;
-                    padding: ${props.gsNotificationBarHeight}px;
+                    padding: ${props.gsNotificationBarHeight ?? 5}px;
                 }
                 
                 #notification_bar p {
                     display: block;
-                    font-size: ${props.gsNotificationBarFontSize}px;
+                    font-size: ${props.gsNotificationBarFontSize ?? 12}px;
                     font-weight: 300;
                     margin: 0 0px 0 0;
                     padding: 0;
                     line-height: 20px;
-                    color: ${props.gsNotificationBarTextColor};
+                    color: ${props.gsNotificationBarTextColor ?? "#ffffff"};
                     text-align: center;
                     
                 }
@@ -52,7 +54,8 @@ export default function NotificationBar(props) {
                                 : ""
                         } `}
                     >
-                        {props.gsNotificationBarText}
+                        {props.gsNotificationBarText ??
+                            "Yayy! Product Added to Cart!"}
                     </p>
                 </div>
             </div>

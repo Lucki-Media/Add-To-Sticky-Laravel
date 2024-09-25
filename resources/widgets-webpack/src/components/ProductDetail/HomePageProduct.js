@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import TemplateStyle from "../Templates/TemplateStyle.js";
 import CartTemplate1 from "../Templates/CartTemplate.jsx";
 import CartTemplate2 from "../Templates/CartTemplate2.jsx";
 import CartTemplate3 from "../Templates/CartTemplate3.jsx";
@@ -10,7 +9,7 @@ import CartTemplate7 from "../Templates/CartTemplate7.jsx";
 import CartTemplate8 from "../Templates/CartTemplate8.jsx";
 import "./index.css";
 
-const HomePageProduct = (props) => {
+const HomePageProduct = () => {
     const [productData, setProductData] = useState([]);
     const [templateData, setTemplateData] = useState([]);
     const [productImage, setProductImage] = useState();
@@ -25,7 +24,10 @@ const HomePageProduct = (props) => {
             );
             const dataHandle = await responseHandle.json();
 
-            if (dataHandle.data.handle !== "") {
+            if (
+                dataHandle?.data?.handle !== "" &&
+                dataHandle?.data?.handle !== undefined
+            ) {
                 // set template data
                 setTemplateData(dataHandle.data.final_data);
 
@@ -64,77 +66,77 @@ const HomePageProduct = (props) => {
         return (
             <>
                 <div>
-                    {templateData.defaultTemplate === 1 ? (
+                    {String(templateData.defaultTemplate) === "1" && (
                         <CartTemplate1
                             product={productData}
                             productImage={productImage}
-                            templateData={templateData}
+                            enable={templateData.enable}
+                            animationEnable={templateData.animationEnable}
+                            current_template={templateData.current_template}
                         />
-                    ) : (
-                        ""
                     )}
-                    {templateData.defaultTemplate === 2 ? (
+                    {String(templateData.defaultTemplate) === "2" && (
                         <CartTemplate2
                             product={productData}
                             productImage={productImage}
-                            templateData={templateData}
+                            enable={templateData.enable}
+                            animationEnable={templateData.animationEnable}
+                            current_template={templateData.current_template}
                         />
-                    ) : (
-                        ""
                     )}
-                    {templateData.defaultTemplate === 3 ? (
+                    {String(templateData.defaultTemplate) === "3" && (
                         <CartTemplate3
                             product={productData}
                             productImage={productImage}
-                            templateData={templateData}
+                            enable={templateData.enable}
+                            animationEnable={templateData.animationEnable}
+                            current_template={templateData.current_template}
                         />
-                    ) : (
-                        ""
                     )}
-                    {templateData.defaultTemplate === 4 ? (
+                    {String(templateData.defaultTemplate) === "4" && (
                         <CartTemplate4
                             product={productData}
                             productImage={productImage}
-                            templateData={templateData}
+                            enable={templateData.enable}
+                            animationEnable={templateData.animationEnable}
+                            current_template={templateData.current_template}
                         />
-                    ) : (
-                        ""
                     )}
-                    {templateData.defaultTemplate === 5 ? (
+                    {String(templateData.defaultTemplate) === "5" && (
                         <CartTemplate5
                             product={productData}
                             productImage={productImage}
-                            templateData={templateData}
+                            enable={templateData.enable}
+                            animationEnable={templateData.animationEnable}
+                            current_template={templateData.current_template}
                         />
-                    ) : (
-                        ""
                     )}
-                    {templateData.defaultTemplate === 6 ? (
+                    {String(templateData.defaultTemplate) === "6" && (
                         <CartTemplate6
                             product={productData}
                             productImage={productImage}
-                            templateData={templateData}
+                            enable={templateData.enable}
+                            animationEnable={templateData.animationEnable}
+                            current_template={templateData.current_template}
                         />
-                    ) : (
-                        ""
                     )}
-                    {templateData.defaultTemplate === 7 ? (
+                    {String(templateData.defaultTemplate) === "7" && (
                         <CartTemplate7
                             product={productData}
                             productImage={productImage}
-                            templateData={templateData}
+                            enable={templateData.enable}
+                            animationEnable={templateData.animationEnable}
+                            current_template={templateData.current_template}
                         />
-                    ) : (
-                        ""
                     )}
-                    {templateData.defaultTemplate === 8 ? (
+                    {String(templateData.defaultTemplate) === "8" && (
                         <CartTemplate8
                             product={productData}
                             productImage={productImage}
-                            templateData={templateData}
+                            enable={templateData.enable}
+                            animationEnable={templateData.animationEnable}
+                            current_template={templateData.current_template}
                         />
-                    ) : (
-                        ""
                     )}
                 </div>
             </>

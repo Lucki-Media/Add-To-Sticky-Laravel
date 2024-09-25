@@ -30,6 +30,10 @@ export default function StickyCart() {
     const [showSettings, setShowSettings] = useState(1);
     const [unsavedChanges, setUnsavedChanges] = useState(true);
 
+    // Device selection states
+    const [activePreview, setActivePreview] = useState(1);
+    const [selectedDevice, setSelectedDevice] = useState(0);
+
     // loading states
     const [showTable, setShowTable] = useState(false);
     const [saveLoader, setSaveLoader] = useState(false);
@@ -249,7 +253,7 @@ export default function StickyCart() {
                                         <p className="fullscreen_title">
                                             {!unsavedChanges
                                                 ? "Unsaved Changes"
-                                                : "Sticky Cart"}
+                                                : "Drawer Cart"}
                                         </p>
                                     </div>
                                     <ButtonGroup>
@@ -305,6 +309,14 @@ export default function StickyCart() {
                                             customizationData={
                                                 customizationData
                                             }
+                                            activePreview={activePreview}
+                                            selectedDevice={selectedDevice}
+                                            activePreviewCallback={(e) => {
+                                                setActivePreview(e);
+                                            }}
+                                            selectedDeviceCallback={(e) => {
+                                                setSelectedDevice(e);
+                                            }}
                                         />
                                     </Layout.Section>
                                 </Layout>

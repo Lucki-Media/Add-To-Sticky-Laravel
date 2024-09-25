@@ -28,6 +28,8 @@ Route::namespace('App\\Http\\Controllers')->group(function () {
         Route::get('getAllProducts/{shop_domain}', 'AddToCartStickyController@getAllProducts');
         Route::get('getProductHandle/{shop_domain}', 'AddToCartStickyController@getProductHandle');
 
+        Route::get('test', 'DashboardController@test');
+
         /*STICKY CART API START*/
         Route::post('saveStickyCartData', 'StickyCartController@saveStickyCartData');
         Route::get('getStickyCartData/{shop_domain}', 'StickyCartController@getStickyCartData');
@@ -44,6 +46,9 @@ Route::namespace('App\\Http\\Controllers')->group(function () {
         // PRICING PLAN API
         Route::get('updatePricingPlan/{shop_domain}/{option}', 'PricingController@updatePricingPlan');
         Route::get('getPlanData/{shop_domain}', 'PricingController@getPlanData');
+
+        //UNINSTALL WEBHOOK API
+        Route::post('/appUninstallJob', 'AppWebhookController@appUninstallJob');
 
         //WEBHOOK API
         Route::post('/requestEndpoint', 'CustomerEndpointController@requestEndpoint');

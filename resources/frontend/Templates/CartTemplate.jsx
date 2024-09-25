@@ -1,176 +1,37 @@
-import React, { Component, useState, useEffect } from "react";
-import Button from "react-button-component";
+import React from "react";
 import Select from "react-select";
 import "select2/dist/js/select2.min";
 import proimage from "../assets/productimage.png";
 import { QuantityPicker } from "react-qty-picker";
 import style from "../css/CartTemplate1.module.css";
 import Notification from "../pages/NotificationBar.jsx";
-import UpSellBottomSheet from "../pages/UpSellBottomSheet.jsx";
 
-function CartTemplate1(props) {
-    const [enable, setEnable] = useState(props.enable); // FOR MAIN DISPLAY
-    const [animationEnable, setAnimationEnable] = useState(
-        props.animationEnable
-    ); // FOR BUTTON ANIMATION
-    const [position, setPosition] = useState(props.position);
-    const [checkMobile, setCheckMobile] = useState(props.checkMobile);
-    const [checkDesktop, setCheckDesktop] = useState(props.checkDesktop);
-    const [gsBold, setGsBold] = useState(props.gsBold);
-    const [gsItalic, setGsItalic] = useState(props.gsItalic);
-    const [gsUnderline, setGsUnderLine] = useState(props.gsUnderline);
-    const [gsFontFamily, setGsFontFamily] = useState(props.gsFontFamily);
-    const [gsTitleColor, setGsTitleColor] = useState(props.gsTitleColor);
-    const [gsPriceColor, setGsPriceColor] = useState(props.gsPriceColor);
-    const [gsBgColor, setGsBgColor] = useState(props.gsBgColor);
-    const [btnBold, setBtnBold] = useState(props.btnBold);
-    const [btnItalic, setBtnItalic] = useState(props.btnItalic);
-    const [btnUnderline, setBtnUnderline] = useState(props.btnUnderline);
-    const [btnTextColor, setBtnTextColor] = useState(props.btnTextColor);
-    const [btnBgColor, setBtnBgColor] = useState(props.btnBgColor);
-    const [btnTexthoverColor, setBtnTexthoverColor] = useState(
-        props.btnTexthoverColor
-    );
-    const [btnBgHoverColor, setBtnBgHoverColor] = useState(
-        props.btnBgHoverColor
-    );
-    const [btnBorderColor, setBtnBorderColor] = useState(props.btnBorderColor);
-    const [btnBorderHoverColor, setBtnBorderHoverColor] = useState(
-        props.btnBorderHoverColor
-    );
-    const [gsAction, setGsAction] = useState(props.gsAction);
-
+function CartTemplate1({
+    enable,
+    animationEnable,
+    current_template,
+    selectedDevice,
+}) {
     const defaultNotificationMessage =
-        "Great news! Here's something special for you!";
-
-    const [gsNotificationBarText, setGsNotificationBarText] = useState(
-        props.gsNotificationBarText
-    );
-    const [gsNotificationBarItalic, setGsNotificationBarItalic] = useState(
-        props.gsNotificationBarItalic
-    );
-
-    const [gsNotificationBarBold, setGsNotificationBarBold] = useState(
-        props.gsNotificationBarBold
-    );
-
-    const [gsNotificationBarTextColor, setGsNotificationBarTextColor] =
-        useState(props.gsNotificationBarTextColor);
-
-    const [gsNotificationBarBgColor, setGsNotificationBarBgColor] = useState(
-        props.gsNotificationBarBgColor
-    );
-
-    const [gsNotificationBarFontSize, setGsNotificationBarFontSize] = useState(
-        props.gsNotificationBarFontSize
-    );
-
-    const [gsNotificationBarHeight, setGsNotificationBarHeight] = useState(
-        props.gsNotificationBarHeight
-    );
-
-    const [enableUpSell, setEnableUpSell] = useState(props.enableUpSell);
-
-    const [btnFontsize, setBtnFontsize] = useState(props.btnFontsize);
-    const [gsFontsize, setGsFontsize] = useState(props.gsFontsize);
-    const [gsPriceFontsize, setGsPriceFontsize] = useState(
-        props.gsPriceFontsize
-    );
-    const [containerHeight, setContainerHeight] = useState(
-        props.containerHeight
-    );
-    const [btnheightValue, setBtnHeightValue] = useState(props.btnheightValue);
-    const [btnWidthValue, setBtnWidthValue] = useState(props.btnWidthValue);
-    const [btnBorderThickness, setBtnBorderThickness] = useState(
-        props.btnBorderThickness
-    );
-    const [btnBorderRadius, setBtnBorderRadius] = useState(
-        props.btnBorderRadius
-    );
-    const [gsOffsetValue, setGsOffsetValue] = useState(props.gsOffsetValue);
-    const [editText, setEditText] = useState(props.editText);
-    // const [soldOut, setSoldOut] = useState(props.soldOut);
-    const [unavailable, setUnavailable] = useState(props.unavailable);
+        "Yayy! Product Added to Cart!";
 
     const options = [
         { value: "L", label: "L" },
         { value: "M", label: "M" },
         { value: "XXL", label: "XXL" },
     ];
-    const options2 = [
-        { value: "Red", label: "Red" },
-        { value: "Green", label: "Green" },
-        { value: "Blue", label: "Blue" },
-    ];
-    const options3 = [
-        { value: "Rubber", label: "Rubber" },
-        { value: "Steel", label: "Steel" },
-    ];
 
-    // BUTTON HOVER
-    const handleCountEnter = () => {
-        setBtnBgHoverColor(true);
-    };
+    // useEffect(() => {
+    // const interval = setInterval(() => {
+    //     setIsVibrating(true);
+    //     // setTimeout(() => setIsVibrating(false), 2000); // Duration of the vibrate animation (0.2s)
+    //     // Clear the interval after 5 seconds (5000 milliseconds)
+    //     // setTimeout(() => clearInterval(interval), 5000);
+    // }, 5000); // Trigger every 5 seconds (5000 milliseconds)
+    // Cleanup the interval on component unmount
+    // return () => clearInterval(interval);
+    // });
 
-    const handleCountLeave = () => {
-        setBtnBgHoverColor(false);
-    };
-    //BUTTON END
-
-    useEffect(() => {
-        setEnable(props.enable);
-        setAnimationEnable(props.animationEnable);
-        setCheckDesktop(props.checkDesktop);
-        setCheckMobile(props.checkMobile);
-        setGsFontFamily(props.gsFontFamily);
-        setGsFontsize(props.gsFontsize);
-        setGsPriceFontsize(props.gsPriceFontsize);
-        setGsBold(props.gsBold);
-        setGsItalic(props.gsItalic);
-        setGsUnderLine(props.gsUnderline);
-        setGsTitleColor(props.gsTitleColor);
-        setContainerHeight(props.containerHeight);
-        setGsPriceColor(props.gsPriceColor);
-        setGsBgColor(props.gsBgColor);
-        setPosition(props.position);
-        setGsOffsetValue(props.gsOffsetValue);
-        setEditText(props.editText);
-        // setSoldOut(props.soldOut);
-        setUnavailable(props.unavailable);
-        setBtnHeightValue(props.btnheightValue);
-        setBtnWidthValue(props.btnWidthValue);
-        setBtnFontsize(props.btnFontsize);
-        setBtnBold(props.btnBold);
-        setBtnItalic(props.btnItalic);
-        setBtnUnderline(props.btnUnderline);
-        setBtnTextColor(props.btnTextColor);
-        setBtnBgColor(props.btnBgColor);
-        setBtnTexthoverColor(props.btnTexthoverColor);
-        setBtnBgHoverColor(props.btnBgHoverColor);
-        setBtnBorderThickness(props.btnBorderThickness);
-        setBtnBorderRadius(props.btnBorderRadius);
-        setBtnBorderColor(props.btnBorderColor);
-        setBtnBorderHoverColor(props.btnBorderHoverColor);
-        setGsAction(props.gsAction);
-        setGsNotificationBarText(props.gsNotificationBarText);
-        setGsNotificationBarItalic(props.gsNotificationBarItalic);
-        setGsNotificationBarBold(props.gsNotificationBarBold);
-        setGsNotificationBarTextColor(props.gsNotificationBarTextColor);
-        setGsNotificationBarBgColor(props.gsNotificationBarBgColor);
-        setGsNotificationBarFontSize(props.gsNotificationBarFontSize);
-        setGsNotificationBarHeight(props.gsNotificationBarHeight);
-        setEnableUpSell(props.enableUpSell);
-        // const interval = setInterval(() => {
-        //     setIsVibrating(true);
-        //     // setTimeout(() => setIsVibrating(false), 2000); // Duration of the vibrate animation (0.2s)
-
-        //     // Clear the interval after 5 seconds (5000 milliseconds)
-        //     // setTimeout(() => clearInterval(interval), 5000);
-        // }, 5000); // Trigger every 5 seconds (5000 milliseconds)
-
-        // Cleanup the interval on component unmount
-        // return () => clearInterval(interval);
-    });
     const customStyles = {
         indicatorSeparator: (provided) => ({
             ...provided,
@@ -227,189 +88,265 @@ function CartTemplate1(props) {
                     .lm_underline{
                         text-decoration: underline;
                     }
-                .lm-sticky-Bottom{
-                    box-shadow: rgba(149, 157, 165, 0.4) 0 -8px 24px;
-                    background: ${gsBgColor};
-                    height: ${containerHeight}px;
-                    bottom:  ${gsOffsetValue}px;
-                }
-                .lm-sticky-Top{
-                    box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
-                    background: ${gsBgColor};
-                    height: ${containerHeight}px;
-                    top:  ${gsOffsetValue}px;
-                }
-                .img_size {
-                    height: ${containerHeight}px;
-                    margin-right:15px;
-                    display: flex;
-    align-items: center;
-                }
-                .font_option {
-                    color: ${gsTitleColor};
-                    font-size: ${gsFontsize}px;
-                }
-                .label_color{
-                    color: ${gsTitleColor};
-                }
-                .lm_sticky_p_color{
-                    color: ${gsPriceColor};
-                    font-size: ${gsPriceFontsize}px;
-                }
-                .lm_btn{
-                    width: ${btnWidthValue}px;
-                    height: ${btnheightValue}px;
-                    font-size: ${btnFontsize}px;
-                    background: ${btnBgColor};
-                    border-Width: ${btnBorderThickness}px;
-                    border-color: ${btnBorderColor};
-                    border-radius: ${btnBorderRadius}px;
-                    color: ${btnTextColor};
-                }
-                .lm_btn:hover{
-                    border-color: ${btnBorderHoverColor};
-                    background: ${btnBgHoverColor};
-                    color: ${btnTexthoverColor};
-                }
-                .lm_options {
-                    position: relative;
-                }
-                .lm_options .pro_select_menu{
-                    display: inline-block;
-                    width: 100px;
-                }
-                .lm_options .pro_select_menu > div{
-                    border: 1px solid #dddddd8c;
-                    font-size: 12px;
-                    min-height: 36px;
-                    box-shadow: none;
+                    .lm-sticky-Bottom{
+                        box-shadow: rgba(149, 157, 165, 0.4) 0 -8px 24px;
+                        background: ${current_template.general_settings.gsBgColor};
+                        height: ${current_template.general_settings.containerHeight}px;
+                        bottom:  ${current_template.general_settings.gsOffsetValue}px;
+                    }
+                    .lm-sticky-Top{
+                        box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
+                        background: ${current_template.general_settings.gsBgColor};
+                        height: ${current_template.general_settings.containerHeight}px;
+                        top:  ${current_template.general_settings.gsOffsetValue}px;
+                    }
+                    .img_size {
+                        height: ${current_template.general_settings.containerHeight}px;
+                        margin-right:15px;
+                        display: flex;
+                        align-items: center;
+                    }
+                    .font_option {
+                        color: ${current_template.general_settings.gsTitleColor};
+                        font-size: ${current_template.general_settings.gsFontsize}px;
+                    }
+                    .label_color{
+                        color: ${current_template.general_settings.gsTitleColor};
+                    }
+                    .lm_sticky_p_color{
+                        color: ${current_template.general_settings.gsPriceColor};
+                        font-size: ${current_template.general_settings.gsPriceFontsize}px;
+                    }
+                    .lm_btn{
+                        width: ${current_template.buy_btn_settings.btnWidthValue}px;
+                        height: ${current_template.buy_btn_settings.btnheightValue}px;
+                        font-size: ${current_template.buy_btn_settings.btnFontsize}px;
+                        background: ${current_template.buy_btn_settings.btnBgColor};
+                        border-Width: ${current_template.buy_btn_settings.btnBorderThickness}px;
+                        border-color: ${current_template.buy_btn_settings.btnBorderColor};
+                        border-radius: ${current_template.buy_btn_settings.btnBorderRadius}px;
+                        color: ${current_template.buy_btn_settings.btnTextColor};
+                    }
+                    .lm_btn:hover{
+                        border-color: ${current_template.buy_btn_settings.btnBorderHoverColor};
+                        background: ${current_template.buy_btn_settings.btnBgHoverColor};
+                        color: ${current_template.buy_btn_settings.btnTexthoverColor};
+                    }
+                    .lm_options {
+                        position: relative;
+                    }
+                    .lm_options .pro_select_menu{
+                        display: inline-block;
+                        width: 100px;
+                    }
+                    .lm_options .pro_select_menu > div{
+                        border: 1px solid #dddddd8c;
+                        font-size: 12px;
+                        min-height: 36px;
+                        box-shadow: none;
 
-                }
-                .css-1jqq78o-placeholder{
-                    font-size:12px;
-                }
-                .css-lkh0o5-menu{
-                    margin: 0 auto;
-                }
-                .css-8h3gbh-menu{
-                    margin: 0 auto;
-                }
-                .css-1xc3v61-indicatorContainer{
-                    padding: 0 8px;
-                }
-
+                    }
+                    .css-1jqq78o-placeholder{
+                        font-size:12px;
+                    }
+                    .css-lkh0o5-menu{
+                        margin: 0 auto;
+                    }
+                    .css-8h3gbh-menu{
+                        margin: 0 auto;
+                    }
+                    .css-1xc3v61-indicatorContainer{
+                        padding: 0 8px;
+                    }
                 `}
             </style>
-            {enable === true ? (
+            {enable === true && (
                 <div
-                    className={`lm-sticky-${position} ${style.lm_sticky_cart} ${
-                        checkDesktop === true
+                    className={`lm-sticky-${
+                        current_template.general_settings.position
+                    } ${style.lm_sticky_cart} ${
+                        current_template.general_settings.checkDesktop === true
                             ? "lm_sticky_show_desktop_abc12"
                             : "lm_sticky_hide_desktop_abc12"
                     } ${
-                        checkMobile === true
+                        current_template.general_settings.checkMobile === true
                             ? "lm_sticky_show_mobile_abc12"
                             : "lm_sticky_hide_mobile_abc12"
                     }  `}
                     style={{ position: "absolute" }}
                 >
-                    {gsAction === "3" && position === "Bottom" && (
-                        <Notification
-                            gsNotificationBarText={
-                                gsNotificationBarText ||
-                                defaultNotificationMessage
-                            }
-                            gsNotificationBarItalic={gsNotificationBarItalic}
-                            gsNotificationBarBold={gsNotificationBarBold}
-                            gsNotificationBarTextColor={
-                                gsNotificationBarTextColor
-                            }
-                            gsNotificationBarBgColor={gsNotificationBarBgColor}
-                            gsNotificationBarFontSize={
-                                gsNotificationBarFontSize
-                            }
-                            gsNotificationBarHeight={gsNotificationBarHeight}
-                        />
-                    )}
+                    {current_template.general_settings.gsAction === "3" &&
+                        current_template.general_settings.position ===
+                            "Bottom" && (
+                            <Notification
+                                gsNotificationBarText={
+                                    current_template.general_settings
+                                        .gsNotificationBarText ||
+                                    defaultNotificationMessage
+                                }
+                                gsNotificationBarItalic={
+                                    current_template.general_settings
+                                        .gsNotificationBarItalic
+                                }
+                                gsNotificationBarBold={
+                                    current_template.general_settings
+                                        .gsNotificationBarBold
+                                }
+                                gsNotificationBarTextColor={
+                                    current_template.general_settings
+                                        .gsNotificationBarTextColor
+                                }
+                                gsNotificationBarBgColor={
+                                    current_template.general_settings
+                                        .gsNotificationBarBgColor
+                                }
+                                gsNotificationBarFontSize={
+                                    current_template.general_settings
+                                        .gsNotificationBarFontSize
+                                }
+                                gsNotificationBarHeight={
+                                    current_template.general_settings
+                                        .gsNotificationBarHeight
+                                }
+                            />
+                        )}
 
-                    <div className={style.lm_container}>
-                        <div className={style.lm_cart_module}>
-                            <div className={style.lm_pro_image}>
-                                <div
-                                    className={`img_size ${style.image_border}`}
+                    {selectedDevice === 1 &&
+                    current_template?.general_settings?.showOnlyBtnOnMobile ===
+                        true ? (
+                        // show only mobile button
+                        <div className={style.lm_container}>
+                            <div className={style.lm_buy_btn}>
+                                <button
+                                    className={`lm_btn apply-font ${
+                                        current_template.buy_btn_settings
+                                            .btnBold === true
+                                            ? "lm_bold"
+                                            : ""
+                                    } ${
+                                        current_template.buy_btn_settings
+                                            .btnItalic === true
+                                            ? "lm_italic"
+                                            : ""
+                                    } ${
+                                        current_template.buy_btn_settings
+                                            .btnUnderline === true
+                                            ? "lm_underline"
+                                            : "no-line"
+                                    }${
+                                        animationEnable === true
+                                            ? " lm_vibrating"
+                                            : ""
+                                    }`}
                                 >
-                                    <img
-                                        className="img_sizes"
-                                        src={proimage}
-                                        alt="product image"
-                                    />
-                                </div>
-                                <div className={style.lm_middlecontent}>
-                                    <h2
-                                        className={`font_option ${
-                                            style.pro_names
-                                        } ${gsBold === true ? "lm_bold" : ""} ${
-                                            gsItalic === true ? "lm_italic" : ""
-                                        } ${
-                                            gsUnderline === true
-                                                ? "lm_underline"
-                                                : "no-line"
-                                        }`}
-                                    >
-                                        Juice Bottle Mockup (Red)
-                                    </h2>
-                                    <div className="lm_sticky_p_color">
-                                        <span
-                                            className={style.compare_lm_price}
-                                        >
-                                            ${parseFloat(50).toFixed(2)}
-                                        </span>{" "}
-                                        <span className={style.simple_price}>
-                                            ${parseFloat(4).toFixed(2)}
-                                        </span>{" "}
-                                        <span className={style.lm_out_stock}>
-                                            {props.unavailable}
-                                        </span>
-                                    </div>
-                                </div>
+                                    {current_template.buy_btn_settings.editText}
+                                </button>
                             </div>
-                            <div className={style.lmblock_right}>
-                                <div className={style.var_options}>
+                        </div>
+                    ) : (
+                        <div className={style.lm_container}>
+                            <div className={style.lm_cart_module}>
+                                <div className={style.lm_pro_image}>
                                     <div
-                                        className={`lm_options ${style.lm_options}`}
+                                        className={`img_size ${style.image_border}`}
                                     >
-                                        <div
-                                            className={`productInputs ${style.productInputs}`}
+                                        <img
+                                            className="img_sizes"
+                                            src={proimage}
+                                            alt="product image"
+                                        />
+                                    </div>
+                                    <div className={style.lm_middlecontent}>
+                                        <h2
+                                            className={`font_option ${
+                                                style.pro_names
+                                            } ${
+                                                current_template
+                                                    .general_settings.gsBold ===
+                                                true
+                                                    ? "lm_bold"
+                                                    : ""
+                                            } ${
+                                                current_template
+                                                    .general_settings
+                                                    .gsItalic === true
+                                                    ? "lm_italic"
+                                                    : ""
+                                            } ${
+                                                current_template
+                                                    .general_settings
+                                                    .gsUnderline === true
+                                                    ? "lm_underline"
+                                                    : "no-line"
+                                            }`}
                                         >
-                                            <label
-                                                className={`label_color apply-font ${style.pro_names}`}
-                                            >
-                                                Size
-                                            </label>
-                                            <Select
-                                                isSearchable={false}
-                                                menuPlacement={
-                                                    position === "Bottom"
-                                                        ? "top"
-                                                        : "bottom"
+                                            Juice Bottle Mockup (Red)
+                                        </h2>
+                                        <div className="lm_sticky_p_color">
+                                            <span
+                                                className={
+                                                    style.compare_lm_price
                                                 }
-                                                className={`pro_select_menu apply-font ${style.pro_names}`}
-                                                // className="pro_select_menu apply-font"
-                                                styles={customStyles}
-                                                options={options}
-                                                theme={(theme) => ({
-                                                    ...theme,
-                                                    borderRadius: 0,
-                                                    colors: {
-                                                        ...theme.colors,
-                                                        primary25: "grey",
-                                                        primary: "black",
-                                                    },
-                                                })}
-                                            />
+                                            >
+                                                ${parseFloat(50).toFixed(2)}
+                                            </span>{" "}
+                                            <span
+                                                className={style.simple_price}
+                                            >
+                                                ${parseFloat(40).toFixed(2)}
+                                            </span>{" "}
+                                            <span
+                                                className={style.lm_out_stock}
+                                            >
+                                                {
+                                                    current_template
+                                                        .buy_btn_settings
+                                                        .unavailable
+                                                }
+                                            </span>
                                         </div>
                                     </div>
-                                    {/* <div
+                                </div>
+                                <div className={style.lmblock_right}>
+                                    <div className={style.var_options}>
+                                        <div
+                                            className={`lm_options ${style.lm_options}`}
+                                        >
+                                            <div
+                                                className={`productInputs ${style.productInputs}`}
+                                            >
+                                                <label
+                                                    className={`label_color apply-font ${style.pro_names}`}
+                                                >
+                                                    Size
+                                                </label>
+                                                <Select
+                                                    isSearchable={false}
+                                                    menuPlacement={
+                                                        current_template
+                                                            .general_settings
+                                                            .position ===
+                                                        "Bottom"
+                                                            ? "top"
+                                                            : "bottom"
+                                                    }
+                                                    className={`pro_select_menu apply-font ${style.pro_names}`}
+                                                    // className="pro_select_menu apply-font"
+                                                    styles={customStyles}
+                                                    options={options}
+                                                    theme={(theme) => ({
+                                                        ...theme,
+                                                        borderRadius: 0,
+                                                        colors: {
+                                                            ...theme.colors,
+                                                            primary25: "grey",
+                                                            primary: "black",
+                                                        },
+                                                    })}
+                                                />
+                                            </div>
+                                        </div>
+                                        {/* <div
                                         className={`lm_options ${style.lm_options}`}
                                     >
                                         <div className={style.productInputs}>
@@ -440,7 +377,7 @@ function CartTemplate1(props) {
                                             />
                                         </div>
                                     </div> */}
-                                    {/* <div
+                                        {/* <div
                                         className={`lm_options ${style.lm_options}`}
                                     >
                                         <div className={style.productInputs}>
@@ -471,73 +408,94 @@ function CartTemplate1(props) {
                                             />
                                         </div>
                                     </div> */}
-                                </div>
-                                <div className={style.button_block}>
-                                    <div
-                                        className={`lm_quantity_picker ${style.lm_quantity_selector}`}
-                                    >
-                                        <QuantityPicker
-                                            className={style.quantity12}
-                                            min={1}
-                                            max={10}
-                                        />
                                     </div>
-                                    <div className={style.lm_buy_btn}>
-                                        {/* <CustomizedButton onClick={() => alert("Welcome!")}> */}
-                                        <button
-                                            className={`lm_btn apply-font ${
-                                                btnBold === true
-                                                    ? "lm_bold"
-                                                    : ""
-                                            } ${
-                                                btnItalic === true
-                                                    ? "lm_italic"
-                                                    : ""
-                                            } ${
-                                                btnUnderline === true
-                                                    ? "lm_underline"
-                                                    : "no-line"
-                                            }${
-                                                animationEnable === true
-                                                    ? " lm_vibrating"
-                                                    : ""
-                                            }`}
-                                            onMouseEnter={handleCountEnter}
-                                            onMouseLeave={handleCountLeave}
+                                    <div className={style.button_block}>
+                                        <div
+                                            className={`lm_quantity_picker ${style.lm_quantity_selector}`}
                                         >
-                                            {editText}
-                                        </button>
-                                        {/* </CustomizedButton> */}
+                                            <QuantityPicker
+                                                className={style.quantity12}
+                                                min={1}
+                                                max={10}
+                                            />
+                                        </div>
+                                        <div className={style.lm_buy_btn}>
+                                            {/* <CustomizedButton onClick={() => alert("Welcome!")}> */}
+                                            <button
+                                                className={`lm_btn apply-font ${
+                                                    current_template
+                                                        .buy_btn_settings
+                                                        .btnBold === true
+                                                        ? "lm_bold"
+                                                        : ""
+                                                } ${
+                                                    current_template
+                                                        .buy_btn_settings
+                                                        .btnItalic === true
+                                                        ? "lm_italic"
+                                                        : ""
+                                                } ${
+                                                    current_template
+                                                        .buy_btn_settings
+                                                        .btnUnderline === true
+                                                        ? "lm_underline"
+                                                        : "no-line"
+                                                }${
+                                                    animationEnable === true
+                                                        ? " lm_vibrating"
+                                                        : ""
+                                                }`}
+                                            >
+                                                {
+                                                    current_template
+                                                        .buy_btn_settings
+                                                        .editText
+                                                }
+                                            </button>
+                                            {/* </CustomizedButton> */}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    {gsAction === "3" && position === "Top" && (
-                        <Notification
-                            gsNotificationBarText={
-                                gsNotificationBarText ||
-                                defaultNotificationMessage
-                            }
-                            gsNotificationBarItalic={gsNotificationBarItalic}
-                            gsNotificationBarBold={gsNotificationBarBold}
-                            gsNotificationBarTextColor={
-                                gsNotificationBarTextColor
-                            }
-                            gsNotificationBarBgColor={gsNotificationBarBgColor}
-                            gsNotificationBarFontSize={
-                                gsNotificationBarFontSize
-                            }
-                            gsNotificationBarHeight={gsNotificationBarHeight}
-                        />
                     )}
 
-                    {/* <div className="popup_container">
-                        <UpSellBottomSheet enableUpSell={enableUpSell} />
-                    </div> */}
+                    {current_template.general_settings.gsAction === "3" &&
+                        current_template.general_settings.position ===
+                            "Top" && (
+                            <Notification
+                                gsNotificationBarText={
+                                    current_template.general_settings
+                                        .gsNotificationBarText ||
+                                    defaultNotificationMessage
+                                }
+                                gsNotificationBarItalic={
+                                    current_template.general_settings
+                                        .gsNotificationBarItalic
+                                }
+                                gsNotificationBarBold={
+                                    current_template.general_settings
+                                        .gsNotificationBarBold
+                                }
+                                gsNotificationBarTextColor={
+                                    current_template.general_settings
+                                        .gsNotificationBarTextColor
+                                }
+                                gsNotificationBarBgColor={
+                                    current_template.general_settings
+                                        .gsNotificationBarBgColor
+                                }
+                                gsNotificationBarFontSize={
+                                    current_template.general_settings
+                                        .gsNotificationBarFontSize
+                                }
+                                gsNotificationBarHeight={
+                                    current_template.general_settings
+                                        .gsNotificationBarHeight
+                                }
+                            />
+                        )}
                 </div>
-            ) : (
-                ""
             )}
         </>
     );
