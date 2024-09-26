@@ -32,11 +32,11 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     }
     
                     .lmsc_popup_container.left {              
-                        left: 0;                  
+                        left: ${upsellPopupData.USOffset}px;                  
                     }
                     
                     .lmsc_popup_container.right {              
-                        right: 0;                  
+                        right: ${upsellPopupData.USOffset}px;                  
                     }
     
                     .lmsc_popup_open {

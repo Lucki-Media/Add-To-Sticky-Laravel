@@ -46,6 +46,7 @@ return [
         "CUBackgroundColor" => "#fffafa",
         "CUBodyTextColor" => "#050505",
         "USPosition" => "left",
+        "USOffset" => 0,
     ],
     'buy_btn_settings' => [
         'editText' => 'ADD TO CART',

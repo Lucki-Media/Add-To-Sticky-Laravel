@@ -77,6 +77,7 @@ class AddToCartStickyController extends Controller
                 'CUBackgroundColor' => $requestData['CUBackgroundColor'] ?? "#fffafa",
                 'CUBodyTextColor' => $requestData['CUBodyTextColor'] ?? "#050505",
                 'USPosition' => $requestData['USPosition'] ?? "left",
+                'USOffset' => $requestData['USOffset'] ?? 0,
             ],
             'buy_btn_settings' => [
                 'editText' => $requestData['editText'],

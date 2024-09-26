@@ -11,12 +11,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\User;
-use App\Webhook;
-use Mail;
 use App\Models\AddToCartStickyData;
 use App\Models\StickyCartData;
-use App\Mail\YourEmailClass;
-use MailerLite\MailerLite;
 
 class AfterAuthenticateJob implements ShouldQueue
 {
