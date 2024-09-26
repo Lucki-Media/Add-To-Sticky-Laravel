@@ -218,18 +218,18 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
             <style>
                 {`
                 .lmsc_popup_container {
-                    position: absolute;
+                    position: fixed;
                     bottom: 0;                 
                     transition: transform 0.4s ease-in-out;
                     transform: translateY(100%);
                     z-index: 9999;
                 }
 
-                .lmsc_popup_container.left {              
+                .lmsc_popup_container.upsell_left {              
                     left: 0;                  
                 }
                 
-                .lmsc_popup_container.right {              
+                .lmsc_popup_container.upsell_right {              
                     right: 0;                  
                 }
 
@@ -356,11 +356,10 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
 
                 .lmsc_popup_modal {
                     position: fixed;
-                    top: 50%;
-                    left: calc(50% + 210px); /* Position beside the first modal */
-                    transform: translateY(-50%);
+                    bottom: 0;
+                    left: 0;                 
                     background: white;
-                    padding: 20px;
+                    padding: 15px;
                     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
                     border-radius: ${upsellPopupData.CUBorderRadius}px;
                     z-index: 10000;
@@ -368,6 +367,7 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     width: 100%;
                     transition: transform 0.4s ease, opacity 0.4s ease;
                     opacity: ${popupOpen ? 1 : 0};
+                    
                 }
 
                 .lmsc_popup_modal img {
@@ -479,7 +479,7 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     className={`lmsc_popup_container ${
                         open ? "lmsc_popup_open" : "lmsc_popup_close"
                     } ${
-                        upsellPopupData.USPosition === "left" ? "left" : "right"
+                        upsellPopupData.USPosition === "left" ? "upsell_left" : "upsell_right"
                     }`}
                 >
                     <div
@@ -569,10 +569,19 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                 {/* Popup Modal */}
                 {open === true && popupOpen && selectedProduct && (
                     <div className="lmsc_popup_modal">
+                          <button
+                                id="lmsc_closeButton"
+                                className="lmsc_close_button"
+                                onClick={closeBottomSheet}
+                            >
+                                &times;
+                            </button>
+                       <div className="lmsc_pro_popup_image">
                         <img
                             src={selectedProduct.featured_image}
                             alt={selectedProduct.title}
                         />
+                        </div>
                         <h3 className="lmsc_sproduct_title">
                             {selectedProduct.title}
                         </h3>
