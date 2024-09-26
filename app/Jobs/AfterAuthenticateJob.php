@@ -240,14 +240,22 @@ class AfterAuthenticateJob implements ShouldQueue
         // SENDING MAIL TO AUTHORIZED PERSONS START
         $data1 = [
             "to" => [
-                // [
-                //     "email" => $shopifyData['shop']['email'],
-                // ],
                 [
-                    "email" => 'vidhee.luckimedia@gmail.com', // For testing purpose only
+                    "email" => $shopifyData['shop']['email'],
                 ],
             ],
-            "templateId" => 5,
+            "bcc" => [
+                [
+                    "email" => "somin.parate@gmail.com",
+                ],
+                [
+                    "email" => "info.lmrequest@gmail.com",
+                ],
+                [
+                    "email" => "vidhee.luckimedia@gmail.com",
+                ],
+            ],
+            "templateId" => 6,
             "params" => [
                 "name" => $shopifyData['shop']['shop_owner'],
             ],

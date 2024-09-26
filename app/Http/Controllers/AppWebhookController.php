@@ -13,14 +13,22 @@ class AppWebhookController extends Controller
         // send uninstallation email to sender
         $data = [
             "to" => [
-                // [
-                //     "email" => $request->email,
-                // ],
                 [
-                    "email" => 'vidhee.luckimedia@gmail.com', // For testing purpose only
+                    "email" => $request->email,
                 ],
             ],
-            "templateId" => 6,
+            "bcc" => [
+                [
+                    "email" => "somin.parate@gmail.com",
+                ],
+                [
+                    "email" => "info.lmrequest@gmail.com",
+                ],
+                [
+                    "email" => "vidhee.luckimedia@gmail.com",
+                ],
+            ],
+            "templateId" => 7,
             "params" => [
                 "name" => $request->shop_owner,
             ],
