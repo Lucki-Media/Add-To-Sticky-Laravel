@@ -394,7 +394,7 @@ span.lm_shipping_bar_sub_title {
 .lm_recommended_product {
     display: flex;
     /* margin-top: 8px; */
-    padding: 8px 0;
+    padding: 10px 0;
     /* background: rgb(0 0 0 / 5%); */
     justify-content: start;
     border-bottom: 1px solid #ccc;
@@ -432,7 +432,7 @@ span.lm_shipping_bar_sub_title {
 }
 
 .lm_rec_product_price {
-    margin: 5px 0;
+    margin: 10px 0;
 }
 
 .lm_rec_product_price span {
