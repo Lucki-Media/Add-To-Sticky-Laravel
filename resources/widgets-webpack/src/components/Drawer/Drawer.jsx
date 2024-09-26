@@ -136,10 +136,10 @@ export default function Drawer({
                     }
                     .lm_quantity_picker .quantity-picker .quantity-display{
                         padding: 0;
-                        background-color: #fff;
-                        width: 28px !important;
+                        background-color: #fff;                       
                         font-size: ${customizationData.productList.PLFontSize}px;
                         box-shadow: none;
+                         width: 33.33% !important;
                     }
                     .lm_quantity_picker .quantity-modifier{
                         height: 25px;
@@ -149,13 +149,17 @@ export default function Drawer({
                         color: black;
                         background-color: #fff;
                         border-radius: 0;
+                         width: 33.33%;
                     }
                     .lm_quantity_picker .quantity-picker{
-                        background-color: #fff;
-                        border: 1px solid #ddd;
-                        border-radius:0;
                         display: flex;
+                        justify-content: center;
                         align-items: center;
+                        margin: 0;
+                        width: 100px;
+                        padding: 0;
+                        border-radius: 0;
+                        height: 40px;
                     }
                 `}
             </style>

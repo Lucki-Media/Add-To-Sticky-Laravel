@@ -68,10 +68,10 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
             axios
                 .get(
                     "https://" +
-                        window.location.host +
-                        "/recommendations/products.json?product_id=" +
-                        cartData.items[0].product_id + // get cart's first item's related product
-                        "&limit=3"
+                    window.location.host +
+                    "/recommendations/products.json?product_id=" +
+                    cartData.items[0].product_id + // get cart's first item's related product
+                    "&limit=3"
                 )
                 .then(async (response) => {
                     setCUProducts(response.data.products);
@@ -107,10 +107,10 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     axios
                         .get(
                             "https://" +
-                                window.location.host +
-                                "/collections/" +
-                                upsellPopupData.SelectedCollectionID +
-                                "/products.json?limit=3"
+                            window.location.host +
+                            "/collections/" +
+                            upsellPopupData.SelectedCollectionID +
+                            "/products.json?limit=3"
                         )
                         .then(async (response) => {
                             // Create an array of promises
@@ -144,10 +144,10 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
         return axios
             .get(
                 "https://" +
-                    window.location.host +
-                    "/products/" +
-                    productHandle +
-                    ".js"
+                window.location.host +
+                "/products/" +
+                productHandle +
+                ".js"
             )
             .then((response) => {
                 return response.data;
@@ -219,22 +219,22 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                 {`
                 .lmsc_popup_container {
                     position: fixed;
-                    bottom: 0;                 
-                    transition: transform 0.4s ease-in-out;
-                    transform: translateY(100%);
                     z-index: 9999;
+                    transition: bottom 0.5s ease-in-out;
+                    bottom: -100%;
                 }
 
                 .lmsc_popup_container.upsell_left {              
-                    left: 0;                  
+                    left: ${upsellPopupData.USOffset}px;                  
                 }
                 
                 .lmsc_popup_container.upsell_right {              
-                    right: 0;                  
+                    right: ${upsellPopupData.USOffset}px;                  
                 }
 
                 .lmsc_popup_open {
-                    transform: translateY(0);
+                    animation: slideUp 0.5s ease-in-out forwards;
+                     bottom: 0;
                 }
 
                 #lmsc_bottomSheet {
@@ -245,7 +245,7 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     transition:all 0.4s ease;
                     max-height: 80vh;
                     overflow-y: auto;
-                    max-width: fit-content;
+                    max-width: 300px;
                 }
 
                 .lmsc_bottomSheet--onScreen {
@@ -282,7 +282,10 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     cursor: pointer;
                     padding: 3px 10px;
                 }
-
+                .lmsc_popup_modal select:focus-visible{
+                    outline: none;
+                    box-shadow: none;
+                }    
                 .lmsc_product_list {
                     display: flex;
                     flex-direction: column;
@@ -292,6 +295,7 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
 
                 .lmsc_product_item {
                     display: flex;
+                    align-items: center;
                     gap: 16px;
                     padding: 12px;
                     background: ${upsellPopupData.CUBodyColor};
@@ -323,12 +327,13 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     font-size: ${upsellPopupData.CUBodyFontSize}px;
                     color: ${upsellPopupData.CUBodyTextColor};
                     margin: 0;
+                    width: 90%;
                 }
 
                 .lmsc_product_price {
                     font-size: ${upsellPopupData.CUBodyFontSize}px;
                     color: ${upsellPopupData.CUBodyTextColor};
-                    margin: 4px 0;
+                    margin: 10px 0 0;
                 }
 
                 .lmsc_product_price strike {
@@ -357,15 +362,16 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                 .lmsc_popup_modal {
                     position: fixed;
                     bottom: 0;
-                    left: 0;                 
+                    left: ${upsellPopupData.USOffset}px;                 
                     background: white;
-                    padding: 15px;
+                    padding: 10px;
                     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
                     border-radius: ${upsellPopupData.CUBorderRadius}px;
                     z-index: 10000;
                     max-width: 300px;
                     width: 100%;
-                    transition: transform 0.4s ease, opacity 0.4s ease;
+                    transition: bottom 0.5s ease-in-out;
+                     animation: slideUp 0.5s ease-in-out forwards;
                     opacity: ${popupOpen ? 1 : 0};
                     
                 }
@@ -394,15 +400,14 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     border-radius: ${upsellPopupData.CUBorderRadius}px;
                     cursor: pointer;
                     transition: background-color .3s ease;
-                    margin-top: 16px;
+                    margin-top: 10px;
                     display: block;
                     width: 100%;
                 }
                 
                  .lmsc_popup_modal .lmsc_close_popup_button:hover{
                     background-color:${upsellPopupData.CUBtnBGHoverColor};
-                    color: ${
-                        upsellPopupData.CUBtnTextHoverColor
+                    color: ${upsellPopupData.CUBtnTextHoverColor
                     };                
                 }
 
@@ -411,8 +416,10 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     justify-content: center;
                     align-items: center;
                     margin: 0;
-                    width: 40%;
-                    padding: 5px 7px;
+                    width: 100px;
+                    padding: 0;
+                    border-radius: 0;
+                    height: 40px;
                 }
 
                 .lmsc_popup_modal .quantity-picker .qty-button {
@@ -432,11 +439,7 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     border-radius: 4px;
                     border: 1px solid #ddd;
                 }
-
-                .lmsc_popup_modal button.quantity-modifier.modifier-right{
-                    margin-right: 10px;
-                }
-
+              
                 .lmsc_popup_modal .quantity-modifier{
                     width: 2px;
                     font-size: 20px;
@@ -446,6 +449,7 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     text-align: center;
                     cursor: pointer;
                     line-height: 11px;
+                    width: 33.33%;
                 }
 
                 .lmsc_popup_modal .quantity-display{
@@ -455,6 +459,7 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     border-top: 0 solid #dbdbdb;
                     border-bottom: 0 solid #dbdbdb;
                     text-align: center;
+                    width: 33.33% !important;
                 }
 
                 .lmsc_popup_modal select{
@@ -470,154 +475,190 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                 .lmsc_popup_close{
                     display:none;
                 }
-               
+               #lmupsc_closeButton{
+                position: absolute;
+                right: 5px;
+                top: 5px;
+                color: #000;
+               }
+                @keyframes slideUp {
+                from {
+                    bottom: -100%;
+                }
+                to {
+                    bottom: 0;
+                }
+                }
+
+
+                @media screen and (max-width: 768px) {
+                
+                 .lmsc_popup_container.upsell_left {              
+                    left: 0;                  
+                }                
+                .lmsc_popup_container.upsell_right {              
+                    right: 0;                  
+                }
+                }
+
+
             `}
             </style>
 
-            <div>
-                <div
-                    className={`lmsc_popup_container ${
-                        open ? "lmsc_popup_open" : "lmsc_popup_close"
-                    } ${
-                        upsellPopupData.USPosition === "left" ? "upsell_left" : "upsell_right"
-                    }`}
-                >
+            {CUProducts && CUProducts.length > 0 && (
+                <div className="lmupsell_main_products">
                     <div
-                        className="lmsc_bottomSheet_backdrop"
-                        onClick={toggleBottomSheet}
-                    ></div>
-                    <section
-                        id="lmsc_bottomSheet"
-                        className={
-                            open
-                                ? "lmsc_bottomSheet--onScreen"
-                                : "lmsc_bottomSheet--offScreen"
-                        }
+                        className={`lmsc_popup_container ${open ? "lmsc_popup_open" : "lmsc_popup_close"
+                            } ${upsellPopupData.USPosition === "left" ? "upsell_left" : "upsell_right"
+                            }`}
                     >
-                        <div className="lmsc_bottomSheet__headerContainer">
-                            <h2
-                                id="lmsc_bottomSheet__headerID"
-                                className="lmsc_bottomSheet__header"
-                            >
-                                {upsellPopupData.CUHeadingText}
-                            </h2>
-                            <button
-                                id="lmsc_closeButton"
-                                className="lmsc_close_button"
-                                onClick={closeBottomSheet}
-                            >
-                                &times;
-                            </button>
-                        </div>
-                        <div className="lmsc_product_list">
-                            {CUProducts && CUProducts.length > 0 ? (
-                                CUProducts.map((product, index) => (
-                                    <div
-                                        key={index}
-                                        className="lmsc_product_item"
-                                    >
-                                        <img
-                                            src={product.featured_image}
-                                            alt={product.title}
-                                            className="lmsc_usrp_product_image"
-                                        />
-                                        <div className="lmsc_product_info">
-                                            <h3 className="lmsc_product_title">
-                                                {product.title}
-                                            </h3>
-                                            <p className="lmsc_product_price">
-                                                {getSymbolFromCurrency(
-                                                    cartData?.currency
-                                                ) +
-                                                    (
-                                                        Number(product.price) /
-                                                        100
-                                                    ).toFixed(2)}
-                                                {product.compare_at_price &&
-                                                    product.compare_at_price >
-                                                        0 && (
-                                                        <strike>
-                                                            {getSymbolFromCurrency(
-                                                                cartData?.currency
-                                                            ) +
-                                                                (
-                                                                    Number(
-                                                                        product.compare_at_price
-                                                                    ) / 100
-                                                                ).toFixed(2)}
-                                                        </strike>
-                                                    )}
-                                            </p>
-                                        </div>
-                                        <button
-                                            className="lmsc_add_to_cart_button"
-                                            onClick={() =>
-                                                handleBuyButtonClick(product)
-                                            }
-                                        >
-                                            {upsellPopupData.CUBuyBtnText}
-                                        </button>
-                                    </div>
-                                ))
-                            ) : (
-                                <p>No products available.</p>
-                            )}
-                        </div>
-                    </section>
-                </div>
-
-                {/* Popup Modal */}
-                {open === true && popupOpen && selectedProduct && (
-                    <div className="lmsc_popup_modal">
-                          <button
-                                id="lmsc_closeButton"
-                                className="lmsc_close_button"
-                                onClick={closeBottomSheet}
-                            >
-                                &times;
-                            </button>
-                       <div className="lmsc_pro_popup_image">
-                        <img
-                            src={selectedProduct.featured_image}
-                            alt={selectedProduct.title}
-                        />
-                        </div>
-                        <h3 className="lmsc_sproduct_title">
-                            {selectedProduct.title}
-                        </h3>
-
-                        <div id="lm_sticky_container_upsell__qty_picker">
-                            <QuantityPicker value={1} min={1} max={10} />
-                        </div>
-
-                        {selectedProduct.options.map((variation, index) => (
-                            <div key={index} className="lmsc_variation test">
-                                <label htmlFor={`variation_${index}`}>
-                                    {variation.name}:
-                                </label>
-                                <select id={`variation_${index}`}>
-                                    {variation.values.map((value, idx) => (
-                                        <option
-                                            key={idx}
-                                            selected
-                                            value={value}
-                                        >
-                                            {value}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                        ))}
-
-                        <button
-                            className="lmsc_close_popup_button"
-                            onClick={() => handleAddProduct(selectedProduct)}
+                        <div
+                            className="lmsc_bottomSheet_backdrop"
+                            onClick={toggleBottomSheet}
+                        ></div>
+                        <section
+                            id="lmsc_bottomSheet"
+                            className={
+                                open
+                                    ? "lmsc_bottomSheet--onScreen"
+                                    : "lmsc_bottomSheet--offScreen"
+                            }
                         >
-                            {upsellPopupData.CUBuyBtnText}
-                        </button>
+                            <div className="lmsc_bottomSheet__headerContainer">
+                                <h2
+                                    id="lmsc_bottomSheet__headerID"
+                                    className="lmsc_bottomSheet__header"
+                                >
+                                    {upsellPopupData.CUHeadingText}
+                                </h2>
+                                <button
+                                    id="lmsc_closeButton"
+                                    className="lmsc_close_button"
+                                    onClick={closeBottomSheet}
+                                >
+                                    &times;
+                                </button>
+                            </div>
+                            <div className="lmsc_product_list">
+                                {
+                                    CUProducts.map((product, index) => (
+                                        <div
+                                            key={index}
+                                            className="lmsc_product_item"
+                                        >
+                                            <img
+                                                src={product.featured_image}
+                                                alt={product.title}
+                                                className="lmsc_usrp_product_image"
+                                            />
+                                            <div className="lmsc_product_info">
+                                                <h3 className="lmsc_product_title">
+                                                    {product.title}
+                                                </h3>
+                                                <p className="lmsc_product_price">
+                                                    {getSymbolFromCurrency(
+                                                        cartData?.currency
+                                                    ) +
+                                                        (
+                                                            Number(product.price) /
+                                                            100
+                                                        ).toFixed(2)}
+                                                    {product.compare_at_price &&
+                                                        product.compare_at_price >
+                                                        0 && (
+                                                            <strike>
+                                                                {getSymbolFromCurrency(
+                                                                    cartData?.currency
+                                                                ) +
+                                                                    (
+                                                                        Number(
+                                                                            product.compare_at_price
+                                                                        ) / 100
+                                                                    ).toFixed(2)}
+                                                            </strike>
+                                                        )}
+                                                </p>
+                                            </div>
+                                            <button
+                                                className="lmsc_add_to_cart_button"
+                                                onClick={() =>
+                                                    handleBuyButtonClick(product)
+                                                }
+                                            >
+                                                {upsellPopupData.CUBuyBtnText}
+                                            </button>
+                                        </div>
+                                    )
+                                    )}
+                            </div>
+                        </section>
                     </div>
-                )}
-            </div>
+
+                    {/* Popup Modal */}
+                    {open === true && popupOpen && selectedProduct && (
+                        <div className="lmsc_popup_modal">
+                            <button
+                                id="lmupsc_closeButton"
+                                className="lmsc_close_button"
+                                onClick={closeBottomSheet}
+                            >
+                                &times;
+                            </button>
+                            <div className="lmsc_pro_popup_image">
+                                <img
+                                    src={selectedProduct.featured_image}
+                                    alt={selectedProduct.title}
+                                />
+                            </div>
+                            <h3 className="lmsc_sproduct_title">
+                                {selectedProduct.title}
+                            </h3>
+
+                            <div id="lm_sticky_container_upsell__qty_picker">
+                                <QuantityPicker value={1} min={1} max={10} />
+                            </div>
+
+                            {selectedProduct?.options?.[0]?.values?.[0] !==
+                                "Default Title" && (
+                                    <div className="lm_variation_dropdown">
+                                        {selectedProduct.options?.map(
+                                            (variation, index) => (
+                                                <div
+                                                    key={index}
+                                                    className="lmsc_variation test"
+                                                >
+                                                    <label
+                                                        htmlFor={`variation_${index}`}
+                                                    >
+                                                        {variation.name}:
+                                                    </label>
+                                                    <select id={`variation_${index}`}>
+                                                        {variation.values.map(
+                                                            (value, idx) => (
+                                                                <option
+                                                                    key={idx}
+                                                                    selected
+                                                                    value={value}
+                                                                >
+                                                                    {value}
+                                                                </option>
+                                                            )
+                                                        )}
+                                                    </select>
+                                                </div>
+                                            )
+                                        )}
+                                    </div>
+                                )}
+                            <button
+                                className="lmsc_close_popup_button"
+                                onClick={() => handleAddProduct(selectedProduct)}
+                            >
+                                {upsellPopupData.CUBuyBtnText}
+                            </button>
+                        </div>
+                    )}
+                </div>)}
         </>
     );
 };
