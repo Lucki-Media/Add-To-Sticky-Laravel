@@ -374,6 +374,16 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                                 {selectedProduct.title}
                             </h3>
 
+                            <div className="lmsc_pro_price_wrapper">
+                                <div
+                                    className="lmsc_product_price"
+                                >
+                                    {selectedProduct.actual_price}
+                                    <strike>
+                                        {selectedProduct.compare_price}
+                                    </strike>
+                                </div>
+                            </div>
                             <QuantityPicker value={1} min={1} max={10} />
 
                             {selectedProduct.options.map((variation, index) => (
