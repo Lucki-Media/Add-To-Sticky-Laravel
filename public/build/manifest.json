@@ -25,20 +25,20 @@
     "src": "resources/frontend/assets/productimage.png"
   },
   "resources/js/app.css": {
-    "file": "assets/app-960e4e25.css",
+    "file": "assets/app-7907e955.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
     "assets": [
       "assets/empty-state-aece716c.svg",
-      "assets/productimage-a213fa31.png",
+      "assets/new-e4c835b7.gif",
       "assets/no_image-03f60945.jpg",
-      "assets/new-e4c835b7.gif"
+      "assets/productimage-a213fa31.png"
     ],
     "css": [
-      "assets/app-960e4e25.css"
+      "assets/app-7907e955.css"
     ],
-    "file": "assets/app-bf77daaf.js",
+    "file": "assets/app-320ea5ac.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }

@@ -46,6 +46,7 @@ return [
         "CUBtnBGHoverColor" => "#ffffff",
         "CUBorderRadius" => 0,
         "USPosition" => "left",
+        "USOffset" => 0,
     ],
     'buy_btn_settings' => [
         'editText' => 'ADD TO CART',

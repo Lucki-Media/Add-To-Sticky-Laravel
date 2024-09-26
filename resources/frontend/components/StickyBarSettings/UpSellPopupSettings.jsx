@@ -50,6 +50,9 @@ export default function UpSellPopupSettings({
     const [USPosition, setUSPosition] = useState(
         currentTemplate?.general_settings?.USPosition ?? "left"
     );
+    const [USOffset, setUSOffset] = useState(
+        currentTemplate?.general_settings?.USOffset ?? 0
+    );
 
     const [CUHeadingFontSize, setCUHeadingFontSize] = useState(
         currentTemplate?.general_settings?.CUHeadingFontSize ?? 15
@@ -143,6 +146,11 @@ export default function UpSellPopupSettings({
         setUSPosition(key);
     };
 
+    // OFFSET
+    const handleUSOffset = (key) => {
+        setUSOffset(key);
+    };
+
     // UPSELL POPUP HEADING Background COLOR
     const handleCUHeadingBGColor = (event) => {
         setCUHeadingBGColor(event.target.value);
@@ -201,6 +209,7 @@ export default function UpSellPopupSettings({
             CUHeadingText: CUHeadingText,
             CUBuyBtnText: CUBuyBtnText,
             USPosition: USPosition,
+            USOffset: USOffset,
             CUHeadingFontSize: CUHeadingFontSize,
             CUBodyFontSize: CUBodyFontSize,
             CUBuyBtnFontSize: CUBuyBtnFontSize,
@@ -228,6 +237,7 @@ export default function UpSellPopupSettings({
         CUHeadingText,
         CUBuyBtnText,
         USPosition,
+        USOffset,
         CUHeadingFontSize,
         CUBodyFontSize,
         CUBuyBtnFontSize,
@@ -294,6 +304,10 @@ export default function UpSellPopupSettings({
     useEffect(() => {
         setUSPosition(currentTemplate?.general_settings?.USPosition ?? "left");
     }, [currentTemplate?.general_settings?.USPosition]);
+
+    useEffect(() => {
+        setUSOffset(currentTemplate?.general_settings?.USOffset ?? 0);
+    }, [currentTemplate?.general_settings?.USOffset]);
 
     useEffect(() => {
         setCUHeadingFontSize(
@@ -520,6 +534,59 @@ export default function UpSellPopupSettings({
                             </BlockStack>
                         </FormLayout.Group>
 
+                        {/* Colors and position start */}
+                        <FormLayout.Group condensed>
+                            {/* Position */}
+                            <BlockStack gap="0">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Position
+                                </Text>
+                                <InlineStack gap="200">
+                                    <RadioButton
+                                        label={"Left"}
+                                        id={"left"}
+                                        checked={USPosition === "left"}
+                                        name="USPosition"
+                                        onChange={() => {
+                                            handleUSPositionChange("left");
+                                        }}
+                                    />
+                                    <RadioButton
+                                        label={"Right"}
+                                        id={"right"}
+                                        checked={USPosition === "right"}
+                                        name="USPosition"
+                                        onChange={() => {
+                                            handleUSPositionChange("right");
+                                        }}
+                                    />
+                                </InlineStack>
+                            </BlockStack>
+
+                            {/* Offset */}
+                            <BlockStack gap="0">
+                                <Text
+                                    variant="headingMd"
+                                    as="span"
+                                    fontWeight="medium"
+                                >
+                                    Offset
+                                </Text>
+                                <RangeSlider
+                                    label={`${USOffset} px`}
+                                    value={USOffset}
+                                    min={0}
+                                    max={200}
+                                    onChange={handleUSOffset}
+                                    output
+                                />
+                            </BlockStack>
+                        </FormLayout.Group>
+
                         {/* Font-Size and radius start*/}
                         <FormLayout.Group condensed>
                             {/* Heading Font Size */}
@@ -599,39 +666,8 @@ export default function UpSellPopupSettings({
                             </BlockStack>
                         </FormLayout.Group>
 
-                        {/* Colors and position start */}
+                        {/* Colors */}
                         <FormLayout.Group condensed>
-                            {/* Position */}
-                            <BlockStack gap="0">
-                                <Text
-                                    variant="headingMd"
-                                    as="span"
-                                    fontWeight="medium"
-                                >
-                                    Position
-                                </Text>
-                                <InlineStack gap="200">
-                                    <RadioButton
-                                        label={"Left"}
-                                        id={"left"}
-                                        checked={USPosition === "left"}
-                                        name="USPosition"
-                                        onChange={() => {
-                                            handleUSPositionChange("left");
-                                        }}
-                                    />
-                                    <RadioButton
-                                        label={"Right"}
-                                        id={"right"}
-                                        checked={USPosition === "right"}
-                                        name="USPosition"
-                                        onChange={() => {
-                                            handleUSPositionChange("right");
-                                        }}
-                                    />
-                                </InlineStack>
-                            </BlockStack>
-
                             {/* Popup BG Color */}
                             <BlockStack gap="0">
                                 <Text

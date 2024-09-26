@@ -305,7 +305,8 @@ class DashboardController extends Controller
             //     "CUBorderRadius" => 0,
             //     "CUBackgroundColor" => "#fffafa",
             //     "CUBodyTextColor" => "#050505",
-            //     "USPosition" => "left"
+            //     "USPosition" => "left",
+            //     "USOffset" => 0
             // ]);
 
             // $row->template_8 = $jsonData;
