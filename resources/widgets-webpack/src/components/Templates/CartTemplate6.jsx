@@ -625,7 +625,7 @@ export default function CartTemplate6({
                                             </div>
                                         </div>
                                         <div className={style.lmblock_right}>
-                                            <div className="lm_sticky_p_color">
+                                            <div className={`lm_sticky_p_color ${style.lm_sticky_p_color}`}>
                                                 {oldPrice > price &&
                                                 oldPrice !== "" ? (
                                                     <span

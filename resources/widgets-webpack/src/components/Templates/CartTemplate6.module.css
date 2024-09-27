@@ -218,17 +218,34 @@
     }
 
     .lm_pro_image {
-        align-items: center;
+        /* align-items: center;
         margin-bottom: 15px;
-        justify-content: center;
+        justify-content: center; */
+        display: none;
     }
-
+    .lmblock_right .lm_sticky_p_color{
+        display: none;
+    }
     .productInputs label {
         display: none;
     }
 
     .lm_cart_module {
         display: block;
+    }
+    .button_block{
+        display: block;
+    }
+    .lm_quantity_selector{
+        display: none;
+    }
+    .lm_buy_btn button{
+        width: 100%;
+        height: 40px;
+        margin-top: 15px;
+    }
+    .lm_options {
+        margin: 0 0;
     }
 }
 
