@@ -289,8 +289,8 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                 .lmsc_product_list {
                     display: flex;
                     flex-direction: column;
-                    gap: 24px;
-                    margin-top: 16px;
+                    gap: 5px;
+                    margin-top: 5px;
                 }
 
                 .lmsc_product_item {
@@ -419,7 +419,7 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     width: 100px;
                     padding: 0;
                     border-radius: 0;
-                    height: 40px;
+                    height: 30px;
                 }
 
                 .lmsc_popup_modal .quantity-picker .qty-button {
