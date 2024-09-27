@@ -427,7 +427,7 @@ export default function CartUpsellSettings(props) {
                             </BlockStack>
 
                             {/* Layout */}
-                            <BlockStack gap="200">
+                            {/* <BlockStack gap="200">
                                 <Text
                                     variant="headingMd"
                                     as="span"
@@ -455,7 +455,7 @@ export default function CartUpsellSettings(props) {
                                         }}
                                     />
                                 </InlineStack>
-                            </BlockStack>
+                            </BlockStack> */}
                         </FormLayout.Group>
                         {/* Font-Size and radio buttons end*/}
 
