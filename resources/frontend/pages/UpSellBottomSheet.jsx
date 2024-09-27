@@ -30,15 +30,14 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                         transform: translateY(100%);
                         z-index: 9999;
                     }
-    
-                    .lmsc_popup_container.left {              
-                        left: ${upsellPopupData.USOffset}px;                  
+                   .upsell_left {              
+                    left: ${upsellPopupData.USOffset}px;                  
+                    }
+
+                    .upsell_right {              
+                    right: ${upsellPopupData.USOffset}px;                  
                     }
                     
-                    .lmsc_popup_container.right {              
-                        right: ${upsellPopupData.USOffset}px;                  
-                    }
-    
                     .lmsc_popup_open {
                         transform: translateY(0);
                     }
@@ -51,7 +50,7 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                         transition:all 0.4s ease;
                         max-height: 80vh;
                         overflow-y: auto;
-                        max-width: fit-content;
+                        max-width: 300px;
                     }
     
                     .lmsc_bottomSheet--onScreen {
@@ -92,13 +91,13 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     .lmsc_product_list {
                         display: flex;
                         flex-direction: column;
-                        gap: 24px;
-                        margin-top: 16px;
+                        gap: 5px;
+                        margin-top: 5px;
                     }
     
                     .lmsc_product_item {
                         display: flex;
-                        gap: 16px;
+                        gap: 10px;
                         padding: 12px;
                         background: ${upsellPopupData.CUBodyColor};
                         border-radius: ${upsellPopupData.CUBorderRadius}px;
@@ -111,8 +110,8 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     }
     
                     .lmsc_usrp_product_image {
-                        width: 60px;
-                        height: 60px;
+                        width: 60px !important;
+                        height: 60px !important;
                         object-fit: cover;
                         border-radius: ${upsellPopupData.CUBorderRadius}px;
                         box-shadow: 0 2px 8px #00000026;
@@ -129,14 +128,21 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                         font-size: ${upsellPopupData.CUBodyFontSize}px;
                         color: ${upsellPopupData.CUBodyTextColor};
                         margin: 0;
+                        width: 90%;
                     }
     
                     .lmsc_product_price {
                         font-size: ${upsellPopupData.CUBodyFontSize}px;
                         color: ${upsellPopupData.CUBodyTextColor};
-                        margin: 4px 0;
+                        margin: 10px 0 4px;
                     }
-    
+                        .lmsc_popup_modal select:focus-visible{
+                    outline: none;
+                    box-shadow: none;
+                }    
+                    .lmsc_pro_price_wrapper .lmsc_product_price{
+                     margin: 10px 0 10px;
+                    }
                     .lmsc_product_price strike {
                         font-size: ${upsellPopupData.CUBodyFontSize}px;
                         color: ${upsellPopupData.CUBodyTextColor};
@@ -161,12 +167,10 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     }
     
                     .lmsc_popup_modal {
-                        position: fixed;
-                        top: 50%;
-                        left: calc(50% + 210px); /* Position beside the first modal */
-                        transform: translateY(-50%);
+                        position: absolute;
+                        bottom:0;                            
                         background: white;
-                        padding: 20px;
+                        padding: 10px;
                         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
                         border-radius: ${upsellPopupData.CUBorderRadius}px;
                         z-index: 10000;
@@ -214,11 +218,13 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
     
                     .lmsc_popup_modal .quantity-picker {
                     display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        margin: 0;
-                        width: 40%;
-                        padding: 5px 7px;
+                    justify-content: center;
+                    align-items: center;
+                    margin: 0;
+                    width: 100px;
+                    padding: 0;
+                    border-radius: 0;
+                    height: 30px;
                     }
     
                     .lmsc_popup_modal .quantity-picker .qty-button {
@@ -240,28 +246,30 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     }
     
                     .lmsc_popup_modal button.quantity-modifier.modifier-right{
-                        margin-right: 10px;
+                       
                     }
     
-                    .lmsc_popup_modal .quantity-modifier{
-                        width: 2px;
-                        font-size: 20px;
-                        color: #888;
-                        background: transparent;
-                        border: 0 solid #dbdbdb;
-                        text-align: center;
-                        cursor: pointer;
-                        line-height: 11px;
-                    }
-    
-                    .lmsc_popup_modal .quantity-display{
-                        padding: 0;
-                        font-size: 15px;
-                        border: 0;
-                        border-top: 0 solid #dbdbdb;
-                        border-bottom: 0 solid #dbdbdb;
-                        text-align: center;
-                    }
+                   .lmsc_popup_modal .quantity-modifier{
+                    width: 2px;
+                    font-size: 20px;
+                    color: #888;
+                    background: transparent;
+                    border: 0 solid #dbdbdb;
+                    text-align: center;
+                    cursor: pointer;
+                    line-height: 11px;
+                    width: 33.33%;
+                }
+
+                .lmsc_popup_modal .quantity-display{
+                    padding: 0;
+                    font-size: 15px;
+                    border: 0;
+                    border-top: 0 solid #dbdbdb;
+                    border-bottom: 0 solid #dbdbdb;
+                    text-align: center;
+                    width: 33.33% !important;
+                }
     
                     .lmsc_popup_modal select{
                         border: none;
@@ -270,8 +278,24 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     }
     
                     .lmsc_sproduct_title{                   
-                        font-size: ${upsellPopupData.CUHeadingFontSize}px;
+                        font-size: ${upsellPopupData.CUBodyFontSize}px;
                     }
+                          #lmupsc_closeButton{
+                position: absolute;
+                right: 5px;
+                top: 5px;
+                color: #000;
+               }
+
+                @media screen and (max-width: 768px) {
+                
+                .upsell_left {              
+                    left: 0;                  
+                }                
+              .upsell_right {              
+                    right: 0;                  
+                }
+                }
                 `}
             </style>
 
@@ -282,8 +306,8 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                             open ? "lmsc_popup_open" : ""
                         } ${
                             upsellPopupData.USPosition === "left"
-                                ? "left"
-                                : "right"
+                                ? "upsell_left"
+                                : "upsell_right"
                         }`}
                     >
                         <div
@@ -365,11 +389,27 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     {/* Popup Modal */}
 
                     {open === true && popupOpen && selectedProduct && (
-                        <div className="lmsc_popup_modal">
+                        <div className={`lmsc_popup_modal ${
+                            upsellPopupData.USPosition === "left"
+                                ? "upsell_left"
+                                : "upsell_right"
+                        }`}>
+                             <button
+                                id="lmupsc_closeButton"
+                                className="lmsc_close_button"
+                                onClick={() => {
+                                    setPopupOpen(false);
+                                }}
+                            >
+                                &times;
+                            </button>
+                            <div className="lmsc_pro_popup_image">
+
                             <img
                                 src={selectedProduct.image}
                                 alt={selectedProduct.title}
                             />
+                            </div>
                             <h3 className="lmsc_sproduct_title">
                                 {selectedProduct.title}
                             </h3>
