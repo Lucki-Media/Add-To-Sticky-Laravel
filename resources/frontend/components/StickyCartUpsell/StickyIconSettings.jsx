@@ -511,7 +511,7 @@ export default function StickyIconSettings(props) {
                                     label={`${positionTop}%`}
                                     value={positionTop}
                                     min={1}
-                                    max={90}
+                                    max={95}
                                     onChange={handleEditTopField}
                                     output
                                 />
@@ -530,7 +530,7 @@ export default function StickyIconSettings(props) {
                                     label={`${positionLeft}%`}
                                     value={positionLeft}
                                     min={0}
-                                    max={95}
+                                    max={98}
                                     onChange={handleEditLeftField}
                                     output
                                 />
