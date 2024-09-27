@@ -217,6 +217,16 @@
         .button_block{
             display: block;
         }
+        .lm_quantity_selector{
+            display: none;
+        }
+        .lm_buy_btn button{
+            width: 100%;
+            height: 40px;
+        }
+        .lm_options{
+            margin-right: 5px;
+        }
         /* .lm_quantity_picker .quantity-picker{
             display: none !important;
         }

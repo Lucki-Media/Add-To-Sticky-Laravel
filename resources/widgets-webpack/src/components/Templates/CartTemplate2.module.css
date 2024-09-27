@@ -208,11 +208,12 @@
         .button_block{
             display: block;
         }
-        .lm_quantity_picker .quantity-picker{
-            display: none !important;
+        .lm_quantity_selector{
+            display: none;
         }
-        .lm_btn{
-            width: 100% !important;
+        .lm_buy_btn button{
+            width: 100%;
+            height: 40px;
         }
         .slide_right{
             width: 100% !important;
@@ -224,4 +225,5 @@
     .lm_middlecontent .compare_lm_price::before {
         content: none;
     }
+    
 }
