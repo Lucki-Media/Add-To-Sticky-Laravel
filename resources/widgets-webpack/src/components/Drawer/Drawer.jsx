@@ -159,7 +159,7 @@ export default function Drawer({
                         width: 100px;
                         padding: 0;
                         border-radius: 0;
-                        height: 40px;
+                        height: 35px;
                     }
                 `}
             </style>
