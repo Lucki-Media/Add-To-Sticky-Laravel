@@ -22,6 +22,11 @@ import {
     BlockStack,
     Box,
     Divider,
+    Grid,
+    MediaCard,
+    VideoThumbnail,
+    Modal,
+    Pagination,
 } from "@shopify/polaris";
 import {
     QuestionCircleIcon,
@@ -65,6 +70,72 @@ export default function HomePage() {
     const [sCartArray, setSCartArray] = useState([
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     ]);
+
+    // REFERENCE VIDEO START
+    const [active, setActive] = useState(false);
+    const [selectedVideo, setSelectedVideo] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const videosPerPage = 3; // Number of videos you want to show per page
+
+    const toggleModal = useCallback(() => setActive((active) => !active), []);
+
+    const openModalWithVideo = (videoUrl) => {
+        setSelectedVideo(videoUrl);
+        setActive(true);
+    };
+
+    const VideoArray = [
+        {
+            title: "Title 1",
+            description:
+                "Discover how Shopify can power up your entrepreneurial journey.",
+            img: "https://burst.shopifycdn.com/photos/business-woman-smiling-in-office.jpg?width=1850",
+            url: "https://www.youtube.com/embed/JMKYPDem8o8",
+        },
+        {
+            title: "Title 2",
+            description:
+                "Discover how Shopify can power up your entrepreneurial journey.",
+            img: "https://burst.shopifycdn.com/photos/business-woman-smiling-in-office.jpg?width=1850",
+            url: "https://www.youtube.com/embed/JMKYPDem8o8",
+        },
+        {
+            title: "Title 3",
+            description:
+                "Discover how Shopify can power up your entrepreneurial journey.",
+            img: "https://burst.shopifycdn.com/photos/business-woman-smiling-in-office.jpg?width=1850",
+            url: "https://www.youtube.com/embed/JMKYPDem8o8",
+        },
+        {
+            title: "Title 4",
+            description: "Learn how to set up your Shopify store in minutes.",
+            img: "https://burst.shopifycdn.com/photos/business-woman-smiling-in-office.jpg?width=1850",
+            url: "https://www.youtube.com/embed/JMKYPDem8o8",
+        },
+        {
+            title: "Title 5",
+            description:
+                "Maximize your Shopify store's potential with these tips.",
+            img: "https://burst.shopifycdn.com/photos/business-woman-smiling-in-office.jpg?width=1850",
+            url: "https://www.youtube.com/embed/JMKYPDem8o8",
+        },
+    ];
+
+    // Pagination Logic
+    const totalVideos = VideoArray.length;
+    const totalPages = Math.ceil(totalVideos / videosPerPage);
+    const indexOfLastVideo = currentPage * videosPerPage;
+    const indexOfFirstVideo = indexOfLastVideo - videosPerPage;
+    const currentVideos = VideoArray.slice(indexOfFirstVideo, indexOfLastVideo);
+
+    const nextPage = () => {
+        if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+    };
+
+    const prevPage = () => {
+        if (currentPage > 1) setCurrentPage(currentPage - 1);
+    };
+    // REFERENCE VIDEO END
 
     const getDashboardCount = async () => {
         try {
@@ -149,7 +220,7 @@ export default function HomePage() {
             icon: LayoutPopupIcon,
             term: "UpSell Popup",
             description:
-                'The Upsell Popup, available to premium plan merchants, appears when the StickyBar button on the sticky bar is clicked, providing an opportunity to boost sales with targeted upsell offers.',
+                "The Upsell Popup, available to premium plan merchants, appears when the StickyBar button on the sticky bar is clicked, providing an opportunity to boost sales with targeted upsell offers.",
         },
         {
             icon: CartSaleIcon,
@@ -220,24 +291,24 @@ export default function HomePage() {
                     {/* Warning banner to enable extension */}
                     {(sCartEnabled === "1" || sacEnabled === "1") &&
                         themeExtEnabled === "0" && (
-                                <Banner
-                                    title="Theme App Extension is not Activated"
-                                    action={{
-                                        content: "Activate",
-                                        url: url,
-                                        external,
-                                    }}
-                                    tone="warning"
-                                >
-                                    <List>
-                                        <List.Item>
-                                            Take a moment to activate the app
-                                            through Shopify's Theme Editor to
-                                            ensure your store benefits from the
-                                            enhanced visibility of its features
-                                        </List.Item>
-                                    </List>
-                                </Banner>
+                            <Banner
+                                title="Theme App Extension is not Activated"
+                                action={{
+                                    content: "Activate",
+                                    url: url,
+                                    external,
+                                }}
+                                tone="warning"
+                            >
+                                <List>
+                                    <List.Item>
+                                        Take a moment to activate the app
+                                        through Shopify's Theme Editor to ensure
+                                        your store benefits from the enhanced
+                                        visibility of its features
+                                    </List.Item>
+                                </List>
+                            </Banner>
                         )}
 
                     {/* Feedback banner */}
@@ -324,15 +395,8 @@ export default function HomePage() {
                                             minHeight: 35,
                                         }}
                                     >
-                                        {/* <Text
-                                    as="h2"
-                                    variant="bodyLg"
-                                    alignment="center"
-                                    fontWeight="semibold"
-                                > */}
                                         Step 1 : Enable StickyBar
                                     </div>
-                                    {/* </Text> */}
                                     <img
                                         src={"/images/step1.png"}
                                         width="60%"
@@ -349,9 +413,9 @@ export default function HomePage() {
                                             minHeight: 120,
                                         }}
                                     >
-                                        A StickyBar enhances user
-                                        experience, driving revenue with
-                                        effortless product additions.
+                                        A StickyBar enhances user experience,
+                                        driving revenue with effortless product
+                                        additions.
                                     </p>
                                     <div
                                         style={{
@@ -384,12 +448,6 @@ export default function HomePage() {
                                 <div
                                     style={{ padding: 20, textAlign: "center" }}
                                 >
-                                    {/* <Text
-                                    as="h2"
-                                    variant="bodyLg"
-                                    alignment="center"
-                                    fontWeight="semibold"
-                                > */}
                                     <div
                                         style={{
                                             fontSize: 16,
@@ -400,7 +458,6 @@ export default function HomePage() {
                                     >
                                         Step 2 : Enable Drawer Cart
                                     </div>
-                                    {/* </Text> */}
                                     <img
                                         src={"/images/step2.png"}
                                         width="60%"
@@ -452,12 +509,6 @@ export default function HomePage() {
                                 <div
                                     style={{ padding: 20, textAlign: "center" }}
                                 >
-                                    {/* <Text
-                                    as="h2"
-                                    variant="bodyLg"
-                                    alignment="center"
-                                    fontWeight="semibold"
-                                > */}
                                     <div
                                         style={{
                                             fontSize: 16,
@@ -468,7 +519,6 @@ export default function HomePage() {
                                     >
                                         Step 3 : Theme App Extension
                                     </div>
-                                    {/* </Text> */}
                                     <img
                                         src={"/images/step3.png"}
                                         width="60%"
@@ -486,8 +536,8 @@ export default function HomePage() {
                                         }}
                                     >
                                         Activate the app in Shopify's Theme
-                                        Editor to ensure all 
-                                        features is visible.
+                                        Editor to ensure all features is
+                                        visible.
                                     </p>
                                     <div
                                         style={{
@@ -580,6 +630,89 @@ export default function HomePage() {
                                 </Card>
                             </BlockStack>
                         </Layout.Section>
+                    </Layout>
+
+                    {/* Video References */}
+                    <Layout>
+                        <Layout.Section>
+                            <BlockStack gap={300}>
+                                <InlineStack wrap={false} align="space-between">
+                                    <Text
+                                        as="div"
+                                        variant="headingLg"
+                                        fontWeight="medium"
+                                    >
+                                        Get to Know Our App Through Videos
+                                    </Text>
+
+                                    {/* Pagination Controls */}
+                                    <Pagination
+                                        hasPrevious={currentPage !== 1}
+                                        previousTooltip="Previous"
+                                        onPrevious={prevPage}
+                                        hasNext={currentPage !== totalPages}
+                                        nextTooltip="Next"
+                                        onNext={nextPage}
+                                    />
+                                </InlineStack>
+                                <Card>
+                                    {/* Show Videos for the Current Page */}
+                                    <Grid>
+                                        {currentVideos.map((video, index) => (
+                                            <Grid.Cell
+                                                key={index}
+                                                columnSpan={{
+                                                    xs: 6,
+                                                    sm: 3,
+                                                    md: 2,
+                                                    lg: 4,
+                                                }}
+                                            >
+                                                <MediaCard
+                                                    portrait
+                                                    title={video.title}
+                                                    description={
+                                                        video.description
+                                                    }
+                                                >
+                                                    <VideoThumbnail
+                                                        videoLength={80}
+                                                        thumbnailUrl={video.img}
+                                                        onClick={() =>
+                                                            openModalWithVideo(
+                                                                video
+                                                            )
+                                                        }
+                                                    />
+                                                </MediaCard>
+                                            </Grid.Cell>
+                                        ))}
+                                    </Grid>
+                                </Card>
+                            </BlockStack>
+                        </Layout.Section>
+
+                        {/* Show Video Popup */}
+                        {selectedVideo && (
+                            <Modal
+                                size="large"
+                                open={active}
+                                onClose={toggleModal}
+                                title={selectedVideo.title}
+                                primaryAction={{
+                                    content: "Close",
+                                    onAction: toggleModal,
+                                }}
+                            >
+                                <Modal.Section>
+                                    <iframe
+                                        src={selectedVideo.url}
+                                        height="480"
+                                        width="950"
+                                    ></iframe>
+                                </Modal.Section>
+                            </Modal>
+                        )}
                     </Layout>
 
                     {/* Analytics */}
