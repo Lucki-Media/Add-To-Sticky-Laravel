@@ -861,6 +861,9 @@ export default function CartTemplate6({
                                 upsellPopupData={
                                     current_template.general_settings
                                 }
+                                handleUpsellPopup={() => {
+                                    setShowUpSellPopup(false);
+                                }}
                             />
                         )}
                 </div>

@@ -3,7 +3,7 @@ import { QuantityPicker } from "react-qty-picker";
 import getSymbolFromCurrency from "currency-symbol-map";
 import axios from "axios";
 
-const UpSellBottomSheet = ({ upsellPopupData }) => {
+const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
     const [open, setOpen] = useState(false);
     const [popupOpen, setPopupOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
@@ -18,6 +18,7 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
     const closeBottomSheet = () => {
         setOpen(false);
         setPopupOpen(false);
+        handleUpsellPopup();
     };
 
     const handleBuyButtonClick = (product) => {
@@ -68,10 +69,10 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
             axios
                 .get(
                     "https://" +
-                    window.location.host +
-                    "/recommendations/products.json?product_id=" +
-                    cartData.items[0].product_id + // get cart's first item's related product
-                    "&limit=3"
+                        window.location.host +
+                        "/recommendations/products.json?product_id=" +
+                        cartData.items[0].product_id + // get cart's first item's related product
+                        "&limit=3"
                 )
                 .then(async (response) => {
                     setCUProducts(response.data.products);
@@ -107,10 +108,10 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     axios
                         .get(
                             "https://" +
-                            window.location.host +
-                            "/collections/" +
-                            upsellPopupData.SelectedCollectionID +
-                            "/products.json?limit=3"
+                                window.location.host +
+                                "/collections/" +
+                                upsellPopupData.SelectedCollectionID +
+                                "/products.json?limit=3"
                         )
                         .then(async (response) => {
                             // Create an array of promises
@@ -144,10 +145,10 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
         return axios
             .get(
                 "https://" +
-                window.location.host +
-                "/products/" +
-                productHandle +
-                ".js"
+                    window.location.host +
+                    "/products/" +
+                    productHandle +
+                    ".js"
             )
             .then((response) => {
                 return response.data;
@@ -407,7 +408,8 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                 
                  .lmsc_popup_modal .lmsc_close_popup_button:hover{
                     background-color:${upsellPopupData.CUBtnBGHoverColor};
-                    color: ${upsellPopupData.CUBtnTextHoverColor
+                    color: ${
+                        upsellPopupData.CUBtnTextHoverColor
                     };                
                 }
 
@@ -508,9 +510,13 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
             {CUProducts && CUProducts.length > 0 && (
                 <div className="lmupsell_main_products">
                     <div
-                        className={`lmsc_popup_container ${open ? "lmsc_popup_open" : "lmsc_popup_close"
-                            } ${upsellPopupData.USPosition === "left" ? "upsell_left" : "upsell_right"
-                            }`}
+                        className={`lmsc_popup_container ${
+                            open ? "lmsc_popup_open" : "lmsc_popup_close"
+                        } ${
+                            upsellPopupData.USPosition === "left"
+                                ? "upsell_left"
+                                : "upsell_right"
+                        }`}
                     >
                         <div
                             className="lmsc_bottomSheet_backdrop"
@@ -540,56 +546,54 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                                 </button>
                             </div>
                             <div className="lmsc_product_list">
-                                {
-                                    CUProducts.map((product, index) => (
-                                        <div
-                                            key={index}
-                                            className="lmsc_product_item"
-                                        >
-                                            <img
-                                                src={product.featured_image}
-                                                alt={product.title}
-                                                className="lmsc_usrp_product_image"
-                                            />
-                                            <div className="lmsc_product_info">
-                                                <h3 className="lmsc_product_title">
-                                                    {product.title}
-                                                </h3>
-                                                <p className="lmsc_product_price">
-                                                    {getSymbolFromCurrency(
-                                                        cartData?.currency
-                                                    ) +
-                                                        (
-                                                            Number(product.price) /
-                                                            100
-                                                        ).toFixed(2)}
-                                                    {product.compare_at_price &&
-                                                        product.compare_at_price >
+                                {CUProducts.map((product, index) => (
+                                    <div
+                                        key={index}
+                                        className="lmsc_product_item"
+                                    >
+                                        <img
+                                            src={product.featured_image}
+                                            alt={product.title}
+                                            className="lmsc_usrp_product_image"
+                                        />
+                                        <div className="lmsc_product_info">
+                                            <h3 className="lmsc_product_title">
+                                                {product.title}
+                                            </h3>
+                                            <p className="lmsc_product_price">
+                                                {getSymbolFromCurrency(
+                                                    cartData?.currency
+                                                ) +
+                                                    (
+                                                        Number(product.price) /
+                                                        100
+                                                    ).toFixed(2)}
+                                                {product.compare_at_price &&
+                                                    product.compare_at_price >
                                                         0 && (
-                                                            <strike>
-                                                                {getSymbolFromCurrency(
-                                                                    cartData?.currency
-                                                                ) +
-                                                                    (
-                                                                        Number(
-                                                                            product.compare_at_price
-                                                                        ) / 100
-                                                                    ).toFixed(2)}
-                                                            </strike>
-                                                        )}
-                                                </p>
-                                            </div>
-                                            <button
-                                                className="lmsc_add_to_cart_button"
-                                                onClick={() =>
-                                                    handleBuyButtonClick(product)
-                                                }
-                                            >
-                                                {upsellPopupData.CUBuyBtnText}
-                                            </button>
+                                                        <strike>
+                                                            {getSymbolFromCurrency(
+                                                                cartData?.currency
+                                                            ) +
+                                                                (
+                                                                    Number(
+                                                                        product.compare_at_price
+                                                                    ) / 100
+                                                                ).toFixed(2)}
+                                                        </strike>
+                                                    )}
+                                            </p>
                                         </div>
-                                    )
-                                    )}
+                                        <button
+                                            className="lmsc_add_to_cart_button"
+                                            onClick={() =>
+                                                handleBuyButtonClick(product)
+                                            }
+                                        >
+                                            {upsellPopupData.CUBuyBtnText}
+                                        </button>
+                                    </div>
+                                ))}
                             </div>
                         </section>
                     </div>
@@ -600,7 +604,9 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                             <button
                                 id="lmupsc_closeButton"
                                 className="lmsc_close_button"
-                                onClick={closeBottomSheet}
+                                onClick={() => {
+                                    setPopupOpen(false);
+                                }}
                             >
                                 &times;
                             </button>
@@ -614,51 +620,79 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                                 {selectedProduct.title}
                             </h3>
 
+                            <div className="lmsc_pro_price_wrapper">
+                                <div className="lmsc_product_price">
+                                    {getSymbolFromCurrency(cartData?.currency) +
+                                        (
+                                            Number(selectedProduct.price) / 100
+                                        ).toFixed(2)}
+                                    {selectedProduct.compare_at_price &&
+                                        selectedProduct.compare_at_price >
+                                            0 && (
+                                            <strike>
+                                                {getSymbolFromCurrency(
+                                                    cartData?.currency
+                                                ) +
+                                                    (
+                                                        Number(
+                                                            selectedProduct.compare_at_price
+                                                        ) / 100
+                                                    ).toFixed(2)}
+                                            </strike>
+                                        )}
+                                </div>
+                            </div>
+
                             <div id="lm_sticky_container_upsell__qty_picker">
                                 <QuantityPicker value={1} min={1} max={10} />
                             </div>
 
                             {selectedProduct?.options?.[0]?.values?.[0] !==
                                 "Default Title" && (
-                                    <div className="lm_variation_dropdown">
-                                        {selectedProduct.options?.map(
-                                            (variation, index) => (
-                                                <div
-                                                    key={index}
-                                                    className="lmsc_variation test"
+                                <div className="lm_variation_dropdown">
+                                    {selectedProduct.options?.map(
+                                        (variation, index) => (
+                                            <div
+                                                key={index}
+                                                className="lmsc_variation test"
+                                            >
+                                                <label
+                                                    htmlFor={`variation_${index}`}
                                                 >
-                                                    <label
-                                                        htmlFor={`variation_${index}`}
-                                                    >
-                                                        {variation.name}:
-                                                    </label>
-                                                    <select id={`variation_${index}`}>
-                                                        {variation.values.map(
-                                                            (value, idx) => (
-                                                                <option
-                                                                    key={idx}
-                                                                    selected
-                                                                    value={value}
-                                                                >
-                                                                    {value}
-                                                                </option>
-                                                            )
-                                                        )}
-                                                    </select>
-                                                </div>
-                                            )
-                                        )}
-                                    </div>
-                                )}
+                                                    {variation.name}:
+                                                </label>
+                                                <select
+                                                    id={`variation_${index}`}
+                                                >
+                                                    {variation.values.map(
+                                                        (value, idx) => (
+                                                            <option
+                                                                key={idx}
+                                                                selected
+                                                                value={value}
+                                                            >
+                                                                {value}
+                                                            </option>
+                                                        )
+                                                    )}
+                                                </select>
+                                            </div>
+                                        )
+                                    )}
+                                </div>
+                            )}
                             <button
                                 className="lmsc_close_popup_button"
-                                onClick={() => handleAddProduct(selectedProduct)}
+                                onClick={() =>
+                                    handleAddProduct(selectedProduct)
+                                }
                             >
                                 {upsellPopupData.CUBuyBtnText}
                             </button>
                         </div>
                     )}
-                </div>)}
+                </div>
+            )}
         </>
     );
 };
