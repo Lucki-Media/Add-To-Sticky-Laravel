@@ -347,10 +347,10 @@ export default function CartTemplate3({
                             }
                             .lm_quantity_picker .quantity-picker .quantity-display{
                             padding: 0;
-                            background-color: #fff;
+                           background: ${gsBgColor};
                             width: 28px !important;
                             font-size: 14px;
-                            color: #000;
+                           color: ${gsTitleColor};
                             box-shadow: none;
                             }
                             .lm_quantity_picker .quantity-modifier{
@@ -358,17 +358,18 @@ export default function CartTemplate3({
                             width: 30px;
                             border: none;
                             font-size: 16px;
-                            color: #000;
-                            background-color: #fff;
+                            background: ${gsBgColor};
                             border-radius: 0;
+                             color: ${gsTitleColor};
                             }
                             .lm_quantity_picker .quantity-picker{
-                            background-color: #fff;
+                            background: ${gsBgColor};
                             border: 1px solid #ddd;
                             border-radius:0;
                             display: flex;
                             align-items: center;
                                 margin-left: 15px;
+                                 color: ${gsTitleColor};
                             }
                             .lm_bold{
                             font-weight: bolder;
