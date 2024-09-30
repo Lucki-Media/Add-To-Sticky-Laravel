@@ -273,7 +273,7 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                         width: 2px;
                         font-size: 20px;
                         color: #888;
-                        background: #fff;
+                        background: transparent;
                         border: 0 solid #dbdbdb;
                         text-align: center;
                         cursor: pointer;
@@ -289,6 +289,7 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                         text-align: center;
                         width: 33.33% !important;
                         height: 28px;
+                        background: transparent;
                     }
     
                     .lmsc_popup_modal select{
