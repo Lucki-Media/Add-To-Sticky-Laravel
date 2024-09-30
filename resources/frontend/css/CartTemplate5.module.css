@@ -7,7 +7,7 @@
 .lm_container {
     max-width: 1220px;
     margin: 0 auto;
-    padding: 0 15px;
+    padding: 0 10px;
 }
 
 .lm_cart_module {
@@ -227,4 +227,32 @@
     .lm_middlecontent .compare_lm_price::before {
         content: none;
     }
+}
+
+.lm_mobile_right_block .lm_buy_btn button{
+    width: 100%;
+    height: 40px; 
+}
+.lm_mobile_right_block .lmblock_right {
+    display: block;
+}
+.lm_mobile_right_block .lm_mobile_right_block{
+    display: block;
+}
+.lm_mobile_right_block .lm_cart_module{
+    display: block;
+}
+.lm_mobile_right_block .button_block {
+    margin-top: 10px;
+    display: block;
+}
+.lm_mobile_right_block{
+    height: auto !important;   
+}
+.lm_mobile_right_block .var_options{
+    display: block;
+    text-align: center;
+}
+.lm_mobile_right_block .lm_buy_btn{
+    margin-left: 0;
 }
