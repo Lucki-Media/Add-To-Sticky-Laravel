@@ -226,4 +226,12 @@
 }
 .lm_mobile_right_block .button_block {
     margin-top: 10px;
+    display: block;
+}
+.lm_mobile_right_block{
+    height: auto !important;   
+}
+.lm_mobile_right_block .var_options{
+    display: block;
+    text-align: center;
 }

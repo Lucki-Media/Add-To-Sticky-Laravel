@@ -184,27 +184,32 @@ export default function CartTemplate2({
                         border-color: ${current_template.buy_btn_settings.btnBorderHoverColor};
                         color: ${current_template.buy_btn_settings.btnTexthoverColor};
                     }
+                  .lm-sticky-pos-Bottom.lm_mobile_bottom #notification_bar{
+                       bottom: 106px;
+                    }
+                    .lm-sticky-Bottom.lm_mobile_right_block {
+                        padding: 10px;
+                    }
+                    .lm-sticky-Top.lm_mobile_right_block .lm_container{
+                    padding-bottom: 10px;
+                       padding-top: 10px;
+                    }                          
+                    .lm-sticky-Bottom.lm_mobile_right_block .lm_container{
+                    padding: 0;
+                    }
                 `}
             </style>
             {enable === true && (
-                <div
-                    className={`lm-sticky-${
-                        current_template.general_settings.position
-                    } ${style.lm_sticky_cart} ${
-                        current_template.general_settings.checkDesktop === true
-                            ? "lm_sticky_show_desktop_abc12"
-                            : "lm_sticky_hide_desktop_abc12"
-                    } ${
-                        current_template.general_settings.checkMobile === true
-                            ? "lm_sticky_show_mobile_abc12"
-                            : "lm_sticky_hide_mobile_abc12"
-                    }   `}
-                    style={{ position: "absolute" }}
-                >
+                <div className={`lm-sticky-pos-${current_template.general_settings.position}  ${selectedDevice === 1 && 'lm_mobile_bottom'} `}>
+
                     {current_template.general_settings.gsAction === "3" &&
                         current_template.general_settings.position ===
-                            "Bottom" && (
+                        "Bottom" && (
                             <Notification
+                                containerHeight={
+                                    current_template.general_settings
+                                        .containerHeight
+                                }
                                 gsNotificationBarText={
                                     current_template.general_settings
                                         .gsNotificationBarText ||
@@ -237,140 +242,148 @@ export default function CartTemplate2({
                             />
                         )}
 
-                    {selectedDevice === 1 &&
-                    current_template?.general_settings?.showOnlyBtnOnMobile ===
-                        true ? (
-                        // show only mobile button
-                        <div className={style.lm_container}>
-                            <div className={style.lm_buy_btn}>
-                                <button
-                                    className={`lm_btn slide_right apply-font ${
-                                        current_template.buy_btn_settings
+                    <div
+                        className={`lm-sticky-${current_template.general_settings.position
+                            } ${style.lm_sticky_cart} ${current_template.general_settings.checkDesktop === true
+                                ? "lm_sticky_show_desktop_abc12"
+                                : "lm_sticky_hide_desktop_abc12"
+                            } ${current_template.general_settings.checkMobile === true
+                                ? "lm_sticky_show_mobile_abc12"
+                                : "lm_sticky_hide_mobile_abc12"
+                            }   ${selectedDevice === 1 && style.lm_mobile_right_block} ${selectedDevice === 1 && 'lm_mobile_right_block'}   `}
+                        style={{ position: "absolute" }}
+                    >
+
+
+                        {selectedDevice === 1 &&
+                            current_template?.general_settings?.showOnlyBtnOnMobile ===
+                            true ? (
+                            // show only mobile button
+                            <div className={`lm_container ${style.lm_container}`}>
+                                <div className={style.lm_buy_btn}>
+                                    <button
+                                        className={`lm_btn slide_right apply-font ${current_template.buy_btn_settings
                                             .btnBold === true
                                             ? "lm_bold"
                                             : ""
-                                    } ${
-                                        current_template.buy_btn_settings
-                                            .btnItalic === true
-                                            ? "lm_italic"
-                                            : ""
-                                    } ${
-                                        current_template.buy_btn_settings
-                                            .btnUnderline === true
-                                            ? "lm_underline"
-                                            : "no-line"
-                                    }${
-                                        animationEnable === true
-                                            ? " lm_vibrating"
-                                            : ""
-                                    }`}
-                                    onMouseEnter={handleCountEnter}
-                                    onMouseLeave={handleCountLeave}
-                                >
-                                    {current_template.buy_btn_settings.editText}
-                                </button>
-                            </div>
-                        </div>
-                    ) : (
-                        // mobile stickybar
-                        <div className={style.lm_container}>
-                            <div className={style.lm_cart_module}>
-                                <div className={style.lm_pro_image}>
-                                    <div
-                                        className={`img_size ${style.image_border}`}
-                                    >
-                                        <img
-                                            className="img_sizes"
-                                            src={proimage}
-                                            alt="product image"
-                                        />
-                                    </div>
-                                    <div className={style.lm_middlecontent}>
-                                        <h2
-                                            className={`font_option ${
-                                                style.pro_names
-                                            } ${
-                                                current_template
-                                                    .general_settings.gsBold ===
-                                                true
-                                                    ? "lm_bold"
-                                                    : ""
-                                            } ${
-                                                current_template
-                                                    .general_settings
-                                                    .gsItalic === true
-                                                    ? "lm_italic"
-                                                    : ""
-                                            } ${
-                                                current_template
-                                                    .general_settings
-                                                    .gsUnderline === true
-                                                    ? "lm_underline"
-                                                    : "no-line"
+                                            } ${current_template.buy_btn_settings
+                                                .btnItalic === true
+                                                ? "lm_italic"
+                                                : ""
+                                            } ${current_template.buy_btn_settings
+                                                .btnUnderline === true
+                                                ? "lm_underline"
+                                                : "no-line"
+                                            }${animationEnable === true
+                                                ? " lm_vibrating"
+                                                : ""
                                             }`}
-                                        >
-                                            Juice Bottle Mockup (Red)
-                                        </h2>
-                                        <div className="lm_sticky_p_color">
-                                            <span
-                                                className={
-                                                    style.compare_lm_price
-                                                }
-                                            >
-                                                ${parseFloat(50).toFixed(2)}
-                                            </span>{" "}
-                                            <span
-                                                className={style.simple_price}
-                                            >
-                                                ${parseFloat(40).toFixed(2)}
-                                            </span>{" "}
-                                            <span
-                                                className={style.lm_out_stock}
-                                            >
-                                                {
-                                                    current_template
-                                                        .buy_btn_settings
-                                                        .unavailable
-                                                }
-                                            </span>
-                                        </div>
-                                    </div>
+                                        onMouseEnter={handleCountEnter}
+                                        onMouseLeave={handleCountLeave}
+                                    >
+                                        {current_template.buy_btn_settings.editText}
+                                    </button>
                                 </div>
-                                <div className={style.lmblock_right}>
-                                    <div className={style.var_options}>
+                            </div>
+                        ) : (
+                            // mobile stickybar
+                            <div className={`lm_container ${style.lm_container}`}>
+                                <div className={style.lm_cart_module}>
+                                {selectedDevice !== 1 &&
+                                        (
+                                    <div className={style.lm_pro_image}>
                                         <div
-                                            className={`lm_options ${style.lm_options}`}
+                                            className={`img_size ${style.image_border}`}
                                         >
-                                            <div
-                                                className={`productInputs ${style.productInputs}`}
+                                            <img
+                                                className="img_sizes"
+                                                src={proimage}
+                                                alt="product image"
+                                            />
+                                        </div>
+                                        <div className={style.lm_middlecontent}>
+                                            <h2
+                                                className={`font_option ${style.pro_names
+                                                    } ${current_template
+                                                        .general_settings.gsBold ===
+                                                        true
+                                                        ? "lm_bold"
+                                                        : ""
+                                                    } ${current_template
+                                                        .general_settings
+                                                        .gsItalic === true
+                                                        ? "lm_italic"
+                                                        : ""
+                                                    } ${current_template
+                                                        .general_settings
+                                                        .gsUnderline === true
+                                                        ? "lm_underline"
+                                                        : "no-line"
+                                                    }`}
                                             >
-                                                <Select
-                                                    isSearchable={false}
-                                                    menuPlacement={
-                                                        current_template
-                                                            .general_settings
-                                                            .position ===
-                                                        "Bottom"
-                                                            ? "top"
-                                                            : "bottom"
+                                                Juice Bottle Mockup (Red)
+                                            </h2>
+                                            <div className="lm_sticky_p_color">
+                                                <span
+                                                    className={
+                                                        style.compare_lm_price
                                                     }
-                                                    className={`pro_select_menu apply-font ${style.pro_names}`}
-                                                    styles={customStyles}
-                                                    placeholder="Size.."
-                                                    options={options}
-                                                    theme={(theme) => ({
-                                                        ...theme,
-                                                        borderRadius: 0,
-                                                        colors: {
-                                                            ...theme.colors,
-                                                            primary25: "grey",
-                                                            primary: "black",
-                                                        },
-                                                    })}
-                                                />
+                                                >
+                                                    ${parseFloat(50).toFixed(2)}
+                                                </span>{" "}
+                                                <span
+                                                    className={style.simple_price}
+                                                >
+                                                    ${parseFloat(40).toFixed(2)}
+                                                </span>{" "}
+                                                <span
+                                                    className={style.lm_out_stock}
+                                                >
+                                                    {
+                                                        current_template
+                                                            .buy_btn_settings
+                                                            .unavailable
+                                                    }
+                                                </span>
                                             </div>
                                         </div>
-                                        {/* <div
+                                    </div>
+                                        )}
+                                    <div className={style.lmblock_right}>
+                                        <div className={style.var_options}>
+                                            <div
+                                                className={`lm_options ${style.lm_options}`}
+                                            >
+                                                <div
+                                                    className={`productInputs ${style.productInputs}`}
+                                                >
+                                                    <Select
+                                                        isSearchable={false}
+                                                        menuPlacement={
+                                                            current_template
+                                                                .general_settings
+                                                                .position ===
+                                                                "Bottom"
+                                                                ? "top"
+                                                                : "bottom"
+                                                        }
+                                                        className={`pro_select_menu apply-font ${style.pro_names}`}
+                                                        styles={customStyles}
+                                                        placeholder="Size.."
+                                                        options={options}
+                                                        theme={(theme) => ({
+                                                            ...theme,
+                                                            borderRadius: 0,
+                                                            colors: {
+                                                                ...theme.colors,
+                                                                primary25: "grey",
+                                                                primary: "black",
+                                                            },
+                                                        })}
+                                                    />
+                                                </div>
+                                            </div>
+                                            {/* <div
                                     className={`lm_options ${style.lm_options}`}
                                 >
                                     <div className={style.productInputs}>
@@ -424,96 +437,99 @@ export default function CartTemplate2({
                                         />
                                     </div>
                                 </div> */}
-                                    </div>
-                                    <div className={style.button_block}>
-                                        <div
-                                            className={`lm_quantity_picker ${style.lm_quantity_selector}`}
-                                        >
-                                            <QuantityPicker
-                                                className={style.quantity12}
-                                                min={1}
-                                                max={10}
-                                            />
                                         </div>
-                                        <div className={style.lm_buy_btn}>
-                                            {/* <CustomizedButton onClick={() => alert("Welcome!")}> */}
-                                            <button
-                                                className={`lm_btn slide_right apply-font ${
-                                                    current_template
+                                        <div className={style.button_block}>
+                                        {selectedDevice !== 1 &&
+                                        ( <div
+                                                className={`lm_quantity_picker ${style.lm_quantity_selector}`}
+                                            >
+                                                <QuantityPicker
+                                                    className={style.quantity12}
+                                                    min={1}
+                                                    max={10}
+                                                />
+                                            </div>
+                                        )}
+                                            <div className={style.lm_buy_btn}>
+                                                {/* <CustomizedButton onClick={() => alert("Welcome!")}> */}
+                                                <button
+                                                    className={`lm_btn slide_right apply-font ${current_template
                                                         .buy_btn_settings
                                                         .btnBold === true
                                                         ? "lm_bold"
                                                         : ""
-                                                } ${
-                                                    current_template
-                                                        .buy_btn_settings
-                                                        .btnItalic === true
-                                                        ? "lm_italic"
-                                                        : ""
-                                                } ${
-                                                    current_template
-                                                        .buy_btn_settings
-                                                        .btnUnderline === true
-                                                        ? "lm_underline"
-                                                        : "no-line"
-                                                }${
-                                                    animationEnable === true
-                                                        ? " lm_vibrating"
-                                                        : ""
-                                                }`}
-                                                onMouseEnter={handleCountEnter}
-                                                onMouseLeave={handleCountLeave}
-                                            >
-                                                {
-                                                    current_template
-                                                        .buy_btn_settings
-                                                        .editText
-                                                }
-                                            </button>
+                                                        } ${current_template
+                                                            .buy_btn_settings
+                                                            .btnItalic === true
+                                                            ? "lm_italic"
+                                                            : ""
+                                                        } ${current_template
+                                                            .buy_btn_settings
+                                                            .btnUnderline === true
+                                                            ? "lm_underline"
+                                                            : "no-line"
+                                                        }${animationEnable === true
+                                                            ? " lm_vibrating"
+                                                            : ""
+                                                        }`}
+                                                    onMouseEnter={handleCountEnter}
+                                                    onMouseLeave={handleCountLeave}
+                                                >
+                                                    {
+                                                        current_template
+                                                            .buy_btn_settings
+                                                            .editText
+                                                    }
+                                                </button>
 
-                                            {/* <div class="button_slide slide_right">BUTTON: SLIDE RIGHT </div> */}
-                                            {/* </CustomizedButton> */}
+                                                {/* <div class="button_slide slide_right">BUTTON: SLIDE RIGHT </div> */}
+                                                {/* </CustomizedButton> */}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    )}
-                    {current_template.general_settings.gsAction === "3" &&
-                        current_template.general_settings.position ===
-                            "Top" && (
-                            <Notification
-                                gsNotificationBarText={
-                                    current_template.general_settings
-                                        .gsNotificationBarText ||
-                                    defaultNotificationMessage
-                                }
-                                gsNotificationBarItalic={
-                                    current_template.general_settings
-                                        .gsNotificationBarItalic
-                                }
-                                gsNotificationBarBold={
-                                    current_template.general_settings
-                                        .gsNotificationBarBold
-                                }
-                                gsNotificationBarTextColor={
-                                    current_template.general_settings
-                                        .gsNotificationBarTextColor
-                                }
-                                gsNotificationBarBgColor={
-                                    current_template.general_settings
-                                        .gsNotificationBarBgColor
-                                }
-                                gsNotificationBarFontSize={
-                                    current_template.general_settings
-                                        .gsNotificationBarFontSize
-                                }
-                                gsNotificationBarHeight={
-                                    current_template.general_settings
-                                        .gsNotificationBarHeight
-                                }
-                            />
                         )}
+                        {current_template.general_settings.gsAction === "3" &&
+                            current_template.general_settings.position ===
+                            "Top" && (
+                                <Notification
+                                    containerHeight={
+                                        current_template.general_settings
+                                            .containerHeight
+                                    }
+                                    gsNotificationBarText={
+                                        current_template.general_settings
+                                            .gsNotificationBarText ||
+                                        defaultNotificationMessage
+                                    }
+                                    gsNotificationBarItalic={
+                                        current_template.general_settings
+                                            .gsNotificationBarItalic
+                                    }
+                                    gsNotificationBarBold={
+                                        current_template.general_settings
+                                            .gsNotificationBarBold
+                                    }
+                                    gsNotificationBarTextColor={
+                                        current_template.general_settings
+                                            .gsNotificationBarTextColor
+                                    }
+                                    gsNotificationBarBgColor={
+                                        current_template.general_settings
+                                            .gsNotificationBarBgColor
+                                    }
+                                    gsNotificationBarFontSize={
+                                        current_template.general_settings
+                                            .gsNotificationBarFontSize
+                                    }
+                                    gsNotificationBarHeight={
+                                        current_template.general_settings
+                                            .gsNotificationBarHeight
+                                    }
+                                />
+                            )}
+                    </div>
                 </div>
             )}
         </>

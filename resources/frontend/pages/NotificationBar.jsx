@@ -8,8 +8,7 @@ export default function NotificationBar(props) {
                 #notification_bar {
                     position: relative;
                     width:100%;
-                    background-color:${
-                        props.gsNotificationBarBgColor ?? "#000000"
+                    background-color:${props.gsNotificationBarBgColor ?? "#000000"
                     };
                     clear: both;
                     z-index: 999;
@@ -37,6 +36,20 @@ export default function NotificationBar(props) {
                 #notification_bar p.nb_bolder{
                     font-weight: bolder;
                 }
+
+
+                .lm-sticky-pos-Bottom #notification_bar{
+                        position: absolute;
+                        bottom: ${props.containerHeight}px;
+                    }
+                
+                   @media screen and (max-width: 767px) { 
+                     .lm-sticky-pos-Bottom #notification_bar{
+                       bottom: 106px;
+                     }
+                   }
+
+
             `}
             </style>
 
@@ -44,15 +57,13 @@ export default function NotificationBar(props) {
                 <div className="nbcontainer">
                     <i className="fa fa-times-circle"></i>
                     <p
-                        className={`${
-                            props.gsNotificationBarItalic === true
+                        className={`${props.gsNotificationBarItalic === true
                                 ? "nb_italic"
                                 : ""
-                        } ${
-                            props.gsNotificationBarBold === true
+                            } ${props.gsNotificationBarBold === true
                                 ? "nb_bolder"
                                 : ""
-                        } `}
+                            } `}
                     >
                         {props.gsNotificationBarText ??
                             "Yayy! Product Added to Cart!"}
