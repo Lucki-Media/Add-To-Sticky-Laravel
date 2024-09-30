@@ -451,13 +451,13 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                 .lmsc_popup_modal .quantity-modifier{
                     width: 2px;
                     font-size: 20px;
-                    color: #888;
-                    background: #fff;
+                      color: ${upsellPopupData.CUBtnTextColor};                  
                     border: 0 solid #dbdbdb;
                     text-align: center;
                     cursor: pointer;
                     line-height: 11px;
                     width: 33.33%;
+                     background: ${upsellPopupData.CUBackgroundColor};
                 }
 
                 .lmsc_popup_modal .quantity-display{
@@ -468,12 +468,14 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                     border-bottom: 0 solid #dbdbdb;
                     text-align: center;
                     width: 33.33% !important;
+                    background: ${upsellPopupData.CUBackgroundColor};
                 }
 
                 .lmsc_popup_modal select{
                     border: none;
                     width: 80%;
                     margin-left: 8px;
+                     background: ${upsellPopupData.CUBackgroundColor};
                 }
 
                 .lmsc_sproduct_title{                   
