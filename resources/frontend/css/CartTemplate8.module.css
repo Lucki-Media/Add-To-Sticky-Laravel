@@ -266,3 +266,27 @@ margin-bottom: 15px;
     text-align: center;
 }
 }
+.lm_mobile_right_block .lm_buy_btn button{
+    width: 100%;
+    height: 40px; 
+}
+.lm_mobile_right_block .lmblock_right {
+    display: block;
+}
+.lm_mobile_right_block .lm_mobile_right_block{
+    display: block;
+}
+.lm_mobile_right_block .lm_cart_module{
+    display: block;
+}
+.lm_mobile_right_block .button_block {
+    margin-top: 10px;
+    display: block;
+}
+.lm_mobile_right_block{
+    height: auto !important;   
+}
+.lm_mobile_right_block .var_options{
+    display: block;
+    text-align: center;
+}
