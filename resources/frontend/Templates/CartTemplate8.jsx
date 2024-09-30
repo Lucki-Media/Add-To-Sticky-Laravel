@@ -13,8 +13,7 @@ export default function CartTemplate4({
 }) {
     const [btnBgHoverColor, setBtnBgHoverColor] = useState(true);
 
-    const defaultNotificationMessage =
-        "Yayy! Product Added to Cart!";
+    const defaultNotificationMessage = "Yayy! Product Added to Cart!";
 
     const options = [
         { value: "L", label: "L" },
@@ -56,165 +55,173 @@ export default function CartTemplate4({
         <>
             <style>
                 {`
-                                                @keyframes shake-animation {
-                                                0% { transform:translate(0,0) }
-                                                1.78571% { transform:translate(10px,0) }
-                                                3.57143% { transform:translate(0,0) }
-                                                5.35714% { transform:translate(10px,0) }
-                                                7.14286% { transform:translate(0,0) }
-                                                8.92857% { transform:translate(10px,0) }
-                                                10.71429% { transform:translate(0,0) }
-                                                100% { transform:translate(0,0) }
-                                                }
+                @keyframes shake-animation {
+                0% { transform:translate(0,0) }
+                1.78571% { transform:translate(10px,0) }
+                3.57143% { transform:translate(0,0) }
+                5.35714% { transform:translate(10px,0) }
+                7.14286% { transform:translate(0,0) }
+                8.92857% { transform:translate(10px,0) }
+                10.71429% { transform:translate(0,0) }
+                100% { transform:translate(0,0) }
+                }
 
-                                                .lm_vibrating {
-                                                animation: shake-animation 4.72s ease infinite;
-                                                }
-                                                .lm_quantity_picker .quantity-picker .quantity-display{
-                                                padding: 0;
-                                                background-color: #fff;
-                                                width: 28px !important;
-                                                font-size: 14px;
-                                                color: #000;
-                                                }
-                                                .lm_quantity_picker .quantity-modifier{
-                                                height: 35px;
-                                                width: 30px;
-                                                border: none;
-                                                font-size: 16px;
-                                                color: #000;
-                                                background-color: #fff;
-                                                border-radius: 0;
-                                                }
-                                                .lm_quantity_picker .quantity-picker{
-                                                background-color: #fff;
-                                                border: 1px solid #ddd;
-                                                margin: 0 0px;
-                                                border-radius:0;
-                                                display: flex;
-                                                align-items: center;
-                                                }
-                                                .lm_bold{
-                                                font-weight: bolder;
-                                                }
-                                                .lm_italic{
-                                                font-style: italic;
-                                                }
-                                                .lm_underline{
-                                                text-decoration: underline;
-                                                }
-                                                .lm-sticky-Bottom{
-                                                box-shadow: rgba(149, 157, 165, 0.4) 0 -8px 24px;
-                                                background: ${current_template.general_settings.gsBgColor};
-                                                height: ${current_template.general_settings.containerHeight}px;
-                                                bottom:  ${current_template.general_settings.gsOffsetValue}px;
-                                                }
-                                                .lm-sticky-Top{
-                                                box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
-                                                background: ${current_template.general_settings.gsBgColor};
-                                                height: ${current_template.general_settings.containerHeight}px;
-                                                top:  ${current_template.general_settings.gsOffsetValue}px;
-                                                }
-                                                .img_size {
-                                                height: ${current_template.general_settings.containerHeight}px;
-                                                margin-right:15px;
-                                                display: flex;
-                                                align-items: center;
-                                                }
-                                                .font_option {
-                                                color: ${current_template.general_settings.gsTitleColor};
-                                                font-size: ${current_template.general_settings.gsFontsize}px;
-                                                }
-                                                .label_color{
-                                                color: ${current_template.general_settings.gsTitleColor};
-                                                }
-                                                .lm_sticky_p_color{
-                                                color: ${current_template.general_settings.gsPriceColor};
-                                                display: inline-flex;
-                                                align-items:center;
-                                                font-size: ${current_template.general_settings.gsPriceFontsize}px;
-                                                }
+                .lm_vibrating {
+                animation: shake-animation 4.72s ease infinite;
+                }
+                .lm_quantity_picker .quantity-picker .quantity-display{
+                padding: 0;
+                background-color: #fff;
+                width: 28px !important;
+                font-size: 14px;
+                color: #000;
+                }
+                .lm_quantity_picker .quantity-modifier{
+                height: 35px;
+                width: 30px;
+                border: none;
+                font-size: 16px;
+                color: #000;
+                background-color: #fff;
+                border-radius: 0;
+                }
+                .lm_quantity_picker .quantity-picker{
+                background-color: #fff;
+                border: 1px solid #ddd;
+                margin: 0 0px;
+                border-radius:0;
+                display: flex;
+                align-items: center;
+                }
+                .lm_bold{
+                font-weight: bolder;
+                }
+                .lm_italic{
+                font-style: italic;
+                }
+                .lm_underline{
+                text-decoration: underline;
+                }
+                .lm-sticky-Bottom{
+                box-shadow: rgba(149, 157, 165, 0.4) 0 -8px 24px;
+                background: ${current_template.general_settings.gsBgColor};
+                height: ${current_template.general_settings.containerHeight}px;
+                bottom:  ${current_template.general_settings.gsOffsetValue}px;
+                }
+                .lm-sticky-Top{
+                box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
+                background: ${current_template.general_settings.gsBgColor};
+                height: ${current_template.general_settings.containerHeight}px;
+                top:  ${current_template.general_settings.gsOffsetValue}px;
+                }
+                .img_size {
+                height: ${current_template.general_settings.containerHeight}px;
+                margin-right:15px;
+                display: flex;
+                align-items: center;
+                }
+                .font_option {
+                color: ${current_template.general_settings.gsTitleColor};
+                font-size: ${current_template.general_settings.gsFontsize}px;
+                }
+                .label_color{
+                color: ${current_template.general_settings.gsTitleColor};
+                }
+                .lm_sticky_p_color{
+                color: ${current_template.general_settings.gsPriceColor};
+                display: inline-flex;
+                align-items:center;
+                font-size: ${current_template.general_settings.gsPriceFontsize}px;
+                }
 
-                                                .lm_options {
-                                                position: relative;
-                                                }
-                                                .lm_options .pro_select_menu{
-                                                display: inline-block;
-                                                width: 100px;
-                                                }
-                                                .lm_options .pro_select_menu > div{
-                                                border: 1px solid #ddd;
-                                                font-size: 12px;
-                                                min-height: 35px;
-                                                box-shadow: none !important;
+                .lm_options {
+                position: relative;
+                }
+                .lm_options .pro_select_menu{
+                display: inline-block;
+                width: 100px;
+                }
+                .lm_options .pro_select_menu > div{
+                border: 1px solid #ddd;
+                font-size: 12px;
+                min-height: 35px;
+                box-shadow: none !important;
 
-                                                }
-                                                .css-1jqq78o-placeholder{
-                                                font-size:12px;
-                                                color: #000;
-                                                }
-                                                .css-lkh0o5-menu{
-                                                margin: 0 auto;
-                                                }
-                                                .css-8h3gbh-menu{
-                                                margin: 0 auto;
-                                                }
-                                                .css-1xc3v61-indicatorContainer{
-                                                padding: 0 8px;
-                                                }
-                                                .slide_right {
-                                                width: ${current_template.buy_btn_settings.btnWidthValue}px;
-                                                height: ${current_template.buy_btn_settings.btnheightValue}px;
-                                                font-size: ${current_template.buy_btn_settings.btnFontsize}px;
-                                                background: ${current_template.buy_btn_settings.btnBgColor};
-                                                border-Width: ${current_template.buy_btn_settings.btnBorderThickness}px;
-                                                border-color: ${current_template.buy_btn_settings.btnBorderColor};
-                                                border-radius: ${current_template.buy_btn_settings.btnBorderRadius}px;
-                                                color: ${current_template.buy_btn_settings.btnTextColor};
-                                                padding: 0 20px;
-                                                display: inline-block;
-                                                cursor: pointer;
-                                                box-shadow: inset 0 0 0 0 ${btnBgHoverColor};
-                                                -webkit-transition: ease-out 0.4s;
-                                                -moz-transition: ease-out 0.4s;
-                                                transition: ease-out 0.4s;
-                                                }
+                }
+                .css-1jqq78o-placeholder{
+                font-size:12px;
+                color: #000;
+                }
+                .css-lkh0o5-menu{
+                margin: 0 auto;
+                }
+                .css-8h3gbh-menu{
+                margin: 0 auto;
+                }
+                .css-1xc3v61-indicatorContainer{
+                padding: 0 8px;
+                }
+                .slide_right {
+                width: ${current_template.buy_btn_settings.btnWidthValue}px;
+                height: ${current_template.buy_btn_settings.btnheightValue}px;
+                font-size: ${current_template.buy_btn_settings.btnFontsize}px;
+                background: ${current_template.buy_btn_settings.btnBgColor};
+                border-Width: ${current_template.buy_btn_settings.btnBorderThickness}px;
+                border-color: ${current_template.buy_btn_settings.btnBorderColor};
+                border-radius: ${current_template.buy_btn_settings.btnBorderRadius}px;
+                color: ${current_template.buy_btn_settings.btnTextColor};
+                padding: 0 20px;
+                display: inline-block;
+                cursor: pointer;
+                box-shadow: inset 0 0 0 0 ${btnBgHoverColor};
+                -webkit-transition: ease-out 0.4s;
+                -moz-transition: ease-out 0.4s;
+                transition: ease-out 0.4s;
+                }
 
-                                                .slide_right:hover {
-                                                box-shadow: inset 400px 0 0 0 ${current_template.buy_btn_settings.btnBgHoverColor};
-                                                border-color: ${current_template.buy_btn_settings.btnBorderHoverColor};
-                                                color: ${current_template.buy_btn_settings.btnTexthoverColor};
-                                                }
-                                                .pro_select_menu svg{
-                                                fill: #000;
-                                                }
-                                                @media screen and (max-width: 991px) {
-                                                .lm_options .pro_select_menu > div {
-                                                min-height: 40px;        }
-                                                .lm_quantity_picker .quantity-modifier ,.slide_right{
-                                                height: 40px;        }
-                                                }
+                .slide_right:hover {
+                box-shadow: inset 400px 0 0 0 ${current_template.buy_btn_settings.btnBgHoverColor};
+                border-color: ${current_template.buy_btn_settings.btnBorderHoverColor};
+                color: ${current_template.buy_btn_settings.btnTexthoverColor};
+                }
+                .pro_select_menu svg{
+                fill: #000;
+                }
+                @media screen and (max-width: 991px) {
+                .lm_options .pro_select_menu > div {
+                min-height: 40px;        }
+                .lm_quantity_picker .quantity-modifier ,.slide_right{
+                height: 40px;        }
+                }
 
-                                                .lm-sticky-pos-Bottom.lm_mobile_bottom #notification_bar{
-                                                bottom: 106px;
-                                                }
-                                                .lm-sticky-Bottom.lm_mobile_right_block {
-                                                padding: 10px;
-                                                }
-                                                .lm-sticky-Top.lm_mobile_right_block{
-                                                padding-bottom: 0;
-                                                padding-top: 0;
-                                                }
-                                                .lm-sticky-Top.lm_mobile_right_block .lm_container{
-                                                padding-bottom: 10px;
-                                                padding-top: 10px;
-                                                }                          
-                                                .lm-sticky-Bottom.lm_mobile_right_block .lm_container{
-                                                padding: 0;}
+                .lm-sticky-pos-Bottom.lm_mobile_bottom #notification_bar{
+                bottom: 106px;
+                }
+                .lm-sticky-Bottom.lm_mobile_right_block {
+                padding: 10px;
+                }
+                .lm-sticky-Top.lm_mobile_right_block{
+                padding-bottom: 0;
+                padding-top: 0;
+                }
+                .lm-sticky-Top.lm_mobile_right_block .lm_container{
+                padding-bottom: 10px;
+                padding-top: 10px;
+                }                          
+                .lm-sticky-Bottom.lm_mobile_right_block .lm_container{
+                padding: 0;}
+                .lm-sticky-pos-Bottom.lm_show_buy_btn #notification_bar{
+                    bottom: 60px;
+                }
             `}
             </style>
             {enable === true && (
-                <div className={`lm-sticky-pos-${current_template.general_settings.position}  ${selectedDevice === 1 && 'lm_mobile_bottom'} `}>
+                <div
+                    className={`lm-sticky-pos-${current_template.general_settings.position
+                        }  ${selectedDevice === 1 && "lm_mobile_bottom"} ${current_template?.general_settings
+                            ?.showOnlyBtnOnMobile === true && selectedDevice === 1 && "lm_show_buy_btn"
+                        }`}
+                >
                     {current_template.general_settings.gsAction === "3" &&
                         current_template.general_settings.position ===
                         "Bottom" && (
@@ -256,27 +263,31 @@ export default function CartTemplate4({
                         )}
                     <div
                         className={`lm-sticky-${current_template.general_settings.position
-                            } ${style.lm_sticky_cart} ${current_template.general_settings.checkDesktop === true
+                            } ${style.lm_sticky_cart} ${current_template.general_settings.checkDesktop ===
+                                true
                                 ? "lm_sticky_show_desktop_abc12"
                                 : "lm_sticky_hide_desktop_abc12"
-                            } ${current_template.general_settings.checkMobile === true
+                            } ${current_template.general_settings.checkMobile ===
+                                true
                                 ? "lm_sticky_show_mobile_abc12"
                                 : "lm_sticky_hide_mobile_abc12"
-                            }  ${selectedDevice === 1 && style.lm_mobile_right_block} ${selectedDevice === 1 && 'lm_mobile_right_block'}  `}
+                            }  ${selectedDevice === 1 && style.lm_mobile_right_block
+                            } ${selectedDevice === 1 && "lm_mobile_right_block"}  `}
                         style={{ position: "absolute" }}
                     >
-
                         {selectedDevice === 1 &&
-                            current_template?.general_settings?.showOnlyBtnOnMobile ===
-                            true ? (
+                            current_template?.general_settings
+                                ?.showOnlyBtnOnMobile === true ? (
                             // show only mobile button
-                            <div className={`lm_container ${style.lm_container}`}>
+                            <div
+                                className={`lm_container ${style.lm_container}`}
+                            >
                                 <div className={style.lm_buy_btn}>
                                     <button
                                         className={`lm_btn slide_right apply-font ${current_template.buy_btn_settings
-                                            .btnBold === true
-                                            ? "lm_bold"
-                                            : ""
+                                                .btnBold === true
+                                                ? "lm_bold"
+                                                : ""
                                             } ${current_template.buy_btn_settings
                                                 .btnItalic === true
                                                 ? "lm_italic"
@@ -292,50 +303,59 @@ export default function CartTemplate4({
                                         onMouseEnter={handleCountEnter}
                                         onMouseLeave={handleCountLeave}
                                     >
-                                        {current_template.buy_btn_settings.editText}
+                                        {
+                                            current_template.buy_btn_settings
+                                                .editText
+                                        }
                                     </button>
                                 </div>
                             </div>
                         ) : (
-                            <div className={`lm_container ${style.lm_container}`}>
+                            <div
+                                className={`lm_container ${style.lm_container}`}
+                            >
                                 <div className={style.lm_cart_module}>
-                                    {selectedDevice !== 1 &&
-                                        (
-                                            <div className={style.lm_pro_image}>
-                                                <div
-                                                    className={`img_size ${style.image_border}`}
-                                                >
-                                                    <img
-                                                        className="img_sizes"
-                                                        src={proimage}
-                                                        alt="product image"
-                                                    />
-                                                </div>
-                                                <div className={style.lm_middlecontent}>
-                                                    <h2
-                                                        className={`font_option ${style.pro_names
-                                                            } ${current_template
-                                                                .general_settings.gsBold ===
-                                                                true
-                                                                ? "lm_bold"
-                                                                : ""
-                                                            } ${current_template
-                                                                .general_settings
-                                                                .gsItalic === true
-                                                                ? "lm_italic"
-                                                                : ""
-                                                            } ${current_template
-                                                                .general_settings
-                                                                .gsUnderline === true
-                                                                ? "lm_underline"
-                                                                : "no-line"
-                                                            }`}
-                                                    >
-                                                        Juice Bottle Mockup (Red)
-                                                    </h2>
-                                                </div>
+                                    {selectedDevice !== 1 && (
+                                        <div className={style.lm_pro_image}>
+                                            <div
+                                                className={`img_size ${style.image_border}`}
+                                            >
+                                                <img
+                                                    className="img_sizes"
+                                                    src={proimage}
+                                                    alt="product image"
+                                                />
                                             </div>
-                                        )}
+                                            <div
+                                                className={
+                                                    style.lm_middlecontent
+                                                }
+                                            >
+                                                <h2
+                                                    className={`font_option ${style.pro_names
+                                                        } ${current_template
+                                                            .general_settings
+                                                            .gsBold === true
+                                                            ? "lm_bold"
+                                                            : ""
+                                                        } ${current_template
+                                                            .general_settings
+                                                            .gsItalic === true
+                                                            ? "lm_italic"
+                                                            : ""
+                                                        } ${current_template
+                                                            .general_settings
+                                                            .gsUnderline ===
+                                                            true
+                                                            ? "lm_underline"
+                                                            : "no-line"
+                                                        }`}
+                                                >
+                                                    Juice Bottle Mockup (Red)
+                                                </h2>
+                                            </div>
+                                        </div>
+                                    )}
                                     <div className={style.lmblock_right}>
                                         <div className={style.var_options}>
                                             <div
@@ -363,8 +383,10 @@ export default function CartTemplate4({
                                                             borderRadius: 0,
                                                             colors: {
                                                                 ...theme.colors,
-                                                                primary25: "grey",
-                                                                primary: "black",
+                                                                primary25:
+                                                                    "grey",
+                                                                primary:
+                                                                    "black",
                                                             },
                                                         })}
                                                     />
@@ -426,57 +448,68 @@ export default function CartTemplate4({
                                     </div> */}
                                         </div>
                                         <div className={style.button_block}>
-                                            {selectedDevice !== 1 &&
-                                                (<div
+                                            {selectedDevice !== 1 && (
+                                                <div
                                                     className={`lm_quantity_picker ${style.lm_quantity_selector}`}
                                                 >
                                                     <QuantityPicker
-                                                        className={style.quantity12}
+                                                        className={
+                                                            style.quantity12
+                                                        }
                                                         min={1}
                                                         max={10}
                                                     />
                                                 </div>
-                                                )}
-                                            {selectedDevice !== 1 &&
-                                                (
-                                                    <div className={style.lm_block_price}>
-                                                        <div className="lm_sticky_p_color">
-                                                            <span
-                                                                className={
-                                                                    style.compare_lm_price
-                                                                }
-                                                            >
-                                                                ${parseFloat(50).toFixed(2)}
-                                                            </span>{" "}
-                                                            <span
-                                                                className={
-                                                                    style.simple_price
-                                                                }
-                                                            >
-                                                                ${parseFloat(40).toFixed(2)}
-                                                            </span>{" "}
-                                                            <span
-                                                                className={
-                                                                    style.lm_out_stock
-                                                                }
-                                                            >
-                                                                {
-                                                                    current_template
-                                                                        .buy_btn_settings
-                                                                        .unavailable
-                                                                }
-                                                            </span>
-                                                        </div>
+                                            )}
+                                            {selectedDevice !== 1 && (
+                                                <div
+                                                    className={
+                                                        style.lm_block_price
+                                                    }
+                                                >
+                                                    <div className="lm_sticky_p_color">
+                                                        <span
+                                                            className={
+                                                                style.compare_lm_price
+                                                            }
+                                                        >
+                                                            $
+                                                            {parseFloat(
+                                                                50
+                                                            ).toFixed(2)}
+                                                        </span>{" "}
+                                                        <span
+                                                            className={
+                                                                style.simple_price
+                                                            }
+                                                        >
+                                                            $
+                                                            {parseFloat(
+                                                                40
+                                                            ).toFixed(2)}
+                                                        </span>{" "}
+                                                        <span
+                                                            className={
+                                                                style.lm_out_stock
+                                                            }
+                                                        >
+                                                            {
+                                                                current_template
+                                                                    .buy_btn_settings
+                                                                    .unavailable
+                                                            }
+                                                        </span>
                                                     </div>
-                                                )}
+                                                </div>
+                                            )}
                                             <div className={style.lm_buy_btn}>
                                                 {/* <CustomizedButton onClick={() => alert("Welcome!")}> */}
                                                 <button
                                                     className={`lm_btn slide_right apply-font ${current_template
-                                                        .buy_btn_settings
-                                                        .btnBold === true
-                                                        ? "lm_bold"
-                                                        : ""
+                                                            .buy_btn_settings
+                                                            .btnBold === true
+                                                            ? "lm_bold"
+                                                            : ""
                                                         } ${current_template
                                                             .buy_btn_settings
                                                             .btnItalic === true
@@ -484,15 +517,20 @@ export default function CartTemplate4({
                                                             : ""
                                                         } ${current_template
                                                             .buy_btn_settings
-                                                            .btnUnderline === true
+                                                            .btnUnderline ===
+                                                            true
                                                             ? "lm_underline"
                                                             : "no-line"
                                                         }${animationEnable === true
                                                             ? " lm_vibrating"
                                                             : ""
                                                         }`}
-                                                    onMouseEnter={handleCountEnter}
-                                                    onMouseLeave={handleCountLeave}
+                                                    onMouseEnter={
+                                                        handleCountEnter
+                                                    }
+                                                    onMouseLeave={
+                                                        handleCountLeave
+                                                    }
                                                 >
                                                     {
                                                         current_template

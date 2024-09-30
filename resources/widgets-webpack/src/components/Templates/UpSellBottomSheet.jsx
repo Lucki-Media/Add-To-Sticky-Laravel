@@ -461,7 +461,6 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                 }
 
                 .lmsc_popup_modal .quantity-display{
-                    padding: 0;
                     font-size: 15px;
                     border: 0;
                     border-top: 0 solid #dbdbdb;
