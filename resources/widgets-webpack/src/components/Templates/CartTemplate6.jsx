@@ -152,9 +152,10 @@ export default function CartTemplate6({
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 id: selectedVariant.id,
-                quantity: document
-                    .getElementById("lm_sticky_container__qty_picker")
-                    .getElementsByTagName("input")[0].value,
+                quantity:
+                    document
+                        ?.getElementById("lm_sticky_container__qty_picker")
+                        ?.getElementsByTagName("input")[0].value ?? 1,
             }),
         };
         const requestOptions1 = {
@@ -479,6 +480,7 @@ export default function CartTemplate6({
                     </style>
                     {enable === true && (
                         <div
+                            id="lm_sticky_cart_template"
                             className={`lm-sticky-${position} ${
                                 style.lm_sticky_cart
                             } ${
@@ -489,7 +491,10 @@ export default function CartTemplate6({
                                 checkMobile === true
                                     ? "lm_sticky_show_mobile_abc12"
                                     : "lm_sticky_hide_mobile_abc12"
-                            }  `}
+                            } ${
+                                window.meta.page.pageType === "home" &&
+                                "lm_sticky_home_page"
+                            }`}
                         >
                             {gsAction === "3" &&
                                 showNotificationBar === true &&
@@ -517,7 +522,11 @@ export default function CartTemplate6({
                                             gsNotificationBarHeight
                                         }
                                         position={position}
-                                        containerHeight={containerHeight}
+                                        containerHeight={
+                                            document.getElementById(
+                                                "lm_sticky_cart_template"
+                                            ).clientHeight
+                                        }
                                         showNotificationBar={
                                             showNotificationBar
                                         }
@@ -625,7 +634,9 @@ export default function CartTemplate6({
                                             </div>
                                         </div>
                                         <div className={style.lmblock_right}>
-                                            <div className={`lm_sticky_p_color ${style.lm_sticky_p_color}`}>
+                                            <div
+                                                className={`lm_sticky_p_color ${style.lm_sticky_p_color}`}
+                                            >
                                                 {oldPrice > price &&
                                                 oldPrice !== "" ? (
                                                     <span
@@ -845,7 +856,11 @@ export default function CartTemplate6({
                                             gsNotificationBarHeight
                                         }
                                         position={position}
-                                        containerHeight={containerHeight}
+                                        containerHeight={
+                                            document.getElementById(
+                                                "lm_sticky_cart_template"
+                                            ).clientHeight
+                                        }
                                         showNotificationBar={
                                             showNotificationBar
                                         }

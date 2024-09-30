@@ -68,15 +68,19 @@ const StickyIcon = () => {
                 `${process.env.REACT_APP_API_URL}` + "addStickyButtonClicks",
                 requestOptions
             );
+
+            await axios
+                .get("https://" + window.location.host + "/cart.json")
+                .then(async (response) => {
+                    await setCartData(response.data);
+                    setNumberCount(response.data.item_count);
+                });
+
             // If drawer cart is enabled, then open otherwise redirect to action
             if (drawerData.enableDrawer === true) {
                 setIsDrawerOpen(true);
             } else {
-                if (action === "1") {
-                    window.location.href = "/cart";
-                } else {
-                    window.location.href = "/checkout";
-                }
+                window.location.href = action === "1" ? "/cart" : "/checkout";
             }
         } catch (error) {
             console.log(error);
@@ -347,7 +351,7 @@ const StickyIcon = () => {
                             onMouseLeave={handleIconLeave}
                             onClick={handleClick}
                         >
-                            {enableCount === true ? (
+                            {enableCount === true && (
                                 <span
                                     className=" sticky_Count"
                                     style={{
@@ -366,33 +370,21 @@ const StickyIcon = () => {
                                 >
                                     {numberCount}
                                 </span>
-                            ) : (
-                                ""
                             )}
-                            {defaultTemplate === 1 ? (
+                            {defaultTemplate === 1 && (
                                 <FontAwesomeIcon icon={faCartShopping} />
-                            ) : (
-                                ""
                             )}
-                            {defaultTemplate === 2 ? (
+                            {defaultTemplate === 2 && (
                                 <FontAwesomeIcon icon={faCartPlus} />
-                            ) : (
-                                ""
                             )}
-                            {defaultTemplate === 3 ? (
+                            {defaultTemplate === 3 && (
                                 <FontAwesomeIcon icon={faCartArrowDown} />
-                            ) : (
-                                ""
                             )}
-                            {defaultTemplate === 4 ? (
+                            {defaultTemplate === 4 && (
                                 <FontAwesomeIcon icon={faBasketShopping} />
-                            ) : (
-                                ""
                             )}
-                            {defaultTemplate === 5 ? (
+                            {defaultTemplate === 5 && (
                                 <FontAwesomeIcon icon={faBagShopping} />
-                            ) : (
-                                ""
                             )}
                         </div>
                     </div>

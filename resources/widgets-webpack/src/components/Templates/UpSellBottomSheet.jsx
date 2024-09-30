@@ -6,6 +6,7 @@ import axios from "axios";
 const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
     const [open, setOpen] = useState(false);
     const [popupOpen, setPopupOpen] = useState(false);
+    const [popupOpenClass, setPopupOpenClass] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [CUProducts, setCUProducts] = useState([]);
     const [cartData, setCartData] = useState();
@@ -18,12 +19,16 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
     const closeBottomSheet = () => {
         setOpen(false);
         setPopupOpen(false);
-        handleUpsellPopup();
+        setPopupOpenClass(false);
+        setTimeout(() => {
+            handleUpsellPopup();
+        }, 1000);
     };
 
     const handleBuyButtonClick = (product) => {
         setSelectedProduct(product);
         setPopupOpen(true);
+        setPopupOpenClass(true);
     };
 
     /* CART COUNT API CALL START*/
@@ -190,10 +195,10 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                 body: JSON.stringify({
                     id: neededVariant.id, // Use the selected variant ID
                     quantity: document
-                        .getElementById(
+                        ?.getElementById(
                             "lm_sticky_container_upsell__qty_picker"
                         )
-                        .getElementsByTagName("input")[0].value,
+                        ?.getElementsByTagName("input")[0].value ?? 1,
                 }),
             };
 
@@ -447,7 +452,7 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                     width: 2px;
                     font-size: 20px;
                     color: #888;
-                    background: transparent;
+                    background: #fff;
                     border: 0 solid #dbdbdb;
                     text-align: center;
                     cursor: pointer;
@@ -610,7 +615,7 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                     {open === true && popupOpen && selectedProduct && (
                         <div
                             className={`lmsc_popup_modal ${
-                                popupOpen
+                                popupOpenClass
                                     ? "lmsc_popup_open"
                                     : "lmsc_popup_close"
                             } ${
@@ -623,7 +628,10 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                                 id="lmupsc_closeButton"
                                 className="lmsc_close_button"
                                 onClick={() => {
-                                    setPopupOpen(false);
+                                    setPopupOpenClass(false);
+                                    setTimeout(() => {
+                                        setPopupOpen(false);
+                                    }, 1000);
                                 }}
                             >
                                 &times;
