@@ -6,6 +6,7 @@ import { QuantityPicker } from "react-qty-picker";
 const UpSellBottomSheet = ({ upsellPopupData }) => {
     const [open, setOpen] = useState(false);
     const [popupOpen, setPopupOpen] = useState(false);
+    const [popupOpenClass, setPopupOpenClass] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
 
     useEffect(() => {
@@ -17,6 +18,7 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
     const handleBuyButtonClick = (product) => {
         setSelectedProduct(product);
         setPopupOpen(true);
+        setPopupOpenClass(true);
     };
 
     return (
@@ -30,12 +32,12 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                         transform: translateY(100%);
                         z-index: 9999;
                     }
-                   .upsell_left {              
-                    left: ${upsellPopupData.USOffset}px;                  
+                    .upsell_left {              
+                        left: ${upsellPopupData.USOffset}px;                  
                     }
 
                     .upsell_right {              
-                    right: ${upsellPopupData.USOffset}px;                  
+                        right: ${upsellPopupData.USOffset}px;                  
                     }
                     
                     .lmsc_popup_open {
@@ -136,12 +138,12 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                         color: ${upsellPopupData.CUBodyTextColor};
                         margin: 10px 0 4px;
                     }
-                        .lmsc_popup_modal select:focus-visible{
-                    outline: none;
-                    box-shadow: none;
-                }    
+                    .lmsc_popup_modal select:focus-visible{
+                        outline: none;
+                        box-shadow: none;
+                    }    
                     .lmsc_pro_price_wrapper .lmsc_product_price{
-                     margin: 10px 0 10px;
+                        margin: 10px 0 10px;
                     }
                     .lmsc_product_price strike {
                         font-size: ${upsellPopupData.CUBodyFontSize}px;
@@ -169,14 +171,14 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     .lmsc_popup_modal {
                         position: absolute;
                         bottom:0;                            
-                        background: white;
+                        background: ${upsellPopupData.CUBackgroundColor};
                         padding: 10px;
                         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
                         border-radius: ${upsellPopupData.CUBorderRadius}px;
                         z-index: 10000;
                         max-width: 300px;
                         width: 100%;
-                        transition: transform 0.4s ease, opacity 0.4s ease;
+                        transition: transform 0.5s ease, opacity 0.5s ease;
                         opacity: ${popupOpen ? 1 : 0};
                     }
     
@@ -192,8 +194,28 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     .lmsc_popup_modal .lmsc_variation,
                     .lmsc_popup_modal .lmsc_quantity {
                         margin: 8px 0;
+                    }
+                    .lmsc_product_label{
+                        display: flex;
+                        align-items: center;
+                        height: 40px;
                         border: 1px solid #9e9e9e;
-                        padding: 10px 8px;
+                        padding: 10px;
+                        border-radius: 3px;
+                    }
+                    .lm_variation_select_label {
+                        width: 20%;
+                        font-weight: 600;
+                        font-size: ${upsellPopupData.CUBodyFontSize}px;
+                        color: ${upsellPopupData.CUBodyTextColor};
+                    }
+                    .lm_variation_select__select {
+                        width: 80%;
+                        border: none;
+                        outline: none;
+                        font-size: ${upsellPopupData.CUBodyFontSize}px;
+                        color: ${upsellPopupData.CUBodyTextColor};
+                        background: ${upsellPopupData.CUBackgroundColor};
                     }
     
                     .lmsc_popup_modal .lmsc_close_popup_button {
@@ -217,14 +239,14 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     }
     
                     .lmsc_popup_modal .quantity-picker {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    margin: 0;
-                    width: 100px;
-                    padding: 0;
-                    border-radius: 0;
-                    height: 30px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin: 0;
+                        width: 100px;
+                        padding: 0;
+                        border-radius: 0;
+                        height: 30px;
                     }
     
                     .lmsc_popup_modal .quantity-picker .qty-button {
@@ -245,31 +267,30 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                         border: 1px solid #ddd;
                     }
     
-                    .lmsc_popup_modal button.quantity-modifier.modifier-right{
-                       
-                    }
+                    .lmsc_popup_modal button.quantity-modifier.modifier-right{}
     
                    .lmsc_popup_modal .quantity-modifier{
-                    width: 2px;
-                    font-size: 20px;
-                    color: #888;
-                    background: transparent;
-                    border: 0 solid #dbdbdb;
-                    text-align: center;
-                    cursor: pointer;
-                    line-height: 11px;
-                    width: 33.33%;
-                }
+                        width: 2px;
+                        font-size: 20px;
+                        color: #888;
+                        background: transparent;
+                        border: 0 solid #dbdbdb;
+                        text-align: center;
+                        cursor: pointer;
+                        line-height: 11px;
+                        width: 33.33%;
+                    }
 
-                .lmsc_popup_modal .quantity-display{
-                    padding: 0;
-                    font-size: 15px;
-                    border: 0;
-                    border-top: 0 solid #dbdbdb;
-                    border-bottom: 0 solid #dbdbdb;
-                    text-align: center;
-                    width: 33.33% !important;
-                }
+                    .lmsc_popup_modal .quantity-display{
+                        font-size: 15px;
+                        border: 0;
+                        border-top: 0 solid #dbdbdb;
+                        border-bottom: 0 solid #dbdbdb;
+                        text-align: center;
+                        width: 33.33% !important;
+                        height: 28px;
+                        background: transparent;
+                    }
     
                     .lmsc_popup_modal select{
                         border: none;
@@ -278,24 +299,29 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     }
     
                     .lmsc_sproduct_title{                   
-                        font-size: ${upsellPopupData.CUBodyFontSize}px;
+                        font-size: ${upsellPopupData.CUHeadingFontSize}px;
+                        color: ${upsellPopupData.CUBodyTextColor};   
+                        font-weight: 600;
                     }
-                          #lmupsc_closeButton{
-                position: absolute;
-                right: 5px;
-                top: 5px;
-                color: #000;
-               }
+                    .lmsc_popup_modal .lmsc_product_price{
+                        margin-bottom: 10px;
+                        letter-spacing: .5px;
+                    }
+                    #lmupsc_closeButton{
+                        position: absolute;
+                        right: 5px;
+                        top: 5px;
+                        color: ${upsellPopupData.CUBodyTextColor};   
+                    }
 
-                @media screen and (max-width: 768px) {
-                
-                .upsell_left {              
-                    left: 0;                  
-                }                
-              .upsell_right {              
-                    right: 0;                  
-                }
-                }
+                    @media screen and (max-width: 768px) {
+                        .upsell_left {              
+                            left: 0;                  
+                        }                
+                        .upsell_right {              
+                            right: 0;                  
+                        }
+                    }
                 `}
             </style>
 
@@ -389,35 +415,41 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                     {/* Popup Modal */}
 
                     {open === true && popupOpen && selectedProduct && (
-                        <div className={`lmsc_popup_modal ${
-                            upsellPopupData.USPosition === "left"
-                                ? "upsell_left"
-                                : "upsell_right"
-                        }`}>
-                             <button
+                        <div
+                            className={`lmsc_popup_modal ${
+                                upsellPopupData.USPosition === "left"
+                                    ? "upsell_left"
+                                    : "upsell_right"
+                            } ${
+                                popupOpenClass
+                                    ? "lmsc_bottomSheet--onScreen"
+                                    : "lmsc_bottomSheet--offScreen"
+                            }`}
+                        >
+                            <button
                                 id="lmupsc_closeButton"
                                 className="lmsc_close_button"
                                 onClick={() => {
-                                    setPopupOpen(false);
+                                    setPopupOpenClass(false);
+                                    setTimeout(() => {
+                                        setPopupOpen(false);
+                                    }, 1000);
                                 }}
                             >
                                 &times;
                             </button>
                             <div className="lmsc_pro_popup_image">
-
-                            <img
-                                src={selectedProduct.image}
-                                alt={selectedProduct.title}
-                            />
+                                <img
+                                    src={selectedProduct.image}
+                                    alt={selectedProduct.title}
+                                />
                             </div>
                             <h3 className="lmsc_sproduct_title">
                                 {selectedProduct.title}
                             </h3>
 
                             <div className="lmsc_pro_price_wrapper">
-                                <div
-                                    className="lmsc_product_price"
-                                >
+                                <div className="lmsc_product_price">
                                     {selectedProduct.actual_price}
                                     <strike>
                                         {selectedProduct.compare_price}
@@ -428,16 +460,29 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
 
                             {selectedProduct.options.map((variation, index) => (
                                 <div key={index} className="lmsc_variation">
-                                    <label htmlFor={`variation_${index}`}>
-                                        {variation.name}:
+                                    <label
+                                        htmlFor={`variation_${index}`}
+                                        className="lmsc_product_label"
+                                    >
+                                        <span className="lm_variation_select_label">
+                                            {variation.name} :
+                                        </span>
+                                        <select
+                                            className="lm_variation_select__select"
+                                            id={`variation_${index}`}
+                                        >
+                                            {variation.values.map(
+                                                (value, idx) => (
+                                                    <option
+                                                        key={idx}
+                                                        value={value}
+                                                    >
+                                                        {value}
+                                                    </option>
+                                                )
+                                            )}
+                                        </select>
                                     </label>
-                                    <select id={`variation_${index}`}>
-                                        {variation.values.map((value, idx) => (
-                                            <option key={idx} value={value}>
-                                                {value}
-                                            </option>
-                                        ))}
-                                    </select>
                                 </div>
                             ))}
 
