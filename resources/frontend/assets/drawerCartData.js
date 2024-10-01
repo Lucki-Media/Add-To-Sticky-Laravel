@@ -11,7 +11,7 @@ const drawerCartData = {
         ECButtonText: "Continue Shopping",
     },
     shippingBar: {
-        FSBenable: true,
+        FSBenable: false,
         FSBShippingTarget: 15,
         FSBReminderText: "Only ${'price'} left to get free shipping",
         FSBWinningText: "Yayy! You won Free Shipping",

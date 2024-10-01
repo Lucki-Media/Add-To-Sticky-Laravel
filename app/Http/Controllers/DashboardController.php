@@ -139,16 +139,17 @@ class DashboardController extends Controller
         $apiKey = config('shopify-app.api_key');
         $user = User::where(['name' => $shopDomain])->first();
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
-        $url = 'https://' . $apiKey . ':' . $user['password'] . '@' . $shopDomain . '/admin/api/' . env('SHOPIFY_API_VERSION') . '/shop.json?fields=name';
-        curl_setopt($ch, CURLOPT_URL, $url);
-        $server_output = curl_exec($ch);
-        $shop_data = json_decode($server_output, true);
-
+        if ($user) {
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_HEADER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
+            $url = 'https://' . $apiKey . ':' . $user['password'] . '@' . $shopDomain . '/admin/api/' . env('SHOPIFY_API_VERSION') . '/shop.json?fields=name';
+            curl_setopt($ch, CURLOPT_URL, $url);
+            $server_output = curl_exec($ch);
+            $shop_data = json_decode($server_output, true);
+        }
         // get details about counts
         $currentYear = Carbon::now()->year;
         $currentMonth = Carbon::now()->format('M');
@@ -168,39 +169,39 @@ class DashboardController extends Controller
 
         // Final array
         $finalArray = [
-            'shop_name' => $shop_data['shop']['name'],
+            'shop_name' => $shop_data['shop']['name'] ?? "There",
             'extension_id' => env('SHOPIFY_LM_ADD_TO_CART_THEME_EXTENTION_ID'),
             'year' => $currentYear,
             'current_month' => Carbon::now()->format('F'),
-            'sacMonthValue' => $getAddToCartStickyCount[$currentMonth],
-            'scMonthValue' => $getStickyCartCount[$currentMonth],
+            'sacMonthValue' => $getAddToCartStickyCount[$currentMonth] ?? 0,
+            'scMonthValue' => $getStickyCartCount[$currentMonth] ?? 0,
             'sac_array' => [
-                $getAddToCartStickyCount['Jan'],
-                $getAddToCartStickyCount['Feb'],
-                $getAddToCartStickyCount['Mar'],
-                $getAddToCartStickyCount['Apr'],
-                $getAddToCartStickyCount['May'],
-                $getAddToCartStickyCount['Jun'],
-                $getAddToCartStickyCount['Jul'],
-                $getAddToCartStickyCount['Aug'],
-                $getAddToCartStickyCount['Sep'],
-                $getAddToCartStickyCount['Oct'],
-                $getAddToCartStickyCount['Nov'],
-                $getAddToCartStickyCount['Dec'],
+                $getAddToCartStickyCount['Jan'] ?? 0,
+                $getAddToCartStickyCount['Feb'] ?? 0,
+                $getAddToCartStickyCount['Mar'] ?? 0,
+                $getAddToCartStickyCount['Apr'] ?? 0,
+                $getAddToCartStickyCount['May'] ?? 0,
+                $getAddToCartStickyCount['Jun'] ?? 0,
+                $getAddToCartStickyCount['Jul'] ?? 0,
+                $getAddToCartStickyCount['Aug'] ?? 0,
+                $getAddToCartStickyCount['Sep'] ?? 0,
+                $getAddToCartStickyCount['Oct'] ?? 0,
+                $getAddToCartStickyCount['Nov'] ?? 0,
+                $getAddToCartStickyCount['Dec'] ?? 0,
             ],
             'sc_array' => [
-                $getStickyCartCount['Jan'],
-                $getStickyCartCount['Feb'],
-                $getStickyCartCount['Mar'],
-                $getStickyCartCount['Apr'],
-                $getStickyCartCount['May'],
-                $getStickyCartCount['Jun'],
-                $getStickyCartCount['Jul'],
-                $getStickyCartCount['Aug'],
-                $getStickyCartCount['Sep'],
-                $getStickyCartCount['Oct'],
-                $getStickyCartCount['Nov'],
-                $getStickyCartCount['Dec'],
+                $getStickyCartCount['Jan'] ?? 0,
+                $getStickyCartCount['Feb'] ?? 0,
+                $getStickyCartCount['Mar'] ?? 0,
+                $getStickyCartCount['Apr'] ?? 0,
+                $getStickyCartCount['May'] ?? 0,
+                $getStickyCartCount['Jun'] ?? 0,
+                $getStickyCartCount['Jul'] ?? 0,
+                $getStickyCartCount['Aug'] ?? 0,
+                $getStickyCartCount['Sep'] ?? 0,
+                $getStickyCartCount['Oct'] ?? 0,
+                $getStickyCartCount['Nov'] ?? 0,
+                $getStickyCartCount['Dec'] ?? 0,
             ],
             'sac_enable' => $sac_enable && $sac_enable['enable'] ? $sac_enable['enable'] : '0',
             'sc_enable' => $sc_enable ?? '0',
@@ -216,53 +217,56 @@ class DashboardController extends Controller
         $apiKey = config('shopify-app.api_key');
         $user = User::where(['name' => $shopDomain])->first();
 
-        // get all themes
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
-        $url = 'https://' . $apiKey . ':' . $user['password'] . '@' . $shopDomain . '/admin/api/' . env('SHOPIFY_API_VERSION') . '/themes.json?fields=id,name,role';
-        curl_setopt($ch, CURLOPT_URL, $url);
-        $server_output = curl_exec($ch);
-        $theme_data = json_decode($server_output, true);
-        $themes = $theme_data && $theme_data['themes'] ? $theme_data['themes'] : [];
+        if ($user) {
+            // get all themes
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_HEADER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
+            $url = 'https://' . $apiKey . ':' . $user['password'] . '@' . $shopDomain . '/admin/api/' . env('SHOPIFY_API_VERSION') . '/themes.json?fields=id,name,role';
+            curl_setopt($ch, CURLOPT_URL, $url);
+            $server_output = curl_exec($ch);
+            $theme_data = json_decode($server_output, true);
+            $themes = $theme_data && $theme_data['themes'] ? $theme_data['themes'] : [];
 
-        // Filter the array to get objects where the role is 'main', this is how we'll get current theme ID
-        $filteredArray = [];
-        foreach ($themes as $item) {
-            if ($item['role'] === 'main') {
-                $filteredArray = $item;
-                break; // Exit the loop as we found the main role
+            // Filter the array to get objects where the role is 'main', this is how we'll get current theme ID
+            $filteredArray = [];
+            foreach ($themes as $item) {
+                if ($item['role'] === 'main') {
+                    $filteredArray = $item;
+                    break; // Exit the loop as we found the main role
+                }
             }
-        }
-        $currentThemeId = $filteredArray && $filteredArray['id'] ? $filteredArray['id'] : "";
+            $currentThemeId = $filteredArray && $filteredArray['id'] ? $filteredArray['id'] : "";
 
-        // get settings_data.json asset to get details about extension is enabled or not
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
-        $url = 'https://' . $apiKey . ':' . $user['password'] . '@' . $shopDomain . '/admin/api/' . env('SHOPIFY_API_VERSION') . '/themes/' . $currentThemeId . '/assets.json?asset%5Bkey%5D=config%2Fsettings_data.json';
-        curl_setopt($ch, CURLOPT_URL, $url);
-        $server_output = curl_exec($ch);
-        $asset_data = json_decode($server_output, true);
-        $asset_json = json_decode($asset_data['asset']['value'], true);  // get json decoded data of settings_data.json file
-        $block_details = optional(optional($asset_json)['current'])['blocks'] ?? [];
-        // get blocks where extension details are stored
+            // get settings_data.json asset to get details about extension is enabled or not
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_HEADER, false);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
+            $url = 'https://' . $apiKey . ':' . $user['password'] . '@' . $shopDomain . '/admin/api/' . env('SHOPIFY_API_VERSION') . '/themes/' . $currentThemeId . '/assets.json?asset%5Bkey%5D=config%2Fsettings_data.json';
+            curl_setopt($ch, CURLOPT_URL, $url);
+            $server_output = curl_exec($ch);
+            $asset_data = json_decode($server_output, true);
+            $asset_json = json_decode($asset_data['asset']['value'], true);  // get json decoded data of settings_data.json file
+            $block_details = optional(optional($asset_json)['current'])['blocks'] ?? [];
+            // get blocks where extension details are stored
 
-        // get details of block of our app
-        $app_block = [
-            "disabled" => true
-        ];
-        foreach ($block_details as $key => $value) {
-            if ($value['type'] === "shopify://apps/" . env('APP_SLUG') . "/blocks/app-embed/" . env('SHOPIFY_LM_ADD_TO_CART_THEME_EXTENTION_ID')) {
-                $app_block = $value;
-                break; // Exit the loop as we found the app block
+            // get details of block of our app
+            $app_block = [
+                "disabled" => true
+            ];
+            foreach ($block_details as $key => $value) {
+                if ($value['type'] === "shopify://apps/" . env('APP_SLUG') . "/blocks/app-embed/" . env('SHOPIFY_LM_ADD_TO_CART_THEME_EXTENTION_ID')) {
+                    $app_block = $value;
+                    break; // Exit the loop as we found the app block
+                }
             }
+            return $app_block['disabled'] === false ? '1' : '0';
         }
-        return $app_block['disabled'] === false ? '1' : '0';
+        return '0';
     }
 
     public function test()
@@ -273,7 +277,6 @@ class DashboardController extends Controller
         foreach ($stickyData as $value) {
             // $row = AddToCartStickyData::where('id', $value['id'])->first();
             $jsonData = json_decode($value['template_8'], true);
-            $data[] = $jsonData;
 
             // $jsonData['general_settings'] = array_merge($jsonData['general_settings'], [
             //     "showOnlyBtnOnMobile" => false,
@@ -308,6 +311,7 @@ class DashboardController extends Controller
             //     "USPosition" => "left",
             //     "USOffset" => 0
             // ]);
+            $data[] = $jsonData;
 
             // $row->template_8 = $jsonData;
             // $row->save();
