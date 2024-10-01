@@ -349,17 +349,19 @@ export default function CartTemplate5({
                                 background-color: #fff;
                                 width: 28px !important;
                                 font-size: 14px;
-                                color: #000;
+                                  color: ${gsTitleColor};
                                 box-shadow: none;
+                                 background: ${gsBgColor};
                             }
                             .lm_quantity_picker .quantity-modifier{
                                 height: 35px;
                                 width: 30px;
                                 border: none;
                                 font-size: 16px;
-                                color: #000;
-                                background-color: #fff;
+                                 color: ${gsTitleColor};
+                              
                                 border-radius: 0;
+                                 background: ${gsBgColor};
                             }
                             .lm_quantity_picker .quantity-picker{
                                 background-color: #fff;
@@ -367,6 +369,8 @@ export default function CartTemplate5({
                                 border-radius:0;
                                 display: flex;
                                 align-items: center;
+                                 background: ${gsBgColor};
+                                   color: ${gsTitleColor};
                             }
 
                             .lm_options {
