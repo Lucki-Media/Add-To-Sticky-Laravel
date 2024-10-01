@@ -86,14 +86,14 @@ export default function CartTemplate6({
     /*PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS START*/
     const price = selectedVariant?.price
         ? getSymbolFromCurrency(window.Shopify.currency.active) +
-          parseFloat(selectedVariant.price / 100).toFixed(2)
+        parseFloat(selectedVariant.price / 100).toFixed(2)
         : " ";
     /*PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS END*/
     /*--------------------------------------------------------------------------------------------------*/
     /*COMPARE AT PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS START*/
     const oldPrice = selectedVariant?.compare_at_price
         ? getSymbolFromCurrency(window.Shopify.currency.active) +
-          parseFloat(selectedVariant.compare_at_price / 100).toFixed(2)
+        parseFloat(selectedVariant.compare_at_price / 100).toFixed(2)
         : "";
     /*COMPARE AT PRICE ACCORDING TO SELECTED VARIANT FROM CONTAINER OPTIONS START*/
     /*--------------------------------------------------------------------------------------------------*/
@@ -206,8 +206,8 @@ export default function CartTemplate6({
         try {
             const response = await fetch(
                 `${process.env.REACT_APP_API_URL}` +
-                    "getPlanData/" +
-                    window.Shopify.shop
+                "getPlanData/" +
+                window.Shopify.shop
             );
             const data = await response.json();
             // console.log("data");
@@ -348,10 +348,10 @@ export default function CartTemplate6({
                             }
         .lm_quantity_picker .quantity-picker .quantity-display{
         padding: 0;
-        background-color: #fff;
+          background: ${gsBgColor};
         width: 28px !important;
         font-size: 14px;
-        color: #000;
+         color: ${gsTitleColor};
         box-shadow: none;
         }
         .lm_quantity_picker .quantity-modifier{
@@ -359,12 +359,12 @@ export default function CartTemplate6({
         width: 30px;
         border: none;
         font-size: 16px;
-        color: #000;
-        background-color: #fff;
+        color: ${gsTitleColor};
+            background: ${gsBgColor};
         border-radius: 0;
         }
         .lm_quantity_picker .quantity-picker{
-        background-color: #fff;
+           background: ${gsBgColor};
         border: 1px solid #ddd;
         border-radius:0;
         display: flex;
@@ -481,20 +481,16 @@ export default function CartTemplate6({
                     {enable === true && (
                         <div
                             id="lm_sticky_cart_template"
-                            className={`lm-sticky-${position} ${
-                                style.lm_sticky_cart
-                            } ${
-                                checkDesktop === true
+                            className={`lm-sticky-${position} ${style.lm_sticky_cart
+                                } ${checkDesktop === true
                                     ? "lm_sticky_show_desktop_abc12"
                                     : "lm_sticky_hide_desktop_abc12"
-                            } ${
-                                checkMobile === true
+                                } ${checkMobile === true
                                     ? "lm_sticky_show_mobile_abc12"
                                     : "lm_sticky_hide_mobile_abc12"
-                            } ${
-                                window.meta.page.pageType === "home" &&
+                                } ${window.meta.page.pageType === "home" &&
                                 "lm_sticky_home_page"
-                            }`}
+                                }`}
                         >
                             {gsAction === "3" &&
                                 showNotificationBar === true &&
@@ -534,8 +530,8 @@ export default function CartTemplate6({
                                 )}
 
                             {window.innerWidth <= 768 &&
-                            current_template?.general_settings
-                                ?.showOnlyBtnOnMobile === true ? (
+                                current_template?.general_settings
+                                    ?.showOnlyBtnOnMobile === true ? (
                                 // show only mobile button
                                 <div className={style.lm_container}>
                                     <div className={style.lm_buy_btn}>
@@ -544,29 +540,25 @@ export default function CartTemplate6({
                                             disabled={shouldDisable}
                                             onClick={
                                                 (() => checkCondition,
-                                                handleAddProduct)
+                                                    handleAddProduct)
                                             }
-                                            className={`lm_btn slide_right font_option ${
-                                                btnBold === true
+                                            className={`lm_btn slide_right font_option ${btnBold === true
                                                     ? "lm_bold"
                                                     : ""
-                                            } ${
-                                                btnItalic === true
+                                                } ${btnItalic === true
                                                     ? "lm_italic"
                                                     : ""
-                                            } ${
-                                                btnUnderline === true
+                                                } ${btnUnderline === true
                                                     ? "lm_underline"
                                                     : "no-line"
-                                            }${
-                                                animationEnable === true
+                                                }${animationEnable === true
                                                     ? " lm_vibrating"
                                                     : ""
-                                            }`}
+                                                }`}
                                             style={{
                                                 cursor:
                                                     selectedVariant.available ===
-                                                    false
+                                                        false
                                                         ? "not-allowed"
                                                         : "pointer",
                                             }}
@@ -588,20 +580,20 @@ export default function CartTemplate6({
                                                     className="img_sizes"
                                                     src={
                                                         selectedVariant &&
-                                                        selectedVariant.featured_image &&
-                                                        selectedVariant
-                                                            .featured_image.src
+                                                            selectedVariant.featured_image &&
+                                                            selectedVariant
+                                                                .featured_image.src
                                                             ? selectedVariant
-                                                                  .featured_image
-                                                                  .src
+                                                                .featured_image
+                                                                .src
                                                             : productImage !==
-                                                                  null &&
-                                                              productImage !==
-                                                                  undefined
-                                                            ? productImage
-                                                            : process.env
-                                                                  .REACT_APP_IMAGE_URL +
-                                                              "images/default_product.png"
+                                                                null &&
+                                                                productImage !==
+                                                                undefined
+                                                                ? productImage
+                                                                : process.env
+                                                                    .REACT_APP_IMAGE_URL +
+                                                                "images/default_product.png"
                                                     }
                                                     alt="product "
                                                 />
@@ -613,21 +605,17 @@ export default function CartTemplate6({
                                                 }
                                             >
                                                 <h2
-                                                    className={`font_option ${
-                                                        style.pro_names
-                                                    } ${
-                                                        gsBold === true
+                                                    className={`font_option ${style.pro_names
+                                                        } ${gsBold === true
                                                             ? "lm_bold"
                                                             : ""
-                                                    } ${
-                                                        gsItalic === true
+                                                        } ${gsItalic === true
                                                             ? "lm_italic"
                                                             : ""
-                                                    } ${
-                                                        gsUnderline === true
+                                                        } ${gsUnderline === true
                                                             ? "lm_underline"
                                                             : "no-line"
-                                                    }`}
+                                                        }`}
                                                 >
                                                     {product.title}
                                                 </h2>
@@ -638,7 +626,7 @@ export default function CartTemplate6({
                                                 className={`lm_sticky_p_color ${style.lm_sticky_p_color}`}
                                             >
                                                 {oldPrice > price &&
-                                                oldPrice !== "" ? (
+                                                    oldPrice !== "" ? (
                                                     <span
                                                         className={
                                                             style.compare_lm_price
@@ -649,19 +637,17 @@ export default function CartTemplate6({
                                                 ) : null}
                                                 <span
                                                     className={`
-                                                                ${
-                                                                    style.simple_price
-                                                                }${
-                                                        oldPrice === ""
+                                                                ${style.simple_price
+                                                        }${oldPrice === ""
                                                             ? "::before"
                                                             : ""
-                                                    }
+                                                        }
                                                             `}
                                                 >
                                                     {price}
                                                 </span>
                                                 {selectedVariant.available ===
-                                                false ? (
+                                                    false ? (
                                                     <span
                                                         className={
                                                             style.lm_out_stock
@@ -721,7 +707,7 @@ export default function CartTemplate6({
                                                                                 }
                                                                                 menuPlacement={
                                                                                     position ===
-                                                                                    "Bottom"
+                                                                                        "Bottom"
                                                                                         ? "top"
                                                                                         : "bottom"
                                                                                 }
@@ -746,7 +732,7 @@ export default function CartTemplate6({
                                                                                 style={{
                                                                                     width:
                                                                                         arr.length >
-                                                                                        2
+                                                                                            2
                                                                                             ? "30%"
                                                                                             : "46%",
                                                                                 }}
@@ -790,31 +776,27 @@ export default function CartTemplate6({
                                                         onClick={
                                                             (() =>
                                                                 checkCondition,
-                                                            handleAddProduct)
+                                                                handleAddProduct)
                                                         }
-                                                        className={`lm_btn slide_right font_option ${
-                                                            btnBold === true
+                                                        className={`lm_btn slide_right font_option ${btnBold === true
                                                                 ? "lm_bold"
                                                                 : ""
-                                                        } ${
-                                                            btnItalic === true
+                                                            } ${btnItalic === true
                                                                 ? "lm_italic"
                                                                 : ""
-                                                        } ${
-                                                            btnUnderline ===
-                                                            true
+                                                            } ${btnUnderline ===
+                                                                true
                                                                 ? "lm_underline"
                                                                 : "no-line"
-                                                        }${
-                                                            animationEnable ===
-                                                            true
+                                                            }${animationEnable ===
+                                                                true
                                                                 ? " lm_vibrating"
                                                                 : ""
-                                                        }`}
+                                                            }`}
                                                         style={{
                                                             cursor:
                                                                 selectedVariant.available ===
-                                                                false
+                                                                    false
                                                                     ? "not-allowed"
                                                                     : "pointer",
                                                         }}

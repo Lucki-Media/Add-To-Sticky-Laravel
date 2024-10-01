@@ -346,9 +346,10 @@ export default function CartTemplate1({
                             @import url("https://fonts.googleapis.com/css2?family=${gsFontFamily}&display=swap");
                             .lm_quantity_picker .quantity-picker .quantity-display{
                                 padding: 0;
-                                background-color: #fff;
+                              background: ${gsBgColor};
                                 width: 28px !important;
                                 font-size: 14px;
+                                color: ${gsTitleColor};
                                 box-shadow: none;
                             }
                             .lm_quantity_picker .quantity-modifier{
@@ -356,16 +357,17 @@ export default function CartTemplate1({
                                 width: 30px;
                                 border: none;
                                 font-size: 16px;
-                                color: black;
-                                background-color: #fff;
+                                color: ${gsTitleColor};
+                                background: ${gsBgColor};
                                 border-radius: 0;
                             }
                             .lm_quantity_picker .quantity-picker{
-                                background-color: #fff;
+                                background: ${gsBgColor};
                                 border: 1px solid #ddd;
                                 border-radius:0;
                                 display: flex;
                                 align-items: center;
+                                 color: ${gsTitleColor};
 
                             }
                              .lm_options .pro_select_menu > div {

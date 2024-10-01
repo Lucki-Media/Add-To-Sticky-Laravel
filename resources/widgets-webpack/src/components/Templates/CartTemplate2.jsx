@@ -348,26 +348,29 @@ export default function CartTemplate2({
                             }
                                  .lm_quantity_picker .quantity-picker .quantity-display{
                                 padding: 0;
-                                background-color: #fff;
+                                 background: ${gsBgColor};
                                 width: 28px !important;
                                 font-size: 14px;
                                 box-shadow: none;
+                                 color: ${gsTitleColor};
                             }
                             .lm_quantity_picker .quantity-modifier{
                                 height: 35px;
                                 width: 30px;
                                 border: none;
                                 font-size: 16px;
-                                color: black;
-                                background-color: #fff;
+                               color: ${gsTitleColor};
+                                 background: ${gsBgColor};
                                 border-radius: 0;
+
                             }
                             .lm_quantity_picker .quantity-picker{
-                                background-color: #fff;
+                               background: ${gsBgColor};
                                 border: 1px solid #ddd;
                                 border-radius:0;
                                 display: flex;
                                 align-items: center;
+                                 color: ${gsTitleColor};
                             }
                             .lm_bold{
                             font-weight: bolder;
