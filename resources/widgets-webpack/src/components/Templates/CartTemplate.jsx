@@ -344,7 +344,7 @@ export default function CartTemplate1({
                                 animation: shake-animation 4.72s ease infinite;
                             }
                             @import url("https://fonts.googleapis.com/css2?family=${gsFontFamily}&display=swap");
-                            .lm_quantity_picker .quantity-picker .quantity-display{
+                            .lm_quantity_picker_template_1 .quantity-picker .quantity-display{
                                 padding: 0;
                               background: ${gsBgColor};
                                 width: 28px !important;
@@ -352,7 +352,7 @@ export default function CartTemplate1({
                                 color: ${gsTitleColor};
                                 box-shadow: none;
                             }
-                            .lm_quantity_picker .quantity-modifier{
+                            .lm_quantity_picker_template_1 .quantity-modifier{
                                 height: 35px;
                                 width: 30px;
                                 border: none;
@@ -361,7 +361,7 @@ export default function CartTemplate1({
                                 background: ${gsBgColor};
                                 border-radius: 0;
                             }
-                            .lm_quantity_picker .quantity-picker{
+                            .lm_quantity_picker_template_1 .quantity-picker{
                                 background: ${gsBgColor};
                                 border: 1px solid #ddd;
                                 border-radius:0;
@@ -482,7 +482,7 @@ export default function CartTemplate1({
                                 containerHeight={
                                     document.getElementById(
                                         "lm_sticky_cart_template"
-                                    ).clientHeight
+                                    )?.clientHeight ?? 90
                                 }
                                 showNotificationBar={showNotificationBar}
                             />
@@ -559,21 +559,15 @@ export default function CartTemplate1({
                                                 <img
                                                     className="img_sizes"
                                                     src={
-                                                        selectedVariant &&
-                                                        selectedVariant.featured_image &&
                                                         selectedVariant
-                                                            .featured_image.src
+                                                            ?.featured_image
+                                                            ?.src
                                                             ? selectedVariant
                                                                   .featured_image
                                                                   .src
-                                                            : productImage !==
-                                                                  null &&
-                                                              productImage !==
-                                                                  undefined
+                                                            : productImage
                                                             ? productImage
-                                                            : process.env
-                                                                  .REACT_APP_IMAGE_URL +
-                                                              "images/default_product.png"
+                                                            : `${process.env.REACT_APP_IMAGE_URL}/images/default_product.png`
                                                     }
                                                     alt="product"
                                                 />
@@ -736,7 +730,7 @@ export default function CartTemplate1({
                                             <div className={style.button_block}>
                                                 <div
                                                     id="lm_sticky_container__qty_picker"
-                                                    className={`lm_quantity_picker ${style.lm_quantity_selector}`}
+                                                    className={`lm_quantity_picker_template_1 ${style.lm_quantity_selector}`}
                                                 >
                                                     <QuantityPicker
                                                         className={
@@ -827,7 +821,7 @@ export default function CartTemplate1({
                                         containerHeight={
                                             document.getElementById(
                                                 "lm_sticky_cart_template"
-                                            ).clientHeight
+                                            )?.clientHeight ?? 90
                                         }
                                         showNotificationBar={
                                             showNotificationBar

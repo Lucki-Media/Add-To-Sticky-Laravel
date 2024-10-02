@@ -271,13 +271,13 @@ class DashboardController extends Controller
 
     public function test()
     {
-        $stickyData = AddToCartStickyData::get()->toArray();
+        $stickyData = StickyCartData::get()->toArray();
         $data = [];
 
         foreach ($stickyData as $value) {
-            // $row = AddToCartStickyData::where('id', $value['id'])->first();
-            $jsonData = json_decode($value['template_8'], true);
-
+            // $row = StickyCartData::where('id', $value['id'])->first();
+            // $jsonData = json_decode($value['drawer_cart_data'], true);
+            // $jsonData['shippingBar']['FSBenable'] = false;
             // $jsonData['general_settings'] = array_merge($jsonData['general_settings'], [
             //     "showOnlyBtnOnMobile" => false,
             //     "gsPriceFontsize" => 14,
@@ -308,13 +308,14 @@ class DashboardController extends Controller
             //     "CUBorderRadius" => 0,
             //     "CUBackgroundColor" => "#fffafa",
             //     "CUBodyTextColor" => "#050505",
-            //     "USPosition" => "left",
-            //     "USOffset" => 0
+            //     "USPosition" => "right",
+            //     "USOffset" => 100
             // ]);
-            $data[] = $jsonData;
+            // $data[] = $jsonData;
 
-            // $row->template_8 = $jsonData;
+            // $row->drawer_cart_data = $jsonData;
             // $row->save();
+            // $data[] = $jsonData;
         }
         return $data;
     }

@@ -69,14 +69,14 @@ export default function CartTemplate3({
                     .lm_vibrating {
                         animation: shake-animation 4.72s ease infinite;
                     }
-                    .lm_quantity_picker .quantity-picker .quantity-display{
+                    .lm_quantity_picker_template_3 .quantity-picker .quantity-display{
                         padding: 0;
                         background-color: #fff;
                         width: 28px !important;
                         font-size: 14px;
                         color: #000;
                     }
-                    .lm_quantity_picker .quantity-modifier{
+                    .lm_quantity_picker_template_3 .quantity-modifier{
                         height: 35px;
                         width: 30px;
                         border: none;
@@ -85,7 +85,7 @@ export default function CartTemplate3({
                         background-color: #fff;
                         border-radius: 0;
                     }
-                    .lm_quantity_picker .quantity-picker{
+                    .lm_quantity_picker_template_3 .quantity-picker{
                         background-color: #fff;
                         border: 1px solid #ddd;
                         border-radius:0;
@@ -191,7 +191,7 @@ export default function CartTemplate3({
                     @media screen and (max-width: 991px) {
                         .lm_options .pro_select_menu > div {
                         min-height: 40px;        }
-                        .lm_quantity_picker .quantity-modifier ,.slide_right{
+                        .lm_quantity_picker_template_3 .quantity-modifier ,.slide_right{
                         height: 40px;        }
                     }
                      .lm-sticky-pos-Bottom.lm_mobile_bottom #notification_bar{
@@ -498,7 +498,7 @@ export default function CartTemplate3({
                                         <div className={style.button_block}>
                                             {selectedDevice !== 1 && (
                                                 <div
-                                                    className={`lm_quantity_picker ${style.lm_quantity_selector}`}
+                                                    className={`lm_quantity_picker_template_3 ${style.lm_quantity_selector}`}
                                                 >
                                                     <QuantityPicker
                                                         className={

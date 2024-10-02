@@ -345,7 +345,7 @@ export default function CartTemplate4({
                             .apply-font{
                                 font-family : ${gsFontFamily};
                             }
-                            .lm_quantity_picker .quantity-picker .quantity-display{
+                            .lm_quantity_picker_template_4 .quantity-picker .quantity-display{
                             padding: 0;
                             background-color: #111;
                             width: 28px !important;
@@ -353,7 +353,7 @@ export default function CartTemplate4({
                             color: #fff;
                             box-shadow: none;
                             }
-                            .lm_quantity_picker .quantity-modifier{
+                            .lm_quantity_picker_template_4 .quantity-modifier{
                             height: ${containerHeight}px;
                             width: 28px;
                             border: none;
@@ -362,7 +362,7 @@ export default function CartTemplate4({
                             background-color: #111;
                             border-radius: 0;
                             }
-                            .lm_quantity_picker .quantity-picker{
+                            .lm_quantity_picker_template_4 .quantity-picker{
                             background-color: #111;
                             border: none;
                             border-radius:0;
@@ -475,12 +475,12 @@ export default function CartTemplate4({
                         @media screen and (max-width: 991px) {
                             .lm_options .pro_select_menu > div {
                             min-height: 40px;        }
-                            .lm_quantity_picker .quantity-modifier ,.slide_right{
+                            .lm_quantity_picker_template_4 .quantity-modifier ,.slide_right{
                             height: 40px;        }
                         }
                             @media screen and (max-width: 767px) {
                                 /* Hide Image and Quantity picker */
-                                .lm_quantity_picker .quantity-picker{
+                                .lm_quantity_picker_template_4 .quantity-picker{
                                     display: none !important;
                                 }
                                 .lm_btn{
@@ -540,7 +540,7 @@ export default function CartTemplate4({
                                         containerHeight={
                                             document.getElementById(
                                                 "lm_sticky_cart_template"
-                                            ).clientHeight
+                                            )?.clientHeight ?? 90
                                         }
                                     />
                                 )}
@@ -596,25 +596,19 @@ export default function CartTemplate4({
                                                 className={`img_size ${style.image_border}`}
                                             >
                                                 <img
-                                                    className="img_size"
+                                                    className="img_sizes"
                                                     src={
-                                                        selectedVariant &&
-                                                        selectedVariant.featured_image &&
                                                         selectedVariant
-                                                            .featured_image.src
+                                                            ?.featured_image
+                                                            ?.src
                                                             ? selectedVariant
                                                                   .featured_image
                                                                   .src
-                                                            : productImage !==
-                                                                  null &&
-                                                              productImage !==
-                                                                  undefined
+                                                            : productImage
                                                             ? productImage
-                                                            : process.env
-                                                                  .REACT_APP_IMAGE_URL +
-                                                              "images/default_product.png"
+                                                            : `${process.env.REACT_APP_IMAGE_URL}/images/default_product.png`
                                                     }
-                                                    alt="product "
+                                                    alt="product"
                                                 />
                                             </div>
                                             <div
@@ -775,7 +769,7 @@ export default function CartTemplate4({
                                             <div className={style.button_block}>
                                                 <div
                                                     id="lm_sticky_container__qty_picker"
-                                                    className={`lm_quantity_picker ${style.lm_quantity_selector}`}
+                                                    className={`lm_quantity_picker_template_4 ${style.lm_quantity_selector}`}
                                                 >
                                                     <QuantityPicker
                                                         className={
@@ -864,7 +858,7 @@ export default function CartTemplate4({
                                         containerHeight={
                                             document.getElementById(
                                                 "lm_sticky_cart_template"
-                                            ).clientHeight
+                                            )?.clientHeight ?? 90
                                         }
                                     />
                                 )}

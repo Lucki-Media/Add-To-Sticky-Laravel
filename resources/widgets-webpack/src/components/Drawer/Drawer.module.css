@@ -271,7 +271,6 @@ span.lm_shipping_bar_sub_title {
 
 .lm_cart_item_varient_wrapper {
     padding-bottom: 5px;
-    display: flex;
 }
 
 .lm_cart_item_varient {
@@ -279,10 +278,6 @@ span.lm_shipping_bar_sub_title {
     line-height: 1.5;
     letter-spacing: 0.5px;
     font-size: 12px;
-}
-
-.lm_cart_item_varient:nth-child(2) {
-    margin-left: 40px;
 }
 
 .lm_cart_item_footer {

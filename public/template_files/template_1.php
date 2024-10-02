@@ -45,8 +45,8 @@ return [
         "CUBorderRadius" => 0,
         "CUBackgroundColor" => "#fffafa",
         "CUBodyTextColor" => "#050505",
-        "USPosition" => "left",
-        "USOffset" => 0,
+        "USPosition" => "right",
+        "USOffset" => 100,
     ],
     'buy_btn_settings' => [
         'editText' => 'ADD TO CART',
