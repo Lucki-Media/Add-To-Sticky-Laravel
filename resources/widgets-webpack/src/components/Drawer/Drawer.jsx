@@ -134,14 +134,14 @@ export default function Drawer({
                     .lm_drawer {
                         font-family : Inter !important;
                     }
-                    .lm_quantity_picker .quantity-picker .quantity-display{
+                    .lm_drawer_quantity_picker .quantity-picker .quantity-display{
                         padding: 0;
                         background-color: #fff;                       
                         font-size: ${customizationData.productList.PLFontSize}px;
                         box-shadow: none;
                          width: 33.33% !important;
                     }
-                    .lm_quantity_picker .quantity-modifier{
+                    .lm_drawer_quantity_picker .quantity-modifier{
                         height: 25px;
                         width: 30px;
                         border: none;
@@ -151,7 +151,7 @@ export default function Drawer({
                         border-radius: 0;
                          width: 33.33%;
                     }
-                    .lm_quantity_picker .quantity-picker{
+                    .lm_drawer_quantity_picker .quantity-picker{
                         display: flex;
                         justify-content: center;
                         align-items: center;
@@ -489,7 +489,7 @@ export default function Drawer({
                                                                                 "lm_sticky_container__qty_picker_" +
                                                                                 item.variant_id
                                                                             }
-                                                                            className={`lm_quantity_picker ${style.lm_quantity_selector}`}
+                                                                            className={`lm_drawer_quantity_picker ${style.lm_quantity_selector}`}
                                                                         >
                                                                             <QuantityPicker
                                                                                 key={

@@ -344,7 +344,7 @@ export default function CartTemplate5({
                             .apply-font{
                                 font-family : ${gsFontFamily};
                             }
-                            .lm_quantity_picker .quantity-picker .quantity-display{
+                            .lm_quantity_picker_template_5 .quantity-picker .quantity-display{
                                 padding: 0;
                                 background-color: #fff;
                                 width: 28px !important;
@@ -353,7 +353,7 @@ export default function CartTemplate5({
                                 box-shadow: none;
                                  background: ${gsBgColor};
                             }
-                            .lm_quantity_picker .quantity-modifier{
+                            .lm_quantity_picker_template_5 .quantity-modifier{
                                 height: 35px;
                                 width: 30px;
                                 border: none;
@@ -363,7 +363,7 @@ export default function CartTemplate5({
                                 border-radius: 0;
                                  background: ${gsBgColor};
                             }
-                            .lm_quantity_picker .quantity-picker{
+                            .lm_quantity_picker_template_5 .quantity-picker{
                                 background-color: #fff;
                                 border: 1px solid #ddd;
                                 border-radius:0;
@@ -484,7 +484,7 @@ export default function CartTemplate5({
                                 .lm_options .pro_select_menu > div {
                                     min-height: 40px;        
                                 }
-                                .lm_quantity_picker .quantity-modifier ,.slide_right{
+                                .lm_quantity_picker_template_5 .quantity-modifier ,.slide_right{
                                     height: 40px;        
                                 }
                             }
@@ -542,7 +542,7 @@ export default function CartTemplate5({
                                         containerHeight={
                                             document.getElementById(
                                                 "lm_sticky_cart_template"
-                                            ).clientHeight
+                                            )?.clientHeight ?? 90
                                         }
                                     />
                                 )}
@@ -663,23 +663,17 @@ export default function CartTemplate5({
                                                 <img
                                                     className="img_sizes"
                                                     src={
-                                                        selectedVariant &&
-                                                        selectedVariant.featured_image &&
                                                         selectedVariant
-                                                            .featured_image.src
+                                                            ?.featured_image
+                                                            ?.src
                                                             ? selectedVariant
                                                                   .featured_image
                                                                   .src
-                                                            : productImage !==
-                                                                  null &&
-                                                              productImage !==
-                                                                  undefined
+                                                            : productImage
                                                             ? productImage
-                                                            : process.env
-                                                                  .REACT_APP_IMAGE_URL +
-                                                              "images/default_product.png"
+                                                            : `${process.env.REACT_APP_IMAGE_URL}/images/default_product.png`
                                                     }
-                                                    alt="product "
+                                                    alt="product"
                                                 />
                                             </div>
 
@@ -781,7 +775,7 @@ export default function CartTemplate5({
                                             <div className={style.button_block}>
                                                 <div
                                                     id="lm_sticky_container__qty_picker"
-                                                    className={`lm_quantity_picker ${style.lm_quantity_selector}`}
+                                                    className={`lm_quantity_picker_template_5 ${style.lm_quantity_selector}`}
                                                 >
                                                     <QuantityPicker
                                                         className={
@@ -870,7 +864,7 @@ export default function CartTemplate5({
                                         containerHeight={
                                             document.getElementById(
                                                 "lm_sticky_cart_template"
-                                            ).clientHeight
+                                            )?.clientHeight ?? 90
                                         }
                                     />
                                 )}

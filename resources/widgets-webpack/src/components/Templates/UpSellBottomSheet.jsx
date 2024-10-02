@@ -175,18 +175,29 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
 
         selectedProduct.options.forEach((variation, index) => {
             const selectElement = document.getElementById(`variation_${index}`);
-            selectedOptions[variation.name] = selectElement.value; // Capture the selected value for each variation
+            if (
+                selectElement?.value !== "" &&
+                selectElement?.value !== null &&
+                selectElement?.value !== undefined
+            )
+                selectedOptions[variation.name] = selectElement?.value; // Capture the selected value for each variation
         });
 
-        // Find the matching variant based on selected options
-        const neededVariant = selectedProduct.variants.find((variant) => {
-            const variantTitle = variant.title.split(" / ");
-            return variantTitle.every(
-                (titlePart, idx) =>
-                    titlePart ===
-                    selectedOptions[selectedProduct.options[idx].name]
-            );
-        });
+        let neededVariant;
+        if (Object.keys(selectedOptions).length > 0) {
+            // Find the matching variant based on selected options
+            neededVariant = selectedProduct.variants.find((variant) => {
+                const variantTitle = variant.title.split(" / ");
+                return variantTitle.every(
+                    (titlePart, idx) =>
+                        titlePart ===
+                        selectedOptions[selectedProduct.options[idx].name]
+                );
+            });
+        } else {
+            // get default variation
+            neededVariant = selectedProduct?.variants?.[0];
+        }
 
         if (neededVariant) {
             const requestOptions = {
@@ -194,11 +205,12 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     id: neededVariant.id, // Use the selected variant ID
-                    quantity: document
-                        ?.getElementById(
-                            "lm_sticky_container_upsell__qty_picker"
-                        )
-                        ?.getElementsByTagName("input")[0].value ?? 1,
+                    quantity:
+                        document
+                            ?.getElementById(
+                                "lm_sticky_container_upsell__qty_picker"
+                            )
+                            ?.getElementsByTagName("input")[0].value ?? 1,
                 }),
             };
 
@@ -320,9 +332,9 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                 .lmsc_usrp_product_image {
                     width: 60px;
                     height: 60px;
-                    object-fit: cover;
+                    object-fit: contain;
                     border-radius: ${upsellPopupData.CUBorderRadius}px;
-                    box-shadow: 0 2px 8px #00000026;
+                    aspect-ratio: 1/1;
                 }
 
                 .lmsc_product_info {
@@ -399,6 +411,12 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                     padding: 10px 8px;
                 }
 
+                .lmsc_popup_modal .lmsc_variation label {
+                   font-weight: 600;
+                    font-size: ${upsellPopupData.CUBodyFontSize}px;
+                    color: ${upsellPopupData.CUBodyTextColor};
+                }
+
                 .lmsc_popup_modal .lmsc_close_popup_button {
                     background-color:${upsellPopupData.CUBtnBGColor};
                     color: ${upsellPopupData.CUBtnTextColor};
@@ -451,13 +469,13 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                 .lmsc_popup_modal .quantity-modifier{
                     width: 2px;
                     font-size: 20px;
-                      color: ${upsellPopupData.CUBtnTextColor};                  
+                    color: ${upsellPopupData.CUBodyTextColor};                  
                     border: 0 solid #dbdbdb;
                     text-align: center;
                     cursor: pointer;
                     line-height: 11px;
                     width: 33.33%;
-                     background: ${upsellPopupData.CUBackgroundColor};
+                    background: ${upsellPopupData.CUBackgroundColor};
                 }
 
                 .lmsc_popup_modal .quantity-display{
@@ -681,7 +699,7 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                                         (variation, index) => (
                                             <div
                                                 key={index}
-                                                className="lmsc_variation test"
+                                                className="lmsc_variation"
                                             >
                                                 <label
                                                     htmlFor={`variation_${index}`}

@@ -69,14 +69,14 @@ export default function CartTemplate2({
                     .lm_vibrating {
                         animation: shake-animation 4.72s ease infinite;
                     }
-                    .lm_quantity_picker .quantity-picker .quantity-display{
+                    .lm_quantity_picker_template_2 .quantity-picker .quantity-display{
                         padding: 0;
                         background-color: #fff;
                         width: 28px !important;
                         font-size: 14px;
                         color: #ccc;
                     }
-                    .lm_quantity_picker .quantity-modifier{
+                    .lm_quantity_picker_template_2 .quantity-modifier{
                         height: 35px;
                         width: 30px;
                         border: none;
@@ -85,7 +85,7 @@ export default function CartTemplate2({
                         background-color: #fff;
                         border-radius: 0;
                     }
-                    .lm_quantity_picker .quantity-picker{
+                    .lm_quantity_picker_template_2 .quantity-picker{
                         background-color: #fff;
                         border: 1px solid #dddddd8c;
                         border-radius:0;
@@ -489,7 +489,7 @@ export default function CartTemplate2({
                                         <div className={style.button_block}>
                                             {selectedDevice !== 1 && (
                                                 <div
-                                                    className={`lm_quantity_picker ${style.lm_quantity_selector}`}
+                                                    className={`lm_quantity_picker_template_2 ${style.lm_quantity_selector}`}
                                                 >
                                                     <QuantityPicker
                                                         className={

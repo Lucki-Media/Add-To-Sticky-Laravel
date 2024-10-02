@@ -368,7 +368,7 @@ export default function CartTemplate7({
                             .apply-font{
                                 font-family : ${gsFontFamily};
                             }
-            .lm_quantity_picker .quantity-picker .quantity-display{
+            .lm_quantity_picker_template_7 .quantity-picker .quantity-display{
         padding: 0;
          background: ${gsBgColor};
         width: 28px !important;
@@ -376,7 +376,7 @@ export default function CartTemplate7({
        color: ${gsTitleColor};
         box-shadow: none;
         }
-        .lm_quantity_picker .quantity-modifier{
+        .lm_quantity_picker_template_7 .quantity-modifier{
         height: 35px;
         width: 30px;
         border: none;
@@ -385,7 +385,7 @@ export default function CartTemplate7({
         background: ${gsBgColor};
         border-radius: 0;
         }
-        .lm_quantity_picker .quantity-picker{
+        .lm_quantity_picker_template_7 .quantity-picker{
          background: ${gsBgColor};
         border: 1px solid #ddd;
         border-radius:0;
@@ -493,7 +493,7 @@ export default function CartTemplate7({
       @media screen and (max-width: 991px) {
         .lm_options .pro_select_menu > div {
           min-height: 40px;        }
-        .lm_quantity_picker .quantity-modifier ,.slide_right{
+        .lm_quantity_picker_template_7 .quantity-modifier ,.slide_right{
           height: 40px;        }
       }
       `}
@@ -545,7 +545,7 @@ export default function CartTemplate7({
                                         containerHeight={
                                             document.getElementById(
                                                 "lm_sticky_cart_template"
-                                            ).clientHeight
+                                            )?.clientHeight ?? 90
                                         }
                                     />
                                 )}
@@ -604,23 +604,17 @@ export default function CartTemplate7({
                                                 <img
                                                     className="img_sizes"
                                                     src={
-                                                        selectedVariant &&
-                                                        selectedVariant.featured_image &&
                                                         selectedVariant
-                                                            .featured_image.src
+                                                            ?.featured_image
+                                                            ?.src
                                                             ? selectedVariant
                                                                   .featured_image
                                                                   .src
-                                                            : productImage !==
-                                                                  null &&
-                                                              productImage !==
-                                                                  undefined
+                                                            : productImage
                                                             ? productImage
-                                                            : process.env
-                                                                  .REACT_APP_IMAGE_URL +
-                                                              "images/default_product.png"
+                                                            : `${process.env.REACT_APP_IMAGE_URL}/images/default_product.png`
                                                     }
-                                                    alt="product "
+                                                    alt="product"
                                                 />
                                             </div>
                                             <div
@@ -748,7 +742,7 @@ export default function CartTemplate7({
                                             <div className={style.button_block}>
                                                 <div
                                                     id="lm_sticky_container__qty_picker"
-                                                    className={`lm_quantity_picker ${style.lm_quantity_selector}`}
+                                                    className={`lm_quantity_picker_template_7 ${style.lm_quantity_selector}`}
                                                 >
                                                     <QuantityPicker
                                                         className={
@@ -877,7 +871,7 @@ export default function CartTemplate7({
                                         containerHeight={
                                             document.getElementById(
                                                 "lm_sticky_cart_template"
-                                            ).clientHeight
+                                            )?.clientHeight ?? 90
                                         }
                                     />
                                 )}

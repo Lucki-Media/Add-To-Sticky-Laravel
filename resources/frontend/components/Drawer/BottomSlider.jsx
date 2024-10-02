@@ -14,14 +14,14 @@ export default function BottomSlider({
         <>
             <style>
                 {`
-                    .lm_quantity_picker .quantity-picker .quantity-display{
+                    .lm_quantity_picker_bottom_slider .quantity-picker .quantity-display{
                         padding: 0;
                         background-color: #fff;
                         width: 28px !important;
                         font-size: ${customizationData.productList.PLFontSize}px;
                         box-shadow: none;
                     }
-                    .lm_quantity_picker .quantity-modifier{
+                    .lm_quantity_picker_bottom_slider .quantity-modifier{
                         height: 25px;
                         width: 30px;
                         border: none;
@@ -30,7 +30,7 @@ export default function BottomSlider({
                         background-color: #fff;
                         border-radius: 0;
                     }
-                    .lm_quantity_picker .quantity-picker{
+                    .lm_quantity_picker_bottom_slider .quantity-picker{
                         background-color: #fff;
                         border: 1px solid #ddd;
                         border-radius:0;
@@ -109,7 +109,7 @@ export default function BottomSlider({
                         </div>
 
                         <div
-                            className={`lm_quantity_picker ${style.lm_quantity_selector}`}
+                            className={`lm_quantity_picker_bottom_slider ${style.lm_quantity_selector}`}
                         >
                             <QuantityPicker
                                 className={style.quantity12}

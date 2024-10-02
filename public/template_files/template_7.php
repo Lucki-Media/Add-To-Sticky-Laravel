@@ -45,8 +45,8 @@ return [
         "CUBtnTextHoverColor" => "#000000",
         "CUBtnBGHoverColor" => "#ffffff",
         "CUBorderRadius" => 0,
-        "USPosition" => "left",
-        "USOffset" => 0,
+        "USPosition" => "right",
+        "USOffset" => 100,
     ],
     'buy_btn_settings' => [
         'editText' => 'ADD TO CART',

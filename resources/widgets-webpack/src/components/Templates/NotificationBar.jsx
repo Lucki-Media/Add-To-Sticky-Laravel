@@ -47,7 +47,6 @@ export default function NotificationBar(props) {
 
             <div id={`lm_notification_bar-${props.position}`}>
                 <div className="lm_nbcontainer">
-                    <i className="fa fa-times-circle"></i>
                     <p
                         className={`${
                             props.gsNotificationBarItalic === true

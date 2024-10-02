@@ -633,7 +633,7 @@ export default function HomePage() {
                     </Layout>
 
                     {/* Video References */}
-                    <Layout>
+                    {/* <Layout>
                         <Layout.Section>
                             <BlockStack gap={300}>
                                 <InlineStack wrap={false} align="space-between">
@@ -645,7 +645,6 @@ export default function HomePage() {
                                         Get to Know Our App Through Videos
                                     </Text>
 
-                                    {/* Pagination Controls */}
                                     <Pagination
                                         hasPrevious={currentPage !== 1}
                                         previousTooltip="Previous"
@@ -656,7 +655,6 @@ export default function HomePage() {
                                     />
                                 </InlineStack>
                                 <Card>
-                                    {/* Show Videos for the Current Page */}
                                     <Grid>
                                         {currentVideos.map((video, index) => (
                                             <Grid.Cell
@@ -692,7 +690,6 @@ export default function HomePage() {
                             </BlockStack>
                         </Layout.Section>
 
-                        {/* Show Video Popup */}
                         {selectedVideo && (
                             <Modal
                                 size="large"
@@ -713,7 +710,7 @@ export default function HomePage() {
                                 </Modal.Section>
                             </Modal>
                         )}
-                    </Layout>
+                    </Layout> */}
 
                     {/* Analytics */}
                     <Layout>

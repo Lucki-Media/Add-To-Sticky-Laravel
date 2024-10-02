@@ -55,7 +55,6 @@ export default function NotificationBar(props) {
 
             <div id="notification_bar">
                 <div className="nbcontainer">
-                    <i className="fa fa-times-circle"></i>
                     <p
                         className={`${props.gsNotificationBarItalic === true
                                 ? "nb_italic"
