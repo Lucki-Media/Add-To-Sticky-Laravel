@@ -42,11 +42,15 @@ export default function NotificationBar(props) {
                 #lm_notification_bar-Top p.lm_nb_bolder , #lm_notification_bar-Bottom p.lm_nb_bolder{
                     font-weight: bolder;
                 }
+
+                .lm_font_class {
+                    font-family: var(--font-body-family) ;
+                }
             `}
             </style>
 
             <div id={`lm_notification_bar-${props.position}`}>
-                <div className="lm_nbcontainer">
+                <div className="lm_nbcontainer lm_font_class">
                     <p
                         className={`${
                             props.gsNotificationBarItalic === true

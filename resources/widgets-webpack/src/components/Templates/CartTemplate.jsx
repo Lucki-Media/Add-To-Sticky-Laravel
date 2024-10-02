@@ -340,6 +340,9 @@ export default function CartTemplate1({
                                 100% { transform:translate(0,0) }
                             }
 
+                            .lm_font_class {
+                                font-family: var(--font-body-family) ;
+                            }
                             .lm_vibrating {
                                 animation: shake-animation 4.72s ease infinite;
                             }
@@ -351,6 +354,7 @@ export default function CartTemplate1({
                                 font-size: 14px;
                                 color: ${gsTitleColor};
                                 box-shadow: none;
+                                font-family: var(--font-body-family) ;
                             }
                             .lm_quantity_picker_template_1 .quantity-modifier{
                                 height: 35px;
@@ -360,8 +364,10 @@ export default function CartTemplate1({
                                 color: ${gsTitleColor};
                                 background: ${gsBgColor};
                                 border-radius: 0;
+                                font-family: var(--font-body-family) ;
                             }
                             .lm_quantity_picker_template_1 .quantity-picker{
+                                font-family: var(--font-body-family) ;
                                 background: ${gsBgColor};
                                 border: 1px solid #ddd;
                                 border-radius:0;
@@ -503,7 +509,7 @@ export default function CartTemplate1({
                             } ${
                                 window.meta.page.pageType === "home" &&
                                 "lm_sticky_home_page"
-                            }`}
+                            } lm_font_class`}
                         >
                             {window.innerWidth <= 768 &&
                             current_template?.general_settings
@@ -518,7 +524,7 @@ export default function CartTemplate1({
                                                 (() => checkCondition,
                                                 handleAddProduct)
                                             }
-                                            className={`lm_btn apply-font ${
+                                            className={`lm_btn  lm_font_class ${
                                                 btnBold === true
                                                     ? "lm_bold"
                                                     : ""
@@ -578,7 +584,7 @@ export default function CartTemplate1({
                                                 }
                                             >
                                                 <h2
-                                                    className={`font_option ${
+                                                    className={`font_option  lm_font_class ${
                                                         style.pro_names
                                                     } ${
                                                         gsBold === true
@@ -596,7 +602,7 @@ export default function CartTemplate1({
                                                 >
                                                     {product.title}
                                                 </h2>
-                                                <div className="lm_sticky_p_color">
+                                                <div className="lm_sticky_p_color lm_font_class">
                                                     {oldPrice > price &&
                                                     oldPrice !== "" ? (
                                                         <span
@@ -608,7 +614,7 @@ export default function CartTemplate1({
                                                         </span>
                                                     ) : null}
                                                     <span
-                                                        className={`
+                                                        className={`lm_font_class 
                                                         ${style.simple_price}${
                                                             oldPrice === ""
                                                                 ? "::before"
@@ -621,9 +627,7 @@ export default function CartTemplate1({
                                                     {selectedVariant.available ===
                                                     false ? (
                                                         <span
-                                                            className={
-                                                                style.lm_out_stock
-                                                            }
+                                                            className={`${style.lm_out_stock} lm_font_class`}
                                                         >
                                                             {unavailable}
                                                         </span>
@@ -655,10 +659,10 @@ export default function CartTemplate1({
                                                                 ];
                                                             return (
                                                                 <div
-                                                                    className={`lm_options ${style.lm_options}`}
+                                                                    className={`lm_options lm_font_class ${style.lm_options}`}
                                                                 >
                                                                     <div
-                                                                        className={`productInputs ${style.productInputs}`}
+                                                                        className={`productInputs lm_font_class ${style.productInputs}`}
                                                                     >
                                                                         <div
                                                                             key={
@@ -666,7 +670,7 @@ export default function CartTemplate1({
                                                                             }
                                                                         >
                                                                             <label
-                                                                                className={`label_color apply-font ${style.pro_names}`}
+                                                                                className={`label_color lm_font_class  ${style.pro_names}`}
                                                                             >
                                                                                 {
                                                                                     opt.name
@@ -699,7 +703,7 @@ export default function CartTemplate1({
                                                                                 key={
                                                                                     optionName
                                                                                 }
-                                                                                className={`pro_select_menu apply-font ${style.pro_names}`}
+                                                                                className={`pro_select_menu lm_font_class  ${style.pro_names}`}
                                                                                 defaultValue={
                                                                                     defaultOption[0]
                                                                                 }
@@ -730,7 +734,7 @@ export default function CartTemplate1({
                                             <div className={style.button_block}>
                                                 <div
                                                     id="lm_sticky_container__qty_picker"
-                                                    className={`lm_quantity_picker_template_1 ${style.lm_quantity_selector}`}
+                                                    className={`lm_quantity_picker_template_1 lm_font_class ${style.lm_quantity_selector}`}
                                                 >
                                                     <QuantityPicker
                                                         className={
@@ -753,7 +757,7 @@ export default function CartTemplate1({
                                                                 checkCondition,
                                                             handleAddProduct)
                                                         }
-                                                        className={`lm_btn apply-font ${
+                                                        className={`lm_btn lm_font_class  ${
                                                             btnBold === true
                                                                 ? "lm_bold"
                                                                 : ""
