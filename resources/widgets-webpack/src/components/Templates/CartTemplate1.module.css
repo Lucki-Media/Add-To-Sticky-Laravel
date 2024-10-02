@@ -56,6 +56,9 @@
     /* font-size: 15px; */
     opacity: 0.5;
 }
+.lm_font_class {
+    font-family: var(--font-body-family) ;
+}
 /* .lm_middlecontent .simple_price::before {
     position: absolute;
     content: "";

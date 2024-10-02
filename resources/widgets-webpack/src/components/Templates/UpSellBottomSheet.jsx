@@ -235,6 +235,9 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
         <>
             <style>
                 {`
+                .lm_font_class {
+                    font-family: var(--font-body-family) ;
+                }
                 .lmsc_popup_container {
                     position: fixed;
                     z-index: 9999;
@@ -286,7 +289,6 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                 }
 
                 .lmsc_bottomSheet__header {
-                    font-family: HelveticaNeue-Bold, sans-serif;
                     font-size: ${upsellPopupData.CUHeadingFontSize}px;
                     margin: 0;
                     color: ${upsellPopupData.CUHeadingColor};
@@ -438,7 +440,7 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                 }
 
                  .lmsc_popup_modal .quantity-picker {
-                   display: flex;
+                    display: flex;
                     justify-content: center;
                     align-items: center;
                     margin: 0;
@@ -446,6 +448,7 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                     padding: 0;
                     border-radius: 0;
                     height: 30px;
+                    font-family: var(--font-body-family) ;
                 }
 
                 .lmsc_popup_modal .quantity-picker .qty-button {
@@ -454,6 +457,7 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                     padding: 8px;
                     border-radius: 4px;
                     cursor: pointer;
+                    font-family: var(--font-body-family) ;
                 }
 
                 .lmsc_popup_modal .quantity-picker .qty-input {
@@ -464,9 +468,11 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                     padding: 5px;
                     border-radius: 4px;
                     border: 1px solid #ddd;
+                    font-family: var(--font-body-family) ;
                 }
               
                 .lmsc_popup_modal .quantity-modifier{
+                    font-family: var(--font-body-family) ;
                     width: 2px;
                     font-size: 20px;
                     color: ${upsellPopupData.CUBodyTextColor};                  
@@ -479,6 +485,7 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                 }
 
                 .lmsc_popup_modal .quantity-display{
+                    font-family: var(--font-body-family) ;
                     font-size: 15px;
                     border: 0;
                     border-top: 0 solid #dbdbdb;
@@ -540,9 +547,9 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
             </style>
 
             {CUProducts && CUProducts.length > 0 && (
-                <div className="lmupsell_main_products">
+                <div className="lmupsell_main_products lm_font_class">
                     <div
-                        className={`lmsc_popup_container ${
+                        className={`lmsc_popup_container lm_font_class ${
                             open ? "lmsc_popup_open" : "lmsc_popup_close"
                         } ${
                             upsellPopupData.USPosition === "left"
@@ -551,7 +558,7 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                         }`}
                     >
                         <div
-                            className="lmsc_bottomSheet_backdrop"
+                            className="lmsc_bottomSheet_backdrop lm_font_class"
                             onClick={toggleBottomSheet}
                         ></div>
                         <section
@@ -562,37 +569,37 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                                     : "lmsc_bottomSheet--offScreen"
                             }
                         >
-                            <div className="lmsc_bottomSheet__headerContainer">
+                            <div className="lmsc_bottomSheet__headerContainer lm_font_class">
                                 <h2
                                     id="lmsc_bottomSheet__headerID"
-                                    className="lmsc_bottomSheet__header"
+                                    className="lmsc_bottomSheet__header lm_font_class"
                                 >
                                     {upsellPopupData.CUHeadingText}
                                 </h2>
                                 <button
                                     id="lmsc_closeButton"
-                                    className="lmsc_close_button"
+                                    className="lmsc_close_button lm_font_class"
                                     onClick={closeBottomSheet}
                                 >
                                     &times;
                                 </button>
                             </div>
-                            <div className="lmsc_product_list">
+                            <div className="lmsc_product_list lm_font_class">
                                 {CUProducts.map((product, index) => (
                                     <div
                                         key={index}
-                                        className="lmsc_product_item"
+                                        className="lmsc_product_item lm_font_class"
                                     >
                                         <img
                                             src={product.featured_image}
                                             alt={product.title}
-                                            className="lmsc_usrp_product_image"
+                                            className="lmsc_usrp_product_image lm_font_class"
                                         />
-                                        <div className="lmsc_product_info">
-                                            <h3 className="lmsc_product_title">
+                                        <div className="lmsc_product_info lm_font_class">
+                                            <h3 className="lmsc_product_title lm_font_class">
                                                 {product.title}
                                             </h3>
-                                            <p className="lmsc_product_price">
+                                            <p className="lmsc_product_price lm_font_class">
                                                 {getSymbolFromCurrency(
                                                     cartData?.currency
                                                 ) +
@@ -617,7 +624,7 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                                             </p>
                                         </div>
                                         <button
-                                            className="lmsc_add_to_cart_button"
+                                            className="lmsc_add_to_cart_button lm_font_class"
                                             onClick={() =>
                                                 handleBuyButtonClick(product)
                                             }
@@ -633,7 +640,7 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                     {/* Popup Modal */}
                     {open === true && popupOpen && selectedProduct && (
                         <div
-                            className={`lmsc_popup_modal ${
+                            className={`lmsc_popup_modal lm_font_class ${
                                 popupOpenClass
                                     ? "lmsc_popup_open"
                                     : "lmsc_popup_close"
@@ -645,7 +652,7 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                         >
                             <button
                                 id="lmupsc_closeButton"
-                                className="lmsc_close_button"
+                                className="lmsc_close_button lm_font_class"
                                 onClick={() => {
                                     setPopupOpenClass(false);
                                     setTimeout(() => {
@@ -655,18 +662,18 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                             >
                                 &times;
                             </button>
-                            <div className="lmsc_pro_popup_image">
+                            <div className="lmsc_pro_popup_image lm_font_class">
                                 <img
                                     src={selectedProduct.featured_image}
                                     alt={selectedProduct.title}
                                 />
                             </div>
-                            <h3 className="lmsc_sproduct_title">
+                            <h3 className="lmsc_sproduct_title lm_font_class">
                                 {selectedProduct.title}
                             </h3>
 
-                            <div className="lmsc_pro_price_wrapper">
-                                <div className="lmsc_product_price">
+                            <div className="lmsc_pro_price_wrapper lm_font_class">
+                                <div className="lmsc_product_price lm_font_class">
                                     {getSymbolFromCurrency(cartData?.currency) +
                                         (
                                             Number(selectedProduct.price) / 100
@@ -694,12 +701,12 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
 
                             {selectedProduct?.options?.[0]?.values?.[0] !==
                                 "Default Title" && (
-                                <div className="lm_variation_dropdown">
+                                <div className="lm_variation_dropdown lm_font_class">
                                     {selectedProduct.options?.map(
                                         (variation, index) => (
                                             <div
                                                 key={index}
-                                                className="lmsc_variation"
+                                                className="lmsc_variation lm_font_class"
                                             >
                                                 <label
                                                     htmlFor={`variation_${index}`}
@@ -727,7 +734,7 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                                 </div>
                             )}
                             <button
-                                className="lmsc_close_popup_button"
+                                className="lmsc_close_popup_button lm_font_class"
                                 onClick={() =>
                                     handleAddProduct(selectedProduct)
                                 }

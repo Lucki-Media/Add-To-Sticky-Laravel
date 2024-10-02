@@ -130,11 +130,11 @@ export default function Drawer({
         <>
             <style>
                 {`
-                    @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
-                    .lm_drawer {
-                        font-family : Inter !important;
+                    .lm_font_class {
+                        font-family: var(--font-body-family) ;
                     }
-                    .lm_drawer_quantity_picker .quantity-picker .quantity-display{
+                   .lm_drawer_quantity_picker .quantity-picker .quantity-display{
+                        font-family: var(--font-body-family) ;
                         padding: 0;
                         background-color: #fff;                       
                         font-size: ${customizationData.productList.PLFontSize}px;
@@ -142,6 +142,7 @@ export default function Drawer({
                          width: 33.33% !important;
                     }
                     .lm_drawer_quantity_picker .quantity-modifier{
+                        font-family: var(--font-body-family) ;
                         height: 25px;
                         width: 30px;
                         border: none;
@@ -152,6 +153,7 @@ export default function Drawer({
                          width: 33.33%;
                     }
                     .lm_drawer_quantity_picker .quantity-picker{
+                        font-family: var(--font-body-family) ;
                         display: flex;
                         justify-content: center;
                         align-items: center;
@@ -164,14 +166,14 @@ export default function Drawer({
                 `}
             </style>
             <div
-                className={`${style.lm_drawer_wrapper} ${
+                className={`lm_font_class ${style.lm_drawer_wrapper} ${
                     isOpen ? style.lm_drawer_open : style.lm_drawer_close
                 }`}
                 onClick={handleClose}
             >
-                <div className={style.lm_main_drawer_div}>
+                <div className={`lm_font_class  ${style.lm_main_drawer_div}`}>
                     <div
-                        className={`${
+                        className={`lm_font_class ${
                             showBottomSlider && style.lm_bottom_overlay
                         } 
                         ${style.lm_drawer}  ${
@@ -185,9 +187,9 @@ export default function Drawer({
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Drawer Header */}
-                        <div className={style.lm_drawer_header}>
+                        <div className={`lm_font_class ${style.lm_drawer_header}`}>
                             <div
-                                className={style.lm_drawer_title}
+                                className={`lm_font_class ${style.lm_drawer_title}`}
                                 style={{
                                     fontSize:
                                         customizationData.cartHeader
@@ -199,7 +201,7 @@ export default function Drawer({
                                 {customizationData.cartHeader.DCTitleText}
                             </div>
                             <span
-                                className={style.lm_drawer_close_icon}
+                                className={`lm_font_class ${style.lm_drawer_close_icon}`}
                                 style={{
                                     fontSize:
                                         customizationData.cartHeader
@@ -215,19 +217,19 @@ export default function Drawer({
 
                         {cartCount > 0 ? (
                             <>
-                                <div className={style.lm_drawer_content}>
+                                <div className={`lm_font_class ${style.lm_drawer_content}`}>
                                     {/* Free Shipping Bar */}
                                     {customizationData.shippingBar
                                         .FSBenable && (
                                         <div
-                                            className={
+                                            className={`lm_font_class ${
                                                 style.lm_drawer_free_shipping_bar
-                                            }
+                                            }`}
                                         >
                                             <div
-                                                className={
+                                                className={`lm_font_class ${
                                                     style.lm_free_shipping_heading
-                                                }
+                                                }`}
                                                 style={{
                                                     fontSize:
                                                         customizationData
@@ -247,9 +249,9 @@ export default function Drawer({
                                                           .FSBWinningText}
                                             </div>
                                             <div
-                                                className={
+                                                className={`lm_font_class ${
                                                     style.lm_shipping_bar__outer_div
-                                                }
+                                                }`}
                                                 style={{
                                                     background: `rgba(${hexToRgb(
                                                         customizationData
@@ -259,9 +261,9 @@ export default function Drawer({
                                                 }}
                                             >
                                                 <div
-                                                    className={
+                                                    className={`lm_font_class ${
                                                         style.lm_shipping_bar_inner_div
-                                                    }
+                                                    }`}
                                                     style={{
                                                         background:
                                                             customizationData
@@ -276,9 +278,9 @@ export default function Drawer({
                                                 ></div>
                                             </div>
                                             <span
-                                                className={
+                                                className={`lm_font_class ${
                                                     style.lm_shipping_bar_sub_title
-                                                }
+                                                }`}
                                                 style={{
                                                     fontSize:
                                                         customizationData
@@ -297,27 +299,27 @@ export default function Drawer({
                                         </div>
                                     )}
                                     <div
-                                        className={
+                                        className={`lm_font_class ${
                                             style.lm_cart_with_recommendedProduct
-                                        }
+                                        }`}
                                     >
                                         {/* Cart Items */}
                                         <div
-                                            className={
+                                            className={`lm_font_class ${
                                                 style.lm_drawer_cart_item_wrapper
-                                            }
+                                            }`}
                                         >
                                             <table
-                                                className={
+                                                className={`lm_font_class ${
                                                     style.lm_drawer_cart_items
-                                                }
+                                                }`}
                                             >
                                                 <tbody>
                                                     {cartItems.map((item) => (
                                                         <tr
-                                                            className={
+                                                            className={`lm_font_class ${
                                                                 style.lm_cart_drawer_item_row
-                                                            }
+                                                            }`}
                                                             style={{
                                                                 fontSize:
                                                                     customizationData
@@ -330,9 +332,9 @@ export default function Drawer({
                                                             key={item.id}
                                                         >
                                                             <td
-                                                                className={
+                                                                className={`lm_font_class ${
                                                                     style.lm_cart_item_media
-                                                                }
+                                                                }`}
                                                             >
                                                                 <a
                                                                     href={
@@ -344,35 +346,35 @@ export default function Drawer({
                                                                         "?variant=" +
                                                                         item.variant_id
                                                                     }
-                                                                    className={
+                                                                    className={`lm_font_class ${
                                                                         style.lm_cart_item_link
-                                                                    }
+                                                                    }`}
                                                                 >
                                                                     <img
                                                                         src={
                                                                             item.image
                                                                         }
                                                                         alt=""
-                                                                        className={
+                                                                        className={`lm_font_class ${
                                                                             style.lm_cart_item_img
-                                                                        }
+                                                                        }`}
                                                                     />
                                                                 </a>
                                                             </td>
                                                             <td
-                                                                className={
+                                                                className={`lm_font_class ${
                                                                     style.lm_cart_item_media
-                                                                }
+                                                                }`}
                                                             >
                                                                 <div
-                                                                    className={
+                                                                    className={`lm_font_class ${
                                                                         style.lm_cart_item_content
-                                                                    }
+                                                                    }`}
                                                                 >
                                                                     <div
-                                                                        className={
+                                                                        className={`lm_font_class ${
                                                                             style.lm_cart_item_title
-                                                                        }
+                                                                        }`}
                                                                         style={{
                                                                             fontSize:
                                                                                 customizationData
@@ -409,14 +411,14 @@ export default function Drawer({
                                                                         </a>
                                                                     </div>
                                                                     <div
-                                                                        className={
+                                                                        className={`lm_font_class ${
                                                                             style.lm_cart_item_price_wrapper
-                                                                        }
+                                                                        }`}
                                                                     >
                                                                         <div
-                                                                            className={
+                                                                            className={`lm_font_class ${
                                                                                 style.lm_cart_item_actual_price
-                                                                            }
+                                                                            }`}
                                                                             style={{
                                                                                 fontSize:
                                                                                     customizationData
@@ -441,9 +443,9 @@ export default function Drawer({
                                                                         </div>
                                                                     </div>
                                                                     <div
-                                                                        className={
+                                                                        className={`lm_font_class ${
                                                                             style.lm_cart_item_varient_wrapper
-                                                                        }
+                                                                        }`}
                                                                     >
                                                                         {!item.product_has_only_default_variant &&
                                                                             item.options_with_values.map(
@@ -451,9 +453,9 @@ export default function Drawer({
                                                                                     variant
                                                                                 ) => (
                                                                                     <div
-                                                                                        className={
+                                                                                        className={`lm_font_class ${
                                                                                             style.lm_cart_item_varient
-                                                                                        }
+                                                                                        }`}
                                                                                         style={{
                                                                                             fontSize:
                                                                                                 customizationData
@@ -480,16 +482,16 @@ export default function Drawer({
                                                                             )}
                                                                     </div>
                                                                     <div
-                                                                        className={
+                                                                        className={`lm_font_class ${
                                                                             style.lm_cart_item_footer
-                                                                        }
+                                                                        }`}
                                                                     >
                                                                         <div
                                                                             id={
                                                                                 "lm_sticky_container__qty_picker_" +
                                                                                 item.variant_id
                                                                             }
-                                                                            className={`lm_drawer_quantity_picker ${style.lm_quantity_selector}`}
+                                                                            className={`lm_drawer_quantity_picker lm_font_class ${style.lm_quantity_selector}`}
                                                                         >
                                                                             <QuantityPicker
                                                                                 key={
@@ -523,9 +525,9 @@ export default function Drawer({
                                                                             />
                                                                         </div>
                                                                         <div
-                                                                            className={
+                                                                            className={`lm_font_class ${
                                                                                 style.lm_cart_item_price
-                                                                            }
+                                                                            }`}
                                                                             style={{
                                                                                 fontSize:
                                                                                     customizationData
@@ -547,9 +549,9 @@ export default function Drawer({
                                                                         </div>
                                                                     </div>
                                                                     <span
-                                                                        className={
+                                                                        className={`lm_font_class ${
                                                                             style.lm_cart_item_remove_icon
-                                                                        }
+                                                                        }`}
                                                                         style={{
                                                                             fontSize:
                                                                                 Number(
@@ -584,14 +586,14 @@ export default function Drawer({
                                             showCartUpsell &&
                                             CUProducts.length > 0 && (
                                                 <div
-                                                    className={
+                                                    className={`lm_font_class ${
                                                         style.lm_recommended_products_wrapper
-                                                    }
+                                                    }`}
                                                 >
                                                     <div
-                                                        className={
+                                                        className={`lm_font_class ${
                                                             style.lm_recommendation_header
-                                                        }
+                                                        }`}
                                                         style={{
                                                             fontSize:
                                                                 customizationData
@@ -613,24 +615,24 @@ export default function Drawer({
                                                         }
                                                     </div>
                                                     <div
-                                                        className={
+                                                        className={`lm_font_class ${
                                                             style.lm_recommendation_list
-                                                        }
+                                                        }`}
                                                     >
                                                         {CUProducts.map(
                                                             (product) => (
                                                                 <div
-                                                                    className={
+                                                                    className={`lm_font_class ${
                                                                         style.lm_recommended_product
-                                                                    }
+                                                                    }`}
                                                                     key={
                                                                         product.id
                                                                     }
                                                                 >
                                                                     <div
-                                                                        className={
+                                                                        className={`lm_font_class ${
                                                                             style.lm_rec_product_image
-                                                                        }
+                                                                        }`}
                                                                     >
                                                                         <a
                                                                             href={
@@ -650,9 +652,9 @@ export default function Drawer({
                                                                         </a>
                                                                     </div>
                                                                     <div
-                                                                        className={
+                                                                        className={`lm_font_class ${
                                                                             style.lm_rec_product_content
-                                                                        }
+                                                                        }`}
                                                                     >
                                                                         <a
                                                                             href={
@@ -662,9 +664,9 @@ export default function Drawer({
                                                                                 "/products/" +
                                                                                 product.handle
                                                                             }
-                                                                            className={
+                                                                            className={`lm_font_class ${
                                                                                 style.lm_rec_product_title
-                                                                            }
+                                                                            }`}
                                                                             style={{
                                                                                 fontSize:
                                                                                     customizationData
@@ -680,9 +682,9 @@ export default function Drawer({
                                                                             }
                                                                         </a>
                                                                         <div
-                                                                            className={
+                                                                            className={`lm_font_class ${
                                                                                 style.lm_rec_product_price
-                                                                            }
+                                                                            }`}
                                                                         >
                                                                             <span
                                                                                 style={{
@@ -738,12 +740,12 @@ export default function Drawer({
                                                                                 )}
                                                                         </div>
                                                                         <div
-                                                                            className={
+                                                                            className={`lm_font_class ${
                                                                                 style.lm_rec_product_action
-                                                                            }
+                                                                            }`}
                                                                         >
                                                                             <button
-                                                                                className="lm_rec_product_action_btn"
+                                                                                className="lm_rec_product_action_btn lm_font_class"
                                                                                 type="button"
                                                                                 style={{
                                                                                     fontSize:
@@ -809,7 +811,7 @@ export default function Drawer({
                                 </div>
                                 {/* Drawer Footer */}
                                 <div
-                                    className={style.lm_drawer_cart_footer}
+                                    className={`lm_font_class ${style.lm_drawer_cart_footer}`}
                                     style={{
                                         background:
                                             customizationData.cartHeader
@@ -817,9 +819,9 @@ export default function Drawer({
                                     }}
                                 >
                                     <div
-                                        className={
+                                        className={`lm_font_class ${
                                             style.lm_cart_footer_sub_total
-                                        }
+                                        }`}
                                         style={{
                                             fontSize:
                                                 customizationData.bottomSection
@@ -836,9 +838,9 @@ export default function Drawer({
                                             :{" "}
                                         </div>
                                         <div
-                                            className={
+                                            className={`lm_font_class ${
                                                 style.lm_cart_footer_total_price
-                                            }
+                                            }`}
                                         >
                                             {getSymbolFromCurrency(
                                                 cartDetail.currency
@@ -853,9 +855,9 @@ export default function Drawer({
                                     {customizationData.bottomSection
                                         .BSCheckoutTextEnable && (
                                         <div
-                                            className={
+                                            className={`lm_font_class ${
                                                 style.lm_cart_footer_message
-                                            }
+                                            }`}
                                             style={{
                                                 fontSize:
                                                     customizationData
@@ -872,9 +874,9 @@ export default function Drawer({
                                         </div>
                                     )}
                                     <div
-                                        className={
+                                        className={`lm_font_class ${
                                             style.lm_cart_footer_button_wrapper
-                                        }
+                                        }`}
                                     >
                                         <button
                                             style={{
@@ -918,9 +920,9 @@ export default function Drawer({
                                         .BSContinueEnable && (
                                         <a
                                             href="javascript:void(0)"
-                                            className={
+                                            className={`lm_font_class ${
                                                 style.lm_cart_footer_link
-                                            }
+                                            }`}
                                             style={{
                                                 fontSize:
                                                     customizationData
@@ -941,9 +943,9 @@ export default function Drawer({
                                         .BSViewCartEnable && (
                                         <a
                                             href="javascript:void(0)"
-                                            className={
+                                            className={`lm_font_class ${
                                                 style.lm_cart_footer_link
-                                            }
+                                            }`}
                                             style={{
                                                 fontSize:
                                                     customizationData
@@ -978,9 +980,9 @@ export default function Drawer({
                             </>
                         ) : (
                             // Empty state details
-                            <div className={style.lm_empty_cart_wrapper}>
+                            <div className={`lm_font_class ${style.lm_empty_cart_wrapper}`}>
                                 <div
-                                    className={style.lm_empty_cart_heading}
+                                    className={`lm_font_class ${style.lm_empty_cart_heading}`}
                                     style={{
                                         fontSize:
                                             customizationData.shippingBar
@@ -992,9 +994,9 @@ export default function Drawer({
                                     {customizationData.emptyCart.ECContentText}
                                 </div>
                                 <div
-                                    className={
+                                    className={`lm_font_class ${
                                         style.lm_empty_cart_button_wrapper
-                                    }
+                                    }`}
                                 >
                                     <button
                                         style={{

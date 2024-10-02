@@ -136,7 +136,7 @@
     cursor: pointer;
     font-family: math;
     position: relative;
-    top: -4px;
+    /* top: -4px; */
 }
 
 .lm_drawer_free_shipping_bar {

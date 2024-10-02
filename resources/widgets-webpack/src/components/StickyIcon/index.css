@@ -248,6 +248,7 @@ div[id^="font-picker"] .dropdown-button:focus {
   z-index: 9999;
 }
 .sticky_Count {
+  font-family: var(--font-body-family) ;
   position: absolute;
   display: flex;
   align-items: center;
