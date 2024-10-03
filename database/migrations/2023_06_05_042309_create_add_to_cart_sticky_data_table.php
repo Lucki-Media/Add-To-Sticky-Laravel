@@ -27,6 +27,7 @@ return new class extends Migration
             $table->longText('template_6')->nullable();
             $table->longText('template_7')->nullable();
             $table->longText('template_8')->nullable();
+            $table->string('review_banner', 11)->nullable()->default('1')->comment('1=Ask after a month, 2=never ask');
             $table->timestamps();
         });
     }

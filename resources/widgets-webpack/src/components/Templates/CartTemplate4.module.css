@@ -210,6 +210,23 @@
     .lm_cart_module {
         display: block;
     }
+        /* Hide Image and Quantity picker */
+        .lm_pro_image{
+            display: none;
+        }
+        .button_block{
+            display: block;
+        }
+        .lm_quantity_selector{
+            display: none;
+        }
+        .lm_buy_btn button{
+            width: 100%;
+            height: 40px;
+        }
+        .lm_options{
+            margin-right: 5px;
+        }
 }
 
 @media screen and (max-width: 767px) {
