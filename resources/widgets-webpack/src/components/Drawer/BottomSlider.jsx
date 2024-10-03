@@ -61,7 +61,11 @@ export default function BottomSlider({
         <>
             <style>
                 {`
+                    .lm_font_class {
+                        font-family: var(--font-body-family) ;
+                    }
                     .lm_quantity_picker_bottom_slider .quantity-picker .quantity-display{
+                        font-family: var(--font-body-family) ;
                         padding: 0;
                         background-color: #fff;
                         width: 28px !important;
@@ -69,6 +73,7 @@ export default function BottomSlider({
                         box-shadow: none;
                     }
                     .lm_quantity_picker_bottom_slider .quantity-modifier{
+                        font-family: var(--font-body-family) ;
                         height: 25px;
                         width: 30px;
                         border: none;
@@ -78,6 +83,7 @@ export default function BottomSlider({
                         border-radius: 0;
                     }
                     .lm_quantity_picker_bottom_slider .quantity-picker{
+                        font-family: var(--font-body-family) ;
                         background-color: #fff;
                         border: 1px solid #ddd;
                         border-radius:0;
@@ -87,7 +93,7 @@ export default function BottomSlider({
                 `}
             </style>
             <div
-                className={`${showBottomSlider && style.lm_Slide_div_open} ${
+                className={`lm_font_class ${showBottomSlider && style.lm_Slide_div_open} ${
                     style.lm_Slide_div
                 }`}
                 style={{
@@ -95,7 +101,7 @@ export default function BottomSlider({
                 }}
             >
                 <div
-                    className={style.lm_Slide_close_btn}
+                    className={`lm_font_class ${style.lm_Slide_close_btn}`}
                     onClick={() => {
                         handleBottomSlider();
                     }}
@@ -112,13 +118,13 @@ export default function BottomSlider({
                         &times;
                     </span>
                 </div>
-                <div className={style.lm_Slide_card}>
-                    <div className={style.lm_Slide_pro_image}>
+                <div className={`lm_font_class ${style.lm_Slide_card}`}>
+                    <div className={`lm_font_class ${style.lm_Slide_pro_image}`}>
                         <img src={sliderProduct.featured_image} alt="" />
                     </div>
-                    <div className={style.lm_Slide_pro}>
+                    <div className={`lm_font_class ${style.lm_Slide_pro}`}>
                         <div
-                            className={style.lm_Slide_pro_title}
+                            className={`lm_font_class ${style.lm_Slide_pro_title}`}
                             style={{
                                 fontSize:
                                     customizationData.cartUpsell.CUBodyFontSize,
@@ -128,9 +134,9 @@ export default function BottomSlider({
                             {sliderProduct.title}
                         </div>
 
-                        <div className={style.lm_Slide_pro_price_wrapper}>
+                        <div className={`lm_font_class ${style.lm_Slide_pro_price_wrapper}`}>
                             <div
-                                className={style.lm_Slide_product_price}
+                                className={`lm_font_class ${style.lm_Slide_product_price}`}
                                 style={{
                                     fontSize:
                                         customizationData.cartUpsell
@@ -147,9 +153,9 @@ export default function BottomSlider({
                             {sliderProduct.compare_at_price &&
                                 sliderProduct.compare_at_price > 0 && (
                                     <div
-                                        className={
+                                        className={`lm_font_class ${
                                             style.lm_Slide_pro_compare_price
-                                        }
+                                        }`}
                                         style={{
                                             fontSize:
                                                 customizationData.cartUpsell
@@ -174,7 +180,7 @@ export default function BottomSlider({
 
                         <div
                             id="lm_bottom_slider_qty_picker"
-                            className={`lm_quantity_picker_bottom_slider ${style.lm_quantity_selector}`}
+                            className={`lm_quantity_picker_bottom_slider lm_font_class ${style.lm_quantity_selector}`}
                         >
                             <QuantityPicker
                                 key={selectedVariant?.id + "-" + quantity}
@@ -194,25 +200,25 @@ export default function BottomSlider({
                 {/* Varients */}
                 {sliderProduct?.options?.[0]?.values?.[0] !==
                     "Default Title" && (
-                    <div className={style.lm_variation_dropdown}>
+                    <div className={`lm_font_class ${style.lm_variation_dropdown}`}>
                         {sliderProduct.options?.map((variantOption, index) => (
                             <div
-                                className={
+                                className={`lm_font_class ${
                                     style.lm_variation_dropdown__variants
-                                }
+                                }`}
                                 key={variantOption.name}
                             >
                                 <label
-                                    className={style.lm_select__inline}
+                                    className={`lm_font_class ${style.lm_select__inline}`}
                                     htmlFor={
                                         "lm_variation_dropdown_" +
                                         variantOption.name
                                     }
                                 >
                                     <span
-                                        className={
+                                        className={`lm_font_class ${
                                             style.lm_variation_select_label
-                                        }
+                                        }`}
                                         style={{
                                             fontSize:
                                                 customizationData.cartUpsell
@@ -224,9 +230,9 @@ export default function BottomSlider({
                                         {variantOption.name} :
                                     </span>
                                     <select
-                                        className={
+                                        className={`lm_font_class ${
                                             style.lm_variation_select__select
-                                        }
+                                        }`}
                                         style={{
                                             fontSize:
                                                 customizationData.cartUpsell
@@ -264,7 +270,7 @@ export default function BottomSlider({
                 )}
 
                 {/* Add to Cart Button */}
-                <div className={style.lm_Add_to_cart}>
+                <div className={`lm_font_class ${style.lm_Add_to_cart}`}>
                     <button
                         style={{
                             fontSize:
