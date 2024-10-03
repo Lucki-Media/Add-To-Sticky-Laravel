@@ -8,10 +8,11 @@ import {
     faBagShopping,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import Drawer from "../Drawer/Drawer";
 require("./index.css");
+
 const StickyIcon = () => {
-    const [font, setFont] = useState("");
-    const [fontFamily, setfontFamily] = useState("Oswald");
+    const [activePlan, setActivePlan] = useState(1);
     const [stickyData, setStickyData] = useState([]);
     const [iconHover, setIconHover] = useState(false);
     const [countHover, setCountHover] = useState(false);
@@ -26,9 +27,7 @@ const StickyIcon = () => {
     const [borderHoverColor, setBorderHoverColor] =
         useState("rgba(0, 0, 0, 0)");
     const [positionTop, setPositionTop] = useState(20);
-    // const [positionBottom, setPositionBottom] = useState(0);
     const [positionLeft, setPositionLeft] = useState(0);
-    // const [positionRight, setPositionRight] = useState(1);
     const [iconSize, setIconSize] = useState(20);
     const [iconColor, setIconColor] = useState("rgba(0, 0, 0, 0)");
     const [iconHoverColor, setIconHoverColor] = useState(
@@ -47,6 +46,13 @@ const StickyIcon = () => {
     const currentYear = currentDate.getFullYear();
     const monthOptions = { month: "short" };
     const currentMonth = currentDate.toLocaleString("en-US", monthOptions);
+
+    // DRAWER DATA
+    const [drawerData, setDrawerData] = useState([]);
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [cartData, setCartData] = useState();
+    const [CUProducts, setCUProducts] = useState([]);
+
     let handleClick = async () => {
         const requestOptions = {
             method: "POST",
@@ -62,32 +68,22 @@ const StickyIcon = () => {
                 `${process.env.REACT_APP_API_URL}` + "addStickyButtonClicks",
                 requestOptions
             );
-            if (action === "1") {
-                window.location.href = "/cart";
+
+            await axios
+                .get("https://" + window.location.host + "/cart.json")
+                .then(async (response) => {
+                    await setCartData(response.data);
+                    setNumberCount(response.data.item_count);
+                });
+
+            // If drawer cart is enabled, then open otherwise redirect to action
+            if (drawerData.enableDrawer === true) {
+                setIsDrawerOpen(true);
             } else {
-                window.location.href = "/checkout";
+                window.location.href = action === "1" ? "/cart" : "/checkout";
             }
-            // console.log(cart_added);
         } catch (error) {
-            console.log();
-        }
-    };
-    const getAddToStickyCartData = async () => {
-        try {
-            const response = await fetch(
-                `${process.env.REACT_APP_API_URL}` +
-                    "getAddToStickyCartData/" +
-                    window.Shopify.shop
-            );
-            const data = await response.json();
-            // console.log(data.data);
-            setFont(data.data);
-            // console.log();
-            setfontFamily(
-                data.data.current_template.general_settings.gsFontFamily
-            );
-        } catch (err) {
-            console.log(err);
+            console.log(error);
         }
     };
 
@@ -100,6 +96,7 @@ const StickyIcon = () => {
             );
             const data = await response.json();
             setStickyData(data);
+            setDrawerData(data.data.drawer_cart_data);
             setEnableSticky(data.data.enableSticky);
             setDefaultTemplate(data.data.defaultTemplate);
             setAction(data.data.current_template.action);
@@ -127,17 +124,19 @@ const StickyIcon = () => {
             console.log(err);
         }
     };
+
     /* CART COUNT API CALL START*/
     const getCartCount = async () => {
         axios
             .get("https://" + window.location.host + "/cart.json")
             .then((response) => {
+                setCartData(response.data);
                 setNumberCount(response.data.item_count);
             });
     };
     /* CART COUNT API CALL END*/
     useEffect(() => {
-        getAddToStickyCartData();
+        // getAddToStickyCartData();
         getStickyCartData();
         /*ADDING EVENT LISTENER TO UPDATE CART COUNT START*/
         if (window.meta.page.pageType === "product") {
@@ -174,6 +173,137 @@ const StickyIcon = () => {
     };
     // COUNT END
 
+    // CART UPSELL API CALL
+    const getCartUpsellProducts = async () => {
+        if (drawerData.cartUpsell.CUPLSelection === "1") {
+            // Default Recommendation
+            axios
+                .get(
+                    "https://" +
+                        window.location.host +
+                        "/recommendations/products.json?product_id=" +
+                        cartData.items[0].product_id + // get cart's first item's related product
+                        "&limit=3"
+                )
+                .then(async (response) => {
+                    setCUProducts(response.data.products);
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+        } else {
+            // Manually Select
+            if (drawerData.cartUpsell.CUPLManualSelection === "1") {
+                // Manual Products
+                if (drawerData.cartUpsell.SelectedProductIDs.length > 0) {
+                    // Create an array of promises
+                    const productPromises =
+                        drawerData.cartUpsell.SelectedProductIDs.map(
+                            (productHandle) => {
+                                return getProductByHandle(productHandle);
+                            }
+                        );
+
+                    // Wait for all promises to resolve
+                    Promise.all(productPromises).then((productArray) => {
+                        // Filter out any null values from failed requests
+                        productArray = productArray.filter(
+                            (product) => product !== null
+                        );
+                        setCUProducts(productArray);
+                    });
+                }
+            } else {
+                // Manual Collection
+                if (drawerData.cartUpsell.SelectedCollectionID) {
+                    axios
+                        .get(
+                            "https://" +
+                                window.location.host +
+                                "/collections/" +
+                                drawerData.cartUpsell.SelectedCollectionID +
+                                "/products.json?limit=3"
+                        )
+                        .then(async (response) => {
+                            // Create an array of promises
+                            const productPromises = response.data.products.map(
+                                (product) => {
+                                    return getProductByHandle(product.handle);
+                                }
+                            );
+
+                            // Wait for all promises to resolve
+                            Promise.all(productPromises).then(
+                                (productArray) => {
+                                    // Filter out any null values from failed requests
+                                    productArray = productArray.filter(
+                                        (product) => product !== null
+                                    );
+                                    setCUProducts(productArray);
+                                }
+                            );
+                        })
+                        .catch((error) => {
+                            console.error("Error:", error);
+                        });
+                }
+            }
+        }
+    };
+
+    // Helper function
+    const getProductByHandle = (productHandle) => {
+        return axios
+            .get(
+                "https://" +
+                    window.location.host +
+                    "/products/" +
+                    productHandle +
+                    ".js"
+            )
+            .then((response) => {
+                return response.data;
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                return null; // Return null for any failed requests
+            });
+    };
+
+    useEffect(() => {
+        drawerData && numberCount > 0 && getCartUpsellProducts();
+    }, [drawerData]);
+
+    // add overflow hidden class to body tag whenever drawer is open
+    useEffect(() => {
+        if (isDrawerOpen) {
+            document.body.classList.add("lm_body_overflow_hide");
+        } else {
+            document.body.classList.remove("lm_body_overflow_hide");
+        }
+    }, [isDrawerOpen]);
+
+    useEffect(() => {
+        getPlanData();
+    }, []);
+
+    // API CALL TO GET PLAN DATA
+    const getPlanData = async () => {
+        try {
+            const response = await fetch(
+                `${process.env.REACT_APP_API_URL}` +
+                    "getPlanData/" +
+                    window.Shopify.shop
+            );
+            const data = await response.json();
+            // console.log("data");
+            // console.log(data);
+            setActivePlan(data.data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     if (stickyData.length <= 0) {
         return <div>Loading</div>;
     } else {
@@ -181,13 +311,13 @@ const StickyIcon = () => {
             <div>
                 <style>
                     {`
-                        @import url("https://fonts.googleapis.com/css2?family=${fontFamily}&display=swap");
+                        @import url("https://fonts.googleapis.com/css2?family=Oswald&display=swap");
                         .apply-font{
-                            font-family : ${fontFamily};
+                            font-family : Oswald !important;
                         }
                     `}
                 </style>
-                {enableSticky === true ? (
+                {enableSticky === true && (
                     <div className="main_sticky___div">
                         <div
                             className="stickyCart__icon"
@@ -204,24 +334,20 @@ const StickyIcon = () => {
                                 height: btnSize,
                                 width: btnSize,
                                 top: positionTop === 0 ? "" : positionTop + "%",
-                                // bottom:
-                                //     positionBottom === 0
-                                //         ? ""
-                                //         : positionBottom + "%",
                                 left:
                                     positionLeft === 0
                                         ? ""
                                         : positionLeft + "%",
-                                // right:
-                                //     positionRight === 0
-                                //         ? ""
-                                //         : positionRight + "%",
+                                marginLeft:
+                                    positionLeft > 90 ? `-${btnSize}px` : "",
+                                marginTop:
+                                    positionTop > 90 ? `-${btnSize}px` : "",
                             }}
                             onMouseEnter={handleIconEnter}
                             onMouseLeave={handleIconLeave}
                             onClick={handleClick}
                         >
-                            {enableCount === true ? (
+                            {enableCount === true && (
                                 <span
                                     className=" sticky_Count"
                                     style={{
@@ -240,38 +366,44 @@ const StickyIcon = () => {
                                 >
                                     {numberCount}
                                 </span>
-                            ) : (
-                                ""
                             )}
-                            {defaultTemplate === 1 ? (
+                            {defaultTemplate === 1 && (
                                 <FontAwesomeIcon icon={faCartShopping} />
-                            ) : (
-                                ""
                             )}
-                            {defaultTemplate === 2 ? (
+                            {defaultTemplate === 2 && (
                                 <FontAwesomeIcon icon={faCartPlus} />
-                            ) : (
-                                ""
                             )}
-                            {defaultTemplate === 3 ? (
+                            {defaultTemplate === 3 && (
                                 <FontAwesomeIcon icon={faCartArrowDown} />
-                            ) : (
-                                ""
                             )}
-                            {defaultTemplate === 4 ? (
+                            {defaultTemplate === 4 && (
                                 <FontAwesomeIcon icon={faBasketShopping} />
-                            ) : (
-                                ""
                             )}
-                            {defaultTemplate === 5 ? (
+                            {defaultTemplate === 5 && (
                                 <FontAwesomeIcon icon={faBagShopping} />
-                            ) : (
-                                ""
                             )}
                         </div>
                     </div>
-                ) : (
-                    ""
+                )}
+                {isDrawerOpen === true && (
+                    <>
+                        <Drawer
+                            activePlan={activePlan}
+                            isDrawerOpen={isDrawerOpen}
+                            customizationData={drawerData}
+                            showCartUpsell={
+                                drawerData.cartUpsell.CUEnable ?? false
+                            }
+                            CUProducts={CUProducts}
+                            handleDrawerClose={() => {
+                                setIsDrawerOpen(false);
+                            }}
+                            cartData={cartData}
+                            cartUpdated={() => {
+                                getCartCount();
+                            }}
+                        />
+                    </>
                 )}
             </div>
         );

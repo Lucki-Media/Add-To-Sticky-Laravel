@@ -11,12 +11,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\User;
-use App\Webhook;
-use Mail;
 use App\Models\AddToCartStickyData;
 use App\Models\StickyCartData;
-use App\Mail\YourEmailClass;
-use MailerLite\MailerLite;
 
 class AfterAuthenticateJob implements ShouldQueue
 {
@@ -50,8 +46,6 @@ class AfterAuthenticateJob implements ShouldQueue
         $shop = User::where('name', $this->shopDomain)->firstOrFail();
         $shopDecode = json_decode($shop);
         $shopifyData = $shop->api()->rest('GET', '/admin/shop.json')['body'];
-        // file_put_contents($path . '/shopifyData.txt', json_encode($mailerAPIKey));
-        // echo '<pre>';print_r($shopDecode);exit;
         $api_key = env('SHOPIFY_API_KEY');
         $path = public_path();
         $shop_arr = json_decode($shop, true);
@@ -62,8 +56,8 @@ class AfterAuthenticateJob implements ShouldQueue
         $data = [
             'email' => $shopifyData['shop']['email'],
             'groups' => [env('MAILER_GROUP_ID')],
-            'fields' => (object)[
-                "phone" =>  (string)$shopifyData['shop']['phone'],
+            'fields' => (object) [
+                "phone" => (string) $shopifyData['shop']['phone'],
             ]
         ];
         $data_string = json_encode($data);
@@ -101,8 +95,9 @@ class AfterAuthenticateJob implements ShouldQueue
         $final_data = [
             'shop_domain' => $this->shopDomain,
             'enable' => '0',
+            'homePageProduct' => '',
             'animationEnable' => '1',
-            'defaultTemplate' => 2,
+            'defaultTemplate' => '2',
             'current_template' => $template_2,
             'template_1' => $template_1,
             'template_2' => $template_2,
@@ -126,6 +121,7 @@ class AfterAuthenticateJob implements ShouldQueue
         $sticky_template_3 = json_encode(require $path . '/template_files/sticky_template_3.php');
         $sticky_template_4 = json_encode(require $path . '/template_files/sticky_template_4.php');
         $sticky_template_5 = json_encode(require $path . '/template_files/sticky_template_5.php');
+        $drawer_cart_data = json_encode(require $path . '/template_files/drawerCartData.php');
         $final_data_sticky = [
             'shop_domain' => $this->shopDomain,
             'enableSticky' => '0',
@@ -136,6 +132,7 @@ class AfterAuthenticateJob implements ShouldQueue
             'sticky_template_3' => $sticky_template_3,
             'sticky_template_4' => $sticky_template_4,
             'sticky_template_5' => $sticky_template_5,
+            'drawer_cart_data' => $drawer_cart_data,
         ];
         // Specify the unique key and values to check for existing records
         $uniqueKey = ['shop_domain' => $this->shopDomain];
@@ -188,17 +185,90 @@ class AfterAuthenticateJob implements ShouldQueue
         $setStickyCartCount->updated_at = Carbon::now();
         $setStickyCartCount->save();
         /*INSERT INITIAL DATA IN sticky_cart_counts TABLE END*/
-        // SENDING MAIL TO AUTHORIZED PERSONS
-        // $recipients = ['somin.parate@gmail.com', 'info.lmrequest@gmail.com', 'bhumil.luckimedia@gmail.com', 'vidhee.luckimedia@gmail.com'];
 
-        // $mailData = [
-        //     'subject' => 'LM Add To Cart Sticky Installed in New Store',
-        //     'shop_name' => $shop['name'],
-        //     'shop_email' => $shop['email'],
-        //     'view' => 'mailTemplate',
-        //     'mail' => 'app_install',
-        // ];
+        //ADDING WEBHOOK START
+        $shop = User::where('name', $this->shopDomain)->firstOrFail();
+        $data['webhook'] = [
+            'topic' => 'app/uninstalled',
+            'address' => env('APP_URL') . '/api/appUninstallJob',
+            'format' => 'json',
+        ];
+        $data_string = json_encode($data);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+        $url = 'https://' . $api_key . ':' . $shop->password . '@' . $shop->name . '/admin/api/' . env('SHOPIFY_API_VERSION') . '/webhooks.json';
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
+        $output = curl_exec($ch);
+        //ADDING WEBHOOK END
 
-        // Mail::to($recipients)->send(new YourEmailClass($mailData));
+        /*CREATING CONTACT IN BREVO START*/
+        $data = [
+            "attributes" => [
+                "FNAME" => $shopifyData['shop']['shop_owner'],
+                "CONTACT" => $shopifyData['shop']['phone'] ?? null
+            ],
+            "email" => $shopifyData['shop']['email'],
+            "email_id" => $shopifyData['shop']['email'],
+            "updateEnabled" => true,
+            "listIds" => [
+                10
+            ]
+        ];
+        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://api.brevo.com/v3/contacts");
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Accept: application/json',
+            'Content-Type: application/json',
+            'api-key: ' . env('BREVO_API_KEY')
+        ]);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $server_output1 = curl_exec($ch);
+        curl_close($ch);
+        /*CREATING CONTACT IN BREVO END*/
+
+        // SENDING MAIL TO AUTHORIZED PERSONS START
+        $data1 = [
+            "to" => [
+                [
+                    "email" => $shopifyData['shop']['email'],
+                ],
+            ],
+            "bcc" => [
+                [
+                    "email" => "somin.parate@gmail.com",
+                ],
+                [
+                    "email" => "info.lmrequest@gmail.com",
+                ],
+                [
+                    "email" => "vidhee.luckimedia@gmail.com",
+                ],
+            ],
+            "templateId" => 6,
+            "params" => [
+                "name" => $shopifyData['shop']['shop_owner'],
+            ],
+        ];
+
+        $ch1 = curl_init();
+        curl_setopt($ch1, CURLOPT_URL, "https://api.brevo.com/v3/smtp/email");
+        curl_setopt($ch1, CURLOPT_HTTPHEADER, [
+            'Accept: application/json',
+            'Content-Type: application/json',
+            'api-key: ' . env('BREVO_API_KEY')
+        ]);
+        curl_setopt($ch1, CURLOPT_CUSTOMREQUEST, 'POST');
+        curl_setopt($ch1, CURLOPT_POSTFIELDS, json_encode($data1));
+        curl_setopt($ch1, CURLOPT_RETURNTRANSFER, true);
+        $server_output1 = curl_exec($ch1);
+        curl_close($ch1);
+        // SENDING MAIL TO AUTHORIZED PERSONS END
     }
 }

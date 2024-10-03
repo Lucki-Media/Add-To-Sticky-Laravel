@@ -17,25 +17,41 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+
 Route::namespace('App\\Http\\Controllers')->group(function () {
-    /*ADD TO CART STICKY API START*/
-    Route::post('saveAddToStickyCartData', 'AddToCartStickyController@saveAddToStickyCartData');
-    Route::get('getAddToStickyCartData/{shop_domain}', 'AddToCartStickyController@getAddToStickyCartData');
-    /*ADD TO CART STICKY API END*/
+        /*ADD TO CART STICKY API START*/
+        Route::post('saveAddToStickyCartData', 'AddToCartStickyController@saveAddToStickyCartData');
+        Route::get('getAddToStickyCartData/{shop_domain}', 'AddToCartStickyController@getAddToStickyCartData');
+        /*ADD TO CART STICKY API END*/
 
-    /*STICKY CART API START*/
-    Route::post('saveStickyCartData', 'StickyCartController@saveStickyCartData');
-    Route::get('getStickyCartData/{shop_domain}', 'StickyCartController@getStickyCartData');
-    /*STICKY CART API END*/
+        /* PRODUCT GET API */
+        Route::get('getAllProducts/{shop_domain}', 'AddToCartStickyController@getAllProducts');
+        Route::get('getProductHandle/{shop_domain}', 'AddToCartStickyController@getProductHandle');
 
-    /*POST BUTTON CLICKS API START*/
-    Route::post('addBuyButtonClicks', 'DashboardController@addBuyButtonClicks');
-    Route::post('addStickyButtonClicks', 'DashboardController@addStickyButtonClicks');
-    Route::get('getDashboardCount/{shop_domain}', 'DashboardController@getDashboardCount');
-    /*POST BUTTON CLICKS API END*/
+        Route::get('test', 'DashboardController@test');
 
-    //WEBHOOK API
-    Route::post('/requestEndpoint', 'CustomerEndpointController@requestEndpoint');
-    Route::post('/erasureEndpoint', 'CustomerEndpointController@erasureEndpoint');
-    Route::post('/shopErasureEndpoint', 'CustomerEndpointController@shopErasureEndpoint');
+        /*STICKY CART API START*/
+        Route::post('saveStickyCartData', 'StickyCartController@saveStickyCartData');
+        Route::get('getStickyCartData/{shop_domain}', 'StickyCartController@getStickyCartData');
+        Route::get('getManualSelectionData/{shop_domain}', 'StickyCartController@getManualSelectionData');
+        /*STICKY CART API END*/
+
+        /*POST BUTTON CLICKS API START*/
+        Route::post('addBuyButtonClicks', 'DashboardController@addBuyButtonClicks');
+        Route::post('addStickyButtonClicks', 'DashboardController@addStickyButtonClicks');
+        Route::get('getDashboardCount/{shop_domain}', 'DashboardController@getDashboardCount');
+        Route::get('updateReviewBannerStatus/{shop_domain}/{selected}', 'DashboardController@updateReviewBannerStatus');
+        /*POST BUTTON CLICKS API END*/
+
+        // PRICING PLAN API
+        Route::get('updatePricingPlan/{shop_domain}/{option}', 'PricingController@updatePricingPlan');
+        Route::get('getPlanData/{shop_domain}', 'PricingController@getPlanData');
+
+        //UNINSTALL WEBHOOK API
+        Route::post('/appUninstallJob', 'AppWebhookController@appUninstallJob');
+
+        //WEBHOOK API
+        Route::post('/requestEndpoint', 'CustomerEndpointController@requestEndpoint');
+        Route::post('/erasureEndpoint', 'CustomerEndpointController@erasureEndpoint');
+        Route::post('/shopErasureEndpoint', 'CustomerEndpointController@shopErasureEndpoint');
 });

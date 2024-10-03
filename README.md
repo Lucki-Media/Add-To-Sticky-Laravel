@@ -1,1 +1,1 @@
-# Add-To-Sticky-Laravel
+# LM Sticky Cart Drawer & Upsell

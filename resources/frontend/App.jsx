@@ -23,12 +23,16 @@ export default function App() {
                         <NavigationMenu
                             navigationLinks={[
                                 {
-                                    label: "Add To Cart Sticky",
+                                    label: "StickyBar",
                                     destination: "/add-to-cart-sticky",
                                 },
                                 {
-                                    label: "Sticky Cart",
+                                    label: "Drawer Cart",
                                     destination: "/sticky-cart",
+                                },
+                                {
+                                    label: "Pricing Plans",
+                                    destination: "/pricing-plans",
                                 },
                                 {
                                     label: "FAQs",

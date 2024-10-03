@@ -1,0 +1,7 @@
+SHOPIFY_API_KEY=9a766e1b57dd76f71b885f977f1d8ec5
+SHOPIFY_API_SECRET=44d01ad0641f193c6ba02a5ea1cdbace
+SCOPES=write_products,write_customers,write_draft_orders,read_theme,write_theme
+REACT_APP_HOST_URL=https://lmaddtocartsticky.luckistore.in/
+REACT_APP_IMAGE_URL=https://lmaddtocartsticky.luckistore.in/images/
+NODE_ENV="development"
+SHOPIFY_LM_ADD_TO_CART_THEME_EXTENTION_ID=5113ce9d-5d8c-4d8c-be57-4caf597d115e

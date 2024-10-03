@@ -16,6 +16,10 @@
   z-index: 99;
   top: 0;
 }
+.lm_body_overflow_hide{
+  /*  */
+  overflow: hidden;
+}
 .lm_add_to_sticky_top_bar_header_bottom {
     width: 100%;
    max-width: 1200px;
@@ -244,6 +248,7 @@ div[id^="font-picker"] .dropdown-button:focus {
   z-index: 9999;
 }
 .sticky_Count {
+  font-family: var(--font-body-family) ;
   position: absolute;
   display: flex;
   align-items: center;

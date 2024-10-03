@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import StickyIcon from "../components/StickyIcon/StickyIcon";
 import ProductContainer from "../components/ProductDetail/ProductContainer";
+import HomePageProduct from "../components/ProductDetail/HomePageProduct";
 
 const { STICKY_ICON, STICKY_CONTAINER } = CONST;
 
@@ -54,6 +55,9 @@ const App = () => {
             {sticky_container &&
                 window.meta.page.pageType === "product" &&
                 ReactDOM.createPortal(<ProductContainer />, sticky_container)}
+            {sticky_container &&
+                window.meta.page.pageType === "home" &&
+                ReactDOM.createPortal(<HomePageProduct />, sticky_container)}
         </>
     );
 };
