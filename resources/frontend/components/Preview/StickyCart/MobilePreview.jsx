@@ -33,7 +33,7 @@ export default function MobilePreview(props) {
     const handleCountLeave = () => {
         setCountHover(false);
     };
-    
+
     return (
         <div
             classname="mobile_preview_section"
@@ -93,6 +93,16 @@ export default function MobilePreview(props) {
                                                             : props.stickyData
                                                                   .positionLeft +
                                                               "%",
+                                                    marginLeft:
+                                                        props.stickyData
+                                                            .positionLeft > 90
+                                                            ? `-${props.stickyData.btnSize}px`
+                                                            : "",
+                                                    marginTop:
+                                                        props.stickyData
+                                                            .positionTop > 90
+                                                            ? `-${props.stickyData.btnSize}px`
+                                                            : "",
                                                 }}
                                                 onMouseEnter={handleIconEnter}
                                                 onMouseLeave={handleIconLeave}

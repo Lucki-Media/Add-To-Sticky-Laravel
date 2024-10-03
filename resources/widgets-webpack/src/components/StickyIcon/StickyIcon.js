@@ -339,20 +339,14 @@ const StickyIcon = () => {
                                         ? ""
                                         : positionLeft + "%",
                                 marginLeft:
-                                    positionLeft > 90
-                                        ? `-${btnSize}px`
-                                        : "",
+                                    positionLeft > 90 ? `-${btnSize}px` : "",
+                                marginTop:
+                                    positionTop > 90 ? `-${btnSize}px` : "",
                             }}
                             onMouseEnter={handleIconEnter}
                             onMouseLeave={handleIconLeave}
                             onClick={handleClick}
                         >
-                            {console.log('first...')}
-                            {console.log(
-                               positionLeft > 90
-                               ? `-${btnSize}px`
-                               : ""
-                            )}
                             {enableCount === true && (
                                 <span
                                     className=" sticky_Count"

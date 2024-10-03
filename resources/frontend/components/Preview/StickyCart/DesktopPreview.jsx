@@ -96,6 +96,16 @@ export default function DesktopPreview(props) {
                                                             : props.stickyData
                                                                   .positionLeft +
                                                               "%",
+                                                    marginLeft:
+                                                        props.stickyData
+                                                            .positionLeft > 90
+                                                            ? `-${props.stickyData.btnSize}px`
+                                                            : "",
+                                                    marginTop:
+                                                        props.stickyData
+                                                            .positionTop > 90
+                                                            ? `-${props.stickyData.btnSize}px`
+                                                            : "",
                                                 }}
                                                 onMouseEnter={handleIconEnter}
                                                 onMouseLeave={handleIconLeave}
