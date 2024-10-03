@@ -155,6 +155,7 @@ export default function Drawer({
                     }
                     .lm_drawer_quantity_picker .quantity-picker{
                         font-family: var(--font-body-family) ;
+                         background-color: #fff;
                         display: flex;
                         justify-content: center;
                         align-items: center;
