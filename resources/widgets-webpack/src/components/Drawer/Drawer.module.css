@@ -64,7 +64,6 @@
     }
 }
 
-
 .lm_drawer_header {
     position: relative;
     padding: 10px 16px;
@@ -211,7 +210,7 @@ span.lm_shipping_bar_sub_title {
     margin-bottom: 10px;
 }
 .lm_cart_drawer_item_row:last-child {
-    border-bottom:none;
+    border-bottom: none;
     margin-bottom: 30px;
 }
 
@@ -338,6 +337,7 @@ span.lm_shipping_bar_sub_title {
 }
 
 .lm_cart_footer_button_wrapper button {
+    font-family: var(--font-body-family);
     width: 100%;
     background: #000;
     color: #fff;
@@ -373,7 +373,7 @@ span.lm_shipping_bar_sub_title {
     font-size: 20px;
     font-weight: 400;
     text-align: center;
-    color:#fff;
+    color: #fff;
     line-height: 1.5;
     /* background: #00000014; */
     background: #000;
@@ -481,6 +481,7 @@ span.lm_shipping_bar_sub_title {
 }
 
 .lm_empty_cart_button_wrapper button {
+    font-family: var(--font-body-family);
     width: 100%;
     background: #000;
     color: #fff;
@@ -598,6 +599,7 @@ span.lm_shipping_bar_sub_title {
 }
 
 .lm_Add_to_cart button {
+    font-family: var(--font-body-family);
     position: relative;
     display: flex;
     align-items: center;
@@ -611,7 +613,7 @@ span.lm_shipping_bar_sub_title {
     color: #fff;
     font-size: 18px;
     font-weight: 700;
-    letter-spacing: .5px;
+    letter-spacing: 0.5px;
     border: none;
     border-radius: 8px;
 }

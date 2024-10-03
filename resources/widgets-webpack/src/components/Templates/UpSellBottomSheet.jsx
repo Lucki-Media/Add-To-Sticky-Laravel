@@ -496,10 +496,11 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                 }
 
                 .lmsc_popup_modal select{
+                    font-family: var(--font-body-family) ;
                     border: none;
                     width: 80%;
                     margin-left: 8px;
-                     background: ${upsellPopupData.CUBackgroundColor};
+                    background: ${upsellPopupData.CUBackgroundColor};
                 }
 
                 .lmsc_sproduct_title{                   
