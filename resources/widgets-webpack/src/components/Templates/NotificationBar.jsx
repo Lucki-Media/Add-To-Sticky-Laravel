@@ -8,7 +8,7 @@ export default function NotificationBar(props) {
                     width:100%;
                     background-color:${props.gsNotificationBarBgColor};
                     clear: both;
-                    z-index: 999;
+                    z-index: -1;
                 }
 
                 #lm_notification_bar-Bottom {

@@ -4,6 +4,7 @@ import { QuantityPicker } from "react-qty-picker";
 import getSymbolFromCurrency from "currency-symbol-map";
 import BottomSlider from "./BottomSlider";
 import axios from "axios";
+import { Style } from "@shopify/app-bridge/actions/Button";
 
 export default function Drawer({
     activePlan,
@@ -301,7 +302,8 @@ export default function Drawer({
                                     <div
                                         className={`lm_font_class ${
                                             style.lm_cart_with_recommendedProduct
-                                        }`}
+                                        } ${!customizationData.shippingBar
+                                        .FSBenable && style.lm_cart_block }`}
                                     >
                                         {/* Cart Items */}
                                         <div
