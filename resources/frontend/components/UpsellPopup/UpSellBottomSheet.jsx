@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "../css/UpSellBottomSheet.css"; // Import your custom CSS
-import recommendedProducts from "../assets/recommendedProducts.js";
+import "../../css/UpSellBottomSheet.css";
+import recommendedProducts from "../../assets/recommendedProducts.js";
 import { QuantityPicker } from "react-qty-picker";
 
 const UpSellBottomSheet = ({ upsellPopupData }) => {

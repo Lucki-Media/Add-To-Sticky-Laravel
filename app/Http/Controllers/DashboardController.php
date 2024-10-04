@@ -258,25 +258,31 @@ class DashboardController extends Controller
             $app_block = [
                 "disabled" => true
             ];
+            $app_slugs = [env('APP_SLUG1'), env('APP_SLUG2')];
+            $app_block = null;
+
             foreach ($block_details as $key => $value) {
-                if ($value['type'] === "shopify://apps/" . env('APP_SLUG') . "/blocks/app-embed/" . env('SHOPIFY_LM_ADD_TO_CART_THEME_EXTENTION_ID')) {
-                    $app_block = $value;
-                    break; // Exit the loop as we found the app block
+                foreach ($app_slugs as $slug) {
+                    if ($value['type'] === "shopify://apps/" . $slug . "/blocks/app-embed/" . env('SHOPIFY_LM_ADD_TO_CART_THEME_EXTENTION_ID')) {
+                        $app_block = $value;
+                        break 2; // Exit both loops as we found the app block
+                    }
                 }
             }
-            return $app_block['disabled'] === false ? '1' : '0';
+
+            return isset($app_block) && $app_block['disabled'] === false ? '1' : '0';
         }
         return '0';
     }
 
     public function test()
     {
-        $stickyData = StickyCartData::get()->toArray();
+        $stickyData = AddToCartStickyData::get()->toArray();
         $data = [];
 
         foreach ($stickyData as $value) {
-            // $row = StickyCartData::where('id', $value['id'])->first();
-            // $jsonData = json_decode($value['drawer_cart_data'], true);
+            // $row = AddToCartStickyData::where('id', $value['id'])->first();
+            // $jsonData = json_decode($row['template_8'], true);
             // $jsonData['shippingBar']['FSBenable'] = false;
             // $jsonData['general_settings'] = array_merge($jsonData['general_settings'], [
             //     "showOnlyBtnOnMobile" => false,
@@ -313,10 +319,9 @@ class DashboardController extends Controller
             // ]);
             // $data[] = $jsonData;
 
-            // $row->drawer_cart_data = $jsonData;
+            // $row->template_8 = $jsonData;
             // $row->save();
-            // $data[] = $jsonData;
         }
-        return $data;
+        // return $data;
     }
 }
