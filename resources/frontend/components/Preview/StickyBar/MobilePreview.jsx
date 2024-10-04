@@ -10,7 +10,7 @@ import CartTemplate5 from "../../../Templates/CartTemplate5";
 import CartTemplate6 from "../../../Templates/CartTemplate6";
 import CartTemplate7 from "../../../Templates/CartTemplate7";
 import CartTemplate8 from "../../../Templates/CartTemplate8";
-import UpSellBottomSheet from "../../../pages/UpSellBottomSheet";
+import UpSellBottomSheet from "../../UpsellPopup/UpSellBottomSheet";
 
 export default function MobilePreview({ stickyBarData, selectedDevice }) {
     return (

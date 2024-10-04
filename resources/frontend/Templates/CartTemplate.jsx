@@ -4,7 +4,7 @@ import "select2/dist/js/select2.min";
 import proimage from "../assets/productimage.png";
 import { QuantityPicker } from "react-qty-picker";
 import style from "../css/CartTemplate1.module.css";
-import Notification from "../pages/NotificationBar.jsx";
+import Notification from "../components/NotificationBar/NotificationBar";
 
 function CartTemplate1({
     enable,

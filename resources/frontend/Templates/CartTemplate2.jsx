@@ -3,7 +3,7 @@ import Select from "react-select";
 import proimage from "../assets/productimage.png";
 import { QuantityPicker } from "react-qty-picker";
 import style from "../css/CartTemplate2.module.css";
-import Notification from "../pages/NotificationBar.jsx";
+import Notification from "../components/NotificationBar/NotificationBar";
 
 export default function CartTemplate2({
     enable,

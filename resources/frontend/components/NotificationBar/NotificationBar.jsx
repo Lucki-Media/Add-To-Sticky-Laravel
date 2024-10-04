@@ -1,4 +1,4 @@
-import style from "../css/notification.module.css";
+import style from "../../css/notification.module.css";
 
 export default function NotificationBar(props) {
     return (
