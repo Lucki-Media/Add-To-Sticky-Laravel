@@ -70,7 +70,7 @@ export default function NotificationBar(props) {
                     // top: -100%; 
                     // left: 0;
                     // right: 0;
-                    animation: slideTop 0.5s ease-in-out forwards; 
+                    // animation: slideTop 0.5s ease-in-out forwards; 
                 }
 
                 .lm_nb_close {
