@@ -4,18 +4,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>LM Sticky Cart Drawer & Upsell</title>
+    <title>LM Add To Cart Sticky</title>
     @viteReactRefresh
     @vite('resources/js/app.js')
 </head>
 
 <body>
     <div id="app"></div>
-    <input type="hidden" id="apiKey" value={{ env('VITE_SHOPIFY_API_KEY') }}>
-    <input type="hidden" id="shopOrigin" value="<?php echo $_GET['shop']; ?>">
+    <input type="hidden" id="apiKey" value={{env('VITE_SHOPIFY_API_KEY')}}>
+    <input type="hidden" id="shopOrigin" value="<?php  echo $_GET['shop']; ?>">
     {{-- <input type="hidden" id="shopOrigin" value="{{ $shopDomain ?? Auth::user()->name }}"> --}}
     <!--Start of Tawk.to Script-->
-    {{-- <script type="text/javascript">
+    <script type="text/javascript">
     var Tawk_API = Tawk_API || {},
         Tawk_LoadStart = new Date();
     (function() {
@@ -27,7 +27,7 @@
         s1.setAttribute('crossorigin', '*');
         s0.parentNode.insertBefore(s1, s0);
     })();
-    </script> --}}
+    </script>
     <!--End of Tawk.to Script-->
 </body>
 

@@ -277,12 +277,12 @@ class DashboardController extends Controller
 
     public function test()
     {
-        $stickyData = StickyCartData::get()->toArray();
+        $stickyData = AddToCartStickyData::get()->toArray();
         $data = [];
 
         foreach ($stickyData as $value) {
-            // $row = StickyCartData::where('id', $value['id'])->first();
-            // $jsonData = json_decode($value['drawer_cart_data'], true);
+            // $row = AddToCartStickyData::where('id', $value['id'])->first();
+            // $jsonData = json_decode($row['template_8'], true);
             // $jsonData['shippingBar']['FSBenable'] = false;
             // $jsonData['general_settings'] = array_merge($jsonData['general_settings'], [
             //     "showOnlyBtnOnMobile" => false,
@@ -319,10 +319,9 @@ class DashboardController extends Controller
             // ]);
             // $data[] = $jsonData;
 
-            // $row->drawer_cart_data = $jsonData;
+            // $row->template_8 = $jsonData;
             // $row->save();
-            // $data[] = $jsonData;
         }
-        return $data;
+        // return $data;
     }
 }
