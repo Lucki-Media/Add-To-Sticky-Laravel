@@ -185,6 +185,18 @@ export default function CartTemplate2({
                 } else if (current_template.general_settings.gsAction === "3") {
                     setShowNotificationBar(true);
                     setShowUpSellPopup(true);
+                    // setTimeout(() => {
+                    //     // Loop through each element, remove 'lm_nb_open' and add 'lm_nb_close'
+                    //     document.querySelectorAll(".lm_nb_open").forEach((element) => {
+                    //         element.classList.remove("lm_nb_open");
+                    //         element.classList.add("lm_nb_close");
+                    //     });
+
+                    //     // Set another timeout for 1 second to update the state after the class swap
+                    //     setTimeout(() => {
+                    //         setShowNotificationBar(false);
+                    //     }, 1000); // Wait for 1 second
+                    // }, 10000000);
                 } else {
                     window.location.href = "/checkout";
                 }
@@ -520,8 +532,12 @@ export default function CartTemplate2({
                             current_template?.general_settings
                                 ?.showOnlyBtnOnMobile === true ? (
                                 // show only mobile button
-                                <div className={`lm_font_class ${style.lm_container}`}>
-                                    <div className={`lm_font_class ${style.lm_buy_btn}`}>
+                                <div
+                                    className={`lm_font_class ${style.lm_container}`}
+                                >
+                                    <div
+                                        className={`lm_font_class ${style.lm_buy_btn}`}
+                                    >
                                         <button
                                             id="lm_sticky_buy_button"
                                             disabled={shouldDisable}
@@ -561,9 +577,15 @@ export default function CartTemplate2({
                                     </div>
                                 </div>
                             ) : (
-                                <div className={`lm_font_class ${style.lm_container}`}>
-                                    <div className={`lm_font_class ${style.lm_cart_module}`}>
-                                        <div className={`lm_font_class ${style.lm_pro_image}`}>
+                                <div
+                                    className={`lm_font_class ${style.lm_container}`}
+                                >
+                                    <div
+                                        className={`lm_font_class ${style.lm_cart_module}`}
+                                    >
+                                        <div
+                                            className={`lm_font_class ${style.lm_pro_image}`}
+                                        >
                                             <div
                                                 className={`lm_font_class img_size ${style.image_border}`}
                                             >
@@ -584,9 +606,7 @@ export default function CartTemplate2({
                                                 />
                                             </div>
                                             <div
-                                                className={`lm_font_class ${
-                                                    style.lm_middlecontent
-                                                }`}
+                                                className={`lm_font_class ${style.lm_middlecontent}`}
                                             >
                                                 <h2
                                                     className={`lm_font_class font_option ${
@@ -632,9 +652,7 @@ export default function CartTemplate2({
                                                     {selectedVariant.available ===
                                                     false ? (
                                                         <span
-                                                            className={`lm_font_class ${
-                                                                style.lm_out_stock
-                                                            }`}
+                                                            className={`lm_font_class ${style.lm_out_stock}`}
                                                         >
                                                             {unavailable}
                                                         </span>
@@ -642,8 +660,12 @@ export default function CartTemplate2({
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className={`lm_font_class ${style.lmblock_right}`}>
-                                            <div className={`lm_font_class ${style.var_options}`}>
+                                        <div
+                                            className={`lm_font_class ${style.lmblock_right}`}
+                                        >
+                                            <div
+                                                className={`lm_font_class ${style.var_options}`}
+                                            >
                                                 {selectedVariant.option1 !==
                                                     "Default Title" &&
                                                     product.options?.length &&
@@ -735,7 +757,9 @@ export default function CartTemplate2({
                                                         }
                                                     )}
                                             </div>
-                                            <div className={`lm_font_class ${style.button_block}`}>
+                                            <div
+                                                className={`lm_font_class ${style.button_block}`}
+                                            >
                                                 <div
                                                     id="lm_sticky_container__qty_picker"
                                                     className={`lm_quantity_picker_template_2 lm_font_class ${style.lm_quantity_selector}`}

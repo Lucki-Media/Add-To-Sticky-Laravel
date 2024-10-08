@@ -46,10 +46,44 @@ export default function NotificationBar(props) {
                 .lm_font_class {
                     font-family: var(--font-body-family) ;
                 }
+
+                @keyframes slideTop {
+                    from {
+                        top: -100%; 
+                    }
+                    to {
+                        top: 0; 
+                    }
+                }
+
+                @keyframes slideBottom {
+                    from {
+                        top: 0; 
+                    }
+                    to {
+                        top: -100%; 
+                    }
+                }
+
+                .lm_nb_open {
+                    // position: fixed; 
+                    // top: -100%; 
+                    // left: 0;
+                    // right: 0;
+                    // animation: slideTop 0.5s ease-in-out forwards; 
+                }
+
+                .lm_nb_close {
+                    // position: fixed;
+                    // top: 0; 
+                    // left: 0;
+                    // right: 0;
+                    animation: slideBottom 0.5s ease-in-out forwards; 
+                }
             `}
             </style>
 
-            <div id={`lm_notification_bar-${props.position}`}>
+            <div id={`lm_notification_bar-${props.position}`} className="lm_nb_open">
                 <div className="lm_nbcontainer lm_font_class">
                     <p
                         className={`${
