@@ -48,6 +48,7 @@ import {
     XIcon,
     HideIcon,
 } from "@shopify/polaris-icons";
+import VideoArray from "../StaticData/VideoArray";
 
 export default function HomePage() {
     const currentDate = new Date();
@@ -83,43 +84,6 @@ export default function HomePage() {
         setSelectedVideo(videoUrl);
         setActive(true);
     };
-
-    const VideoArray = [
-        {
-            title: "Title 1",
-            description:
-                "Discover how Shopify can power up your entrepreneurial journey.",
-            img: "https://burst.shopifycdn.com/photos/business-woman-smiling-in-office.jpg?width=1850",
-            url: "https://www.youtube.com/embed/JMKYPDem8o8",
-        },
-        {
-            title: "Title 2",
-            description:
-                "Discover how Shopify can power up your entrepreneurial journey.",
-            img: "https://burst.shopifycdn.com/photos/business-woman-smiling-in-office.jpg?width=1850",
-            url: "https://www.youtube.com/embed/JMKYPDem8o8",
-        },
-        {
-            title: "Title 3",
-            description:
-                "Discover how Shopify can power up your entrepreneurial journey.",
-            img: "https://burst.shopifycdn.com/photos/business-woman-smiling-in-office.jpg?width=1850",
-            url: "https://www.youtube.com/embed/JMKYPDem8o8",
-        },
-        {
-            title: "Title 4",
-            description: "Learn how to set up your Shopify store in minutes.",
-            img: "https://burst.shopifycdn.com/photos/business-woman-smiling-in-office.jpg?width=1850",
-            url: "https://www.youtube.com/embed/JMKYPDem8o8",
-        },
-        {
-            title: "Title 5",
-            description:
-                "Maximize your Shopify store's potential with these tips.",
-            img: "https://burst.shopifycdn.com/photos/business-woman-smiling-in-office.jpg?width=1850",
-            url: "https://www.youtube.com/embed/JMKYPDem8o8",
-        },
-    ];
 
     // Pagination Logic
     const totalVideos = VideoArray.length;
@@ -633,7 +597,7 @@ export default function HomePage() {
                     </Layout>
 
                     {/* Video References */}
-                    {/* <Layout>
+                    <Layout>
                         <Layout.Section>
                             <BlockStack gap={300}>
                                 <InlineStack wrap={false} align="space-between">
@@ -674,7 +638,9 @@ export default function HomePage() {
                                                     }
                                                 >
                                                     <VideoThumbnail
-                                                        videoLength={80}
+                                                        videoLength={
+                                                            video.length
+                                                        }
                                                         thumbnailUrl={video.img}
                                                         onClick={() =>
                                                             openModalWithVideo(
@@ -710,7 +676,7 @@ export default function HomePage() {
                                 </Modal.Section>
                             </Modal>
                         )}
-                    </Layout> */}
+                    </Layout>
 
                     {/* Analytics */}
                     <Layout>

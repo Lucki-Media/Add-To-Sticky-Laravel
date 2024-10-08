@@ -64,11 +64,6 @@ const StickyIcon = () => {
             }),
         };
         try {
-            await fetch(
-                `${process.env.REACT_APP_API_URL}` + "addStickyButtonClicks",
-                requestOptions
-            );
-
             await axios
                 .get("https://" + window.location.host + "/cart.json")
                 .then(async (response) => {
@@ -82,6 +77,11 @@ const StickyIcon = () => {
             } else {
                 window.location.href = action === "1" ? "/cart" : "/checkout";
             }
+
+            await fetch(
+                `${process.env.REACT_APP_API_URL}` + "addStickyButtonClicks",
+                requestOptions
+            );
         } catch (error) {
             console.log(error);
         }
