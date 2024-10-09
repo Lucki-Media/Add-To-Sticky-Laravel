@@ -151,7 +151,9 @@ export default function Drawer({
                         color: black;
                         background-color: #fff;
                         border-radius: 0;
-                         width: 33.33%;
+                        width: 33.33%;
+                        min-width: 30px;
+                        padding: 5px;
                     }
                     .lm_drawer_quantity_picker .quantity-picker{
                         font-family: var(--font-body-family) ;

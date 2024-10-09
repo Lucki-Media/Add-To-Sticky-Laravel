@@ -279,6 +279,8 @@ const UpSellBottomSheet = ({ upsellPopupData }) => {
                         cursor: pointer;
                         line-height: 11px;
                         width: 33.33%;
+                        min-width: 30px;
+                        padding: 5px;
                     }
 
                     .lmsc_popup_modal .quantity-display{

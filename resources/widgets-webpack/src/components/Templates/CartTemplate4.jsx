@@ -367,6 +367,8 @@ export default function CartTemplate4({
                             color: #fff;
                             background-color: #111;
                             border-radius: 0;
+                            min-width: 30px;
+                            padding: 5px;
                             }
                             .lm_quantity_picker_template_4 .quantity-picker{
                             font-family: var(--font-body-family) ;
