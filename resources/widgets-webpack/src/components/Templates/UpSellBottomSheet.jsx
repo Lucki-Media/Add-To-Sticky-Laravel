@@ -473,7 +473,6 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
               
                 .lmsc_popup_modal .quantity-modifier{
                     font-family: var(--font-body-family) ;
-                    width: 2px;
                     font-size: 20px;
                     color: ${upsellPopupData.CUBodyTextColor};                  
                     border: 0 solid #dbdbdb;
@@ -482,6 +481,8 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                     line-height: 11px;
                     width: 33.33%;
                     background: ${upsellPopupData.CUBackgroundColor};
+                    min-width: 33.33%;
+                    padding: 5px;
                 }
 
                 .lmsc_popup_modal .quantity-display{

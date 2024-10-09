@@ -389,6 +389,8 @@ export default function CartTemplate7({
         color: ${gsTitleColor};
         background: ${gsBgColor};
         border-radius: 0;
+        min-width: 30px;
+        padding: 5px;
         }
         .lm_quantity_picker_template_7 .quantity-picker{
         font-family: var(--font-body-family) ;

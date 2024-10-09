@@ -53,6 +53,8 @@ export default function Drawer({ isOpen, customizationData }) {
                         color: black;
                         background-color: #fff;
                         border-radius: 0;
+                        min-width: 30px;
+                        padding: 5px;
                     }
                     .lm_drawer_quantity_picker .quantity-picker{
                         background-color: #fff;

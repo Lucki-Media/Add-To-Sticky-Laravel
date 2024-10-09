@@ -84,6 +84,8 @@ export default function CartTemplate4({
                 color: #000;
                 background-color: #fff;
                 border-radius: 0;
+                min-width: 30px;
+                padding: 5px;
                 }
                 .lm_quantity_picker_template_8 .quantity-picker{
                 background-color: #fff;
