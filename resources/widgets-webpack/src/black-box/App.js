@@ -32,6 +32,24 @@ const App = () => {
     //   };
 
     useEffect(() => {
+        // Get the computed font-family of the body tag
+        const bodyFontFamily = getComputedStyle(document.body).fontFamily;
+        console.log("bodyFontFamily", bodyFontFamily);
+
+        // Check if --font-body-family is already defined
+        let rootStyle = getComputedStyle(document.documentElement);
+        console.log("rootStyle", rootStyle);
+
+        if (!rootStyle.getPropertyValue("--font-body-family")) {
+            console.log('--font-body-family', rootStyle.getPropertyValue("--font-body-family"));
+            
+            // If the variable is not defined, set the font-family from body in the CSS variable
+            document.documentElement.style.setProperty(
+                "--font-body-family",
+                bodyFontFamily
+            );
+        }
+
         // window.Shopify.onCartUpdate(function (cart) {
         //   console.log("Cart updated:", cart);
         // });
@@ -45,6 +63,7 @@ const App = () => {
         // };
         // getCartCount1();
     }, []);
+
     return (
         <>
             <ToastContainer />
