@@ -81,6 +81,8 @@ export default function BottomSlider({
                         color: black;
                         background-color: #fff;
                         border-radius: 0;
+                        min-width: 30px;
+                        padding: 5px;
                     }
                     .lm_quantity_picker_bottom_slider .quantity-picker{
                         font-family: var(--font-body-family) ;

@@ -364,10 +364,11 @@ export default function CartTemplate5({
                                 width: 30px;
                                 border: none;
                                 font-size: 16px;
-                                 color: ${gsTitleColor};
-                              
+                                color: ${gsTitleColor};
                                 border-radius: 0;
-                                 background: ${gsBgColor};
+                                background: ${gsBgColor};
+                                min-width: 30px;
+                                padding: 5px;
                             }
                             .lm_quantity_picker_template_5 .quantity-picker{
                                 font-family: var(--font-body-family) ;
