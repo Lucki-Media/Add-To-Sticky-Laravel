@@ -692,7 +692,7 @@ export default function HomePage() {
                             <div className="clickdetails_layout">
                                 <Layout>
                                     <Layout.Section variant="oneHalf">
-                                        <div cl assName="clickdetails_card">
+                                        <div className="clickdetails_card">
                                             <Card sectioned>
                                                 <div className="click_countdetail">
                                                     Clicks On StickyBar
