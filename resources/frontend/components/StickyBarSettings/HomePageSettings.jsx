@@ -42,57 +42,59 @@ export default function HomePageSettings({
     return (
         <Card sectioned>
             <BlockStack gap={200}>
-                <InlineStack blockAlign="center" gap={200}>
-                    <Text variant="headingLg" fontWeight="medium">
-                        Home Page Settings
+                <BlockStack gap={200}>
+                    <InlineStack blockAlign="center" gap={200}>
+                        <Text variant="headingLg" fontWeight="medium">
+                            Home Page Settings
+                        </Text>
+                        <img
+                            src={newGif}
+                            style={{ width: 50, verticalAlign: "middle" }}
+                        />
+                    </InlineStack>
+                </BlockStack>
+
+                <div style={{ margin: "15px 0" }}>
+                    <Divider borderColor="border" />
+                </div>
+
+                {/* Show Product on home page */}
+                <div className="setting_title">
+                    <Text
+                        variant="bodyLg"
+                        as="span"
+                        alignment="start"
+                        fontWeight="medium"
+                    >
+                        Show specific product on homepage?{" "}
+                        {productSwitch ? (
+                            <span className="lm_sticky_custom_badge_success">
+                                <Badge tone="success">Yes</Badge>
+                            </span>
+                        ) : (
+                            <span className="lm_sticky_custom_badge_critical">
+                                <Badge tone="critical">No</Badge>
+                            </span>
+                        )}
                     </Text>
-                    <img
-                        src={newGif}
-                        style={{ width: 50, verticalAlign: "middle" }}
+                    <Switch
+                        onChange={handleSwitchChange}
+                        checked={productSwitch}
+                        uncheckedIcon={null}
+                        checkedIcon={null}
                     />
-                </InlineStack>
+                </div>
+
+                {/* Product Selection */}
+                {productSwitch && (
+                    <ProductSelection
+                        homePageProduct={homePageProduct}
+                        productSelectionCallBack={(value) =>
+                            setHomePageProduct(value)
+                        }
+                    />
+                )}
             </BlockStack>
-
-            <div style={{ margin: "15px 0" }}>
-                <Divider borderColor="border" />
-            </div>
-
-            {/* Show Product on home page */}
-            <div className="setting_title">
-                <Text
-                    variant="bodyLg"
-                    as="span"
-                    alignment="start"
-                    fontWeight="medium"
-                >
-                    Show specific product on homepage?{" "}
-                    {productSwitch ? (
-                        <span className="lm_sticky_custom_badge_success">
-                            <Badge tone="success">Yes</Badge>
-                        </span>
-                    ) : (
-                        <span className="lm_sticky_custom_badge_critical">
-                            <Badge tone="critical">No</Badge>
-                        </span>
-                    )}
-                </Text>
-                <Switch
-                    onChange={handleSwitchChange}
-                    checked={productSwitch}
-                    uncheckedIcon={null}
-                    checkedIcon={null}
-                />
-            </div>
-
-            {/* Product Selection */}
-            {productSwitch && (
-                <ProductSelection
-                    homePageProduct={homePageProduct}
-                    productSelectionCallBack={(value) =>
-                        setHomePageProduct(value)
-                    }
-                />
-            )}
         </Card>
     );
 }

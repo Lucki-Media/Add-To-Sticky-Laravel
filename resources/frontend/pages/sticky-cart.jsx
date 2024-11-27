@@ -31,7 +31,7 @@ export default function StickyCart() {
     const [unsavedChanges, setUnsavedChanges] = useState(true);
 
     // Device selection states
-    const [activePreview, setActivePreview] = useState(1);
+    const [activePreview, setActivePreview] = useState(2);
     const [selectedDevice, setSelectedDevice] = useState(0);
 
     // loading states

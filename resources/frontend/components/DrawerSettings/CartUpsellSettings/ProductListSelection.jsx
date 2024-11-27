@@ -49,8 +49,8 @@ export default function ProductListSelection(props) {
     );
 
     // COLLECTION CALLBACK HANDLE
-    const handleCollectionCallback = (id) => {
-        setSelectedCollectionID(id[0]);
+    const handleCollectionCallback = (data) => {
+        setSelectedCollectionID(data);
     };
 
     // PRODUCT CALLBACK HANDLE
@@ -187,7 +187,6 @@ export default function ProductListSelection(props) {
                             <CollectionSelection
                                 collectionCallback={handleCollectionCallback}
                                 SelectedCollectionID={SelectedCollectionID}
-                                collectionResponse={collectionResponse}
                             />
                         )}
                     </>
