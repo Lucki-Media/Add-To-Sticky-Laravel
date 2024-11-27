@@ -546,36 +546,86 @@ export default function Drawer({ isOpen, customizationData }) {
                                 }
                             </div>
                         )}
-                        <div className={style.lm_cart_footer_button_wrapper}>
-                            <button
-                                style={{
-                                    fontSize:
-                                        customizationData.bottomSection
-                                            .BSCheckoutBtnFontSize,
-                                    color: checkoutBtnHover
-                                        ? customizationData.bottomSection
-                                              .BSBtnTextHoverColor
-                                        : customizationData.bottomSection
-                                              .BSBtnTextColor,
-                                    background: checkoutBtnHover
-                                        ? customizationData.bottomSection
-                                              .BSBtnBGHoverColor
-                                        : customizationData.bottomSection
-                                              .BSBtnBGColor,
-                                }}
-                                onMouseEnter={() => {
-                                    setCheckoutBtnHover(true);
-                                }}
-                                onMouseLeave={() => {
-                                    setCheckoutBtnHover(false);
-                                }}
+                        {customizationData?.bottomSection
+                            ?.BSCheckoutButtonEnable && (
+                            <div
+                                className={style.lm_cart_footer_button_wrapper}
                             >
-                                {
-                                    customizationData.bottomSection
-                                        .BSCheckoutBtnText
-                                }
-                            </button>
-                        </div>
+                                <button
+                                    style={{
+                                        fontSize:
+                                            customizationData.bottomSection
+                                                .BSCheckoutBtnFontSize,
+                                        color: checkoutBtnHover
+                                            ? customizationData.bottomSection
+                                                  .BSBtnTextHoverColor
+                                            : customizationData.bottomSection
+                                                  .BSBtnTextColor,
+                                        background: checkoutBtnHover
+                                            ? customizationData.bottomSection
+                                                  .BSBtnBGHoverColor
+                                            : customizationData.bottomSection
+                                                  .BSBtnBGColor,
+                                    }}
+                                    onMouseEnter={() => {
+                                        setCheckoutBtnHover(true);
+                                    }}
+                                    onMouseLeave={() => {
+                                        setCheckoutBtnHover(false);
+                                    }}
+                                >
+                                    {
+                                        customizationData.bottomSection
+                                            .BSCheckoutBtnText
+                                    }
+                                </button>
+                            </div>
+                        )}
+                        {!customizationData?.bottomSection
+                            ?.BSCheckoutButtonEnable &&
+                            customizationData.bottomSection
+                                .BSViewCartEnable && (
+                                <div
+                                    className={
+                                        style.lm_cart_footer_button_wrapper
+                                    }
+                                >
+                                    <button
+                                        // href="javascript:void(0)"
+                                        // className={style.lm_cart_footer_link}
+                                        style={{
+                                            fontSize:
+                                                customizationData.bottomSection
+                                                    .BSCheckoutBtnFontSize,
+                                            color: checkoutBtnHover
+                                                ? customizationData
+                                                      .bottomSection
+                                                      .BSBtnTextHoverColor
+                                                : customizationData
+                                                      .bottomSection
+                                                      .BSBtnTextColor,
+                                            background: checkoutBtnHover
+                                                ? customizationData
+                                                      .bottomSection
+                                                      .BSBtnBGHoverColor
+                                                : customizationData
+                                                      .bottomSection
+                                                      .BSBtnBGColor,
+                                        }}
+                                        onMouseEnter={() => {
+                                            setCheckoutBtnHover(true);
+                                        }}
+                                        onMouseLeave={() => {
+                                            setCheckoutBtnHover(false);
+                                        }}
+                                    >
+                                        {
+                                            customizationData.bottomSection
+                                                .BSViewCartText
+                                        }
+                                    </button>
+                                </div>
+                            )}
                         {customizationData.bottomSection.BSContinueEnable && (
                             <a
                                 href="javascript:void(0)"
@@ -589,21 +639,6 @@ export default function Drawer({ isOpen, customizationData }) {
                                 }}
                             >
                                 {customizationData.bottomSection.BSContinueText}
-                            </a>
-                        )}
-                        {customizationData.bottomSection.BSViewCartEnable && (
-                            <a
-                                href="javascript:void(0)"
-                                className={style.lm_cart_footer_link}
-                                style={{
-                                    fontSize:
-                                        customizationData.bottomSection
-                                            .BSSecondaryFontSize,
-                                    color: customizationData.bottomSection
-                                        .BSColor,
-                                }}
-                            >
-                                {customizationData.bottomSection.BSViewCartText}
                             </a>
                         )}
                     </div>

@@ -16,11 +16,15 @@ export default function BottomSectionSettings(props) {
     const [BSCheckoutTextEnable, setBSCheckoutTextEnable] = useState(
         props.customizationData.bottomSection.BSCheckoutTextEnable
     );
+    const [BSCheckoutButtonEnable, setBSCheckoutButtonEnable] = useState(
+        props?.customizationData?.bottomSection?.BSCheckoutButtonEnable
+    );
     const [BSContinueEnable, setBSContinueEnable] = useState(
         props.customizationData.bottomSection.BSContinueEnable
     );
     const [BSViewCartEnable, setBSViewCartEnable] = useState(
-        props.customizationData.bottomSection.BSViewCartEnable
+        !props?.customizationData?.bottomSection?.BSCheckoutButtonEnable &&
+            props.customizationData.bottomSection.BSViewCartEnable
     );
 
     const [BSSubtotalText, setBSSubtotalText] = useState(
@@ -68,6 +72,12 @@ export default function BottomSectionSettings(props) {
     // CHECKOUT TEXT ENABLE LOGIC
     const handleBSCheckoutTextEnable = useCallback(
         (newChecked) => setBSCheckoutTextEnable(newChecked),
+        []
+    );
+
+    // CHECKOUT BUTTON ENABLE LOGIC
+    const handleBSCheckoutButtonEnable = useCallback(
+        (newChecked) => setBSCheckoutButtonEnable(newChecked),
         []
     );
 
@@ -160,6 +170,7 @@ export default function BottomSectionSettings(props) {
         productList: props.customizationData.productList,
         cartUpsell: props.customizationData.cartUpsell,
         bottomSection: {
+            BSCheckoutButtonEnable: BSCheckoutButtonEnable,
             BSCheckoutTextEnable: BSCheckoutTextEnable,
             BSContinueEnable: BSContinueEnable,
             BSViewCartEnable: BSViewCartEnable,
@@ -182,6 +193,7 @@ export default function BottomSectionSettings(props) {
     useEffect(() => {
         callbackFunction();
     }, [
+        BSCheckoutButtonEnable,
         BSCheckoutTextEnable,
         BSContinueEnable,
         BSViewCartEnable,
@@ -228,7 +240,14 @@ export default function BottomSectionSettings(props) {
                     label="Enable Continue Shopping Option"
                     checked={BSContinueEnable}
                     onChange={handleBSContinueEnable}
-                    disabled={BSViewCartEnable} // Because we need to show only one from continue or view cart button
+                />
+
+                {/* Checkout Button */}
+                <Checkbox
+                    label="Enable Checkout Button"
+                    checked={BSCheckoutButtonEnable}
+                    onChange={handleBSCheckoutButtonEnable}
+                    disabled={BSViewCartEnable} // Because we need to show only one from checkout or view cart button
                 />
 
                 {/* View Cart Option */}
@@ -236,7 +255,7 @@ export default function BottomSectionSettings(props) {
                     label=" Enable View Cart Option"
                     checked={BSViewCartEnable}
                     onChange={handleBSViewCartEnable}
-                    disabled={BSContinueEnable} //  Because we need to show only one from continue or view cart button
+                    disabled={BSCheckoutButtonEnable} //  Because we need to show only one from checkout or view cart button
                 />
             </BlockStack>
 

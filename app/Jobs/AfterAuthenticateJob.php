@@ -15,7 +15,7 @@ use App\Models\AddToCartStickyData;
 use App\Models\StickyCartData;
 
 class AfterAuthenticateJob implements ShouldQueue
-{
+{   
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
@@ -186,6 +186,39 @@ class AfterAuthenticateJob implements ShouldQueue
         $setStickyCartCount->save();
         /*INSERT INITIAL DATA IN sticky_cart_counts TABLE END*/
 
+        // CONNECTING WEB PIXELS START
+        $url = 'https://' . $this->shopDomain . '/admin/api/' . env('SHOPIFY_API_VERSION') . '/graphql.json';
+        $mutation = 'mutation {
+            webPixelCreate(webPixel: { settings: "{\"accountID\":\"125463\"}" }) {
+              userErrors {
+                code
+                field
+                message
+              }
+              webPixel {
+                settings
+                id
+              }
+            }
+          }';
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $mutation);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt(
+            $ch,
+            CURLOPT_HTTPHEADER,
+            array(
+                'Content-Type: application/graphql',
+                'X-Shopify-Access-Token:' . $shop->password
+            )
+        );
+
+        $server_output = curl_exec($ch);
+        $response_data = json_decode($server_output, true);
+        // CONNECTING WEB PIXELS END
+
         //ADDING WEBHOOK START
         $shop = User::where('name', $this->shopDomain)->firstOrFail();
         $data['webhook'] = [
@@ -218,7 +251,7 @@ class AfterAuthenticateJob implements ShouldQueue
                 10
             ]
         ];
-        
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://api.brevo.com/v3/contacts");
         curl_setopt($ch, CURLOPT_HTTPHEADER, [

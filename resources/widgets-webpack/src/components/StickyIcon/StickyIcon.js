@@ -12,6 +12,10 @@ import Drawer from "../Drawer/Drawer";
 require("./index.css");
 
 const StickyIcon = () => {
+    const [prevStamp, setPrevStamp] = useState(
+        localStorage.getItem("lm_sticky_cart_stamp")
+    );
+
     const [activePlan, setActivePlan] = useState(1);
     const [stickyData, setStickyData] = useState([]);
     const [iconHover, setIconHover] = useState(false);
@@ -286,6 +290,22 @@ const StickyIcon = () => {
     useEffect(() => {
         getPlanData();
     }, []);
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            const currentStamp = localStorage.getItem("lm_sticky_cart_stamp");
+            const cartQuantity = localStorage.getItem(
+                "lm_sticky_cart_quantity"
+            );
+            if (currentStamp !== prevStamp && Number(cartQuantity) > 0) {
+                setPrevStamp(currentStamp); // Update the previous stamp
+                setNumberCount(numberCount + cartQuantity);
+            }
+        }, 1000);
+
+        // Cleanup interval on component unmount
+        return () => clearInterval(intervalId);
+    }, [prevStamp]);
 
     // API CALL TO GET PLAN DATA
     const getPlanData = async () => {

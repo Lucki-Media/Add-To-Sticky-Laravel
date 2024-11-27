@@ -228,7 +228,7 @@ class DashboardController extends Controller
             curl_setopt($ch, CURLOPT_URL, $url);
             $server_output = curl_exec($ch);
             $theme_data = json_decode($server_output, true);
-            $themes = $theme_data && $theme_data['themes'] ? $theme_data['themes'] : [];
+            $themes = isset($theme_data['themes']) && is_array($theme_data['themes']) ? $theme_data['themes'] : [];
 
             // Filter the array to get objects where the role is 'main', this is how we'll get current theme ID
             $filteredArray = [];
@@ -250,7 +250,8 @@ class DashboardController extends Controller
             curl_setopt($ch, CURLOPT_URL, $url);
             $server_output = curl_exec($ch);
             $asset_data = json_decode($server_output, true);
-            $asset_json = json_decode($asset_data['asset']['value'], true);  // get json decoded data of settings_data.json file
+            $asset_json = isset($asset_data['asset']['value']) ? json_decode($asset_data['asset']['value'], true) : null;
+            // get json decoded data of settings_data.json file
             $block_details = optional(optional($asset_json)['current'])['blocks'] ?? [];
             // get blocks where extension details are stored
 
