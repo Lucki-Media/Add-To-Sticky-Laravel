@@ -45,6 +45,7 @@ const drawerCartData = {
         SelectedProductIDs: [],
     },
     bottomSection: {
+        BSCheckoutButtonEnable: true,
         BSCheckoutTextEnable: true,
         BSContinueEnable: false,
         BSViewCartEnable: false,

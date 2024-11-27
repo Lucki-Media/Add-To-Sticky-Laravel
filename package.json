@@ -34,6 +34,7 @@
         "@shopify/polaris": "^12.27.0",
         "@shopify/polaris-tokens": "^8.10.0",
         "@shopify/stylelint-polaris": "^15.5.1",
+        "@shopify/web-pixels-extension": "^2.15.0",
         "babel-loader": "^9.1.2",
         "bootstrap": "^4.0.0-alpha.6",
         "bootstrap-less": "^3.3.8",

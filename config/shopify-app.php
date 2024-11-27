@@ -175,7 +175,7 @@ return [
     |
     */
 
-    'api_key' => env('SHOPIFY_API_KEY', '3bddfbe2e8f96dc48574f5cb2a0f1bad'),
+    'api_key' => env('SHOPIFY_API_KEY', '9a766e1b57dd76f71b885f977f1d8ec5'),
 
     /*
     |--------------------------------------------------------------------------
@@ -186,7 +186,7 @@ return [
     |
     */
 
-    'api_secret' => env('SHOPIFY_API_SECRET', '62e0d138f8c891f617c91eff6510a525'),
+    'api_secret' => env('SHOPIFY_API_SECRET', '44d01ad0641f193c6ba02a5ea1cdbace'),
 
     /*
     |--------------------------------------------------------------------------
@@ -197,9 +197,7 @@ return [
     |
     */
 
-    'api_scopes' => env('SHOPIFY_API_SCOPES', 'read_inventory,write_inventory,read_products,read_themes,
-
-    write_products'),
+    'api_scopes' => env('SHOPIFY_API_SCOPES', 'read_products,read_themes,write_content,write_pixels,read_customer_events'),
 
     /*
     |--------------------------------------------------------------------------
@@ -345,11 +343,11 @@ return [
     'webhooks' => [
         [
             'topic' => env('SHOPIFY_WEBHOOK_1_TOPIC', 'app/uninstalled'),
-            'address' => env('SHOPIFY_WEBHOOK_1_ADDRESS', 'https://addtostickycart.luckimediadevelopment.com/webhook/app-uninstalled'),
+            'address' => env('SHOPIFY_WEBHOOK_1_ADDRESS', 'https://amazonutility.luckistore.in/webhook/app-uninstalled'),
         ],
         // [
         //     'topic' => env('SHOPIFY_WEBHOOK_2_TOPIC', 'shop/update'),
-        //     'address' => env('SHOPIFY_WEBHOOK_2_ADDRESS', 'https://addtostickycart.luckimediadevelopment.com/webhook/shop-update')
+        //     'address' => env('SHOPIFY_WEBHOOK_2_ADDRESS', 'https://amazonutility.luckistore.in/webhook/shop-update')
         // ],
     ],
 

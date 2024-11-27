@@ -1,2 +1,19 @@
-name = "LM Sticky Cart Drawer & Upsell"
-scopes = "read_inventory,write_inventory,read_products,read_themes,write_themes,read_products,write_products,write_content"
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "9a766e1b57dd76f71b885f977f1d8ec5"
+name = "LM Add to Cart Sticky DEV"
+handle = "lm-add-to-cart-sticky-dev-1"
+application_url = "https://amazonutility.luckistore.in/"
+embedded = true
+
+[build]
+include_config_on_deploy = true
+
+[auth]
+redirect_urls = [ "https://amazonutility.luckistore.in/authenticate" ]
+
+[webhooks]
+api_version = "2023-04"
+
+[pos]
+embedded = false
