@@ -2,7 +2,6 @@
 
 client_id = "9a766e1b57dd76f71b885f977f1d8ec5"
 name = "LM Add to Cart Sticky DEV"
-handle = "lm-add-to-cart-sticky-dev-1"
 application_url = "https://amazonutility.luckistore.in/"
 embedded = true
 
