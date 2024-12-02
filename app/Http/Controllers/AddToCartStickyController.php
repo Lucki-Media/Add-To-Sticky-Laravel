@@ -133,7 +133,7 @@ class AddToCartStickyController extends Controller
         // echo '<pre>';print_r($sac_data);exit;
         $final_data = [
             'shop_domain' => $sac_data['shop_domain'],
-            'enable' => $sac_data['enable'] === '1' ||  $sac_data['enable'] === true ? true : false,
+            'enable' => $sac_data['enable'] === '1' || $sac_data['enable'] === true ? true : false,
             'homePageProduct' => $sac_data['homePageProduct'] ?? "",
             'animationEnable' => $sac_data['animationEnable'] === true || (int) $sac_data['animationEnable'] === 1 ? true : false,
             'defaultTemplate' => (string) $sac_data['defaultTemplate'],
@@ -164,24 +164,6 @@ class AddToCartStickyController extends Controller
         $sac_data = AddToCartStickyData::where('shop_domain', $shopDomain)->first();
 
         if ($sac_data['homePageProduct'] && $sac_data['homePageProduct'] != "") {
-
-            // get required details
-            $apiKey = config('shopify-app.api_key');
-            $user = User::where(['name' => $shopDomain])->first();
-
-            // get all products
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_HEADER, false);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
-            $url = 'https://' . $apiKey . ':' . $user['password'] . '@' . $shopDomain . '/admin/api/' . env('SHOPIFY_API_VERSION') . '/products/' . $sac_data['homePageProduct'] . '.json?fields=handle';
-            curl_setopt($ch, CURLOPT_URL, $url);
-            $server_output = curl_exec($ch);
-            $product_data = json_decode($server_output, true);
-
-            $handle = $product_data && $product_data['product'] && $product_data['product']['handle'] ? $product_data['product']['handle'] : "";
-
             $final_data = [
                 'shop_domain' => $sac_data['shop_domain'],
                 'enable' => $sac_data['enable'] === '1' ? true : false,
@@ -198,10 +180,7 @@ class AddToCartStickyController extends Controller
                 'template_7' => json_decode($sac_data['template_7']),
                 'template_8' => json_decode($sac_data['template_8']),
             ];
-            return self::sendResponse([
-                'final_data' => $final_data,
-                'handle' => $handle
-            ], 'Success');
+            return self::sendResponse($final_data, 'Success');
         } else {
             return self::sendResponse("", 'Success');
         }
