@@ -181,7 +181,6 @@ export default function ProductListSelection(props) {
                             <ManualProductSelection
                                 productCallback={handleProductCallback}
                                 SelectedProductIDs={SelectedProductIDs}
-                                productResponse={productResponse}
                             />
                         ) : (
                             <CollectionSelection

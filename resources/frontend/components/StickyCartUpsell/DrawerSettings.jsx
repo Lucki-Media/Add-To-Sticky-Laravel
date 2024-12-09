@@ -32,34 +32,34 @@ export default function DrawerSettings(props) {
     return (
         <BlockStack gap="400">
             {/* Drawer Cart Enable */}
-            {/* <EnableSettings
+            <EnableSettings
                 customizationData={customizationData}
                 settingDataCallback={handleDataCallback}
-            /> */}
+            />
 
             {/* Cart Header Settings */}
-            {/* <CartHeaderSettings
+            <CartHeaderSettings
                 customizationData={customizationData}
                 settingDataCallback={handleDataCallback}
-            /> */}
+            />
 
             {/* Empty Cart Settings */}
-            {/* <EmptyCartSettings
+            <EmptyCartSettings
                 customizationData={customizationData}
                 settingDataCallback={handleDataCallback}
-            /> */}
+            />
 
             {/* Free Shipping Bar Settings */}
-            {/* <ShippingBarSettings
+            <ShippingBarSettings
                 customizationData={customizationData}
                 settingDataCallback={handleDataCallback}
-            /> */}
+            />
 
             {/* Product List Settings */}
-            {/* <ProductListSettings
+            <ProductListSettings
                 customizationData={customizationData}
                 settingDataCallback={handleDataCallback}
-            /> */}
+            />
 
             {/* Cart Upsell Settings */}
             <CartUpsellSettings
@@ -68,10 +68,10 @@ export default function DrawerSettings(props) {
             />
 
             {/* Bottom Section Settings */}
-            {/* <BottomSectionSettings
+            <BottomSectionSettings
                 customizationData={customizationData}
                 settingDataCallback={handleDataCallback}
-            /> */}
+            />
         </BlockStack>
     );
 }

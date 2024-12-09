@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 use App\Models\AddToCartStickyCount;
 use App\Models\StickyCartCount;
 use Carbon\Carbon;
-use MailerLite\MailerLite;
 
 class DashboardController extends Controller
 {
