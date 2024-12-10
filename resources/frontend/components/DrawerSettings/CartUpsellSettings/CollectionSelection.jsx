@@ -1,158 +1,134 @@
 import {
-    Autocomplete,
     BlockStack,
     Box,
-    Icon,
+    Button,
     InlineStack,
     Text,
     Thumbnail,
 } from "@shopify/polaris";
 import React, { useCallback, useEffect, useState } from "react";
-import { SearchIcon } from "@shopify/polaris-icons";
-import noImage from "../../../assets/no_image.jpg";
+import { ImageIcon } from "@shopify/polaris-icons";
+import { ResourcePicker } from "@shopify/app-bridge-react";
 
 export default function CollectionSelection(props) {
-    const [SelectedCollectionID, setSelectedCollectionID] = useState([
-        props.SelectedCollectionID,
-    ]);
-    const [defaultCollections, setDefaultCollections] = useState([]);
-    const [collectionInput, setCollectionInput] = useState("");
-    const [collectionOptions, setCollectionOptions] = useState([]);
-    const [selectedCollection, setSelectedCollection] = useState([]);
-
-    const updateCollectionSelection = useCallback(
-        (selected) => {
-            // Find the object with the matching handle
-            const collection = props.collectionResponse.find(
-                (option) => String(option.handle) === String(selected)
-            );
-
-            // Transform the found product into the desired structure
-            const selectedObject = collection
-                ? {
-                      id: String(collection.id),
-                      handle: collection.handle,
-                      title: collection.title,
-                      image:
-                          collection.image !== "" ? collection.image : noImage,
-                  }
-                : null;
-
-            // Update the selected options and item state
-            setSelectedCollectionID(selected);
-            setSelectedCollection(selectedObject);
-        },
-        [props.collectionResponse]
-    );
-
-    const updateCollectionText = useCallback(
-        (value) => {
-            setCollectionInput(value);
-
-            if (value === "") {
-                setCollectionOptions(defaultCollections);
-                return;
+    const [isPickerOpen, setIsPickerOpen] = useState(false);
+    const [SelectedCollectionID, setSelectedCollectionID] = useState(() => {
+        if (
+            typeof props.SelectedCollectionID === "string" &&
+            props.SelectedCollectionID.trim() !== ""
+        ) {
+            try {
+                return JSON.parse(props.SelectedCollectionID);
+            } catch (error) {
+                console.error("Error parsing SelectedCollectionID:", error);
+                return {}; // Fallback to an empty object in case of error
             }
+        }
+        return props.SelectedCollectionID || {};
+    });
 
-            const filterRegex = new RegExp(value, "i");
-            const resultOptions = defaultCollections.filter((option) =>
-                option.label.match(filterRegex)
-            );
-            setCollectionOptions(resultOptions);
-        },
-        [defaultCollections]
-    );
+    // Handling Collection Selection
+    const handleCollectionSelection = (payload) => {
+        const data = {
+            id: payload.selection[0].id,
+            handle: payload.selection[0].handle,
+            title: payload.selection[0].title,
+            imageSrc: payload.selection[0].image?.originalSrc,
+        };
+        setSelectedCollectionID(data);
+        setIsPickerOpen(false);
+    };
 
-    const collectionTextField = (
-        <Autocomplete.TextField
-            onChange={updateCollectionText}
-            label="Search Collection"
-            labelHidden
-            value={collectionInput}
-            prefix={<Icon source={SearchIcon} tone="base" />}
-            placeholder="Search Collection"
-            autoComplete="off"
-        />
-    );
-
-    // USE EFFECT
-    useEffect(() => {
-        var collectionArray = props.collectionResponse.map((collection) => ({
-            media: (
-                <Thumbnail
-                    source={
-                        collection.image !== "" ? collection.image : noImage
-                    }
-                    size="small"
-                />
-            ),
-            value: String(collection.handle),
-            label: collection.title,
-        }));
-        setDefaultCollections(collectionArray);
-        setCollectionOptions(collectionArray);
-
-        // set product showcase code start
-        let selected = [props.SelectedCollectionID];
-
-        // Find the object with the matching handle
-        const collection = props.collectionResponse.find(
-            (option) => String(option.handle) === String(selected)
-        );
-
-        // Transform the found product into the desired structure
-        const selectedObject = collection
-            ? {
-                  id: String(collection.id),
-                  handle: collection.handle,
-                  title: collection.title,
-                  image: collection.image !== "" ? collection.image : noImage,
-              }
-            : null;
-
-        // Update the selected options and item state
-        setSelectedCollectionID(selected);
-        setSelectedCollection(selectedObject);
-    }, []);
+    const handlePickerClose = () => {
+        setIsPickerOpen(false);
+    };
 
     useEffect(() => {
         callbackFunction();
     }, [SelectedCollectionID]);
 
     const callbackFunction = useCallback(() => {
-        props.collectionCallback(SelectedCollectionID);
+        props.collectionCallback(
+            SelectedCollectionID !== undefined
+                ? JSON.stringify(SelectedCollectionID)
+                : ""
+        );
     }, [SelectedCollectionID]);
 
     return (
         <BlockStack gap="200">
-            <Text variant="headingMd" as="span" fontWeight="medium">
-                Select Collection you want to show on Upsell
-            </Text>
-            <div style={{ maxHeight: "225px" }}>
-                <Autocomplete
-                    options={collectionOptions}
-                    selected={SelectedCollectionID}
-                    onSelect={updateCollectionSelection}
-                    textField={collectionTextField}
+            {/* ResourcePicker */}
+            {isPickerOpen && (
+                <ResourcePicker
+                    resourceType="Collection"
+                    open={isPickerOpen}
+                    onSelection={handleCollectionSelection}
+                    onCancel={handlePickerClose}
+                    showVariants={false}
+                    selectMultiple={false}
                 />
-            </div>
-            {selectedCollection && selectedCollection.handle !== undefined && (
-                <Box
-                    padding="200"
-                    background="bg-surface-secondary-hover"
-                    borderRadius="100"
-                >
-                    <InlineStack align="start" blockAlign="center" gap={400}>
-                        <Thumbnail
-                            source={selectedCollection.image ?? noImage}
-                            size="small"
-                        />
-                        <Text variant="bodyMd" fontWeight="medium" as="span">
-                            {selectedCollection.title}
-                        </Text>
-                    </InlineStack>
-                </Box>
             )}
+
+            <Box
+                padding="300"
+                background="bg-surface-secondary-hover"
+                borderRadius="150"
+            >
+                <BlockStack gap="200">
+                    <InlineStack align="space-between">
+                        <Text as={"h2"} variant="bodyLg" fontWeight="semibold">
+                            Target Collection
+                        </Text>
+                        {SelectedCollectionID &&
+                            SelectedCollectionID?.handle !== undefined && (
+                                <Button
+                                    variant="plain"
+                                    onClick={() => setIsPickerOpen(true)}
+                                >
+                                    Change Collection
+                                </Button>
+                            )}
+                    </InlineStack>
+                    {SelectedCollectionID &&
+                    Object.keys(SelectedCollectionID).length > 0 ? (
+                        <Box
+                            padding="200"
+                            background="bg-surface-secondary-hover"
+                            borderRadius="100"
+                        >
+                            <InlineStack
+                                align="start"
+                                blockAlign="center"
+                                gap={400}
+                            >
+                                <Thumbnail
+                                    source={
+                                        SelectedCollectionID?.imageSrc ||
+                                        ImageIcon
+                                    }
+                                    size="small"
+                                />
+                                <Text
+                                    variant="bodyMd"
+                                    fontWeight="medium"
+                                    as="span"
+                                >
+                                    {SelectedCollectionID?.title}
+                                </Text>
+                            </InlineStack>
+                        </Box>
+                    ) : (
+                        <BlockStack gap="200">
+                            <Button
+                                onClick={() => setIsPickerOpen(true)}
+                                id="select-target-collection"
+                            >
+                                Select Collection
+                            </Button>
+                        </BlockStack>
+                    )}
+                </BlockStack>
+            </Box>
         </BlockStack>
     );
 }

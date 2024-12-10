@@ -94,7 +94,11 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                     const productPromises =
                         upsellPopupData.SelectedProductIDs.map(
                             (productHandle) => {
-                                return getProductByHandle(productHandle);
+                                if (productHandle && productHandle?.handle) {
+                                    return getProductByHandle(
+                                        productHandle?.handle
+                                    );
+                                }
                             }
                         );
 
@@ -109,20 +113,30 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
                 }
             } else {
                 // Manual Collection
-                if (upsellPopupData.SelectedCollectionID) {
+                if (
+                    upsellPopupData.SelectedCollectionID &&
+                    upsellPopupData.SelectedCollectionID !== ""
+                ) {
+                    var collectionData = JSON.parse(
+                        upsellPopupData.SelectedCollectionID
+                    );
                     axios
                         .get(
                             "https://" +
                                 window.location.host +
                                 "/collections/" +
-                                upsellPopupData.SelectedCollectionID +
+                                collectionData?.handle +
                                 "/products.json?limit=3"
                         )
                         .then(async (response) => {
                             // Create an array of promises
                             const productPromises = response.data.products.map(
                                 (product) => {
-                                    return getProductByHandle(product.handle);
+                                    if (product && product?.handle) {
+                                        return getProductByHandle(
+                                            product?.handle
+                                        );
+                                    }
                                 }
                             );
 
@@ -147,21 +161,37 @@ const UpSellBottomSheet = ({ upsellPopupData, handleUpsellPopup }) => {
 
     // Helper function
     const getProductByHandle = (productHandle) => {
-        return axios
-            .get(
-                "https://" +
-                    window.location.host +
-                    "/products/" +
-                    productHandle +
-                    ".js"
-            )
-            .then((response) => {
-                return response.data;
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-                return null; // Return null for any failed requests
-            });
+        if (productHandle) {
+            return axios
+                .get(
+                    "https://" +
+                        window.location.host +
+                        "/products/" +
+                        productHandle +
+                        ".js"
+                )
+                .then((response) => {
+                    return response.data;
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        if (error.response.status === 404) {
+                            console.error(
+                                "Product not found (404):",
+                                productHandle
+                            );
+                        } else {
+                            console.error("Error response:", error.response);
+                        }
+                    } else {
+                        console.error("Error:", error.message);
+                    }
+                    return null; // Return null for any failed requests
+                });
+        } else {
+            console.warn("Invalid product handle provided:", productHandle);
+            return null;
+        }
     };
 
     useEffect(() => {
