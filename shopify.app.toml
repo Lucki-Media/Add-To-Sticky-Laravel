@@ -1,19 +1,33 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-client_id = "9a766e1b57dd76f71b885f977f1d8ec5"
-name = "LM Add to Cart Sticky DEV"
-handle = "lm-add-to-cart-sticky-dev-1"
-application_url = "https://amazonutility.luckistore.in/"
+client_id = "3bddfbe2e8f96dc48574f5cb2a0f1bad"
+name = "LM Sticky Cart Drawer & Upsell"
+handle = "lm-add-to-cart-sticky"
+application_url = "https://addtostickycart.luckimediadevelopment.com/"
 embedded = true
 
 [build]
 include_config_on_deploy = true
 
 [auth]
-redirect_urls = [ "https://amazonutility.luckistore.in/authenticate" ]
+redirect_urls = [
+  "https://addtostickycart.luckimediadevelopment.com/authenticate"
+]
 
 [webhooks]
-api_version = "2023-04"
+api_version = "2023-01"
+
+  [[webhooks.subscriptions]]
+  uri = "/api/erasureEndpoint"
+  compliance_topics = [ "customers/redact" ]
+
+  [[webhooks.subscriptions]]
+  uri = "/api/requestEndpoint"
+  compliance_topics = [ "customers/data_request" ]
+
+  [[webhooks.subscriptions]]
+  uri = "/api/shopErasureEndpoint"
+  compliance_topics = [ "shop/redact" ]
 
 [pos]
 embedded = false

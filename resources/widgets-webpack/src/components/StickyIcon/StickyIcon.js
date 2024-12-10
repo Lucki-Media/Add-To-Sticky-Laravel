@@ -299,7 +299,12 @@ const StickyIcon = () => {
             );
             if (currentStamp !== prevStamp && Number(cartQuantity) > 0) {
                 setPrevStamp(currentStamp); // Update the previous stamp
-                setNumberCount(numberCount + cartQuantity);
+
+                // Use the updater function to get the latest value of numberCount
+                setNumberCount((prevNumberCount) => {
+                    const updatedCount = prevNumberCount + Number(cartQuantity);
+                    return updatedCount;
+                });
             }
         }, 1000);
 
