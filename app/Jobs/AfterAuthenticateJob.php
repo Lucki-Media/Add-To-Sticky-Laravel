@@ -15,7 +15,7 @@ use App\Models\AddToCartStickyData;
 use App\Models\StickyCartData;
 
 class AfterAuthenticateJob implements ShouldQueue
-{
+{   
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
