@@ -4,8 +4,6 @@ import {
     InlineStack,
     RadioButton,
     Select,
-    SkeletonBodyText,
-    SkeletonThumbnail,
     Text,
 } from "@shopify/polaris";
 import React, { useCallback, useEffect, useState } from "react";
@@ -13,10 +11,6 @@ import ManualProductSelection from "./ManualProductSelection";
 import CollectionSelection from "./CollectionSelection";
 
 export default function ProductListSelection(props) {
-    // Getting Shop Domain
-    const shop_url = document.getElementById("shopOrigin").value;
-
-    const [loadingState, setLoadingState] = useState(true);
     const [CUPLSelection, setCUPLSelection] = useState(props.CUPLSelection);
     const [CUPLManualSelection, setCUPLManualSelection] = useState(
         props.CUPLManualSelection
@@ -25,13 +19,9 @@ export default function ProductListSelection(props) {
     const [SelectedCollectionID, setSelectedCollectionID] = useState(
         props.SelectedCollectionID
     );
-    const [collectionResponse, setCollectionResponse] = useState([]);
-
     const [SelectedProductIDs, setSelectedProductIDs] = useState(
         props.SelectedProductIDs
     );
-
-    const [productResponse, setProductResponse] = useState([]);
 
     // PRODUCT LIST LOGIC
     const handleCUPLSelectionChange = (key) => {
@@ -57,29 +47,6 @@ export default function ProductListSelection(props) {
     const handleProductCallback = (data) => {
         setSelectedProductIDs(data);
     };
-
-    // API CALL
-    const getManualSelectionData = async () => {
-        try {
-            setLoadingState(true);
-            const response = await fetch(
-                "api/getManualSelectionData/" + shop_url
-            );
-            const data = await response.json();
-            setCollectionResponse(data.data.collection_data);
-            setProductResponse(data.data.product_data);
-            setLoadingState(false);
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
-    // USE EFFECT
-    useEffect(() => {
-        if (CUPLSelection === "2") {
-            getManualSelectionData();
-        }
-    }, [CUPLSelection]);
 
     // HANDLE CALLBACK
     useEffect(() => {
@@ -137,28 +104,7 @@ export default function ProductListSelection(props) {
             </FormLayout.Group>
 
             {CUPLSelection === "2" &&
-                (loadingState ? (
-                    <>
-                        <SkeletonBodyText lines={3} />
-                        <InlineStack
-                            gap="400"
-                            align="space-between"
-                            wrap={false}
-                        >
-                            <SkeletonThumbnail size="small" />
-                            <SkeletonBodyText />
-                        </InlineStack>
-                        <InlineStack
-                            gap="400"
-                            align="space-between"
-                            wrap={false}
-                        >
-                            <SkeletonThumbnail size="small" />
-                            <SkeletonBodyText />
-                        </InlineStack>
-                    </>
-                ) : (
-                    <>
+                   <>
                         <FormLayout.Group condensed>
                             <BlockStack gap="200">
                                 <Text
@@ -189,7 +135,7 @@ export default function ProductListSelection(props) {
                             />
                         )}
                     </>
-                ))}
+                }
         </BlockStack>
     );
 }

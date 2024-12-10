@@ -55,11 +55,4 @@ class StickyCartController extends Controller
             return self::sendError([], 'Data Failed To Update/Insert!');
         }
     }
-
-    public function getManualSelectionData($shopDomain)
-    {
-        $product_data = ShopifyAPI::getAllProducts($shopDomain);
-        $collection_data = ShopifyAPI::getAllCollections($shopDomain);
-        return self::sendResponse(['product_data' => $product_data['products'] ?? [], 'collection_data' => $collection_data], 'Success');
-    }
 }
