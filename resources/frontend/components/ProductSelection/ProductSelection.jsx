@@ -1,232 +1,134 @@
 import {
-    Autocomplete,
     BlockStack,
     Box,
     Button,
-    Icon,
     InlineStack,
-    SkeletonBodyText,
-    SkeletonThumbnail,
     Text,
     Thumbnail,
 } from "@shopify/polaris";
-import React, { useCallback, useEffect, useState } from "react";
-import { SearchIcon, XIcon } from "@shopify/polaris-icons";
-import noImage from "../../assets/no_image.jpg";
+import React, { useEffect, useState } from "react";
+import { ResourcePicker } from "@shopify/app-bridge-react";
+import { XIcon, ImageIcon } from "@shopify/polaris-icons";
 
 export default function ProductSelection(props) {
-    // Getting Shop Domain
-    const shop_url = document.getElementById("shopOrigin").value;
-
-    const [loadingState, setLoadingState] = useState(true);
-    const [homePageProduct, setHomePageProduct] = useState(
-        props.homePageProduct
-    );
-    const [selectedItem, setSelectedItem] = useState([]);
-    const [selectedOptions, setSelectedOptions] = useState([]);
-    const [inputValue, setInputValue] = useState("");
-    const [options, setOptions] = useState([]);
-    const [deselectedOptions, setDeselectedOptions] = useState([]);
-    const [productResponse, setProductResponse] = useState([]);
-
-    const updateText = useCallback(
-        (value) => {
-            setInputValue(value);
-
-            if (value === "") {
-                setOptions(deselectedOptions);
-                return;
+    const [isPickerOpen, setIsPickerOpen] = useState(false);
+    const [homePageProduct, setHomePageProduct] = useState(() => {
+        if (
+            typeof props.homePageProduct === "string" &&
+            props.homePageProduct.trim() !== ""
+        ) {
+            try {
+                return JSON.parse(props.homePageProduct);
+            } catch (error) {
+                console.error("Error parsing homePageProduct:", error);
+                return {}; // Fallback to an empty object in case of error
             }
+        }
+        return props.homePageProduct || {};
+    });
 
-            const filterRegex = new RegExp(value, "i");
-            const resultOptions = deselectedOptions.filter((option) =>
-                option.label.match(filterRegex)
-            );
-            setOptions(resultOptions);
-        },
-        [deselectedOptions]
-    );
+    // Handling Product Selection
+    const handleProductSelection = (payload) => {
+        const data = {
+            id: payload.selection[0].id,
+            handle: payload.selection[0].handle,
+            title: payload.selection[0].title,
+            imageSrc: payload.selection[0].images?.[0]?.originalSrc,
+        };
+        setHomePageProduct(data);
+        setIsPickerOpen(false);
+    };
 
-    const updateSelection = useCallback(
-        (selected) => {
-            // Find the object with the matching id
-            const product = productResponse.find(
-                (option) => String(option.id) === String(selected)
-            );
-
-            // Transform the found product into the desired structure
-            const selectedObject = product
-                ? {
-                      id: String(product.id),
-                      title: product.title,
-                      src:
-                          product.image && product.image.src
-                              ? product.image.src
-                              : noImage,
-                  }
-                : null;
-
-            // Update the selected options and item state
-            setSelectedOptions(selected);
-            setSelectedItem(selectedObject);
-            setHomePageProduct(String(selected));
-        },
-        [productResponse]
-    );
+    const handlePickerClose = () => {
+        setIsPickerOpen(false);
+        setHomePageProduct();
+    };
 
     const removeProduct = () => {
-        setSelectedItem([]);
-        setSelectedOptions([]);
-        setHomePageProduct("");
+        setHomePageProduct();
     };
 
-    const textField = (
-        <Autocomplete.TextField
-            onChange={updateText}
-            label="Search Product"
-            labelHidden
-            value={inputValue}
-            prefix={<Icon source={SearchIcon} tone="base" />}
-            placeholder="Search"
-            autoComplete="off"
-        />
-    );
-
     useEffect(() => {
-        getAllProducts();
-    }, []);
-
-    useEffect(() => {
-        props.productSelectionCallBack(homePageProduct);
+        props.productSelectionCallBack(
+            homePageProduct !== undefined ? JSON.stringify(homePageProduct) : ""
+        );
     }, [homePageProduct]);
 
-    // INIT API
-    const getAllProducts = async () => {
-        try {
-            setLoadingState(true);
-            const response = await fetch("api/getAllProducts/" + shop_url);
-            const data = await response.json();
-            // console.log(data.data);
-
-            var productArray = data.data.map((product) => ({
-                media: (
-                    <Thumbnail
-                        source={
-                            product.image && product.image.src
-                                ? product.image.src
-                                : noImage
-                        }
-                        size="small"
-                    />
-                ),
-                value: String(product.id),
-                label: product.title,
-            }));
-
-            setProductResponse(data.data);
-            setDeselectedOptions(productArray);
-            setOptions(productArray);
-
-            // set product showcase code start
-            let selected = [props.homePageProduct];
-
-            // Find the object with the matching id
-            const product = data.data.find(
-                (option) => String(option.id) === String(selected)
-            );
-
-            // Transform the found product into the desired structure
-            const selectedObject = product
-                ? {
-                      id: String(product.id),
-                      title: product.title,
-                      src:
-                          product.image && product.image.src
-                              ? product.image.src
-                              : noImage,
-                  }
-                : null;
-
-            // Update the selected options and item state
-            setSelectedOptions(selected);
-            setSelectedItem(selectedObject);
-            setHomePageProduct(String(selected));
-            // set product showcase code end
-
-            setLoadingState(false);
-        } catch (err) {
-            console.log(err);
-        }
-    };
-
     return (
-        <div style={{ marginTop: 15 }}>
-            <BlockStack gap="200">
-                {loadingState ? (
-                    <>
-                        <SkeletonBodyText lines={1} />
-                        <InlineStack
-                            gap="400"
-                            align="space-between"
-                            wrap={false}
-                        >
-                            <SkeletonThumbnail size="small" />
-                            <SkeletonBodyText />
-                        </InlineStack>
-                    </>
-                ) : (
-                    <>
-                        <Text variant="headingMd" as="span" fontWeight="medium">
-                            Select Product you want to show on homepage
-                        </Text>
-                        <div style={{ maxHeight: "225px" }}>
-                            <Autocomplete
-                                options={options}
-                                selected={selectedOptions}
-                                onSelect={updateSelection}
-                                textField={textField}
-                            />
-                        </div>
+        <div>
+            {/* ResourcePicker */}
+            {isPickerOpen && (
+                <ResourcePicker
+                    resourceType="Product"
+                    open={isPickerOpen}
+                    onSelection={handleProductSelection}
+                    onCancel={handlePickerClose}
+                    showVariants={false}
+                    selectMultiple={false}
+                />
+            )}
 
-                        {selectedItem && selectedItem.id !== undefined && (
-                            <Box
-                                padding="400"
-                                background="bg-surface-secondary-hover"
-                                borderRadius="100"
+            {/* Home Page Product */}
+            <Box
+                padding="300"
+                background="bg-surface-secondary-hover"
+                borderRadius="150"
+            >
+                <BlockStack gap="200">
+                    <InlineStack align="space-between">
+                        <Text as={"h2"} variant="bodyLg" fontWeight="semibold">
+                            Target Product
+                        </Text>
+                        {homePageProduct?.id && (
+                            <Button
+                                variant="plain"
+                                onClick={() => setIsPickerOpen(true)}
                             >
-                                <InlineStack
-                                    align="space-between"
-                                    blockAlign="center"
-                                >
-                                    <Box width="15%" padding="0">
-                                        <Thumbnail
-                                            source={selectedItem.src}
-                                            size="small"
-                                        />
-                                    </Box>
-                                    <Box width="80%" padding="200">
-                                        <Text
-                                            variant="bodyMd"
-                                            fontWeight="medium"
-                                            as="span"
-                                        >
-                                            {selectedItem.title}
-                                        </Text>
-                                    </Box>
-                                    <Box width="5%" padding="200">
-                                        <Button
-                                            icon={XIcon}
-                                            variant="plain"
-                                            tone="base"
-                                            onClick={removeProduct}
-                                        />
-                                    </Box>
-                                </InlineStack>
-                            </Box>
+                                Change Product
+                            </Button>
                         )}
-                    </>
-                )}
-            </BlockStack>
+                    </InlineStack>
+                    {homePageProduct &&
+                    Object.keys(homePageProduct).length > 0 ? (
+                        <InlineStack align="space-between" blockAlign="center">
+                            <Box width="15%" padding="0">
+                                <Thumbnail
+                                    source={
+                                        homePageProduct?.imageSrc || ImageIcon
+                                    }
+                                    size="small"
+                                />
+                            </Box>
+                            <Box width="75%" padding="200">
+                                <Text
+                                    variant="bodyMd"
+                                    fontWeight="medium"
+                                    as="span"
+                                >
+                                    {homePageProduct?.title}
+                                </Text>
+                            </Box>
+                            <Box width="10%" padding="200">
+                                <Button
+                                    icon={XIcon}
+                                    variant="plain"
+                                    tone="base"
+                                    onClick={removeProduct}
+                                />
+                            </Box>
+                        </InlineStack>
+                    ) : (
+                        <BlockStack gap="200">
+                            <Button
+                                onClick={() => setIsPickerOpen(true)}
+                                id="select-target-product"
+                            >
+                                Select Product
+                            </Button>
+                        </BlockStack>
+                    )}
+                </BlockStack>
+            </Box>
         </div>
     );
 }

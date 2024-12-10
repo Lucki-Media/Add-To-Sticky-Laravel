@@ -18,40 +18,36 @@ const HomePageProduct = () => {
         try {
             // get Product Handle By ID
             const responseHandle = await fetch(
-                `${process.env.REACT_APP_API_URL}` +
-                    "getProductHandle/" +
+                `${process.env.REACT_APP_API_URL}getProductHandle/` +
                     window.Shopify.shop
             );
             const dataHandle = await responseHandle.json();
 
-            if (
-                dataHandle?.data?.handle !== "" &&
-                dataHandle?.data?.handle !== undefined
-            ) {
+            const homePageData = dataHandle?.data?.homePageProduct;
+
+            if (homePageData) {
+                const productDetails = JSON.parse(homePageData);
                 // set template data
-                setTemplateData(dataHandle.data.final_data);
+                setTemplateData(dataHandle.data);
 
-                // call js API to get product details
-                const response = await fetch(
-                    "/products/" + dataHandle.data.handle + ".js"
-                );
-                const data = await response.json();
-                setProductData(data);
+                if (productDetails?.handle) {
+                    // call js API to get product details
+                    const response = await fetch(
+                        `/products/${productDetails.handle}.js`
+                    );
+                    const data = await response.json();
+                    setProductData(data);
 
-                // call json API to get product image details
-                const responseImage = await fetch(
-                    "/products/" + dataHandle.data.handle + ".json"
-                );
-                const dataImage = await responseImage.json();
-                setProductImage(
-                    dataImage.product.image !== undefined &&
-                        dataImage.product.image.src !== undefined
-                        ? dataImage.product.image.src
-                        : null
-                );
+                    // call json API to get product image details
+                    const responseImage = await fetch(
+                        `/products/${productDetails.handle}.json`
+                    );
+                    const dataImage = await responseImage.json();
+                    setProductImage(dataImage.product.image?.src || null);
+                }
             }
         } catch (err) {
-            console.log(err);
+            console.error("Error fetching product handle:", err);
         }
     };
 
