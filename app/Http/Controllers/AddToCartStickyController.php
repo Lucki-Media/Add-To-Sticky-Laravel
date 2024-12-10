@@ -151,13 +151,6 @@ class AddToCartStickyController extends Controller
         // echo '<pre>';print_r(json_encode($data));exit;
     }
 
-    public function getAllProducts($shopDomain)
-    {
-        $product_data = ShopifyAPI::getAllProducts($shopDomain);
-        return self::sendResponse($product_data['products'] ?? [], 'Success');
-        // echo '<pre>';print_r(json_encode($data));exit;
-    }
-
     public function getProductHandle($shopDomain)
     {
         // get product ID if stored 
