@@ -189,18 +189,18 @@ class AfterAuthenticateJob implements ShouldQueue
         // CONNECTING WEB PIXELS START
         $url = 'https://' . $this->shopDomain . '/admin/api/' . env('SHOPIFY_API_VERSION') . '/graphql.json';
         $mutation = 'mutation {
-            webPixelCreate(webPixel: { settings: "{\"accountID\":\"125463\"}" }) {
-              userErrors {
-                code
-                field
-                message
-              }
-              webPixel {
-                settings
-                id
-              }
-            }
-          }';
+                    webPixelCreate(webPixel: { settings: "{\"accountID\":\"125463\"}" }) {
+                      userErrors {
+                        code
+                        field
+                        message
+                      }
+                      webPixel {
+                        settings
+                        id
+                      }
+                    }
+                  }';
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");

@@ -278,6 +278,31 @@ class DashboardController extends Controller
 
     public function test()
     {
+        // set_time_limit(3000);
+        // $data = [];
+        // $users = User::whereNotNull('password')->get();  // Fetch all users with non-null passwords
+
+        // foreach ($users as $user) {
+        //     try {
+        //         // Make the Shopify API request with a timeout and retries
+        //         $shopifyData = $user->api()->rest('GET', '/admin/shop.json', [], ['timeout' => 20])['body'];
+
+        //         // Store the shop's email if it exists
+        //         if (isset($shopifyData['shop']['email'])) {
+        //             $data[] = $shopifyData['shop']['email'];
+        //         }
+        //     } catch (\Exception $e) {
+        //         // Log the error for debugging purposes
+
+        //     }
+        // }
+        // set_time_limit(300);
+        // Return the list of emails
+        return "Hello";
+    }
+
+    public function test1()
+    {
         $stickyData = AddToCartStickyData::get()->toArray();
         $data = [];
 
