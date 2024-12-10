@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\AddToCartStickyData;
+use App\Models\ShopifyAPI;
 use App\Models\StickyCartData;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\AddToCartStickyCount;
 use App\Models\StickyCartCount;
 use Carbon\Carbon;
-use MailerLite\MailerLite;
 
 class DashboardController extends Controller
 {
@@ -349,5 +349,320 @@ class DashboardController extends Controller
             // $row->save();
         }
         // return $data;
+    }
+
+    public function collectionUpdate()
+    {
+        $stickyData = StickyCartData::get()->toArray();
+        $data = [];
+
+        foreach ($stickyData as $value) {
+            $jsonData = json_decode($value['drawer_cart_data'], true);
+
+            if (!empty($jsonData['cartUpsell']['SelectedCollectionID'])) {
+                $collection_data = ShopifyAPI::getAllCollections($value['shop_domain']);
+
+                // Find the object with the handle matching SelectedCollectionID
+                $filtered = array_filter($collection_data, function ($item) use ($jsonData) {
+                    return $item['handle'] === $jsonData['cartUpsell']['SelectedCollectionID'];
+                });
+
+                // Get the first matching item
+                $result = reset($filtered);
+
+
+                // Format the result
+                if ($result) {
+                    $formatted = [
+                        "id" => $result['id'],
+                        "handle" => $result['handle'],
+                        "title" => $result['title'],
+                        "imageSrc" => $result['image'] // Change the key to 'imageSrc'
+                    ];
+
+                    // Convert to JSON string
+                    $jsonData['cartUpsell']['SelectedCollectionID'] = json_encode($formatted);
+                }
+
+                // Update Database 
+                $update = StickyCartData::where('shop_domain', $value['shop_domain'])->first();
+                $update->drawer_cart_data = json_encode($jsonData);
+                $res = $update->save();
+                $data[] = $res;
+            }
+        }
+
+        return $data;
+    }
+
+    public function stickyCollectionUpdate()
+    {
+        $stickyData = AddToCartStickyData::get()->toArray();
+        $data = [];
+        $column = 'current_template';
+
+        foreach ($stickyData as $value) {
+            $row = AddToCartStickyData::where('id', $value['id'])->first();
+            $jsonData = json_decode($row[$column], true);
+            if (
+                isset($jsonData['general_settings']['SelectedCollectionID']) && !empty($jsonData['general_settings']['SelectedCollectionID'])
+            ) {
+                $collection_data = ShopifyAPI::getAllCollections($value['shop_domain']);
+
+                // Find the object with the handle matching SelectedCollectionID
+                $filtered = array_filter($collection_data, function ($item) use ($jsonData) {
+                    return $item['handle'] === $jsonData['general_settings']['SelectedCollectionID'];
+                });
+
+                // Get the first matching item
+                $result = reset($filtered);
+
+
+                // Format the result
+                if ($result) {
+                    $formatted = [
+                        "id" => $result['id'],
+                        "handle" => $result['handle'],
+                        "title" => $result['title'],
+                        "imageSrc" => $result['image'] // Change the key to 'imageSrc'
+                    ];
+
+                    // Convert to JSON string
+                    $jsonData['general_settings']['SelectedCollectionID'] = json_encode($formatted);
+                }
+
+                // Update Database 
+                $update = AddToCartStickyData::where('shop_domain', $value['shop_domain'])->first();
+                $update->$column = json_encode($jsonData);
+                $res = $update->save();
+                $data[] = $update;
+            }
+        }
+        return $data;
+    }
+
+    public function homePageProductUpdate()
+    {
+        $stickyData = AddToCartStickyData::get()->toArray();
+        $data = [];
+        foreach ($stickyData as $value) {
+            if (!empty($value['homePageProduct'])) {
+                // get required details
+                $apiKey = config('shopify-app.api_key');
+                $user = User::where(['name' => $value['shop_domain']])->first();
+
+                if ($user && !empty($user->password)) {
+                    // get all products
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_HEADER, false);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json']);
+                    $url = 'https://' . $apiKey . ':' . $user['password'] . '@' . $user['name'] . '/admin/api/' . env('SHOPIFY_API_VERSION') . '/products/' . $value['homePageProduct'] . '.json?fields=id%2Cimage%2Ctitle%2Chandle';
+                    curl_setopt($ch, CURLOPT_URL, $url);
+                    $server_output = curl_exec($ch);
+                    $product_data = json_decode($server_output, true);
+
+                    if (isset($product_data['product'])) {
+                        $formatted = [
+                            "id" => $product_data['product']['id'] ? "gid://shopify/Product/" . $product_data['product']['id'] : "",
+                            "handle" => $product_data['product']['handle'] ?? "",
+                            "title" => $product_data['product']['title'] ?? "",
+                            "imageSrc" => $product_data['product']['image']['src'] ?? ""
+                        ];
+                        // Update Database 
+                        $update = AddToCartStickyData::where('shop_domain', $value['shop_domain'])->first();
+                        $update->homePageProduct = json_encode($formatted);
+                        $res = $update->save();
+                        $data[] = $res;
+                    }
+                }
+            }
+        }
+        return $data;
+    }
+
+    public function productUpdate()
+    {
+        $stickyData = StickyCartData::get()->toArray();
+        $data = [];
+
+        foreach ($stickyData as $value) {
+            $jsonData = json_decode($value['drawer_cart_data'], true);
+
+            if (!empty($jsonData['cartUpsell']['SelectedProductIDs'])) {
+                $productData = [];
+                foreach ($jsonData['cartUpsell']['SelectedProductIDs'] as $productHandle) {
+                    // get required details
+                    $user = User::where(['name' => $value['shop_domain']])->first();
+
+                    if ($user && !empty($user->password)) {
+                        // Shopify GraphQL API URL
+                        $url = 'https://' . $value['shop_domain'] . '/admin/api/' . env('SHOPIFY_API_VERSION') . '/graphql.json';
+
+                        // GraphQL query
+                        $qry = '{
+                            productByHandle(handle: "' . $productHandle . '") {
+                                id
+                                handle
+                                title
+                                media(first: 1) {
+                                    nodes {
+                                        preview {
+                                            image {
+                                                url
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }';
+
+                        // Initialize cURL
+                        $ch = curl_init($url);
+                        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(['query' => $qry])); // Send the query as JSON
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                            'Content-Type: application/json', // Correct content type for GraphQL requests
+                            'X-Shopify-Access-Token: ' . $user['password']
+                        ]);
+
+                        // Execute cURL request
+                        $server_output = curl_exec($ch);
+
+                        // Check for cURL errors
+                        if ($server_output === false) {
+                            error_log('cURL Error: ' . curl_error($ch));
+                        } else {
+                            // Decode the response
+                            $product_data = json_decode($server_output, true);
+
+                            // Check for GraphQL errors
+                            if (isset($product_data['errors'])) {
+                                error_log('GraphQL Error: ' . json_encode($product_data['errors']));
+                            } elseif (isset($product_data['data']['productByHandle'])) {
+                                $formatted = [
+                                    "id" => $product_data['data']['productByHandle']['id'] ?? "",
+                                    "handle" => $product_data['data']['productByHandle']['handle'] ?? "",
+                                    "title" => $product_data['data']['productByHandle']['title'] ?? "",
+                                    "imageSrc" => $product_data['data']['productByHandle']['media']['nodes'][0]['preview']['image']['url'] ?? ""
+                                ];
+                                $productData[] = $formatted;
+                            }
+                        }
+
+                        // Close cURL
+                        curl_close($ch);
+                    }
+
+
+                    // Convert to JSON string
+                    $jsonData['cartUpsell']['SelectedProductIDs'] = $productData;
+
+                    // // Update Database 
+                    $update = StickyCartData::where('shop_domain', $value['shop_domain'])->first();
+                    $update->drawer_cart_data = json_encode($jsonData);
+                    $res = $update->save();
+                    $data[] = $res;
+
+                }
+            }
+        }
+
+        return $data;
+    }
+
+    public function stickyProductUpdate()
+    {
+        $stickyData = AddToCartStickyData::get()->toArray();
+        $data = [];
+        $column = 'current_template';
+
+        foreach ($stickyData as $value) {
+            $row = AddToCartStickyData::where('id', $value['id'])->first();
+            $jsonData = json_decode($row[$column], true);
+            if (
+                isset($jsonData['general_settings']['SelectedProductIDs']) && !empty($jsonData['general_settings']['SelectedProductIDs'])
+            ) {
+                $productData = [];
+                foreach ($jsonData['general_settings']['SelectedProductIDs'] as $productHandle) {
+                    // get required details
+                    $user = User::where(['name' => $value['shop_domain']])->first();
+
+                    if ($user && !empty($user->password)) {
+                        // Shopify GraphQL API URL
+                        $url = 'https://' . $value['shop_domain'] . '/admin/api/' . env('SHOPIFY_API_VERSION') . '/graphql.json';
+
+                        // GraphQL query
+                        $qry = '{
+                            productByHandle(handle: "' . $productHandle . '") {
+                                id
+                                handle
+                                title
+                                media(first: 1) {
+                                    nodes {
+                                        preview {
+                                            image {
+                                                url
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }';
+
+                        // Initialize cURL
+                        $ch = curl_init($url);
+                        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(['query' => $qry])); // Send the query as JSON
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                            'Content-Type: application/json', // Correct content type for GraphQL requests
+                            'X-Shopify-Access-Token: ' . $user['password']
+                        ]);
+
+                        // Execute cURL request
+                        $server_output = curl_exec($ch);
+
+                        // Check for cURL errors
+                        if ($server_output === false) {
+                            error_log('cURL Error: ' . curl_error($ch));
+                        } else {
+                            // Decode the response
+                            $product_data = json_decode($server_output, true);
+
+                            // Check for GraphQL errors
+                            if (isset($product_data['errors'])) {
+                                error_log('GraphQL Error: ' . json_encode($product_data['errors']));
+                            } elseif (isset($product_data['data']['productByHandle'])) {
+                                $formatted = [
+                                    "id" => $product_data['data']['productByHandle']['id'] ?? "",
+                                    "handle" => $product_data['data']['productByHandle']['handle'] ?? "",
+                                    "title" => $product_data['data']['productByHandle']['title'] ?? "",
+                                    "imageSrc" => $product_data['data']['productByHandle']['media']['nodes'][0]['preview']['image']['url'] ?? ""
+                                ];
+                                $productData[] = $formatted;
+                            }
+                        }
+
+                        // Close cURL
+                        curl_close($ch);
+                    }
+
+
+                    // Convert to JSON string
+                    $jsonData['general_settings']['SelectedProductIDs'] = $productData;
+
+                    // // Update Database 
+                    $update = StickyCartData::where('shop_domain', $value['shop_domain'])->first();
+                    $update->$column = json_encode($jsonData);
+                    $res = $update->save();
+                    $data[] = $update;
+
+                }
+            }
+        }
+        return $data;
     }
 }

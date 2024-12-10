@@ -16,10 +16,6 @@
     "file": "assets/home-trophy-d70b3542.png",
     "src": "resources/frontend/assets/home-trophy.png"
   },
-  "resources/frontend/assets/no_image.jpg": {
-    "file": "assets/no_image-03f60945.jpg",
-    "src": "resources/frontend/assets/no_image.jpg"
-  },
   "resources/frontend/assets/productimage.png": {
     "file": "assets/productimage-a213fa31.png",
     "src": "resources/frontend/assets/productimage.png"
@@ -32,13 +28,12 @@
     "assets": [
       "assets/empty-state-aece716c.svg",
       "assets/new-e4c835b7.gif",
-      "assets/no_image-03f60945.jpg",
       "assets/productimage-a213fa31.png"
     ],
     "css": [
       "assets/app-cf044029.css"
     ],
-    "file": "assets/app-2651cfd8.js",
+    "file": "assets/app-cbf50459.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   }

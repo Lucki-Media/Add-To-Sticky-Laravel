@@ -204,7 +204,11 @@ const StickyIcon = () => {
                     const productPromises =
                         drawerData.cartUpsell.SelectedProductIDs.map(
                             (productHandle) => {
-                                return getProductByHandle(productHandle);
+                                if (productHandle && productHandle?.handle) {
+                                    return getProductByHandle(
+                                        productHandle?.handle
+                                    );
+                                }
                             }
                         );
 
@@ -219,20 +223,30 @@ const StickyIcon = () => {
                 }
             } else {
                 // Manual Collection
-                if (drawerData.cartUpsell.SelectedCollectionID) {
+                if (
+                    drawerData.cartUpsell.SelectedCollectionID &&
+                    drawerData.cartUpsell.SelectedCollectionID !== ""
+                ) {
+                    var collectionData = JSON.parse(
+                        drawerData.cartUpsell.SelectedCollectionID
+                    );
                     axios
                         .get(
                             "https://" +
                                 window.location.host +
                                 "/collections/" +
-                                drawerData.cartUpsell.SelectedCollectionID +
+                                collectionData?.handle +
                                 "/products.json?limit=3"
                         )
                         .then(async (response) => {
                             // Create an array of promises
                             const productPromises = response.data.products.map(
                                 (product) => {
-                                    return getProductByHandle(product.handle);
+                                    if (product && product?.handle) {
+                                        return getProductByHandle(
+                                            product?.handle
+                                        );
+                                    }
                                 }
                             );
 
@@ -257,21 +271,37 @@ const StickyIcon = () => {
 
     // Helper function
     const getProductByHandle = (productHandle) => {
-        return axios
-            .get(
-                "https://" +
-                    window.location.host +
-                    "/products/" +
-                    productHandle +
-                    ".js"
-            )
-            .then((response) => {
-                return response.data;
-            })
-            .catch((error) => {
-                console.error("Error:", error);
-                return null; // Return null for any failed requests
-            });
+        if (productHandle) {
+            return axios
+                .get(
+                    "https://" +
+                        window.location.host +
+                        "/products/" +
+                        productHandle +
+                        ".js"
+                )
+                .then((response) => {
+                    return response.data;
+                })
+                .catch((error) => {
+                    if (error.response) {
+                        if (error.response.status === 404) {
+                            console.error(
+                                "Product not found (404):",
+                                productHandle
+                            );
+                        } else {
+                            console.error("Error response:", error.response);
+                        }
+                    } else {
+                        console.error("Error:", error.message);
+                    }
+                    return null; // Return null for any failed requests
+                });
+        } else {
+            console.warn("Invalid product handle provided:", productHandle);
+            return null;
+        }
     };
 
     useEffect(() => {
@@ -321,8 +351,6 @@ const StickyIcon = () => {
                     window.Shopify.shop
             );
             const data = await response.json();
-            // console.log("data");
-            // console.log(data);
             setActivePlan(data.data);
         } catch (err) {
             console.log(err);
