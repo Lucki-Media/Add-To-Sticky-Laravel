@@ -27,12 +27,6 @@ Route::namespace('App\\Http\\Controllers')->group(function () {
         /* PRODUCT GET API */
         Route::get('getProductHandle/{shop_domain}', 'AddToCartStickyController@getProductHandle');
 
-        Route::get('collectionUpdate', 'DashboardController@collectionUpdate');
-        Route::get('stickyCollectionUpdate', 'DashboardController@stickyCollectionUpdate');
-        Route::get('productUpdate', 'DashboardController@productUpdate');
-        Route::get('stickyProductUpdate', 'DashboardController@stickyProductUpdate');
-        Route::get('homePageProductUpdate', 'DashboardController@homePageProductUpdate');
-
         /*STICKY CART API START*/
         Route::post('saveStickyCartData', 'StickyCartController@saveStickyCartData');
         Route::get('getStickyCartData/{shop_domain}', 'StickyCartController@getStickyCartData');

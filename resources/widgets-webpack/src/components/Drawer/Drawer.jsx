@@ -164,6 +164,7 @@ export default function Drawer({
                         padding: 0;
                         border-radius: 0;
                         height: 35px;
+                        background: white;
                     }
                 `}
             </style>

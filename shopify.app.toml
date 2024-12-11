@@ -2,9 +2,11 @@
 
 client_id = "3bddfbe2e8f96dc48574f5cb2a0f1bad"
 name = "LM Sticky Cart Drawer & Upsell"
-handle = "lm-add-to-cart-sticky"
 application_url = "https://addtostickycart.luckimediadevelopment.com/"
 embedded = true
+
+[access_scopes]
+scopes = "read_products,read_themes,write_content,write_pixels,read_customer_events"
 
 [build]
 include_config_on_deploy = true
@@ -16,18 +18,6 @@ redirect_urls = [
 
 [webhooks]
 api_version = "2023-01"
-
-  [[webhooks.subscriptions]]
-  uri = "/api/erasureEndpoint"
-  compliance_topics = [ "customers/redact" ]
-
-  [[webhooks.subscriptions]]
-  uri = "/api/requestEndpoint"
-  compliance_topics = [ "customers/data_request" ]
-
-  [[webhooks.subscriptions]]
-  uri = "/api/shopErasureEndpoint"
-  compliance_topics = [ "shop/redact" ]
 
 [pos]
 embedded = false
