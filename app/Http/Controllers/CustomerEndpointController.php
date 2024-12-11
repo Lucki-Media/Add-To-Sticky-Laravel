@@ -9,7 +9,7 @@ class CustomerEndpointController extends Controller
 {
     function verify_webhook($data, $hmac_header)
     {
-        $calculated_hmac = base64_encode(hash_hmac('sha256', $data, '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', true));
+        $calculated_hmac = base64_encode(hash_hmac('sha256', $data, env('SHOPIFY_API_SECRET'), true));
         return hash_equals($hmac_header, $calculated_hmac);
     }
 
