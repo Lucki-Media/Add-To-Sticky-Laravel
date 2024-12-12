@@ -343,7 +343,7 @@ return [
     'webhooks' => [
         [
             'topic' => env('SHOPIFY_WEBHOOK_1_TOPIC', 'app/uninstalled'),
-            'address' => env('SHOPIFY_WEBHOOK_1_ADDRESS', 'https://addtostickycart.luckimediadevelopment.com/webhook/app-uninstalled'),
+            'address' => env('SHOPIFY_WEBHOOK_1_ADDRESS', 'https://addtostickycart.luckimediadevelopment.com/api/appUninstallJob'),
         ],
         // [
         //     'topic' => env('SHOPIFY_WEBHOOK_2_TOPIC', 'shop/update'),
