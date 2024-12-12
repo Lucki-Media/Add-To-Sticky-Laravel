@@ -14,5 +14,20 @@ redirect_urls = [ "https://amazonutility.luckistore.in/authenticate" ]
 [webhooks]
 api_version = "2023-04"
 
+[[webhooks.subscriptions]]
+topic = "customers/redact"
+uri = "/api/erasureEndpoint"
+compliance_topics = ["customers/redact"]
+
+[[webhooks.subscriptions]]
+topic = "customers/data_request"
+uri = "/api/requestEndpoint"
+compliance_topics = ["customers/data_request"]
+
+[[webhooks.subscriptions]]
+topic = "shop/redact"
+uri = "/api/shopErasureEndpoint"
+compliance_topics = ["shop/redact"]
+
 [pos]
 embedded = false

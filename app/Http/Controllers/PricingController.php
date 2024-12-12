@@ -44,12 +44,15 @@ class PricingController extends Controller
     public function getPlanData($shopDomain)
     {
         $user = User::where(['name' => $shopDomain])->first();
-        $charge_data = Charges::where(['user_id' => $user['id'], 'status' => "ACTIVE"])->first();
+        if ($user) {
+            $charge_data = Charges::where(['user_id' => $user['id'], 'status' => "ACTIVE"])->first();
 
-        $plan_id = 1;
-        if ($charge_data) {
-            $plan_id = (int) $charge_data['plan_id'];
+            $plan_id = 1;
+            if ($charge_data) {
+                $plan_id = (int) $charge_data['plan_id'];
+            }
+            return self::sendResponse($plan_id, 'Success');
         }
-        return self::sendResponse($plan_id, 'Success');
+        return self::sendResponse(1, 'Success');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Log;
 
@@ -46,6 +47,14 @@ class AppWebhookController extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $server_output = curl_exec($ch);
         curl_close($ch);
+
+        // Delete password from the database 
+        $user = User::where('name', $request->domain)->first();
+        if ($user) {
+            $user->password = '';
+            $user->save();
+        }
+        
         return json_decode($server_output, true);
     }
 }

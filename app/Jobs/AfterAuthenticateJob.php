@@ -223,7 +223,7 @@ class AfterAuthenticateJob implements ShouldQueue
         $shop = User::where('name', $this->shopDomain)->firstOrFail();
         $data['webhook'] = [
             'topic' => 'app/uninstalled',
-            'address' => env('APP_URL') . 'api/appUninstallJob',
+            'address' => env('APP_URL') . '/api/appUninstallJob',
             'format' => 'json',
         ];
         $data_string = json_encode($data);
