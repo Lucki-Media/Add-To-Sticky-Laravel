@@ -29,3 +29,4 @@ build_old/
 .history/
 .git/
 shopify-app.development.php
+shopify.app.toml
