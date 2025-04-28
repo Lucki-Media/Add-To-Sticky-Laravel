@@ -179,7 +179,7 @@ export default function CartTemplate5({
                 await res.json();
                 setLoading(false);
                 if (current_template.general_settings.gsAction === "1") {
-                    window.location.href = "/cart";
+                    window.location.href = window.location.origin + window.Shopify.routes.root + 'cart';
                 } else if (current_template.general_settings.gsAction === "3") {
                     setShowNotificationBar(true);
                     setShowUpSellPopup(true);

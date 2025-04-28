@@ -904,7 +904,7 @@ export default function Drawer({
                                                     }}
                                                     onClick={() => {
                                                         window.location.href =
-                                                            "/cart";
+                                                            window.location.origin + window.Shopify.routes.root + 'cart';
                                                     }}
                                                 >
                                                     {

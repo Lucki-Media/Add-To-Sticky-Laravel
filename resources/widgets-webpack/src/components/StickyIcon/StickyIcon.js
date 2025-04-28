@@ -79,7 +79,7 @@ const StickyIcon = () => {
             if (drawerData.enableDrawer === true) {
                 setIsDrawerOpen(true);
             } else {
-                window.location.href = action === "1" ? "/cart" : "/checkout";
+                window.location.href = action === "1" ? window.location.origin + window.Shopify.routes.root + 'cart' : "/checkout";
             }
 
             await fetch(
