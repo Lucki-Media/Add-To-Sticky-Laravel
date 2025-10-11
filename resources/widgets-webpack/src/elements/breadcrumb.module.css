@@ -1,0 +1,165 @@
+.ringbuilderTabSection {
+    width: 83%;
+    margin: 0 auto;
+}
+.ringbuilderTabSection .tabUl {
+    display: flex;
+    padding-left: 0;
+}
+.ringbuilderTabSection .tabUl .tabLi {
+    width: 33.33%;
+    list-style: none;
+}
+.ringbuilderTabSection .tabUl .tabLi .breadCumbs {
+    background: #fafafa;
+    border: 1px solid #797979;
+    border-right: 0;
+}
+.ringbuilderTabSection .tabUl .tabLi .breadCumbs a {
+    padding: 20px 0px 20px 64px;
+    text-decoration: none;
+    display: block;
+    background: #fafafa;
+    border-width: 1px;
+    border-color: rgb(121, 121, 121);
+    position: relative;
+    border-right: 0;
+}
+.ringbuilderTabSection .tabUl .tabLi .breadCumbs a:hover,
+.ringbuilderTabSection .tabUl .tabLi .breadCumbs a:hover {
+    opacity: 1 !important;
+}
+
+.ringbuilderTabSection .tabUl .tabLi .breadCumbs a:before {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 45.5px 0 45.5px 30px;
+    border-color: transparent transparent transparent #797979;
+    position: absolute;
+    content: "";
+    top: -1px;
+    right: -31px;
+    z-index: 1;
+}
+.ringbuilderTabSection .tabUl .tabLi .breadCumbs a:after {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 45.5px 0 45.5px 30px;
+    border-color: transparent transparent transparent #fafafa;
+    top: -1px;
+    right: -30px;
+    z-index: 2;
+}
+.ringbuilderTabSection .tabUl .tabLi.active a:after {
+    border-color: transparent transparent transparent #000000 !important;
+}
+
+.ringbuilderTabSection .tabUl .tabLi.active a {
+    background: #000000;
+}
+.ringbuilderTabSection .tabUl .tabLi.active a .tabTitle {
+    color: #fff;
+}
+.ringbuilderTabSection .tabUl .tabLi .breadCumbs a .tabIcon {
+    width: 30px;
+    height: 37px;
+    float: right;
+    background: url(https://cdn.shopify.com/s/files/1/0621/9923/4819/files/icons-sprite_1.png?v=1651298839)
+        no-repeat;
+    position: relative;
+    top: -40px;
+}
+.ringbuilderTabSection .tabUl .tabLi .breadCumbs a .ringIcon {
+    background-position: -33px -25px;
+}
+.ringbuilderTabSection .tabUl .tabLi .breadCumbs a .diamondIcon {
+    background-position: 0px 10px;
+}
+.ringbuilderTabSection .tabUl .tabLi .breadCumbs a .finalringIcon {
+    background-position: 0px -60px;
+}
+
+.ringbuilderTabSection .tabUl .tabLi .breadCumbs a {
+    text-decoration: none;
+}
+.ringbuilderTabSection .tabUl .tabLi .breadCumbs a span {
+    font-size: 14px;
+    font-weight: 400;
+    color: #797979;
+    line-height: 20px;
+    margin: 0;
+}
+.ringbuilderTabSection .tabUl .tabLi .breadCumbs a span strong {
+    font-size: 24px;
+    font-weight: 400;
+    display: block;
+    margin: 0;
+}
+
+@media (min-width: 992px) {
+    .ringbuilderTabSection .tabUl .tabLi .breadCumbs a {
+        height: 90px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .ringbuilderTabSection .tabUl .tabLi .breadCumbs a {
+        padding: 11px 0 11px 44px;
+        height: 71px;
+    }
+    .ringbuilderTabSection .tabUl .tabLi .breadCumbs a:before {
+        border-width: 36.5px 0 36.5px 30px;
+    }
+    .ringbuilderTabSection .tabUl .tabLi .breadCumbs a:after {
+        border-width: 36.5px 0 36.5px 30px;
+    }
+    .ringbuilderTabSection .tabUl .tabLi .breadCumbs a span strong {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .ringbuilderTabSection .tabUl .tabLi {
+        width: 32.33%;
+    }
+    .ringbuilderTabSection .tabUl .tabLi .breadCumbs a {
+        padding: 6px 0 6px 44px;
+        height: 59px;
+    }
+    .ringbuilderTabSection .tabUl .tabLi .breadCumbs a:before {
+        border-width: 30.5px 0 30.5px 30px;
+    }
+    .ringbuilderTabSection .tabUl .tabLi .breadCumbs a:after {
+        border-width: 30.5px 0 30.5px 30px;
+    }
+    .ringbuilderTabSection .tabUl .tabLi .breadCumbs a span strong {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .ringbuilderTabSection .tabUl .tabLi {
+        width: 31.33%;
+    }
+    .ringbuilderTabSection .tabUl .tabLi .breadCumbs a {
+        padding: 50px 22px 7px;
+        text-align: center;
+    }
+    .ringbuilderTabSection .tabUl .tabLi a .tabIcon {
+        float: none;
+        display: inline-block;
+    }
+    .ringbuilderTabSection .tabUl .tabLi .breadCumbs a span {
+        display: none;
+    }
+    .ringbuilderTabSection .tabUl .tabLi .breadCumbs a:before {
+        border-width: 29.5px 0 29.5px 30px;
+    }
+    .ringbuilderTabSection .tabUl .tabLi .breadCumbs a:after {
+        border-width: 29.5px 0 29.5px 30px;
+    }
+}

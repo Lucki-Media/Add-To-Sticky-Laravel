@@ -1,0 +1,35 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "3bddfbe2e8f96dc48574f5cb2a0f1bad"
+name = "LM Sticky Cart Drawer & Upsell"
+application_url = "https://addtostickycart.luckimediadevelopment.com/"
+embedded = true
+
+[build]
+include_config_on_deploy = true
+
+[auth]
+redirect_urls = [
+  "https://addtostickycart.luckimediadevelopment.com/authenticate",
+]
+
+[webhooks]
+api_version = "2023-01"
+
+[[webhooks.subscriptions]]
+topic = "customers/redact"
+uri = "/api/erasureEndpoint"
+compliance_topics = ["customers/redact"]
+
+[[webhooks.subscriptions]]
+topic = "customers/data_request"
+uri = "/api/requestEndpoint"
+compliance_topics = ["customers/data_request"]
+
+[[webhooks.subscriptions]]
+topic = "shop/redact"
+uri = "/api/shopErasureEndpoint"
+compliance_topics = ["shop/redact"]
+
+[pos]
+embedded = false
