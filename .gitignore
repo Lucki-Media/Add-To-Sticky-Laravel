@@ -18,6 +18,12 @@ public_html/hot
 storage/*.key
 .env
 .env*
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env_development
+.env_production
 Homestead.yaml
 Homestead.json
 /.vagrant
@@ -28,5 +34,33 @@ build_old/
 *.zip
 
 .history/
-.git/
+.history/*
+
+# Shopify specific
 shopify-app.development.php
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+storage/logs/*.log
+
+# Cache
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+bootstrap/cache/*
