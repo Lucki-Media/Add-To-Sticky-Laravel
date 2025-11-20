@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="shopify-api-key" content="{{ config('shopify-app.api_key') }}" />
     <title>LM Add To Cart Sticky</title>
+    <script src="https://cdn.shopify.com/shopifycloud/app-bridge.js"></script>
     @viteReactRefresh
     @vite('resources/js/app.js')
 </head>
